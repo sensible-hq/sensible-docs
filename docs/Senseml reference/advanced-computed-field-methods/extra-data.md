@@ -30,7 +30,7 @@ The following parameters are in the computed field's [global Method](doc:compute
 
 # Examples
 
-The following example uses `extra_data` to cross-check values from a policy management system against a GEICO auto insurance declarations page. Numeric values (deductibles) use the Custom Computation method for exact equality comparison. A vehicle description uses the LLM-based Query Group method with the Source IDs parameter for a semantic comparison that handles format differences between systems. For example, `"NISSAN ROGUE 2010"` (policy system) matches `"2010 Nissan Rogue"` (document) even though the strings aren't equal.
+The following example uses the Extra Data method to cross-check values from a policy management system against a GEICO auto insurance declarations page.&#x20;
 
 **Config**
 
@@ -49,7 +49,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
       "method": {
         "id": "row",
         "position": "right",
-        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
+        "tiebreaker": "first" /* leftmost value in row = the Limits and/or Deductibles column */
       }
     },
     {
@@ -64,20 +64,20 @@ The following example uses `extra_data` to cross-check values from a policy mana
       "method": {
         "id": "row",
         "position": "right",
-        "tiebreaker": "first" /* leftmost value = the Limits and/or Deductibles column */
+        "tiebreaker": "first" /* leftmost value in row = the Limits and/or Deductibles column */
       }
     },
     {
-      "id": "expected_insured_vehicle" /* expected vehicle make, model, and year. precedes the `vehicle_matches` LLM query so that following source_ids can reference it  */,
-      "method": { "id": "extraData", "key": "expected_insured_vehicle" }
+      "id": "expected_insured_vehicle",
+      "method": { "id": "extraData", "key": "expected_insured_vehicle" } /* pulls expected vehicle make, model, and year (NISSAN ROGUE 2010) from the `extra_data` object you provided in the extraction request. precedes the `vehicle_matches` LLM query so that following source_ids can reference it  */
     },
     {
       "method": {
         "id": "queryGroup",
         "queries": [
-          {
+            
             "id": "insured_vehicle",
-            "description": "year, make, and model of the first vehicle listed on the policy",
+            "description": "year, make, and model of the first vehicle listed on the policy", /* Use an LLM to extract vehicle information from the document */
             "type": "string"
           }
         ]
@@ -93,26 +93,25 @@ The following example uses `extra_data` to cross-check values from a policy mana
         "queries": [
           {
             "id": "vehicle_matches",
-             /* expected output is true; vehicle names vary but are semantically the same*/
-            "description": "Do these two vehicle descriptions refer to the same vehicle? Ignore differences in capitalization and word order. Answer true or false.",
+            "description": "Do these two vehicle descriptions refer to the same vehicle? Ignore differences in capitalization and word order. Answer true or false.", /* expected output is true; vehicle names vary but are semantically the same*/
             "type": "boolean"
           }
         ]
       }
     },
     {
-      "id": "expected_collision_deductible" /* pulled from the request's extra_data object, expected value is 500, which matches the actual document data */,
+      "id": "expected_collision_deductible" /* pulls the expected value (500) from the `extra_data` object you provided in the extraction request. */,
       "method": { "id": "extraData", "key": "expected_collision_deductible" }
     },
     {
-      "id": "expected_comprehensive_deductible" /* pulled from the request's extra_data object, expected value is 300, which doesn't match the actual document data */,
+      "id": "expected_comprehensive_deductible" /* pulls the expected value (300) from the `extra_data` object you provided in the extraction request */,
       "method": {
         "id": "extraData",
         "key": "expected_comprehensive_deductible"
       }
     },
     {
-      "id": "collision_deductible_matches" /* expected output is true; document's deductible matches what the upstream system expects */,
+      "id": "collision_deductible_matches" /* use deterministic logic to determine if document's deductible matches what you expect. output is true*/,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -124,7 +123,7 @@ The following example uses `extra_data` to cross-check values from a policy mana
       }
     },
     {
-      "id": "comprehensive_deductible_matches" /* expected output is false; document's deductible doesn't match what the upstream system expects */,
+      "id": "comprehensive_deductible_matches" /* use deterministic logic to determine if document's deductible matches what you expect. output is false */,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
