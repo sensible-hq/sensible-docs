@@ -5,8 +5,6 @@ link:
 ---
 Use this method to bring data you supplied in an `extra_data` object in an extraction request into a config's context, so you can use the data for validations, data transformation, and postprocessing of the extracted document data. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
 
-For information about supplying`extra_data` in an extraction request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
-
 Common use cases include:
 
 - **Chain extractions for cross-document validation**: Extract fields from a first document (for example, name and date of birth from a loan application), then pass them as `extra_data` into a subsequent extraction request for the loan applicant's bank statement. The config for the bank statement compares the `extra_data` values to the values in the bank statement and outputs Boolean values to indicate if the applicant's name and date of birth are consistent in both documents.
@@ -18,6 +16,8 @@ flowchart LR
     B["Document"] --> C
     C --> D["Output (extracted fields + validated / transformed fields + extra_data echoed)"]
 ```
+
+For information about supplying`extra_data` in an extraction request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
 
 # Parameters
 
