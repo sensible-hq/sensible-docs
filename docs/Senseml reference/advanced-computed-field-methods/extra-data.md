@@ -111,7 +111,7 @@ The following example uses the Extra Data method to cross-check values from a po
       }
     },
     {
-      "id": "collision_deductible_matches" /* use deterministic logic to determine if document's deductible matches what you expect. output is true*/,
+      "id": "collision_deductible_matches" /* use deterministic logic to compare document's deductible to expected value. output is true*/,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -123,7 +123,7 @@ The following example uses the Extra Data method to cross-check values from a po
       }
     },
     {
-      "id": "comprehensive_deductible_matches" /* use deterministic logic to determine if document's deductible matches what you expect. output is false */,
+      "id": "comprehensive_deductible_matches" /* use deterministic logic to compare document's deductible to expected value. output is false */,
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -143,9 +143,9 @@ The following example uses the Extra Data method to cross-check values from a po
 
 To provide the extra data for the preceding config, take the following steps:
 
-1. create a document type in the Sensible app using the following example document
-2. add a config to the document type using the preceding SenseML and publish the config to production
-3. run the following command in a terminal, substituting your document type and your API key:
+1. Create a document type in the Sensible app using the following example document.
+2. Add a config to the document type using the preceding SenseML and publish the config to production.
+3. Run the following command in a terminal, substituting your document type and your API key:
 
 ```bash
 curl --location 'https://api.sensible.so/v0/extract_from_url/your_doc_type' \
