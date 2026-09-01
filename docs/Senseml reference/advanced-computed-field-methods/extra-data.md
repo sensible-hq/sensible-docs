@@ -3,9 +3,9 @@ title: Extra data
 link:
   new_tab: false
 ---
-Returns a value from an `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and computed field methods can read it.
+Use this method to bring data you supplied in an `extra_data` object in an extraction request into a config's context, so you can use the data for validations, data transformation, and postprocessing. You can customize each `extra_data` object to the current document for which you're requesting extraction.&#x20;
 
-For information about attaching `extra_data` to a request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
+For information about supplying`extra_data` in a request request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
 
 Common use cases include:
 
