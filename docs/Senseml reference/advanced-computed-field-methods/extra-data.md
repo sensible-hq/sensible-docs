@@ -5,7 +5,7 @@ link:
 ---
 Use this method to bring data you supplied in an `extra_data` object in an extraction request into a config's context, so you can use the data for validations, data transformation, and postprocessing of the extracted document data. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
 
-For information about supplying`extra_data` in a request request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
+For information about supplying`extra_data` in an extraction request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
 
 Common use cases include:
 
