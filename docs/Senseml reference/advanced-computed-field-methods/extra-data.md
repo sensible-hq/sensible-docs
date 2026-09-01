@@ -1,6 +1,7 @@
 ---
 title: Extra data
-excerpt: >-
+excerpt: Access values from an extra_data object supplied in async extraction requests to
+  bring request-time context into validations, postprocessors, and computed fields.
   Returns a value from an extra_data object you supply in an asynchronous
   extraction request. Use this method to bring request-time context into a
   config so validations, postprocessors, and computed fields can read it.
