@@ -1,17 +1,11 @@
 ---
 title: Extra data
-excerpt: Access values from an extra_data object supplied in async extraction requests to
-  bring request-time context into validations, postprocessors, and computed fields.
-  Returns a value from an extra_data object you supply in an asynchronous
-  extraction request. Use this method to bring request-time context into a
-  config so validations, postprocessors, and computed fields can read it.
+excerpt: Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Returns a value from an extra_data object you supply in an asynchronous extraction
-  request. Use this method to bring request-time context into a config so validations,
-  postprocessors, and computed fields can read it.
+  description: Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data.
   robots: index
 next:
   description: ''
