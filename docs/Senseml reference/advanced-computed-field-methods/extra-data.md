@@ -11,7 +11,7 @@ metadata:
 next:
   description: ''
 ---
-Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
+Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data. You supply the data in a `extra_data` object as part of an asynchronous extraction request. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
 
 Common use cases include:
 
@@ -22,7 +22,7 @@ Common use cases include:
 flowchart LR
     A["External context (system of record, prior extraction, agent reasoning)"] -->|"extra_data"| C["Sensible async extraction"]
     B["Document"] --> C
-    C --> D["Output (extracted fields + validated / transformed fields + extra_data echoed)"]
+    C --> D["Output (extracted fields + validated & transformed fields)"]
 ```
 
 For information about supplying`extra_data` in an extraction request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
