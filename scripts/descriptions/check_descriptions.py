@@ -109,12 +109,19 @@ def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dic
             if front_matter.get("hidden", False):
                 continue
 
-            # Skip files without a metadata block
+            # excerpt and metadata.description are not valid fields in reference/ files.
+            # For docs/: flag files missing the metadata block entirely.
+            # For reference/: skip files without a metadata block.
             metadata = front_matter.get("metadata")
             if not isinstance(metadata, dict):
+                if search_dir == "docs":
+                    issues.append({
+                        "path": str(relative_path),
+                        "title": front_matter.get("title", "Unknown"),
+                        "reason": "Missing metadata block",
+                    })
                 continue
 
-            # excerpt and metadata.description are not valid fields in reference/ files.
             # For docs/: flag files missing the description key entirely.
             # For reference/: skip files without the key.
             if "description" not in metadata:
