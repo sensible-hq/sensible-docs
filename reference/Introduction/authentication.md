@@ -1,6 +1,7 @@
 ---
 title: Authentication
-excerpt: ''
+excerpt: Learn how Sensible authenticates API requests using API keys, including key security
+  levels and how to use bearer token authentication in your requests.
 deprecated: false
 hidden: false
 metadata:

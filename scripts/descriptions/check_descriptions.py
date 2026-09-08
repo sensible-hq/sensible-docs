@@ -122,6 +122,7 @@ def check_descriptions(repo_root: Path, ignore_list: set[str]) -> tuple[list[dic
                     })
                 continue
 
+            # excerpt and metadata.description are not valid fields in reference/ files.
             # For docs/: flag files missing the description key entirely.
             # For reference/: skip files without the key.
             if "description" not in metadata:

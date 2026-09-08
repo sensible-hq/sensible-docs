@@ -1,20 +1,20 @@
 ---
 title: Custom computation group
-excerpt: Group custom computations
+excerpt: Transform extracted document data using JsonLogic. Can return multiple fields.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Group custom computations'
+  description: Group custom computations
   robots: index
 next:
   description: ''
 ---
-Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). Can return multiple fields.
+Define your own [computed field method](doc:computed-field-methods) to transform extracted document data using [JsonLogic](doc:jsonlogic). Can return multiple fields.
 
 # Parameters
 
-The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter: 
+The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter:
 
 | key                      | value                    | description                                                                                                                                                    |
 | :----------------------- | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -121,13 +121,12 @@ The following example shows using the Custom Computation Group method in combina
   }
 ```
 
-**Example document**\
-The following image shows the example document used with this example config:
+**Example document**<br />The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/copy_to_section.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/sections.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
