@@ -175,6 +175,25 @@ class TestAddExcerpt:
         assert result is True
         assert "excerpt: Filled in" in f.read_text()
 
+    def test_replaces_multiline_yaml_excerpt(self, tmp_path):
+        # Regression: multi-line YAML scalar excerpts left the continuation
+        # line behind, duplicating part of the old value alongside the new one.
+        content = (
+            "---\n"
+            "title: Test Page\n"
+            "excerpt: Old first line of a long excerpt that wraps,\n"
+            "  covering many topics in the second line.\n"
+            "deprecated: false\n"
+            "---\nBody.\n"
+        )
+        f = tmp_path / "page.md"
+        f.write_text(content, encoding="utf-8")
+        result = add_excerpt.update_file_with_excerpt(f, "New short excerpt")
+        assert result is True
+        text = f.read_text()
+        assert "excerpt: New short excerpt" in text
+        assert "covering many topics" not in text  # old continuation must be gone
+
     def test_no_frontmatter_returns_false(self, tmp_path):
         f = tmp_path / "plain.md"
         f.write_text("No front matter here.\n", encoding="utf-8")
