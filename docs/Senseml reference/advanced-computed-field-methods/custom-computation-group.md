@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Group custom computations
+  description: Transform extracted document data using JsonLogic. Can return multiple fields.
   robots: index
 next:
   description: ''

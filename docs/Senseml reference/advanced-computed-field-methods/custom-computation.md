@@ -5,7 +5,7 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Custom JsonLogic computations
+  description: Transform extracted document data using JsonLogic.
   robots: index
 next:
   description: ''

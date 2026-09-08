@@ -5,7 +5,8 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 
+  description: Use this method to inject data you supply at request time into the extraction config,
+  so you can dynamically validate, transform, and postprocess extracted document data.
   robots: index
 next:
   description: ''
