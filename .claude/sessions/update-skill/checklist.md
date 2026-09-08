@@ -34,28 +34,10 @@ Session ID: (run `claude` and check session list to get ID if resuming)
     - Hybrid: action detects the PR and opens a GitHub issue in sensible-docs as a work queue; you (or another action) picks it up and runs the skill locally
   - **OPEN: How does the action open the docs PR?** It needs write access to sensible-hq/sensible-docs (separate repo — needs cross-repo token or a bot account)
 
-- [ ] Add user brief as the first step in all docs-drafting skills
-  - Brief is per-page, persists across releases — not per-PR
-  - **OPEN: Where to store briefs?** Options:
-    - `.claude/briefs/<page-slug>.md` (central, easy to grep)
-    - `docs/.../briefs/<slug>.md` (co-located with the page)
-  - **OPEN: Approval gate or in-PR?**
-    - Gate: skill drafts brief → pauses for human approval → then drafts doc
-    - In-PR: brief committed alongside the doc, reviewed in GitHub
-  - **OPEN: What sources to pull from when drafting a brief?**
-    - PR body/diff (always available)
-    - GitHub issues in sensible-hq/sensible or sensible-hq/sensible-docs (search by feature name)
-    - Existing page content (if updating)
-    - Slack support channels / #questions?
-  - Brief template to define (from the writer's description):
-    - Page type (reference, guide, tutorial, concept)
-    - Target reader: what do they know, how did they arrive, what vocabulary they use
-    - What questions the reader is trying to answer
-    - What information belongs on this page
-    - What does NOT belong (belongs on a different page)
-    - Sources consulted
-  - Skills to update once design is settled:
-    - `update-docs-from-pr`: Step 1 = find existing brief OR draft new one; subsequent steps reference it
-    - `update-existing-doc`: Step 1 = read existing brief (or draft if missing); update brief if feature scope has changed
-    - `create-new-doc`: Step 1 = draft brief for the new page
-  - CLAUDE.md should reference the brief store location so agents always know to look there
+- [x] Add user brief as the first step in all docs-drafting skills
+  - `.claude/briefs/<slug>.md` — central store, slug = doc filename without extension
+  - Brief is Step 3 in all three skills (after identifying affected docs, before style guide reads)
+  - In-PR approach: brief committed alongside doc changes, reviewed in GitHub
+  - Sources: PR body/diff + GitHub issues (both repos) + existing page + adjacent pages
+  - `gh issue list` added to allowed-tools in all three skills
+  - Primary readers are CSEs and CS agents (noted but not baked into template — let real briefs inform it)
