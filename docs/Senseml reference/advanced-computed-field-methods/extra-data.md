@@ -14,7 +14,7 @@ Common use cases include:
 flowchart LR
     A["External context (system of record, prior extraction, agent reasoning)"] -->|"extra_data"| C["Sensible async extraction"]
     B["Document"] --> C
-    C --> D["Output (extracted fields + validated / transformed fields + extra_data echoed)"]
+    C --> D["Output (extracted fields + validated & transformed fields)"]
 ```
 
 For information about supplying`extra_data` in an extraction request, see the asynchronous extraction endpoints, for example, the [Generate upload URL](ref:generate-an-upload-url) endpoint.
