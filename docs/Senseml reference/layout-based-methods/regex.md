@@ -1,11 +1,13 @@
 ---
 title: Regex
-excerpt: Extract using regular expressions
+excerpt: Learn how to use the Regex method to extract lines matching a regular expression,
+  including parameters, capturing groups, flags, and usage examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract using regular expressions'
+  description: Learn how to use the Regex method to extract lines matching a regular
+    expression, including parameters, capturing groups, flags, and usage examples.
   robots: index
 next:
   description: ''

@@ -1,12 +1,14 @@
 ---
 title: Integrate with Slack and Google Sheets using Zapier
-excerpt: integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form
-  example documents
+excerpt: Learn how to set up a two-Zap Zapier workflow that extracts data from Slack
+  file uploads using Sensible and saves results as spreadsheets in Google Drive.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'integrate Sensible with Slack and Google Drive using Zapier, using 1040 tax form example documents'
+  description: Learn how to set up a two-Zap Zapier workflow that extracts data from
+    Slack file uploads using Sensible and saves results as spreadsheets in Google
+    Drive.
   robots: index
 next:
   description: ''

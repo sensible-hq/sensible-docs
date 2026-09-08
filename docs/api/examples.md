@@ -1,11 +1,13 @@
 ---
 title: Code examples
-excerpt: Example code for common API operations
+excerpt: Ready-to-use starter code examples for calling the Sensible API, available
+  in the official sensible-code-examples GitHub repository.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Example code for common API operations'
+  description: Ready-to-use starter code examples for calling the Sensible API, available
+    in the official sensible-code-examples GitHub repository.
   robots: index
 next:
   description: ''

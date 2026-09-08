@@ -1,11 +1,13 @@
 ---
 title: Ligatures
-excerpt: Handling ligature characters
+excerpt: Learn what ligatures are in PDF text extraction, how they cause garbled Unicode
+  output, and how to detect and fix them using the ligature preprocessor.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Handling ligature characters'
+  description: Learn what ligatures are in PDF text extraction, how they cause garbled
+    Unicode output, and how to detect and fix them using the ligature preprocessor.
   robots: index
 next:
   description: ''

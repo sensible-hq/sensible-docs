@@ -1,11 +1,14 @@
 ---
 title: Intelligent document processing
-excerpt: Intelligent document processing with Sensible
+excerpt: Learn how intelligent document processing automates structured data extraction
+  from documents to handle variability across real-world business document types.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Intelligent document processing with Sensible'
+  description: Learn how intelligent document processing automates structured data
+    extraction from documents to handle variability across real-world business document
+    types.
   robots: index
 next:
   description: ''

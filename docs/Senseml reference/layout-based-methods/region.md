@@ -1,11 +1,13 @@
 ---
 title: Region
-excerpt: Extract from a  rectangular region defined in inch coordinates
+excerpt: Extracts data from a rectangular region defined in inches using the Region
+  SenseML method, with parameters for position, size, and overlap thresholds.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract from a  rectangular region defined in inch coordinates'
+  description: Extracts data from a rectangular region defined in inches using the
+    Region SenseML method, with parameters for position, size, and overlap thresholds.
   robots: index
 next:
   description: ''

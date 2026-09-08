@@ -1,11 +1,13 @@
 ---
 title: Copy from sections
-excerpt: Copy data from sections
+excerpt: Extract and flatten field values from a source section group using the copy_from_sections
+  method in computed fields.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Copy data from sections'
+  description: Extract and flatten field values from a source section group using
+    the copy_from_sections method in computed fields.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Section nuances
-excerpt: Advanced section configuration
+excerpt: Learn how Sensible handles sections and vertical sections, including range
+  detection, column recognition, and column selection configuration for structured
+  data extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Advanced section configuration'
+  description: Learn how Sensible handles sections and vertical sections, including
+    range detection, column recognition, and column selection configuration for structured
+    data extraction.
   robots: index
 next:
   description: ''

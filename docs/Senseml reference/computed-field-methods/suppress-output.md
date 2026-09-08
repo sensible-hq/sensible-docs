@@ -1,11 +1,15 @@
 ---
 title: Suppress output
-excerpt: Exclude fields from output
+excerpt: Learn how to keep extraction results clean by using the suppressOutput method
+  to exclude specified intermediate fields from extraction output, keeping only transformed
+  data in results.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Exclude fields from output'
+  description: Learn how to keep extraction results clean by using the suppressOutput
+    method to exclude specified intermediate fields from extraction output, keeping
+    only transformed data in results.
   robots: index
 next:
   description: ''

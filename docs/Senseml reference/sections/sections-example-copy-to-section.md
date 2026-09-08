@@ -1,11 +1,14 @@
 ---
 title: 'Advanced: Transform sections data'
-excerpt: 'Sections example: transforming section data'
+excerpt: Learn how to transform sections data using computed fields to copy and concatenate
+  parent fields across sections and redact sensitive data like phone numbers.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: transforming section data'
+  description: Learn how to transform sections data using computed fields to copy
+    and concatenate parent fields across sections and redact sensitive data like phone
+    numbers.
   robots: index
 next:
   description: ''

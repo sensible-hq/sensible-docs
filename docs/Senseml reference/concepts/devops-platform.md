@@ -1,11 +1,13 @@
 ---
 title: DevOps platform
-excerpt: CI/CD integration for configs
+excerpt: Sensible DevOps platform overview covering document ingestion, classification,
+  and extraction workflow with OCR, SenseML queries, and structured data output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'CI/CD integration for configs'
+  description: Sensible DevOps platform overview covering document ingestion, classification,
+    and extraction workflow with OCR, SenseML queries, and structured data output.
   robots: index
 next:
   description: ''

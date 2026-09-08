@@ -1,11 +1,13 @@
 ---
 title: Extracting handwriting and OCR text
-excerpt: Best practices for OCR and handwriting extraction
+excerpt: Tips and tricks for extracting handwriting and OCR text from scanned documents,
+  including engine selection, region definition, and confidence scoring.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Best practices for OCR and handwriting extraction'
+  description: Tips and tricks for extracting handwriting and OCR text from scanned
+    documents, including engine selection, region definition, and confidence scoring.
   robots: index
 next:
   description: ''

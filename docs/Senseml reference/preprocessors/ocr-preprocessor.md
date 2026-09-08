@@ -1,11 +1,15 @@
 ---
 title: OCR preprocessor
-excerpt: OCR configuration
+excerpt: Learn how to use Sensible's OCR preprocessor to selectively OCR specific
+  pages in documents containing both embedded text and scanned or handwritten text
+  images.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'OCR configuration'
+  description: Learn how to use Sensible's OCR preprocessor to selectively OCR specific
+    pages in documents containing both embedded text and scanned or handwritten text
+    images.
   robots: index
 next:
   description: ''

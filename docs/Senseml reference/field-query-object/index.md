@@ -1,11 +1,15 @@
 ---
 title: Field query object
-excerpt: Structure of field queries in SenseML
+excerpt: Learn how the SenseML Field query object works, including parameters and
+  examples for extracting structured data from PDFs using layout-based and LLM-based
+  methods.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Structure of field queries in SenseML'
+  description: Learn how the SenseML Field query object works, including parameters
+    and examples for extracting structured data from PDFs using layout-based and LLM-based
+    methods.
   robots: index
 next:
   description: ''

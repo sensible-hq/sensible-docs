@@ -1,11 +1,15 @@
 ---
 title: Sections
-excerpt: Extract repeating document sections
+excerpt: Learn how to use Sensible Sections to extract repeated or complex document
+  elements like claims into structured arrays using horizontal or vertical section
+  configurations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract repeating document sections'
+  description: Learn how to use Sensible Sections to extract repeated or complex document
+    elements like claims into structured arrays using horizontal or vertical section
+    configurations.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Get file metadata
-excerpt: Extract file metadata
+excerpt: Retrieve document file metadata such as filename, MIME content type, and
+  page count using the getFileMetadata computed field method in Sensible.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract file metadata'
+  description: Retrieve document file metadata such as filename, MIME content type,
+    and page count using the getFileMetadata computed field method in Sensible.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Human review
-excerpt: Set up human review workflows
+excerpt: Learn how to use Sensible's Human Review tab to manually correct, approve,
+  or reject flagged document extractions and resolve validation failures.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Set up human review workflows'
+  description: Learn how to use Sensible's Human Review tab to manually correct, approve,
+    or reject flagged document extractions and resolve validation failures.
   robots: index
 next:
   description: ''

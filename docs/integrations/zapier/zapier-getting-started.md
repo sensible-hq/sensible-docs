@@ -1,12 +1,14 @@
 ---
 title: Integrate with Airtable using Zapier
-excerpt: Get started with Zapier by learning to integrate Sensible and Airtable for sample
-  1040 tax forms
+excerpt: Learn how to send Sensible document extraction data into an Airtable database
+  using Zapier, with step-by-step setup for triggers, actions, and field mapping.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Get started with Zapier by learning to integrate Sensible and Airtable for sample 1040 tax forms'
+  description: Learn how to send Sensible document extraction data into an Airtable
+    database using Zapier, with step-by-step setup for triggers, actions, and field
+    mapping.
   robots: index
 next:
   description: ''

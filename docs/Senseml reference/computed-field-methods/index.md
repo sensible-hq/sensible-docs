@@ -1,16 +1,19 @@
 ---
 title: Computed field methods
-excerpt: Transform extracted data
+excerpt: Learn how Computed Field methods transform extracted document data using
+  built-in logic, LLMs, external context, or custom logic to clean, standardize, and
+  enrich outputs.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Transform extracted data'
+  description: Learn how Computed Field methods transform extracted document data
+    using built-in logic, LLMs, external context, or custom logic to clean, standardize,
+    and enrich outputs.
   robots: index
 next:
   description: ''
 ---
-
 Computed Field methods transform the output of one or more [Field objects](doc:field-query-object).  Sensible supports several general categories for transforming extracted document data:
 
 * Transform document data with built-in logic

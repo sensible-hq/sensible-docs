@@ -1,11 +1,15 @@
 ---
 title: 'Advanced: Table grid example'
-excerpt: 'Sections example: table grid extraction'
+excerpt: Learn how to extract table grid data using nested vertical sections in SenseML,
+  including handling repeated anchors and outputting structured car model and trim
+  data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: table grid extraction'
+  description: Learn how to extract table grid data using nested vertical sections
+    in SenseML, including handling repeated anchors and outputting structured car
+    model and trim data.
   robots: index
 next:
   description: ''

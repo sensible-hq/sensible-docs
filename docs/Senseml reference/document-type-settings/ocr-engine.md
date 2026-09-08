@@ -1,11 +1,13 @@
 ---
 title: OCR engine
-excerpt: Select OCR engine
+excerpt: Learn about OCR engine options for extracting text from images, including
+  Amazon, Microsoft, Lazarus, and Google engines with their use cases and limitations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Select OCR engine'
+  description: Learn about OCR engine options for extracting text from images, including
+    Amazon, Microsoft, Lazarus, and Google engines with their use cases and limitations.
   robots: index
 next:
   description: ''

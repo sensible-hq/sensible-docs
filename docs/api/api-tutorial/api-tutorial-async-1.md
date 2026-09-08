@@ -1,11 +1,14 @@
 ---
 title: Try asynchronous extraction from your URL
-excerpt: Async extraction with your document URL
+excerpt: Learn how to use Sensible's asynchronous extract_from_url endpoint to extract
+  document data from publicly accessible or pre-signed URLs using Postman or cURL.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Async extraction with your document URL'
+  description: Learn how to use Sensible's asynchronous extract_from_url endpoint
+    to extract document data from publicly accessible or pre-signed URLs using Postman
+    or cURL.
   robots: index
 next:
   description: ''

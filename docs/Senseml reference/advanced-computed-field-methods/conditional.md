@@ -1,11 +1,13 @@
 ---
 title: Conditional execution
-excerpt: Conditionally execute SenseML
+excerpt: Learn how to use conditional field execution with JsonLogic to handle document
+  variations and extract different fields based on pass/fail conditions.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Conditionally execute SenseML
+  description: Learn how to use conditional field execution with JsonLogic to handle
+    document variations and extract different fields based on pass/fail conditions.
   robots: index
 next:
   description: ''

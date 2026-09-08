@@ -1,12 +1,15 @@
 ---
 title: Linearize
-excerpt: Advanced option for handling block layout and multicolumn layouts, alternative
-  to Multicolumn preprocessor
+excerpt: Linearize preprocessor breaks multi-column or block-layout document pages
+  into coordinate-based blocks, letting you control line sorting order for accurate
+  data extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Advanced option for handling block layout and multicolumn layouts, alternative to Multicolumn preprocessor'
+  description: Linearize preprocessor breaks multi-column or block-layout document
+    pages into coordinate-based blocks, letting you control line sorting order for
+    accurate data extraction.
   robots: index
 next:
   description: ''

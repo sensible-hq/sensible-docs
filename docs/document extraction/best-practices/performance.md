@@ -1,11 +1,14 @@
 ---
 title: Optimizing extraction performance
-excerpt: Tips for improving extraction speed
+excerpt: Learn how to optimize Sensible extraction performance by improving document
+  and document type settings, reducing OCR load, and choosing faster extraction methods.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Tips for improving extraction speed'
+  description: Learn how to optimize Sensible extraction performance by improving
+    document and document type settings, reducing OCR load, and choosing faster extraction
+    methods.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: LLM-based methods
-excerpt: Methods that use large language models for document data extraction
+excerpt: Learn how to extract text from documents using LLM-based SenseML methods
+  like List, Query Group, and NLP Table.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Methods that use large language models for document data extraction'
+  description: Learn how to extract text from documents using LLM-based SenseML methods
+    like List, Query Group, and NLP Table.
   robots: index
 next:
   description: ''

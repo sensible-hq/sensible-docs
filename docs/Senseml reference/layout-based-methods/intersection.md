@@ -1,11 +1,13 @@
 ---
 title: Intersection
-excerpt: Find text at row/column intersections
+excerpt: Learn how the Intersection method extracts data at the cross-point of two
+  anchored lines, ideal for tables with optionally empty cells.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Find text at row/column intersections
+  description: Learn how the Intersection method extracts data at the cross-point
+    of two anchored lines, ideal for tables with optionally empty cells.
   robots: index
 next:
   description: ''

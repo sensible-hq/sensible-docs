@@ -1,11 +1,13 @@
 ---
 title: Preprocessors
-excerpt: Transform documents before extraction
+excerpt: Learn about document preprocessors that clean up and prepare files before
+  data extraction, including deskew, OCR, page range, multicolumn, and more.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Transform documents before extraction'
+  description: Learn about document preprocessors that clean up and prepare files
+    before data extraction, including deskew, OCR, page range, multicolumn, and more.
   robots: index
 next:
   description: ''

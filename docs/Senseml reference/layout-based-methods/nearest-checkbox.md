@@ -1,11 +1,15 @@
 ---
 title: Nearest checkbox
-excerpt: Find nearest checkbox to anchor and extract its state
+excerpt: Learn how to use the Nearest Checkbox method to extract checkbox selection
+  status from documents using OCR and PDF form metadata, with flexible configuration
+  options.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Find nearest checkbox to anchor and extract its state'
+  description: Learn how to use the Nearest Checkbox method to extract checkbox selection
+    status from documents using OCR and PDF form metadata, with flexible configuration
+    options.
   robots: index
 next:
   description: ''

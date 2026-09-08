@@ -1,11 +1,15 @@
 ---
 title: Layout-based methods
-excerpt: Methods that use document layout for document data extraction
+excerpt: Overview of layout-based extraction methods in Sensible, including Box, Table,
+  Checkbox, Region, Regex, and more for deterministically extracting structured data
+  from documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Methods that use document layout for document data extraction'
+  description: Overview of layout-based extraction methods in Sensible, including
+    Box, Table, Checkbox, Region, Regex, and more for deterministically extracting
+    structured data from documents.
   robots: index
 next:
   description: ''

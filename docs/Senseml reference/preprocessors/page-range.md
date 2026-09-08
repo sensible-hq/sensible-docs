@@ -1,11 +1,13 @@
 ---
 title: Page range
-excerpt: Limit extraction to page ranges
+excerpt: Learn how to configure the pageRange preprocessor to limit document extraction
+  to specific pages using startPage and endPage parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Limit extraction to page ranges'
+  description: Learn how to configure the pageRange preprocessor to limit document
+    extraction to specific pages using startPage and endPage parameters.
   robots: index
 next:
   description: ''

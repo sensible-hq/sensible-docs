@@ -1,15 +1,13 @@
 ---
 title: Multi-document extractions
-excerpt: >-
-  Segment and extract from document portfolio files (files containing multiple
-  documents)
+excerpt: Learn how to extract data from multi-document portfolio files using LLM-based
+  or fingerprint segmentation methods in Sensible.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Segment and extract from document portfolio files (files containing multiple
-    documents)
+  description: Learn how to extract data from multi-document portfolio files using
+    LLM-based or fingerprint segmentation methods in Sensible.
   robots: index
 next:
   description: ''

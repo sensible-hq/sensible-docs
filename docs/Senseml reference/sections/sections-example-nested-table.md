@@ -1,11 +1,13 @@
 ---
 title: 'Advanced: nested table example'
-excerpt: 'Sections example: nested table extraction'
+excerpt: Learn how to extract nested tables using vertical section groups with column
+  selection and relative column coordinates in Sensible's JSON config.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: nested table extraction'
+  description: Learn how to extract nested tables using vertical section groups with
+    column selection and relative column coordinates in Sensible's JSON config.
   robots: index
 next:
   description: ''

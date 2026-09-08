@@ -1,11 +1,14 @@
 ---
 title: Document type settings
-excerpt: Configure document type behavior
+excerpt: Learn how to configure document type settings in Sensible, including extraction
+  templates, OCR engine, fingerprint mode, validations, and human review options.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Configure document type behavior'
+  description: Learn how to configure document type settings in Sensible, including
+    extraction templates, OCR engine, fingerprint mode, validations, and human review
+    options.
   robots: index
 next:
   description: ''

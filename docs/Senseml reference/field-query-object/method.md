@@ -1,11 +1,15 @@
 ---
 title: Method object
-excerpt: Extraction methods for retrieving data
+excerpt: Learn about the Method object in Sensible, including LLM-based and layout-based
+  methods, global parameters like tiebreaker and lineFilters, and how to extract target
+  data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extraction methods for retrieving data'
+  description: Learn about the Method object in Sensible, including LLM-based and
+    layout-based methods, global parameters like tiebreaker and lineFilters, and how
+    to extract target data.
   robots: index
 next:
   description: ''

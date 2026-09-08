@@ -1,11 +1,13 @@
 ---
 title: SDK guides
-excerpt: Guides for Node/TypeScript and Python SDKs
+excerpt: Explore Sensible SDK guides and quickstarts for Node/TypeScript and Python
+  to extract document data
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Guides for Node/TypeScript and Python SDKs
+  description: Explore Sensible SDK guides and quickstarts for Node/TypeScript and
+    Python to extract document data
   robots: index
 next:
   description: ''

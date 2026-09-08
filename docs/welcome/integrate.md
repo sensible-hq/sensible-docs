@@ -1,11 +1,14 @@
 ---
 title: Integrating
-excerpt: Options for integrating Sensible with your application
+excerpt: Learn how to integrate Sensible document extraction using SDKs, APIs, email,
+  Zapier, MCP server, or quick extraction tools to automate document data workflows.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Options for integrating Sensible with your application'
+  description: Learn how to integrate Sensible document extraction using SDKs, APIs,
+    email, Zapier, MCP server, or quick extraction tools to automate document data
+    workflows.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Column
-excerpt: Extract columnar data
+excerpt: Learn how the Column method extracts lines above or below an anchor line
+  based on x extent alignment or 50% overlap, with parameters and examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract columnar data'
+  description: Learn how the Column method extracts lines above or below an anchor
+    line based on x extent alignment or 50% overlap, with parameters and examples.
   robots: index
 next:
   description: ''

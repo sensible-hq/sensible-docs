@@ -1,11 +1,13 @@
 ---
 title: Remove header
-excerpt: Remove page headers
+excerpt: Remove repeating headers from PDF pages in Sensible using automatic detection
+  or configurable text matching with the removeHeader preprocessor.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Remove page headers'
+  description: Remove repeating headers from PDF pages in Sensible using automatic
+    detection or configurable text matching with the removeHeader preprocessor.
   robots: index
 next:
   description: ''

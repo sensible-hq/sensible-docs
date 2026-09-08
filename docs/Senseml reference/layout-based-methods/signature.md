@@ -1,11 +1,13 @@
 ---
 title: Signature
-excerpt: Detect signatures
+excerpt: Detect signatures in a document region by checking if more than 3% of pixels
+  are dark, using configurable position, offset, and size parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Detect signatures'
+  description: Detect signatures in a document region by checking if more than 3%
+    of pixels are dark, using configurable position, offset, and size parameters.
   robots: index
 next:
   description: ''

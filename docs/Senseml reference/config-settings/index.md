@@ -1,11 +1,13 @@
 ---
 title: Config settings
-excerpt: SenseML configuration options
+excerpt: Learn how config templates define data extraction rules for similar documents,
+  with settings for fingerprints and verbosity within document types.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'SenseML configuration options'
+  description: Learn how config templates define data extraction rules for similar
+    documents, with settings for fingerprints and verbosity within document types.
   robots: index
 next:
   description: ''

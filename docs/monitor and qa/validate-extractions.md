@@ -1,11 +1,15 @@
 ---
 title: Validating extractions
-excerpt: Validate extracted data programmatically
+excerpt: Learn how to write JsonLogic-based validations in Sensible to quality-control
+  document extractions, flag fields for human review, and test values, sums, and OCR
+  confidence scores.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Validate extracted data programmatically
+  description: Learn how to write JsonLogic-based validations in Sensible to quality-control
+    document extractions, flag fields for human review, and test values, sums, and
+    OCR confidence scores.
   robots: index
 next:
   description: ''

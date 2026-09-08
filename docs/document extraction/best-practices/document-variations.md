@@ -1,11 +1,15 @@
 ---
 title: Handling document variations
-excerpt: Strategies for handling document layout variations
+excerpt: Learn how to handle document variations in SenseML by conditionally executing
+  extraction fields across different layouts, formats, and content structures for
+  unified output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Strategies for handling document layout variations'
+  description: Learn how to handle document variations in SenseML by conditionally
+    executing extraction fields across different layouts, formats, and content structures
+    for unified output.
   robots: index
 next:
   description: ''

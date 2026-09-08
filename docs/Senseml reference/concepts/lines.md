@@ -1,11 +1,13 @@
 ---
 title: Lines
-excerpt: Understanding text lines in PDFs
+excerpt: Learn how Sensible defines, sorts, and groups lines of text in documents,
+  including boundary boxes, y-axis sorting, and line grouping behavior.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Understanding text lines in PDFs'
+  description: Learn how Sensible defines, sorts, and groups lines of text in documents,
+    including boundary boxes, y-axis sorting, and line grouping behavior.
   robots: index
 next:
   description: ''

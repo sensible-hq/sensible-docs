@@ -1,11 +1,15 @@
 ---
 title: Deskew
-excerpt: Correct skewed document images
+excerpt: For corner cases, the Deskew preprocessor corrects skewed document alignment
+  in Sensible. In most cases Sensible applies default, automatic correction for skewed
+  documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Correct skewed document images'
+  description: For corner cases, the Deskew preprocessor corrects skewed document
+    alignment in Sensible. In most cases Sensible applies default, automatic correction
+    for skewed documents.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Match object
-excerpt: Match patterns for finding text
+excerpt: Learn how Match objects define search criteria for locating text lines in
+  documents, including string, regex, boolean, first, and repeat match types with
+  global parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Match patterns for finding text'
+  description: Learn how Match objects define search criteria for locating text lines
+    in documents, including string, regex, boolean, first, and repeat match types
+    with global parameters.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Anchor object
-excerpt: Define anchors to locate data in documents
+excerpt: Learn how the Anchor object works in Sensible, including its parameters,
+  simple and complex syntax, and how it locates data for layout-based and LLM-based
+  extraction methods.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Define anchors to locate data in documents'
+  description: Learn how the Anchor object works in Sensible, including its parameters,
+    simple and complex syntax, and how it locates data for layout-based and LLM-based
+    extraction methods.
   robots: index
 next:
   description: ''

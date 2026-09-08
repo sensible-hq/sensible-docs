@@ -1,12 +1,13 @@
 ---
 title: Source text traceability
-excerpt: Trace extracted data to source and use color highlights in example PDFs to more
-  easily author SenseML
+excerpt: Learn how Sensible uses color-coded overlays in the SenseML editor to trace
+  extracted fields to their source text
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML'
+  description: Learn how Sensible uses color-coded overlays in the SenseML editor
+    to trace extracted fields to their source text
   robots: index
 next:
   description: ''

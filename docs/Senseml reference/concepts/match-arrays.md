@@ -1,11 +1,14 @@
 ---
 title: Match arrays
-excerpt: Working with match arrays
+excerpt: Learn how Sensible match arrays work, including reverse match arrays and
+  how they differ from anchor start parameters for locating target lines in documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Working with match arrays'
+  description: Learn how Sensible match arrays work, including reverse match arrays
+    and how they differ from anchor start parameters for locating target lines in
+    documents.
   robots: index
 next:
   description: ''

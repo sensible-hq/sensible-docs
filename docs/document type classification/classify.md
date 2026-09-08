@@ -1,14 +1,14 @@
 ---
 title: Classifying documents by type
-excerpt: Automatically classify documents by type, for example, 'bank statement' or 'driver's
-  license
+excerpt: Learn how Sensible classifies documents by type using classify-only APIs,
+  single-doc extraction, and multi-doc requests including portfolios and email attachments.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Automatically classify documents by type, for example, 'bank statement' or
-    'driver's license
+  description: Learn how Sensible classifies documents by type using classify-only
+    APIs, single-doc extraction, and multi-doc requests including portfolios and email
+    attachments.
   robots: index
 next:
   description: ''

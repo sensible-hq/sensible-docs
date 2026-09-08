@@ -1,11 +1,15 @@
 ---
 title: Mapper
-excerpt: Map values to new values
+excerpt: Learn how to use Sensible's Mapper method to standardize extracted field
+  output using a case-sensitive lookup table for consistent data formatting across
+  document configs.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Map values to new values'
+  description: Learn how to use Sensible's Mapper method to standardize extracted
+    field output using a case-sensitive lookup table for consistent data formatting
+    across document configs.
   robots: index
 next:
   description: ''

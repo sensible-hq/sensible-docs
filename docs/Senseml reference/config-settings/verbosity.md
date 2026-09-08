@@ -1,11 +1,14 @@
 ---
 title: Verbosity
-excerpt: Control extraction output detail
+excerpt: Learn how to configure the verbosity parameter for document extraction, including
+  output levels that add source text lines, position data, and bounding polygon metadata.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Control extraction output detail'
+  description: Learn how to configure the verbosity parameter for document extraction,
+    including output levels that add source text lines, position data, and bounding
+    polygon metadata.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Labeled rows example
-excerpt: 'Sections example: labeled row extraction'
+excerpt: Learn how to use vertical section groups with column and row labels in tables,
+  including the Column Selection parameter to extract structured nutrition data from
+  PDFs.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: labeled row extraction'
+  description: Learn how to use vertical section groups with column and row labels
+    in tables, including the Column Selection parameter to extract structured nutrition
+    data from PDFs.
   robots: index
 next:
   description: ''

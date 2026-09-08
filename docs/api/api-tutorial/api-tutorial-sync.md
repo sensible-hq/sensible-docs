@@ -1,11 +1,13 @@
 ---
 title: Try synchronous extraction
-excerpt: Synchronous extraction API calls
+excerpt: Learn how to use Sensible's synchronous /extract endpoint to extract data
+  from documents via Postman or cURL, using a 1040 tax form as an example.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Synchronous extraction API calls'
+  description: Learn how to use Sensible's synchronous /extract endpoint to extract
+    data from documents via Postman or cURL, using a 1040 tax form as an example.
   robots: index
 next:
   description: ''

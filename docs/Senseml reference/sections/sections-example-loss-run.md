@@ -1,11 +1,15 @@
 ---
 title: Claims loss run example
-excerpt: 'Sections example: insurance claims extraction'
+excerpt: Example showing how to extract repeated claims data from grouped document
+  sections using section ranges, stop parameters, and match-all fields in Sensible
+  config.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: insurance claims extraction'
+  description: Example showing how to extract repeated claims data from grouped document
+    sections using section ranges, stop parameters, and match-all fields in Sensible
+    config.
   robots: index
 next:
   description: ''

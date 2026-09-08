@@ -1,11 +1,13 @@
 ---
 title: Fallback fields
-excerpt: Configure fallback extraction
+excerpt: Learn how to use fallback fields in Sensible to handle document variations
+  by specifying backup extraction methods when a field fails to return data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Configure fallback extraction'
+  description: Learn how to use fallback fields in Sensible to handle document variations
+    by specifying backup extraction methods when a field fails to return data.
   robots: index
 next:
   description: ''
