@@ -5,6 +5,8 @@ Publishes or updates a changelog on readme.com as a hidden draft.
 Usage:
     echo "$BODY" | python publish_changelog.py "March 2026"           # create new
     echo "$BODY" | python publish_changelog.py "March 2026" --append  # append to existing
+    echo "$BODY" | python publish_changelog.py "March 2026" --update  # replace existing body
+    python publish_changelog.py --list                                 # print all existing slugs
 
 Reads the changelog body from stdin, title from argv[1].
 Requires README_API_KEY env var (sources ~/.bashrc if not set).
@@ -13,6 +15,8 @@ Create mode: automatically avoids slug conflicts — if "march-2026" already exi
 uses "march-2026-2", "march-2026-3", etc.
 
 Append mode: fetches the existing draft by slug, appends stdin content, and PUTs it back.
+
+List mode: prints all existing changelog slugs, one per line. No stdin required.
 
 Prints the draft URL on success, full error response on failure.
 """
@@ -136,6 +140,14 @@ def update_changelog(slug, title, body, auth):
 
 
 def main():
+    if "--list" in sys.argv:
+        api_key = get_api_key()
+        auth = make_auth_header(api_key)
+        slugs = fetch_existing_slugs(auth)
+        for slug in sorted(slugs):
+            print(slug)
+        return
+
     if len(sys.argv) < 2:
         print("Usage: echo \"$BODY\" | python publish_changelog.py \"March 2026\" [--append]", file=sys.stderr)
         sys.exit(1)
