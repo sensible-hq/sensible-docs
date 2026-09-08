@@ -63,7 +63,7 @@ Print each result with its date and bullet items so the user can see what came i
 
 ## Step 3 — Annotate each PR with a disposition
 
-Read `references/categorization-rules.md` before annotating. Then for each bullet item, add an inline comment:
+The categorization rules live in `references/categorization-rules.md` (also used by the `categorize-pr` skill). Read that file before annotating. Then for each bullet item, add an inline comment:
 
 ```
 - <item text> (#NNNN) <!-- document / investigate / skip: <brief reason> -->

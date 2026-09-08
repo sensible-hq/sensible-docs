@@ -3,7 +3,7 @@ name: create-new-doc
 description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about what's being added or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
 ---
 
 You are creating new sensible-docs reference pages based on a pull request from the sensible-hq/sensible engine repo.
@@ -37,15 +37,20 @@ The full `docs/` structure:
 **Other doc areas**:
 - `docs/Email extraction/`, `docs/document extraction/`, `docs/document type classification/`, `docs/api/`, `docs/integrations/`, `docs/monitor and qa/`, `docs/welcome/`
 
-## Step 3 — Load your guidance
+## Step 3 — Load guidance (required reads — do not skip)
 
-Read the shared style files:
-- `.claude/style-guide/style-guide-overview.md` — page structure, voice, formatting, cross-reference syntax
-- `.claude/style-guide/sentence-word-guidance.md` — parameter descriptions, value column formats, terminology
+Call Read on each path below before writing any doc content. Do not proceed to Step 4 until all reads are complete.
 
-Then read the template that matches the page type:
-- **SenseML reference page** (new method, preprocessor, field type, etc.): `.claude/style-guide/reference-topic-template.md` — includes category-specific variants (layout-based, LLM-based, computed field, preprocessor, object page)
-- **Integration guide** (new Zapier/SDK/API tutorial): `.claude/style-guide/integration-guide-template.md`
+**Always required:**
+1. Read `.claude/style-guide/style-guide-overview.md` — page structure, voice, formatting, cross-reference syntax
+2. Read `.claude/style-guide/sentence-word-guidance.md` — parameter descriptions, value column formats, terminology
+3. Read `.claude/style-guide/writing-rules.md` — cross-cutting prose rules (em dashes, passive voice, gerunds, tone)
+4. Read `.claude/style-guide/glossary.md` — canonical terms; the "Avoid" column lists violations to fix
+5. Read `.claude/preferences/editorial-preferences.md` — Frances's editorial corrections and preferences
+
+**Then read the template that matches the page type:**
+6. Read `.claude/style-guide/reference-topic-template.md` for a SenseML reference page (new method, preprocessor, field type, etc.) — includes category-specific variants (layout-based, LLM-based, computed field, preprocessor, object page)
+   OR read `.claude/style-guide/integration-guide-template.md` for an integration guide (new Zapier/SDK/API tutorial)
 
 Use the template that matches the type of page you're creating.
 
@@ -63,7 +68,17 @@ For the example:
 
 After writing the page, update `index.md` for the category to include a link to the new page.
 
-## Step 5 — Branch, commit, and open a PR
+## Step 5 — Style check before committing
+
+Run vale on every `.md` file you created or modified. Use the vale MCP server's `check_file` tool for each file:
+- Fix all **errors** and **warnings** before committing
+- Suggestions are optional — apply if clearly right, skip if they conflict with existing doc conventions
+
+Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 3 — apply what you learned.
+
+Only proceed once all errors and warnings are resolved.
+
+## Step 6 — Branch, commit, and open a PR
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
