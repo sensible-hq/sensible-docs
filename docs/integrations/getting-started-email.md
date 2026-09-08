@@ -1,11 +1,13 @@
 ---
 title: Getting started with email extraction
-excerpt: Extract structured data from emails and attachments
+excerpt: Learn how to automatically extract structured data from email bodies and
+  attachments by forwarding emails to Sensible using email processors and webhooks.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract structured data from emails and attachments
+  description: Learn how to automatically extract structured data from email bodies
+    and attachments by forwarding emails to Sensible using email processors and webhooks.
   robots: index
 next:
   description: ''
