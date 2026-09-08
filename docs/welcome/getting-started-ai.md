@@ -1,11 +1,13 @@
 ---
 title: Getting started
-excerpt: Learn to extract document data using LLM-based methods
+excerpt: Learn how to extract document data using Sensible's LLM-powered tools, from
+  setting up your account to authoring prompts and publishing extraction configs.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Learn to extract document data using LLM-based methods'
+  description: Learn how to extract document data using Sensible's LLM-powered tools,
+    from setting up your account to authoring prompts and publishing extraction configs.
   robots: index
 next:
   description: ''

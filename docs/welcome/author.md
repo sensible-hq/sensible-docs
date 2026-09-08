@@ -1,11 +1,13 @@
 ---
 title: Choosing an extraction approach
-excerpt: Guide to choosing between LLM-based and layout-based extraction methods
+excerpt: Learn when to use LLM-based or layout-based document extraction methods in
+  Sensible, and how to choose the right approach for your document complexity.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Guide to choosing between LLM-based and layout-based extraction methods'
+  description: Learn when to use LLM-based or layout-based document extraction methods
+    in Sensible, and how to choose the right approach for your document complexity.
   robots: index
 next:
   description: ''
