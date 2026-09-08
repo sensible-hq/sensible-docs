@@ -3,7 +3,7 @@ name: create-new-doc
 description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about what's being added or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(gh issue list:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
 ---
 
 You are creating new sensible-docs reference pages based on a pull request from the sensible-hq/sensible engine repo.
@@ -37,7 +37,20 @@ The full `docs/` structure:
 **Other doc areas**:
 - `docs/Email extraction/`, `docs/document extraction/`, `docs/document type classification/`, `docs/api/`, `docs/integrations/`, `docs/monitor and qa/`, `docs/welcome/`
 
-## Step 3 — Load guidance (required reads — do not skip)
+## Step 3 — Draft the user brief
+
+Before writing the page, draft a user brief at `.claude/briefs/<slug>.md` (slug = the filename you'll create, without extension).
+
+Use `.claude/briefs/brief-template.md` as your scaffold. Pull from these sources in parallel:
+- The PR body and diff — for feature context and intended use cases
+- GitHub issues: `gh issue list --repo sensible-hq/sensible --search "<feature name>" --json number,title,body` and `gh issue list --repo sensible-hq/sensible-docs --search "<feature name>" --json number,title,body`
+- Adjacent pages in the same category (already read in Step 2) — who reads those pages implies who reads this one
+
+The brief defines who you're writing for before you write a word. Everything in Step 5 (the page itself) flows from it — depth, vocabulary, what to include, what to omit.
+
+**When the brief shapes a content decision,** say so in the PR description — e.g., "Brief notes readers arrive from search and may not have an existing config set up, so the example uses a minimal starting config."
+
+## Step 4 — Load guidance (required reads — do not skip)
 
 Call Read on each path below before writing any doc content. Do not proceed to Step 4 until all reads are complete.
 
@@ -54,7 +67,7 @@ Call Read on each path below before writing any doc content. Do not proceed to S
 
 Use the template that matches the type of page you're creating.
 
-## Step 4 — Write the new page
+## Step 5 — Write the new page
 
 Use the template as your scaffold. Cover:
 - All parameters: required/optional/deprecated status, types, defaults
@@ -68,17 +81,17 @@ For the example:
 
 After writing the page, update `index.md` for the category to include a link to the new page.
 
-## Step 5 — Style check before committing
+## Step 6 — Style check before committing
 
 Run vale on every `.md` file you created or modified. Use the vale MCP server's `check_file` tool for each file:
 - Fix all **errors** and **warnings** before committing
 - Suggestions are optional — apply if clearly right, skip if they conflict with existing doc conventions
 
-Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 3 — apply what you learned.
+Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 4 — apply what you learned.
 
 Only proceed once all errors and warnings are resolved.
 
-## Step 6 — Branch, commit, and open a PR
+## Step 7 — Branch, commit, and open a PR
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 

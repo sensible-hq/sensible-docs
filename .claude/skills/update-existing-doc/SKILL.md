@@ -3,7 +3,7 @@ name: update-existing-doc
 description: Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(gh issue list:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
 ---
 
 You are updating existing sensible-docs pages based on a pull request from the sensible-hq/sensible engine repo. Your job is to make targeted, accurate edits — not to rewrite working content.
@@ -38,7 +38,23 @@ The full `docs/` directory structure:
 
 Use Grep to search for existing mentions of the changed features/parameters across the docs tree. Read every file you'll edit before touching it.
 
-## Step 3 — Load guidance (required reads — do not skip)
+## Step 3 — User briefs
+
+For each page you'll edit, look up its brief at `.claude/briefs/<slug>.md` (slug = filename without extension).
+
+**If the brief exists:** Read it. Use the reader profile, their questions, and the content scope to guide your edits. If this PR changes who reads the page or what they need, update the brief before writing.
+
+**If no brief exists (common — most pages don't have one yet):** Draft one using `.claude/briefs/brief-template.md` as your scaffold. Pull from these sources in parallel:
+- The PR body and diff — for feature context
+- GitHub issues: `gh issue list --repo sensible-hq/sensible --search "<feature name>" --json number,title,body` and `gh issue list --repo sensible-hq/sensible-docs --search "<feature name>" --json number,title,body`
+- The existing page content — what's already there implies what kind of reader it's for
+- Adjacent pages in the same category — what they cover implies what this page doesn't
+
+Save the new brief to `.claude/briefs/<slug>.md`. It will be committed alongside the doc changes in Step 6.
+
+**When the brief shapes a content decision,** say so in the PR description — e.g., "Per the brief, readers already know how anchors work, so I didn't re-explain them in the new parameter description."
+
+## Step 4 — Load guidance (required reads — do not skip)
 
 Call Read on each path below before writing or editing any doc content. Do not proceed to Step 4 until all reads are complete.
 
@@ -48,7 +64,7 @@ Call Read on each path below before writing or editing any doc content. Do not p
 4. Read `.claude/style-guide/glossary.md` — canonical terms; the "Avoid" column lists violations to fix
 5. Read `.claude/preferences/editorial-preferences.md` — Frances's editorial corrections and preferences; specific choices that override default instincts
 
-## Step 4 — Plan and make the changes
+## Step 5 — Plan and make the changes
 
 For each file you're editing, think through:
 
@@ -61,17 +77,17 @@ If the PR changes behavior the existing example exercises, update the example ou
 **What not to touch.**
 Don't rewrite sentences that are correct and well-phrased. Don't restructure sections that aren't affected by the PR. The scope of your edits should match the scope of the PR.
 
-## Step 5 — Style check before committing
+## Step 6 — Style check before committing
 
 Run vale on every `.md` file you modified. Use the vale MCP server's `check_file` tool for each file:
 - Fix all **errors** and **warnings** before committing
 - Suggestions are optional — apply if clearly right, skip if they conflict with existing doc conventions
 
-Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 3 — apply what you learned.
+Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 4 — apply what you learned.
 
 Only proceed once all errors and warnings are resolved.
 
-## Step 6 — Branch, commit, and open a PR
+## Step 7 — Branch, commit, and open a PR
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 

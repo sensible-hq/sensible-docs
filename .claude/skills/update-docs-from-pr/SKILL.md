@@ -3,7 +3,7 @@ name: update-docs-from-pr
 description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(gh issue list:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
 ---
 
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
@@ -63,7 +63,23 @@ Use the hints from `$ARGUMENTS` and the PR content to determine which areas are 
 
 Read the existing files that are relevant to the PR's changes.
 
-## Step 3 — Load guidance (required reads — do not skip)
+## Step 3 — User briefs
+
+For each page identified in Step 2, look up its brief at `.claude/briefs/<slug>.md` (slug = doc filename without extension, e.g. `region` for `region.md`).
+
+**If the brief exists:** Read it. Use the reader profile, their questions, and the content scope to guide what you write and how deeply. If this PR changes who reads the page or what they need from it, update the brief before proceeding.
+
+**If no brief exists (common — most pages don't have one yet):** Draft one using `.claude/briefs/brief-template.md` as your scaffold. Pull from these sources in parallel:
+- The PR body and diff — for feature context and intended use cases
+- GitHub issues: `gh issue list --repo sensible-hq/sensible --search "<feature name>" --json number,title,body` and `gh issue list --repo sensible-hq/sensible-docs --search "<feature name>" --json number,title,body`
+- The existing page content — what's already there implies what kind of reader it's for
+- Adjacent pages in the same category — what they cover implies what this page doesn't
+
+Save the new brief to `.claude/briefs/<slug>.md`. It will be committed alongside the doc changes in Step 7.
+
+**When the brief shapes a content decision,** say so in the PR description or inline comments — e.g., "Per the brief, readers arrive from the API reference and already understand document types, so I omitted the intro explanation."
+
+## Step 4 — Load guidance (required reads — do not skip)
 
 Call Read on each path below before writing or editing any doc content. Do not proceed to Step 4 until all reads are complete.
 
@@ -77,14 +93,14 @@ Call Read on each path below before writing or editing any doc content. Do not p
 **Only if creating a new page:**
 6. Read `.claude/style-guide/reference-topic-template.md` — fillable template for new reference pages (or `integration-guide-template.md` for integration guides)
 
-## Step 4 — Plan the changes
+## Step 5 — Plan the changes
 
 For each doc change needed, determine whether to:
 - **Create** a new `.md` file (for a new preprocessor, method, etc.)
 - **Update** an existing file (for new parameters on an existing feature)
 - **Update `index.md`** for the relevant section (whenever a new page is added)
 
-## Step 5 — Create a branch and make the changes
+## Step 6 — Create a branch and make the changes
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
@@ -94,17 +110,17 @@ git checkout -b fe_<short_description>_docs
 
 Make all file edits and creations. Be thorough — cover all parameters and include at least one example per new feature.
 
-## Step 6 — Style check before committing
+## Step 7 — Style check before committing
 
 Run vale on every `.md` file you created or modified. Use the vale MCP server's `check_file` tool for each file:
 - Fix all **errors** and **warnings** before committing
 - Suggestions are optional — apply if clearly right, skip if they conflict with existing doc conventions
 
-Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 3 — apply what you learned.
+Also scan each file for glossary violations (the "Avoid" column in `.claude/style-guide/glossary.md`). You already read this file in Step 4 — apply what you learned.
 
 Only proceed to the commit once all errors and warnings are resolved.
 
-## Step 7 — Commit and open a PR
+## Step 8 — Commit and open a PR
 
 Stage only the files you changed:
 ```
