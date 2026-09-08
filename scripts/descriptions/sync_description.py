@@ -46,7 +46,7 @@ def parse_frontmatter(content: str) -> tuple[dict | None, int]:
 
 def sync_description(path: Path, dry_run: bool) -> bool:
     """Return True if the file was (or would be) updated."""
-    content = path.read_text(encoding="utf-8")
+    content = path.open(encoding="utf-8", newline="").read()
     fm, rest_start = parse_frontmatter(content)
     if fm is None:
         return False
@@ -66,7 +66,7 @@ def sync_description(path: Path, dry_run: bool) -> bool:
 
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
     if not dry_run:
-        path.write_text(f"---\n{new_front_matter}---\n{content[rest_start:]}", encoding="utf-8")
+        path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
     return True
 
 
