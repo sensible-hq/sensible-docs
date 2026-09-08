@@ -3,7 +3,7 @@ title: Extra data
 link:
   new_tab: false
 ---
-Use this method to bring data you supplied in an `extra_data` object in an extraction request into a config's context, so you can use the extra data for validations, data transformation, and postprocessing of the extracted document data. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
+Use this method to bring data you supplied in an `extra_data` object in an extraction request into a config's context, so you can use the extra data to validate, transform, and postprocess the extracted document data. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
 
 Common use cases include:
 
