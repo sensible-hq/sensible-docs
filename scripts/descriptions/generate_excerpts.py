@@ -52,7 +52,7 @@ def parse_frontmatter(content: str) -> tuple[dict | None, int]:
 
 
 def write_excerpt(file_path: Path, excerpt: str) -> None:
-    content = file_path.read_text(encoding="utf-8")
+    content = file_path.open(encoding="utf-8", newline="").read()
     fm, rest_start = parse_frontmatter(content)
     if fm is None:
         raise ValueError(f"No front matter in {file_path}")
@@ -70,11 +70,11 @@ def write_excerpt(file_path: Path, excerpt: str) -> None:
         fm = new_fm
 
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
-    file_path.write_text(f"---\n{new_front_matter}---\n{content[rest_start:]}", encoding="utf-8")
+    file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
 
 
 def sync_description(file_path: Path) -> None:
-    content = file_path.read_text(encoding="utf-8")
+    content = file_path.open(encoding="utf-8", newline="").read()
     fm, rest_start = parse_frontmatter(content)
     if fm is None:
         return
@@ -92,11 +92,11 @@ def sync_description(file_path: Path) -> None:
 
     fm["metadata"]["description"] = excerpt
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
-    file_path.write_text(f"---\n{new_front_matter}---\n{content[rest_start:]}", encoding="utf-8")
+    file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
 
 
 def generate_excerpt(file_path: Path, api_key: str) -> str:
-    content = file_path.read_text(encoding="utf-8")
+    content = file_path.open(encoding="utf-8", newline="").read()
     fm, _ = parse_frontmatter(content)
     title = (fm or {}).get("title", file_path.stem)
 
