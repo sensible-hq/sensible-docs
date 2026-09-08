@@ -1,11 +1,13 @@
 ---
 title: Pick values
-excerpt: Select values from arrays
+excerpt: Learn how to use the Pick Values computed field method to extract specific
+  values from field groups, such as selected checkboxes or specific dropdown answers.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Select values from arrays
+  description: Learn how to use the Pick Values computed field method to extract specific
+    values from field groups, such as selected checkboxes or specific dropdown answers.
   robots: index
 next:
   description: ''

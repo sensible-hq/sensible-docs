@@ -1,11 +1,15 @@
 ---
 title: Fingerprint mode
-excerpt: Configure fingerprint-based classification
+excerpt: Fingerprint Mode controls extraction strictness for standalone files, determining
+  whether Sensible runs or skips configs based on fingerprint test results in Normal
+  or Strict mode.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Configure fingerprint-based classification'
+  description: Fingerprint Mode controls extraction strictness for standalone files,
+    determining whether Sensible runs or skips configs based on fingerprint test results
+    in Normal or Strict mode.
   robots: index
 next:
   description: ''

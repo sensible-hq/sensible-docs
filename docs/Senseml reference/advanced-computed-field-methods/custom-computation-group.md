@@ -1,11 +1,13 @@
 ---
 title: Custom computation group
-excerpt: Transform extracted document data using JsonLogic. Can return multiple fields.
+excerpt: Learn how to use the Custom Computation Group method with JsonLogic to transform
+  extracted document data and return multiple computed fields.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Group custom computations
+  description: Learn how to use the Custom Computation Group method with JsonLogic
+    to transform extracted document data and return multiple computed fields.
   robots: index
 next:
   description: ''

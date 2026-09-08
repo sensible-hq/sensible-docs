@@ -1,12 +1,13 @@
 ---
 title: Label
-excerpt: Extract labeled values. Note this method is brittle, so use alternative methods
-  where possible
+excerpt: Label method extracts lines or parts of lines near an anchor point in documents,
+  with parameters for position and proximity settings.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract labeled values. Note this method is brittle, so use alternative methods where possible'
+  description: Label method extracts lines or parts of lines near an anchor point
+    in documents, with parameters for position and proximity settings.
   robots: index
 next:
   description: ''

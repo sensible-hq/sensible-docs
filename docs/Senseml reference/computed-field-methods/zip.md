@@ -1,11 +1,14 @@
 ---
 title: Zip
-excerpt: Combine arrays into objects
+excerpt: Zip method combines tables, arrays, and sections into rows using source field
+  IDs, with support for regex patterns to match multiple fields in computed configurations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Combine arrays into objects'
+  description: Zip method combines tables, arrays, and sections into rows using source
+    field IDs, with support for regex patterns to match multiple fields in computed
+    configurations.
   robots: index
 next:
   description: ''

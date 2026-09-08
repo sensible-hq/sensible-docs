@@ -1,11 +1,13 @@
 ---
 title: Advanced computed field methods
-excerpt: Advanced methods for transforming extracted data
+excerpt: Advanced methods for computed fields including conditional execution, custom
+  computation, copying data between sections, and retrieving file metadata.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Advanced methods for transforming extracted data
+  description: Advanced methods for computed fields including conditional execution,
+    custom computation, copying data between sections, and retrieving file metadata.
   robots: index
 next:
   description: ''

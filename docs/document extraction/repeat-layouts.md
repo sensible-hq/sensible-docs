@@ -1,11 +1,13 @@
 ---
 title: Repeating layouts
-excerpt: Handle documents with repeating sections
+excerpt: Learn how to extract complex repeating data from documents using layout-based
+  sections to split content into subdocuments for structured field extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Handle documents with repeating sections'
+  description: Learn how to extract complex repeating data from documents using layout-based
+    sections to split content into subdocuments for structured field extraction.
   robots: index
 next:
   description: ''

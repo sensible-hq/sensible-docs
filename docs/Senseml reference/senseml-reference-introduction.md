@@ -1,11 +1,15 @@
 ---
 title: SenseML reference introduction
-excerpt: Overview of the SenseML query language
+excerpt: SenseML reference guide covering fields, preprocessors, LLM and layout-based
+  methods, computed fields, sections, and config settings for extracting structured
+  data from documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Overview of the SenseML query language'
+  description: SenseML reference guide covering fields, preprocessors, LLM and layout-based
+    methods, computed fields, sections, and config settings for extracting structured
+    data from documents.
   robots: index
 next:
   description: ''

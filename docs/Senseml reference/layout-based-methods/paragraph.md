@@ -1,11 +1,15 @@
 ---
 title: Paragraph
-excerpt: Extract paragraph text
+excerpt: Learn how the Paragraph method extracts paragraphs from documents, including
+  multi-column layouts and page-spanning content, with configuration examples and
+  output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract paragraph text'
+  description: Learn how the Paragraph method extracts paragraphs from documents,
+    including multi-column layouts and page-spanning content, with configuration examples
+    and output.
   robots: index
 next:
   description: ''

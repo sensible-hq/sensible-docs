@@ -1,11 +1,15 @@
 ---
 title: Suppress output
-excerpt: Exclude fields from output
+excerpt: Learn how to use the suppressOutput method to exclude specific fields from
+  extraction output, keeping only computed fields like split or transformed data in
+  results.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Exclude fields from output'
+  description: Learn how to use the suppressOutput method to exclude specific fields
+    from extraction output, keeping only computed fields like split or transformed
+    data in results.
   robots: index
 next:
   description: ''

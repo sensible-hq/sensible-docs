@@ -1,13 +1,13 @@
 ---
 title: SenseML to spreadsheet reference
-excerpt: Learn how SenseML converts PDF and document data into structured spreadsheets with
-  meaningful column/row relationships.
+excerpt: Learn how Sensible converts extracted PDF data into Excel or CSV files, including
+  rules for tables, fields, and multi-document spreadsheet combining.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how SenseML converts PDF and document data into structured 
-    spreadsheets with meaningful column/row relationships.
+  description: Learn how Sensible converts extracted PDF data into Excel or CSV files,
+    including rules for tables, fields, and multi-document spreadsheet combining.
   robots: index
 next:
   description: ''

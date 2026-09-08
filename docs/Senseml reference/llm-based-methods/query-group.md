@@ -1,11 +1,14 @@
 ---
 title: Query group
-excerpt: Group related LLM queries to extract facts
+excerpt: Query Group method extracts individual facts from documents or images using
+  LLM prompts, with tips on grouping and phrasing queries for accurate, fast results.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Group related LLM queries to extract facts
+  description: Query Group method extracts individual facts from documents or images
+    using LLM prompts, with tips on grouping and phrasing queries for accurate, fast
+    results.
   robots: index
 next:
   description: ''

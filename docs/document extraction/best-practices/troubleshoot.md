@@ -1,11 +1,13 @@
 ---
 title: Troubleshooting
-excerpt: Common issues and solutions
+excerpt: Learn how to troubleshoot Sensible configs and extractions using API logging,
+  text inspection, SenseML linting, and visual query tracing tools.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Common issues and solutions'
+  description: Learn how to troubleshoot Sensible configs and extractions using API
+    logging, text inspection, SenseML linting, and visual query tracing tools.
   robots: index
 next:
   description: ''

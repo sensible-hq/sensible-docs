@@ -1,11 +1,15 @@
 ---
 title: Scale
-excerpt: Scale document dimensions
+excerpt: Scale preprocessor documentation explaining how to correct text size variations
+  in scanned documents like ID cards and receipts to enable accurate coordinate-based
+  data extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Scale document dimensions'
+  description: Scale preprocessor documentation explaining how to correct text size
+    variations in scanned documents like ID cards and receipts to enable accurate
+    coordinate-based data extraction.
   robots: index
 next:
   description: ''

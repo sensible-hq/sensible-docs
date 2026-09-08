@@ -1,11 +1,13 @@
 ---
 title: API reference
-excerpt: Complete API reference documentation
+excerpt: Learn how to integrate Sensible into your application with the complete API
+  reference documentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Complete API reference documentation'
+  description: Learn how to integrate Sensible into your application with the complete
+    API reference documentation.
   robots: index
 next:
   description: ''

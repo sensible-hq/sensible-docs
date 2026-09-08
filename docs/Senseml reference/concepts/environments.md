@@ -1,11 +1,13 @@
 ---
 title: Environments
-excerpt: Development and production environments
+excerpt: Learn how to test configuration updates in a Sensible Development environment
+  before publishing to production, including tips for accurate classification testing.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Development and production environments'
+  description: Learn how to test configuration updates in a Sensible Development environment
+    before publishing to production, including tips for accurate classification testing.
   robots: index
 next:
   description: ''

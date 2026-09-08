@@ -1,11 +1,14 @@
 ---
 title: Advanced LLM prompt configuration
-excerpt: Configure LLM prompts
+excerpt: Learn how to configure advanced LLM prompt context in Sensible using embeddings,
+  summarization, prompt chaining, or multimodal engines to improve extraction accuracy.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Configure LLM prompts
+  description: Learn how to configure advanced LLM prompt context in Sensible using
+    embeddings, summarization, prompt chaining, or multimodal engines to improve extraction
+    accuracy.
   robots: index
 next:
   description: ''

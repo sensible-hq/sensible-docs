@@ -1,11 +1,14 @@
 ---
 title: Types
-excerpt: Data types for extracted fields
+excerpt: Learn how to filter and format extracted data using Sensible's Type parameter,
+  including address, boolean, currency, date, and other built-in field types.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Data types for extracted fields'
+  description: Learn how to filter and format extracted data using Sensible's Type
+    parameter, including address, boolean, currency, date, and other built-in field
+    types.
   robots: index
 next:
   description: ''

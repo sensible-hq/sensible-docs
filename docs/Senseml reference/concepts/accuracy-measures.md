@@ -1,11 +1,14 @@
 ---
 title: Accuracy measures
-excerpt: Understanding extraction accuracy metrics
+excerpt: Learn how to measure extraction accuracy in Sensible using logical validations,
+  OCR confidence scores, LLM confidence signals, and extraction coverage metrics.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Understanding extraction accuracy metrics'
+  description: Learn how to measure extraction accuracy in Sensible using logical
+    validations, OCR confidence scores, LLM confidence signals, and extraction coverage
+    metrics.
   robots: index
 next:
   description: ''

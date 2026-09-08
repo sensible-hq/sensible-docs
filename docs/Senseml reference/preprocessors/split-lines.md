@@ -1,11 +1,14 @@
 ---
 title: Split lines
-excerpt: Split merged text lines
+excerpt: Learn how to use the Split Lines preprocessor to split horizontally distributed
+  lines in typewriter-style documents using whitespace or custom separator characters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Split merged text lines'
+  description: Learn how to use the Split Lines preprocessor to split horizontally
+    distributed lines in typewriter-style documents using whitespace or custom separator
+    characters.
   robots: index
 next:
   description: ''

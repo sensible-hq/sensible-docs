@@ -1,11 +1,14 @@
 ---
 title: Text Table
-excerpt: Extract tables based on column coordinates defined in inches
+excerpt: Extract table data from PDFs using column coordinates in inches, with faster
+  performance than other table methods and support for unusually formatted tables.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract tables based on column coordinates defined in inches'
+  description: Extract table data from PDFs using column coordinates in inches, with
+    faster performance than other table methods and support for unusually formatted
+    tables.
   robots: index
 next:
   description: ''

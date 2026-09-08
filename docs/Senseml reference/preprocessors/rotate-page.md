@@ -1,11 +1,14 @@
 ---
 title: Rotate page
-excerpt: Rotate page orientation, for edge cases when Sensible can't auto-rotate the page
+excerpt: Learn how to use the rotatePage preprocessor to automatically correct page
+  orientation by aligning matched anchor text horizontally in your document extractions.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Rotate page orientation, for edge cases when Sensible can''t auto-rotate the page'
+  description: Learn how to use the rotatePage preprocessor to automatically correct
+    page orientation by aligning matched anchor text horizontally in your document
+    extractions.
   robots: index
 next:
   description: ''

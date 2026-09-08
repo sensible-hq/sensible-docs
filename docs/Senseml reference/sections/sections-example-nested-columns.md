@@ -1,11 +1,14 @@
 ---
 title: 'Advanced: nested columns example'
-excerpt: 'Sections example: nested column extraction'
+excerpt: Learn how to extract repeating vertical column groups from documents using
+  nested sections in SenseML, with a step-by-step config example and JSON output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: nested column extraction'
+  description: Learn how to extract repeating vertical column groups from documents
+    using nested sections in SenseML, with a step-by-step config example and JSON
+    output.
   robots: index
 next:
   description: ''

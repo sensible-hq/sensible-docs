@@ -1,11 +1,13 @@
 ---
 title: JsonLogic extensions
-excerpt: Custom JsonLogic operations
+excerpt: Learn how Sensible extends JsonLogic with custom operators for transforming
+  and validating extracted document data, including syntax tips and supported operations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Custom JsonLogic operations
+  description: Learn how Sensible extends JsonLogic with custom operators for transforming
+    and validating extracted document data, including syntax tips and supported operations.
   robots: index
 next:
   description: ''

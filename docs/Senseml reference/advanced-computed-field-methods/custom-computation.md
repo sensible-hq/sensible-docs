@@ -1,11 +1,13 @@
 ---
 title: Custom computation
-excerpt: Transform extracted document data using JsonLogic.
+excerpt: Learn how to define custom computed fields using JsonLogic in Sensible, including
+  summing fields, mapping arrays, and checking for non-null values.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Custom JsonLogic computations
+  description: Learn how to define custom computed fields using JsonLogic in Sensible,
+    including summing fields, mapping arrays, and checking for non-null values.
   robots: index
 next:
   description: ''

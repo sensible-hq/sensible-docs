@@ -1,11 +1,13 @@
 ---
 title: Fingerprint
-excerpt: Document fingerprinting for classification
+excerpt: Learn how Sensible fingerprints identify document subtypes and segment multi-document
+  portfolios by testing for matching text patterns.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Document fingerprinting for classification'
+  description: Learn how Sensible fingerprints identify document subtypes and segment
+    multi-document portfolios by testing for matching text patterns.
   robots: index
 next:
   description: ''

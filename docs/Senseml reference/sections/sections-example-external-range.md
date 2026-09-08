@@ -1,11 +1,14 @@
 ---
 title: 'Advanced: External anchors for sections'
-excerpt: 'Sections example: using external anchors'
+excerpt: Learn how to use static and dynamic external anchors in Sensible to extract
+  fields from sections that lack internal labeling text, with JSON config examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: using external anchors'
+  description: Learn how to use static and dynamic external anchors in Sensible to
+    extract fields from sections that lack internal labeling text, with JSON config
+    examples.
   robots: index
 next:
   description: ''

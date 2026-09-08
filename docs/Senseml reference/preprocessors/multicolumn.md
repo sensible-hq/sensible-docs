@@ -1,11 +1,13 @@
 ---
 title: Multicolumn
-excerpt: Handle multi-column layouts
+excerpt: Learn how to use the Multicolumn preprocessor to ensure Sensible correctly
+  sorts text lines into columns instead of across the full page width.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Handle multi-column layouts'
+  description: Learn how to use the Multicolumn preprocessor to ensure Sensible correctly
+    sorts text lines into columns instead of across the full page width.
   robots: index
 next:
   description: ''

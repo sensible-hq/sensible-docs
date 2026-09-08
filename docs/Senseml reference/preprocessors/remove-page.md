@@ -1,11 +1,13 @@
 ---
 title: Remove page
-excerpt: Remove specific pages
+excerpt: Learn how to use the removePage preprocessor to delete PDF pages matching
+  specified text, with parameters and examples for targeted page removal.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Remove specific pages'
+  description: Learn how to use the removePage preprocessor to delete PDF pages matching
+    specified text, with parameters and examples for targeted page removal.
   robots: index
 next:
   description: ''

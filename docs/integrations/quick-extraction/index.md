@@ -1,14 +1,13 @@
 ---
 title: Quick extraction
-excerpt: Learn how to use Sensible app's Extract tab to upload documents in bulk and download
-  extracted data as Excel files for custom or supported document types.
+excerpt: Learn how to upload documents in bulk to Sensible, run extractions using
+  existing document types, and download the extracted data as Excel files.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use Sensible app's Extract tab to upload documents in
-    bulk and download extracted data as Excel files for custom or supported document
-    types.
+  description: Learn how to upload documents in bulk to Sensible, run extractions
+    using existing document types, and download the extracted data as Excel files.
   robots: index
 next:
   description: ''

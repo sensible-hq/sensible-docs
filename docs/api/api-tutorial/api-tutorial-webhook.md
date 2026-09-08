@@ -1,11 +1,14 @@
 ---
 title: Try a webhook
-excerpt: Webhook-based extraction workflow
+excerpt: Learn how to use webhooks with Sensible's extraction API to receive push
+  notifications when document extraction status changes, using a step-by-step tutorial.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Webhook-based extraction workflow'
+  description: Learn how to use webhooks with Sensible's extraction API to receive
+    push notifications when document extraction status changes, using a step-by-step
+    tutorial.
   robots: index
 next:
   description: ''

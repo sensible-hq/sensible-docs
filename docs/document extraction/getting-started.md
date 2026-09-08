@@ -1,11 +1,14 @@
 ---
 title: Getting started with layout-based extractions
-excerpt: Tutorial for SenseML layout-based extraction
+excerpt: Learn how to extract structured data from documents using Sensible's layout-based
+  SenseML query language, including configs, anchors, methods, and API integration.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Tutorial for SenseML layout-based extraction
+  description: Learn how to extract structured data from documents using Sensible's
+    layout-based SenseML query language, including configs, anchors, methods, and
+    API integration.
   robots: index
 next:
   description: ''

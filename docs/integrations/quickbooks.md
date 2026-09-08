@@ -1,11 +1,14 @@
 ---
 title: QuickBooks integration
-excerpt: Extract invoices into QuickBooks Online as bills with Python and Sensible
+excerpt: Learn how to extract vendor invoice data with Sensible and Python, then automatically
+  create bills in QuickBooks Online using a proof-of-concept integration tutorial.
 deprecated: false
 hidden: false
 metadata:
   title: Integrate with QuickBooks using Python
-  description: Extract invoices into QuickBooks Online as bills with Python and Sensible
+  description: Learn how to extract vendor invoice data with Sensible and Python,
+    then automatically create bills in QuickBooks Online using a proof-of-concept
+    integration tutorial.
   robots: index
 next:
   description: ''

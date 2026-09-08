@@ -1,11 +1,14 @@
 ---
 title: 'Advanced: Zip and flatten nested sections'
-excerpt: 'Sections example: flattening nested data'
+excerpt: Learn how to use Copy from Sections and zip methods to flatten nested section
+  groups into clean, simplified output when extracting structured document data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sections example: flattening nested data'
+  description: Learn how to use Copy from Sections and zip methods to flatten nested
+    section groups into clean, simplified output when extracting structured document
+    data.
   robots: index
 next:
   description: ''

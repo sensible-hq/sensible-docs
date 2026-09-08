@@ -1,11 +1,13 @@
 ---
 title: Try asynchronous extraction from a Sensible URL
-excerpt: Async extraction with Sensible-hosted URL
+excerpt: Learn how to use Sensible's asynchronous API with Sensible-provided URLs
+  to extract document data, ideal when public or pre-signed URLs aren't available.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Async extraction with Sensible-hosted URL'
+  description: Learn how to use Sensible's asynchronous API with Sensible-provided
+    URLs to extract document data, ideal when public or pre-signed URLs aren't available.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Zapier overview
-excerpt: Introduction to Sensible's Zapier integration
+excerpt: Learn how Sensible's Zapier integration extracts data from PDFs and documents
+  and sends it to emails, databases, Google Sheets, and other destinations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Introduction to Sensible''s Zapier integration'
+  description: Learn how Sensible's Zapier integration extracts data from PDFs and
+    documents and sends it to emails, databases, Google Sheets, and other destinations.
   robots: index
 next:
   description: ''

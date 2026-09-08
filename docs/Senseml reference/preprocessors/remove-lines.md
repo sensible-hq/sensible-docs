@@ -1,11 +1,13 @@
 ---
 title: Remove lines
-excerpt: Remove lines matching a pattern from all pages in a document
+excerpt: Learn how to use the removeLines preprocessor to delete matching text lines,
+  including watermarks and page numbers, from all pages before extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Remove lines matching a pattern from all pages in a document'
+  description: Learn how to use the removeLines preprocessor to delete matching text
+    lines, including watermarks and page numbers, from all pages before extraction.
   robots: index
 next:
   description: ''

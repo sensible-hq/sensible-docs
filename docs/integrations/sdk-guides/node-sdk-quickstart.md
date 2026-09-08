@@ -1,11 +1,13 @@
 ---
 title: Node SDK quickstart
-excerpt: Quickstart guide for the Sensible Node.js SDK for extracting and classifying documents
+excerpt: Learn how to install, initialize, and use the Sensible Node SDK to extract
+  structured data from documents and classify them by type.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Quickstart guide for the Sensible Node.js SDK for extracting and classifying documents
+  description: Learn how to install, initialize, and use the Sensible Node SDK to
+    extract structured data from documents and classify them by type.
   robots: index
 next:
   description: ''

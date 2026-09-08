@@ -1,11 +1,15 @@
 ---
 title: NLP
-excerpt: Configure LLM methods globally
+excerpt: NLP configuration reference for setting full prompt parameters across all
+  LLM-based methods, including nlpTable, list, and pageRange options at the config
+  level.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Configure LLM methods globally'
+  description: NLP configuration reference for setting full prompt parameters across
+    all LLM-based methods, including nlpTable, list, and pageRange options at the
+    config level.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Merge lines
-excerpt: Merge split text lines
+excerpt: Merge Lines preprocessor documentation covering how to fix oversplit, overlapping,
+  or misaligned lines from poor scans or handwritten text using configurable merge
+  parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Merge split text lines'
+  description: Merge Lines preprocessor documentation covering how to fix oversplit,
+    overlapping, or misaligned lines from poor scans or handwritten text using configurable
+    merge parameters.
   robots: index
 next:
   description: ''

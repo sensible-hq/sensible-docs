@@ -1,11 +1,13 @@
 ---
 title: Best practices
-excerpt: Guidelines for production-quality extractions
+excerpt: Best practices for building, optimizing, and managing your applications effectively
+  with guidance on recommended approaches and standards.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Guidelines for production-quality extractions'
+  description: Best practices for building, optimizing, and managing your applications
+    effectively with guidance on recommended approaches and standards.
   robots: index
 next:
   description: ''

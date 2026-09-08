@@ -1,11 +1,13 @@
 ---
 title: Postprocessor
-excerpt: Transform extracted data into any arbitrary output schema
+excerpt: Learn how to use JsonLogic-based postprocessors in Sensible to transform
+  extracted document data into a custom output schema for your app or API.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Transform extracted data into any arbitrary output schema'
+  description: Learn how to use JsonLogic-based postprocessors in Sensible to transform
+    extracted document data into a custom output schema for your app or API.
   robots: index
 next:
   description: ''

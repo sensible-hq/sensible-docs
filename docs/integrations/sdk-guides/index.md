@@ -1,11 +1,15 @@
 ---
 title: SDK guides
-excerpt: Guides for Node/TypeScript and Python SDKs
+excerpt: Explore Sensible SDK guides and quickstarts for Node/TypeScript and Python
+  to extract document data, with starter code snippets available in the Integrations
+  tab.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Guides for Node/TypeScript and Python SDKs
+  description: Explore Sensible SDK guides and quickstarts for Node/TypeScript and
+    Python to extract document data, with starter code snippets available in the Integrations
+    tab.
   robots: index
 next:
   description: ''

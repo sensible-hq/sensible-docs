@@ -1,11 +1,13 @@
 ---
 title: Quality control
-excerpt: Strategies for validating and monitoring extracted data
+excerpt: Learn about quality control options for extracted document data, including
+  custom validation, real-time monitoring dashboards, and human review workflows.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Strategies for validating and monitoring extracted data'
+  description: Learn about quality control options for extracted document data, including
+    custom validation, real-time monitoring dashboards, and human review workflows.
   robots: index
 next:
   description: ''

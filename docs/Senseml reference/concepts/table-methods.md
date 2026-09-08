@@ -1,11 +1,15 @@
 ---
 title: Table methods
-excerpt: Comparison of table extraction methods
+excerpt: Compare Sensible's three table extraction methods, NLP Table, Fixed Table,
+  and Text Table, including supported features like merged cells, checkboxes, and
+  multi-page tables.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Comparison of table extraction methods'
+  description: Compare Sensible's three table extraction methods, NLP Table, Fixed
+    Table, and Text Table, including supported features like merged cells, checkboxes,
+    and multi-page tables.
   robots: index
 next:
   description: ''

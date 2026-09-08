@@ -1,11 +1,13 @@
 ---
 title: Python SDK quickstart
-excerpt: Quickstart guide for the Sensible Python SDK for extracting and classifying documents
+excerpt: Learn how to install and use the Sensible Python SDK to extract structured
+  data from documents and classify document types with quickstart examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Quickstart guide for the Sensible Python SDK for extracting and classifying documents
+  description: Learn how to install and use the Sensible Python SDK to extract structured
+    data from documents and classify document types with quickstart examples.
   robots: index
 next:
   description: ''

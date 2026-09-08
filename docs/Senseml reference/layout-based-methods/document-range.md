@@ -1,11 +1,15 @@
 ---
 title: Document range
-excerpt: Extract text from a document range defined by upper and lower bounds
+excerpt: Document Range method extracts consecutive lines between upper and lower
+  bounds in a document, supporting columns, images, and configurable stop points and
+  offsets.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract text from a document range defined by upper and lower bounds'
+  description: Document Range method extracts consecutive lines between upper and
+    lower bounds in a document, supporting columns, images, and configurable stop
+    points and offsets.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Fixed table
-excerpt: Extract tables with fixed column headings
+excerpt: Extracts fixed-column tables from documents by anchoring on table titles
+  or column headings, returning collated column data for consistent table layouts.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract tables with fixed column headings'
+  description: Extracts fixed-column tables from documents by anchoring on table titles
+    or column headings, returning collated column data for consistent table layouts.
   robots: index
 next:
   description: ''

@@ -1,11 +1,15 @@
 ---
 title: Remove footer
-excerpt: Remove page footers
+excerpt: Remove footer preprocessor in Sensible strips repeating bottom-of-page elements
+  automatically or via configurable text matching, with options for page range and
+  offset control.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Remove page footers'
+  description: Remove footer preprocessor in Sensible strips repeating bottom-of-page
+    elements automatically or via configurable text matching, with options for page
+    range and offset control.
   robots: index
 next:
   description: ''

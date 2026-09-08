@@ -1,11 +1,13 @@
 ---
 title: Add computed fields
-excerpt: Add computed fields to output
+excerpt: Learn how to use the Add Computed Fields method to transform extracted tables
+  by adding, removing, or concatenating columns using computed field arrays.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Add computed fields to output
+  description: Learn how to use the Add Computed Fields method to transform extracted
+    tables by adding, removing, or concatenating columns using computed field arrays.
   robots: index
 next:
   description: ''

@@ -1,11 +1,13 @@
 ---
 title: Image processing
-excerpt: Extract non-text images and image data from documents
+excerpt: Learn how to extract, query, and locate non-text images in documents using
+  LLM-based, region-based, or range-based methods in Sensible.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract non-text images and image data from documents
+  description: Learn how to extract, query, and locate non-text images in documents
+    using LLM-based, region-based, or range-based methods in Sensible.
   robots: index
 next:
   description: ''

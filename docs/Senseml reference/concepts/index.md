@@ -1,11 +1,13 @@
 ---
 title: Concepts
-excerpt: Core SenseML concepts
+excerpt: Learn advanced concepts and in-depth topics to deepen your understanding
+  of the subject matter covered in this documentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Core SenseML concepts'
+  description: Learn advanced concepts and in-depth topics to deepen your understanding
+    of the subject matter covered in this documentation.
   robots: index
 next:
   description: ''

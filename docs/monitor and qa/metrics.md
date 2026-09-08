@@ -1,11 +1,13 @@
 ---
 title: Monitoring extraction metrics
-excerpt: Track extraction performance and accuracy
+excerpt: Learn how to monitor real-time extraction metrics in the Sensible dashboard,
+  including coverage, document counts, and most-used configurations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Track extraction performance and accuracy'
+  description: Learn how to monitor real-time extraction metrics in the Sensible dashboard,
+    including coverage, document counts, and most-used configurations.
   robots: index
 next:
   description: ''

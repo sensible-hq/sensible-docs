@@ -1,11 +1,14 @@
 ---
 title: Row
-excerpt: Extract row data
+excerpt: Row method matches text lines horizontally aligned with an anchor line, letting
+  you extract data to the left or right within a configurable vertical tolerance range.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract row data'
+  description: Row method matches text lines horizontally aligned with an anchor line,
+    letting you extract data to the left or right within a configurable vertical tolerance
+    range.
   robots: index
 next:
   description: ''

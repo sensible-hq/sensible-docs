@@ -1,11 +1,14 @@
 ---
 title: NLP table
-excerpt: Extract tables using natural language
+excerpt: Extract tables from documents using natural language descriptions, with support
+  for multi-page tables and column-level prompts via Sensible's NLP Table method.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Extract tables using natural language'
+  description: Extract tables from documents using natural language descriptions,
+    with support for multi-page tables and column-level prompts via Sensible's NLP
+    Table method.
   robots: index
 next:
   description: ''
