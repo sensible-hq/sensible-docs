@@ -1,13 +1,11 @@
 ---
 title: Human review implementation
-excerpt: Learn how to integrate human-in-the-loop review into document extraction
-  workflows using webhooks, review triggers, and approval steps with Sensible.
+excerpt: Implement human review using Sensible webhooks
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to integrate human-in-the-loop review into document extraction
-    workflows using webhooks, review triggers, and approval steps with Sensible.
+  description: Implement human review using Sensible webhooks
   robots: index
 next:
   description: ''

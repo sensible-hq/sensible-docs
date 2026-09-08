@@ -1,14 +1,15 @@
 ---
 title: Deskew
-excerpt: Deskew preprocessor corrects skewed document alignment in Sensible, ideal
-  for angled photos of ID cards and receipts where automatic correction isn't applied.
+excerpt: For corner cases, the Deskew preprocessor corrects skewed document alignment
+  in Sensible. In most cases Sensible applies default, automatic correction for skewed
+  documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Deskew preprocessor corrects skewed document alignment in Sensible,
-    ideal for angled photos of ID cards and receipts where automatic correction isn't
-    applied.
+  description: For corner cases, the Deskew preprocessor corrects skewed document
+    alignment in Sensible. In most cases Sensible applies default, automatic correction
+    for skewed documents.
   robots: index
 next:
   description: ''

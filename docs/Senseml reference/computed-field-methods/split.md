@@ -1,13 +1,13 @@
 ---
 title: Split
-excerpt: Split computed field method splits a field's string output using a delimiter
-  to extract or separate specific substrings into individual fields.
+excerpt: Learn how to use the Split computed field method to extract specific substrings
+  from a field's string output by splitting on a delimiter.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Split computed field method splits a field's string output using a
-    delimiter to extract or separate specific substrings into individual fields.
+  description: Learn how to use the Split computed field method to extract specific
+    substrings from a field's string output by splitting on a delimiter.
   robots: index
 next:
   description: ''

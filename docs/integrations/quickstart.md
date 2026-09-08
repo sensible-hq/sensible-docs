@@ -1,13 +1,11 @@
 ---
 title: API quickstart
-excerpt: Learn how to make your first Sensible API call using a sample SenseML config
-  and document to extract structured data in a hello world example.
+excerpt: Quick start guide for the Sensible API
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to make your first Sensible API call using a sample SenseML
-    config and document to extract structured data in a hello world example.
+  description: Quick start guide for the Sensible API
   robots: index
 next:
   description: ''

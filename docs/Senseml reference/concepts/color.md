@@ -1,15 +1,13 @@
 ---
 title: Source text traceability
 excerpt: Learn how Sensible uses color-coded overlays in the SenseML editor to trace
-  extracted fields to their source text, including yellow, blue, green, and purple
-  symbols.
+  extracted fields to their source text
 deprecated: false
 hidden: false
 metadata:
   title: ''
   description: Learn how Sensible uses color-coded overlays in the SenseML editor
-    to trace extracted fields to their source text, including yellow, blue, green,
-    and purple symbols.
+    to trace extracted fields to their source text
   robots: index
 next:
   description: ''
