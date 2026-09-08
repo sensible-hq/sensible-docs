@@ -29,12 +29,6 @@ def load_ignore_list(script_dir: Path) -> set[str]:
     return ignore_list
 
 
-def yaml_scalar(value: str) -> str:
-    """Return the YAML scalar representation of value (no key, no trailing newline)."""
-    dumped = yaml.dump({"k": value}, default_flow_style=False, allow_unicode=True)
-    return dumped.split(": ", 1)[1].rstrip("\n")
-
-
 def update_file_with_excerpt(file_path: Path, excerpt: str) -> bool:
     content = file_path.read_text(encoding="utf-8")
 
@@ -45,20 +39,29 @@ def update_file_with_excerpt(file_path: Path, excerpt: str) -> bool:
     if not end_match:
         return False
 
-    new_excerpt_line = f"excerpt: {yaml_scalar(excerpt)}"
+    front_matter_text = content[3:end_match.start() + 3]
+    rest_of_file = content[end_match.end() + 3:]
 
-    # If excerpt key already exists, do a targeted in-place replacement.
-    if re.search(r"^excerpt:", content, flags=re.MULTILINE):
-        new_content = re.sub(r"^excerpt:.*$", new_excerpt_line, content, count=1, flags=re.MULTILINE)
-        file_path.write_text(new_content, encoding="utf-8")
-        return True
-
-    # excerpt key is absent — insert it after the title line.
-    new_content = re.sub(r"^(title:.*)$", rf"\1\n{new_excerpt_line}", content, count=1, flags=re.MULTILINE)
-    if new_content == content:
+    try:
+        front_matter = yaml.safe_load(front_matter_text) or {}
+    except yaml.YAMLError:
         return False
 
-    file_path.write_text(new_content, encoding="utf-8")
+    if "excerpt" in front_matter:
+        front_matter["excerpt"] = excerpt
+    else:
+        # Insert excerpt after title to preserve expected key order.
+        new_fm = {}
+        for k, v in front_matter.items():
+            new_fm[k] = v
+            if k == "title":
+                new_fm["excerpt"] = excerpt
+        if "excerpt" not in new_fm:
+            new_fm["excerpt"] = excerpt
+        front_matter = new_fm
+
+    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    file_path.write_text(f"---\n{new_front_matter}---\n{rest_of_file}", encoding="utf-8")
     return True
 
 

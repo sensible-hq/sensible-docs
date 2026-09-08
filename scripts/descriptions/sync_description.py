@@ -30,27 +30,24 @@ def find_repo_root() -> Path:
     raise SystemExit("Could not find repo root (expected docs/ directory)")
 
 
-def parse_frontmatter(content: str) -> dict | None:
+def parse_frontmatter(content: str) -> tuple[dict | None, int]:
+    """Return (parsed front matter, end offset) or (None, -1) on failure."""
     if not content.startswith("---"):
-        return None
+        return None, -1
     end = re.search(r"\n---\s*(\n|$)", content[3:])
     if not end:
-        return None
+        return None, -1
     try:
-        return yaml.safe_load(content[3 : end.start() + 3]) or {}
+        fm = yaml.safe_load(content[3 : end.start() + 3]) or {}
+        return fm, end.end() + 3
     except yaml.YAMLError:
-        return None
-
-
-def yaml_scalar(value: str) -> str:
-    dumped = yaml.dump({"k": value}, default_flow_style=False, allow_unicode=True)
-    return dumped.split(": ", 1)[1].rstrip("\n")
+        return None, -1
 
 
 def sync_description(path: Path, dry_run: bool) -> bool:
     """Return True if the file was (or would be) updated."""
     content = path.read_text(encoding="utf-8")
-    fm = parse_frontmatter(content)
+    fm, rest_start = parse_frontmatter(content)
     if fm is None:
         return False
 
@@ -62,23 +59,14 @@ def sync_description(path: Path, dry_run: bool) -> bool:
     if not isinstance(metadata, dict):
         return False
 
-    current_description = metadata.get("description") or ""
-    if current_description == excerpt:
+    if metadata.get("description") == excerpt:
         return False
 
-    new_desc_line = f"  description: {yaml_scalar(excerpt)}"
+    fm["metadata"]["description"] = excerpt
 
-    if re.search(r"^  description:", content, flags=re.MULTILINE):
-        new_content = re.sub(r"^  description:.*$", new_desc_line, content, count=1, flags=re.MULTILINE)
-    else:
-        # Insert description after the metadata: line
-        new_content = re.sub(r"^(metadata:.*)$", rf"\1\n{new_desc_line}", content, count=1, flags=re.MULTILINE)
-
-    if new_content == content:
-        return False
-
+    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
     if not dry_run:
-        path.write_text(new_content, encoding="utf-8")
+        path.write_text(f"---\n{new_front_matter}---\n{content[rest_start:]}", encoding="utf-8")
     return True
 
 
