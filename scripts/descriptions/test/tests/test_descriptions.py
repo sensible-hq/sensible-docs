@@ -194,6 +194,30 @@ class TestAddExcerpt:
         assert "excerpt: New short excerpt" in text
         assert "covering many topics" not in text  # old continuation must be gone
 
+    def test_crlf_body_preserved(self, tmp_path):
+        # Regression: files with CRLF line endings in their body (e.g. code blocks
+        # pasted from Windows) must not have those endings stripped when only the
+        # front matter is updated.
+        content = (
+            "---\n"
+            "title: Test Page\n"
+            "excerpt: Old excerpt\n"
+            "deprecated: false\n"
+            "---\n"
+            "## Body\r\n"
+            "\r\n"
+            "```json\r\n"
+            '{"key": "value"}\r\n'
+            "```\r\n"
+        )
+        f = tmp_path / "page.md"
+        f.write_bytes(content.encode("utf-8"))
+        result = add_excerpt.update_file_with_excerpt(f, "New excerpt")
+        assert result is True
+        raw = f.read_bytes().decode("utf-8")
+        assert "excerpt: New excerpt" in raw
+        assert "```json\r\n" in raw  # CRLF must survive the rewrite
+
     def test_no_frontmatter_returns_false(self, tmp_path):
         f = tmp_path / "plain.md"
         f.write_text("No front matter here.\n", encoding="utf-8")

@@ -30,7 +30,7 @@ def load_ignore_list(script_dir: Path) -> set[str]:
 
 
 def update_file_with_excerpt(file_path: Path, excerpt: str) -> bool:
-    content = file_path.read_text(encoding="utf-8")
+    content = file_path.open(encoding="utf-8", newline="").read()
 
     if not content.startswith("---"):
         return False
@@ -61,7 +61,7 @@ def update_file_with_excerpt(file_path: Path, excerpt: str) -> bool:
         front_matter = new_fm
 
     new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False)
-    file_path.write_text(f"---\n{new_front_matter}---\n{rest_of_file}", encoding="utf-8")
+    file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{rest_of_file}")
     return True
 
 
