@@ -19,6 +19,10 @@ Session ID: 39002c4a-a0d9-4424-a091-89a35b61577a
 - [x] Push postprocessor_xml config to Frances's Sensible account for SenseML editor review
 - [ ] Obtain CH Robinson PDF + screenshot for doc assets (postprocessor_xml.png, postprocessor_xml.pdf)
 - [ ] Replace example PDF with a redacted version (current example PDF is not yet redacted)
+- [ ] Wrap all bare rule examples in full runnable SenseML configs (postprocessor + constant fields)
+  - [ ] Intro example (contract_date / customer_name invoice rule)
+  - [ ] Minimal rule in "Defining XML output" (total field, hardcoded currency attr)
+  - [ ] Map Object example (load_id and rate fields)
 - [ ] Rerun style guides on updated pages
 - [ ] Verify rendered XML string output examples actually display with surrounding `"` in ReadMe
 - [ ] Finish rebase and force-push to PR #715
