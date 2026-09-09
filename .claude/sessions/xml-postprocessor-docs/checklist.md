@@ -20,6 +20,8 @@ Session ID: 39002c4a-a0d9-4424-a091-89a35b61577a
 - [ ] Obtain CH Robinson PDF + screenshot for doc assets (postprocessor_xml.png, postprocessor_xml.pdf)
 - [ ] Finish rebase and force-push to PR #715
 - [ ] Consider: rename "JsonLogic postprocessor" → "JSON postprocessor"
+- [ ] Verify: does `keepParsedDocument: false` actually disable Excel output and human review for the XML postprocessor? (copied from JsonLogic page — needs confirmation against codebase)
+- [ ] Add to docs-from-PR skills: guidance on how to handle provenance/traceability — i.e., how to trace claims back to the sensible codebase (e.g., parameter names, defaults, behavior) rather than trusting PR descriptions alone
 - [ ] Search all doc topics for mentions of "postprocessor" — update cross-references, descriptions, and links to reflect the new postprocessors/ structure and the addition of the XML type
 - [ ] Audit docs that mention output formats and output schemas — update to reflect XML postprocessor as a new output option
   - Anywhere that describes the API output schema (parsed_document shape, postprocessorOutput, field types, Excel) may need updating
