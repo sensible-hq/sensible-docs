@@ -888,7 +888,7 @@ the rule outputs:
 
 #### Example 2
 
-The following example shows removing extracted IDs from the [postprocessed](doc:json-postprocessor) output for a W-2 form.
+The following example shows removing extracted IDs from the [postprocessed](doc:postprocessors) output for a W-2 form.
 
 **Config**
 
