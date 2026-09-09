@@ -143,7 +143,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Custom computation group](https://docs.sensible.so/docs/custom-computation-group.md): Group custom computations
 - [Extra data](https://docs.sensible.so/docs/extra-data.md): Access request-supplied extra data in configs
 - [Get file metadata](https://docs.sensible.so/docs/get-file-metadata.md): Extract file metadata
-- [Postprocessor](https://docs.sensible.so/docs/postprocessor.md): Transform extracted data into any arbitrary output schema
+- [Postprocessors](https://docs.sensible.so/docs/postprocessors): Transform extracted data into a custom output schema
 - [Concepts](https://docs.sensible.so/docs/concepts.md): Core SenseML concepts
 - [Accuracy measures](https://docs.sensible.so/docs/accuracy-measures.md): Understanding extraction accuracy metrics
 - [Advanced LLM prompt configuration](https://docs.sensible.so/docs/prompt.md): Configure LLM prompts
