@@ -39,6 +39,32 @@ Using a postprocessor, you can transform the extracted data into an XML output, 
 </invoice>
 ```
 
+The following rule produces that output:
+
+```json
+{
+  "eachKey": {
+    "tag": "invoice",
+    "content": [
+      {
+        "eachKey": {
+          "tag": "contract_date",
+          "attrs": { "eachKey": { "type": { "var": "contract_date.type" } } },
+          "content": { "var": "contract_date.value" }
+        }
+      },
+      {
+        "eachKey": {
+          "tag": "customer_name",
+          "attrs": { "eachKey": { "type": { "var": "customer_name.type" } } },
+          "content": { "var": "customer_name.value" }
+        }
+      }
+    ]
+  }
+}
+```
+
 Find postprocessor output in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
@@ -93,14 +119,14 @@ The element object has the following properties:
 | property            | value                                              | description                                                                                                                                                                                       |
 | :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | tag (**required**)  | string                                             | The XML element name.                                                                                                                                                                             |
-| attrs               | object                                             | Key-value pairs that become XML attributes on the element. Use `eachKey` to build the object. Values must be scalars (string, number, boolean, or null).                                          |
-| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements.  |
+| attrs               | object                                             | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).   |
+| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content — for example, `"content": "John Smith"` renders as `John Smith`. An element object becomes a nested child element. An array produces a sequence of child elements. |
 
 Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values.
 
-**Dynamic field mapping with `mapObject`**
+**Dynamic Field Mapping with [mapObject](doc:jsonlogic#map-object)**
 
-To generate one XML element per extracted field without naming each field individually in the rule, use the `mapObject` operator (a Sensible extension to JsonLogic) with `{"var": ""}` to iterate over the entire `parsed_document`:
+To generate one XML element per extracted field without naming each field individually in the rule, use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
 
 ```json
 {
