@@ -40,7 +40,7 @@ Using a postprocessor, you can transform the extracted data into an XML output, 
 
 The following rule produces that output:
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "eachKey": { /* builds an element object; its properties define the XML output */
@@ -89,7 +89,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate to an element object. A minimal rule looks like this:
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "eachKey": { /* builds an element object; its properties define the XML output */
@@ -133,7 +133,7 @@ Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`)
 
 To generate one XML element per extracted field without naming each field individually in the rule, use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "mapObject": [ /* iterates over each field in parsed_document and operates on its key and value */
@@ -164,7 +164,7 @@ Any field you add to the config automatically appears in the XML output without 
 
 **Config**
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
