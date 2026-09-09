@@ -63,6 +63,8 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
 | [Today](doc:jsonlogic#today)                 | ✅                                       | ✅                                                    | ✅                                  |
+| [To Lower](doc:jsonlogic#to-lower)           | ✅                                       | ✅                                                    | ✅                                  |
+| [To Upper](doc:jsonlogic#to-upper)           | ✅                                       | ✅                                                    | ✅                                  |
 
 See the following sections for more information.
 
@@ -1637,6 +1639,107 @@ For an extraction run on July 7, 2026, this returns:
 {
   "data_expiration_date": {
     "value": "2027-07-07T00:00:00.000Z",
+    "type": "string"
+  }
+}
+```
+
+## To Lower
+
+Converts a string to lowercase. Returns null if the input is null or missing. Throws a configuration error if the input is not a string.
+
+Accepts as input:
+- a bare value: `{ "toLower": { "var": "field.value" } }`
+- a single-element array: `{ "toLower": [{ "var": "field.value" }] }`
+
+### Example
+
+The following example shows using To Lower to compare an extracted state code case-insensitively.
+
+```json
+{
+  "fields": [
+    {
+      "id": "state_code",
+      "method": {
+        "id": "constant",
+        /* a document might output "CA", "ca", or "Ca" */
+        "value": "Ca"
+      }
+    },
+    {
+      "id": "is_california",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "==": [
+            { "toLower": { "var": "state_code.value" } },
+            "ca"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+This returns:
+
+```json
+{
+  "state_code": {
+    "value": "Ca",
+    "type": "string"
+  },
+  "is_california": {
+    "value": true,
+    "type": "boolean"
+  }
+}
+```
+
+## To Upper
+
+Converts a string to uppercase. Follows the same conventions as [To Lower](doc:jsonlogic#to-lower): returns null for null or missing input, and throws a configuration error for non-string input.
+
+### Example
+
+The following example shows using To Upper to normalize an extracted approval status to uppercase.
+
+```json
+{
+  "fields": [
+    {
+      "id": "approval_status",
+      "method": {
+        "id": "constant",
+        /* a document might say "approved", "APPROVED", or "Approved" */
+        "value": "approved"
+      }
+    },
+    {
+      "id": "normalized_status",
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "toUpper": { "var": "approval_status.value" }
+        }
+      }
+    }
+  ]
+}
+```
+
+This returns:
+
+```json
+{
+  "approval_status": {
+    "value": "approved",
+    "type": "string"
+  },
+  "normalized_status": {
+    "value": "APPROVED",
     "type": "string"
   }
 }
