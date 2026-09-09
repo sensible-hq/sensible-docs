@@ -253,10 +253,28 @@ The following image shows the example document used with this example config:
 
 ```json
 // POSTPROCESSED OUTPUT
+// postprocessorOutput is a JSON string; see below for formatted XML
 
 {
-  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><DOCUMENTS><DOCUMENT><FORM>AU Tax Invoice Precise</FORM><FIELDS><FIELD name=\"load_id\">328298459</FIELD><FIELD name=\"trailer_type\">Van</FIELD><FIELD name=\"test_field_xml_escapes_&amp;_&lt;stuff&gt;\">blah 'blah' \"blah\" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD><FIELD name=\"test_field_null\"></FIELD></FIELDS></DOCUMENT></DOCUMENTS>"
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>..."
 }
+```
+
+```xml
+<!-- postprocessorOutput value, formatted for readability -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<DOCUMENTS>
+  <DOCUMENT>
+    <FORM>AU Tax Invoice Precise</FORM>
+    <FIELDS>
+      <FIELD name="load_id">328298459</FIELD>
+      <FIELD name="trailer_type">Van</FIELD>
+      <FIELD name="test_field_xml_escapes_&amp;_&lt;stuff&gt;">blah 'blah' "blah" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD>
+      <FIELD name="test_field_null"></FIELD>
+    </FIELDS>
+  </DOCUMENT>
+</DOCUMENTS>
 ```
 
 ```json
