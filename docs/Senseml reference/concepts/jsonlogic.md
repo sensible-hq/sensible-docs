@@ -378,11 +378,11 @@ Returns `true` if the input is an array (including an empty array), or `false` o
 { "is_array": JsonLogic }
 ```
 
-Sections fields return arrays in `parsed_document`; scalar fields return objects with a `value` property. Is Array is especially useful in a dynamic [XML postprocessor](doc:draft-xml) rule that uses [Map Object](doc:jsonlogic#map-object) to iterate over all extracted fields with `{"var":""}`: a rule that reads `{"var":"value.value"}` to extract scalar values breaks for sections fields, because sections fields don't have a `value` property — their value is directly an array. Is Array lets you branch inside the loop and render sections fields differently (for example, as `TABLE` elements with row children) without hardcoding which fields are sections in the rule.
+Sections fields, [Zip](doc:zip) computed fields, and fields using `"match": "all"` or `"match": "allWithNull"` return arrays in `parsed_document`. Scalar fields return objects with a `value` property. Table methods such as Fixed Table and Dynamic Table return objects with a `columns` property, not arrays. Is Array is especially useful in a dynamic [XML postprocessor](doc:draft-xml) rule that uses [Map Object](doc:jsonlogic#map-object) to iterate over all extracted fields with `{"var":""}`: a rule that reads `{"var":"value.value"}` to extract scalar values breaks for array-returning fields, because those fields don't have a `value` property. Is Array lets you branch inside the loop and render array fields differently (for example, as `TABLE` elements with row children) without hardcoding which fields return arrays.
 
 ### Example
 
-The following example shows using Is Array inside a dynamic [XML postprocessor](doc:draft-xml) rule to render sections fields and scalar fields as different XML elements.
+The following example shows using Is Array inside a dynamic [XML postprocessor](doc:draft-xml) rule to render array-returning fields and scalar fields as different XML elements.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
