@@ -17,14 +17,14 @@ Session ID: 39002c4a-a0d9-4424-a091-89a35b61577a
 - [x] Rename brief to brief-postprocessors.md (naming pattern: brief-<slug>.md)
 - [x] Update xml-postprocessor.md example with real golden from sensible-hq/sensible#3461 (CH Robinson rate confirmation)
 - [x] Push postprocessor_xml config to Frances's Sensible account for SenseML editor review
-- [ ] Obtain CH Robinson PDF + screenshot for doc assets (postprocessor_xml.png, postprocessor_xml.pdf)
-- [ ] Replace example PDF with a redacted version (current example PDF is not yet redacted)
-- [ ] Wrap all bare rule examples in full runnable SenseML configs (postprocessor + constant fields)
-  - [ ] Intro example (contract_date / customer_name invoice rule)
-  - [ ] Minimal rule in "Defining XML output" (total field, hardcoded currency attr)
-  - [ ] Map Object example (load_id and rate fields)
-- [ ] Rerun style guides on updated pages
-- [ ] Verify rendered XML string output examples actually display with surrounding `"` in ReadMe
+- [x] Obtain CH Robinson PDF + screenshot for doc assets (postprocessor_xml.png, postprocessor_xml.pdf)
+- [x] Replace example PDF with a redacted version (current example PDF is not yet redacted)
+- [x] Wrap all bare rule examples in full runnable SenseML configs (postprocessor + constant fields)
+  - [x] Intro example (contract_date / customer_name invoice rule)
+  - [x] Minimal rule in "Defining XML output" (total field, hardcoded currency attr)
+  - [x] Map Object example (load_id and rate fields)
+- [x] Rerun style guides on updated pages
+- [x] Verify rendered XML string output examples actually display with surrounding `"` in ReadMe
 - [ ] Finish rebase and force-push to PR #715
 - [x] Rename "JsonLogic postprocessor" → "JSON postprocessor" (file, title, slug, all cross-refs)
 - [ ] Verify: does `keepParsedDocument: false` actually disable Excel output and human review for the XML postprocessor?
