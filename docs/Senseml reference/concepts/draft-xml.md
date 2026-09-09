@@ -1,8 +1,9 @@
 ---
 title: XML postprocessor
+slug: draft-xml
 excerpt: Transform extracted data into a custom XML output schema
 deprecated: false
-hidden: false
+hidden: true
 metadata:
   title: ''
   description: Transform extracted data into a custom XML output schema
@@ -33,37 +34,73 @@ Using a postprocessor, you can transform the extracted data into an XML output, 
 
 ```json
 {
-  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date>\n  <customer_name type=\"string\">John Smith</customer_name>\n</invoice>"
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><invoice><contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date><customer_name type=\"string\">John Smith</customer_name></invoice>"
 }
 ```
 
-The following rule produces that output:
+The following JsonLogic rule produces the preceding XML output:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "eachKey": { /* builds an element object; its properties define the XML output */
-    "tag": "invoice", /* XML element name */
-    "content": [ /* array — produces a sequence of child elements */
-      {
-        "eachKey": {
-          "tag": "contract_date", /* XML element name */
-          "attrs": { /* key-value pairs that become XML attributes, e.g. type="date" */
-            "eachKey": { "type": { "var": "contract_date.type" } } /* "var" returns "date" from parsed_document */
+  "fields": [
+    /*
+        In practice, you extract contract_date and customer_name from a document.
+        This example uses constant fields to input hardcoded values
+        so you can run it in the SenseML editor without a document.
+      */
+    {
+      "id": "contract_date",
+      "type": "date",
+      "method": { "id": "constant", "value": "2023-01-01T00:00:00.000Z" }
+    },
+    {
+      "id": "customer_name",
+      "type": "string",
+      "method": { "id": "constant", "value": "John Smith" }
+    }
+  ],
+  "postprocessor": {
+    "type": "xml",
+    "declaration": true,
+    "rule": {
+      "eachKey": {
+        /* builds an element object; its properties define the XML output */
+        "tag": "invoice" /* root XML element name */,
+        "content": [
+          /* array. produces a sequence of child elements */
+          {
+            "eachKey": {
+              "tag": "contract_date" /* XML element name */,
+              "attrs": {
+                /* key-value pairs that become XML attributes, e.g. type="date" */
+                "eachKey": {
+                  "type": { "var": "contract_date.type" }
+                } /* "var" returns "date" from parsed_document */
+              },
+              "content": {
+                "var": "contract_date.value"
+              } /* extracted value, e.g. "2023-01-01T00:00:00.000Z", becomes
+  text content */
+            }
           },
-          "content": { "var": "contract_date.value" } /* extracted value, e.g. "2023-01-01T00:00:00.000Z", becomes text content */
-        }
-      },
-      {
-        "eachKey": {
-          "tag": "customer_name", /* XML element name */
-          "attrs": { /* key-value pairs that become XML attributes, e.g. type="string" */
-            "eachKey": { "type": { "var": "customer_name.type" } } /* "var" returns "string" from parsed_document */
-          },
-          "content": { "var": "customer_name.value" } /* extracted value, e.g. "John Smith", becomes text content */
-        }
+          {
+            "eachKey": {
+              "tag": "customer_name" /* XML element name */,
+              "attrs": {
+                /* key-value pairs that become XML attributes, e.g. type="string" */
+                "eachKey": {
+                  "type": { "var": "customer_name.type" }
+                } /* "var" returns "string" from parsed_document */
+              },
+              "content": {
+                "var": "customer_name.value"
+              } /* extracted value, e.g. "John Smith", becomes text content */
+            }
+          }
+        ]
       }
-    ]
+    }
   }
 }
 ```
@@ -91,30 +128,47 @@ In the `rule` parameter, define your XML output using [JsonLogic](doc:jsonlogic)
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "eachKey": { /* builds an element object; its properties define the XML output */
-    "tag": "invoice", /* XML element name */
-    "attrs": { /* key-value pairs that become XML attributes */
-      "eachKey": {
-        "currency": "USD" /* hardcoded attribute value */
+  "fields": [
+    /*
+      In practice, you extract total from a document.
+      This example uses a constant field to input a hardcoded value
+      so you can run it in the SenseML editor without a document.
+    */
+    {
+      "id": "total",
+      "type": "currency",
+      "method": { "id": "constant", "value": "4500" }
+    }
+  ],
+  "postprocessor": {
+    "type": "xml",
+    "rule": {
+      "eachKey": { /* builds an element object; its properties define the XML output */
+        "tag": "invoice", /* XML element name */
+        "attrs": { /* key-value pairs that become XML attributes */
+          "eachKey": {
+            "currency": "USD" /* hardcoded attribute value */
+          }
+        },
+        "content": [ /* array — produces a sequence of child elements */
+          {
+            "eachKey": {
+              "tag": "total", /* XML element name */
+              "content": { "var": "total.value" } /* extracted value becomes text content */
+            }
+          }
+        ]
       }
-    },
-    "content": [ /* array — produces a sequence of child elements */
-      {
-        "eachKey": {
-          "tag": "total", /* XML element name */
-          "content": { "var": "total.value" } /* extracted value becomes text content */
-        }
-      }
-    ]
+    }
   }
 }
 ```
 
-If you extract $4,500 from an invoice for the `total` field, then the output looks like this:
+This produces:
 
 ```json
 {
-  "postprocessorOutput": "<invoice currency=\"USD\">\n  <total>4500</total>\n</invoice>"
+  "postprocessorOutput": "<invoice currency=\"USD\"><total>4500</total></invoice>"
 }
 ```
 
