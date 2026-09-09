@@ -39,23 +39,28 @@ Using a postprocessor, you can transform the extracted data into an XML output, 
 
 The following rule produces that output:
 
-```json
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
 {
-  "eachKey": {
-    "tag": "invoice",
-    "content": [
+  "eachKey": { /* builds an element object; its properties define the XML output */
+    "tag": "invoice", /* XML element name */
+    "content": [ /* array — produces a sequence of child elements */
       {
         "eachKey": {
-          "tag": "contract_date",
-          "attrs": { "eachKey": { "type": { "var": "contract_date.type" } } },
-          "content": { "var": "contract_date.value" }
+          "tag": "contract_date", /* XML element name */
+          "attrs": { /* key-value pairs that become XML attributes, e.g. type="date" */
+            "eachKey": { "type": { "var": "contract_date.type" } } /* "var" returns "date" from parsed_document */
+          },
+          "content": { "var": "contract_date.value" } /* extracted value, e.g. "2023-01-01T00:00:00.000Z", becomes text content */
         }
       },
       {
         "eachKey": {
-          "tag": "customer_name",
-          "attrs": { "eachKey": { "type": { "var": "customer_name.type" } } },
-          "content": { "var": "customer_name.value" }
+          "tag": "customer_name", /* XML element name */
+          "attrs": { /* key-value pairs that become XML attributes, e.g. type="string" */
+            "eachKey": { "type": { "var": "customer_name.type" } } /* "var" returns "string" from parsed_document */
+          },
+          "content": { "var": "customer_name.value" } /* extracted value, e.g. "John Smith", becomes text content */
         }
       }
     ]
@@ -83,20 +88,21 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate to an element object. A minimal rule looks like this:
 
-```json
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
 {
-  "eachKey": {
-    "tag": "invoice",
-    "attrs": {
+  "eachKey": { /* builds an element object; its properties define the XML output */
+    "tag": "invoice", /* XML element name */
+    "attrs": { /* key-value pairs that become XML attributes */
       "eachKey": {
-        "currency": "USD"
+        "currency": "USD" /* hardcoded attribute value */
       }
     },
-    "content": [
+    "content": [ /* array — produces a sequence of child elements */
       {
         "eachKey": {
-          "tag": "total",
-          "content": { "var": "total.value" }
+          "tag": "total", /* XML element name */
+          "content": { "var": "total.value" } /* extracted value becomes text content */
         }
       }
     ]
@@ -126,14 +132,15 @@ Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`)
 
 To generate one XML element per extracted field without naming each field individually in the rule, use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
 
-```json
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
 {
-  "mapObject": [
-    { "var": "" },
+  "mapObject": [ /* iterates over each field in parsed_document and operates on its key and value */
+    { "var": "" }, /* current context: the entire parsed_document */
     {
-      "eachKey": {
-        "tag": { "var": "key" },
-        "content": { "var": "value.value" }
+      "eachKey": { /* builds an element object for each field */
+        "tag": { "var": "key" }, /* current field's ID becomes the XML element name */
+        "content": { "var": "value.value" } /* current field's extracted value becomes text content */
       }
     }
   ]
@@ -221,32 +228,32 @@ Any field you add to the config automatically appears in the XML output without 
     "declaration": true,
     "selfCloseEmptyTags": false,
     "rule": {
-      "eachKey": {
-        "tag": "DOCUMENTS",
-        "content": [
+      "eachKey": { /* builds an element object; its properties define the XML output */
+        "tag": "DOCUMENTS", /* XML element name */
+        "content": [ /* array — produces a sequence of child elements */
           {
             "eachKey": {
-              "tag": "DOCUMENT",
+              "tag": "DOCUMENT", /* XML element name */
               "content": [
                 {
                   "eachKey": {
-                    "tag": "FORM",
-                    "content": "AU Tax Invoice Precise"
+                    "tag": "FORM", /* XML element name */
+                    "content": "AU Tax Invoice Precise" /* hardcoded text content */
                   }
                 },
                 {
                   "eachKey": {
-                    "tag": "FIELDS",
+                    "tag": "FIELDS", /* XML element name */
                     "content": {
-                      "mapObject": [
-                        { "var": "" },
+                      "mapObject": [ /* iterates over each field in parsed_document and operates on its key and value */
+                        { "var": "" }, /* current context: the entire parsed_document */
                         {
-                          "eachKey": {
-                            "tag": "FIELD",
-                            "attrs": {
-                              "eachKey": { "name": { "var": "key" } }
+                          "eachKey": { /* builds an element object for each field */
+                            "tag": "FIELD", /* XML element name */
+                            "attrs": { /* key-value pairs that become XML attributes, e.g. name="load_id" */
+                              "eachKey": { "name": { "var": "key" } } /* current field's ID becomes the attribute value */
                             },
-                            "content": { "var": "value.value" }
+                            "content": { "var": "value.value" } /* current field's extracted value becomes text content */
                           }
                         }
                       ]
