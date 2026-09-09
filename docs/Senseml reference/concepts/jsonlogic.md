@@ -372,41 +372,68 @@ The preceding code sample returns the following output:
 
 ## Is Array
 
-Returns `true` if the input is an array (including an empty array), or `false` otherwise. Returns `false` for `null`, objects, strings, and numbers. Useful for branching on whether an extracted field is a table or sections field (which return arrays) versus a scalar field.
+Returns `true` if the input is an array (including an empty array), or `false` otherwise. Returns `false` for `null`, objects, strings, and numbers.
 
 ```json
 { "is_array": JsonLogic }
 ```
 
+Sections fields return arrays in `parsed_document`; scalar fields return objects with a `value` property. Is Array is especially useful in a dynamic [XML postprocessor](doc:draft-xml) rule that uses [Map Object](doc:jsonlogic#map-object) to iterate over all extracted fields with `{"var":""}`: a rule that reads `{"var":"value.value"}` to extract scalar values breaks for sections fields, because sections fields don't have a `value` property — their value is directly an array. Is Array lets you branch inside the loop and render sections fields differently (for example, as `TABLE` elements with row children) without hardcoding which fields are sections in the rule.
+
 ### Example
 
-The following example shows using Is Array in a postprocessor to branch on whether an extracted field is a table.
+The following example shows using Is Array inside a dynamic [XML postprocessor](doc:draft-xml) rule to render sections fields and scalar fields as different XML elements.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [],
   "postprocessor": {
-    "type": "jsonLogic",
+    "type": "xml",
     "rule": {
-      "if": [
-        /* table and sections fields return arrays;
-           scalar fields return objects with a value property */
-        { "is_array": { "var": "line_items" } },
-        /* line_items is a table: return how many rows were extracted */
-        { "length": { "var": "line_items" } },
-        /* line_items is a scalar: return null */
-        null
-      ]
+      "eachKey": {
+        "tag": "document", /* root XML element wrapping all fields */
+        "content": {
+          "mapObject": [ /* iterates over every extracted field in parsed_document */
+            { "var": "" }, /* the entire parsed_document */
+            {
+              "if": [
+                /* sections fields are arrays; scalar fields are objects */
+                { "is_array": { "var": "value" } },
+                /* sections branch: render as TABLE element with ROW children */
+                {
+                  "eachKey": {
+                    "tag": "TABLE",
+                    "attrs": { "eachKey": { "name": { "var": "key" } } },
+                    "content": {
+                      "map": [
+                        { "var": "value" },
+                        { "eachKey": { "tag": "ROW", "content": { "var": "" } } }
+                      ]
+                    }
+                  }
+                },
+                /* scalar branch: render as FIELD element with type attribute */
+                {
+                  "eachKey": {
+                    "tag": "FIELD",
+                    "attrs": {
+                      "eachKey": {
+                        "name": { "var": "key" },
+                        "type": { "var": "value.type" }
+                      }
+                    },
+                    "content": { "var": "value.value" }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
     }
   }
 }
-```
-
-If `line_items` is a table with 3 rows, this returns:
-
-```json
-3
 ```
 
 ## Join
