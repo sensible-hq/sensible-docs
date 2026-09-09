@@ -20,6 +20,7 @@ Session ID: 39002c4a-a0d9-4424-a091-89a35b61577a
 - [ ] Obtain CH Robinson PDF + screenshot for doc assets (postprocessor_xml.png, postprocessor_xml.pdf)
 - [ ] Finish rebase and force-push to PR #715
 - [ ] Consider: rename "JsonLogic postprocessor" → "JSON postprocessor"
+- [ ] Search all doc topics for mentions of "postprocessor" — update cross-references, descriptions, and links to reflect the new postprocessors/ structure and the addition of the XML type
 - [ ] Audit docs that mention output formats and output schemas — update to reflect XML postprocessor as a new output option
   - Anywhere that describes the API output schema (parsed_document shape, postprocessorOutput, field types, Excel) may need updating
   - May need a new concept topic: "Output formats / output schemas" covering parsed_document, postprocessorOutput (JsonLogic and XML variants), Excel — so individual pages can link out instead of re-explaining inline
