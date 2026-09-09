@@ -11,11 +11,11 @@ metadata:
   robots: index
 
 next: # Optional "what's next" recommendations
-  description: string
+  description: custom computation
   pages:
     - type: basic
-      slug: custom-computation.md
-      title: string
+      slug: custom-computation
+      title: custom computation
 
 ---
 test edit&#x20;
