@@ -31,7 +31,7 @@ In detail, Sensible's `parsed_document` API output schema represents extracted d
 
 Using a postprocessor, you can transform the extracted data into an XML output, for example:
 
-```json
+```text
 {
   "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date>\n  <customer_name type=\"string\">John Smith</customer_name>\n</invoice>"
 }
@@ -76,7 +76,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | type (**required**) | `xml`                   | Transform extracted data into an XML output.                                                                                                                                                                        |
 | rule (**required**) | JsonLogic object        | Define the XML output using a [JsonLogic](doc:jsonlogic) rule. See [JSON to XML mapping](#json-to-xml-mapping) for the rule syntax.                                                                                 |
 | declaration         | Boolean. Default: false | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                             |
-| selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`).                        |
+| selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements.                        |
 | keepParsedDocument  | Boolean. Default: true  | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
 
 # JSON to XML mapping
@@ -106,7 +106,7 @@ The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate 
 
 This produces:
 
-```json
+```text
 {
   "postprocessorOutput": "<invoice currency=\"USD\">\n  <total>4500</total>\n</invoice>"
 }
@@ -142,7 +142,7 @@ To generate one XML element per extracted field without naming each field indivi
 
 If `parsed_document` contains `load_id` and `rate` fields, this produces:
 
-```json
+```text
 {
   "postprocessorOutput": "<load_id>328298459</load_id>\n<rate>4500</rate>"
 }
@@ -251,7 +251,7 @@ The following image shows the example document used with this example config:
 
 **Output**
 
-```json
+```text
 // POSTPROCESSED OUTPUT
 // postprocessorOutput is a JSON string; see below for formatted XML
 
@@ -297,7 +297,3 @@ The following image shows the example document used with this example config:
   "test_field_null": null
 }
 ```
-
-# Notes
-
-- **Null fields**: Fields that return null appear as empty elements. With `selfCloseEmptyTags: true` (the default), they render as `<TAG/>`. With `selfCloseEmptyTags: false`, they render as `<TAG></TAG>`.
