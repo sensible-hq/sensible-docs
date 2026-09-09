@@ -374,7 +374,18 @@ Any field you add to the config automatically appears in the XML output without 
 ```xml
 <!-- postprocessorOutput value, formatted for readability -->
 
-<DOCUMENTS><DOCUMENT><FORM>AU Tax Invoice Precise</FORM><FIELDS><FIELD name=\"load_id\" type=\"number\">123456789</FIELD><FIELD name=\"trailer_type\" type=\"string\">Van</FIELD><FIELD name=\"test_field_xml_escapes_&amp;_&lt;stuff&gt;\" type=\"string\">blah 'blah' \"blah\" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD><FIELD name=\"test_field_null\" type=\"\"></FIELD></FIELDS></DOCUMENT></DOCUMENTS>
+<?xml version="1.0" encoding="UTF-8"?>
+<DOCUMENTS>
+  <DOCUMENT>
+    <FORM>AU Tax Invoice Precise</FORM>
+    <FIELDS>
+      <FIELD name="load_id" type="number">123456789</FIELD>
+      <FIELD name="trailer_type" type="string">Van</FIELD>
+      <FIELD name="test_field_xml_escapes_&amp;_&lt;stuff&gt;" type="string">blah 'blah' "blah" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD>
+      <FIELD name="test_field_null" type=""></FIELD>
+    </FIELDS>
+  </DOCUMENT>
+</DOCUMENTS>
 ```
 
 ```json
