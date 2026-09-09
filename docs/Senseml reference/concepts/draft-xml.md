@@ -379,12 +379,10 @@ Any field you add to the config automatically appears in the XML output without 
 ```
 
 ```json
-/* PARSED DOCUMENT OUTPUT */
-
 {
   "load_id": {
-    "source": "328298459",
-    "value": 328298459,
+    "source": "123456789",
+    "value": 123456789,
     "type": "number"
   },
   "trailer_type": {
