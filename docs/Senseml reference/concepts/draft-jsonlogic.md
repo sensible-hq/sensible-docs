@@ -9,9 +9,14 @@ metadata:
   keywords:
     - custom computation
   robots: index
-next:
-  description: ''
-related: jsonlogic, custom-computation, custom-computation-group
+
+next: # Optional "what's next" recommendations
+  description: string
+  pages:
+    - type: basic
+      slug: custom-computation.md
+      title: string
+
 ---
 test edit&#x20;
 
