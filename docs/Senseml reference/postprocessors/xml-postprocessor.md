@@ -136,6 +136,11 @@ To generate one XML element per extracted field without naming each field indivi
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
+    /*
+      In practice, you extract load_id and rate from a document.
+      This example uses constant fields to input hardcoded values
+      so you can run it in the SenseML editor without a document.
+    */
     {
       "id": "load_id",
       "type": "number",
