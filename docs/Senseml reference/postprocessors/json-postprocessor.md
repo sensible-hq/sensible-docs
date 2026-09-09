@@ -1,5 +1,5 @@
 ---
-title: JsonLogic postprocessor
+title: JSON postprocessor
 excerpt: Transform extracted data into a custom JSON output schema
 deprecated: false
 hidden: false

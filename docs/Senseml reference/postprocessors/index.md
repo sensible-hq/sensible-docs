@@ -16,5 +16,5 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 | Postprocessor | Description |
 | --- | --- |
-| **[JsonLogic](doc:jsonlogic-postprocessor)** | Transform extracted data into an arbitrary output schema using [JsonLogic](doc:jsonlogic) operations. |
+| **[JSON postprocessor](doc:json-postprocessor)** | Transform extracted data into an arbitrary output schema using [JsonLogic](doc:jsonlogic) operations. |
 | **[XML](doc:xml-postprocessor)** | Transform extracted data into an XML output. |
