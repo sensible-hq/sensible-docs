@@ -1657,18 +1657,24 @@ Accepts as input:
 The following example shows using To Lower to compare an extracted state code case-insensitively.
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "state_code",
+      "id": "state_code", /* user-friendly ID for extracted target data */
       "method": {
+        /*
+          In practice, you'd extract this field from the document
+          with a layout-based or LLM-based method.
+          This example uses `constant` to supply a fixed value for demonstration.
+        */
         "id": "constant",
         /* a document might output "CA", "ca", or "Ca" */
         "value": "Ca"
       }
     },
     {
-      "id": "is_california",
+      "id": "is_california", /* user-friendly ID for extracted target data */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -1707,18 +1713,24 @@ Converts a string to uppercase. Follows the same conventions as [To Lower](doc:j
 The following example shows using To Upper to normalize an extracted approval status to uppercase.
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "approval_status",
+      "id": "approval_status", /* user-friendly ID for extracted target data */
       "method": {
+        /*
+          In practice, you'd extract this field from the document
+          with a layout-based or LLM-based method.
+          This example uses `constant` to supply a fixed value for demonstration.
+        */
         "id": "constant",
         /* a document might say "approved", "APPROVED", or "Approved" */
         "value": "approved"
       }
     },
     {
-      "id": "normalized_status",
+      "id": "normalized_status", /* user-friendly ID for extracted target data */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
