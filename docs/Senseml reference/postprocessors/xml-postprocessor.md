@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Define your own XML output with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema.
+With a postprocessor, you transform Sensible's extracted data into a custom XML output using a [JsonLogic](doc:jsonlogic) rule. For example, use it if your backend system consumes XML and you don't want to integrate using Sensible's default output schema.
 
 In detail, Sensible's `parsed_document` API output schema represents extracted document data as typed [fields](doc:field-query-object):
 
@@ -29,7 +29,7 @@ In detail, Sensible's `parsed_document` API output schema represents extracted d
 }
 ```
 
-Using a postprocessor, you can transform the extracted data into an XML output, for example:
+Using a postprocessor rule, you transform that data into XML output, for example:
 
 ```json
 {
@@ -63,7 +63,7 @@ The following rule produces that output:
 }
 ```
 
-Find postprocessor output in the `postprocessorOutput` string value in the API response and in the **Postprocessed** tab in the SenseML editor:
+You can find postprocessor output in the `postprocessorOutput` string value in the API response and in the **Postprocessed** tab in the SenseML editor:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
 
