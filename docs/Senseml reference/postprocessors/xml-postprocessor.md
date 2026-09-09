@@ -158,6 +158,42 @@ Any field you add to the config automatically appears in the XML output without 
 
 ```json
 {
+  "fields": [
+    {
+      "id": "load_id",
+      "type": "number",
+      "method": { "id": "passthrough" },
+      "anchor": {
+        "match": [{ "text": "confirmation - #", "type": "includes" }]
+      }
+    },
+    {
+      "id": "_trailer_type_raw",
+      "method": { "id": "row", "position": "right", "tiebreaker": "first" },
+      "anchor": { "match": [{ "text": "Equipment:", "type": "startsWith" }] }
+    },
+    {
+      "id": "trailer_type",
+      "method": {
+        "id": "split",
+        "separator": " - ",
+        "source_id": "_trailer_type_raw",
+        "index": 0
+      }
+    },
+    {
+      "id": "hide_fields",
+      "method": { "id": "suppressOutput", "source_ids": ["_trailer_type_raw"] }
+    },
+    {
+      "id": "test_field_xml_escapes_&_<stuff>",
+      "method": {
+        "id": "constant",
+        "value": "blah 'blah' \"blah\" & <blah></blah>"
+      }
+    },
+    { "id": "test_field_null", "method": { "id": "constant", "value": "" } }
+  ],
   "postprocessor": {
     "type": "xml",
     "declaration": true,
@@ -171,14 +207,12 @@ Any field you add to the config automatically appears in the XML output without 
               "tag": "DOCUMENT",
               "content": [
                 {
-                  /* hardcoded element: document type name */
                   "eachKey": {
                     "tag": "FORM",
-                    "content": "CH Robinson Rate Confirmation"
+                    "content": "AU Tax Invoice Precise"
                   }
                 },
                 {
-                  /* dynamic elements: one <FIELD name="id"> per extracted field */
                   "eachKey": {
                     "tag": "FIELDS",
                     "content": {
@@ -188,9 +222,7 @@ Any field you add to the config automatically appears in the XML output without 
                           "eachKey": {
                             "tag": "FIELD",
                             "attrs": {
-                              "eachKey": {
-                                "name": { "var": "key" }
-                              }
+                              "eachKey": { "name": { "var": "key" } }
                             },
                             "content": { "var": "value.value" }
                           }
@@ -205,92 +237,7 @@ Any field you add to the config automatically appears in the XML output without 
         ]
       }
     }
-  },
-  "fields": [
-    {
-      "id": "load_id",
-      "method": {
-        "id": "label",
-        "position": "right"
-      },
-      "anchor": {
-        "match": [
-          {
-            "text": "confirmation - #",
-            "type": "includes"
-          }
-        ]
-      }
-    },
-    {
-      "id": "rate",
-      "type": "currency",
-      "method": {
-        "id": "row",
-        "position": "right",
-        "tiebreaker": "first"
-      },
-      "anchor": {
-        "start": [
-          {
-            "text": "service for load",
-            "type": "startsWith"
-          }
-        ],
-        "match": [
-          {
-            "text": "total",
-            "type": "startsWith"
-          }
-        ]
-      }
-    },
-    {
-      "id": "broker_contact_name",
-      "method": {
-        "id": "regex",
-        "pattern": "was booked with (.+), [+(]",
-        "flags": "i"
-      },
-      "anchor": {
-        "match": [
-          {
-            "pattern": "load was booked with",
-            "type": "regex",
-            "flags": "i"
-          }
-        ]
-      }
-    },
-    {
-      "id": "trailer_type",
-      "method": {
-        "id": "split",
-        "separator": " - ",
-        "source_id": "_trailer_raw",
-        "index": 0
-      }
-    },
-    {
-      "id": "weight",
-      "method": {
-        "id": "label",
-        "position": "below"
-      },
-      "anchor": {
-        "match": [
-          {
-            "text": "Commodity",
-            "type": "equals"
-          },
-          {
-            "text": "Est wgt",
-            "type": "equals"
-          }
-        ]
-      }
-    }
-  ]
+  }
 }
 ```
 
@@ -308,7 +255,7 @@ The following image shows the example document used with this example config:
 // POSTPROCESSED OUTPUT
 
 {
-  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<DOCUMENTS>\n  <DOCUMENT>\n    <FORM>CH Robinson Rate Confirmation</FORM>\n    <FIELDS>\n      <FIELD name=\"load_id\">328298459</FIELD>\n      <FIELD name=\"rate\">4500</FIELD>\n      <FIELD name=\"broker_contact_name\">Sue Maske</FIELD>\n      <FIELD name=\"trailer_type\">Van</FIELD>\n      <FIELD name=\"weight\">7,000</FIELD>\n    </FIELDS>\n  </DOCUMENT>\n</DOCUMENTS>"
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><DOCUMENTS><DOCUMENT><FORM>AU Tax Invoice Precise</FORM><FIELDS><FIELD name=\"load_id\">328298459</FIELD><FIELD name=\"trailer_type\">Van</FIELD><FIELD name=\"test_field_xml_escapes_&amp;_&lt;stuff&gt;\">blah 'blah' \"blah\" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD><FIELD name=\"test_field_null\"></FIELD></FIELDS></DOCUMENT></DOCUMENTS>"
 }
 ```
 
@@ -317,27 +264,19 @@ The following image shows the example document used with this example config:
 
 {
   "load_id": {
-    "type": "string",
-    "value": "328298459"
-  },
-  "rate": {
-    "source": "$4,500.00",
-    "type": "currency",
-    "unit": "$",
-    "value": 4500
-  },
-  "broker_contact_name": {
-    "type": "string",
-    "value": "Sue Maske"
+    "source": "328298459",
+    "value": 328298459,
+    "type": "number"
   },
   "trailer_type": {
-    "type": "string",
-    "value": "Van"
+    "value": "Van",
+    "type": "string"
   },
-  "weight": {
-    "type": "string",
-    "value": "7,000"
-  }
+  "test_field_xml_escapes_&_<stuff>": {
+    "value": "blah 'blah' \"blah\" & <blah></blah>",
+    "type": "string"
+  },
+  "test_field_null": null
 }
 ```
 
