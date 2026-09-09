@@ -156,24 +156,43 @@ Any field you add to the config automatically appears in the XML output without 
 
 **Config**
 
-```json
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "load_id",
-      "type": "number",
+      "id": "load_id", /* user-friendly ID for extracted target data */
+      "type": "number", /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": { "id": "passthrough" },
-      "anchor": {
-        "match": [{ "text": "confirmation - #", "type": "includes" }]
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": [ /* array of Match objects. Sensible matches the last element
+                      if each element matches a successive line in the document */
+          {
+            "text": "confirmation - #", /* string to match */
+            "type": "includes" /* match anywhere in line. */
+          }
+        ]
       }
     },
     {
-      "id": "_trailer_type_raw",
-      "method": { "id": "row", "position": "right", "tiebreaker": "first" },
-      "anchor": { "match": [{ "text": "Equipment:", "type": "startsWith" }] }
+      "id": "_trailer_type_raw", /* user-friendly ID for extracted target data */
+      "method": {
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "position": "right", /* default: right. target data is to left or right of anchor. enums: left | right. */
+        "tiebreaker": "first"
+      },
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": [ /* array of Match objects. Sensible matches the last element
+                      if each element matches a successive line in the document */
+          {
+            "text": "Equipment:", /* string to match */
+            "type": "startsWith" /* line must start with the match */
+          }
+        ]
+      }
     },
     {
-      "id": "trailer_type",
+      "id": "trailer_type", /* user-friendly ID for extracted target data */
       "method": {
         "id": "split",
         "separator": " - ",
@@ -182,17 +201,20 @@ Any field you add to the config automatically appears in the XML output without 
       }
     },
     {
-      "id": "hide_fields",
+      "id": "hide_fields", /* user-friendly ID for extracted target data */
       "method": { "id": "suppressOutput", "source_ids": ["_trailer_type_raw"] }
     },
     {
-      "id": "test_field_xml_escapes_&_<stuff>",
+      "id": "test_field_xml_escapes_&_<stuff>", /* user-friendly ID for extracted target data */
       "method": {
         "id": "constant",
         "value": "blah 'blah' \"blah\" & <blah></blah>"
       }
     },
-    { "id": "test_field_null", "method": { "id": "constant", "value": "" } }
+    {
+      "id": "test_field_null", /* user-friendly ID for extracted target data */
+      "method": { "id": "constant", "value": "" }
+    }
   ],
   "postprocessor": {
     "type": "xml",
