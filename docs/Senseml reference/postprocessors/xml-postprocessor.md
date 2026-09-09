@@ -37,7 +37,7 @@ Using a postprocessor, you can transform the extracted data into an XML output, 
 }
 ```
 
-The following config produces that output:
+The following JsonLogic rule produces the preceding XML output:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
@@ -51,7 +51,7 @@ The following config produces that output:
     {
       "id": "contract_date",
       "type": "date",
-      "method": { "id": "constant", "value": "2023-01-01" }
+      "method": { "id": "constant", "value": "2023-01-01T00:00:00.000Z" }
     },
     {
       "id": "customer_name",
