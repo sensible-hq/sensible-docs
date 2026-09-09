@@ -110,7 +110,7 @@ The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate 
 }
 ```
 
-This produces:
+If you extract $4,500 from an invoice for the `total` field, then the output looks like this:
 
 ```json
 {
@@ -281,8 +281,8 @@ The following image shows the example document used with this example config:
 **Output**
 
 ```json
-// POSTPROCESSED OUTPUT
-// postprocessorOutput is a JSON string; see below for formatted XML
+/* POSTPROCESSED OUTPUT */
+/* postprocessorOutput is a JSON string; see below for formatted XML */
 
 {
   "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>..."
@@ -307,7 +307,7 @@ The following image shows the example document used with this example config:
 ```
 
 ```json
-// PARSED DOCUMENT OUTPUT
+/* PARSED DOCUMENT OUTPUT */
 
 {
   "load_id": {
