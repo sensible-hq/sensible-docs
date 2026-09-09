@@ -5,14 +5,14 @@ deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Transform extracted data into a custom XML output schema using a JsonLogic rule
+  description: Transform extracted data into a custom XML output schema
   robots: index
 next:
   description: ''
 ---
-The XML postprocessor transforms extracted data into a custom XML output using a [JsonLogic](doc:jsonlogic) rule. For example, use it if your app or API consumes XML and you don't want to integrate using Sensible's default output schema.
+Define your own XML output with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema.
 
-Sensible's `parsed_document` output represents extracted data as typed [fields](doc:field-query-object):
+In detail, Sensible's `parsed_document` API output schema represents extracted document data as typed [fields](doc:field-query-object):
 
 ```json
 {
@@ -29,7 +29,7 @@ Sensible's `parsed_document` output represents extracted data as typed [fields](
 }
 ```
 
-The postprocessor transforms that extracted data into XML output, for example:
+Using a postprocessor, you can transform the extracted data into an XML output, for example:
 
 ```json
 {
@@ -63,11 +63,11 @@ The following rule produces that output:
 }
 ```
 
-Sensible returns postprocessor output in the `postprocessorOutput` string value in the API response and in the **Postprocessed** tab in the SenseML editor:
+Find postprocessor output in the `postprocessorOutput` string value in the API response and in the **Postprocessed** tab in the SenseML editor:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
 
-Sensible doesn't include postprocessor output in [Excel output](doc:excel-reference).
+Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Parameters
 
@@ -77,7 +77,7 @@ Sensible doesn't include postprocessor output in [Excel output](doc:excel-refere
 | rule (**required**) | JsonLogic object        | Define the XML output using a [JsonLogic](doc:jsonlogic) rule. See [JSON to XML mapping](#json-to-xml-mapping) for the rule syntax.                                                                                 |
 | declaration         | Boolean. Default: false | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                             |
 | selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false.                        |
-| keepParsedDocument  | Boolean. Default: true  | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. If false, Sensible also disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
+| keepParsedDocument  | Boolean. Default: true  | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
 
 # JSON to XML mapping
 
@@ -120,11 +120,11 @@ The element object has the following properties:
 | attrs               | object                                             | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).   |
 | content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |
 
-Sensible escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values. For example, `"content": "1 < 2 & 3 > 0"` renders as `1 &lt; 2 &amp; 3 &gt; 0`.
+Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values. For example, `"content": "1 < 2 & 3 > 0"` renders as `1 &lt; 2 &amp; 3 &gt; 0`.
 
 **Dynamic Field Mapping with [mapObject](doc:jsonlogic#map-object)**
 
-You can generate one XML element per extracted field without naming each field individually in the rule. Use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
+To generate one XML element per extracted field without naming each field individually in the rule, use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
 
 ```json
 {
@@ -152,7 +152,7 @@ Any field you add to the config automatically appears in the XML output without 
 
 # Examples
 
-## Map all extracted fields to XML dynamically
+## Example 1
 
 **Config**
 
@@ -242,7 +242,7 @@ Any field you add to the config automatically appears in the XML output without 
 ```
 
 **Example document**\
-The following image shows the example document used with this config:
+The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/postprocessor_xml.png)
 
