@@ -31,12 +31,10 @@ In detail, Sensible's `parsed_document` API output schema represents extracted d
 
 Using a postprocessor, you can transform the extracted data into an XML output, for example:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<invoice>
-  <contract_date type="date">2023-01-01T00:00:00.000Z</contract_date>
-  <customer_name type="string">John Smith</customer_name>
-</invoice>
+```json
+{
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date>\n  <customer_name type=\"string\">John Smith</customer_name>\n</invoice>"
+}
 ```
 
 The following rule produces that output:
@@ -65,7 +63,7 @@ The following rule produces that output:
 }
 ```
 
-Find postprocessor output in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
+Find postprocessor output in the `postprocessorOutput` string value in the API response and in the **Postprocessed** tab in the SenseML editor:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
 
@@ -108,10 +106,10 @@ The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate 
 
 This produces:
 
-```xml
-<invoice currency="USD">
-  <total>4500</total>
-</invoice>
+```json
+{
+  "postprocessorOutput": "<invoice currency=\"USD\">\n  <total>4500</total>\n</invoice>"
+}
 ```
 
 The element object has the following properties:
@@ -144,9 +142,10 @@ To generate one XML element per extracted field without naming each field indivi
 
 If `parsed_document` contains `load_id` and `rate` fields, this produces:
 
-```xml
-<load_id>328298459</load_id>
-<rate>4500</rate>
+```json
+{
+  "postprocessorOutput": "<load_id>328298459</load_id>\n<rate>4500</rate>"
+}
 ```
 
 Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. See [JsonLogic](doc:jsonlogic) for Sensible's full operator reference.
@@ -305,22 +304,12 @@ The following image shows the example document used with this example config:
 
 **Output**
 
-```xml
-<!-- POSTPROCESSED OUTPUT -->
+```json
+// POSTPROCESSED OUTPUT
 
-<?xml version="1.0" encoding="UTF-8"?>
-<DOCUMENTS>
-  <DOCUMENT>
-    <FORM>CH Robinson Rate Confirmation</FORM>
-    <FIELDS>
-      <FIELD name="load_id">328298459</FIELD>
-      <FIELD name="rate">4500</FIELD>
-      <FIELD name="broker_contact_name">Sue Maske</FIELD>
-      <FIELD name="trailer_type">Van</FIELD>
-      <FIELD name="weight">7,000</FIELD>
-    </FIELDS>
-  </DOCUMENT>
-</DOCUMENTS>
+{
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<DOCUMENTS>\n  <DOCUMENT>\n    <FORM>CH Robinson Rate Confirmation</FORM>\n    <FIELDS>\n      <FIELD name=\"load_id\">328298459</FIELD>\n      <FIELD name=\"rate\">4500</FIELD>\n      <FIELD name=\"broker_contact_name\">Sue Maske</FIELD>\n      <FIELD name=\"trailer_type\">Van</FIELD>\n      <FIELD name=\"weight\">7,000</FIELD>\n    </FIELDS>\n  </DOCUMENT>\n</DOCUMENTS>"
+}
 ```
 
 ```json
