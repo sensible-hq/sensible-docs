@@ -47,6 +47,7 @@ Sensible extends JsonLogic with custom operations. The following table lists the
 | [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
 | [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                  |
 | [Group](doc:jsonlogic#group)                 | ✅                                       | ✅                                                    | ✅                                  |
+| [Is Array](doc:jsonlogic#is-array)           | ✅                                       | ✅                                                    | ✅                                  |
 | [Join](doc:jsonlogic#join)                   | ✅                                       | ✅                                                    | ✅                                  |
 | [Let](doc:jsonlogic#let)                     | ✅                                       | ✅                                                    | ✅                                  |
 | [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                  |
@@ -367,6 +368,45 @@ The preceding code sample returns the following output:
     ]
   }
 ]
+```
+
+## Is Array
+
+Returns `true` if the input is an array (including an empty array), or `false` otherwise. Returns `false` for `null`, objects, strings, and numbers. Useful for branching on whether an extracted field is a table or sections field (which return arrays) versus a scalar field.
+
+```json
+{ "is_array": JsonLogic }
+```
+
+### Example
+
+The following example shows using Is Array in a postprocessor to branch on whether an extracted field is a table.
+
+```json
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "if": [
+        /* table and sections fields return arrays;
+           scalar fields return objects with a value property */
+        { "is_array": { "var": "line_items" } },
+        /* line_items is a table: return how many rows were extracted */
+        { "length": { "var": "line_items" } },
+        /* line_items is a scalar: return null */
+        null
+      ]
+    }
+  }
+}
+```
+
+If `line_items` is a table with 3 rows, this returns:
+
+```json
+3
 ```
 
 ## Join
