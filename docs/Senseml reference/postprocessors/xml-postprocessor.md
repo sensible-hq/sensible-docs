@@ -80,9 +80,9 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | :------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | type (**required**) | `xml`                   | Transform extracted data into an XML output.                                                                                                                                                                        |
 | rule (**required**) | JsonLogic object        | Define the XML output using a [JsonLogic](doc:jsonlogic) rule. See [JSON to XML mapping](#json-to-xml-mapping) for the rule syntax.                                                                                 |
-| declaration         | Boolean. Default: false | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                             |
-| selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false.                        |
-| keepParsedDocument  | Boolean. Default: true  | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review). |
+| declaration         | boolean. default: `false` | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                             |
+| selfCloseEmptyTags  | boolean. default: `true`  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false.                        |
+| keepParsedDocument  | boolean. default: `true`  | If false, Sensible suppresses the `parsed_document` object in the output and disables [Excel](doc:excel-reference) output and [human review](doc:human-review). Set to false to reduce the size of large output when you only need the postprocessor output. |
 
 # JSON to XML mapping
 
@@ -128,9 +128,9 @@ The element object has the following properties:
 
 Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values. For example, `"content": "1 < 2 & 3 > 0"` renders as `1 &lt; 2 &amp; 3 &gt; 0`.
 
-**Dynamic Field Mapping with [mapObject](doc:jsonlogic#map-object)**
+**Dynamic Field Mapping with [Map Object](doc:jsonlogic#map-object)**
 
-To generate one XML element per extracted field without naming each field individually in the rule, use the [mapObject](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
+To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
