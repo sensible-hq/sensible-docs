@@ -120,9 +120,9 @@ The element object has the following properties:
 | :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | tag (**required**)  | string                                             | The XML element name.                                                                                                                                                                             |
 | attrs               | object                                             | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).   |
-| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content — for example, `"content": "John Smith"` renders as `John Smith`. An element object becomes a nested child element. An array produces a sequence of child elements. |
+| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |
 
-Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values.
+Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values. For example, `"content": "1 < 2 & 3 > 0"` renders as `1 &lt; 2 &amp; 3 &gt; 0`.
 
 **Dynamic Field Mapping with [mapObject](doc:jsonlogic#map-object)**
 
