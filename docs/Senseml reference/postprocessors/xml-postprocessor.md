@@ -235,7 +235,7 @@ This produces:
 }
 ```
 
-Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config includes sections fields, Zip fields, or fields using `match: "all"` alongside scalar fields, use [Is Array](doc:jsonlogic#is-array) inside the `mapObject` loop to branch on field type: those fields return arrays in `parsed_document`, while scalar fields return objects with a `value` property, so `{"var":"value.value"}` fails for them without this check. See [JsonLogic](doc:jsonlogic) for Sensible's full operator reference.
+Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes scalar fields with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle them separately inside the Map Object operation. Unlike scalar fields, fields that return arrays have no `value` property, so `{"var":"value.value"}` returns null for them.
 
 # Examples
 
