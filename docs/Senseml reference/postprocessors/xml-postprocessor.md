@@ -355,7 +355,7 @@ Any field you add to the config automatically appears in the XML output without 
 
 **Example document**<br />The following image shows the example document used with this example config:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/postprocessor_xml_rate_confirmation.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/screenshots/postprocessor_xml_rate_confirmation.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/postprocessor_xml_rate_confirmation.pdf) |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
