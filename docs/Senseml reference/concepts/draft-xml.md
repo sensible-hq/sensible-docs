@@ -319,7 +319,7 @@ Any field you add to the config automatically appears in the XML output without 
                 {
                   "eachKey": {
                     "tag": "FORM", /* XML element name */
-                    "content": "AU Tax Invoice Precise" /* hardcoded text content */
+                    "content": "Rate Confirmation" /* hardcoded text content */
                   }
                 },
                 {
@@ -378,7 +378,7 @@ Any field you add to the config automatically appears in the XML output without 
 <?xml version="1.0" encoding="UTF-8"?>
 <DOCUMENTS>
   <DOCUMENT>
-    <FORM>AU Tax Invoice Precise</FORM>
+    <FORM>Rate Confirmation</FORM>
     <FIELDS>
       <FIELD name="load_id" type="number">123456789</FIELD>
       <FIELD name="trailer_type" type="string">Van</FIELD>
