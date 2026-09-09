@@ -31,7 +31,7 @@ In detail, Sensible's `parsed_document` API output schema represents extracted d
 
 Using a postprocessor, you can transform the extracted data into an XML output, for example:
 
-```text
+```json
 {
   "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<invoice>\n  <contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date>\n  <customer_name type=\"string\">John Smith</customer_name>\n</invoice>"
 }
@@ -106,7 +106,7 @@ The `rule` parameter takes a [JsonLogic](doc:jsonlogic) rule that must evaluate 
 
 This produces:
 
-```text
+```json
 {
   "postprocessorOutput": "<invoice currency=\"USD\">\n  <total>4500</total>\n</invoice>"
 }
@@ -142,7 +142,7 @@ To generate one XML element per extracted field without naming each field indivi
 
 If `parsed_document` contains `load_id` and `rate` fields, this produces:
 
-```text
+```json
 {
   "postprocessorOutput": "<load_id>328298459</load_id>\n<rate>4500</rate>"
 }
@@ -251,7 +251,7 @@ The following image shows the example document used with this example config:
 
 **Output**
 
-```text
+```json
 // POSTPROCESSED OUTPUT
 // postprocessorOutput is a JSON string; see below for formatted XML
 
