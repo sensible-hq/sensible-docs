@@ -372,13 +372,13 @@ The preceding code sample returns the following output:
 
 ## Is Array
 
-Returns `true` if the input is an array (including an empty array), or `false` otherwise. Returns `false` for `null`, objects, strings, and numbers.
+Returns `true` for arrays, including empty arrays. Returns `false` for `null`, objects, strings, and numbers.
 
 ```json
 { "is_array": JsonLogic }
 ```
 
-Is Array is especially useful in a dynamic [XML postprocessor](doc:draft-xml) rule that uses [Map Object](doc:jsonlogic#map-object) to iterate over all extracted fields with `{"var":""}`: a rule that reads `{"var":"value.value"}` to extract scalar values breaks for fields that return arrays, because those fields don't have a `value` property. Is Array lets you branch inside the loop and render array-returning fields differently (for example, as `TABLE` elements with row children) without hardcoding which fields return arrays.
+Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your config contains both scalar fields and fields that return arrays. When you iterate over all extracted fields using `{"var":""}`, `{"var":"value.value"}` returns null for fields that return arrays, because those fields have no `value` property. Use Is Array to detect those fields and render them differently in the rule, for example as `TABLE` elements in an [XML postprocessor](doc:draft-xml).
 
 ### Example
 
