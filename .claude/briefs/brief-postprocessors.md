@@ -7,7 +7,7 @@ last-updated: 2026-09-08
 
 ## Who is reading this page
 
-**Role:** Developers integrating Sensible extraction into an application; occasionally customer success engineers helping a customer map Sensible output to a downstream system.
+**Role:** Customer success engineers and CS agents (primary); developers integrating Sensible extraction into an application (secondary).
 
 **How they arrive:** Via the left-nav (exploring what postprocessors are), or from a cross-reference in JsonLogic or Custom Computation docs.
 
