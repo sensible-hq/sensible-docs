@@ -1,13 +1,11 @@
 ---
 title: JsonLogic postprocessor
-excerpt: Learn how to use JsonLogic-based postprocessors in Sensible to transform
-  extracted document data into a custom output schema for your app or API.
+excerpt: Transform extracted data into a custom JSON output schema
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use JsonLogic-based postprocessors in Sensible to transform
-    extracted document data into a custom output schema for your app or API.
+  description: Transform extracted data into a custom JSON output schema
   robots: index
 next:
   description: ''
@@ -46,7 +44,7 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 
 The postprocessor offers similar data manipulation to the [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of outputting fields.
 
-Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
+Find postprocessor output in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
 
