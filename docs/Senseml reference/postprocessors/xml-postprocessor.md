@@ -250,8 +250,11 @@ Any field you add to the config automatically appears in the XML output without 
                         {
                           "eachKey": { /* builds an element object for each field */
                             "tag": "FIELD", /* XML element name */
-                            "attrs": { /* key-value pairs that become XML attributes, e.g. name="load_id" */
-                              "eachKey": { "name": { "var": "key" } } /* current field's ID becomes the attribute value */
+                            "attrs": { /* key-value pairs that become XML attributes, e.g. name="load_id" type="number" */
+                              "eachKey": {
+                                "name": { "var": "key" }, /* current field's ID becomes the attribute value */
+                                "type": { "var": "value.type" } /* current field's data type becomes the attribute value */
+                              }
                             },
                             "content": { "var": "value.value" } /* current field's extracted value becomes text content */
                           }
@@ -297,10 +300,10 @@ The following image shows the example document used with this example config:
   <DOCUMENT>
     <FORM>AU Tax Invoice Precise</FORM>
     <FIELDS>
-      <FIELD name="load_id">328298459</FIELD>
-      <FIELD name="trailer_type">Van</FIELD>
-      <FIELD name="test_field_xml_escapes_&amp;_&lt;stuff&gt;">blah 'blah' "blah" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD>
-      <FIELD name="test_field_null"></FIELD>
+      <FIELD name="load_id" type="number">328298459</FIELD>
+      <FIELD name="trailer_type" type="string">Van</FIELD>
+      <FIELD name="test_field_xml_escapes_&amp;_&lt;stuff&gt;" type="string">blah 'blah' "blah" &amp; &lt;blah&gt;&lt;/blah&gt;</FIELD>
+      <FIELD name="test_field_null" type=""></FIELD>
     </FIELDS>
   </DOCUMENT>
 </DOCUMENTS>
