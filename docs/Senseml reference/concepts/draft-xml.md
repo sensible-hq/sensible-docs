@@ -1,6 +1,5 @@
 ---
 title: XML postprocessor
-slug: draft-xml
 excerpt: Transform extracted data into a custom XML output schema
 deprecated: false
 hidden: true
@@ -10,6 +9,7 @@ metadata:
   robots: index
 next:
   description: ''
+slug: draft-xml
 ---
 Define your own XML output with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema.
 
@@ -113,17 +113,17 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Parameters
 
-| key                 | value                   | description                                                                                                                                                                                                         |
-| :------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| type (**required**) | `xml`                   | Transform extracted data into an XML output.                                                                                                                                                                        |
-| rule (**required**) | JsonLogic object        | Define the XML output using a [JsonLogic](doc:jsonlogic) rule. See [Defining XML output](#defining-xml-output) for the rule syntax.                                                                                 |
-| declaration         | boolean. default: `false` | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                             |
-| selfCloseEmptyTags  | boolean. default: `true`  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false.                        |
-| keepParsedDocument  | boolean. default: `true`  | If false, Sensible suppresses the `parsed_document` object in the output and disables [Excel](doc:excel-reference) output and [human review](doc:human-review). Set to false to reduce the size of large output when you only need the postprocessor output. |
+| key                 | value                     | description                                                                                                                                                                                                                                                                                                          |
+| :------------------ | :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**) | `xml`                     | Transform extracted data into an XML output.                                                                                                                                                                                                                                                                         |
+| rule (**required**) | JsonLogic object          | Define the XML output using a [JsonLogic](doc:jsonlogic) rule. See [Defining XML output](#defining-xml-output) for the rule syntax. The rule must evaluate to a root element object.                                                                                                                                 |
+| declaration         | boolean. default: `false` | If true, Sensible prepends an XML declaration (`<?xml version="1.0" encoding="UTF-8"?>`) to the output.                                                                                                                                                                                                              |
+| selfCloseEmptyTags  | boolean. default: `true`  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false. |
+| keepParsedDocument  | boolean. default: `true`  | If false, Sensible suppresses the `parsed_document` object in the output and disables [Excel](doc:excel-reference) output and [human review](doc:human-review). Set to false to reduce the size of large output when you only need the postprocessor output.                                                         |
 
 # Defining XML output
 
-In the `rule` parameter, define your XML output using [JsonLogic](doc:jsonlogic). The rule must evaluate to an element object. A minimal rule looks like this:
+In the `rule` parameter, define your XML output using [JsonLogic](doc:jsonlogic). A minimal rule looks like this:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
@@ -144,7 +144,7 @@ In the `rule` parameter, define your XML output using [JsonLogic](doc:jsonlogic)
     "type": "xml",
     "rule": {
       "eachKey": { /* builds an element object; its properties define the XML output */
-        "tag": "invoice", /* XML element name */
+        "tag": "invoice", /* XML root element name */
         "attrs": { /* key-value pairs that become XML attributes */
           "eachKey": {
             "currency": "USD" /* hardcoded attribute value */
@@ -172,13 +172,13 @@ This produces:
 }
 ```
 
-The element object has the following properties:
+Each element object you define in the rule has the following properties:
 
-| property            | value                                              | description                                                                                                                                                                                       |
-| :------------------ | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| tag (**required**)  | string                                             | The XML element name.                                                                                                                                                                             |
-| attrs               | object                                             | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).   |
-| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |
+| property           | value                                      | description                                                                                                                                                                                      |
+| :----------------- | :----------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| tag (**required**) | string                                     | The XML element name.                                                                                                                                                                            |
+| attrs              | object                                     | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).  |
+| content            | scalar, element object, or array of either | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |
 
 Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`) in text content and attribute values. For example, `"content": "1 < 2 & 3 > 0"` renders as `1 &lt; 2 &amp; 3 &gt; 0`.
 
@@ -354,13 +354,12 @@ Any field you add to the config automatically appears in the XML output without 
 }
 ```
 
-**Example document**\
-The following image shows the example document used with this example config:
+**Example document**<br />The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/postprocessor_xml_rate_confirmation.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/postprocessor_xml_rate_confirmation.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
