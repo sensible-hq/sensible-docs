@@ -7,6 +7,28 @@ Maintains a cursor, fetches new release notes from #engineering, annotates each 
 
 ---
 
+## Step 0 — Check for published changelogs not in the cursor
+
+Before showing the cursor, reconcile the cursor's `changelog_history` against what's actually published on readme.io. This catches the common case where a changelog was published but the cursor wasn't updated.
+
+1. Read the cursor. Note the most recent entry in `changelog_history` and its `release_notes_through` date.
+2. Run:
+   ```bash
+   python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py --list
+   ```
+   This returns all existing changelog slugs from readme.io, one per line.
+3. Filter for slugs matching `<month>-<year>` that fall **after** the most recent `changelog_history` entry. Ignore `prs-*` slugs, scratchpad slugs, and any with a `-2`/`-3` suffix.
+4. For any such slug that is **not** in `changelog_history`, flag it before printing the cursor:
+   ```
+   ⚠ Found published changelog not recorded in cursor: august-2026
+     https://docs.sensible.so/changelog/august-2026
+   ```
+   Ask: "Do you want me to add this to the cursor history before continuing? I'll need the release note date range it covered."
+5. If the user confirms and provides the range, update `changelog_history` and `last_changelog_through` before proceeding to Step 1.
+6. If all `<month>-<year>` slugs are already in `changelog_history`, continue to Step 1 without comment.
+
+---
+
 ## Step 1 — Read and show the cursor
 
 Read `release-notes-cursor.yaml`. If the file is missing, stop and tell the user.
@@ -17,7 +39,7 @@ Cursor state:
   Last fetch:              <last_fetched>
   Last message:            <latest_message_date_cursor> (ts: <last_message_ts>)
   Last changelog through:  <last_changelog_through>
-  History:                 <N> changelogs archived
+  History:                 <N> changelogs tracked (most recent: <last changelog slug>)
 ```
 
 Ask: "Does this look right, or do you want to adjust the start point before I fetch?"
@@ -41,7 +63,7 @@ Print each result with its date and bullet items so the user can see what came i
 
 ## Step 3 — Annotate each PR with a disposition
 
-Read `references/categorization-rules.md` before annotating. Then for each bullet item, add an inline comment:
+The categorization rules live in `references/categorization-rules.md` (also used by the `categorize-pr` skill). Read that file before annotating. Then for each bullet item, add an inline comment:
 
 ```
 - <item text> (#NNNN) <!-- document / investigate / skip: <brief reason> -->
@@ -60,9 +82,16 @@ Format the body with a dispositions summary at the top, followed by the annotate
 ```
 ## Disposition summary (fetched <YYYY-MM-DD>)
 
-**document** (N): #XXXX (brief label), #XXXX (brief label)
-**investigate** (N): #XXXX (brief label), #XXXX (brief label)
-**skip** (N): #XXXX, #XXXX, ...
+**document** (N):
+- #XXXX (brief label)
+- #XXXX (brief label)
+
+**investigate** (N):
+- #XXXX (brief label)
+- #XXXX (brief label)
+
+**skip** (N):
+- #XXXX, #XXXX, ... (brief summary of categories)
 
 ---
 

@@ -7,10 +7,10 @@
 # changelog_history: append-only archive — one entry per published changelog,
 #   recording which release note date range it covered.
 
-last_fetched: "2026-08-12"
-last_message_ts: "1786462900.667889"   # August 11, 2026
-latest_message_date_cursor: "2026-08-11"
-last_changelog_through: "2026-07-01"   # date of last published changelog
+last_fetched: "2026-09-08"
+last_message_ts: "1788880505.821279"   # September 8, 2026
+latest_message_date_cursor: "2026-09-08"
+last_changelog_through: "2026-08-11"   # date of last published changelog
 
 changelog_history:
   # Append a new entry each time a changelog is published.
@@ -28,3 +28,8 @@ changelog_history:
     release_notes_through: "2026-07-01"
     published: "2026-07-08"
     url: "https://docs.sensible.so/changelog/july-2026"
+  - changelog: "august-2026"
+    release_notes_from: "2026-07-08"
+    release_notes_through: "2026-08-11"
+    published: "2026-08-17"
+    url: "https://docs.sensible.so/changelog/august-2026"
