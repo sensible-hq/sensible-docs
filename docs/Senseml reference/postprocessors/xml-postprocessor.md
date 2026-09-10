@@ -122,56 +122,7 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Defining XML output
 
-In the `rule` parameter, define your XML output using [JsonLogic](doc:jsonlogic). A minimal rule looks like this:
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [
-    /*
-      In practice, you extract total from a document.
-      This example uses a constant field to input a hardcoded value
-      so you can run it in the SenseML editor without a document.
-    */
-    {
-      "id": "total",
-      "type": "currency",
-      "method": { "id": "constant", "value": "4500" }
-    }
-  ],
-  "postprocessor": {
-    "type": "xml",
-    "rule": {
-      "eachKey": { /* builds an element object; its properties define the XML output */
-        "tag": "invoice", /* XML root element name */
-        "attrs": { /* key-value pairs that become XML attributes */
-          "eachKey": {
-            "currency": "USD" /* hardcoded attribute value */
-          }
-        },
-        "content": [ /* array — produces a sequence of child elements */
-          {
-            "eachKey": {
-              "tag": "total", /* XML element name */
-              "content": { "var": "total.value" } /* extracted value becomes text content */
-            }
-          }
-        ]
-      }
-    }
-  }
-}
-```
-
-This produces:
-
-```json
-{
-  "postprocessorOutput": "<invoice currency=\"USD\"><total>4500</total></invoice>"
-}
-```
-
-Each element object you define in the rule has the following properties:
+In the Rule parameter, define your XML output using [JsonLogic](doc:jsonlogic). Each XML element you define in the rule has the following properties:
 
 | property           | value                                                                             | description                                                                                                                                                                                      |
 | :----------------- | :-------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -183,7 +134,7 @@ If you specify a string value for the Attrs or Content parameter, Sensible autom
 
 ### Dynamic field mapping
 
-To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. Because the rule must output a well-formed XML document, nest [Map Object](doc:jsonlogic#map-object) inside the `content` property of a root element:
+To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. The following example shows using the Map Object inside the Content property of a root XML element (`document`) in order to produce well-formed XML from an array of JSON fields:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
@@ -235,7 +186,7 @@ This produces:
 }
 ```
 
-Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes scalar fields with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle them separately inside the Map Object operation. Unlike scalar fields, fields that return arrays have no `value` property, so `{"var":"value.value"}` returns null for them.
+Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes scalar fields with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle them separately inside the Map Object operation. This is strategy is necessary because, unlike scalar fields, fields that return arrays have no `value` property, so `{"var":"value.value"}` returns null for them.
 
 # Examples
 
