@@ -134,7 +134,7 @@ If you specify a string value for the Attrs or Content parameter, Sensible autom
 
 ### Dynamic field mapping
 
-To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. The following example shows using the Map Object inside the Content property of a root XML element (`document`) in order to produce well-formed XML from an array of JSON fields:
+To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. The following example shows using the Map Object inside the Content property of a root XML element (`document`) in order to produce well-formed XML from a JSON object:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
