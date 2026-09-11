@@ -340,6 +340,8 @@ Any field you add to the config automatically appears in the XML output without 
 </DOCUMENTS>
 ```
 
+The preceding XML is a transformation of the following `parsed_document` JSON output:
+
 ```json
 {
   "load_id": {
