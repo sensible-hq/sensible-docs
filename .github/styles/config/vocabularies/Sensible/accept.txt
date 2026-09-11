@@ -36,6 +36,9 @@ OCRing
 [Pp]reprocessor[s]?
 [Dd]eskews?
 JsonLogic
+prepends
+[Aa]ttrs
+eachKey
 
 # Sensible brand
 Sensible's
