@@ -1,53 +1,52 @@
 ---
-title: Postprocessor
-excerpt: Learn how to use JsonLogic-based postprocessors in Sensible to transform
-  extracted document data into a custom output schema for your app or API.
+title: JSON postprocessor
+excerpt: Transform extracted data into a custom JSON output schema
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use JsonLogic-based postprocessors in Sensible to transform
-    extracted document data into a custom output schema for your app or API.
+  description: Transform extracted data into a custom JSON output schema
   robots: index
 next:
   description: ''
 ---
-Define your own custom output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor.  For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
+Define your own custom output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using a pre-existing schema, and you don't want to integrate using Sensible's output schema.
 
 In detail, Sensible's `parsed_document` API output schema represents extracted document data as typed [fields](doc:field-query-object):
 
 ```json
 {
-"parsed_document": {
-        "contract_date": {
-            "value": "2023-01-01T00:00:00.000Z",
-            "type": "date"
-        },
-         "customer_name": {
-                "type": "string",
-                "value": "John Smith"
-            }
+  "parsed_document": {
+    "contract_date": {
+      "value": "2023-01-01T00:00:00.000Z",
+      "type": "date"
+    },
+    "customer_name": {
+      "type": "string",
+      "value": "John Smith"
+    }
+  }
 }
 ```
 
-Using a postprocessor, you can transform the extracted data into a custom schema,  for example:
+Using a postprocessor, you can transform the extracted data into a custom schema, for example:
 
 ```json
 {
-    "postprocessorOutput": {
-        "custom_object": {
-            "contract_date": "2023-01-01T00:00:00.000Z",
-            "customer_name": "John Smith"
-        }
+  "postprocessorOutput": {
+    "custom_object": {
+      "contract_date": "2023-01-01T00:00:00.000Z",
+      "customer_name": "John Smith"
     }
+  }
 }
 ```
 
-The postprocessor offers similar data manipulation to the  [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of outputting fields. 
+The postprocessor offers similar data manipulation to the [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of outputting fields.
 
-Postprocessor output is available in the `postprocessorOutput` object in the API response and in the **postprocessed** tab in the SenseML editor: 
+Find postprocessor output in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
 
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png) 
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_postprocessed_tab.png)
 
 Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
@@ -56,8 +55,8 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 | key                 | value                  | description                                                                                                                                                                                                                                                                                                                                                       |
 | :------------------ | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | type (**required**) | `jsonLogic`            | Transform extracted data using [JsonLogic](doc:jsonlogic).                                                                                                                                                                                                                                                                                                        |
-| keepParsedDocument  | Boolean. default: true | If false, Sensible suppresses the `parsed_document` object's output. Set to false if you want to reduce the size of a large output and you're interested solely in the output of the postprocessor. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review).                                                           |
-| rule (**required**) | JsonLogic object       | Define the custom schema using  JsonLogic [operations](doc:jsonlogic).  To create custom objects in the schema, you can use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator. |
+| keepParsedDocument  | Boolean. Default: true | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review).                                                                                        |
+| rule (**required**) | JsonLogic object       | Define the custom schema using JsonLogic [operations](doc:jsonlogic). To create custom objects in the schema, use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator.            |
 
 # Examples
 
@@ -226,5 +225,4 @@ The following image shows the example document used with this example config:
     }
   ]
 }
-
 ```

@@ -26,7 +26,7 @@ See the following topics for reference documentation for the SenseML query langu
 * [Sections](doc:sections)
 * [Conditional](doc:conditional) execution of SenseML
 * [Large spreadsheet ](doc:cell-rows) extraction
-* [Postprocessor](doc:postprocessor)
+* [Postprocessors](doc:postprocessors)
 
 You can use all of the preceding SenseML features to write a *config* to handle a collection of similar documents. A config specifies how to extract data and how to populate a target output schema. Publish the config so that you can automate extracting document data using one of Sensible [integration](doc:integrate) options.
 

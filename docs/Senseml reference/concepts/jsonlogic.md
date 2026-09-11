@@ -41,7 +41,7 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 
 Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
-| Operation                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessor](doc:postprocessor) |
+| Operation                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessors](doc:postprocessors) |
 | -------------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
 | [Date Shift](doc:jsonlogic#date-shift)       | ✅                                       | ✅                                                    | ✅                                  |
 | [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
@@ -888,7 +888,7 @@ the rule outputs:
 
 #### Example 2
 
-The following example shows removing extracted IDs from the [postprocessed](doc:postprocessor) output for a W-2 form.
+The following example shows removing extracted IDs from the [postprocessed](doc:postprocessors) output for a W-2 form.
 
 **Config**
 
