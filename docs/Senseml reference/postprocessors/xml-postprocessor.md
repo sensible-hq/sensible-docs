@@ -12,15 +12,7 @@ next:
 ---
 Define a custom XML output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema.
 
-Using a postprocessor, you can transform the extracted data into an XML output, for example:
-
-```json
-{
-  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><invoice><contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date><customer_name type=\"string\">John Smith</customer_name></invoice>"
-}
-```
-
-The preceding XML is a transformation of the following `parsed_document` JSON output:
+In detail, Sensible's `parsed_document` API output schema represents extracted document data as typed [fields](doc:field-query-object):
 
 ```json
 {
@@ -34,6 +26,14 @@ The preceding XML is a transformation of the following `parsed_document` JSON ou
       "value": "John Smith"
     }
   }
+}
+```
+
+Using a postprocessor, you can transform the extracted data into an XML output, for example:
+
+```json
+{
+  "postprocessorOutput": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><invoice><contract_date type=\"date\">2023-01-01T00:00:00.000Z</contract_date><customer_name type=\"string\">John Smith</customer_name></invoice>"
 }
 ```
 
@@ -338,6 +338,8 @@ Any field you add to the config automatically appears in the XML output without 
   </DOCUMENT>
 </DOCUMENTS>
 ```
+
+The preceding XML is a transformation of the following `parsed_document` JSON output:
 
 ```json
 {
