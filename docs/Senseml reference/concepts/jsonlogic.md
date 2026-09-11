@@ -382,68 +382,16 @@ Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your
 
 ### Example
 
-The following example shows using Is Array to detect whether a value is an array.
+`is_array` returns `true` for an array:
 
 ```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [
-    {
-      "id": "customer_name", /* user-friendly ID for extracted target data */
-      "method": {
-        /*
-          In practice, you'd extract this field from the document
-          with a layout-based or LLM-based method.
-          This example uses `constant` to supply a fixed value for demonstration.
-        */
-        "id": "constant",
-        "value": "Jane Smith"
-      }
-    },
-    {
-      "id": "is_name_array", /* user-friendly ID for extracted target data */
-      "method": {
-        "id": "customComputation",
-        "jsonLogic": {
-          "is_array": { "var": "customer_name.value" } /* check if extracted value is an array */
-        }
-      }
-    },
-    {
-      "id": "is_list_array", /* user-friendly ID for extracted target data */
-      "method": {
-        "id": "customComputation",
-        "jsonLogic": {
-          /*
-            In practice, you'd use {"var": "field_id"} to check a sections field
-            from parsed_document. This example uses `preserve` to supply a fixed
-            array value for demonstration.
-          */
-          "is_array": { "preserve": ["a", "b", "c"] }
-        }
-      }
-    }
-  ]
-}
+{ "is_array": { "preserve": ["a", "b", "c"] } }
 ```
 
-This returns:
+`is_array` returns `false` for a string:
 
 ```json
-{
-  "customer_name": {
-    "value": "Jane Smith",
-    "type": "string"
-  },
-  "is_name_array": {
-    "value": false,
-    "type": "boolean"
-  },
-  "is_list_array": {
-    "value": true,
-    "type": "boolean"
-  }
-}
+{ "is_array": "Jane Smith" }
 ```
 
 ## Join
