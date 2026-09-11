@@ -382,35 +382,59 @@ Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your
 
 ### Example
 
-`is_array` returns `true` for an array:
+The following example uses Is Array to render scalar fields as `FIELD` elements and array fields as `TABLE` elements in an XML postprocessor.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [],
   "postprocessor": {
-    "type": "jsonLogic",
-    "rule": { "is_array": { "preserve": ["a", "b", "c"] } }
+    "type": "xml",
+    "rule": {
+      "eachKey": {
+        "tag": "document", /* root XML element */
+        "content": {
+          "mapObject": [ /* iterate over injected test data */
+            {
+              "preserve": { /* inject fields: one scalar, one array */
+                "customer_name": { "value": "Jane Smith", "type": "string" },
+                "line_items": ["item_1", "item_2"]
+              }
+            },
+            {
+              "if": [
+                { "is_array": { "var": "value" } }, /* true for line_items, false for customer_name */
+                /* array branch */
+                {
+                  "eachKey": {
+                    "tag": "TABLE",
+                    "attrs": { "eachKey": { "name": { "var": "key" } } },
+                    "content": null
+                  }
+                },
+                /* scalar branch */
+                {
+                  "eachKey": {
+                    "tag": "FIELD",
+                    "attrs": { "eachKey": { "name": { "var": "key" } } },
+                    "content": { "var": "value.value" }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
   }
 }
 ```
 
-Returns `true`.
+This returns:
 
-`is_array` returns `false` for a string:
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [],
-  "postprocessor": {
-    "type": "jsonLogic",
-    "rule": { "is_array": "Jane Smith" }
-  }
-}
+```xml
+<document><FIELD name="customer_name">Jane Smith</FIELD><TABLE name="line_items"/></document>
 ```
-
-Returns `false`.
 
 ## Join
 
