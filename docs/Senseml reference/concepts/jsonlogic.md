@@ -385,14 +385,32 @@ Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your
 `is_array` returns `true` for an array:
 
 ```json
-{ "is_array": { "preserve": ["a", "b", "c"] } }
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": { "is_array": { "preserve": ["a", "b", "c"] } }
+  }
+}
 ```
+
+Returns `true`.
 
 `is_array` returns `false` for a string:
 
 ```json
-{ "is_array": "Jane Smith" }
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": { "is_array": "Jane Smith" }
+  }
+}
 ```
+
+Returns `false`.
 
 ## Join
 
