@@ -25,7 +25,7 @@ Session ID: 39002c4a-a0d9-4424-a091-89a35b61577a
   - [x] Map Object example (load_id and rate fields)
 - [x] Rerun style guides on updated pages
 - [x] Verify rendered XML string output examples actually display with surrounding `"` in ReadMe
-- [ ] Run Vale style checks on updated pages
+- [x] Run Vale style checks on updated pages
 - [x] Finish rebase and force-push to PR #715
 - [x] Rename "JsonLogic postprocessor" → "JSON postprocessor" (file, title, slug, all cross-refs)
 - [ ] Verify: does `keepParsedDocument: false` actually disable Excel output and human review for the XML postprocessor?
