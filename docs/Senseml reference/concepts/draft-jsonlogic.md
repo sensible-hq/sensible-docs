@@ -58,7 +58,12 @@ The following example uses Is Array to render scalar fields as `FIELD` elements 
                   "eachKey": {
                     "tag": "TABLE",
                     "attrs": { "eachKey": { "name": { "var": "key" } } },
-                    "content": null
+                    "content": {
+                      "map": [ /* render each array element as a ROW child */
+                        { "var": "value" },
+                        { "eachKey": { "tag": "ROW", "content": { "var": "" } } }
+                      ]
+                    }
                   }
                 },
                 /* scalar branch */
@@ -82,7 +87,7 @@ The following example uses Is Array to render scalar fields as `FIELD` elements 
 This returns:
 
 ```xml
-<document><FIELD name="customer_name">Jane Smith</FIELD><TABLE name="line_items"/></document>
+<document><FIELD name="customer_name">Jane Smith</FIELD><TABLE name="line_items"><ROW>item_1</ROW><ROW>item_2</ROW></TABLE></document>
 ```
 
 ## To Lower
