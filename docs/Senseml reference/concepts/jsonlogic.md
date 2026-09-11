@@ -1723,11 +1723,11 @@ For an extraction run on July 7, 2026, this returns:
 
 ## To Lower
 
-Converts a string to lowercase. Returns null if the input is null or missing. Throws a configuration error if the input is not a string.
+Converts a string to lowercase. Takes as input:
+- a string value: `{ "toLower": { "var": "field.value" } }`
+- a string value wrapped in a single-element array: `{ "toLower": [{ "var": "field.value" }] }`
 
-Accepts as input:
-- a bare value: `{ "toLower": { "var": "field.value" } }`
-- a single-element array: `{ "toLower": [{ "var": "field.value" }] }`
+Returns null if the input is null or missing. Throws a configuration error if the input is not a string.
 
 ### Example
 
@@ -1766,7 +1766,7 @@ The following example shows using To Lower to compare an extracted state code ca
 }
 ```
 
-This returns:
+The preceding code sample returns the following output:
 
 ```json
 {
@@ -1783,7 +1783,7 @@ This returns:
 
 ## To Upper
 
-Converts a string to uppercase. Follows the same conventions as [To Lower](doc:jsonlogic#to-lower): returns null for null or missing input, and throws a configuration error for non-string input.
+Converts a string to uppercase. Follows the same conventions as [To Lower](doc:jsonlogic#to-lower) for input and output.
 
 ### Example
 
