@@ -382,56 +382,66 @@ Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your
 
 ### Example
 
-The following example shows using Is Array inside a dynamic [XML postprocessor](doc:draft-xml) rule to render array-returning fields and scalar fields as different XML elements.
+The following example shows using Is Array to detect whether a value is an array.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "fields": [],
-  "postprocessor": {
-    "type": "xml",
-    "rule": {
-      "eachKey": {
-        "tag": "document", /* root XML element wrapping all fields */
-        "content": {
-          "mapObject": [ /* iterates over every extracted field in parsed_document */
-            { "var": "" }, /* the entire parsed_document */
-            {
-              "if": [
-                /* sections fields are arrays; scalar fields are objects */
-                { "is_array": { "var": "value" } },
-                /* sections branch: render as TABLE element with ROW children */
-                {
-                  "eachKey": {
-                    "tag": "TABLE",
-                    "attrs": { "eachKey": { "name": { "var": "key" } } },
-                    "content": {
-                      "map": [
-                        { "var": "value" },
-                        { "eachKey": { "tag": "ROW", "content": { "var": "" } } }
-                      ]
-                    }
-                  }
-                },
-                /* scalar branch: render as FIELD element with type attribute */
-                {
-                  "eachKey": {
-                    "tag": "FIELD",
-                    "attrs": {
-                      "eachKey": {
-                        "name": { "var": "key" },
-                        "type": { "var": "value.type" }
-                      }
-                    },
-                    "content": { "var": "value.value" }
-                  }
-                }
-              ]
-            }
-          ]
+  "fields": [
+    {
+      "id": "customer_name", /* user-friendly ID for extracted target data */
+      "method": {
+        /*
+          In practice, you'd extract this field from the document
+          with a layout-based or LLM-based method.
+          This example uses `constant` to supply a fixed value for demonstration.
+        */
+        "id": "constant",
+        "value": "Jane Smith"
+      }
+    },
+    {
+      "id": "is_name_array", /* user-friendly ID for extracted target data */
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "is_array": { "var": "customer_name.value" } /* check if extracted value is an array */
+        }
+      }
+    },
+    {
+      "id": "is_list_array", /* user-friendly ID for extracted target data */
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          /*
+            In practice, you'd use {"var": "field_id"} to check a sections field
+            from parsed_document. This example uses `preserve` to supply a fixed
+            array value for demonstration.
+          */
+          "is_array": { "preserve": ["a", "b", "c"] }
         }
       }
     }
+  ]
+}
+```
+
+This returns:
+
+```json
+{
+  "customer_name": {
+    "value": "Jane Smith",
+    "type": "string"
+  },
+  "is_name_array": {
+    "value": false,
+    "type": "boolean"
+  },
+  "is_list_array": {
+    "value": true,
+    "type": "boolean"
   }
 }
 ```
