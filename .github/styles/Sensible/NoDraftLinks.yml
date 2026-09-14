@@ -1,0 +1,6 @@
+extends: existence
+message: "Avoid linking to draft slugs ('doc:draft-*'). Use the published slug instead."
+level: error
+scope: raw
+tokens:
+  - 'doc:draft-[a-z0-9-]+'
