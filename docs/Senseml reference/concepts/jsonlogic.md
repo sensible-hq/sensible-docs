@@ -378,18 +378,18 @@ Returns `true` for arrays, including empty arrays. Returns `false` for `null`, o
 { "is_array": JsonLogic }
 ```
 
-Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your config contains both scalar fields and fields that return arrays. When you iterate over all extracted fields using `{"var":""}`, `{"var":"value.value"}` returns null for fields that return arrays, because those fields have no `value` property. Use Is Array to detect those fields and render them differently in the rule, for example as `TABLE` elements in an [XML postprocessor](doc:draft-xml).
+For example, use Is Array to iterate over fields that can be either arrays or scalar values. When you iterate over all extracted fields with the [Map Object](doc:jsonlogic#map-object) operation using `{"var":""}`, `{"var":"value.value"}` returns null for fields that return arrays, because those fields have no `value` property. Use Is Array to detect those fields and handle them differently. For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
 
 ### Example
 
-The following example shows using Is Array with Map Object to extract values from a mix of scalar and array fields.
+The following example shows using Is Array with Map Object to transform values from a mix of scalar and array fields.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "field_values", /* user-friendly ID for extracted target data */
+      "id": "transformed_fields", /* user-friendly ID for extracted target data */
       "method": {
         "id": "customComputation",
         "jsonLogic": {
@@ -400,18 +400,15 @@ The following example shows using Is Array with Map Object to extract values fro
                 This example uses preserve to supply hardcoded values for demonstration.
               */
               "preserve": {
-                "customer_name": { "value": "Jane Smith", "type": "string" },
-                "line_items": [
-                  { "value": "item_1", "type": "string" },
-                  { "value": "item_2", "type": "string" }
-                ]
+                "order_status": { "value": "shipped", "type": "string" },
+                "line_items": ["keyboard", "mouse"]
               }
             },
             {
               "if": [
                 { "is_array": { "var": "value" } }, /* condition: true for array fields (e.g., line_items), false for scalar fields */
-                { "map": [{ "var": "value" }, { "var": "value" }] }, /* then: map over array, extracting .value from each element */
-                { "var": "value.value" } /* else: extract .value from scalar field */
+                { "map": [{ "var": "value" }, { "cat": [{ "var": "" }, "_processed"] }] }, /* then: transform each array element */
+                { "cat": [{ "var": "value.value" }, "_processed"] } /* else: transform scalar field value */
               ]
             }
           ]
@@ -427,10 +424,10 @@ The preceding code sample returns the following output:
 ```json
 /* TODO: verify that Sensible wraps object results from customComputation the same way as scalar results */
 {
-  "field_values": {
+  "transformed_fields": {
     "value": {
-      "customer_name": "Jane Smith",
-      "line_items": ["item_1", "item_2"]
+      "order_status": "shipped_processed",
+      "line_items": ["keyboard_processed", "mouse_processed"]
     }
   }
 }
