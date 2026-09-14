@@ -58,9 +58,9 @@ The following example shows using Is Array with Map Object to extract values fro
             },
             {
               "if": [
-                { "is_array": { "var": "value" } },
-                { "map": [{ "var": "value" }, { "var": "value" }] },
-                { "var": "value.value" }
+                { "is_array": { "var": "value" } }, /* condition: true for array fields (e.g., line_items), false for scalar fields */
+                { "map": [{ "var": "value" }, { "var": "value" }] }, /* then: map over array, extracting .value from each element */
+                { "var": "value.value" } /* else: extract .value from scalar field */
               ]
             }
           ]
