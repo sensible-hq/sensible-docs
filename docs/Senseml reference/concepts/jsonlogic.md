@@ -382,63 +382,58 @@ Use Is Array with the [Map Object](doc:jsonlogic#map-object) operation when your
 
 ### Example
 
-The following example uses Is Array to render scalar fields as `FIELD` elements and array fields as `TABLE` elements in an XML postprocessor.
+The following example shows using Is Array with Map Object to extract values from a mix of scalar and array fields.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "fields": [],
-  "postprocessor": {
-    "type": "xml",
-    "rule": {
-      "eachKey": {
-        "tag": "document", /* root XML element */
-        "content": {
-          "mapObject": [ /* iterate over injected test data */
+  "fields": [
+    {
+      "id": "field_values", /* user-friendly ID for extracted target data */
+      "method": {
+        "id": "customComputation",
+        "jsonLogic": {
+          "mapObject": [
             {
-              "preserve": { /* inject fields: one scalar, one array */
+              /*
+                In practice, use {"var":""} to iterate over the entire parsed_document.
+                This example uses preserve to supply hardcoded values for demonstration.
+              */
+              "preserve": {
                 "customer_name": { "value": "Jane Smith", "type": "string" },
-                "line_items": ["item_1", "item_2"]
+                "line_items": [
+                  { "value": "item_1", "type": "string" },
+                  { "value": "item_2", "type": "string" }
+                ]
               }
             },
             {
               "if": [
-                { "is_array": { "var": "value" } }, /* true for line_items, false for customer_name */
-                /* array branch */
-                {
-                  "eachKey": {
-                    "tag": "TABLE",
-                    "attrs": { "eachKey": { "name": { "var": "key" } } },
-                    "content": {
-                      "map": [ /* render each array element as a ROW child */
-                        { "var": "value" },
-                        { "eachKey": { "tag": "ROW", "content": { "var": "" } } }
-                      ]
-                    }
-                  }
-                },
-                /* scalar branch */
-                {
-                  "eachKey": {
-                    "tag": "FIELD",
-                    "attrs": { "eachKey": { "name": { "var": "key" } } },
-                    "content": { "var": "value.value" }
-                  }
-                }
+                { "is_array": { "var": "value" } },
+                { "map": [{ "var": "value" }, { "var": "value" }] },
+                { "var": "value.value" }
               ]
             }
           ]
         }
       }
     }
-  }
+  ]
 }
 ```
 
-This returns:
+The preceding code sample returns the following output:
 
-```xml
-<document><FIELD name="customer_name">Jane Smith</FIELD><TABLE name="line_items"><ROW>item_1</ROW><ROW>item_2</ROW></TABLE></document>
+```json
+/* TODO: verify that Sensible wraps object results from customComputation the same way as scalar results */
+{
+  "field_values": {
+    "value": {
+      "customer_name": "Jane Smith",
+      "line_items": ["item_1", "item_2"]
+    }
+  }
+}
 ```
 
 ## Join
