@@ -4,3 +4,4 @@ level: error
 scope: raw
 tokens:
   - 'doc:draft-[a-z0-9-]+'
+  - 'reference:draft-[a-z0-9-]+'
