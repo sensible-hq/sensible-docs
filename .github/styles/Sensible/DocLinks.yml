@@ -1,0 +1,7 @@
+extends: existence
+message: "Wrap slugs in a markdown link: '[Title](doc:slug)' or '[Title](reference:slug)'."
+level: warning
+scope: raw
+tokens:
+  - '(?<!\()doc:[a-zA-Z0-9#_-]+'
+  - '(?<!\()reference:[a-zA-Z0-9#_-]+'
