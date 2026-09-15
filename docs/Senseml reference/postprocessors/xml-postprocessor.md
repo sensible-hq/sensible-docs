@@ -132,61 +132,7 @@ In the Rule parameter, define your XML output using [JsonLogic](doc:jsonlogic). 
 
 If you specify a string value for the Attrs parameter or Content parameter, Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`). For example, `"content": "1 < 2 & 3 > 0"` renders as `"1 &lt; 2 &amp; 3 &gt; 0"`.
 
-### Dynamic field mapping
-
-To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. The following example shows using the Map Object inside the Content property of a root XML element (`document`) to produce well-formed XML from a JSON object:
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [
-    /*
-      In practice, you extract load_id and rate from a document.
-      This example uses constant fields to input hardcoded values
-      so you can run it in the SenseML editor without a document.
-    */
-    {
-      "id": "load_id",
-      "type": "number",
-      "method": { "id": "constant", "value": "328298459" }
-    },
-    {
-      "id": "rate",
-      "type": "number",
-      "method": { "id": "constant", "value": "4500" }
-    }
-  ],
-  "postprocessor": {
-    "type": "xml",
-    "rule": {
-      "eachKey": {
-        "tag": "document", /* root element wrapping all fields */
-        "content": {
-          "mapObject": [ /* iterates over each field in parsed_document and operates on its key and value */
-            { "var": "" }, /* current context: the entire parsed_document */
-            {
-              "eachKey": { /* builds an element object for each field */
-                "tag": { "var": "key" }, /* current field's ID becomes the XML element name */
-                "content": { "var": "value.value" } /* current field's extracted value becomes text content */
-              }
-            }
-          ]
-        }
-      }
-    }
-  }
-}
-```
-
-This produces:
-
-```json
-{
-  "postprocessorOutput": "<document><load_id>328298459</load_id><rate>4500</rate></document>"
-}
-```
-
-Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes scalar fields with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle them separately inside the Map Object operation. This strategy is necessary because, unlike scalar fields, fields that return arrays have no `value` property, so `{"var":"value.value"}` returns null for them.
+###
 
 # Examples
 
@@ -359,3 +305,59 @@ The preceding XML is a transformation of the following `parsed_document` JSON ou
   "test_field_null": null
 }
 ```
+
+### ## Example 2: Dynamic field mapping
+
+To generate one XML element per extracted field without naming each field individually in the rule, use the [Map Object](doc:jsonlogic#map-object) operation with `{"var": ""}` to iterate over the entire `parsed_document`. The following example shows using the Map Object inside the Content property of a root XML element (`document`) to produce well-formed XML from a JSON object:
+
+```json
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fields": [
+    /*
+      In practice, you extract load_id and rate from a document.
+      This example uses constant fields to input hardcoded values
+      so you can run it in the SenseML editor without a document.
+    */
+    {
+      "id": "load_id",
+      "type": "number",
+      "method": { "id": "constant", "value": "328298459" }
+    },
+    {
+      "id": "rate",
+      "type": "number",
+      "method": { "id": "constant", "value": "4500" }
+    }
+  ],
+  "postprocessor": {
+    "type": "xml",
+    "rule": {
+      "eachKey": {
+        "tag": "document", /* root element wrapping all fields */
+        "content": {
+          "mapObject": [ /* iterates over each field in parsed_document and operates on its key and value */
+            { "var": "" }, /* current context: the entire parsed_document */
+            {
+              "eachKey": { /* builds an element object for each field */
+                "tag": { "var": "key" }, /* current field's ID becomes the XML element name */
+                "content": { "var": "value.value" } /* current field's extracted value becomes text content */
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+This produces:
+
+```json
+{
+  "postprocessorOutput": "<document><load_id>328298459</load_id><rate>4500</rate></document>"
+}
+```
+
+Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes scalar fields with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle them separately inside the Map Object operation. This strategy is necessary because, unlike scalar fields, fields that return arrays have no `value` property, so `{"var":"value.value"}` returns null for them.
