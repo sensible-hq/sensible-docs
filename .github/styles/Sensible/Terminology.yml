@@ -4,5 +4,4 @@ level: warning
 action:
   name: replace
 swap:
-  'the editor': the Sensible app
   'the UI': the Sensible app

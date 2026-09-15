@@ -13,7 +13,7 @@ Organized in two sections:
 | Concept | Use | Avoid | Notes |
 | ------- | --- | ----- | ----- |
 | The JSON extraction configuration | "config" or "configuration" | "template", "schema" | "schema" has a specific meaning in the product |
-| The Sensible web interface | "the Sensible app" | "the UI", "the editor", "the dashboard" | |
+| The Sensible web interface | "the Sensible app", "the SenseML editor" | "the UI", "the dashboard" | |
 | The Sensible product | "Sensible" (always capitalized) | "sensible", "the tool", "the engine" | |
 | The result Sensible returns | "output", "extracted field", "field" | "result object", "response" | "response" refers to the API response envelope |
 | Repeated document structures | "sections" | "repeating groups", "loops" | |
