@@ -1383,7 +1383,7 @@
       "PostprocessorOutput": {
         "type": "object",
         "additionalProperties": true,
-        "description": "A custom schema that you define using a [postprocessor](doc:postprocessor). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema."
+        "description": "A custom schema that you define using a [postprocessor](doc:postprocessors). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema."
       },
       "ReviewStatuses": {
         "type": "string",
