@@ -42,7 +42,7 @@ Using a postprocessor, you can transform the extracted data into a custom schema
 }
 ```
 
-The postprocessor offers similar data manipulation to the [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of outputting fields.
+The postprocessor offers similar data manipulation to the [Custom Computation](doc:custom-computation) computed field method, but offers greater flexibility because it can output an arbitrary schema instead of outputting typed fields.
 
 Find postprocessor output in the `postprocessorOutput` object in the API response and in the **Postprocessed** tab in the SenseML editor:
 
@@ -52,11 +52,11 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 
 # Parameters
 
-| key                 | value                  | description                                                                                                                                                                                                                                                                                                                                                       |
-| :------------------ | :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type (**required**) | `jsonLogic`            | Transform extracted data using [JsonLogic](doc:jsonlogic).                                                                                                                                                                                                                                                                                                        |
-| keepParsedDocument  | Boolean. Default: true | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review).                                                                                        |
-| rule (**required**) | JsonLogic object       | Define the custom schema using JsonLogic [operations](doc:jsonlogic). To create custom objects in the schema, use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator.            |
+| key                 | value                  | description                                                                                                                                                                                                                                                                                                                                             |
+| :------------------ | :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| type (**required**) | `jsonLogic`            | Transform extracted data using [JsonLogic](doc:jsonlogic).                                                                                                                                                                                                                                                                                              |
+| keepParsedDocument  | Boolean. Default: true | If false, Sensible suppresses the `parsed_document` object in the output. Set to false to reduce the size of large output when you only need the postprocessor output. Setting to false disables [Excel](doc:excel-reference) output and [human review](doc:human-review).                                                                              |
+| rule (**required**) | JsonLogic object       | Define the custom schema using JsonLogic [operations](doc:jsonlogic). To create custom objects in the schema, use the [eachKey](https://json-logic.github.io/json-logic-engine/docs/higher) operation. Or, if the keys of the object you intend to build can vary depending on the calculation, use Sensible's [object](doc:jsonlogic#object) operator. |
 
 # Examples
 
@@ -154,13 +154,12 @@ Postprocessor output isn't available in [Excel output](doc:excel-reference).
 }
 ```
 
-**Example document**\
-The following image shows the example document used with this example config:
+**Example document**<br />The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/postprocessor.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/postprocessor.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
