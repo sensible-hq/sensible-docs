@@ -130,7 +130,7 @@ In the Rule parameter, define your XML output using [JsonLogic](doc:jsonlogic). 
 | attrs              | JsonLogic object                                                                  | Key-value pairs that become XML attributes on the element. Use the [Each Key](doc:jsonlogic#each-key) operation to build the object. Values must be scalars (string, number, boolean, or null).  |
 | content            | scalar, JsonLogic object that evaluates to XML element object, or array of either | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |
 
-If you specify a string value for the Attrs or Content parameter, Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`). For example, `"content": "1 < 2 & 3 > 0"` renders as `"1 &lt; 2 &amp; 3 &gt; 0"`.
+If you specify a string value for the Attrs parameter or Content parameter, Sensible automatically escapes reserved XML characters (`<`, `>`, `&`, `"`, `'`). For example, `"content": "1 < 2 & 3 > 0"` renders as `"1 &lt; 2 &amp; 3 &gt; 0"`.
 
 ### Dynamic field mapping
 
