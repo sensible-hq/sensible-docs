@@ -360,4 +360,4 @@ This produces:
 }
 ```
 
-Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes fields that return scalars with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle each separately inside the Map Object operation. This strategy is necessary because, unlike scalar fields, fields that return arrays have no top-level `value` property, so you must access their items instead.&#x20;
+Any field you add to the config automatically appears in the XML output without updating the postprocessor rule. If your config mixes fields that return scalars with fields that return arrays, use [Is Array](doc:jsonlogic#is-array) to handle accesing their values separately inside the Map Object operation. Otherwise, you'll get `null` output for fields that return arrays, since they lack a top-level `value` property,.&#x20;
