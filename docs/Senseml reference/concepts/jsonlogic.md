@@ -1,13 +1,17 @@
 ---
 title: JsonLogic extensions
-excerpt: Learn how Sensible extends JsonLogic with custom operators for transforming
-  and validating extracted document data, including syntax tips and supported operations.
+excerpt: >-
+  Learn how Sensible extends JsonLogic with custom operators for transforming
+  and validating extracted document data, including syntax tips and supported
+  operations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible extends JsonLogic with custom operators for transforming
-    and validating extracted document data, including syntax tips and supported operations.
+  description: >-
+    Learn how Sensible extends JsonLogic with custom operators for transforming
+    and validating extracted document data, including syntax tips and supported
+    operations.
   robots: index
 next:
   description: ''
@@ -42,30 +46,30 @@ Sensible supports both built-in and extended JsonLogic operators so that you can
 Sensible extends JsonLogic with custom operations. The following table lists these operations and where they're supported:
 
 | Operation                                    | [Validations](doc:validate-extractions) | [Custom computation](doc:custom-computation) methods | [Postprocessors](doc:postprocessors) |
-| -------------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ---------------------------------- |
-| [Date Shift](doc:jsonlogic#date-shift)       | ✅                                       | ✅                                                    | ✅                                  |
-| [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                  |
-| [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                  |
-| [Group](doc:jsonlogic#group)                 | ✅                                       | ✅                                                    | ✅                                  |
-| [Is Array](doc:jsonlogic#is-array)           | ✅                                       | ✅                                                    | ✅                                  |
-| [Join](doc:jsonlogic#join)                   | ✅                                       | ✅                                                    | ✅                                  |
-| [Let](doc:jsonlogic#let)                     | ✅                                       | ✅                                                    | ✅                                  |
-| [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                  |
-| [Map Object](doc:jsonlogic#map-object)       | ✅                                       | ✅                                                    | ✅                                  |
-| [Match](doc:jsonlogic#match)                 | ✅                                       | ✅                                                    | ✅                                  |
-| [Merge Objects](doc:jsonlogic#merge-objects) | ✅                                       | ✅                                                    | ✅                                  |
-| [Object](doc:jsonlogic#object)               | ✅                                       | ✅                                                    | ✅                                  |
-| [Omit fields](doc:jsonlogic#omit-fields)     | ✅                                       | ✅                                                    | ✅                                  |
-| [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                  |
-| [Random](doc:jsonlogic#random)               | ✅                                       | ✅                                                    | ✅                                  |
-| [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                  |
-| [Round](doc:jsonlogic#round)                 | ✅                                       | ✅                                                    | ✅                                  |
-| [Slice](doc:jsonlogic#slice)                 | ✅                                       | ✅                                                    | ✅                                  |
-| [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                  |
-| [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                  |
-| [Today](doc:jsonlogic#today)                 | ✅                                       | ✅                                                    | ✅                                  |
-| [To Lower](doc:jsonlogic#to-lower)           | ✅                                       | ✅                                                    | ✅                                  |
-| [To Upper](doc:jsonlogic#to-upper)           | ✅                                       | ✅                                                    | ✅                                  |
+| -------------------------------------------- | --------------------------------------- | ---------------------------------------------------- | ------------------------------------ |
+| [Date Shift](doc:jsonlogic#date-shift)       | ✅                                       | ✅                                                    | ✅                                    |
+| [Exists](doc:jsonlogic#exists)               | ✅                                       | ✅                                                    | ✅                                    |
+| [Flatten](doc:jsonlogic#flatten)             | ✅                                       | ✅                                                    | ✅                                    |
+| [Group](doc:jsonlogic#group)                 | ✅                                       | ✅                                                    | ✅                                    |
+| [Is Array](doc:jsonlogic#is-array)           | ✅                                       | ✅                                                    | ✅                                    |
+| [Join](doc:jsonlogic#join)                   | ✅                                       | ✅                                                    | ✅                                    |
+| [Let](doc:jsonlogic#let)                     | ✅                                       | ✅                                                    | ✅                                    |
+| [Log](doc:jsonlogic#log)                     | ✅                                       | ✅                                                    | ✅                                    |
+| [Map Object](doc:jsonlogic#map-object)       | ✅                                       | ✅                                                    | ✅                                    |
+| [Match](doc:jsonlogic#match)                 | ✅                                       | ✅                                                    | ✅                                    |
+| [Merge Objects](doc:jsonlogic#merge-objects) | ✅                                       | ✅                                                    | ✅                                    |
+| [Object](doc:jsonlogic#object)               | ✅                                       | ✅                                                    | ✅                                    |
+| [Omit fields](doc:jsonlogic#omit-fields)     | ✅                                       | ✅                                                    | ✅                                    |
+| [Pick Fields](doc:jsonlogic#pick-fields)     | ✅                                       | ✅                                                    | ✅                                    |
+| [Random](doc:jsonlogic#random)               | ✅                                       | ✅                                                    | ✅                                    |
+| [Replace](doc:jsonlogic#replace)             | ✅                                       | ✅                                                    | ✅                                    |
+| [Round](doc:jsonlogic#round)                 | ✅                                       | ✅                                                    | ✅                                    |
+| [Slice](doc:jsonlogic#slice)                 | ✅                                       | ✅                                                    | ✅                                    |
+| [Sort By](doc:jsonlogic#sort-by)             | ✅                                       | ✅                                                    | ✅                                    |
+| [Stateful Map](doc:jsonlogic#stateful-map)   | ✅                                       | ✅                                                    | ✅                                    |
+| [Today](doc:jsonlogic#today)                 | ✅                                       | ✅                                                    | ✅                                    |
+| [To Lower](doc:jsonlogic#to-lower)           | ✅                                       | ✅                                                    | ✅                                    |
+| [To Upper](doc:jsonlogic#to-upper)           | ✅                                       | ✅                                                    | ✅                                    |
 
 See the following sections for more information.
 
@@ -378,11 +382,11 @@ Returns `true` for arrays, including empty arrays. Returns `false` for `null`, o
 { "is_array": JsonLogic }
 ```
 
-For example, use Is Array to iterate over fields that can be either arrays or scalar values. When you iterate over all extracted fields with the [Map Object](doc:jsonlogic#map-object) operation using `{"var":""}`, `{"var":"value.value"}` returns null for fields that return arrays, because those fields have no `value` property. Use Is Array to detect those fields and handle them differently. For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
+For example, use Is Array to iterate over fields that can be either arrays or scalar values.  For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
 
 ### Example
 
-The following example shows using Is Array with Map Object to transform values from a mix of scalar and array fields.
+The following example shows using Is Array with the Map Object operation to transform values from a mix of scalar and array fields.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
@@ -1711,6 +1715,7 @@ For an extraction run on July 7, 2026, this returns:
 ## To Lower
 
 Converts a string to lowercase. Takes as input:
+
 - a string value: `{ "toLower": { "var": "field.value" } }`
 - a string value wrapped in a single-element array: `{ "toLower": [{ "var": "field.value" }] }`
 
@@ -1820,5 +1825,3 @@ This returns:
   }
 }
 ```
-
-<br />
