@@ -1,5 +1,10 @@
 ---
 title: MCP
+excerpt: >-
+  Instructions for connecting Sensible's MCP server at
+  https://docs.sensible.so/mcp to your AI development tool. You can read the
+  Sensible docs and API spec without authorization, or authorize to call the
+  Sensible API. 
 hidden: false
 ---
 The Sensible Model Context Protocol (MCP) server enables AI-powered code editors like Cursor and Windsurf, plus general-purpose tools like Claude Desktop, to interact directly with your Sensible API and documentation.
