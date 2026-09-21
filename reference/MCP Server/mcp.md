@@ -33,7 +33,7 @@ If you want to search and read the Sensible docs, including the API specificatio
 }
 ```
 
-&#x20;If you want to call the Sensible API using the MCP server, configure authorization.  The server doesn't support signing in through an OAuth flow, so instead, configure an authorization header for the server using your Sensible API key.  For example, in Claude Code, add the following entry to `~/.claude.json`, and specify the `SENSIBLE_API_KEY` variable in your environment using the value of your [API key](https://app.sensible.so/account/?t=api_keys):
+&#x20;If you want to call the Sensible API using the MCP server, configure authorization.  The server doesn't support signing in through an OAuth flow, so instead, configure an authorization header for the server using your Sensible API key.  For example, in Claude Code, add the following entry to `~/.claude.json`, and define the `SENSIBLE_API_KEY` variable in your environment using the value of your [API key](https://app.sensible.so/account/?t=api_keys):
 
 ```json
 {
