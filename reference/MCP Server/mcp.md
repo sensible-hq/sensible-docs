@@ -17,7 +17,7 @@ Model Context Protocol (MCP) is an open standard that allows AI applications to 
 
 Sensible hosts a remote MCP server at `https://docs.sensible.so/mcp`. Configure your AI development tools to connect to this server.&#x20;
 
-If you want to search and read the Sensible docs, including the API reference, you can configure the MCP server without authorization. For example in Claude Code, edit `~/.claude.json` with the following entry:
+If you want to search and read the Sensible docs, including the API specification, you can configure the MCP server without authorization. For example in Claude Code, add the following entry to `~/.claude.json`:
 
 ```json
 {
@@ -29,7 +29,7 @@ If you want to search and read the Sensible docs, including the API reference, y
 }
 ```
 
-&#x20;If you want to call the Sensible API through the MCP server, configure the server with a bearer token. For example, in Claude Code, add the following entry to `~/.claude.json`, and specify the `SENSIBLE_API_KEY` variable in your environment using the value of your [API key](https://app.sensible.so/account/?t=api_keys):
+&#x20;If you want to call the Sensible API using the MCP server, configure authorization for the server. For example, in Claude Code, add the following entry to `~/.claude.json`, and specify the `SENSIBLE_API_KEY` variable in your environment using the value of your [API key](https://app.sensible.so/account/?t=api_keys):
 
 ```json
 {
@@ -43,7 +43,6 @@ If you want to search and read the Sensible docs, including the API reference, y
     }
 }
 ```
-
 
 ## Testing Your MCP Setup
 
