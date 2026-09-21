@@ -15,52 +15,35 @@ Model Context Protocol (MCP) is an open standard that allows AI applications to 
 
 ## Sensible MCP Server Setup
 
-Sensible hosts a remote MCP server at `https://docs.sensible.so/mcp`. Configure your AI development tools to connect to this server. If your APIs require authentication, you can pass in headers via query parameters or however headers are configured in your MCP client.
+Sensible hosts a remote MCP server at `https://docs.sensible.so/mcp`. Configure your AI development tools to connect to this server.&#x20;
 
-<Tabs>
-  <Tab title="Cursor">
-    **Add to `~/.cursor/mcp.json`:**
+If you want to search and read the Sensible docs, including the API reference, you can configure the MCP server without authorization. For example in Claude Code, edit `~/.claude.json` with the following entry:
 
-    ```json
-    {
-      "mcpServers": {
-        "sensiblehq": {
-          "url": "https://docs.sensible.so/mcp"
-        }
+```json
+{
+  "mcpServers": {
+    "sensible-docs": {
+      "url": "https://docs.sensible.so/mcp"
+    }
+  }
+}
+```
+
+&#x20;If you want to call the Sensible API through the MCP server, configure the server with a bearer token. For example, in Claude Code, add the following entry to `~/.claude.json`, and specify the `SENSIBLE_API_KEY` variable in your environment using the value of your [API key](https://app.sensible.so/account/?t=api_keys):
+
+```json
+{
+  "mcpServers": {
+    "sensible-docs": {
+      "type": "http",
+      "url": "https://docs.sensible.so/mcp",
+      "headers": {
+        "authorization": "Bearer ${SENSIBLE_API_KEY}"
       }
     }
-    ```
+}
+```
 
-    </Tab>
-  <Tab title="Windsurf">
-    **Add to `~/.codeium/windsurf/mcp_config.json`:**
-
-    ```json
-    {
-      "mcpServers": {
-        "sensiblehq": {
-          "url": "https://docs.sensible.so/mcp"
-        }
-      }
-    }
-    ```
-
-  </Tab>
-  <Tab title="Claude Desktop">
-    **Add to `claude_desktop_config.json`:**
-
-    ```json
-    {
-      "mcpServers": {
-        "sensiblehq": {
-          "url": "https://docs.sensible.so/mcp"
-        }
-      }
-    }
-    ```
-
-  </Tab>
-</Tabs>
 
 ## Testing Your MCP Setup
 
@@ -69,8 +52,8 @@ Once configured, you can test your MCP server connection:
 1. **Open your AI editor** (Cursor, Windsurf, etc.)
 2. **Start a new chat** with the AI assistant
 3. **Ask about Sensible** - try questions like:
-   * "How do I [common use case]?"
-   * "Show me an example of [API functionality]"
-   * "Create a [integration type] using Sensible"
+   * "How do I \[common use case]?"
+   * "Show me an example of \[API functionality]"
+   * "Create a \[integration type] using Sensible"
 
 The AI should now have access to your Sensible account data and documentation through the MCP server.
