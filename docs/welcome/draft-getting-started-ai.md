@@ -45,6 +45,8 @@ Let's get started with extracting document data from an example bank statement. 
 
 <!-- step { "checkLink": { "url": "https://app.sensible.so/signin/" } } -->
 
+{/* step { "checkLink": { "url": "https://app.sensible.so/signin/" } } */}
+
 <!-- test end -->
 
 3. As a new user, you complete onboarding steps.
