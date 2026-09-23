@@ -5,7 +5,7 @@ Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 54fbb70b-2c5e-4a
 
 - [x] Survey SenseML reference example structure (counts, JSON5, URL health)
 - [x] Confirm API constraints (no inline-config extract; SDK lacks config CRUD)
-- [x] Draft scripts/example_tests/CONCEPT.md
+- [x] Draft sessions/docs-as-tests/CONCEPT.md
 - [ ] User answers open questions in CONCEPT.md
 - [ ] POC: extract_examples.py for Row example
 - [ ] POC: run_examples.py local run (green + 3 intentional reds)

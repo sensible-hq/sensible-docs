@@ -1,7 +1,7 @@
 # Original concept prompt
 
 Session: docs-as-tests · ID: 54fbb70b-2c5e-4a3b-8d24-8a1f1b7e79f8 · 2026-09-23
-Output: [scripts/example_tests/CONCEPT.md](../../scripts/example_tests/CONCEPT.md)
+Output: [CONCEPT.md](CONCEPT.md)
 
 ---
 
