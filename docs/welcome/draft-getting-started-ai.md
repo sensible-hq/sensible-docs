@@ -10,6 +10,8 @@ metadata:
 next:
   description: ''
 ---
+This is a draft topic.
+
 ## Introduction
 
 See the following list for an overview of how to automate your document processing with Sensible:
