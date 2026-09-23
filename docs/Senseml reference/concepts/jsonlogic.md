@@ -391,50 +391,45 @@ The following example shows using Is Array with the Map Object operation to tran
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "fields": [
-    {
-      "id": "transformed_fields", /* user-friendly ID for extracted target data */
-      "method": {
-        "id": "customComputation",
-        "jsonLogic": {
-          "mapObject": [
-            {
-              /*
-                In practice, use {"var":""} to iterate over the entire parsed_document.
-                This example uses preserve to supply hardcoded values for demonstration.
-              */
-              "preserve": {
-                "order_status": { "value": "shipped", "type": "string" },
-                "line_items": ["keyboard", "mouse"]
-              }
-            },
-            {
-              "if": [
-                { "is_array": { "var": "value" } }, /* condition: true for array fields (e.g., line_items), false for scalar fields */
-                { "map": [{ "var": "value" }, { "cat": [{ "var": "" }, "_processed"] }] }, /* then: transform each array element */
-                { "cat": [{ "var": "value.value" }, "_processed"] } /* else: transform scalar field value */
-              ]
-            }
-          ]
-        }
-      }
+  "fields": [],
+  "postprocessor": {
+    "type": "jsonLogic",
+    "rule": {
+      "mapObject": [
+        {
+          /*
+            In practice, use {"var":""} to iterate over the entire parsed_document.
+            This example uses preserve to supply hardcoded values for demonstration.
+          */
+          "preserve": {
+            "order_status": { "value": "shipped", "type": "string" },
+            "line_items": ["keyboard", "mouse"]
+          }
+        },
+        [
+          { "var": "key" }, /* keep key unchanged */
+          {
+            "if": [
+              { "is_array": { "var": "value" } }, /* condition: true for array fields (e.g., line_items), false for scalar fields */
+              { "map": [{ "var": "value" }, { "cat": [{ "var": "" }, "_processed"] }] }, /* then: transform each array element */
+              { "cat": [{ "var": "value.value" }, "_processed"] } /* else: transform scalar field value */
+            ]
+          }
+        ]
+      ]
     }
-  ]
+  }
 }
 ```
 
 The preceding code sample returns the following output:
 
 ```json
-/* TODO: verify that Sensible wraps object results from customComputation the same way as scalar results */
-{
-  "transformed_fields": {
-    "value": {
-      "order_status": "shipped_processed",
-      "line_items": ["keyboard_processed", "mouse_processed"]
-    }
-  }
-}
+/* postprocessorOutput */
+[
+  ["order_status", "shipped_processed"],
+  ["line_items", ["keyboard_processed", "mouse_processed"]]
+]
 ```
 
 ## Join
