@@ -10,8 +10,6 @@ metadata:
 next:
   description: ''
 ---
-This topic is a draft.
-
 ## Introduction
 
 See the following list for an overview of how to automate your document processing with Sensible:
@@ -35,17 +33,9 @@ Let's get started with extracting document data from an example bank statement. 
 
 ## Get an account
 
-<!-- test { "testId": "hello-world" } -->
-
 1. Get an account at [sensible.so](https://app.sensible.so/register).  If you don't have an account, you can still read along to get a rough idea of how things work.
 
-<!-- step { "checkLink": { "url": "https://app.sensible.so/register" } } -->
-
 2. Log into the [Sensible app](https://app.sensible.so/signin/). 
-
-<!-- step { "checkLink": { "url": "https://app.sensible.so/signin/" } } -->
-
-<!-- test end -->
 
 3. As a new user, you complete onboarding steps.
 
