@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-This is a draft topic.
+This topic is a draft.
 
 ## Introduction
 
