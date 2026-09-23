@@ -83,7 +83,7 @@ This research covers `doc-detective` 4.38.4 (v3 schemas), read from source at co
 The goal is to **wrap** each example in Doc Detective's test boundaries, so one annotation set serves both tools. Inside the wrapper, **role markers** point at the blocks. Doc Detective ignores the role markers because they don't match its `test`/`step` regexes, and the Python runner reads them.
 
 ````markdown
-<!-- test {"testId": "row-two-tables"} -->
+<!-- test {"testId": "row_two_tables"} -->
 
 <!-- example config -->
 ```json
@@ -171,6 +171,39 @@ What the API offers (from the OpenAPI spec in `reference/`):
 
 ---
 
+## Follow-up: run the tests in the Sensible repo's extractor harness (TODO)
+
+Thread: https://sensiblehq.slack.com/archives/C0215T9K86P/p1790190316244059 (#C0215T9K86P)
+
+You asked engineering for an alternative to the public API: (1) could Elad's simulator produce real output from a doc plus a config in CI, or (2) is there an internal way to extract with an inline config and no doc type?
+
+Horacio's suggestion:
+
+> "I would create an extractors-like test suite, then clone the sensible repo, link the test suite from it and run extract-all." … "then, weekly you just run git pull and extract-all again."
+
+He also agreed the suite could be generated on each run from annotated code samples. Elad's simulator question (1) is still unanswered.
+
+**What changes if this works:** only the **runner backend**. The annotations and `extract_examples.py` stay the same. Instead of calling the public API, a generator writes the manifest out as an extractor-style suite, and `extract-all` runs it. **Design implication now:** keep `run_examples.py` backend-pluggable (`--backend api|extract-all`), so the POC doesn't lock us into the API path.
+
+| | Public API backend (current plan) | `extract-all` in the Sensible repo |
+|---|---|---|
+| Needs a doc type / config uploads | Yes | No, configs are local files |
+| Extractions stored in an account (Q3 artifacts) | Yes | Presumably none |
+| Cost / quota (Q2) | About 90 extractions a week | Compute only, plus LLM provider calls for LLM examples |
+| What it tests | **Production** engine: what customers get | **HEAD of the engine repo**: can catch drift *before* release, but can also flag unreleased changes that never ship |
+| Access | `SENSIBLE_API_KEY` | Read access to the private `sensible` repo from docs CI (deploy key or fine-grained PAT, a new secret), plus whatever runtime `extract-all` needs (OCR, provider keys, services) |
+| Who can debug a failure | You, in the SenseML editor | Probably needs eng familiarity with the harness |
+| Coupling | Stable public contract | Internal harness format can change under you |
+
+**Follow-up questions for Horacio (or eng):**
+
+- What does an "extractors-like test suite" look like on disk: config + document + expected output per case? Does `extract-all` **compare** against expected output, or only produce output?
+- What does "link the test suite" mean: a path argument, a symlink, a git submodule?
+- What are the runtime requirements for `extract-all` (Docker image, OCR, external services, LLM keys)? Can it run in a GitHub Actions runner?
+- Does it support remote document URLs, or only local files? (Our example docs are raw GitHub URLs, which is easy either way.)
+- Is there a way to run it against the **released** engine version rather than HEAD?
+- Would eng prefer this suite live in the sensible repo's CI instead, with the docs repo just publishing the generated suite?
+
 ## Honest take on Bluehawk (unchanged conclusion, updated reasoning)
 
 Bluehawk solves "runnable source file is the truth, strip scaffolding, include snippets into docs." Your examples are declarative data with an identical harness for every test, so there's no scaffolding to strip. ReadMe can't include files, so "stitch back" would mean a bot rewriting markdown that ReadMe users also edit.
@@ -238,6 +271,7 @@ Run in order. Each one answers a question the design depends on.
 | E8 | Intentional reds: bad URL, `"Javascript"` → `"Java"` in Output, invalid method id, visible link ≠ annotation URL | Each lands in the right failure category |
 | E9 | `workflow_dispatch` workflow + issue reporting (create → update → auto-close) | CI plumbing and notifications |
 | E10 | (Optional) Doc Detective `runShell` step invoking the runner for `row_two_tables` | Is Doc Detective orchestration worth it versus the runner standalone? |
+| E11 | After eng answers: generate an extractor-style suite for `row_two_tables` and run `extract-all` locally in a clone of the sensible repo | Is the `extract-all` backend viable? How do its results compare with the API backend? |
 
 Exit criterion: E7 green, E8 correctly classified, and E9 opens and closes an issue.
 
@@ -288,3 +322,4 @@ Answered and moved to Decisions: old Q1 (D1), Q2 cost (D4), Q8 (D5), Q9 (D6). Q7
 7. **LLM variation (Phase 3):** which kinds of variation are acceptable? Numeric tolerance, wording differences, extra or missing optional fields?
 10. **Doc Detective's role:** annotation syntax only (it never runs), or also run it in CI for `checkLink` plus orchestration via `runShell`? This affects whether to use its GitHub Action for issues or the existing `sdk_check` pattern.
 11. **Annotation grammar:** is option A OK? Any naming preference for the role markers (`example config` vs `senseml config` vs something else)?
+12. **Backend:** follow up on Horacio's `extract-all` suggestion (see "Follow-up" section) before or after the API-backend POC?

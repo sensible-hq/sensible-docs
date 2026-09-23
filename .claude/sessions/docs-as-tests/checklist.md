@@ -19,4 +19,6 @@ Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 54fbb70b-2c5e-4a
 - [ ] E8 intentional reds classified
 - [ ] E9 workflow_dispatch + issue reporting
 - [ ] E10 (optional) Doc Detective runShell orchestration
+- [ ] Follow up w/ Horacio on extract-all harness (Slack C0215T9K86P p1790190316244059)
+- [ ] E11 extract-all backend trial (after eng answers)
 - [ ] Phase 2: annotate deterministic examples, coverage report, weekly cron
