@@ -22,3 +22,4 @@ Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 54fbb70b-2c5e-4a
 - [ ] Follow up w/ Horacio on extract-all harness (Slack C0215T9K86P p1790190316244059)
 - [ ] E11 extract-all backend trial (after eng answers)
 - [ ] Phase 2: annotate deterministic examples, coverage report, weekly cron
+- [ ] Investigate API contract testing (e.g. validate the OpenAPI specs in reference/ against live API responses)
