@@ -150,6 +150,87 @@ Sensible recommends grouping similar documents, for example, bank statements, in
 1. To exit the SenseML editor, click **Sensible** in the upper left corner.
 2. Click the **Document types** tab. Create a new document type using the dialog, then write prompts in the configuration editor to extract data using what you learned in previous steps.
 
+## Row method example
+
+The following example shows  extracting data from two consecutive tables using the Row method:
+
+1. The first field has an anchor with two matches to avoid duplicate text in the second table. First the anchor matches the text `most popular on github`, then it anchors on the text  `first`  in a row. The method then extracts the top-ranked GitHub language name to the left of the anchor match. 
+2. The second field also has an anchor with two matches. It anchors on the row containing `Python`, then extracts the second percentage in the row to the right of the anchor.
+
+**Config**
+
+```json
+{
+  "fields": [
+    {
+      "id": "number_1_language_on_github", /* user-friendly ID for extracted target data */
+      "anchor": { /* an anchor is text that always occurs in the same position relative to your target data. */
+        "match": [ /* array of Match objects. Sensible matches the last element
+                      if each element matches a successive line in the document */
+          {
+            "text": "most popular on github", /* string to match */
+            "type": "includes" /* match anywhere in line. */
+          },
+          {
+            "text": "first", /* string to match */
+            "type": "startsWith" /* line must start with the match */
+          }
+        ]
+      },
+      "method": {
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "position": "left", /* target data is to left of anchor. */
+      }
+    },
+    {
+      "id": "python_change_in_TIBOE_rating", /* user-friendly ID for extracted target data */
+      "type": "percentage", /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "anchor": { /* an anchor is text that always occurs in the same position relative  */
+        "match": [ /* array of Match objects. Sensible matches the last element if each element matches a successive line in the document */
+          {
+            "text": "popular in search engines", /* string to match */
+            "type": "includes" /* match anywhere in line. */
+          },
+          {
+            "text": "Python", /* string to match */
+            "type": "startsWith" /* line must start with the match */
+          }
+        ]
+      },
+      "method": {
+        "id": "row", /* target data to extract is distributed on same horizontal line as anchor */
+        "tiebreaker": 1 /* extract the line in the first non-empty cell to the right of the anchor. */
+      }
+    }
+  ]
+}
+```
+
+**Example document**
+
+The following image shows the data extracted by this config for the following example document:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/row.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column.pdf) |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+
+**Output**
+
+```json
+{
+  "number_1_language_on_github": {
+    "value": "Javascript",
+    "type": "string"
+  },
+  "python_change_in_TIBOE_rating": {
+    "source": "2.75%",
+    "value": 2.75,
+    "type": "percentage"
+  }
+}
+```
+
 ## Next
 
 ### Learn more about extraction
