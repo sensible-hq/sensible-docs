@@ -1,167 +1,257 @@
 # Concept: SenseML reference examples as tests
 
-Status: draft for discussion · 2026-09-23 · session `docs-as-tests`
+Status: draft for discussion · updated 2026-09-23 · session `docs-as-tests` · PR #725
+
+Original prompt: [original-prompt.md](original-prompt.md)
 
 ## The idea
 
-Borrowed from LangChain (via *Docs as Test & AI*): treat every code sample in the docs as a test. Run each one in CI on a schedule, and get notified when a sample stops doing what the docs say it does.
+Borrowed from LangChain (via *Docs as Test & AI*): treat every code sample in the docs as a test, run it in CI on a schedule, and get notified when a sample stops doing what the docs say it does.
 
-For the SenseML reference, an "example" is a unit of three things that already appear in a consistent pattern:
+For the SenseML reference, an "example" is a unit of three things:
 
 1. **Config**: a fenced `json` block of SenseML
-2. **Example document**: a table row holding a download URL for a PDF
+2. **Example document**: a URL to a PDF (or other supported file)
 3. **Output**: a fenced `json` block showing the `parsed_document` the config produces
 
-The test for each example is the same:
+The test for each example asks three questions:
 
 > Does the document URL resolve? Does the config run? Does Sensible's output still match the **Output** block?
 
-**Phase 1 goal:** a weekly GitHub Action that answers that question for every example and opens (or updates) one GitHub issue when any answer is "no."
+**Testable surfaces are declared explicitly with HTML-comment annotations.** They are *not* inferred from page structure. The existing `**Config**` / `**Example document**` / `**Output**` convention is used only for a **coverage report** that flags examples that look testable but aren't annotated yet.
 
-**Later goal:** propose a fix as a PR.
-
-**POC scope:** the `## Row method example` in `docs/welcome/draft-getting-started-ai.md` on the `doc-detective-poc` branch.
+- **Phase 1 goal:** a weekly GitHub Action runs every annotated example and opens (or updates) one GitHub issue on any failure.
+- **Later goal:** propose fixes as PRs.
+- **Playground:** `docs/welcome/draft-getting-started-ai.md` on `doc-detective-poc`. It's a hidden draft topic where the Row example (a copy of `layout-based-methods/row.md`) is now committed. All experiments happen there and no real topic is touched until the annotation format settles. The page can grow as big and messy as the experiments need.
 
 ---
 
-## What's actually in the repo (measured, not assumed)
+## Decisions so far
+
+| # | Decision | Source |
+|---|---|---|
+| D1 | ReadMe preserves HTML comments through sync. HTML comments are a viable annotation layer | You checked |
+| D2 | Testable surfaces are declared with HTML comments, not inferred from docs structure | You |
+| D3 | Deterministic (layout-based) examples come first. LLM examples come later and need defined acceptable-variation measures | You |
+| D4 | About 90 extractions a week is a trivial cost for deterministic examples | You |
+| D5 | The Row section in `draft-getting-started-ai.md` is a stand-in: one topic for many experiments | You |
+| D6 | The Row section is committed on `doc-detective-poc` (`7123fb518`) | Done |
+| D7 | Doc Detective syntax is the **annotation wrapper**. A custom Python runner does the **extraction test and comparison**. Doc Detective's `httpRequest` assertions aren't used for output comparison | Research below. Proposed, awaiting your OK |
+
+---
+
+## Doc Detective: can we use its comments? (investigated)
+
+**Short answer: yes as the annotation layer, no as the assertion engine.**
+
+This research covers `doc-detective` 4.38.4 (v3 schemas), read from source at commit `dc88004` (2026-09-08). A subagent read the source and schemas and ran the comparator code in isolation. **Nobody has run Doc Detective end to end against this repo yet.** Experiments E2–E4 below close that gap.
+
+### What works in our favor
+
+- **Default Markdown inline statements** (HTML flavor), which are already used in the hello-world POC on this page:
+  - `<!-- test {...} -->` … `<!-- test end -->` bound a test
+  - `<!-- step {...} -->` declares a step
+  - `<!-- test ignore start -->` / `<!-- test ignore end -->` exclude regions
+- **Custom inline statements are supported.** In config, use `fileTypes: [{ extends: "markdown", inlineStatements: {...}, markup: [...] }]`. Custom regexes are unioned with the defaults, and capture group 1 is the statement body. (The published docs page for custom formats still shows v2 key names, so trust the schema over the docs.)
+- **Markup regexes can capture whole fenced blocks** and turn them into steps. One regex can span the config, URL and output and emit several steps.
+- **`httpRequest` covers the API sequence.** It does env-var substitution (`$SENSIBLE_API_KEY`), saves response values into variables (`"variables": {"EXTRACTION_ID": "$$response.body.id"}`), and polls via `onFail: [{"retry": {"limit", "delay", "backoff"}}]`.
+- **`runShell` / `runCode` (Python)** check exit codes and stdout.
+- **CI support:**
+  - The `doc-detective/github-action@v1` action has `create_issue_on_fail`, issue labels and assignees, and `create_pr_on_change`.
+  - Reporters include JSON, JUnit, HTML and Markdown.
+  - `--test` / `--spec` regex filters and `--dry-run` let you see what got detected.
+
+### Why it shouldn't do the comparison
+
+1. **Its subset comparator crashes on `null`.** Any `null` in the expected body (or an expected object meeting an actual `null`) throws a `TypeError`. Sensible output is full of `null`s. Whether that surfaces as a test FAIL or a runner crash is unverified.
+2. **Its array matching ignores order and count.** `[{x:1},{x:1}]` passes against `[{x:1}]`. That's a false pass for table and row outputs, where order and count matter.
+3. **Comments get silently mangled in step bodies.** Statement bodies go through `JSON.parse`, then a YAML fallback. Trailing commas survive, but `/* */` comments turn into key names **with no error**. Our configs carry canonical comments (54 of 90).
+4. **A captured expected output stays a string.** It's never parsed into an object, so it can't be asserted structurally.
+5. **Env-var substitution touches everything.** Any `$WORD` in a config or output would be replaced at runtime.
+6. **Polling can't stop early on FAILED.** Retry-until-COMPLETE keeps retrying a FAILED extraction until it hits the retry limit.
+
+### Gotchas to design around
+
+- **Default step detection runs automatically.** `detectSteps` is on by default, so Doc Detective will `checkLink` every link on the page unless it's disabled per test or per file type. On the monster test page this is probably fine, even useful, but it's noisy.
+- **The CLI exits 0 even when tests fail**, unless you pass `--exit-on-fail` / `exitOnFail`.
+- **Multi-line statements may or may not work.** The docs say comments must be single-line, but the regexes are multi-line capable. Unverified (experiment E3).
+
+---
+
+## Annotation design (proposed)
+
+The goal is to **wrap** each example in Doc Detective's test boundaries, so one annotation set serves both tools. Inside the wrapper, **role markers** point at the blocks. Doc Detective ignores the role markers because they don't match its `test`/`step` regexes, and the Python runner reads them.
+
+````markdown
+<!-- test {"testId": "row-two-tables"} -->
+
+<!-- example config -->
+```json
+{ "fields": [ ... ] }
+```
+
+<!-- example document {"url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column.pdf"} -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../row_column.pdf) |
+
+<!-- example output {"compare": "subset"} -->
+```json
+{ "number_1_language_on_github": { ... } }
+```
+
+<!-- test end -->
+````
+
+### Rules
+
+- **`testId` is the example's stable ID.** The runner uses it as the config name in the CI doc type, so it must match `^[a-z0-9_]+$`. That means underscores, not hyphens, in real IDs.
+- **`<!-- example config -->`** must immediately precede a fenced block. The runner parses that block as JSON5 and sends strict JSON.
+- **`<!-- example document {...} -->`**: the URL is explicit in the annotation. Scraping the table is the fallback if `url` is omitted. The runner checks that the annotation URL and the visible link match, which catches drift between the two.
+- **`<!-- example output {...} -->`** must immediately precede a fenced block. Options: `compare` (`subset` | `exact` | `keys-and-types` | `tolerance`), `ignore` (JSONPath list), and `skip` (reason string).
+- **Optional Doc Detective-native steps inside the wrapper,** where Doc Detective is genuinely good:
+  - `<!-- step {"checkLink": "<doc url>"} -->`
+  - `<!-- step {"runShell": {"command": "python scripts/example_tests/run_examples.py --test row_two_tables", "exitCodes": [0]}} -->`: lets Doc Detective orchestrate and report while the runner does the real work. This is optional (see Q10).
+
+### Alternatives considered
+
+| Option | Verdict |
+|---|---|
+| **A. Doc Detective wrapper + custom role markers** (above) | **Recommended.** One syntax, ReadMe-safe, Doc Detective-compatible, and the runner works without Doc Detective installed |
+| B. Pure custom comments (`<!-- senseml-test ... -->`) | Simpler, no Doc Detective coupling. You lose Doc Detective's link checks, reporters and Action for free |
+| C. Pure Doc Detective (markup regex + `httpRequest` + `runCode`) | Rejected. It hits all six problems above, and puts JSON5 and escaping inside regex captures |
+| D. Doc Detective custom `inlineStatements` for the role markers | Possible, but no benefit unless Doc Detective itself consumes them. Revisit if we move to option C for some subset |
+
+### Coverage report (the one use of docs structure)
+
+A lint pass finds every `**Config**` fence in `docs/Senseml reference/` that isn't inside an annotated test block, and lists it with a file:line link. That's how you track the "annotate everything" backlog without the structure driving extraction.
+
+---
+
+## What's in the repo (measured)
 
 | Fact | Number | Why it matters |
 |---|---|---|
-| Pages in `docs/Senseml reference/` | 120 | |
-| Pages with at least one `**Config**` block | 64 | This is the test surface |
-| `**Config**` blocks | 93 (90 fenced as `json`) | Roughly 90 tests |
-| `**Output**` blocks | 95 (91 fenced as `json`) | |
-| Configs that are **not strict JSON** | 62 of 90 | Canonical `/* */` comments (54) and trailing commas. The runner needs a JSON5 parser. The POC Row config has a trailing comma after `"position": "left",` |
-| Outputs that are not strict JSON | 4 | Hand-edited, truncated, or fragments (one Output fence starts with `"computed_fields": [`). These need an annotation or a fix |
-| Pages where Config count ≠ Output count | 3 | `conditional.md` (1/0), `custom-computation.md` (2/3), `deprecated-query.md` (2/3). Pairing blocks by order alone will mis-pair on these pages |
-| Unique example-doc URLs | 93, all `raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/...` | Easy to check |
-| Broken example-doc URLs today | 1: `TBD.pdf` in `draft-jsonschema-postprocessor.md` (404) | A draft, so expected. It shows the check would catch real breakage |
-| Non-PDF example docs | 1 `.xlsx` | Check that URL extraction handles it |
-| LLM-based method pages with examples | 3 (`nlp-table`, `query-group`, `list`) | Output is **not deterministic**. See Dimensions |
+| Pages with at least one `**Config**` block | 64 of 120 | The eventual annotation backlog |
+| `**Config**` blocks | 93 (90 fenced as `json`) | About 90 tests at full coverage |
+| Configs that aren't strict JSON | 62 of 90 | Canonical `/* */` comments and trailing commas. The runner needs JSON5. The Row config has a trailing comma after `"position": "left",` |
+| Outputs that aren't strict JSON | 4 | Fragments or hand edits. Annotate as `skip` or fix |
+| Pages where Config count ≠ Output count | 3 | `conditional.md`, `custom-computation.md`, `deprecated-query.md`. Explicit annotations make this a non-issue |
+| Unique example-doc URLs | 93 | 1 broken today: `TBD.pdf` in `draft-jsonschema-postprocessor.md` |
+| Non-PDF example docs | 1 `.xlsx` | |
+| LLM-method pages with examples | 3 (`nlp-table`, `query-group`, `list`) | Phase 3 (D3) |
 
-### API facts that shape the design
-
-- **No endpoint extracts with an inline config.** Every extraction runs against a config saved in a document type. The runner therefore has to write each example's config into a dedicated doc type first (`PUT /document_types/{id}/configurations/{name}`), then extract with `configuration_name`.
-- **The Python SDK (`sensibleapi`) only extracts and classifies.** It has no config management, so the runner uses the SDK for `extract` + `wait_for` and plain `requests` for the Configuration API. The alternative is to skip the SDK and use `requests` for everything, which gives one fewer dependency and one auth path.
-- The Configuration API takes `configuration` as a **stringified** config and "doesn't reject requests with configuration errors" unless you set `publish_as`. Publishing with `publish_as: "development"` forces validation, so an invalid example config fails loudly at upload time. That's the behavior we want.
-- **Not verified:** whether the API accepts JSON5 comments inside the stringified config. The SenseML editor tolerates them, but I haven't tested the API. The safe default is to parse with JSON5 and send strict JSON.
+Side note: the Row example's field ID `python_change_in_TIBOE_rating` misspells TIOBE, in both `row.md` and the draft copy.
 
 ---
 
-## Honest take on Bluehawk
+## API facts that shape the design
 
-The LangChain analogy only half fits, and Bluehawk may be the wrong tool here.
-
-**Why LangChain needed it.** Their samples are *imperative code* against a *fast-moving library*. Each sample needs setup and teardown (imports, clients, fixtures) that you don't want readers to see. Bluehawk's job is to let the **runnable file be the source of truth** while it strips the scaffolding (`:remove-start:`, `:snippet-start:`) out of what lands in the docs.
-
-**Why your case is different:**
-
-1. **There's no scaffolding to hide.** Your examples are *declarative data* (config + doc URL + expected output). The harness is identical for every example (upload config → extract → diff), so it lives once in a Python script and never needs to appear in the docs.
-2. **Your structure is already machine-parseable.** `**Config**` / `**Example document**` / `**Output**` is a convention a ~100-line parser can extract deterministically. Bluehawk markup would add annotations for something you already have.
-3. **ReadMe has no file-include.** Bluehawk's model is: code files → extracted snippets → *included* into docs at build time. ReadMe markdown can't include a file, so "stitch back" would mean a generator that **rewrites the fenced blocks inside the `.md` files** and commits the result. Your repo round-trips with ReadMe (the `Update doc ...` commits), so anyone who edits a config in the ReadMe UI would edit generated text. The next stitch would overwrite that edit, or the two would conflict.
-4. **Not verified:** whether Bluehawk parses markers in `.md` files at all. It keys comment syntax off file extension. I'd need to test this before relying on it.
-
-**Where Bluehawk (or extract-to-files) *does* earn its place:** Phase 3, auto-fix PRs. If configs and expected outputs lived as standalone `examples/<id>/config.json5` + `expected.json` files, a bot could edit those files and regenerate the docs. That's cleaner than a bot doing regex surgery on markdown. It's also a big authoring-workflow change, and it conflicts with ReadMe edits (point 3). Defer it.
-
-**Recommendation:** in Phases 1–2, keep **the markdown as the source of truth**. Extract deterministically from the existing convention, and add HTML-comment annotations *only for exceptions*. Your Doc Detective POC (`50574dfb3`) was testing exactly whether ReadMe preserves HTML comments through sync. That result decides whether annotations are viable at all.
+- **No endpoint extracts with an inline config.** The runner has to write each config into a dedicated doc type (`PUT /document_types/{id}/configurations/{name}`), then extract with `configuration_name`.
+- **The Python SDK (`sensibleapi`) only extracts and classifies.** Config management uses plain HTTP. Proposal: use `requests` for everything, so there's one dependency and one auth path.
+- **Validation needs `publish_as`.** The Configuration API takes a stringified config and skips validation unless you set `publish_as`. With `publish_as: "development"`, invalid example configs fail at upload time with a clear category.
+- **Not verified:** whether the API accepts JSON5 comments in the stringified config (E5). The safe default is to strip them client-side.
 
 ---
 
-## Proposed architecture (Phases 1–2)
+## Test artifacts (Q3, still open)
+
+Each run creates:
+
+- **Configs** in the CI doc type: one per `testId`, overwritten each run via an idempotent PUT. They don't accumulate, but each PUT creates a new **config version**, so version history grows by about 90 entries a week. That's probably harmless, but worth knowing.
+- **Extractions:** one per example per run, about 4,700 a year.
+
+What the API offers (from the OpenAPI spec in `reference/`):
+
+- **No public endpoint deletes extractions.** Delete exists only for doc types, configs, config versions, reference docs and email processors.
+- **Isolation is possible.** `GET /extractions` filters by `document_type_ids` and `environments`, so a dedicated doc type plus the `development` environment keeps CI extractions out of real dashboards and statistics, as long as people filter.
+- **Tagging is possible.** Async extraction accepts `document_name` (for example `ci__row_two_tables__<run_id>.pdf`) and `extra_data` (for example `{"ci_run": "<run id>", "git_sha": "..."}`) for traceability.
+- **Unverified leads:**
+  - The spec mentions "custom data retention policies." An account-level retention setting might auto-expire CI extractions.
+  - An error string says "To use the asynchronous flow you must have persistence enabled." That implies **sync** `/extract/{type}/{config}` may not persist extractions on accounts with persistence off. If so, sync extraction with a local file upload might create no stored artifacts at all. Ask engineering (E6).
+- **A dedicated account sidesteps all of this.** A CI-only Sensible account makes artifacts a non-issue (see Q2).
+
+---
+
+## Honest take on Bluehawk (unchanged conclusion, updated reasoning)
+
+Bluehawk solves "runnable source file is the truth, strip scaffolding, include snippets into docs." Your examples are declarative data with an identical harness for every test, so there's no scaffolding to strip. ReadMe can't include files, so "stitch back" would mean a bot rewriting markdown that ReadMe users also edit.
+
+Now that HTML-comment annotations are confirmed safe (D1), they give you the explicit, deterministic extraction Bluehawk markers would have, without moving the source of truth out of the markdown. **Revisit Bluehawk (or extract-to-files) only in the fix-PR phase,** if editing markdown in place proves too fragile.
+
+---
+
+## Architecture
 
 ```
-docs/Senseml reference/**/*.md
-        │
-        ▼
-extract_examples.py ──► examples.json          (deterministic manifest; can be committed or kept as a CI artifact)
-        │
-        ▼
-run_examples.py
-  for each example:
-    1. URL check     GET doc URL → 200, non-empty, plausible content-type
-    2. Parse         JSON5 → strict JSON (fail = "config is malformed in docs")
-    3. Upload        PUT config into doc type `docs_examples_ci`, name = example id, publish_as=development
-    4. Extract       extract_from_url(..., configuration_name=id, environment=development) + wait_for
-    5. Compare       parsed_document vs **Output** block
-        │
-        ▼
-report.py ──► GitHub issue (create / update / close-when-green) + Actions job summary
+docs/**/*.md
+   │
+   ▼
+extract_examples.py ─► examples.json   (reads <!-- test --> wrappers + <!-- example ... --> role markers)
+   │                    also: coverage.md (un-annotated **Config** blocks)
+   ▼
+run_examples.py  (standalone; optionally invoked per test by Doc Detective runShell)
+  per example:
+    1. URL check   GET → 200, non-empty, content-type plausible; annotation URL == visible link
+    2. Parse       JSON5 → strict JSON            fail category: DOCS_MALFORMED
+    3. Upload      PUT config, publish_as=development   fail: CONFIG_INVALID
+    4. Extract     POST extract_from_url/{type}/{testId}, poll GET /documents/{id}
+                   stop early on FAILED            fail: EXTRACTION_ERROR
+    5. Compare     parsed_document vs Output per `compare` mode   fail: OUTPUT_DRIFT
+   │
+   ▼
+report ─► JUnit + JSON + $GITHUB_STEP_SUMMARY
+       ─► one standing GitHub issue: create / update / close when green
+          (reuse scripts/sdk_check/check_sdk_readme.py pattern, or the Doc Detective Action's create_issue_on_fail)
 ```
 
-### Extractor
-
-- Walk each page and split it on headings. Inside each example section, grab the `**Config**` fence, the first URL in the `**Example document**` table, and the `**Output**` fence.
-- Record the source file and line numbers so the issue can link straight to the line on GitHub.
-- **Example IDs:** default to `<page-slug>-<n>`. Position-based IDs break when someone inserts an example above, so let an annotation pin a stable ID.
-
-### Annotations (optional, HTML comments, exceptions only)
-
-```html
-<!-- example-test {"id": "row-two-tables"} -->
-<!-- example-test {"skip": "LLM output varies; checked manually"} -->
-<!-- example-test {"compare": "keys-and-types"} -->
-<!-- example-test {"ignore": ["$.some_field.value"]} -->
-<!-- example-test {"document": "https://.../other.pdf"} -->
-```
-
-Place one directly above the `**Config**` it modifies. If there's no annotation, the defaults apply.
-
-### Comparison semantics (the hardest design decision)
-
-Doc outputs are curated, not raw dumps. Readers see trimmed, sometimes reordered subsets. Options, from strictest to loosest:
+### Comparison modes
 
 | Mode | Passes when | Use for |
 |---|---|---|
-| `exact` | Deep-equal | Rarely. Too brittle |
-| **`subset`** (proposed default) | Every key/value in the docs Output exists in the actual output. Extra actual fields are OK | Most layout-based examples |
-| `keys-and-types` | Same field IDs, same `type`, non-null where the docs show non-null | LLM methods |
-| `skip` | Always | Fragments and conceptual snippets |
+| `exact` | Deep-equal after normalization | Rarely |
+| **`subset`** (default) | Every key/value in the docs Output exists in the actual output. Extra actual fields are OK. **Arrays are positional and length-checked.** `null` is a real value | Layout-based examples |
+| `keys-and-types` | Same field IDs and `type`s, non-null where the docs show non-null | Early LLM coverage |
+| `tolerance` (Phase 3) | Per-field rules: numeric ±, string similarity threshold, set membership, "non-empty" | LLM acceptable variation (D3) |
 
-Normalize before comparing: key order, whitespace, float precision.
-
-### Reporting
-
-- Reuse the pattern already in `scripts/sdk_check/check_sdk_readme.py`: one standing issue that gets created or updated, not a new issue every week. Close it automatically when the run goes green.
-- For each failure, the issue body includes: page link at line, failure category (URL / parse / upload-validation / extraction error / output drift), a unified diff of expected vs actual, and a SenseML editor deep link to the config in `docs_examples_ci` so you can debug in the app.
-- Also write a Markdown table to `$GITHUB_STEP_SUMMARY`.
-- Optional: Slack post via webhook.
+Normalization: key order, whitespace, float precision.
 
 ### Triggers
 
-- `schedule`: weekly (for example, Monday 14:00 UTC)
-- `workflow_dispatch`: manual runs
-- Later: `pull_request` on `docs/Senseml reference/**`, testing only the pages that changed. Catch: on a PR, a changed PDF only exists on the PR branch, so rewrite `/v0/` URLs to the PR head SHA.
+- `workflow_dispatch`
+- `schedule`: weekly
+- Later: `pull_request` on annotated pages, running only the changed tests. For PRs, rewrite `/v0/` asset URLs to the PR head SHA.
 
 ---
 
-## POC plan (Row example only)
+## POC: experiments on the playground topic
 
-1. Create a hand-made `docs_examples_ci` doc type in the Sensible app, or have the script create it idempotently (needs your OK, see Q3).
-2. `extract_examples.py` parses **only** `draft-getting-started-ai.md` → one-entry manifest. Confirm it survives the trailing comma and `/* */` comments.
-3. `run_examples.py` runs that one entry locally with your `SENSIBLE_API_KEY` and prints pass/fail + diff.
-4. Break it on purpose three ways (bad URL, change `"Javascript"` → `"Java"` in Output, invalid method id) and confirm each shows up as the right failure category.
-5. Wrap it in `.github/workflows/test-examples.yml` with `workflow_dispatch` only. Add the secret and run it once from Actions.
-6. Add issue reporting. Only then add the cron.
+Run in order. Each one answers a question the design depends on.
 
-Exit criterion: one green run, three correctly classified red runs, and one issue opened and auto-closed.
+| # | Experiment | Answers |
+|---|---|---|
+| E1 | Annotate the Row example (option A). `extract_examples.py --file draft-getting-started-ai.md` emits a one-entry manifest | Does the annotation grammar extract deterministically? JSON5 handling of the trailing comma and comments |
+| E2 | Run Doc Detective locally on the page (`npx doc-detective --input docs/welcome/draft-getting-started-ai.md --dry-run`, then for real) | Does Doc Detective ignore the `<!-- example ... -->` markers? What does default `detectSteps` pick up? Do the hello-world and Row tests coexist? |
+| E3 | Add a multi-line `<!-- step ... -->` | Are multi-line statements OK? (The docs say no, the regex says yes) |
+| E4 | A throwaway Doc Detective `httpRequest` with `null` in the expected body | Confirms the null crash and how it surfaces. Documents *why* we don't use it |
+| E5 | PUT the Row config with comments left in vs. stripped | Does the API accept JSON5 in the stringified config? |
+| E6 | Sync vs. async extraction, then check `GET /extractions` | Which paths persist artifacts? |
+| E7 | Local green run of `run_examples.py` for the Row test | End-to-end happy path |
+| E8 | Intentional reds: bad URL, `"Javascript"` → `"Java"` in Output, invalid method id, visible link ≠ annotation URL | Each lands in the right failure category |
+| E9 | `workflow_dispatch` workflow + issue reporting (create → update → auto-close) | CI plumbing and notifications |
+| E10 | (Optional) Doc Detective `runShell` step invoking the runner for `row_two_tables` | Is Doc Detective orchestration worth it versus the runner standalone? |
 
-Side note I found while reading the POC section: the field ID `python_change_in_TIBOE_rating` misspells TIOBE. Fixing it changes the expected output key, so fix it in the Config and Output together.
+Exit criterion: E7 green, E8 correctly classified, and E9 opens and closes an issue.
 
 ---
 
-## Dimensions you may not have considered
+## Dimensions to keep in view
 
-1. **Is it a docs bug or a product regression?** If output drifts because the Sensible engine changed, the docs aren't wrong; the product changed. Sometimes that's intended, sometimes it's a bug. Your weekly run is effectively a **regression canary for engineering**. Decide who gets the issue (see Q6). This also argues against auto-updating Output blocks (Phase 3), because an auto-update can codify a regression.
-2. **Nondeterminism.** LLM methods (3 pages) and possibly OCR-dependent examples won't reproduce byte-for-byte. Without `keys-and-types` or `skip`, they'll fail randomly and people will learn to ignore the issue. Alert fatigue kills these projects.
-3. **Flakiness policy.** Transient API errors or timeouts shouldn't page anyone. Proposal: retry each failing example once, and report extraction *errors* separately from output *drift*.
-4. **Cost and quota.** About 90 extractions a week ≈ 4,700 a year, and LLM methods cost more per run. Whose account pays, and does this count against a plan limit? (Q2)
-5. **Test pollution.** About 90 configs in a doc type in a real account. That's fine if the doc type is clearly named and isolated. Configs get overwritten every run (idempotent PUT), so they don't accumulate, and keeping them lets you open failures in the editor.
-6. **Fragments and conceptual snippets.** Some Config blocks aren't runnable on their own (partial `computed_fields`, examples that depend on a preprocessor defined elsewhere). The first full run will surface them. Expect roughly 10–20% to need a `skip` or a small docs fix. That's a useful audit in itself.
-7. **Images drift too.** Each example has a screenshot (`row.png`) of the output. This harness can't tell when the screenshot goes stale. Out of scope, but worth knowing about.
-8. **Inline comments and the json5-commenter skill.** Canonical comments get injected into configs. That's fine as long as the runner parses JSON5. It's also a reason *not* to move configs into separate files yet, because the commenter operates on markdown.
-9. **Doc Detective overlap.** You've already started Doc Detective. It's good at link checks and simple HTTP assertions. For this use case it would need the config and output *duplicated* into the test annotation, since it can't reference the neighboring fenced block. The async extract-then-poll flow is also awkward there (**not verified**: I haven't checked its current polling support). A custom Python runner fits better, and Doc Detective can keep doing links.
-10. **Scope creep to other pages.** Integration guides, the Python/Node SDK guides, and API reference examples are also runnable. Design the manifest format generically (`kind: senseml-example`), but only build the SenseML kind now.
+1. **Is it a docs bug or a product regression?** Output drift can be an intended engine change, a regression, or a docs error. The weekly run is a **regression canary for engineering**. That's also why fix-PRs must be human-reviewed: auto-updating Output blocks can codify a regression.
+2. **Alert fatigue.** Flaky or nondeterministic tests get the issue ignored. Retry transient API errors once, and report `EXTRACTION_ERROR` separately from `OUTPUT_DRIFT`.
+3. **Annotation noise in the source.** About 5–7 comment lines per example across 64 pages. That's invisible on the site, but it affects authoring and ReadMe-editor users. Keep the grammar minimal.
+4. **The json5-commenter skill injects comments into configs.** That's fine because the runner parses JSON5. Also confirm the skill doesn't touch or reorder the `<!-- example ... -->` markers.
+5. **Screenshots drift too.** `row.png` shows the output, and this harness can't detect a stale image. Out of scope.
+6. **Fragments and conceptual snippets.** Some Config blocks aren't runnable alone. Those just don't get annotated, or get `skip` with a reason. The coverage report lists them honestly.
+7. **Scope beyond SenseML.** SDK guides, integration guides and API-reference examples are also runnable. Keep `examples.json` generic (`kind: senseml-example`), but only build that kind now.
 
 ---
 
@@ -169,30 +259,32 @@ Side note I found while reading the POC section: the field ID `python_change_in_
 
 | Secret | Needed for | Status |
 |---|---|---|
-| `SENSIBLE_API_KEY` | Uploading configs and running extractions | **Not in this repo's Actions secrets** (`gh secret list` shows only `ANTHROPIC_API_KEY`, `DEV_README_KEY`, `README_API_KEY`, `README_OAS_KEY`, and debug flags). It may exist at the org level, which that command doesn't show. Present in your local env |
-| `GITHUB_TOKEN` | Opening and updating issues | Built in. The workflow needs `permissions: issues: write` |
-| `SLACK_WEBHOOK_URL` | Optional Slack notification | Doesn't exist. Only needed if you want Slack |
-| `ANTHROPIC_API_KEY` | Phase 3 only (Claude proposes fixes) | Already exists |
-| `GITHUB_TOKEN` with `contents: write`, `pull-requests: write` | Phase 3 only (bot opens PRs) | Built in, needs workflow permissions |
+| `SENSIBLE_API_KEY` | Config upload and extraction | Not in this repo's Actions secrets (`gh secret list`). You'll add it or confirm it's set at the org level (Q4) |
+| `GITHUB_TOKEN` | Issues | Built in. The workflow needs `permissions: issues: write` |
+| `SLACK_WEBHOOK_URL` | Optional Slack notification | Doesn't exist |
+| `ANTHROPIC_API_KEY` | Fix-PR phase | Exists |
+| `GITHUB_TOKEN` with `contents: write`, `pull-requests: write` | Fix-PR phase | Built in, needs workflow permissions |
 
 ---
 
 ## Phases
 
-1. **POC:** Row example, local and then `workflow_dispatch`, issue reporting.
-2. **Coverage:** all SenseML reference pages, annotations for exceptions, weekly cron, triage the first-run failures (expect a real docs-fix backlog).
-3. **Proposed fixes:** on drift, a Claude-powered job opens a PR that updates the Output block (or the config), with the diff and reasoning. **Always human-reviewed, never auto-merged**, because of dimension 1. Reconsider extract-to-files or Bluehawk at this point.
+1. **POC:** experiments E1–E10 on the playground topic.
+2. **Deterministic coverage:** annotate layout-based examples across `docs/Senseml reference/`, run the coverage report, weekly cron, and triage the first-run failures (expect a real docs-fix backlog).
+3. **LLM examples:** define `tolerance` rules per field (D3) and annotate the 3 LLM pages.
+4. **Proposed fixes:** on drift, a Claude-powered job opens a PR updating the Output block or config, with the diff and reasoning. Always human-reviewed, never auto-merged. Reconsider extract-to-files or Bluehawk here.
 
 ---
 
-## Questions for you
+## Open questions
 
-1. **HTML comments through ReadMe:** did the Doc Detective POC confirm that ReadMe preserves `<!-- -->` comments round-trip? If not, annotations need another home (for example, a sidecar `examples.overrides.yaml` keyed by page + index).
-2. **Account and cost:** which Sensible account should CI run against (a docs account, a dedicated CI account, or yours)? Does about 90 extractions a week matter for billing or quota?
-3. **Doc type:** may the script create a `docs_examples_ci` document type and overwrite configs in it, or do you want to create it by hand?
-4. **Secret:** can you add `SENSIBLE_API_KEY` to this repo's Actions secrets, or confirm it exists at the org level?
-5. **Comparison default:** is `subset` right? Are there examples where the Output block is *intentionally* not what the config produces, for example illustrative edits?
-6. **Who gets notified:** only you (issue assigned to you), or also engineering when the failure looks like engine drift rather than docs drift? Where: GitHub issue only, or Slack too?
-7. **LLM examples:** in Phase 2, `keys-and-types` or `skip`?
-8. **Where the tests run first:** is the `draft-getting-started-ai.md` Row example the real target, or a stand-in? It's a copy of `docs/Senseml reference/layout-based-methods/row.md` (same config, same `TIBOE` typo). If it's a stand-in, the POC could point at the reference page directly and skip the `doc-detective-poc` branch.
-9. **Branch strategy:** this work lives on `doc-detective-poc` (PR #725), next to the Doc Detective hello-world test. The Row section in `draft-getting-started-ai.md` is still uncommitted in this worktree. Should the harness test that draft section (commit it first) or `layout-based-methods/row.md` directly?
+Answered and moved to Decisions: old Q1 (D1), Q2 cost (D4), Q8 (D5), Q9 (D6). Q7 (LLM examples) is partly answered by D3.
+
+2. **Account:** which Sensible account should CI run against? A CI-only account would also solve artifact clutter.
+3. **Doc type and artifacts (TBD):** may the runner create and overwrite a `docs_examples_ci` document type? What's the policy for accumulated extractions and config versions? See "Test artifacts" and E6.
+4. **Secret:** add `SENSIBLE_API_KEY` to repo Actions secrets, or confirm it's at the org level.
+5. **Comparison default:** is `subset` (positional arrays, `null` as a real value) right? Are there examples where the Output block is *intentionally* not what the config produces?
+6. **Notifications:** only you, or engineering too when the failure looks like engine drift? GitHub issue only, or Slack too?
+7. **LLM variation (Phase 3):** which kinds of variation are acceptable? Numeric tolerance, wording differences, extra or missing optional fields?
+10. **Doc Detective's role:** annotation syntax only (it never runs), or also run it in CI for `checkLink` plus orchestration via `runShell`? This affects whether to use its GitHub Action for issues or the existing `sdk_check` pattern.
+11. **Annotation grammar:** is option A OK? Any naming preference for the role markers (`example config` vs `senseml config` vs something else)?
