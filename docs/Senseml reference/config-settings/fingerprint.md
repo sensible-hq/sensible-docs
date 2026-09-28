@@ -118,7 +118,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 * Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
 
 ```json
-// AVOID THIS SYNTAX
+/* AVOID THIS SYNTAX */
 "fingerprint": {
     "tests": [
       /* Each test contains a single match, so Sensible scores each
@@ -127,7 +127,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
         "page": "every",
         "match": [
           {
-            "text": "NARS", // distinctive phrase
+            "text": "NARS", /* distinctive phrase */
             "type": "includes",
             "isCaseSensitive": true
           }
@@ -137,7 +137,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
         "page": "every",
         "match": [
           {
-            "text": "Name of Insured", // generic phrase. On its own, it can match pages in unrelated documents
+            "text": "Name of Insured", /* generic phrase. On its own, it can match pages in unrelated documents */
             "type": "includes",
             "isCaseSensitive": true
           }
@@ -154,10 +154,10 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
   Instead, write the following:
 
 ```json
-// PREFER THIS SYNTAX
+/* PREFER THIS SYNTAX */
 "fingerprint": {
     "tests": [
-      // one test that contains a match array, so the phrases pass or fail together
+      /* one test that contains a match array, so the phrases pass or fail together */
       {
         "page": "every",
         "match": [ /* match array: each element matches a separate line, and Sensible
