@@ -157,21 +157,22 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 /* PREFER THIS SYNTAX */
 "fingerprint": {
     "tests": [
-      /* one test that contains a match array, so the phrases pass or fail together */
+      /* one test that contains a match array, so the test passes or fails if the lines occur in the document in the order specified by the array */
       {
         "page": "every",
         "match": [ /* match array: each element matches a separate line, and Sensible
                       must find the lines in the same order as in the array.
-                      In a portfolio, Sensible must also find all the lines on the same page.
-                      In a standalone document, the lines can occur on different pages */
+                      In a portfolio, Sensible must also find all the lines in the array on a single page.
+                      In a standalone document, Sensible searches for the lines across multiple pages */
           {
             "text": "NARS",
             "type": "includes",
             "isCaseSensitive": true
           },
           {
-            /* must occur on a line after "NARS". Paired with "NARS",
-               this generic phrase no longer matches unrelated documents */
+            /* Sensible must find "Name of Insured" in a line that succeeds the line
+               containing "NARS". Paired with "NARS", this generic phrase no longer
+               matches unrelated documents */
             "text": "Name of Insured",
             "type": "includes",
             "isCaseSensitive": true
