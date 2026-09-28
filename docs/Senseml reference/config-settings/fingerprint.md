@@ -44,7 +44,7 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
   "fingerprint": {
     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
     "tests": [
-      /* array of tests; by default, the config passes if 50% or more of the tests pass */
+      /* array of tests; by default for standalone documents, the config passes if 50% or more of the tests pass */
       /* test 1 */
       [
         /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages); if they're out of order or not all present, it fails */

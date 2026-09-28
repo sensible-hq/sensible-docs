@@ -62,7 +62,7 @@ Consequences:
 ### To do
 - [x] Match-array test counts as one pass/fail unit (confirmed by Frances; evidence above)
 - [x] Standalone threshold is 50% of tests; "all tests must pass" applies only to portfolios (confirmed by Frances)
-- [x] Fix the standalone example comment in fingerprint.md and json5-comments-reference.md:19 to "array of tests; by default, the config passes if 50% or more of the tests pass"
+- [x] Fix the standalone example comment in fingerprint.md and json5-comments-reference.md:19 to "array of tests; by default for standalone documents, the config passes if 50% or more of the tests pass"
 - [ ] Same stale comment remains in drafts/blog-oocl-delivery-orders-20260622.md (lines 33, 269; untracked draft in main checkout, not in this PR)
 - [x] Reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
 
