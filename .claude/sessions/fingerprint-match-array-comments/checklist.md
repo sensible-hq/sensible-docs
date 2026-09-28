@@ -12,6 +12,9 @@ Session directory: /home/franc/GitHub/sensible-docs
 - [x] Update style guides to require `/* */` for all comments (sentence-word-guidance.md, style-guide-overview.md, concept-topic-template.md)
 - [x] Apply Frances's 4 PR review comments to the PREFER example comments (lines 160, 165, 166, 173)
 - [x] Line 160: "passes or fails if" → "passes only if"
+- [x] Replace the standalone example with a multi-test Wells Fargo example (match array, Match object, string), and update the intro and outro sentences
+- [ ] Check the real statement footer: `endsWith "page 2"` fails on "Page 2 of 6"-style footers
+- [ ] Confirm the config and document type names in the new example intro ("wells_fargo_checking", "bank statements" are placeholders)
 - [ ] Reply to / resolve the PR review comments on GitHub (not done; Frances to handle or ask)
 
 ## For review: conflicting pass rules for standalone fingerprints
@@ -31,7 +34,7 @@ Three statements about how many tests must pass for a standalone document:
 - So "50% of all matches" in #3 most likely means 50% of tests.
 - What neither doc says: whether a match-array test counts as a single pass/fail unit in standalone scoring, or whether each match in it counts separately. The AVOID-example comment depends on the first reading. **Resolved:** Frances confirmed a match array resolves to one line (pass/fail); see evidence below.
 
-**#1 is still a contradiction. It's most likely the wrong statement.**
+**#1 was wrong. Resolved:** Frances confirmed "all tests must pass" applies only to portfolios. Fixed in this PR.
 - "By default" can't refer to a Fingerprint Mode setting. In the fingerprint-mode.md table, Normal and Strict both use the 50% rule ("Same"). The modes differ only in what happens when every config fails.
 - `fingerprint.md:58`, just below the example, says the config "preferentially runs if the fingerprint finds the phrases." That reads like a soft score, which fits 50%, not "all tests."
 - Likely source of the error: the portfolio rule (100% of tests, `fingerprint.md:108`) got copied into the standalone comment.
@@ -54,12 +57,13 @@ Conclusion: the unit of pass/fail is the **test**. "50% of tests" (fingerprint-m
 
 Consequences:
 - The AVOID-example comment is correct. With two single-match tests, one passing test ("Name of Insured") is 50%, so the config passes. The PREFER example is one test that passes or fails as a whole, so a generic phrase alone can't pass it.
-- Statement #1 ("all tests must pass") is still the outlier.
+- Statement #1 ("all tests must pass") was wrong for standalone documents and is now fixed.
 
 ### To do
 - [x] Match-array test counts as one pass/fail unit (confirmed by Frances; evidence above)
-- [ ] Confirm with engineering that the standalone threshold is 50% of tests
-- [ ] If confirmed, fix the comment at fingerprint.md:45 and json5-comments-reference.md:19, e.g. "by default, the config passes if 50% or more of tests match"
+- [x] Standalone threshold is 50% of tests; "all tests must pass" applies only to portfolios (confirmed by Frances)
+- [x] Fix the standalone example comment in fingerprint.md and json5-comments-reference.md:19 to "array of tests; by default, the config passes if 50% or more of the tests pass"
+- [ ] Same stale comment remains in drafts/blog-oocl-delivery-orders-20260622.md (lines 33, 269; untracked draft in main checkout, not in this PR)
 - [x] Reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
 
 ## For review: the "fallbacks" tip may contradict the 100% portfolio rule
