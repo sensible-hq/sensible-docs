@@ -76,3 +76,11 @@ Consequences:
 - Taken together: a revision-1 document fails the revision-2 test, so the segment never passes.
 - A single test with an `any` Boolean match (wording A or wording B) seems to be the correct fallback pattern.
 - [ ] Confirm with engineering how separate same-page-type tests combine in portfolios, then fix the fallbacks tip or clarify the 100% rule
+
+## To do: point readers to the fingerprint validation option in the Sensible app
+
+- [ ] Add a pointer in fingerprint.md to the new option for validating fingerprints in the Sensible app. It's a new entry under the **Options** button in the SenseML editor.
+  - Get the exact menu entry name and what it reports (pass/fail per test? matched lines? portfolio segments?) before writing
+  - Decide where it goes. Candidates: the standalone Examples section, Tips > test criteria, or a Notes entry
+  - Check whether an existing doc already covers the Options menu, and link to it
+  - Screenshots go in screenshots/ and docs reference final/ (see image processing pipeline)
