@@ -36,7 +36,7 @@ A fingerprint consists of an array of tests, where each test is a string, a Matc
 
 ## Examples
 
-The following fingerprint tests a vendor-specific config "wells\_fargo\_checking" in a document type "bank statements". This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: a match array, a Match object, and a string.
+The following fingerprint tests a vendor-specific config, `wells_fargo_checking` in a document type, `bank statements`. This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: a match array, a Match object, and a string.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
