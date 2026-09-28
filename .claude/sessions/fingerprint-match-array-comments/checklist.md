@@ -13,17 +13,27 @@ Session directory: /home/franc/GitHub/sensible-docs
 
 ## For review: conflicting pass rules for standalone fingerprints
 
-The docs disagree on how many fingerprint tests must pass for a standalone document:
+Three statements about how many tests must pass for a standalone document:
 
-- [ ] **"All tests must pass":** the comment on `"tests"` in the standalone example, `docs/Senseml reference/config-settings/fingerprint.md:45`. The same wording is the canonical comment in `.claude/style-guide/json5-comments-reference.md:19`, so the json5-commenter skill copies it into every example it enriches.
-- [ ] **"50% of tests":** `docs/Senseml reference/document-type-settings/fingerprint-mode.md:32` says "A config passes if 50% or more of tests in a config match text in document."
-- [ ] **"50% of matches":** `fingerprint.md:108` (Tips > test criteria) says "Sensible must find 50% of all matches anywhere in the document by default." That counts *matches*, not *tests*.
+1. `fingerprint.md:45` (standalone example comment) and `json5-comments-reference.md:19`: "by default all tests must pass for the config to run"
+2. `fingerprint-mode.md:32`: "A config passes if 50% or more of tests in a config match text in document."
+3. `fingerprint.md:108` (Tips > test criteria): "Sensible must find 50% of all matches anywhere in the document by default"
 
-Why it matters for this PR: the "unwanted effect" comment in the AVOID example (`fingerprint.md` ~line 147) relies on the 50%-of-**tests** rule. With that rule, two single-match tests let a document pass on "Name of Insured" alone, while one match-array test needs both phrases.
-- If the rule is really 50% of **matches**, the PREFER example has the same weakness (1 of 2 matches = 50%), and the tip's justification fails for standalone documents.
-- If the rule is really **all tests**, the AVOID example has no unwanted effect for standalone documents either.
+### After a closer reading
 
-To resolve:
-- [ ] Confirm the actual rule with engineering: 50% of tests, 50% of matches, or all tests
-- [ ] Fix whichever of fingerprint.md:45, fingerprint.md:108, fingerprint-mode.md:32 and json5-comments-reference.md:19 is wrong
-- [ ] Re-check the AVOID-example comment against the confirmed rule
+**#2 vs #3 is probably just loose wording.**
+- `fingerprint.md:33` defines the unit: "each test is a string, a Match object, or array of Match objects."
+- `fingerprint.md:107`, the bullet just above #3, treats a match array as belonging to one test ("matches in the array ... for the test to pass").
+- #3's portfolio half is worded the same loose way ("100% of all matches in all tests").
+- So "50% of all matches" in #3 most likely means 50% of tests.
+- What neither doc says: whether a match-array test counts as a single pass/fail unit in standalone scoring, or whether each match in it counts separately. The AVOID-example comment depends on the first reading.
+
+**#1 is still a contradiction. It's most likely the wrong statement.**
+- "By default" can't refer to a Fingerprint Mode setting. In the fingerprint-mode.md table, Normal and Strict both use the 50% rule ("Same"). The modes differ only in what happens when every config fails.
+- `fingerprint.md:58`, just below the example, says the config "preferentially runs if the fingerprint finds the phrases." That reads like a soft score, which fits 50%, not "all tests."
+- Likely source of the error: the portfolio rule (100% of tests, `fingerprint.md:108`) got copied into the standalone comment.
+
+### To do
+- [ ] Confirm with engineering that the standalone rule is 50% of tests, and that a match-array test counts as one unit
+- [ ] If confirmed, fix the comment at fingerprint.md:45 and json5-comments-reference.md:19, e.g. "by default, the config passes if 50% or more of tests match"
+- [ ] Optional: reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
