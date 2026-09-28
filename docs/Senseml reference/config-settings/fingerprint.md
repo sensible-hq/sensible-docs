@@ -66,7 +66,8 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
         "type": "startsWith",
         "text": "account"
       },
-      /* test 3 passes if Sensible finds a line that includes "checking" anywhere in the document */
+      /* test 3 passes if Sensible finds a line that includes "checking" anywhere in the document.
+         Sensible expands string tests to case-insensitive includes matches */
       "checking"
     ]
   },
