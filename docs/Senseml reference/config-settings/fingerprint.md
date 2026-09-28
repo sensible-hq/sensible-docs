@@ -38,7 +38,7 @@ A fingerprint consists of an array of tests, where each test is a string, a Matc
 
 The following fingerprint tests a vendor-specific config "wells\_fargo\_checking" in a document type "bank statements". This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: a match array, a Match object, and a string.
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fingerprint": {
@@ -46,7 +46,7 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
     "tests": [
       /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
       /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
-         if they're out of order or not all present, it fails */
+         if array elements are out of order or not all elements are present, it fails */
       [
         {
           "type": "includes",
@@ -230,10 +230,6 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
         ]
       }
     ]
-    /* Unwanted effect: if you reuse this config for standalone documents,
-       a config passes if 50% or more of its tests match. A document that
-       contains only "Name of Insured" passes this fingerprint, so Sensible
-       runs this config on documents that it doesn't fit */
   }
 ```
 
@@ -247,7 +243,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
       {
         "page": "every",
         "match": [ /* match array: each element matches a separate line, and Sensible
-                      must find the lines in the same order as in the array.
+                      must find the lines in the document in the same order as in the array.
                       In a portfolio, Sensible must also find all the lines in the array on a single page.
                       In a standalone document, Sensible searches for the lines across multiple pages */
           {
