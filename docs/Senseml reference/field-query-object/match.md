@@ -87,7 +87,7 @@ The following config uses a string match:
 
 ```
 
-For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`.  Sensible expands string anchors to case-insensitive includes matches. For an example,  see [Anchor](doc:anchor).
+For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`.  Sensible expands string matches to case-insensitive includes matches. For an example,  see [Anchor](doc:anchor).
 
 **EDIT DISTANCE EXAMPLE**
 
