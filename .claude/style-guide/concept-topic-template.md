@@ -101,7 +101,7 @@ When the concept has multiple configuration approaches, a comparison table in th
 
 ### Code examples
 
-Use fenced ` ```json ` blocks. Inline `//` comments are acceptable — Sensible accepts relaxed JSON.
+Use fenced ` ```json ` blocks. Inline `/* */` comments are acceptable (never `//`) — Sensible accepts relaxed JSON.
 
 Concept pages typically embed code inline rather than using the "Config / Example document / Output" scaffold from reference pages. Truncate illustrative output to 2–3 representative lines + `"..."` if needed.
 

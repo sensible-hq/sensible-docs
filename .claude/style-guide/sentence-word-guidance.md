@@ -151,7 +151,7 @@ For methods with many interdependencies, use the 4-column table format with an e
 
 ## Code examples: inline comments
 
-Use `//` for single-line comments and `/* */` for multi-line comments in JSON configs. The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says.
+Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`. The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says.
 
 Good: `/* Use a multimodal LLM to troubleshoot problems with OCR */`
 Good: `/* Ensure the document type's OCR Engine parameter is set to Google for this example */`
