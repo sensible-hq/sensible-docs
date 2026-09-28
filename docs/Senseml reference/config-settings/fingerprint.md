@@ -44,7 +44,7 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
   "fingerprint": {
     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
     "tests": [
-      /* array of tests; by default for standalone documents, the config passes if 50% or more of the tests pass */
+      /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
       /* test 1 */
       [
         /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages); if they're out of order or not all present, it fails */
@@ -76,6 +76,68 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
 ```
 
 The config preferentially runs if the fingerprint tests pass.
+
+**Portfolio expansion**
+
+If you use the preceding config in a portfolio, Sensible expands each test to portfolio syntax using `"page": "any"`. The expanded fingerprint is equivalent to the following:
+
+```json5
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fingerprint": {
+    /* in a portfolio, 100% of tests must pass for Sensible to segment the document */
+    "tests": [
+      /* test 1 */
+      {
+        /* any page in the document segment can meet the criteria */
+        "page": "any",
+        /* in a portfolio, Sensible must find all the lines in the array on a single page.
+           If "page 2" and "page 3" occur on different pages, this test fails,
+           so Sensible can't segment the document */
+        "match": [
+          {
+            "type": "includes",
+            "text": "wells fargo"
+          },
+          {
+            "type": "endsWith",
+            "text": "page 2"
+          },
+          {
+            "type": "endsWith",
+            "text": "page 3"
+          }
+        ]
+      },
+      /* test 2 */
+      {
+        "page": "any",
+        "match": {
+          "type": "startsWith",
+          "text": "account"
+        }
+      },
+      /* test 3: Sensible expands the "checking" string test to a case-insensitive includes match */
+      {
+        "page": "any",
+        "match": {
+          "type": "includes",
+          "text": "checking"
+        }
+      }
+    ]
+  },
+  "fields": []
+}
+```
+
+The expanded fingerprint has the following drawbacks in a portfolio:
+
+- All tests must pass. In a standalone document, the config passes if 2 of the 3 tests pass. In a portfolio, a document that fails any test isn't segmented.
+- Sensible must find all the lines in a match array on a single page. A match array that spans pages, such as test 1, fails.
+- `any` tests don't tell Sensible which page starts or ends a document. The Page parameter description recommends avoiding `any` unless other page types fail to segment the portfolio.
+
+If you use a config in portfolios, write its fingerprint in portfolio syntax instead. Use `first`, `last`, and `every` page types to characterize the document's pages. For more information, see [Portfolios](doc:fingerprint#portfolios).
 
 # Portfolios
 
@@ -125,7 +187,7 @@ Use the following tips when you define fingerprints for portfolios:
 Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:
 
 * If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
-* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass by default for Sensible to give the document a "passing" score.
+* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass for Sensible to give the document a "passing" score.
 
 #### fallbacks
 

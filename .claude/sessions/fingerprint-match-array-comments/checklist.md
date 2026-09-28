@@ -13,6 +13,9 @@ Session directory: /home/franc/GitHub/sensible-docs
 - [x] Apply Frances's 4 PR review comments to the PREFER example comments (lines 160, 165, 166, 173)
 - [x] Line 160: "passes or fails if" → "passes only if"
 - [x] Replace the standalone example with a multi-test Wells Fargo example (match array, Match object, string), and update the intro and outro sentences
+- [x] Cut "by default" from the 50% rule (not configurable, per Frances) in the example comment, json5-comments-reference.md:19, and the test criteria tip
+- [x] Add a "Portfolio expansion" example after the standalone example: shows the `"page": "any"` expansion, explains the drawbacks (100% rule, match array must be on a single page so test 1 fails, `any` gives no boundaries), and recommends full portfolio syntax
+- [ ] Review: "equivalent to" in the expansion intro. The exact internal expansion shape (Match object vs. single-element array) isn't documented, so the example is illustrative
 - [ ] Check the real statement footer: `endsWith "page 2"` fails on "Page 2 of 6"-style footers
 - [ ] Confirm the config and document type names in the new example intro ("wells_fargo_checking", "bank statements" are placeholders)
 - [ ] Reply to / resolve the PR review comments on GitHub (not done; Frances to handle or ask)
@@ -62,7 +65,7 @@ Consequences:
 ### To do
 - [x] Match-array test counts as one pass/fail unit (confirmed by Frances; evidence above)
 - [x] Standalone threshold is 50% of tests; "all tests must pass" applies only to portfolios (confirmed by Frances)
-- [x] Fix the standalone example comment in fingerprint.md and json5-comments-reference.md:19 to "array of tests; by default for standalone documents, the config passes if 50% or more of the tests pass"
+- [x] Fix the standalone example comment in fingerprint.md and json5-comments-reference.md:19 to "array of tests; for standalone documents, the config passes if 50% or more of the tests pass"
 - [ ] Same stale comment remains in drafts/blog-oocl-delivery-orders-20260622.md (lines 33, 269; untracked draft in main checkout, not in this PR)
 - [x] Reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
 
