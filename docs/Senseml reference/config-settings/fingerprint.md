@@ -157,7 +157,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 /* PREFER THIS SYNTAX */
 "fingerprint": {
     "tests": [
-      /* one test that contains a match array, so the test passes or fails if the lines occur in the document in the order specified by the array */
+      /* one test that contains a match array, so the test passes only if the lines occur in the document in the order specified by the array */
       {
         "page": "every",
         "match": [ /* match array: each element matches a separate line, and Sensible
