@@ -79,15 +79,10 @@ The config preferentially runs if the fingerprint tests pass.
 
 **Portfolio syntax expansion**
 
-The expanded fingerprint has the following drawbacks in a portfolio:
 
-- All tests must pass. In a standalone document, the config passes if 2 of the 3 tests pass. In a portfolio, a document that fails any test isn't segmented.
-- Sensible must find all the lines in a match array on a single page. A match array that spans pages, such as test 1, fails.
-- `any` tests don't tell Sensible which page starts or ends a document. The Page parameter description recommends avoiding `any` unless other page types fail to segment the portfolio.
+If you use the preceding config in a portfolio, Sensible automatically expands each test into portfolio syntax using `"page": "any"`. Sensible recommends that if you use a config in portfolios, write its fingerprint in portfolio syntax instead of relying on the automatic expansion. Instead, use `first`, `last`, and `every` page types and avoid `"page": "any"` to characterize the document's pages. 
 
-If you use the preceding config in a portfolio, Sensible automatically expands each test into portfolio syntax using `"page": "any"`. If you use a config in portfolios, write its fingerprint in portfolio syntax instead of relying on the automatic expansion. Use `first`, `last`, and `every` page types to characterize the document's pages. For more information, see [Portfolios](doc:fingerprint#portfolios).
-
-For example, the expanded fingerprint from the preceding example can succeed in single-document mode, but fail in portfolio mode. The expanded syntax is as follows:
+For example, the fingerprint from the preceding example can succeed for a single-document file, but fail with expanded syntax for the same document when it's part of a portfolio file. The expanded syntax is as follows:
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
