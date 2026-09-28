@@ -10,6 +10,9 @@ Session directory: /home/franc/GitHub/sensible-docs
 - [ ] Verify "Name of Insured" follows "NARS" on the real form
 - [x] Apply style guides; all example comments use `/* */`
 - [x] Update style guides to require `/* */` for all comments (sentence-word-guidance.md, style-guide-overview.md, concept-topic-template.md)
+- [x] Apply Frances's 4 PR review comments to the PREFER example comments (lines 160, 165, 166, 173)
+- [x] Line 160: "passes or fails if" → "passes only if"
+- [ ] Reply to / resolve the PR review comments on GitHub (not done; Frances to handle or ask)
 
 ## For review: conflicting pass rules for standalone fingerprints
 
@@ -17,7 +20,7 @@ Three statements about how many tests must pass for a standalone document:
 
 1. `fingerprint.md:45` (standalone example comment) and `json5-comments-reference.md:19`: "by default all tests must pass for the config to run"
 2. `fingerprint-mode.md:32`: "A config passes if 50% or more of tests in a config match text in document."
-3. `fingerprint.md:108` (Tips > test criteria): "Sensible must find 50% of all matches anywhere in the document by default"
+3. `fingerprint.md:108` (Tips > test criteria), original wording: "Sensible must find 50% of all matches anywhere in the document by default". **Now fixed** to "50% of tests must pass by default".
 
 ### After a closer reading
 
@@ -26,7 +29,7 @@ Three statements about how many tests must pass for a standalone document:
 - `fingerprint.md:107`, the bullet just above #3, treats a match array as belonging to one test ("matches in the array ... for the test to pass").
 - #3's portfolio half is worded the same loose way ("100% of all matches in all tests").
 - So "50% of all matches" in #3 most likely means 50% of tests.
-- What neither doc says: whether a match-array test counts as a single pass/fail unit in standalone scoring, or whether each match in it counts separately. The AVOID-example comment depends on the first reading.
+- What neither doc says: whether a match-array test counts as a single pass/fail unit in standalone scoring, or whether each match in it counts separately. The AVOID-example comment depends on the first reading. **Resolved:** Frances confirmed a match array resolves to one line (pass/fail); see evidence below.
 
 **#1 is still a contradiction. It's most likely the wrong statement.**
 - "By default" can't refer to a Fingerprint Mode setting. In the fingerprint-mode.md table, Normal and Strict both use the 50% rule ("Same"). The modes differ only in what happens when every config fails.
@@ -62,7 +65,7 @@ Consequences:
 ## For review: the "fallbacks" tip may contradict the 100% portfolio rule
 
 - fingerprint.md:112 (Tips > fallbacks) says to handle two revisions of a last page by writing two separate `last` tests, one per wording.
-- fingerprint.md:108 says that in a portfolio, Sensible must find 100% of all tests.
+- fingerprint.md:108 says "100% of tests must pass for Sensible to segment a document in a portfolio."
 - Taken together: a revision-1 document fails the revision-2 test, so the segment never passes.
 - A single test with an `any` Boolean match (wording A or wording B) seems to be the correct fallback pattern.
 - [ ] Confirm with engineering how separate same-page-type tests combine in portfolios, then fix the fallbacks tip or clarify the 100% rule
