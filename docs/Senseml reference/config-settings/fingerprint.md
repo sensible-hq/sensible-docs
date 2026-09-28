@@ -36,26 +36,45 @@ A fingerprint consists of an array of tests, where each test is a string, a Matc
 
 ## Examples
 
-The following fingerprint tests a vendor-specific config "anyco\_life\_insurance\_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. 
+The following fingerprint tests a vendor-specific config "wells\_fargo\_checking" in a document type "bank statements". This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: a match array, a Match object, and a string.
 
 ```json5
 /* Sensible uses JSON5 to support in-line comments*/
 {
-  "fingerprint": {     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
-    "tests": [         /* array of tests; by default all tests must pass for the config to run */
+  "fingerprint": {
+    /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    "tests": [
+      /* array of tests; by default all tests must pass for the config to run */
+      /* test 1 */
+      [
+        /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages); if they're out of order or not all present, it fails */
+        {
+          "type": "includes",
+          "text": "wells fargo"
+        },
+        {
+          "type": "endsWith",
+          "text": "page 2"
+        },
+        {
+          "type": "endsWith",
+          "text": "page 3"
+        }
+      ],
+      /* test 2 passes if Sensible finds a line that starts with "account" anywhere in the document */
       {
-        "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
-        "text": "anyco"       /* string to match */
+        "type": "startsWith",
+        "text": "account"
       },
-      "info@anyco.com",
-      "life insurance quote"
+      /* test 3 passes if Sensible finds a line that includes "checking" anywhere in the document */
+      "checking"
     ]
   },
   "fields": []
 }
 ```
 
-The config preferentially runs if the fingerprint finds the phrases.  
+The config preferentially runs if the fingerprint tests pass.
 
 # Portfolios
 
