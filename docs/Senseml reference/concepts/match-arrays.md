@@ -1,13 +1,16 @@
 ---
 title: Match arrays
-excerpt: Learn how Sensible match arrays work, including reverse match arrays and
-  how they differ from anchor start parameters for locating target lines in documents.
+excerpt: >-
+  Learn how Sensible match arrays work, including reverse match arrays and how
+  they differ from anchor start parameters for locating target lines in
+  documents.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible match arrays work, including reverse match arrays
-    and how they differ from anchor start parameters for locating target lines in
+  description: >-
+    Learn how Sensible match arrays work, including reverse match arrays and how
+    they differ from anchor start parameters for locating target lines in
     documents.
   robots: index
 next:
@@ -17,7 +20,7 @@ next:
 
 Sensible matches the last element in a Match array if:
 
-* Each array element targets a separate successive line in the document. 
+* Each array element targets a separate successive line in the document.
 * The matches specified in the array occur in the document in the same order as in the array. For more information about line ordering, see [Lines](doc:lines).
 
 This example creates an Anchor line using the last element in the array:
@@ -39,7 +42,7 @@ This example creates an Anchor line using the last element in the array:
             },
             {
               "type": "startsWith",
-              "text": "followed by the first occurrence of this string in another line",
+              "text": "followed by the first occurrence of this string in a succeeding line",
             },
                           {
               "type": "regex",
@@ -58,7 +61,7 @@ This example creates an Anchor line using the last element in the array:
 
 ## Reverse match arrays
 
-Use the Reverse parameter when a difficult-to-match target line precedes an easy-to-match line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line. 
+Use the Reverse parameter when a difficult-to-match target line precedes an easy-to-match line. You can match the easy line, then set `"reverse:true"` to search preceding lines until you match the difficult line.
 
 **Config**
 
@@ -101,7 +104,7 @@ The following image shows the example document used with this example config:
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/reverse_1.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/reverse.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
@@ -163,7 +166,7 @@ Versus:
 The difference between these two is:
 
 * anchor 1 finds an instance of line B preceded by line A.
-* anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document. 
+* anchor 2 searches after the first instance of line A for a line B, and discards anything earlier in the document.
 
 To clarify the difference,  consider a simple document with the following content:
 
@@ -195,7 +198,7 @@ Here is a B line that is the 2nd occurrence of “B following A” in the doc
 Here is an ending line.
 ```
 
-For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration: 
+For **Anchor 1**, Sensible anchors on the last Match array element if it's preceded by the other array elements in order.  `"match":all"` finds two anchors. See the following image for an illustration:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/anchor_2.png)
 
@@ -206,7 +209,7 @@ For **Anchor 1**, Sensible anchors on the last Match array element if it's prece
 Try out this example in the Sensible app using the following document and config:
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/anchor.pdf) |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
 
 This example uses the following config:
 
