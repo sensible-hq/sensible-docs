@@ -45,9 +45,9 @@ The following fingerprint tests a vendor-specific config "wells\_fargo\_checking
     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
     "tests": [
       /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
-      /* test 1 */
+      /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
+         if they're out of order or not all present, it fails */
       [
-        /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages); if they're out of order or not all present, it fails */
         {
           "type": "includes",
           "text": "wells fargo"
@@ -81,7 +81,7 @@ The config preferentially runs if the fingerprint tests pass.
 
 If you use the preceding config in a portfolio, Sensible expands each test to portfolio syntax using `"page": "any"`. The expanded fingerprint is equivalent to the following:
 
-```json5
+```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fingerprint": {
