@@ -121,27 +121,35 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 // AVOID THIS SYNTAX
 "fingerprint": {
     "tests": [
+      // Each test below contains a single match, so Sensible scores each
+      // phrase independently instead of requiring the phrases together.
       {
-        "page": "every"
+        "page": "every",
         "match": [
           {
-            "text": "NARS",
+            "text": "NARS", // distinctive phrase
             "type": "includes",
             "isCaseSensitive": true
           }
         ]
       },
       {
-        "page": "every"
+        "page": "every",
         "match": [
           {
+            // generic phrase. On its own, it's likely to match
+            // pages in unrelated documents
             "text": "Name of Insured",
             "type": "includes",
             "isCaseSensitive": true
           }
         ]
-      },
+      }
     ]
+    // Unwanted effect: if you reuse this config for standalone documents,
+    // a config passes if 50% or more of its tests match. So a document
+    // that contains only "Name of Insured" passes this fingerprint, and
+    // Sensible runs the config on the wrong document type.
   }
 ```
 
@@ -151,21 +159,25 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 // PREFER THIS SYNTAX
 "fingerprint": {
     "tests": [
+      // One test containing a match array, so the phrases pass or fail together
       {
-        "page": "every"
-        "match": [
-					[
+        "page": "every",
+        "match": [ // match array: each element matches a separate line, and the lines
+          // must occur in the document in the same order as in the array.
+          // In a portfolio, Sensible must also find every element on the *same* page
+          // for the test to pass. In a standalone document, the matches can span pages.
           {
             "text": "NARS",
             "type": "includes",
             "isCaseSensitive": true
           },
           {
+            // Must occur on a line after "NARS". Paired with "NARS", this
+            // generic phrase no longer matches unrelated documents on its own
             "text": "Name of Insured",
             "type": "includes",
             "isCaseSensitive": true
-          },
-		  ]
+          }
         ]
       }
     ]
