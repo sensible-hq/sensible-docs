@@ -85,9 +85,7 @@ The expanded fingerprint has the following drawbacks in a portfolio:
 - Sensible must find all the lines in a match array on a single page. A match array that spans pages, such as test 1, fails.
 - `any` tests don't tell Sensible which page starts or ends a document. The Page parameter description recommends avoiding `any` unless other page types fail to segment the portfolio.
 
-
-
-If you use the preceding config in a portfolio, Sensible automatically expands each test into portfolio syntax using `"page": "any"`. Sensible recommends that instead of relying on this default expansion, if you use a config in portfolios, write its fingerprint in portfolio syntax instead. Use `first`, `last`, and `every` page types to characterize the document's pages. For more information, see [Portfolios](doc:fingerprint#portfolios).
+If you use the preceding config in a portfolio, Sensible automatically expands each test into portfolio syntax using `"page": "any"`. If you use a config in portfolios, write its fingerprint in portfolio syntax instead of relying on the automatic expansion. Use `first`, `last`, and `every` page types to characterize the document's pages. For more information, see [Portfolios](doc:fingerprint#portfolios).
 
 For example, the expanded fingerprint from the preceding example can succeed in single-document mode, but fail in portfolio mode. The expanded syntax is as follows:
 
@@ -140,8 +138,6 @@ For example, the expanded fingerprint from the preceding example can succeed in 
   "fields": []
 }
 ```
-
-
 
 # Portfolios
 
