@@ -1,20 +1,22 @@
 ---
 title: Match object
-excerpt: Learn how Match objects define search criteria for locating text lines in
-  documents, including string, regex, boolean, first, and repeat match types with
-  global parameters.
+excerpt: >-
+  Learn how Match objects define search criteria for locating text lines in
+  documents, including string, regex, boolean, first, and repeat match types
+  with global parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Match objects define search criteria for locating text lines
-    in documents, including string, regex, boolean, first, and repeat match types
+  description: >-
+    Learn how Match objects define search criteria for locating text lines in
+    documents, including string, regex, boolean, first, and repeat match types
     with global parameters.
   robots: index
 next:
   description: ''
 ---
-Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects. 
+Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects.
 
 See the following sections for more information:
 
@@ -33,32 +35,32 @@ See the following sections for more information:
 
 ## Global parameters
 
-The following parameters are available to most\* types of Match objects. 
+The following parameters are available to most\* types of Match objects.
 
-| key           | value                   | description                                                  |
-| ------------- | ----------------------- | ------------------------------------------------------------ |
-| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches. |
-| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches. |
-| reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array, except in the External Range parameter for [sections](doc:sections).<br/>  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that *precedes* the line matched by A. For an example, see [Match arrays](doc:match-arrays#reverse-match). |
-| xRangeFilter  | object                  | Defines a left-to-right range, or "column", in which to search for a match. This option excludes lines that partially fall outside the column. Contains the following parameters:<br/>`minX` Specifies the left boundary of the range, in inches from the left edge of the page.<br/>`maxX` Specifies the right boundary of the range, in inches from the left edge of the page. |
-| angleFilter   | object                  | Filters lines by their degree of rotation. Useful for targeting or excluding rotated text such as watermarks. Contains the following parameters:<br/>`minAngle` The minimum angle in degrees (inclusive).<br/>`maxAngle` The maximum angle in degrees (inclusive).<br/>Positive values indicates text rotated counter-clockwise. Negative values indicate text rotated clockwise. Zero indicates horizontal text. <br/>For an example, see the  [Remove Lines](doc:remove-lines#examples) preprocessor. |
+| key           | value                   | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| minimumHeight | number                  | The minimum height of the matched line's boundaries, in inches.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| maximumHeight | number                  | The maximum height of the matched line's boundaries, in inches.                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| reverse       | boolean. default: false | Use in match arrays. Don't set this to true for the first match in the array, except in the External Range parameter for [sections](doc:sections).<br />  If true, searches for a match in lines that precede the previous match in the array. For example, in an array with matches A and B, if B is a First match with `"reverse":true`, then Sensible matches the first line that _precedes_ the line matched by A. For an example, see [Match arrays](doc:match-arrays#reverse-match).                  |
+| xRangeFilter  | object                  | Defines a left-to-right range, or "column", in which to search for a match. This option excludes lines that partially fall outside the column. Contains the following parameters:<br />`minX` Specifies the left boundary of the range, in inches from the left edge of the page.<br />`maxX` Specifies the right boundary of the range, in inches from the left edge of the page.                                                                                                                          |
+| angleFilter   | object                  | Filters lines by their degree of rotation. Useful for targeting or excluding rotated text such as watermarks. Contains the following parameters:<br />`minAngle` The minimum angle in degrees (inclusive).<br />`maxAngle` The maximum angle in degrees (inclusive).<br />Positive values indicates text rotated counter-clockwise. Negative values indicate text rotated clockwise. Zero indicates horizontal text. <br />For an example, see the  [Remove Lines](doc:remove-lines#examples) preprocessor. |
 
-
+<br />
 
 \*These parameters aren't available as top-level parameters for a Boolean match.
 
 ## String match
 
-Match using strings. 
+Match using strings.
 
 **Parameters**
 
-| key                  | values                                                  | description                                                  |
-| -------------------- | ------------------------------------------------------- | ------------------------------------------------------------ |
-| text  (**required**) | string                                                  | The string to match                                          |
-| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes`          | `equals`: The matching line must equal the string.<br/>`startsWith`: The matching line must start with the match.<br/>`endsWIth`: The matching line must end with the match.<br/>`includes`: The matching line must include the line. |
-| editDistance         | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow *fuzzy*, or approximate, string matching. This is useful for OCR text, like poor-quality scans or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter. Sensible implements fuzzy matching using [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). <br/>Sensible recommends avoiding setting this parameter on short matches, like "A:" or "Sub", because an edit distance as low as 2 on a short match can result in a large number of line matches and impact performance. Generally, you increase edit distances values as you increase the length of the text match. See the Examples section for an example. |
-| isCaseSensitive      | boolean. Default: false.                               | If true, match the string taking into account upper- and lower-case characters. |
+| key                  | values                                                  | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| -------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| text  (**required**) | string                                                  | The string to match                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| type (**required**)  | `equals`, `startsWith`, `endsWith`, `includes`          | `equals`: The matching line must equal the string.<br />`startsWith`: The matching line must start with the match.<br />`endsWIth`: The matching line must end with the match.<br />`includes`: The matching line must include the line.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| editDistance         | integer. the number of allowed edits for a fuzzy match. | Configure this parameter to allow _fuzzy_, or approximate, string matching. This is useful for OCR text, like poor-quality scans or handwriting. For example, if you configure 3, then Sensible matches `kitten` in the document for `sitting` in the Text parameter. Sensible implements fuzzy matching using [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). <br />Sensible recommends avoiding setting this parameter on short matches, like "A:" or "Sub", because an edit distance as low as 2 on a short match can result in a large number of line matches and impact performance. Generally, you increase edit distances values as you increase the length of the text match. See the Examples section for an example. |
+| isCaseSensitive      | boolean. Default: false.                                | If true, match the string taking into account upper- and lower-case characters.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 **SYNTAX EXAMPLE**
 
@@ -85,13 +87,13 @@ The following config uses a string match:
 
 ```
 
-For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`. For more information see [Anchor](doc:anchor).
+For even simpler matching syntax in anchors, you can use `"anchor":"some string to match"`.  Sensible expands string anchors to case-insensitive includes matches. For an example,  see [Anchor](doc:anchor).
 
 **EDIT DISTANCE EXAMPLE**
 
-The following example shows setting the Edit Distance parameter on a simple match for a poor-quality photographed document, so that the anchor  `6 City state and ZIP code` matches the incorrect OCR output of  `6 Chi state and ZIP code`. 
+The following example shows setting the Edit Distance parameter on a simple match for a poor-quality photographed document, so that the anchor  `6 City state and ZIP code` matches the incorrect OCR output of  `6 Chi state and ZIP code`.
 
-*Config*
+_Config_
 
 ```json
 {
@@ -117,15 +119,14 @@ The following example shows setting the Edit Distance parameter on a simple matc
 }
 ```
 
-*Example document*\
-The following image shows the example document used with this example config:
+_Example document_<br />The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/edit_distance.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/edit_distance.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
 
-*Output*
+_Output_
 
 ```json
 {
@@ -142,11 +143,11 @@ Match using a regular expression.
 
 **Parameters**
 
-| key                    | values                   | description                                                                                                                                                                                                                                                                                                                                                                                |
-| ---------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| type (**required**)    | `regex`                  |                                                                                                                                                                                                                                                                                                                                                                                            |
-| pattern (**required**) | valid  JS regex          | JavaScript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br/>Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br/>Sensible throws an error if you specify a pattern that can match an empty string, for example, `.*`. |
-| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive.                                                                                                                                                                                                                                                                                                                       |
+| key                    | values                   | description                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**)    | `regex`                  |                                                                                                                                                                                                                                                                                                                                                                                              |
+| pattern (**required**) | valid  JS regex          | JavaScript-flavored regular expression. This parameter doesn't support capturing groups. See the [Regex method](doc:regex) instead.<br />Double escape special characters since the regex is in a JSON object. For example, `\\s`, not `\s` , to represent a whitespace character.<br />Sensible throws an error if you specify a pattern that can match an empty string, for example, `.*`. |
+| flags                  | JS-flavored regex flags. | Flags to apply to the regex. for example: "i" for case-insensitive.                                                                                                                                                                                                                                                                                                                          |
 
 **Example**
 
@@ -154,12 +155,12 @@ For an example, see the [Passthrough method example](doc:passthrough).
 
 ## First match
 
-This is a convenience match to find the first line encountered. 
+This is a convenience match to find the first line encountered.
 
 **Parameters**
 
-| key                 | values  | description                                                                                                                               |
-| ------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| key                 | values  | description                                                                                                                              |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | type (**required**) | `first` | Matches the first line encountered, either 1. in the first page of the document or 2. after the preceding matched line in a match array. |
 
 **Example**
@@ -197,15 +198,15 @@ Use Boolean matches to write Boolean logic about your matches. For example, use 
 
 **Parameters**
 
-| key                                        | values                                                                         | description                                                                                                                                                                                                                                                                                                                                          |
-| ------------------------------------------ | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type (**required**)                        | `any`, `all`, `not`                                                            | `any` : Same behavior as Boolean operator "or". Finds a line that meets any of the match conditions in the array.<br/>`all` Same behavior as  Boolean operator "and". Finds a line that meets all of the match conditions in the array.<br/>`not` Same behavior as Boolean operator "not". Finds a line if it doesn't meet the match condition.<br/> |
-| matches (**required** for `any` and `all`) | Array of Match objects. All match types are valid in the array except `first` | Use with `any` and `all`. You can nest Boolean matches using this parameter.                                                                                                                                                                                                                                                                        |
-| match (**required** for `not`)             | Match object. All match types are valid except `first`                         | Use with `not`                                                                                                                                                                                                                                                                                                                                       |
+| key                                        | values                                                                        | description                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**)                        | `any`, `all`, `not`                                                           | `any` : Same behavior as Boolean operator "or". Finds a line that meets any of the match conditions in the array.<br />`all` Same behavior as  Boolean operator "and". Finds a line that meets all of the match conditions in the array.<br />`not` Same behavior as Boolean operator "not". Finds a line if it doesn't meet the match condition.<br /> |
+| matches (**required** for `any` and `all`) | Array of Match objects. All match types are valid in the array except `first` | Use with `any` and `all`. You can nest Boolean matches using this parameter.                                                                                                                                                                                                                                                                            |
+| match (**required** for `not`)             | Match object. All match types are valid except `first`                        | Use with `not`                                                                                                                                                                                                                                                                                                                                          |
 
 **EXAMPLE**
 
-*Config*
+_Config_
 
 ```json
 {
@@ -262,15 +263,14 @@ Use Boolean matches to write Boolean logic about your matches. For example, use 
 }
 ```
 
-*Example document*\
-The following image shows the example document used with this example config:
+_Example document_<br />The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/boolean_match.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/boolean_match.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
 
-*Output*
+_Output_
 
 ```json
 {
@@ -293,9 +293,9 @@ Finds the nth occurrence of a Match object. This is a more concise syntactical a
 
 **Parameters**
 
-| key                  | values       | description                                                                                                                                                                            |
-| -------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type (**required**)  | `repeat`     |                                                                                                                                                                                        |
+| key                  | values       | description                                                                                                                                                                           |
+| -------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| type (**required**)  | `repeat`     |                                                                                                                                                                                       |
 | times (**required**) | integer      | The number of times the specified match must occur in [succeeding](doc:lines#line-sorting) lines. For example, if you specify 3, matches the third occurrence of the specified match. |
 | match                | Match object | The Match object to find each succeeding line.                                                                                                                                        |
 
@@ -303,7 +303,7 @@ Finds the nth occurrence of a Match object. This is a more concise syntactical a
 
 The following example shows matching the fifth occurrence of the string "customer account".
 
-*Config*
+_Config_
 
 ```json
 {
@@ -343,16 +343,16 @@ Sensible automatically expands this match syntax as follows:
       }
 ```
 
-*Example document*
+_Example document_
 
 The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/repeat_match.png)
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/repeat_match.pdf) |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | ------------------------------------------------------------------------------------------------------------ |
 
-*Output*
+_Output_
 
 ```json
 {
