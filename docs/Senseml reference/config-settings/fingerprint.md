@@ -105,7 +105,7 @@ Use the following tips when you define fingerprints for portfolios:
 Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:
 
 * If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
-* Sensible must find 100% of all matches in all tests to segment a document in a portfolio. In single-file documents, Sensible must find 50% of all matches anywhere in the document by default to give the document a "passing" score.
+* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass by default for Sensible to give the document a "passing" score.
 
 #### fallbacks
 

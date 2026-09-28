@@ -57,7 +57,7 @@ Consequences:
 - [x] Match-array test counts as one pass/fail unit (confirmed by Frances; evidence above)
 - [ ] Confirm with engineering that the standalone threshold is 50% of tests
 - [ ] If confirmed, fix the comment at fingerprint.md:45 and json5-comments-reference.md:19, e.g. "by default, the config passes if 50% or more of tests match"
-- [ ] Optional: reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
+- [x] Reword fingerprint.md:108 from "matches" to "tests" so it matches fingerprint-mode.md
 
 ## For review: the "fallbacks" tip may contradict the 100% portfolio rule
 
