@@ -84,3 +84,18 @@ Consequences:
   - Decide where it goes. Candidates: the standalone Examples section, Tips > test criteria, or a Notes entry
   - Check whether an existing doc already covers the Options menu, and link to it
   - Screenshots go in screenshots/ and docs reference final/ (see image processing pipeline)
+
+## To do: how Sensible treats portfolio syntax in a standalone document (Frances's TODO at fingerprint.md:35)
+
+Frances's inline TODO: does this doc already explain how Sensible treats portfolio syntax in single-document files? Does it ignore `page` and just un-expand it, or turn it into page `any`? What happens to multi-page arrays? (Test?)
+
+Where the page already partly answers this:
+- fingerprint.md:27: "If you use a config for both portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint." It doesn't say how.
+- fingerprint.md:118 (Page parameter, Notes): "If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter." That answers "ignores `page`", but not whether ignoring it amounts to un-expanding or to `any`. The two may behave the same, since in both cases any page can match.
+- fingerprint.md:128 (Tips > test criteria): "In single-file documents, matches can occur anywhere in a document." This suggests the portfolio same-page rule for match arrays doesn't apply to standalone documents, so multi-page arrays would pass. But it's stated for standalone fingerprints in general, not specifically for portfolio syntax reused on a standalone document.
+
+Still unknown, so test in the Sensible app:
+- [ ] Portfolio-syntax fingerprint run on a standalone document: is `page` ignored for all page types (`first`, `last`, `every`), or do some still restrict which pages match?
+- [ ] Match array that spans pages, in portfolio syntax, run on a standalone document: does the test pass?
+- [ ] Does the pass threshold switch from 100% (portfolio) to 50% (standalone) when the config runs on a standalone document?
+- [ ] Remove the inline TODO from fingerprint.md:35 before merging
