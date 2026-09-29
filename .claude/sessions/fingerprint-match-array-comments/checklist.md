@@ -212,3 +212,21 @@ Raw input from CSE, verbatim. Generalize and shorten before publishing. **Don't 
   - Use `[[ ]]` with strict Fingerprint Mode, where the goal is to avoid extracting (and being billed for) documents you haven't configured yet.
 - [ ] Decide where it goes: Tips > text matches (alongside AVOID/PREFER), or a new tip. Cross-link from fingerprint-mode.md for the strict-mode point.
 - [ ] Check whether billing belongs in a SenseML reference page, or should be phrased as "avoid extracting documents you haven't configured."
+
+## Pending text: corrected nested vs flat summary comment (not yet placed in fingerprint.md)
+
+Frances drafted this, and Claude corrected it. Placement TBD (likely ~line 219 or ~256).
+
+```
+/* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
+   each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
+   In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
+   in the document, and more than one element can match the same line.
+   For either array syntax, criteria are stricter in portfolios. In a portfolio, all the lines in the array must co-occur
+   on a single page. In a standalone document, the lines can occur across multiple pages.
+   Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
+   For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
+   Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
+   it scores the array as 3 out of 5 matches. In a portfolio, Sensible must find every element in either syntax,
+   so scoring affects standalone documents only. */
+```
