@@ -173,14 +173,21 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 ```json
 /* PREFER THIS SYNTAX */
 "fingerprint": {
-    "tests": [
-      /* one test that contains a match array, so the test passes only if the lines occur in the document in the order specified by the array */
-      {
-        "page": "every",
-        "match": [ /* match array: each element matches a separate line, and Sensible
-                      must find the lines in the document in the same order as in the array.
-                      In a portfolio, Sensible must also find all the lines in the array on a single page.
-                      In a standalone document, Sensible searches for the lines across multiple pages */
+  "tests": [
+    /* one test that contains a match array, so the test passes only if the lines occur in the document in the order specified by the array */
+    {
+      "page": "every",
+      "match": [
+        /* nested array: the outer array lists matches that Sensible scores individually, in any order.
+           The inner array is a match array, so Sensible scores it as one match that passes only if
+           Sensible finds all its lines in order. Without the inner array, Sensible scores "NARS" and
+           "Name of Insured" individually, in any order. If you reuse this config for standalone documents,
+           a document that contains only "Name of Insured" then passes the fingerprint */
+        [
+          /* match array: each element matches a separate line, and Sensible
+             must find the lines in the document in the same order as in the array.
+             In a portfolio, Sensible must also find all the lines in the array on a single page.
+             In a standalone document, Sensible searches for the lines across multiple pages */
           {
             "text": "NARS",
             "type": "includes",
@@ -195,9 +202,10 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
             "isCaseSensitive": true
           }
         ]
-      }
-    ]
-  }
+      ]
+    }
+  ]
+}
 ```
 
 ## Examples
