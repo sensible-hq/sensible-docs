@@ -24,6 +24,14 @@ See the following table for more information:
 | [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | **Fallbacks:** <br/>Fingerprints let you fall back between configs. To fall back between fields *inside* a config, see [Fallback fields](doc:fallbacks). <br/><br/> **Classification**:<br/>Fingerprints let you determine the *subtype* of a standalone document. To determine the type of a standalone document, see [Classifying documents by type](doc:classify). | `fingerprint:`<br/>`tests: [array of strings, Match objects]`</br> TODO: make this look better, write in JSON syntax, |
 | [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). | Use LLMs as an alternative to fingerprints to segment [portfolios](doc:portfolio). | TODO fill in abbreviated syntax example                      |
 
+
+You use different syntaxes to define fingerprints depending on your use case. If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter syntax (portfolio syntax) rather than relying on Sensible's automatic conversions between the two syntaxes.  Sensible automatically converts between the two as follows:
+
+-  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
+-  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the `match` parameter.
+
+
+
 # Standalone documents
 
 ## Parameters
@@ -133,11 +141,7 @@ For information about configuring fingerprint strictness for standalone document
 
 
 
-## Verifying fingerprints
-
-TODO fill in and move ... move 'em all to notes???'
-
-## Tips for creating fingerprints
+### Tips for authoring fingerprints
 
 Use the following tips when you define fingerprints for portfolios:
 
@@ -147,11 +151,23 @@ Use the following tips when you define fingerprints for portfolios:
 
 TODO: verify if this can actually be done?
 
-#### turn off preprocessors
+#### Turn off preprocessors
 
 * Sensible runs `fingerprints` before any `preprocessors`. Because of this behavior, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as Sensible recognizes them when Sensible runs the fingerprint tests.
 
-#### prefer nested match arrays for portfolios
+#### Standalone-specific tips
+
+The following tips apply to fingerprints for  standalone documents.
+
+**test and verify fingerprints**
+
+In the Sensible app, you can verify and test fingerprints for stand-alone documents. If your write the fingerprints with portfolio syntax, Sensible automatically converts them TODO link
+
+#### Portfolio-specific tips
+
+The following tips apply to fingerprints for  portfolio documents.
+
+** Prefer nested match arrays for portfolios**
 
 * Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
 
@@ -224,10 +240,3 @@ TODO: verify if this can actually be done?
   ]
 }
 ```
-
-#### Choosing portfolio or standalone  syntaxes
-
-You use different syntaxes to define fingerprints depending on your use case. If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter syntax (portfolio syntax) rather than relying on Sensible's automatic conversions between the two syntaxes.   Sensible automatically converts between the two as follows:
-
--  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
--  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the `match` parameter.
