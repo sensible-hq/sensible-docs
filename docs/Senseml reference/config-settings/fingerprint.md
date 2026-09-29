@@ -53,7 +53,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
       /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
       /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
          if array elements are out of order or not all elements are present, it fails */
-      [
+      [[ // TODO: talk single vs flat array and make this a better example (see config library?)
         {
           "type": "includes",
           "text": "wells fargo"
@@ -66,7 +66,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
           "type": "endsWith",
           "text": "page 3"
         }
-      ],
+      ]],
       /* test 2 passes if Sensible finds a line that starts with "account" anywhere in the document */
       {
         "type": "startsWith",
@@ -137,13 +137,13 @@ For an example of using fingerprints to extract multiple documents from a portfo
 
 ## Notes
 
+### Fingerprint strictness
+
 For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
-
-
 
 ### Tips for authoring fingerprints
 
-Use the following tips when you define fingerprints for portfolios:
+Use the following tips when you define fingerprints:
 
 #### fallbacks
 
@@ -167,7 +167,7 @@ In the Sensible app, you can verify and test fingerprints for stand-alone docume
 
 The following tips apply to fingerprints for  portfolio documents.
 
-** Prefer nested match arrays for portfolios**
+**Prefer nested match arrays for stricter syntax TODO: this doesn'tneed to be portfolio-specific right?? still true for standalone...? or break into two: nested match arrays, and separately, combine page tests into arrays? for portfolios**
 
 * Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
 
@@ -267,4 +267,4 @@ also avoid:
 }
 ```
 
-TODO add a screenshot
+TODO add a screenshot of the different behaviors for each of these from the validator!
