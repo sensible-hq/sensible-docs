@@ -155,7 +155,7 @@ Instead, write the following:
     "tests": [
       {
         "page": "every"
-      /* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
+          /* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
    each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
    In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
    in the document, and more than one element can match the same line.
@@ -164,7 +164,7 @@ Instead, write the following:
    Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
    For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
    Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
-   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so such a partial score causes the whole fingerprint to fail. ) */
+   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. ) */
         "match": [[
 					
           {
