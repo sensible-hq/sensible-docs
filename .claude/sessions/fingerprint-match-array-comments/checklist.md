@@ -102,4 +102,42 @@ Still unknown, so test in the Sensible app:
 
 ## To do: are all Match object types supported in fingerprints? (e.g. Boolean matches)
 
-- [ ] Check the backend (sibling repo `sensible`) for whether fingerprint tests support every Match type: string (`equals`, `startsWith`, `endsWith`, `includes`), `regex`, `first`, Boolean (`any`, `all`, `not`), and `repeat`. Look at config validation/schema and the matcher code path fingerprints use.
+- [x] Check the backend (sibling repo `sensible`) for whether fingerprint tests support every Match type: string (`equals`, `startsWith`, `endsWith`, `includes`), `regex`, `first`, Boolean (`any`, `all`, `not`), and `repeat`. Look at config validation/schema and the matcher code path fingerprints use.
+
+**Result (Boolean support):** all Match types that anchors accept are supported, including Boolean. Evidence (sensible @ 242e382fd):
+- Schema: `configuration.schema.json` `Fingerprint.tests` is an array of `AnchorMatch` or `FingerprintMatch`. `FingerprintMatch.match` is `AnchorMatch` or an array of them. `AnchorMatch` = string | Matcher | RepeatMatcher | array. `Matcher` variants: `equals/startsWith/includes/endsWith`, `regex`, `any`, `all`, `not`, `first`.
+- Runtime: fingerprints call `findMatches` (anchor.ts:174), then `matchNext`, then `getMatchResult` (helpers.ts:169), which handles `any`/`all`/`not` first. It's the same code path as anchors.
+- `repeat` is expanded by `standardizeMatch` (standardize.ts:151–155).
+- NOT allowed in fingerprints: `page` and `firstInSection` matchers (they're `AnchorComponent`, not `AnchorMatch`).
+- Caveat: no unit test covers Boolean matches in fingerprints (fingerprints.test.ts, multi-extract.test.ts).
+
+## Backend findings: several beliefs in this PR are wrong (sensible @ 242e382fd)
+
+### How Sensible standardizes a fingerprint (standardize.ts:27–57)
+- **Simple (standalone) syntax** `tests: [T1, T2, T3]` becomes ONE test: `{page: "any", match: [std(T1), std(T2), std(T3)]}`. It is not three `any` tests.
+- **Portfolio syntax** `{page, match: X}`: `(Array.isArray(X) ? X : [X]).map(standardizeMatch)`.
+  - `"match": [A, B]` becomes `[[A], [B]]`: two **independent** matcher groups. This is NOT a match array.
+  - `"match": [[A, B]]` becomes `[[A, B]]`: one chained match array.
+  - The nested `[[...]]` in the original PREFER example was therefore meaningful. Removing it changed the semantics.
+
+### Match order
+- **Order matters inside a chained match array.** `matchArrayInner` (anchor.ts:250–299) reduces over the matchers. Each one searches from `prevMatch.lineIndex + 1` (anchor.ts:276), and `matchNext` only scans forward (anchor.ts:301–329).
+- **Order doesn't matter between independent groups:** standalone tests, or the elements of a flat portfolio `"match": [A, B]`. Each group runs its own `findMatches` (fingerprints.ts:49).
+- So Frances is right that order doesn't matter for the current PREFER example (flat `[NARS, Name of Insured]`). But it does matter for Wells Fargo test 1 (a nested array in simple syntax) and for `[[A, B]]` in portfolio syntax.
+
+### Scoring
+- **Standalone:** `filterConfigurationsOnFingerprints` (fingerprints.ts:97) flattens every test's matcher groups, ignores `page` and `offset`, searches the whole document, and passes if groups found / total groups ≥ 0.5 (fingerprints.ts:14, 57).
+  - Portfolio-syntax config used standalone: `"match": [A, B]` counts as **2 groups**. So the flat PREFER example has the same "only 'Name of Insured' passes" weakness as the AVOID example. `[[A, B]]` counts as 1.
+  - Answers the TODO at fingerprint.md:35: `page` is ignored, and multi-page chained arrays can pass (the search spans pages).
+- **Portfolio:** `matchPages` (multi-extract.ts:258–290) evaluates **each test independently on each page**, with threshold 1 (line 274): every matcher group *in that test* must be found on that page. Each passing test emits its own first/last/every/any signal. A failing `every` test emits `every_failed`.
+  - So "100% of tests must pass" is wrong. It's 100% of the matcher groups within a test, per page. My edit to fingerprint.md:108 ("matches" to "tests") made it less accurate. The original "100% of all matches in all tests" was closer.
+  - The **fallbacks tip is correct**. Two separate `last` tests give two independent `last` signals, and either one ends the document. My concern was wrong.
+  - AVOID vs PREFER in a portfolio with `every`: two one-group tests and one test with two flat groups behave the same (both groups required on every page).
+
+### Needs fixing in this PR
+- [ ] fingerprint.md:108: revert or reword. Within a test, all matcher groups must be found on the same page. Tests are independent signals.
+- [ ] PREFER example: decide flat `[A, B]` (unordered AND on one page; 2 groups in standalone) vs nested `[[A, B]]` (ordered chain; 1 group in standalone). Fix the comments to match. The current "must find in order" / "succeeds the line containing NARS" comments are wrong for the flat version.
+- [ ] AVOID example "unwanted effect" comment (if restored): only true relative to the nested PREFER form.
+- [ ] Portfolio expansion example: wrong shape. The real expansion is one `any` test whose match holds three groups, all required on one page. Update the code and the "100% of tests" comment.
+- [ ] fingerprint.md table (`match` "array of Match objects") and match-arrays.md: document that in portfolio syntax, a flat array = independent groups and a nested array = chained match array.
+- [ ] Remove the inline TODO at fingerprint.md:35 (answered above).
