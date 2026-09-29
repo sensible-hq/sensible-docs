@@ -201,6 +201,37 @@ The following tips apply to fingerprints for  portfolio documents.
 }
 ```
 
+also avoid:
+
+```json
+/* AVOID THIS SYNTAX */
+"fingerprint": {
+  "tests": [
+    {
+      "page": "every",
+      "match": [
+        /* flat array: TODO LEFT OFF */
+          {
+            "text": "NARS",
+            "type": "includes",
+            "isCaseSensitive": true
+          },
+          {
+    
+            "text": "Name of Insured",
+            "type": "includes",
+            "isCaseSensitive": true
+          }
+        ]   
+    }
+  ]
+}
+```
+
+
+
+
+
   Instead, write the following:
 
 ```json
@@ -210,15 +241,13 @@ The following tips apply to fingerprints for  portfolio documents.
     /* one test that contains a match array, so the test passes only if the lines occur in the document in the order specified by the array */
     {
       "page": "every",
-      "match": [
-        /* nested array: the outer array lists matches that Sensible scores individually, in any order.
-           The inner array is a match array, so Sensible scores it as one match that passes only if
-           Sensible finds all its lines in order. Without the inner array, Sensible scores "NARS" and
-           "Name of Insured" individually, in any order. If you reuse this config for standalone documents,
-           a document that contains only "Name of Insured" then passes the fingerprint */
-        [
-          /* match array: each element matches a separate line, and Sensible
-             must find the lines in the document in the same order as in the array.
+      "match": [[
+        /* nested array: enforces stricter criteria: that each element matches a separate line, and Sensible
+             must find all the lines in the document in the same order as in the array.
+           If you don't use a nested array, Sensible scores "NARS" and
+           "Name of Insured", each individually as separate matches appearing in separate lines, in any order in the document. */
+        
+          /* further nested array behavior LEFT OFF: 
              In a portfolio, Sensible must also find all the lines in the array on a single page.
              In a standalone document, Sensible searches for the lines across multiple pages */
           {
@@ -227,16 +256,15 @@ The following tips apply to fingerprints for  portfolio documents.
             "isCaseSensitive": true
           },
           {
-            /* Sensible must find "Name of Insured" in a line that succeeds the line
-               containing "NARS". Paired with "NARS", this generic phrase no longer
-               matches unrelated documents */
+    
             "text": "Name of Insured",
             "type": "includes",
             "isCaseSensitive": true
           }
-        ]
-      ]
+        ]]   
     }
   ]
 }
 ```
+
+TODO add a screenshot
