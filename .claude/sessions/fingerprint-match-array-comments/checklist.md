@@ -245,3 +245,37 @@ Proposal:
 - [ ] Standalone sections: describe scoring in terms of matches ("the config passes if Sensible finds 50% or more of the matches"), and note that a nested match array counts as one match.
 - [ ] Portfolio sections: keep test-level pass/fail ("a test passes on a page if Sensible finds all its matches on that page"), because page types attach to tests.
 - [ ] Sweep fingerprint.md, fingerprint-mode.md:32 ("50% or more of tests"), json5-comments-reference.md:19, and the example comments for "test passes/fails" wording, and apply the rule above.
+
+## OPEN DISAGREEMENT: is there a test-level pass/fail in portfolios?
+
+**Frances's position:** even in portfolios, Sensible scores each match in a test separately, and each MATCH must pass. There's no pass/fail for tests as such. Maybe talk about "pages" instead.
+
+**Claude's position (full rationale):**
+
+The code groups the "every match must pass" check by test, not across the whole fingerprint. From `multi-extract.ts:258–290` (sensible @ 242e382fd):
+
+```ts
+for (const fingerprint of fingerprints) {          // each test
+  if (fingerprintMatch(cleanText, fingerprint.match, /* this page only */, 1)?.passed) {
+    pageMatches[pageNumber].push({ ..., type: fingerprint.page });   // label the page
+  } else if (fingerprint.page === "every") {
+    pageMatches[pageNumber].push({ ..., type: "every_failed" });
+  }
+}
+```
+
+- **Matches are scored separately, but only within one test.** `fingerprintMatch` searches for each match in `fingerprint.match` on its own, and with a threshold of `1` all of them must be found on the page. Frances is right about that part.
+- **The result is one pass/fail per test.** `.passed` is a single yes or no for that test's matches, and it decides whether that test's `page` label goes on the page. Other tests' matches aren't part of that decision.
+
+**Frances's model breaks on fallbacks.** Take two `last` tests, one matching wording X and one matching wording Y:
+- **Frances's model:** every match must pass, so the page needs both X and Y, and a revision-1 page with only X is never marked as a last page.
+- **The code:** test A passes on X alone and marks the page as a last page, and test B failing doesn't undo that.
+
+This is why the fallbacks tip works. It only works because the test is where "all matches must pass" stops.
+
+**"Pages" is a good way to phrase it, as long as it still names the test.** For example: "For each page, Sensible checks each test. If Sensible finds all of a test's matches on that page, it labels the page with the test's page type (`first`, `last`, `every` or `any`)." That avoids "a test passes" and fits the fact that the output is page labels. Dropping the test as the grouping would make the fallbacks tip wrong.
+
+**To resolve:**
+- [ ] Settle it empirically in the app's fingerprint validator: a portfolio config with two `last` tests (wording X and wording Y), run on a portfolio whose last page has only X. If that page is labeled `last`, the test is the grouping boundary (Claude's position). If it isn't, Frances's position holds.
+- [ ] Optionally, confirm with engineering
+- [ ] Then finalize the "test vs match terminology" item above
