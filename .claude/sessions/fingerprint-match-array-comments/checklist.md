@@ -230,3 +230,18 @@ Frances drafted this, and Claude corrected it. Placement TBD (likely ~line 219 o
    it scores the array as 3 out of 5 matches. In a portfolio, Sensible must find every element in either syntax,
    so scoring affects standalone documents only. */
 ```
+
+## To do: "test" vs "match" terminology
+
+Frances's proposal: there's no such thing as a test that passes or fails. A fingerprint is an array of matches, and each match passes or fails (a nested match array is one unit). So drop "test" terminology and refer to "matches".
+
+What the backend says:
+- **Standalone: Frances is right.** Sensible flattens every test into a list of match units and scores units found / total ≥ 0.5 (fingerprints.ts:57, 97). A unit is a string, a Match object, or a nested match array. It's also each element of a flat portfolio-syntax `match: [ ]`. Nothing is scored at the "test" level.
+- **Portfolio: tests are real.** `matchPages` (multi-extract.ts:258–290) evaluates **each test** on each page. The test passes on that page if all its match units are found there (threshold 1, line 274). A passing test emits a first/last/every/any signal. A failing `every` test emits `every_failed`. That's pass/fail at the test level, and page types and offset only exist on tests.
+- `tests` is also the literal config key, so the word can't disappear entirely.
+
+Proposal:
+- [ ] Keep "test" as the name of a `tests` array element (the config structure).
+- [ ] Standalone sections: describe scoring in terms of matches ("the config passes if Sensible finds 50% or more of the matches"), and note that a nested match array counts as one match.
+- [ ] Portfolio sections: keep test-level pass/fail ("a test passes on a page if Sensible finds all its matches on that page"), because page types attach to tests.
+- [ ] Sweep fingerprint.md, fingerprint-mode.md:32 ("50% or more of tests"), json5-comments-reference.md:19, and the example comments for "test passes/fails" wording, and apply the rule above.
