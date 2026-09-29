@@ -1,12 +1,14 @@
 ---
 title: Fingerprint
-excerpt: Learn how Sensible fingerprints identify document subtypes and segment multi-document
-  portfolios by testing for matching text patterns.
+excerpt: >-
+  Learn how Sensible fingerprints identify document subtypes and segment
+  multi-document portfolios by testing for matching text patterns.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible fingerprints identify document subtypes and segment
+  description: >-
+    Learn how Sensible fingerprints identify document subtypes and segment
     multi-document portfolios by testing for matching text patterns.
   robots: index
 next:
@@ -19,10 +21,10 @@ Fingerprints test for matching text in a document to determine:
 
 See the following table for more information:
 
-| use case                                                     | description                                                                                                                                                                                                                                                                                                                                                                                 | related concepts                                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | **Fallbacks:** <br/>Fingerprints let you fall back between configs. To fall back between fields *inside* a config, see [Fallback fields](doc:fallbacks). <br/><br/> **Classification**:<br/>Fingerprints let you determine the *subtype* of a standalone document. To determine the type of a standalone document, see [Classifying documents by type](doc:classify). |
-| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio).                  | Use LLMs as an alternative to fingerprints to segment [portfolios](doc:portfolio).                                                                                                                                                                                                                                                                                    |
+| use case                                                     | description                                                                                                                                                                                                                                                                                                                                                                                 | related concepts                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | **Fallbacks:** <br />Fingerprints let you fall back between configs. To fall back between fields _inside_ a config, see [Fallback fields](doc:fallbacks). <br /><br /> **Classification**:<br />Fingerprints let you determine the _subtype_ of a standalone document. To determine the type of a standalone document, see [Classifying documents by type](doc:classify). |
+| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio).                  | Use LLMs as an alternative to fingerprints to segment [portfolios](doc:portfolio).                                                                                                                                                                                                                                                                                        |
 
 If you use a config for both portfolio and standalone versions of the same document, Sensible automatically converts between the two and uses the appropriate fingerprint.
 
@@ -32,11 +34,11 @@ If you use a config for both portfolio and standalone versions of the same docum
 
 A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. For more information, see [Match object](doc:match).
 
- Behind the scenes, Sensible automatically expands this simple syntax to syntax for portfolio fingerprints using `"page" : "any"`. 
+Behind the scenes, Sensible automatically expands this simple syntax to syntax for portfolio fingerprints using `"page" : "any"`.
 
 ## Examples
 
-The following fingerprint tests a vendor-specific config "anyco\_life\_insurance\_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases. 
+The following fingerprint tests a vendor-specific config "anyco_life_insurance_quote" in a document type "life insurance quotes". This fingerprint tests that a document is a life insurance quote from Anyco by looking for three known key phrases.
 
 ```json5
 /* Sensible uses JSON5 to support in-line comments*/
@@ -55,7 +57,7 @@ The following fingerprint tests a vendor-specific config "anyco\_life\_insurance
 }
 ```
 
-The config preferentially runs if the fingerprint finds the phrases.  
+The config preferentially runs if the fingerprint finds the phrases.
 
 # Portfolios
 
@@ -88,13 +90,13 @@ A fingerprint consists of an array of tests, where each test contains a Page par
   }
 ```
 
- The following table shows parameters for each test for  portfolio documents:
+The following table shows parameters for each test for  portfolio documents:
 
-| key                  | value                                                             | description for portfolios                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| -------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| offset               | integer                                                           | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds a match for the first page on the zero-indexed page 3 of a portfolio:<br/>- specifying `"offset": -1` starts the document segment on page 2 of the portfolio.<br/>- specifying `"offset": 1` starts the document segment on page 4 of the portfolio.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| page                 | `first`, `last`, `every`, `any`                                   | Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. Use `first` to detect consecutive document segments of the same document type in a portfolio. If you specify `first` you must pair it with another test type such as `"page": "every"` or `"page": "last"`. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type, you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. Avoid specifying an `any` page test unless other page types fail to segment the portfolio.<br/>**Notes:** <br/>- For an example see [Multi-document extraction](doc:portfolio). <br/>- If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter. |
+| key                  | value                                                             | description for portfolios                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| -------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| match (**required**) | a string, a [Match object](doc:match), or array of Match objects. | Specifies the text to match for the test.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| offset               | integer                                                           | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds a match for the first page on the zero-indexed page 3 of a portfolio:<br />\- specifying `"offset": -1` starts the document segment on page 2 of the portfolio.<br />\- specifying `"offset": 1` starts the document segment on page 4 of the portfolio.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| page                 | `first`, `last`, `every`, `any`                                   | Configure with the following enums:<br />`first` - The first page of a document segment must meet the match criteria. Use `first` to detect consecutive document segments of the same document type in a portfolio. If you specify `first` you must pair it with another test type such as `"page": "every"` or `"page": "last"`. <br />`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br />`every` - Every page in the document segment must meet the match criteria.  If you define this page type, you must pair it with a different page type, such as `last`. <br />`any`- Any page in the document segment can meet the criteria. Avoid specifying an `any` page test unless other page types fail to segment the portfolio.<br />**Notes:** <br />\- For an example see [Multi-document extraction](doc:portfolio). <br />\- If you reuse the same config between portfolios and standalone documents, then for standalone document extractions, Sensible ignores the configured value of this parameter. |
 
 ## Tips
 
@@ -104,7 +106,7 @@ Use the following tips when you define fingerprints for portfolios:
 
 Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:
 
-* If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
+* If you specify a Match array in a test, then Sensible must find all the matches in the array on the _same_ page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
 * Sensible must find 100% of all matches in all tests to segment a document in a portfolio. In single-file documents, Sensible must find 50% of all matches anywhere in the document by default to give the document a "passing" score.
 
 #### fallbacks
@@ -145,7 +147,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
   }
 ```
 
-  Instead, write the following:
+Instead, write the following:
 
 ```json
 // PREFER THIS SYNTAX
@@ -153,8 +155,18 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
     "tests": [
       {
         "page": "every"
-        "match": [
-					[
+      /* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
+   each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
+   In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
+   in the document, and more than one element can match the same line.
+   For either array syntax, criteria are stricter in portfolios. In a portfolio, all the lines in the array must co-occur
+   on a single page. In a standalone document, the lines can occur across multiple pages.
+   Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
+   For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
+   Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
+   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so such a partial score causes the whole fingerprint to fail. ) */
+        "match": [[
+					
           {
             "text": "NARS",
             "type": "includes",
@@ -165,8 +177,8 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
             "type": "includes",
             "isCaseSensitive": true
           },
-		  ]
-        ]
+		  
+        ]]
       }
     ]
   }
