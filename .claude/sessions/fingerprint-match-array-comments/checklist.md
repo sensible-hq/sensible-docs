@@ -1,6 +1,46 @@
 # Session: fingerprint-match-array-comments
-Session ID: abbb26a9-022f-426d-b62a-97bc541c74e3
+Claude Code session name: fingerprint-match-array-comments
+Claude Code session ID: abbb26a9-022f-426d-b62a-97bc541c74e3
 Session directory: /home/franc/GitHub/sensible-docs
+Worktree: /home/franc/GitHub/sensible-docs-fingerprint-match-array-comments (branch `fingerprint-match-array-comments`)
+PR: https://github.com/sensible-hq/sensible-docs/pull/727
+Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume abbb26a9-022f-426d-b62a-97bc541c74e3`
+
+## RESUME HERE (paused 2026-09-29)
+
+State when paused:
+- Branch is in sync with origin at Frances's commit 85ed43dfd. Frances is mid-rewrite of fingerprint.md: new structure (Standalone / Portfolios / Fingerprint scoring / Notes > Tips) with inline TODO and LEFT OFF markers (listed below).
+- Backend facts are verified against the `sensible` repo @ 242e382fd (see "Backend findings" below). Use them as ground truth over the older doc-based reasoning in this file.
+- Pending, not yet in the file: Claude's corrected "nested vs flat array" summary comment (in the last conversation turn). Its key correction: a **flat** array does NOT require separate lines; elements are searched independently and can match the same line. Frances hasn't said where it goes. It likely fills `/* flat array: TODO LEFT OFF */` (~line 219) and/or `/* further nested array behavior LEFT OFF */` (~line 256).
+- Next steps: (1) work through the inline TODOs below, (2) reorganize the Notes/Tips, (3) re-verify every claim against the Backend findings.
+
+## To do: inline TODOs in fingerprint.md (as of 85ed43dfd)
+
+Line numbers are approximate. Search for `TODO` / `LEFT OFF`.
+
+- [ ] **~41, `tests` parameter row, LEFT OFF:** the description cell has the moved "Portfolio fingerprints differ..." text, plus a TODO to side-note that scoring isn't by test but by match (except chained match arrays).
+  - Backend: standalone scoring counts **matcher groups**. A simple-syntax test = 1 group. A nested `[[ ]]` = 1 group. Each element of a flat portfolio `match: [ ]` = its own group (fingerprints.ts:57, 97; standardize.ts:43). So "by match, except chained arrays" is right.
+  - Also in that cell: "100% of tests must pass for Sensible to segment a document in a portfolio" is **wrong** per backend. Each test is an independent per-page signal. Within one test, all groups must be found on the page (multi-extract.ts:274).
+- [ ] **~56, standalone example:** `[[ // TODO: talk single vs flat array and make this a better example (see config library?)`. Uses `//`, and the rule is `/* */` only. Look in sensible-configuration-library for a real example.
+- [ ] **~86:** "TODO: add a screenshot of how that evaluates??" (standalone example). Probably a validator screenshot, via screenshots/ to final/.
+- [ ] **~136:** "TODO: add to that example how it evaluates?" (the portfolio.md example link)
+- [ ] **~142, `## Fingerprint scoring`:** "TODO: fill in and make it so it could be a standalone concept topic". Source material: Backend findings > Scoring, plus the flat vs nested section.
+- [ ] **~158, fallbacks tip:** "TODO: verify if this can actually be done?" Backend says **yes**. Separate `last` tests emit independent `last` signals, and either one ends the document (multi-extract.ts:258–290, 356). Could still confirm in the app.
+- [ ] **~170, test and verify fingerprints:** "Sensible automatically converts them TODO link". Needs the link to the validator docs (see "point readers to the fingerprint validation option" below). Typo: "If your write" should be "If you write".
+- [ ] **~176, "Prefer nested match arrays for stricter syntax":** TODO asks whether this is portfolio-specific, or whether to split into (a) nested match arrays and (b) combining page tests into arrays for portfolios.
+  - Backend: **not portfolio-specific.** Nested vs flat changes ordering in both modes, and changes scoring in standalone (1 group vs N). In portfolios, the count doesn't change pass/fail. Suggests splitting as the TODO proposes. Typo: "doesn'tneed".
+- [ ] **~219, PREFER/flat example:** `/* flat array: TODO LEFT OFF */`
+- [ ] **~253–254, nested comment:** says a flat array scores NARS and Name of Insured "as separate matches appearing in separate lines". **Wrong.** Flat elements can match the same line.
+- [ ] **~256:** `/* further nested array behavior LEFT OFF: ...`
+- [ ] **~276:** "TODO add a screenshot of the different behaviors for each of these from the validator!"
+
+## To do: reorganize the Notes/Tips section
+
+- [ ] Frances doesn't like the "grab-bag" nature of the notes. Reorganize them.
+  - Current structure (85ed43dfd): `## Notes` > `### Fingerprint strictness`, `### Tips for authoring fingerprints` > `#### fallbacks`, `#### Turn off preprocessors`, `#### Standalone-specific tips`, `#### Portfolio-specific tips`.
+  - Possible grouping: (1) how fingerprints are scored (move to `## Fingerprint scoring`), (2) choosing match syntax (flat vs nested, CSE guidance), (3) authoring workflow (turn off preprocessors, validate in the app), (4) portfolio page types and fallbacks. Fingerprint strictness links to fingerprint-mode.md.
+
+## History / completed work
 
 - [x] Add inline comments to `#### text matches` examples in fingerprint.md (match array behavior, portfolio same-page rule, match order, unwanted effect of avoid syntax)
 - [x] Remove extra nested array brackets in the prefer example
