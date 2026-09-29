@@ -234,7 +234,8 @@ _Config_
                 "type": "includes",
                 "text": "special"
               },
-              /* match a line that meets ALL of the conditions:
+              /* nested Boolean match:
+                 match a line that meets ALL of the conditions:
                  it includes "header" 
                  but NOT "should not" */
               {
