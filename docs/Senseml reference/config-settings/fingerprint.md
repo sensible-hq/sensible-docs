@@ -32,11 +32,11 @@ If you use a config for both portfolio and standalone versions of the same docum
 
 A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects. For more information, see [Match object](doc:match).
 
- Behind the scenes, Sensible automatically expands this simple syntax to syntax for portfolio fingerprints using `"page" : "any"`. 
+Behind the scenes, Sensible automatically expands this simple syntax to syntax for portfolio fingerprints using `"page" : "any"`.  Sensible recommends that if you use a config in portfolios, write its fingerprint in portfolio syntax instead of relying on the automatic expansion. TODO: does this doc already talk abt how Sensible treats portfolio syntax in single-doc file mode, i.e. does it ignore `page` and just un-expand it? or turn it into page `any`? and what happens to multi-page arrays? (TODO: test?)
 
 ## Examples
 
-The following fingerprint tests a vendor-specific config, `wells_fargo_checking` in a document type, `bank statements`. This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: a match array, a Match object, and a string.
+The following fingerprint tests a vendor-specific config, `wells_fargo_checking` in a document type, `bank statements`. This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: an array of Match objects, a Match object, and a string.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
@@ -77,62 +77,6 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
 
 The config preferentially runs if the fingerprint tests pass.
 
-**Portfolio syntax expansion**
-
-
-If you use the preceding config in a portfolio, Sensible automatically expands each test into portfolio syntax using `"page": "any"`. Sensible recommends that if you use a config in portfolios, write its fingerprint in portfolio syntax instead of relying on the automatic expansion. Instead, use `first`, `last`, and `every` page types and avoid `"page": "any"` to characterize the document's pages. 
-
-For example, the fingerprint from the preceding example can succeed for a single-document file, but fail with expanded syntax for the same document when it's part of a portfolio file. The expanded syntax is as follows:
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fingerprint": {
-    /* in a portfolio, 100% of tests must pass for Sensible to segment the document */
-    "tests": [
-      /* test 1 */
-      {
-        /* any page in the document segment can meet the criteria */
-        "page": "any",
-        /* in a portfolio, Sensible must find all the lines in the array on a single page.
-           If "page 2" and "page 3" occur on different pages, this test fails,
-           so Sensible can't segment the document */
-        "match": [
-          {
-            "type": "includes",
-            "text": "wells fargo"
-          },
-          {
-            "type": "endsWith",
-            "text": "page 2"
-          },
-          {
-            "type": "endsWith",
-            "text": "page 3"
-          }
-        ]
-      },
-      /* test 2 */
-      {
-        "page": "any",
-        "match": {
-          "type": "startsWith",
-          "text": "account"
-        }
-      },
-      /* test 3: Sensible expands the "checking" string test to a case-insensitive includes match */
-      {
-        "page": "any",
-        "match": {
-          "type": "includes",
-          "text": "checking"
-        }
-      }
-    ]
-  },
-  "fields": []
-}
-```
 
 # Portfolios
 
