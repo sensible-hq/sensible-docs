@@ -141,3 +141,17 @@ Still unknown, so test in the Sensible app:
 - [ ] Portfolio expansion example: wrong shape. The real expansion is one `any` test whose match holds three groups, all required on one page. Update the code and the "100% of tests" comment.
 - [ ] fingerprint.md table (`match` "array of Match objects") and match-arrays.md: document that in portfolio syntax, a flat array = independent groups and a nested array = chained match array.
 - [ ] Remove the inline TODO at fingerprint.md:35 (answered above).
+
+## To do: document flat `[ ]` vs nested `[[ ]]` in portfolio-syntax fingerprint tests
+
+The docs never explain this, and they call a flat portfolio `match` array a "match array" (fingerprint.md:33, :116, test criteria tip; portfolio.md:227–228). The docs need to explain:
+
+- [ ] **Order.** For order to matter, use `"match": [[A, B]]`. This is a real match array: Sensible must find A, then B on a later line (anchor.ts:250–299). If order shouldn't matter, use `"match": [A, B]`. Sensible searches for A and B independently (standardize.ts:43 turns it into `[[A], [B]]`).
+- [ ] **How many units it counts as.** The syntax also sets how many units Sensible scores:
+  - `[[A, B]]` counts as **1** unit. It passes or fails as a whole.
+  - `[A, B]` counts as **2** units, scored individually.
+  - Where this matters: when Sensible runs a portfolio-syntax config on a **standalone** document, it flattens all the units and passes the config if 50% or more are found (fingerprints.ts:57, 97). So `[A, B]` passes on A alone, and `[[A, B]]` doesn't.
+  - Where it doesn't: in a **portfolio**, every unit in a test must be found on the page (threshold 1, multi-extract.ts:274), so 1 vs 2 units makes no difference to pass/fail. Only order and same-page matter there.
+- [ ] Both forms require all units on the same page in a portfolio.
+- [ ] Where to document it: the fingerprint.md `match` parameter row (add "array of Match arrays"), the test criteria tip, match-arrays.md, and the portfolio.md comment that calls a flat array a "match array"
+- [ ] Rework the AVOID/PREFER tip around this. Its original point (group the phrases so they pass or fail together) only holds with `[[ ]]`.
