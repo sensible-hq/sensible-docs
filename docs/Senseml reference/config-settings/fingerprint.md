@@ -83,7 +83,11 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
 
 The config preferentially runs if the fingerprint tests pass.
 
+TODO: change this to a fingerprint that ALSO gets used in the portfolio.md example just as a standalone document instead, so we can compare behavior standalone vs portfolio.
+
 TODO: add a screenshot of how that evaluates??
+
+TODO: however I modify the examples, they should be designed to test ALL OF the assertions I make in the monster 'match arrays' comment in //preferred syntax example
 
 
 # Portfolios
@@ -141,11 +145,17 @@ TODO: add to that example how it evalutes?
 
 TODO: fill in and make it so it could be a standalone concept topic
 
-## Notes
 
-### Fingerprint strictness
+
+## Fingerprint strictness
 
 For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
+
+
+
+## Notes
+
+
 
 ### Tips for authoring fingerprints
 
@@ -234,10 +244,6 @@ also avoid:
 }
 ```
 
-
-
-
-
   Instead, write the following:
 
 ```json
@@ -248,14 +254,18 @@ also avoid:
     {
       "page": "every",
       "match": [[
-        /* nested array: enforces stricter criteria: that each element matches a separate line, and Sensible
-             must find all the lines in the document in the same order as in the array.
-           If you don't use a nested array, Sensible scores "NARS" and
-           "Name of Insured", each individually as separate matches appearing in separate lines, in any order in the document. */
-        
-          /* further nested array behavior LEFT OFF: 
-             In a portfolio, Sensible must also find all the lines in the array on a single page.
-             In a standalone document, Sensible searches for the lines across multiple pages */
+        /* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
+   each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
+   In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
+   in the document, and more than one element can match the same line.
+   For either array syntax, criteria are stricter in portfolios. In a portfolio, all the lines in the array must co-occur
+   on a single page. In a standalone document, the lines can occur across multiple pages.
+   Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
+   For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
+   Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
+   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. ) */
+            
+   
           {
             "text": "NARS",
             "type": "includes",

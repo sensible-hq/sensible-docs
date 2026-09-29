@@ -33,6 +33,8 @@ The Fingerprint Mode configuration option determines the strictness of the tests
 | yes                                           | All fingerprinted configs fail                                                                                             | - If non-fingerprinted configs are present, run all *non*-fingerprinted configs and skip fingerprinted configs<br/>- If all configs are fingerprinted, run all configs | 400 error   |
 | no                                            | N/A                                                                                                                        | Run all configs                                                                                                                                                        | 400 error   |
 
+## Extraction scoring
+
 After Sensible runs and skips extractions,  it returns the extraction that ran with the highest-scoring config.  Sensible calculates the score as follows: ` score` = `num of non-null fields` - `penalties for validation errors or warnings`, where penalties are as follows:
 
 * `validation error penalty` = 1 \* `num fields with validation errors`
