@@ -12,6 +12,7 @@ State when paused:
 - Branch is in sync with origin at Frances's commit 85ed43dfd. Frances is mid-rewrite of fingerprint.md: new structure (Standalone / Portfolios / Fingerprint scoring / Notes > Tips) with inline TODO and LEFT OFF markers (listed below).
 - Backend facts are verified against the `sensible` repo @ 242e382fd (see "Backend findings" below). Use them as ground truth over the older doc-based reasoning in this file.
 - Pending, not yet in the file: Claude's corrected "nested vs flat array" summary comment (in the last conversation turn). Its key correction: a **flat** array does NOT require separate lines; elements are searched independently and can match the same line. Frances hasn't said where it goes. It likely fills `/* flat array: TODO LEFT OFF */` (~line 219) and/or `/* further nested array behavior LEFT OFF */` (~line 256).
+- **Open disagreement** (see "OPEN DISAGREEMENT" near the end): whether portfolio tests pass/fail as a unit. Resolve it with the validator test described there before changing test/match terminology.
 - Next steps: (1) work through the inline TODOs below, (2) reorganize the Notes/Tips, (3) re-verify every claim against the Backend findings.
 
 ## To do: inline TODOs in fingerprint.md (as of 85ed43dfd)
