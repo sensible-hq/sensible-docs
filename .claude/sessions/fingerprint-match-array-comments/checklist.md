@@ -136,7 +136,7 @@ Still unknown, so test in the Sensible app:
 
 ### Needs fixing in this PR
 - [ ] fingerprint.md:108: revert or reword. Within a test, all matcher groups must be found on the same page. Tests are independent signals.
-- [ ] PREFER example: decide flat `[A, B]` (unordered AND on one page; 2 groups in standalone) vs nested `[[A, B]]` (ordered chain; 1 group in standalone). Fix the comments to match. The current "must find in order" / "succeeds the line containing NARS" comments are wrong for the flat version.
+- [x] (Chose nested; restored `[[ ]]`, reindented, and added an inline comment explaining the nesting) PREFER example: decide flat `[A, B]` (unordered AND on one page; 2 groups in standalone) vs nested `[[A, B]]` (ordered chain; 1 group in standalone). Fix the comments to match. The current "must find in order" / "succeeds the line containing NARS" comments are wrong for the flat version.
 - [ ] AVOID example "unwanted effect" comment (if restored): only true relative to the nested PREFER form.
 - [ ] Portfolio expansion example: wrong shape. The real expansion is one `any` test whose match holds three groups, all required on one page. Update the code and the "100% of tests" comment.
 - [ ] fingerprint.md table (`match` "array of Match objects") and match-arrays.md: document that in portfolio syntax, a flat array = independent groups and a nested array = chained match array.
