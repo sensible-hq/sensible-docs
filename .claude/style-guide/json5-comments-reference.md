@@ -16,7 +16,7 @@ Add this line as a block comment before the opening `{` of every example:
 
 ```json5
 "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
-  "tests": [           /* array of match tests; by default all tests must pass for the config to run */
+  "tests": [           /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
     {
       "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
       "text": "anyco",      /* string to match */
