@@ -38,7 +38,7 @@ You use different syntaxes to define fingerprints depending on your use case. If
 
 | key     | value                                                        | description for standalone documents                         |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `tests` | array or nested array,<br/> where each item is a string, a  [Match](doc:match) object, or array of Match objects. | Choosing an array or nested array affects how Sensible scores an array of Match objects. LEFT OFF: Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:<br/><br/>* If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.<br/>* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass for Sensible to give the document a "passing" score. |
+| `tests` | array or nested array,<br/> where each item is a string, a  [Match](doc:match) object, or array of Match objects. | Choosing an array or nested array affects how Sensible scores an array of Match objects. LEFT OFF: Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:<br/><br/>* If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.<br/>* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass for Sensible to give the document a "passing" score.<br/>TODO: maybe make a side-note that scoring isn't by test (test's aren't a think that  pass/fail) but rather BY MATCH (except in case of 'chained match arrays'?) |
 
 ## Examples
 
@@ -82,6 +82,8 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
 ```
 
 The config preferentially runs if the fingerprint tests pass.
+
+TODO: add a screenshot of how that evaluates??
 
 
 # Portfolios
@@ -131,9 +133,13 @@ The following table shows parameters for each item in the `tests` array for  por
 
 For an example of using fingerprints to extract multiple documents from a portfolio file, see [Multi-document extraction](doc:portfolio).
 
+TODO: add to that example how it evalutes?
 
 
 
+## Fingerprint scoring
+
+TODO: fill in and make it so it could be a standalone concept topic
 
 ## Notes
 
