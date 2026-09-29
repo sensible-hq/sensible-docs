@@ -99,3 +99,7 @@ Still unknown, so test in the Sensible app:
 - [ ] Match array that spans pages, in portfolio syntax, run on a standalone document: does the test pass?
 - [ ] Does the pass threshold switch from 100% (portfolio) to 50% (standalone) when the config runs on a standalone document?
 - [ ] Remove the inline TODO from fingerprint.md:35 before merging
+
+## To do: are all Match object types supported in fingerprints? (e.g. Boolean matches)
+
+- [ ] Check the backend (sibling repo `sensible`) for whether fingerprint tests support every Match type: string (`equals`, `startsWith`, `endsWith`, `includes`), `regex`, `first`, Boolean (`any`, `all`, `not`), and `repeat`. Look at config validation/schema and the matcher code path fingerprints use.
