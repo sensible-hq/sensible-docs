@@ -141,31 +141,31 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 ```json
 /* AVOID THIS SYNTAX */
 "fingerprint": {
-    "tests": [
-      /* Each test contains a single match, so Sensible scores each
-         phrase independently instead of requiring the phrases together */
-      {
-        "page": "every",
-        "match": [
-          {
-            "text": "NARS", /* distinctive phrase */
-            "type": "includes",
-            "isCaseSensitive": true
-          }
-        ]
-      },
-      {
-        "page": "every",
-        "match": [
-          {
-            "text": "Name of Insured", /* generic phrase. On its own, it can match pages in unrelated documents */
-            "type": "includes",
-            "isCaseSensitive": true
-          }
-        ]
-      }
-    ]
-  }
+  "tests": [
+    /* Each test contains a single match, so Sensible scores each
+       phrase independently instead of requiring the phrases together */
+    {
+      "page": "every",
+      "match": [
+        {
+          "text": "NARS", /* distinctive phrase */
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
+    },
+    {
+      "page": "every",
+      "match": [
+        {
+          "text": "Name of Insured", /* generic phrase. On its own, it can match pages in unrelated documents */
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
+    }
+  ]
+}
 ```
 
   Instead, write the following:

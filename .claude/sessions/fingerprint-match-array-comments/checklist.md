@@ -155,3 +155,20 @@ The docs never explain this, and they call a flat portfolio `match` array a "mat
 - [ ] Both forms require all units on the same page in a portfolio.
 - [ ] Where to document it: the fingerprint.md `match` parameter row (add "array of Match arrays"), the test criteria tip, match-arrays.md, and the portfolio.md comment that calls a flat array a "match array"
 - [ ] Rework the AVOID/PREFER tip around this. Its original point (group the phrases so they pass or fail together) only holds with `[[ ]]`.
+
+## To do: guidance on when to use nested `[[ ]]` vs flat `[ ]` (from the CSE team)
+
+Raw input from CSE, verbatim. Generalize and shorten before publishing. **Don't name the customer in public docs.**
+
+> almost always use [[ ]] if it's for a first/last portfolio fingerprint.
+>
+> And doc type size is another huge factor. A customer like Vividly has a doc type with 1,000+ configs and many of them are for the same distributors with different layouts, so using a sequence of 3-4 lines tends to heavily derisk overlap.
+>
+> One other situation worth calling is I'd say it's better to use [[ ]] for customers with a strict fingerprinting setup. Usually they're looking to avoid being billed for docs that we haven't configured yet, so I tend to use more restrictive fingerprints, and looking for a sequence of lines probably our best tool for that
+
+- [ ] Draft generalized guidance. Candidate points:
+  - Use `[[ ]]` for `first` and `last` portfolio tests.
+  - Use `[[ ]]` (a sequence of 3–4 lines) when a document type has many configs with similar layouts, for example many layouts from the same vendor. It reduces overlap between configs.
+  - Use `[[ ]]` with strict Fingerprint Mode, where the goal is to avoid extracting (and being billed for) documents you haven't configured yet.
+- [ ] Decide where it goes: Tips > text matches (alongside AVOID/PREFER), or a new tip. Cross-link from fingerprint-mode.md for the strict-mode point.
+- [ ] Check whether billing belongs in a SenseML reference page, or should be phrased as "avoid extracting documents you haven't configured."
