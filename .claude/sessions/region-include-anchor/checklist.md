@@ -9,5 +9,6 @@ Source PR: sensible-hq/sensible#3478 (region: add includeAnchor option)
 - [x] Add includeAnchor row to region.md parameter table
 - [x] Add includeAnchor line to region.md syntax example
 - [x] Vale check (0 errors, 0 warnings) + glossary check
-- [ ] Example config demonstrating includeAnchor: false (needs a verified extraction run; not done)
+- [x] Update existing W-9 example to demonstrate includeAnchor: false (verified: extraction cd34e9f9-f5bd-4672-bbcd-18e0947021ff)
 - [x] Open PR
+- [ ] Retake region_ssn.png screenshot to show the new, larger region box (assets\/images\/screenshots → final)
