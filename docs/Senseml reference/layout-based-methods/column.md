@@ -29,6 +29,7 @@ When you extract a value from a single-column form, you usually want to stop at 
 
 **Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
+
 | key               | value                                                        | description                                                  |
 | :---------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | id (**required**) | `column`                                                     |                                                              |
@@ -36,6 +37,7 @@ When you extract a value from a single-column form, you usually want to stop at 
 | includeAnchor     | `true`, `false`. default: false                              | Includes the anchor line in the method output                |
 | position          | `below`, `above`. default: `below`                           | Matches above or below the anchor line. For example, if you anchor on the bottom line of a column, set this to `above` to extract the column. |
 | stop              | limited support for [Match](doc:match) object (doesn't support Match arrays or strings as values).<br/>default: `none` | Stops extraction at the top boundary of the first line that matches. The matched line isn't included in the method output. If you don't specify this parameter, extracts to the end of the page.<br/>If you set the Position parameter to `above`,  stops extraction at the bottom boundary of the matched line.<br/>The matched line doesn't need to align with the anchor line, so a matching line in a neighboring column also stops extraction.<br/>If the matched line immediately [succeeds](doc:lines#line-sorting) the anchor line, for example because the document leaves a column blank, then returns null. |
+
 
 # Examples
 
