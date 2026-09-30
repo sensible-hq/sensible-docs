@@ -45,6 +45,7 @@ The following example shows that:
 
 * By default, Sensible returns the entire column as a joined string.
 * Specifying a tiebreaker returns single element in the column.
+* Specifying a Stop parameter excludes the note below the table from the column.
 
 **Config**
 
@@ -53,20 +54,25 @@ The following example shows that:
 {
   "fields": [
     {
-      "id": "example_column", /* user-friendly ID for extracted target data */
-      "anchor": "may 2020",   /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
-      "type": "string",       /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "id": "example_column" /* user-friendly ID for extracted target data */,
+      "anchor": "may 2020" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
+      "type": "string" /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */,
       "method": {
-        "id": "column"
+        "id": "column" /* extract lines below the anchor that align with it */,
+        "stop": {
+          /* stop before the note below the table, e.g., 'For up-to-date rankings, see the current TIOBE index.' */
+          "type": "startsWith" /* line must start with the match */,
+          "text": "for up" /* string to match */
+        }
       }
     },
     {
-      "id": "example_column_2", /* user-friendly ID for extracted target data */
-      "anchor": "may 2020",     /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
-      "type":"number",          /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "id": "example_column_2" /* user-friendly ID for extracted target data */,
+      "anchor": "may 2020" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
+      "type": "number" /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */,
       "method": {
-        "id": "column",
-        "tiebreaker": ">"
+        "id": "column" /* extract lines below the anchor that align with it */,
+        "tiebreaker": ">" /* return the largest number in the column, e.g., '5' */
       }
     }
   ]
@@ -78,7 +84,7 @@ The following image shows the example document used with this example config:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/column.png)
 
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column.pdf) |
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column_example.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 
 **Output**
@@ -175,10 +181,7 @@ The Stop parameter also works with `"position": "above"`. The `coverage` field a
 }
 ```
 
-**Example document**\
-The following image shows the example document used with this example config:
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/column_stop.png)
+**Example document**
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/column_stop.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------- |
