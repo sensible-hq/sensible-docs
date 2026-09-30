@@ -20,7 +20,7 @@ Extracts all lines below or above the anchor line on the current page if:
 
 * The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-By default, the method extracts to the end of the page, so on a single-column form it can also extract the next label and its value. To stop extraction at a specific line, use the Stop parameter.
+When you extract a value from a single-column form, you usually want to stop at the next label rather than extract to the end of the page. To set where the column ends, you specify the Stop parameter.
 
 [**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
@@ -102,7 +102,7 @@ The following example extracts a vehicle type from a single-column form, where e
 
 **PROBLEM**
 
-Without the Stop parameter, the method extracts to the end of the page, so the output includes the Coverage label and its value.
+If you don't specify the Stop parameter, the method extracts to the end of the page, so the output includes the Coverage label and its value.
 
 **Config**
 
@@ -135,7 +135,7 @@ Without the Stop parameter, the method extracts to the end of the page, so the o
 
 **SOLUTION**
 
-Specify the Stop parameter to stop extraction at the Coverage label. If the document leaves the vehicle type blank, the Coverage label immediately follows the Type label, and the field returns null.
+You specify the Stop parameter to stop extraction at the Coverage label. If the document leaves the vehicle type blank, the Coverage label immediately follows the Type label, and the field returns null.
 
 **Config**
 
