@@ -9,7 +9,7 @@ Docs PR: sensible-hq/sensible-docs#729
 - [x] Read PR #3477 diff (column.ts, types.ts)
 - [x] Add Stop parameter row to column.md, aligned with Document Range / Text Table Stop wording
 - [x] Full style pass (all style-guide files, revise-doc-style, you-centric framing)
-- [x] Add "Stop at the next label" example (PROBLEM/SOLUTION, incl. position: above case)
+- [x] "Stop at the next label" example added, then removed per user (superfluous)
 - [x] Create column_stop.pdf; upload to doc type column_stop; verify output via extract API
 - [x] Address review comment on intro sentence (line 23)
 - [x] Update existing "Extract a column" example with Stop param, row_column_example.pdf, user's config (verified in SenseML editor)
@@ -19,7 +19,7 @@ Docs PR: sensible-hq/sensible-docs#729
 ## Open
 - [x] Stop example: no example document (column_stop.pdf and .png dropped per user)
 - [x] column_stop_blank.pdf: not committed (no Stop example PDF in docs)
-- [ ] Confirm "neighboring column also stops extraction" wording is intended engine behavior
+- [x] Neighboring-column sentence: keep (matches engine; PR calls it a vertical cutoff)
 - [ ] Optional: republish column_example config in Sensible account with after-comma comment style
 - [ ] Optional: delete test doc types column_stop / column_example from the Sensible account
 - [ ] Review and merge docs PR #729

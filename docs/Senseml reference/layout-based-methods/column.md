@@ -41,8 +41,6 @@ When you extract a value from a single-column form, you usually want to stop at 
 
 # Examples
 
-## Extract a column
-
 The following example shows that:
 
 * By default, Sensible returns the entire column as a joined string.
@@ -100,99 +98,6 @@ The following image shows the example document used with this example config:
     "source": "5",
     "value": 5,
     "type": "number"
-  }
-}
-```
-
-## Stop at the next label
-
-The following example extracts a vehicle type from a single-column form, where each value appears on the line after its label.
-
-**PROBLEM**
-
-If you don't specify the Stop parameter, the method extracts to the end of the page, so the output includes the labels and values that follow the vehicle type.
-
-**Config**
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [
-    {
-      "id": "vehicle_type", /* user-friendly ID for extracted target data */
-      "anchor": "type:",    /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
-      "type": "string",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-      "method": {
-        "id": "column"
-      }
-    }
-  ]
-}
-```
-
-**Output**
-
-```json
-{
-  "vehicle_type": {
-    "type": "string",
-    "value": "Sedan Coverage: Full Deductible: $500"
-  }
-}
-```
-
-**SOLUTION**
-
-You specify the Stop parameter to stop extraction at the Coverage label. If the document leaves the vehicle type blank, the Coverage label immediately follows the Type label, and the field returns null.
-
-The Stop parameter also works with `"position": "above"`. The `coverage` field anchors on the Deductible label, extracts the lines above it, and stops at the Coverage label.
-
-**Config**
-
-```json
-/* Sensible uses JSON5 to support in-line comments*/
-{
-  "fields": [
-    {
-      "id": "vehicle_type", /* user-friendly ID for extracted target data */
-      "anchor": "type:",    /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
-      "type": "string",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-      "method": {
-        "id": "column",
-        "stop": {           /* stop before the next label in the column, e.g., 'Coverage: Full' */
-          "type": "startsWith", /* line must start with the match */
-          "text": "coverage"    /* string to match */
-        }
-      }
-    },
-    {
-      "id": "coverage",         /* user-friendly ID for extracted target data */
-      "anchor": "deductible:",  /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
-      "type": "string",         /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
-      "method": {
-        "id": "column",
-        "position": "above",    /* extract lines above the anchor, e.g., 'Full' above 'Deductible:' */
-        "stop": {               /* stop after the preceding label, e.g., 'Coverage:' */
-          "type": "startsWith", /* line must start with the match */
-          "text": "coverage"    /* string to match */
-        }
-      }
-    }
-  ]
-}
-```
-
-**Output**
-
-```json
-{
-  "vehicle_type": {
-    "type": "string",
-    "value": "Sedan"
-  },
-  "coverage": {
-    "type": "string",
-    "value": "Full"
   }
 }
 ```
