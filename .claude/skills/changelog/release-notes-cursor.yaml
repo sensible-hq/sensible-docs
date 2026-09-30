@@ -4,13 +4,16 @@
 # latest_message_date_cursor: human-readable date of last_message_ts (for sanity checking).
 # last_changelog_through: date through which items have been PUBLISHED
 #   in a changelog. May lag behind last_fetched if items are pending review.
+#   It's the coverage date, not the publish date. The publish date can be later:
+#   release notes are frozen at the "through" date, and later releases wait for
+#   the next changelog.
 # changelog_history: append-only archive — one entry per published changelog,
 #   recording which release note date range it covered.
 
-last_fetched: "2026-09-08"
-last_message_ts: "1788880505.821279"   # September 8, 2026
-latest_message_date_cursor: "2026-09-08"
-last_changelog_through: "2026-09-15"   # date of last published changelog
+last_fetched: "2026-09-30"
+last_message_ts: "1790089144.792349"   # September 22, 2026
+latest_message_date_cursor: "2026-09-22"
+last_changelog_through: "2026-09-08"   # coverage date, not publish date
 
 changelog_history:
   # Append a new entry each time a changelog is published.
