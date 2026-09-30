@@ -18,7 +18,7 @@ Claude loads the style guide (overview, template, sentence guidance, editorial p
 
 ## Step 4 — Create a branch and make the changes (mixed)
 
-Branch creation is deterministic (`git checkout -b fe_<slug>_docs`). The actual file edits are non-deterministic: Claude writes or rewrites doc content, follows the style guide, and decides how to structure new parameters and examples.
+Branch creation is deterministic (`git worktree add ../sensible-docs-<slug> -b fe_<slug>_docs`). The actual file edits are non-deterministic: Claude writes or rewrites doc content, follows the style guide, and decides how to structure new parameters and examples.
 
 ## Step 5 — Style check (mostly deterministic)
 
