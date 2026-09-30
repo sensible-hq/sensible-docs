@@ -17,8 +17,8 @@ Docs PR: sensible-hq/sensible-docs#729
 - [x] Vale: 0 errors; remaining warnings are spatial "above"
 
 ## Open
-- [ ] Decide: Stop example "Example document" section has a download link but no image (column_stop.png was removed)
-- [ ] Decide: commit column_stop_blank.pdf (blank-value case) or leave it only in the Sensible account
+- [x] Stop example: no example document (column_stop.pdf and .png dropped per user)
+- [x] column_stop_blank.pdf: not committed (no Stop example PDF in docs)
 - [ ] Confirm "neighboring column also stops extraction" wording is intended engine behavior
 - [ ] Optional: republish column_example config in Sensible account with after-comma comment style
 - [ ] Optional: delete test doc types column_stop / column_example from the Sensible account

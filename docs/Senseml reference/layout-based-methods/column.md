@@ -182,11 +182,6 @@ The Stop parameter also works with `"position": "above"`. The `coverage` field a
 }
 ```
 
-**Example document**
-
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/column_stop.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------- |
-
 **Output**
 
 ```json
