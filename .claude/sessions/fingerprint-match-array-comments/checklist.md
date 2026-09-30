@@ -232,6 +232,16 @@ Frances drafted this, and Claude corrected it. Placement TBD (likely ~line 219 o
    so scoring affects standalone documents only. */
 ```
 
+## To explore: how a portfolio test fails when its matches are split across pages
+
+Frances's question: in portfolio mode, take a `first` test with a 7-element array. 3 elements co-occur on one page, and 2 co-occur on a later page. How does Sensible score that? Does it drop the second page and report "3 out of 7"?
+
+Expected answer from the backend: the test fails outright, with no partial score. `matchPages` (multi-extract.ts:258–290) evaluates the test on each page separately, with threshold 1 (line 274). Page A finds 3/7 and page B finds 2/7, so neither page gets a `first` label, and the counts from the two pages are never added together. This holds for flat `[ ]` and nested `[[ ]]` arrays alike. The point of testing it is to learn what the failure looks like, for troubleshooting.
+
+- [ ] Test it in the app's fingerprint validator. Record what it reports: per-page counts (3/7 and 2/7), only the best page, or just "failed"?
+- [ ] Record the downstream effect on segmentation: with no `first` page, does Sensible leave those pages unsegmented, or assign them to another config?
+- [ ] If the validator output is useful for diagnosing split matches, consider a troubleshooting tip in `## Fingerprint scoring`
+
 ## To do: "test" vs "match" terminology
 
 Frances's proposal: there's no such thing as a test that passes or fails. A fingerprint is an array of matches, and each match passes or fails (a nested match array is one unit). So drop "test" terminology and refer to "matches".
