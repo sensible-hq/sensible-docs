@@ -132,7 +132,7 @@ You can test a config's fingerprint against multiple reference documents at once
 "fingerprint": {
     "tests": [
       {
-        "page": "every"
+        "page": "every",
         "match": [
           {
             "text": "NARS",
@@ -142,7 +142,7 @@ You can test a config's fingerprint against multiple reference documents at once
         ]
       },
       {
-        "page": "every"
+        "page": "every",
         "match": [
           {
             "text": "Name of Insured",
@@ -150,7 +150,7 @@ You can test a config's fingerprint against multiple reference documents at once
             "isCaseSensitive": true
           }
         ]
-      },
+      }
     ]
   }
 ```
@@ -162,7 +162,7 @@ Instead, write the following:
 "fingerprint": {
     "tests": [
       {
-        "page": "every"
+        "page": "every",
           /* A nested array ("match": [[ ]]) in a fingerprint enforces stricter criteria than a flat array. In a nested array, or "chained matches",
    each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
    In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
@@ -172,9 +172,8 @@ Instead, write the following:
    Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
    For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
    Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
-   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. ) */
+   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. */
         "match": [[
-					
           {
             "text": "NARS",
             "type": "includes",
@@ -184,8 +183,7 @@ Instead, write the following:
             "text": "Name of Insured",
             "type": "includes",
             "isCaseSensitive": true
-          },
-		  
+          }
         ]]
       }
     ]
