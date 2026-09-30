@@ -113,7 +113,7 @@ The following image shows the example document used with this example config:
 {
   "SSN": {
     "type": "string",
-    "value": "1 2 3 – 4 5 – 7 8 9 3"
+    "value": "111 – 22 – 3333"
   }
 }
 ```
