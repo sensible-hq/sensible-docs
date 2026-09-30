@@ -5,6 +5,11 @@ Claude Code session ID: 9bb92619-2b00-442e-9dc7-828734bf1dc3
 Goal: document once (match.md) that match parameters accept string, object, or array; elsewhere only note EXCEPTIONS.
 Source of truth: sensible-hq/sensible origin/main src/engine/types.ts (AnchorMatch = string | Matcher | RepeatMatcher | array) + standardizeMatch() in src/engine/configurations/standardize.ts
 
+## Convention (decided 2026-09-30)
+In param tables, "[Match object](doc:match)" implies string, object, or array. Only note when a param DOESN'T support all three.
+- AnchorMatch rows: replace "Match object or array of Match objects" / "string, Match object, or array..." with "[Match object](doc:match)"
+- Exception rows: keep "Match object" AND add an explicit note (e.g., "Doesn't support strings or arrays.")
+
 ## Done
 - [x] Add string/object/array table to top of match.md
 
@@ -24,7 +29,7 @@ Source of truth: sensible-hq/sensible origin/main src/engine/types.ts (AnchorMat
 
 ## Exceptions — keep explicit
 - [ ] layout-based-methods/label.md:30 stop: `first`, `gap`, or a single Match object (no string, no array)
-- [ ] layout-based-methods/column.md stop: single Match object (in PR #729)
+- [ ] layout-based-methods/column.md stop: single Match object — PR #729 currently says "[Match object](doc:match)", which now implies all 3; needs exception note
 - [ ] match.md:208 any/all `matches`: array of Match objects only
 - [ ] match.md:209 not `match`: single Match object only
 - [ ] match.md repeat `match`: Match object or array, no string (check line ~305)
