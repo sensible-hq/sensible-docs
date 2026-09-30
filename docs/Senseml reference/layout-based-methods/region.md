@@ -87,10 +87,12 @@ The following example shows extracting a social security number from a W-9 form 
       "method": {
         "id": "region", /* extracts lines contained in a defined rectangular region */
         "start": "below", /* region's top-left corner starts at midpoint of anchor's bottom boundary */
-        "width": 2.15, /* region width in inches */
-        "height": 0.25, /* region height in inches */
-        "offsetX": -0.55, /* shifts region's top-left corner to the left from the Start parameter by the specified number of inches (positive: right, negative: left) */
-        "offsetY": 0.1 /* shifts region's top-left corner down from the Start parameter by the specified number of inches (positive: down, negative: up */
+        "width": 2.55, /* region width in inches */
+        "height": 0.6, /* region height in inches */
+        "offsetX": -0.65, /* shifts region's top-left corner to the left from the Start parameter by the specified number of inches (positive: right, negative: left) */
+        "offsetY": -0.15, /* shifts region's top-left corner up from the Start parameter by the specified number of inches (positive: down, negative: up) */
+        "includeAnchor": false, /* the region is large enough to capture the anchor line, so exclude the anchor line from the output */
+        "sortLines": "readingOrderLeftToRight" /* sorts lines by their likely reading order, left to right */
       }
     }
   ]
@@ -111,7 +113,7 @@ The following image shows the example document used with this example config:
 {
   "SSN": {
     "type": "string",
-    "value": "1 2 3 4 5 7 8 9 3 – –"
+    "value": "1 2 3 – 4 5 – 7 8 9 3"
   }
 }
 ```
