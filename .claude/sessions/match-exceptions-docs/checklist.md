@@ -14,18 +14,22 @@ In param tables, "[Match object](doc:match)" implies string, object, or array. O
 - [x] Add string/object/array table to top of match.md
 
 ## Accept string/object/array (AnchorMatch) — simplify value column
-- [ ] cell-rows.md:31 stop
-- [ ] layout-based-methods/document-range.md:34 stop
-- [ ] layout-based-methods/regex.md:30 stop
-- [ ] layout-based-methods/fixed-table.md:34 stop
-- [ ] layout-based-methods/text-table.md:39 stop (also number, {"type": "last"})
-- [ ] deprecated-features/deprecated-table.md:36 stop
-- [ ] field-query-object/index.md:70 anchor
-- [ ] field-query-object/anchor.md:64-65 match, start (check end too)
-- [ ] sections/index.md:59-60 anchor, stop
-- [ ] preprocessors: ocr-preprocessor.md:30, remove-header.md:29, remove-footer.md:31, split-lines.md:27, rotate-page.md:25, linearize.md:36, remove-page.md:22, remove-lines.md:22
+- [x] cell-rows.md:31 stop
+- [x] layout-based-methods/document-range.md:34 stop
+- [x] layout-based-methods/regex.md:30 stop
+- [x] layout-based-methods/fixed-table.md:34 stop
+- [x] layout-based-methods/text-table.md:39 stop (also number, {"type": "last"})
+- [x] deprecated-features/deprecated-table.md:36 stop
+- [ ] field-query-object/index.md:70 anchor — Anchor, not a match param; leave?
+- [x] field-query-object/anchor.md:64-65 match, start
+- [ ] field-query-object/anchor.md: check `end` row
+- [x] sections/index.md:60 stop
+- [ ] sections/index.md:59 anchor — Anchor, not a match param; leave?
+- [x] preprocessors: ocr-preprocessor.md:30, remove-header.md:29, remove-footer.md:31, split-lines.md:27, rotate-page.md:25, linearize.md:36, remove-page.md:22, remove-lines.md:22
 - [ ] preprocessors: scale.md:28 (samples[].match), deskew.md:30 (fixedPoints[].match) — nested, check wording
-- [ ] config-settings/fingerprint.md:97, draft-fingerprint.md:64 match
+- [x] config-settings/fingerprint.md:97, draft-fingerprint.md:64 match
+
+Out of scope: string-only params (wordFilters, terms, stopTerms, text, pattern).
 
 ## Exceptions — keep explicit
 - [ ] layout-based-methods/label.md:30 stop: `first`, `gap`, or a single Match object (no string, no array)
