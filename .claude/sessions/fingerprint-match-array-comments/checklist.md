@@ -259,6 +259,10 @@ Proposal:
 
 ## OPEN DISAGREEMENT: is there a test-level pass/fail in portfolios?
 
+**Update 2026-09-30:** Frances verified that in a portfolio, if ANY match fails, the whole thing fails. The live nested-array comment ("a partial score for a flat array causes the whole fingerprint to fail") stays as-is.
+- [ ] Record how it was verified. The in-app validator runs in single-document mode only, so a portfolio test needs a real portfolio extraction.
+- [ ] Reconcile with the fallbacks tip, which relies on two separate `last` tests working independently. If any failing match fails the whole fingerprint, the fallbacks tip is wrong. If the tip is right, "whole fingerprint" should be "that test". Run the two-`last`-tests scenario below to settle both.
+
 **Frances's position:** even in portfolios, Sensible scores each match in a test separately, and each MATCH must pass. There's no pass/fail for tests as such. Maybe talk about "pages" instead.
 
 **Claude's position (full rationale):**
@@ -316,7 +320,7 @@ Frances wants several of the Notes/Tips repeated as inline comments in the examp
 ## URGENT: live fingerprint.md edited directly on v0 via ReadMe (2026-09-30)
 
 Frances added validator info and the nested-array comment to the **published** page (v0 commits 2aad3b704 through 6e5d70c17, "Updated 'Fingerprint' in docs"). Found:
-- [ ] **Broken image on the live page:** `assets/images/final/fingerprint_validation_1.png` returns 404 and isn't on any branch. Upload it to screenshots/ and final/.
-- [ ] **Live nested-array comment claims** "a partial score for a flat array causes the whole fingerprint to fail". Per backend, a portfolio **test** fails on that page, and other tests still label pages (see OPEN DISAGREEMENT). There's also a stray `)` before `*/`.
-- [ ] Live PREFER example is still missing commas after `"page": "every"` (parse error).
+- [x] **Broken image on the live page:** `fingerprint_validation_1.png`. Frances uploaded it (0b3921e3b), it's styled, and it resolves.
+- [ ] **Live nested-array comment claims** "a partial score for a flat array causes the whole fingerprint to fail". Per backend, a portfolio **test** fails on that page, and other tests still label pages (see OPEN DISAGREEMENT). There's also a stray `)` before `*/`. **Fixed the stray `)` on v0 (d6d4051f1).** Wording kept per Frances's verification.
+- [x] Live AVOID/PREFER parse errors fixed on v0 (d6d4051f1): commas, trailing commas, and whitespace-only lines.
 - [ ] **PR #727 now conflicts with v0** on fingerprint.md. Merge origin/v0 into the branch and resolve before continuing edits on the branch.
