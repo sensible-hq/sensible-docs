@@ -111,7 +111,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 **Validate fingerprints across reference documents**
 
-In the SenseML editor, you can now test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options** > **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in portfolio fingerprints. 
+You can test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options**, select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in portfolio fingerprints. 
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
 
