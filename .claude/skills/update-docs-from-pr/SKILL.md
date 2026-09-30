@@ -3,7 +3,7 @@ name: update-docs-from-pr
 description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
 ---
 
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
@@ -84,9 +84,14 @@ For each doc change needed, determine whether to:
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
+Create the branch in a worktree that sits next to the main repo, not with `git checkout -b`. Run from `~/GitHub/sensible-docs`:
+
 ```
-git checkout -b fe_<short_description>_docs
+git pull
+git worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
 ```
+
+Then add the worktree path to `permissions.additionalDirectories` in `.claude/settings.json`, and do all remaining work in the worktree.
 
 Make all file edits and creations. Be thorough — cover all parameters and include at least one example per new feature.
 
@@ -105,14 +110,18 @@ Only proceed to the commit once all errors and warnings are resolved.
 Stage only the files you changed:
 ```
 git add <files>
-git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#$ARGUMENTS.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#<pr-number>.\n\n<Co-Authored-By line from this session's attribution instructions>"
 git push -u origin <branch>
 gh pr create --title "..." --body "..."
 ```
 
 PR body should include:
 - Bullet summary of what was added/changed
-- Reference to the source PR (`sensible-hq/sensible#$ARGUMENTS`)
+- Reference to the source PR (`sensible-hq/sensible#<pr-number>`)
 - A test plan checklist for the reviewer
 
 Return the PR URL to the user.
+
+## Step 7 — Wrap up after merge
+
+When Frances says she has squashed and merged the docs PR and is done, run the `close-docs-pr` skill (`.claude/skills/close-docs-pr/SKILL.md`) with the docs PR number. It confirms the merge, finds or creates a sensible-docs issue for the work and closes it, swaps the engine PR's `doc_changes_needed` label for `docs_done` in `sensible-hq/sensible`, and removes the worktree.

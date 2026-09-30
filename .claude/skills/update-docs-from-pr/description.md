@@ -1,6 +1,6 @@
 # update-docs-from-pr — How it works
 
-This skill takes a pull request number from the `sensible-hq/sensible` engine repo and produces a docs PR in `sensible-docs`. It runs six steps.
+This skill takes a pull request number from the `sensible-hq/sensible` engine repo and produces a docs PR in `sensible-docs`. It runs seven steps.
 
 ---
 
@@ -18,7 +18,7 @@ Claude loads the style guide (overview, template, sentence guidance, editorial p
 
 ## Step 4 — Create a branch and make the changes (mixed)
 
-Branch creation is deterministic (`git checkout -b fe_<slug>_docs`). The actual file edits are non-deterministic: Claude writes or rewrites doc content, follows the style guide, and decides how to structure new parameters and examples.
+Branch creation is deterministic (`git worktree add ../sensible-docs-<slug> -b fe_<slug>_docs`). The actual file edits are non-deterministic: Claude writes or rewrites doc content, follows the style guide, and decides how to structure new parameters and examples.
 
 ## Step 5 — Style check (mostly deterministic)
 
@@ -27,6 +27,10 @@ Vale is run on every modified file via the MCP server. Errors and warnings are f
 ## Step 6 — Commit and open a PR (deterministic)
 
 Stages only the changed files, commits with a fixed message format referencing the source PR, pushes the branch, and opens a docs PR with a structured body. All of this is mechanical.
+
+## Step 7 — Wrap up after merge (deterministic)
+
+When Frances says she has squashed and merged the docs PR, Claude runs the `close-docs-pr` skill. It finds or creates a sensible-docs issue for the work and closes it, swaps the engine PR's `doc_changes_needed` label for `docs_done`, and removes the worktree. The steps are mechanical, and the skill stops to ask only if something doesn't match, such as an unexpected label or several candidate issues.
 
 ---
 
@@ -42,5 +46,6 @@ Stages only the changed files, commits with a fixed message format referencing t
 | 5. Vale errors/warnings | Deterministic |
 | 5. Vale suggestions | Non-deterministic |
 | 6. Commit, push, open PR | Deterministic |
+| 7. Close issue, swap label, clean up | Deterministic |
 
 The riskiest non-deterministic steps are 2 and 3 — if Claude misidentifies which docs need updating, or misreads what the engine change means, everything downstream will be wrong. Review the PR diff yourself if the change is subtle.
