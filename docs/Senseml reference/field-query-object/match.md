@@ -18,6 +18,10 @@ next:
 ---
 Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects.
 
+| key     | value                    | description                                                  |
+| ------- | ------------------------ | ------------------------------------------------------------ |
+| `match` | string, object, or array | `string`: Match on a string (`"match": "text to match"`).<br/>`object`: Specify substring positions, regular expressions, and Boolean matches. For more information, see [Match types](doc:match#match-types).<br/>`array`: Specify an array of match objects that must be specified in the order in which they occur in the document. For more information, see [Match arrays](doc:match#match-arrays). |
+
 See the following sections for more information:
 
 [**Match types**](doc:match#match-types)
@@ -202,7 +206,7 @@ Use Boolean matches to write Boolean logic about your matches. For example, use 
 | ------------------------------------------ | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | type (**required**)                        | `any`, `all`, `not`                                                           | `any` : Same behavior as Boolean operator "or". Finds a line that meets any of the match conditions in the array.<br />`all` Same behavior as  Boolean operator "and". Finds a line that meets all of the match conditions in the array.<br />`not` Same behavior as Boolean operator "not". Finds a line if it doesn't meet the match condition.<br /> |
 | matches (**required** for `any` and `all`) | Array of Match objects. All match types are valid in the array except `first` | Use with `any` and `all`. You can nest Boolean matches using this parameter.                                                                                                                                                                                                                                                                            |
-| match (**required** for `not`)             | Match object. All match types are valid except `first`                        | Use with `not`                                                                                                                                                                                                                                                                                                                                          |
+| match (**required** for `not`)             | limited support for [Match](doc:match) object (doesn't support Match arrays or strings as values). All match types are valid except `first` | Use with `not`                                                                                                                                                                                                                                                                                                                                          |
 
 **EXAMPLE**
 
@@ -298,7 +302,7 @@ Finds the nth occurrence of a Match object. This is a more concise syntactical a
 | -------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | type (**required**)  | `repeat`     |                                                                                                                                                                                       |
 | times (**required**) | integer      | The number of times the specified match must occur in [succeeding](doc:lines#line-sorting) lines. For example, if you specify 3, matches the third occurrence of the specified match. |
-| match                | Match object | The Match object to find each succeeding line.                                                                                                                                        |
+| match                | limited support for [Match](doc:match) object (doesn't support strings as values) | The Match object to find each succeeding line.                                                                                                                                        |
 
 **EXAMPLE**
 
