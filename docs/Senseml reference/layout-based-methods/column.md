@@ -54,24 +54,23 @@ The following example shows that:
 {
   "fields": [
     {
-      "id": "example_column" /* user-friendly ID for extracted target data */,
-      "anchor": "may 2020" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
-      "type": "string" /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */,
+      "id": "example_column", /* user-friendly ID for extracted target data */
+      "anchor": "may 2020", /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type": "string", /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": {
-        "id": "column" /* extract lines below the anchor that align with it */,
-        "stop": {
-          /* stop before the note below the table, e.g., 'For up-to-date rankings, see the current TIOBE index.' */
-          "type": "startsWith" /* line must start with the match */,
+        "id": "column", /* extract lines below the anchor that align with it */
+        "stop": { /* stop before the note below the table, e.g., 'For up-to-date rankings, see the current TIOBE index.' */
+          "type": "startsWith", /* line must start with the match */
           "text": "for up" /* string to match */
         }
       }
     },
     {
-      "id": "example_column_2" /* user-friendly ID for extracted target data */,
-      "anchor": "may 2020" /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */,
-      "type": "number" /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */,
+      "id": "example_column_2", /* user-friendly ID for extracted target data */
+      "anchor": "may 2020", /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type": "number", /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": {
-        "id": "column" /* extract lines below the anchor that align with it */,
+        "id": "column", /* extract lines below the anchor that align with it */
         "tiebreaker": ">" /* return the largest number in the column, e.g., '5' */
       }
     }
