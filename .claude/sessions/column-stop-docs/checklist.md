@@ -19,7 +19,7 @@ Docs PR: sensible-hq/sensible-docs#729
 ## Open
 - [x] Stop example: no example document (column_stop.pdf and .png dropped per user)
 - [x] column_stop_blank.pdf: not committed (no Stop example PDF in docs)
-- [x] Neighboring-column sentence: keep (matches engine; PR calls it a vertical cutoff)
+- [x] Neighboring-column sentence: keep. User confirmed it is intended behavior, not a bug (2026-09-30)
 - [ ] Optional: republish column_example config in Sensible account with after-comma comment style
 - [ ] Optional: delete test doc types column_stop / column_example from the Sensible account
 - [ ] Review and merge docs PR #729
