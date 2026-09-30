@@ -45,7 +45,18 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
 2. Log into the [Sensible app](https://app.sensible.so/signin/).
 
+<!-- test {"testId": "app_document_types_page", "description": "Sign in with the test account, then open the Document Types tab"} -->
+<!-- step {"goTo": {"url": "https://app.sensible.so/signin/", "waitUntil": {"find": {"selector": "input[name=\"email\"]"}}}} -->
+<!-- step {"type": {"keys": "$SENSIBLE_TEST_EMAIL", "selector": "input[name=\"email\"]"}} -->
+<!-- step {"type": {"keys": "$SENSIBLE_TEST_PASSWORD", "selector": "input[name=\"password\"]"}} -->
+<!-- step {"click": {"selector": "form button", "elementText": "Sign in"}} -->
+<!-- step {"find": {"selector": "[role=\"account-dropdown\"]", "timeout": 15000}} -->
+
 # Configure the extraction
+
+<!-- step {"goTo": "https://app.sensible.so/document-types/"} -->
+<!-- step {"find": {"elementText": "New document type", "timeout": 15000}} -->
+<!-- test end -->
 
 1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
 

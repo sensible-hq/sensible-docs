@@ -10,3 +10,4 @@ scripts/test/probe_endpoints/outputs/
 
 # Local secrets (Doc Detective test credentials)
 .env
+scripts/doc-detective/output/

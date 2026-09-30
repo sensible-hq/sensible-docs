@@ -1,0 +1,6 @@
+{
+  "loadVariables": ".env",
+  "detectSteps": false,
+  "exitOnFail": true,
+  "output": "scripts/doc-detective/output"
+}
