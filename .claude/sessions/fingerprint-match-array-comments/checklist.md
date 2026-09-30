@@ -280,3 +280,15 @@ This is why the fallbacks tip works. It only works because the test is where "al
 - [ ] Settle it empirically in the app's fingerprint validator: a portfolio config with two `last` tests (wording X and wording Y), run on a portfolio whose last page has only X. If that page is labeled `last`, the test is the grouping boundary (Claude's position). If it isn't, Frances's position holds.
 - [ ] Optionally, confirm with engineering
 - [ ] Then finalize the "test vs match terminology" item above
+
+## To do: mirror key tips as inline comments in the code examples
+
+Frances wants several of the Notes/Tips repeated as inline comments in the examples, where readers will see them while copying code. Use `/* */` only, and `json` fences only.
+
+- [ ] **Turn off preprocessors** (Notes > Tips > Turn off preprocessors): add a commented-out `"preprocessors"` block to an example, with a comment such as `/* Sensible runs fingerprints before preprocessors. Comment out preprocessors while you author fingerprints, so the editor shows the lines exactly as the fingerprint sees them */`.
+- [ ] Candidates for the other tips (decide which ones earn an inline comment):
+  - **fallbacks:** in a portfolio example, two `last` tests with alternate wordings, with a comment that either one can label the page as a last page. Depends on the OPEN DISAGREEMENT above being settled.
+  - **Nested vs flat match arrays:** already partly in the PREFER example comments. Reuse the pending corrected summary text.
+  - **Test and verify fingerprints:** a comment that points to the validator entry under the SenseML editor's Options button.
+  - **Fingerprint strictness:** a comment in the standalone example noting that strict Fingerprint Mode returns an error when no config passes (fingerprint-mode.md).
+- [ ] Keep each prose tip too. The inline comment is a pointer, not a replacement. Or decide to cut the prose version if the comment says it all. This ties in with the Notes reorganization item above.
