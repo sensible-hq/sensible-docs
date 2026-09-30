@@ -20,7 +20,7 @@ Extracts all lines below or above the anchor line on the current page if:
 
 * The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-When you extract a value from a single-column form, you usually want to stop at the next label rather than extract to the end of the page. To set where the column ends, you specify the Stop parameter.
+When you extract a value from a single-column form, you usually want to stop at the bottom boundary of the column rather than extract to the end of the page. To set where the column ends, you specify the Stop parameter.
 
 [**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
