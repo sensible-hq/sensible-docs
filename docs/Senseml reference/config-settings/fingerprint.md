@@ -155,7 +155,7 @@ Instead, write the following:
     "tests": [
       {
         "page": "every"
-          /* A nested array ("match": [[ ]]) enforces stricter criteria than a flat array. In a nested array, or "chained matches",
+          /* A nested array ("match": [[ ]]) in a fingerprint enforces stricter criteria than a flat array. In a nested array, or "chained matches",
    each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
    In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
    in the document, and more than one element can match the same line.
