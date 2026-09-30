@@ -7,3 +7,6 @@ Thumbs.db
 scripts/test/probe_endpoints/outputs/
 *.sublime-project
 *.sublime-workspace
+
+# Local secrets (Doc Detective test credentials)
+.env
