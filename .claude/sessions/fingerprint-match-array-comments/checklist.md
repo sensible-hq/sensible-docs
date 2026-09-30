@@ -312,3 +312,11 @@ Frances wants several of the Notes/Tips repeated as inline comments in the examp
   - Single-document mode only: the Page parameter has no effect. Portfolio support may come later.
   - The validator warns when the config has preprocessors, because fingerprints run on raw text. This ties in with the "Turn off preprocessors" tip.
   - Screenshots: Frances's 4 screenshots (editor + picker + results + expanded row). Add to assets/images/screenshots/ and copy to final/.
+
+## URGENT: live fingerprint.md edited directly on v0 via ReadMe (2026-09-30)
+
+Frances added validator info and the nested-array comment to the **published** page (v0 commits 2aad3b704 through 6e5d70c17, "Updated 'Fingerprint' in docs"). Found:
+- [ ] **Broken image on the live page:** `assets/images/final/fingerprint_validation_1.png` returns 404 and isn't on any branch. Upload it to screenshots/ and final/.
+- [ ] **Live nested-array comment claims** "a partial score for a flat array causes the whole fingerprint to fail". Per backend, a portfolio **test** fails on that page, and other tests still label pages (see OPEN DISAGREEMENT). There's also a stray `)` before `*/`.
+- [ ] Live PREFER example is still missing commas after `"page": "every"` (parse error).
+- [ ] **PR #727 now conflicts with v0** on fingerprint.md. Merge origin/v0 into the branch and resolve before continuing edits on the branch.
