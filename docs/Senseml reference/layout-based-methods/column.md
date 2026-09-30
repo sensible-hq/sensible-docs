@@ -20,7 +20,7 @@ Extracts all lines below or above the anchor line on the current page if:
 
 * The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-By default, the method extracts to the edge of the page. To stop extracting at a specific line, such as the next label in a single-column form, use the Stop parameter.
+By default, the method extracts to the end of the page. To stop extracting at a specific line, such as the next label in a single-column form, use the Stop parameter.
 
 [**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
@@ -33,7 +33,7 @@ By default, the method extracts to the edge of the page. To stop extracting at a
 | tiebreaker        | tiebreaker                         | For information about this global parameter, see [Method](doc:method#parameters). |
 | includeAnchor     | `true`, `false`. default: false    | Includes the anchor line in the method output                |
 | position          | `below`, `above`. default: `below` | Matches above or below the anchor line. For example, if you anchor on the bottom line of a column, set this to `above` to extract the column. |
-| stop              | [Match object](doc:match)          | Stops extraction at the closest matching line in the direction you specify with the Position parameter. The matched line isn't included in the method output. For example, use this parameter on a single-column form to stop at the next label, so that the method doesn't also extract that label and its value.<br/>For `"position": "below"`, stops at the top boundary of the matched line. For `"position": "above"`, stops at the bottom boundary of the matched line.<br/>The matched line doesn't need to align with the anchor line. Sensible searches all lines on the page below or above the anchor, so a matching line in a neighboring column also stops extraction.<br/>If the matched line immediately follows the anchor line, for example because the document leaves the value blank, returns null.<br/>If you don't specify this parameter, or if no line matches, extracts to the edge of the page. |
+| stop              | [Match object](doc:match). default: `none` | Stops extraction at the top boundary of the matched line. The matched line isn't included in the method output. If you don't specify this parameter, extracts to the end of the page.<br/>For `"position": "above"`, stops extraction at the bottom boundary of the matched line.<br/>If multiple lines match, Sensible stops at the matched line closest to the anchor line. The matched line doesn't need to align with the anchor line, so a matching line in a neighboring column also stops extraction.<br/>If the matched line immediately follows the anchor line, for example because the document leaves the value blank, returns null. |
 
 # Examples
 
