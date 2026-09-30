@@ -302,3 +302,13 @@ Frances wants several of the Notes/Tips repeated as inline comments in the examp
   - **Test and verify fingerprints:** a comment that points to the validator entry under the SenseML editor's Options button.
   - **Fingerprint strictness:** a comment in the standalone example noting that strict Fingerprint Mode returns an error when no config passes (fingerprint-mode.md).
 - [ ] Keep each prose tip too. The inline comment is a pointer, not a replacement. Or decide to cut the prose version if the comment says it all. This ties in with the Notes reorganization item above.
+
+## To do: document the fingerprint validator in fingerprint.md (changelog links here)
+
+- [ ] The October 2026 changelog entry "Validate fingerprints across reference documents" links to [Fingerprint](doc:fingerprint). Add the validator docs to fingerprint.md so that link lands on real content. This extends the existing "point readers to the fingerprint validation option" item and the "test and verify fingerprints" tip (TODO link, ~line 170).
+  - Source: sensible-app PR #1878 (and sensible #3450)
+  - Path: SenseML editor > **Options** > **Validate fingerprints**. Only the `fingerprint` block is used. The config's own reference docs are preselected, and selecting other configs' docs checks for false positives.
+  - Results: **Matches** / **Partial** (marked *below threshold* when fewer than half matched) / **No match**. `matched/total` counts flattened matchers, not tests (PR: "a single test carrying `match: ["ACME", "Invoice"]` counts as two"). This supports the flat vs nested scoring explanation. Each expanded row shows whether each match hit, its line count, and its page.
+  - Single-document mode only: the Page parameter has no effect. Portfolio support may come later.
+  - The validator warns when the config has preprocessors, because fingerprints run on raw text. This ties in with the "Turn off preprocessors" tip.
+  - Screenshots: Frances's 4 screenshots (editor + picker + results + expanded row). Add to assets/images/screenshots/ and copy to final/.
