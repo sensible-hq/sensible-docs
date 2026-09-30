@@ -8,5 +8,5 @@ Source PR: sensible-hq/sensible#3477 (merged 2026-09-22)
 - [x] Add Stop parameter row to column.md
 - [x] Add "Stop at the next label" example
 - [x] Vale check (remaining warnings: spatial "above", heading convention)
-- [ ] Add example PDF + screenshot for stop example, verify output in the Sensible app
+- [x] Add example PDF + screenshot for stop example; uploaded to doc type column_stop and verified output via API
 - [ ] Review and merge docs PR

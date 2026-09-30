@@ -102,7 +102,7 @@ The following example extracts a vehicle type from a single-column form, where e
 
 **PROBLEM**
 
-If you don't specify the Stop parameter, the method extracts to the end of the page, so the output includes the Coverage label and its value.
+If you don't specify the Stop parameter, the method extracts to the end of the page, so the output includes the labels and values that follow the vehicle type.
 
 **Config**
 
@@ -128,7 +128,7 @@ If you don't specify the Stop parameter, the method extracts to the end of the p
 {
   "vehicle_type": {
     "type": "string",
-    "value": "Sedan Coverage: Full"
+    "value": "Sedan Coverage: Full Deductible: $500"
   }
 }
 ```
@@ -158,6 +158,14 @@ You specify the Stop parameter to stop extraction at the Coverage label. If the 
   ]
 }
 ```
+
+**Example document**\
+The following image shows the example document used with this example config:
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/column_stop.png)
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/column_stop.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
