@@ -382,7 +382,7 @@ Returns `true` for arrays, including empty arrays. Returns `false` for `null`, o
 { "is_array": JsonLogic }
 ```
 
-Use Is Array to iterate over fields that can be either arrays or scalar values.  For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
+Use Is Array to iterate over fields whose output can be either arrays or scalar values.  For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
 
 ### Example
 
