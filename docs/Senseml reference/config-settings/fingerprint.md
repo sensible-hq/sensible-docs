@@ -109,6 +109,14 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 * If you specify a Match array in a test, then Sensible must find all the matches in the array on the _same_ page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.
 * Sensible must find 100% of all matches in all tests to segment a document in a portfolio. In single-file documents, Sensible must find 50% of all matches anywhere in the document by default to give the document a "passing" score.
 
+**Validate fingerprints across reference documents**
+
+You can test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options**, select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints. 
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
+
+
+
 #### fallbacks
 
 * If you want to specify alternate, or fallback, matches for the same page type, specify the matches in separate tests. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page.  Specify one test with a `last` page type and wording A, and specify a second test with a `last` page type and wording B.
