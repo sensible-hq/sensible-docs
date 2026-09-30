@@ -49,20 +49,21 @@ The following example shows that:
 **Config**
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "example_column",
-      "anchor": "may 2020",
-      "type": "string",
+      "id": "example_column", /* user-friendly ID for extracted target data */
+      "anchor": "may 2020",   /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type": "string",       /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": {
         "id": "column"
       }
     },
     {
-      "id": "example_column_2",
-      "anchor": "may 2020",
-      "type":"number",
+      "id": "example_column_2", /* user-friendly ID for extracted target data */
+      "anchor": "may 2020",     /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type":"number",          /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": {
         "id": "column",
         "tiebreaker": ">"
