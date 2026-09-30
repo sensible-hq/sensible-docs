@@ -10,4 +10,4 @@ Source PR: sensible-hq/sensible#3478 (region: add includeAnchor option)
 - [x] Add includeAnchor line to region.md syntax example
 - [x] Vale check (0 errors, 0 warnings) + glossary check
 - [ ] Example config demonstrating includeAnchor: false (needs a verified extraction run; not done)
-- [ ] Open PR
+- [x] Open PR
