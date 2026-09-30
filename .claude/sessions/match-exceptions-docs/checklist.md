@@ -1,0 +1,37 @@
+# match-exceptions-docs checklist
+
+Claude Code session name: match-exceptions-docs
+Claude Code session ID: 9bb92619-2b00-442e-9dc7-828734bf1dc3
+Goal: document once (match.md) that match parameters accept string, object, or array; elsewhere only note EXCEPTIONS.
+Source of truth: sensible-hq/sensible origin/main src/engine/types.ts (AnchorMatch = string | Matcher | RepeatMatcher | array) + standardizeMatch() in src/engine/configurations/standardize.ts
+
+## Done
+- [x] Add string/object/array table to top of match.md
+
+## Accept string/object/array (AnchorMatch) — simplify value column
+- [ ] cell-rows.md:31 stop
+- [ ] layout-based-methods/document-range.md:34 stop
+- [ ] layout-based-methods/regex.md:30 stop
+- [ ] layout-based-methods/fixed-table.md:34 stop
+- [ ] layout-based-methods/text-table.md:39 stop (also number, {"type": "last"})
+- [ ] deprecated-features/deprecated-table.md:36 stop
+- [ ] field-query-object/index.md:70 anchor
+- [ ] field-query-object/anchor.md:64-65 match, start (check end too)
+- [ ] sections/index.md:59-60 anchor, stop
+- [ ] preprocessors: ocr-preprocessor.md:30, remove-header.md:29, remove-footer.md:31, split-lines.md:27, rotate-page.md:25, linearize.md:36, remove-page.md:22, remove-lines.md:22
+- [ ] preprocessors: scale.md:28 (samples[].match), deskew.md:30 (fixedPoints[].match) — nested, check wording
+- [ ] config-settings/fingerprint.md:97, draft-fingerprint.md:64 match
+
+## Exceptions — keep explicit
+- [ ] layout-based-methods/label.md:30 stop: `first`, `gap`, or a single Match object (no string, no array)
+- [ ] layout-based-methods/column.md stop: single Match object (in PR #729)
+- [ ] match.md:208 any/all `matches`: array of Match objects only
+- [ ] match.md:209 not `match`: single Match object only
+- [ ] match.md repeat `match`: Match object or array, no string (check line ~305)
+- [ ] VERIFY: method.md:36 lineFilters says "Match object" — code type is Matcher[] (array only)
+- [ ] VERIFY: sections/index.md:71 lineFilters says object or array — code type is Matcher[]; also vertical sections lineSelection is Matcher[]
+
+## Wrap-up
+- [ ] Vale + glossary check on every changed file
+- [ ] Review and merge PR
+- [ ] After merge: remove worktree ~/GitHub/sensible-docs-match-exceptions, delete branch, remove from additionalDirectories, pull v0

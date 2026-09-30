@@ -18,6 +18,10 @@ next:
 ---
 Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects.
 
+| key     | value                    | description                                                  |
+| ------- | ------------------------ | ------------------------------------------------------------ |
+| `match` | string, object, or array | `string`: Match on a string (`"match": "text to match"`).<br/>`object`: Specify substring positions, regular expressions, and Boolean matches. For more information, see [Match types](doc:match#match-types).<br/>`array`: Specify an array of match objects that must be specified in the order in which they occur in the document. For more information, see [Match arrays](doc:match#match-arrays). |
+
 See the following sections for more information:
 
 [**Match types**](doc:match#match-types)
