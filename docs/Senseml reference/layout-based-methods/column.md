@@ -20,12 +20,14 @@ Extracts all lines below or above the anchor line on the current page if:
 
 * The anchor line and target lines overlap by at least 50% of the narrower line's x extent.
 
-By default, the method extracts to the end of the page. To stop extracting at a specific line, such as the next label in a single-column form, use the Stop parameter.
+By default, the method extracts to the end of the page, so on a single-column form it can also extract the next label and its value. To stop extraction at a specific line, use the Stop parameter.
 
 [**Parameters**](doc:column#parameters)\
 [**Examples**](doc:column#examples)
 
 # Parameters
+
+**Note:** For additional parameters available for this method, see [Global parameters for methods](doc:method#global-parameters-for-methods). The following table shows parameters most relevant to or specific to this method.
 
 | key               | value                              | description                                                  |
 | :---------------- | :--------------------------------- | :----------------------------------------------------------- |
@@ -37,7 +39,7 @@ By default, the method extracts to the end of the page. To stop extracting at a 
 
 # Examples
 
-## Example: Extract a column
+## Extract a column
 
 The following example shows that:
 
@@ -94,27 +96,62 @@ The following image shows the example document used with this example config:
 }
 ```
 
-## Example: Stop at the next label
+## Stop at the next label
 
-The following example shows using the Stop parameter to extract a value from a single-column form, where each value appears on the line after its label. Without the Stop parameter, the `vehicle_type` field returns `Sedan Coverage: Full`. With the Stop parameter, the field stops at the Coverage label and returns `Sedan`.
+The following example extracts a vehicle type from a single-column form, where each value appears on the line after its label.
 
-If the document leaves the vehicle type blank, then the Coverage label immediately follows the Type label, and the field returns null instead of extracting the Coverage label and its value.
+**PROBLEM**
+
+Without the Stop parameter, the method extracts to the end of the page, so the output includes the Coverage label and its value.
 
 **Config**
 
 ```json
+/* Sensible uses JSON5 to support in-line comments*/
 {
   "fields": [
     {
-      "id": "vehicle_type",
-      "anchor": "type:",
-      "type": "string",
+      "id": "vehicle_type", /* user-friendly ID for extracted target data */
+      "anchor": "type:",    /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type": "string",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
+      "method": {
+        "id": "column"
+      }
+    }
+  ]
+}
+```
+
+**Output**
+
+```json
+{
+  "vehicle_type": {
+    "type": "string",
+    "value": "Sedan Coverage: Full"
+  }
+}
+```
+
+**SOLUTION**
+
+Specify the Stop parameter to stop extraction at the Coverage label. If the document leaves the vehicle type blank, the Coverage label immediately follows the Type label, and the field returns null.
+
+**Config**
+
+```json
+/* Sensible uses JSON5 to support in-line comments*/
+{
+  "fields": [
+    {
+      "id": "vehicle_type", /* user-friendly ID for extracted target data */
+      "anchor": "type:",    /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
+      "type": "string",     /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
       "method": {
         "id": "column",
-        /* stop before the next label in the column */
-        "stop": {
-          "type": "startsWith",
-          "text": "coverage"
+        "stop": {           /* stop before the next label in the column, e.g., 'Coverage: Full' */
+          "type": "startsWith", /* line must start with the match */
+          "text": "coverage"    /* string to match */
         }
       }
     }
