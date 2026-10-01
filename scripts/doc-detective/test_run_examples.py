@@ -546,5 +546,17 @@ class EnvelopeSchemaTest(unittest.TestCase):
                 r.ENVELOPES_DIR = saved
 
 
+class CollapseTest(unittest.TestCase):
+    def test_only_tests_needing_attention_start_open(self):
+        import html_report
+        base = {"test_id": "t", "document_url": "https://example.test/a.pdf", "llm_fields": [], "status": "pass", "envelope": {"status": "within", "runs": 10, "built": "2026-10-01T00:00:00Z", "slots": {}}}
+        self.assertFalse(html_report.needs_attention(base))
+        self.assertTrue(html_report.needs_attention(dict(base, status="fail")))
+        self.assertTrue(html_report.needs_attention(dict(base, envelope={"status": "outside", "runs": 10, "built": "x", "breaches": {}})))
+        self.assertTrue(html_report.needs_attention(dict(base, llm_fields=[{"field": "p", "kind": "llm", "prompt": "", "judged": [{}]}])))
+        self.assertIn('<details class="card test" id="t">', html_report.render_code_test(base))
+        self.assertIn('<details class="card test" id="t" open>', html_report.render_code_test(dict(base, status="fail")))
+
+
 if __name__ == "__main__":
     unittest.main()

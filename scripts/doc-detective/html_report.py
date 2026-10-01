@@ -64,6 +64,13 @@ pre { background: var(--code-bg); padding: 12px; border-radius: 8px; overflow-x:
 .meter { display: inline-block; width: 70px; height: 6px; background: var(--border); border-radius: 3px; vertical-align: middle; overflow: hidden; }
 .meter span { display: block; height: 100%; background: var(--pass); }
 details { margin: 10px 0 0; }
+details.test { margin: 0 0 20px; }
+details.test > summary { list-style: none; cursor: pointer; color: var(--text); font-weight: normal; }
+details.test > summary::-webkit-details-marker { display: none; }
+details.test > summary .row::before { content: "\25B8"; color: var(--muted); margin-right: 2px; }
+details.test[open] > summary .row::before { content: "\25BE"; }
+.toolbar { display: flex; gap: 8px; margin: 0 0 12px; }
+.toolbar button { font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); cursor: pointer; }
 summary { cursor: pointer; color: var(--info); font-weight: 600; }
 .muted { color: var(--muted); }
 ul { margin: 6px 0 0; padding-left: 20px; }
@@ -146,8 +153,8 @@ def step_summary(step):
 
 
 def render_ui_test(test):
-    out = [f'<section class="card" id="{e(test["test_id"])}">']
-    out.append(f'<div class="row"><h2>{e(test["test_id"])}</h2>{chip(test["status"])}</div>')
+    out = [f'<details class="card test" id="{e(test["test_id"])}"{" open" if test["status"] != "pass" else ""}>']
+    out.append(f'<summary><div class="row"><h2>{e(test["test_id"])}</h2>{chip(test["status"])}<span class="muted">App UI · {len(test["steps"])} steps</span></div></summary>')
     if test["description"]:
         out.append(f'<p class="muted" style="margin:6px 0 0">{e(test["description"])}</p>')
     out.append('<h3>Steps</h3><table><tr><th>#</th><th>Step</th><th>Action</th><th>Result</th></tr>')
@@ -158,7 +165,7 @@ def render_ui_test(test):
             f'<tr><td class="muted">{i}</td><td>{e(s["description"]) or "<span class=muted>no description</span>"}{message}</td>'
             f'<td><code>{e(s["action"])}</code></td><td><span class="chip {css}">{e(s["result"])}</span> <span class="muted">{s["seconds"]}s</span></td></tr>'
         )
-    out.append("</table></section>")
+    out.append("</table></details>")
     return "\n".join(out)
 
 
@@ -209,9 +216,19 @@ def render_envelope(env):
     return "\n".join(out)
 
 
+def needs_attention(record):
+    """Open a code test's section unless it simply passed: identical, nothing judged, within its envelope."""
+    judged = any(f["judged"] for f in record.get("llm_fields", []))
+    envelope_ok = record.get("envelope", {}).get("status", "within") == "within"
+    return record.get("status") != "pass" or judged or not envelope_ok
+
+
 def render_code_test(record):
-    out = [f'<section class="card" id="{e(record["test_id"])}">']
-    out.append(f'<div class="row"><h2>{e(record["test_id"])}</h2>{chip(record.get("status", "fail"))}</div>')
+    judged = any(f["judged"] for f in record.get("llm_fields", []))
+    env_status = record.get("envelope", {}).get("status")
+    badges = (JUDGE if judged else "") + (f' {ENVELOPE} <span class="chip warn">{e(env_status)}</span>' if env_status and env_status != "within" else "")
+    out = [f'<details class="card test" id="{e(record["test_id"])}"{" open" if needs_attention(record) else ""}>']
+    out.append(f'<summary><div class="row"><h2>{e(record["test_id"])}</h2>{chip(record.get("status", "fail"))}{badges}<span class="muted">Code sample</span></div></summary>')
     if record.get("overall"):
         out.append(f'<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: {e(record["overall"])}</p>')
     source = f' (the link in <a href="#{e(record["document_from"])}"><code>{e(record["document_from"])}</code></a>)' if record.get("document_from") else ""
@@ -286,7 +303,7 @@ def render_code_test(record):
             f'<details><summary>Full judge output (JSON)</summary><pre>{e(raw)}</pre></details>'
         )
     out.append(render_envelope(record.get("envelope")))
-    out.append("</section>")
+    out.append("</details>")
     return "\n".join(out)
 
 
@@ -334,8 +351,14 @@ def render(output_dir):
         if not any(t["test_id"] == test_id for t in dd_tests):
             out.append(f'<tr><td><code>{e(test_id)}</code></td><td>Code sample</td><td></td><td>{chip(record.get("status", "fail"))}</td><td><a href="#{e(test_id)}">Comparison and judge reasoning</a></td></tr>')
     out.append("</table></section>")
+    out.append('<div class="toolbar"><button onclick="document.querySelectorAll(\'details.test\').forEach(d => d.open = true)">Expand all</button>'
+               '<button onclick="document.querySelectorAll(\'details.test\').forEach(d => d.open = false)">Collapse all</button>'
+               '<span class="muted" style="align-self:center">Sections that passed with nothing to review start collapsed.</span></div>')
     out += [render_ui_test(t) for t in dd_tests if not t["is_code"]]
     out += [render_code_test(r) for r in records.values()]
+    # Following a link to a test opens its section
+    out.append("<script>function openTarget(){var d=document.getElementById(location.hash.slice(1));if(d&&d.tagName==='DETAILS')d.open=true;}"
+               "window.addEventListener('hashchange',openTarget);openTarget();</script>")
     out.append("</main></body></html>")
     path = os.path.join(output_dir, "report.html")
     with open(path, "w", encoding="utf-8") as f:

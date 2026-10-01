@@ -651,7 +651,8 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
     return warnings
 
 
-ENVELOPES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "envelopes")
+# DOC_EXAMPLES_ENVELOPES_DIR points runs at other baselines, for example to rehearse a breach
+ENVELOPES_DIR = os.environ.get("DOC_EXAMPLES_ENVELOPES_DIR") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "envelopes")
 
 
 def envelope_path(test_id):
