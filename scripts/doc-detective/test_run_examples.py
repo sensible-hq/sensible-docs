@@ -431,5 +431,120 @@ class EnvelopeIssueTest(unittest.TestCase):
         self.assertNotEqual(a["fingerprint"], c["fingerprint"])
 
 
+class MarkupOptionsTest(unittest.TestCase):
+    def write_doc(self, text):
+        import tempfile
+        f = tempfile.NamedTemporaryFile("w", suffix=".md", delete=False)
+        f.write(text)
+        f.close()
+        self.addCleanup(os.remove, f.name)
+        return f.name
+
+    FIRST = """<!-- test {"testId": "first"} -->
+<!-- example document -->
+
+| Example document | [Download link](https://example.test/a.pdf) |
+
+<!-- example config -->
+```json
+{"fields": []}
+```
+<!-- example output -->
+```json
+{}
+```
+<!-- test end -->
+"""
+
+    def test_fragment_is_wrapped_and_document_is_reused(self):
+        doc = self.FIRST + """
+<!-- test {"testId": "second"} -->
+<!-- example document {"from": "first"} -->
+<!-- example config {"fragment": "field"} -->
+```json
+ {
+      /* a comment */
+      "method": {"id": "queryGroup", "queries": []}
+    },
+```
+<!-- example output -->
+```json
+{}
+```
+<!-- test end -->
+"""
+        second = r.parse_examples(self.write_doc(doc))["second"]
+        self.assertEqual(second["document_url"], "https://example.test/a.pdf")
+        self.assertIn("/* a comment */", second["config"])
+        self.assertTrue(second["config"].startswith('{\n  "fields": ['))
+        config, _ = r.check_syntax("second", second)
+        self.assertEqual(config["fields"][0]["method"]["id"], "queryGroup")
+
+    def test_fragment_syntax_errors_point_at_the_doc_line(self):
+        doc = """<!-- test {"testId": "t"} -->
+<!-- example document {"from": "first"} -->
+<!-- example config {"fragment": "field"} -->
+```json
+{
+  "method": {"id": "queryGroup"
+  "queries": []}
+},
+```
+<!-- example output -->
+```json
+{}
+```
+<!-- test end -->
+""" + self.FIRST
+        example = r.parse_examples(self.write_doc(doc))["t"]
+        with self.assertRaises(r.ExampleError) as caught:
+            r.check_syntax("t", example)
+        self.assertRegex(str(caught.exception), r"line [67]\)")
+
+    def test_from_must_name_an_example_with_a_link(self):
+        doc = """<!-- test {"testId": "t"} -->
+<!-- example document {"from": "nope"} -->
+<!-- example config -->
+```json
+{"fields": []}
+```
+<!-- example output -->
+```json
+{}
+```
+<!-- test end -->
+"""
+        with self.assertRaises(r.ExampleError) as caught:
+            r.parse_examples(self.write_doc(doc))
+        self.assertIn("names no example with its own document link", str(caught.exception))
+
+
+class EnvelopeSchemaTest(unittest.TestCase):
+    def test_committed_baselines_are_valid(self):
+        import envelope, glob
+        paths = glob.glob(os.path.join(r.ENVELOPES_DIR, "*.json"))
+        self.assertTrue(paths)
+        for path in paths:
+            with open(path) as f:
+                envelope.validate(json.load(f))
+
+    def test_invalid_baseline_fails_loudly(self):
+        import envelope, tempfile
+        good = envelope.build([envelope.observe_output({"phone": {"type": "string", "value": "1"}}, ["phone"])], "C", "t")
+        bad = dict(good, runs="ten")
+        with self.assertRaises(envelope.EnvelopeInvalid):
+            envelope.validate(bad)
+        with tempfile.TemporaryDirectory() as d:
+            saved, r.ENVELOPES_DIR = r.ENVELOPES_DIR, d
+            try:
+                with open(os.path.join(d, "t.json"), "w") as f:
+                    json.dump(bad, f)
+                with self.assertRaises(r.ExampleError) as caught:
+                    r.check_envelope({}, "t", {"config": "C"}, {"phone": {"value": "1"}}, llm_judge.FieldIndex(CONFIG))
+                self.assertEqual(caught.exception.category, "ENVELOPE_INVALID")
+            finally:
+                r.ENVELOPES_DIR = saved
+
+
 if __name__ == "__main__":
     unittest.main()

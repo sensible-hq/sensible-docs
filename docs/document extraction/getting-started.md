@@ -248,6 +248,12 @@ For example, to extract the bodily injury liability:
 
 The config uses the [Query Group](doc:query-group) method to query for the  `bodily injury premium`. You can group together other queries if the answers are located within a page or two of each other in the document. For example, in the group, the config also queries for the  `insurer's customer service phone number`.  
 
+
+<!-- test {"testId": "query_group_how_it_works", "description": "Run the Query Group excerpt on the tutorial's example document and check the documented output"} -->
+<!-- step {"description": "Run the Query Group excerpt and compare with the documented output", "runShell": {"command": "python3 scripts/doc-detective/run_examples.py --file \"docs/document extraction/getting-started.md\" --test query_group_how_it_works", "exitCodes": [0]}} -->
+<!-- example document {"from": "extract_auto_insurance_anyco"} -->
+
+<!-- example config {"fragment": "field"} -->
 ```json
  {
       "method": {
@@ -270,6 +276,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
 
 This config returns:
 
+<!-- example output -->
 ```json
 {
   "bodily_injury_premium": {
@@ -283,8 +290,11 @@ This config returns:
     "value": "1800 123 4567",
     "type": "string",
     "confidenceSignal": "confident_answer"
-  },
+  }
+}
 ```
+
+<!-- test end -->
 
 Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
 

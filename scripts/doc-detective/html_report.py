@@ -214,7 +214,10 @@ def render_code_test(record):
     out.append(f'<div class="row"><h2>{e(record["test_id"])}</h2>{chip(record.get("status", "fail"))}</div>')
     if record.get("overall"):
         out.append(f'<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: {e(record["overall"])}</p>')
-    out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a></p>')
+    source = f' (the link in <a href="#{e(record["document_from"])}"><code>{e(record["document_from"])}</code></a>)' if record.get("document_from") else ""
+    out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
+    if record.get("config_fragment"):
+        out.append('<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>')
     if record.get("status") == "fail" and record.get("message"):
         out.append(f'<h3>Failure</h3><pre>{e(record["message"])}</pre>')
 
@@ -226,7 +229,7 @@ def render_code_test(record):
             out += [f"<li><code>{e(m)}</code></li>" for m in layout["mismatches"]]
             out.append("</ul>")
         else:
-            out.append(f'<p>{layout["fields"]} field(s), all an exact match.</p>')
+            out.append(f'<p>{layout["fields"]} field(s), all an exact match.</p>' if layout["fields"] else '<p class="muted">None in the documented output.</p>')
 
     notes = record.get("not_checked", [])
     left = record.get("left_out", {})

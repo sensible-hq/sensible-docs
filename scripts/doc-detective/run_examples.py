@@ -197,7 +197,9 @@ def check_syntax(test_id, example):
         try:
             parsed[role] = parse_block(example[role], trailing_commas)
         except SyntaxIssue as e:
-            where = f"line {example[role + '_line'] + e.line}" if e.line else f"{role} block at line {example[role + '_line']}"
+            # A wrapped field fragment has 2 lines of wrapper above the doc's text
+            shift = -2 if role == "config" and "config_as_written" in example else 0
+            where = f"line {example[role + '_line'] + e.line + shift}" if e.line else f"{role} block at line {example[role + '_line']}"
             raise ExampleError("DOCS_MALFORMED", f"{role} block: {e} ({example['file']}, {where})")
     return parsed["config"], parsed["output"]
 
@@ -217,6 +219,9 @@ def parse_examples(path):
         for marker in MARKER_RE.finditer(body):
             role = marker.group(1)
             options = json.loads(marker.group(2)) if marker.group(2) else {}
+            if role == "document" and options.get("from"):
+                parts["document_from"] = options["from"]
+                continue
             if role == "document":
                 link = LINK_RE.match(body, marker.end())
                 if not link:
@@ -227,16 +232,40 @@ def parse_examples(path):
             if not fence:
                 raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: <!-- example {role} --> isn't followed by a code block")
             parts[role] = fence.group(1)
+            if role == "config" and options.get("fragment"):
+                if options["fragment"] != "field":
+                    raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: unknown config fragment {options['fragment']!r}; use \"field\"")
+                parts["config_fragment"] = "field"
             start = test_match.start(2) + fence.start(1)
             parts[role + "_line"] = text.count("\n", 0, start)
             parts[role + "_span"] = (start, test_match.start(2) + fence.end(1))
             parts["file"] = path
         if parts:
+            if "document_from" in parts:
+                parts["document_url"] = None
             missing = {"config", "document_url", "output"} - parts.keys()
             if missing:
                 raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: missing example {', '.join(sorted(missing))}")
             examples[test["testId"]] = parts
+    for test_id, parts in examples.items():
+        source = parts.pop("document_from", None)
+        if source:
+            if source not in examples or not examples[source].get("document_url"):
+                raise ExampleError("DOCS_MALFORMED", f"{test_id}: <!-- example document {{\"from\": \"{source}\"}} --> names no example with its own document link")
+            parts["document_url"] = examples[source]["document_url"]
+            parts["document_from"] = source
+        if parts.pop("config_fragment", None) == "field":
+            parts["config_as_written"] = parts["config"]
+            parts["config"] = wrap_field_fragment(parts["config"])
     return examples
+
+
+def wrap_field_fragment(text):
+    """Turn a single-field excerpt ("{ ... },") into a runnable config, keeping comments and layout."""
+    body = text.rstrip()
+    if body.endswith(","):
+        body = body[:-1]
+    return '{\n  "fields": [\n' + body + "\n  ]\n}"
 
 
 MISSING = object()
@@ -393,7 +422,7 @@ def print_summary(record):
             for m in layout["mismatches"]:
                 print(f"    {m}")
         else:
-            print(f"  Layout fields: {layout['fields']}, all exact match")
+            print(f"  Layout fields: {layout['fields']}, all exact match" if layout["fields"] else "  Layout fields: none")
     for note in record.get("not_checked", []):
         print(f"  Not checked (...): {note}")
     for field in record.get("llm_fields", []):
@@ -637,8 +666,12 @@ def check_envelope(record, test_id, example, actual, index):
     if not os.path.exists(path):
         record["envelope"] = {"status": "missing"}
         return []
-    with open(path, encoding="utf-8") as f:
-        baseline = json.load(f)
+    try:
+        with open(path, encoding="utf-8") as f:
+            baseline = json.load(f)
+        envelope.validate(baseline)
+    except (ValueError, envelope.EnvelopeInvalid) as e:
+        raise ExampleError("ENVELOPE_INVALID", f"{os.path.relpath(path)} isn't a valid envelope: {e}. Rebuild it with --build-envelope")
     info = {"runs": baseline["runs"], "built": baseline["built"]}
     if baseline["config_sha256"] != envelope.config_hash(example["config"]):
         record["envelope"] = {"status": "stale", **info}
@@ -678,9 +711,8 @@ def build_envelope(key, test_id, example, runs):
     with open(envelope_path(test_id), "w", encoding="utf-8") as f:
         json.dump(built, f, indent=2, ensure_ascii=False)
         f.write("\n")
-    print(f"Wrote {os.path.relpath(envelope_path(test_id))} ({runs} runs, {len(built['slots'])} slots)")
-    for slot, summary in built["slots"].items():
-        print(f"  {slot}: {summary}")
+    print(f"Wrote {os.path.relpath(envelope_path(test_id))} ({runs} runs, {len(built['slots'])} slots, valid against envelope-schema.json)")
+    print(json.dumps(built["slots"], indent=2, ensure_ascii=False))
 
 
 RECORDS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", "examples")
@@ -762,7 +794,13 @@ def main():
                 print(f"FAIL {test_id}  DOCS_MALFORMED: no annotated example with this testId in {args.file}")
                 failed += 1
                 continue
-            record = {"test_id": test_id, "file": args.file, "document_url": examples[test_id]["document_url"]}
+            record = {
+                "test_id": test_id,
+                "file": args.file,
+                "document_url": examples[test_id]["document_url"],
+                "document_from": examples[test_id].get("document_from"),
+                "config_fragment": "config_as_written" in examples[test_id],
+            }
             try:
                 warnings = run_example(key, test_id, examples[test_id], args.file if args.propose_fixes else None, args.judge_model, record)
                 record.update(status="warn" if warnings else "pass")

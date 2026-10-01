@@ -10,8 +10,29 @@ Every measurement is deterministic. No LLM is involved in building or checking a
 """
 
 import hashlib
+import json
+import os
 import re
 from datetime import datetime, timezone
+
+import jsonschema
+
+SCHEMA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "envelope-schema.json")
+with open(SCHEMA_PATH, encoding="utf-8") as f:
+    SCHEMA = json.load(f)
+
+
+class EnvelopeInvalid(Exception):
+    pass
+
+
+def validate(envelope):
+    """Raise EnvelopeInvalid unless `envelope` matches envelope-schema.json."""
+    try:
+        jsonschema.validate(envelope, SCHEMA)
+    except jsonschema.ValidationError as e:
+        where = "/".join(str(p) for p in e.absolute_path) or "top level"
+        raise EnvelopeInvalid(f"{where}: {e.message}")
 
 # Free text (3+ words with letters, or more than 40 characters) gets a length check, not a
 # format check. Digit groups don't count as words, so "1800 123 4567" stays structured.
@@ -131,13 +152,15 @@ def build(runs, config_text, test_id):
         if numbers:
             summary["number_min"], summary["number_max"] = min(numbers), max(numbers)
         envelope[slot] = summary
-    return {
+    built = {
         "test_id": test_id,
         "runs": len(runs),
         "built": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "config_sha256": config_hash(config_text),
         "slots": envelope,
     }
+    validate(built)
+    return built
 
 
 def check(envelope, observations):

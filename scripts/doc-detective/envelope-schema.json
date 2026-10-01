@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Doc Detective regression envelope",
+  "description": "Baseline of each LLM field's output over several runs of one example. Written by run_examples.py --build-envelope.",
+  "type": "object",
+  "required": ["test_id", "runs", "built", "config_sha256", "slots"],
+  "additionalProperties": false,
+  "properties": {
+    "test_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "runs": {"type": "integer", "minimum": 1},
+    "built": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"},
+    "config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "slots": {
+      "type": "object",
+      "additionalProperties": {"oneOf": [{"$ref": "#/$defs/count"}, {"$ref": "#/$defs/value"}]}
+    }
+  },
+  "$defs": {
+    "count": {
+      "type": "object",
+      "required": ["count_min", "count_max"],
+      "additionalProperties": false,
+      "properties": {
+        "count_min": {"type": "integer", "minimum": 0},
+        "count_max": {"type": "integer", "minimum": 0}
+      }
+    },
+    "strings": {"type": "array", "items": {"type": "string"}},
+    "formats": {"oneOf": [{"$ref": "#/$defs/strings"}, {"const": "free text"}]},
+    "value": {
+      "type": "object",
+      "required": ["observations", "null_rate", "types", "json_types", "units", "confidence_signals"],
+      "additionalProperties": false,
+      "properties": {
+        "observations": {"type": "integer", "minimum": 1},
+        "null_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "types": {"$ref": "#/$defs/strings"},
+        "json_types": {"$ref": "#/$defs/strings"},
+        "units": {"$ref": "#/$defs/strings"},
+        "confidence_signals": {"$ref": "#/$defs/strings"},
+        "shapes": {"$ref": "#/$defs/formats"},
+        "source_shapes": {"$ref": "#/$defs/formats"},
+        "length_min": {"type": "integer", "minimum": 0},
+        "length_max": {"type": "integer", "minimum": 0},
+        "number_min": {"type": "number"},
+        "number_max": {"type": "number"}
+      }
+    }
+  }
+}

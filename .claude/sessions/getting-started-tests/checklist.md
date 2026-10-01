@@ -74,6 +74,13 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
     - Swallowed errors: `run.sh` uses `set -uo pipefail` without `-e`; `propose_fix` returns False quietly; workflow steps use `continue-on-error`; `delete_doc_type` runs in a `finally` that could hide the original error; `report.py` returns 0 when no results file exists
     - Found 2026-10-01: Doc Detective skips an invalid test spec with a WARNING ("No tests detected") and exits 0. Check whether `exitOnFail` covers this; if not, a malformed inline `<!-- test -->` could silently drop a test from CI
     - Each check should be shown to fail: so far a wrong password, a changed link, wrong output values, and broken syntax have each been shown to fail; list any checks that never have
+- [x] Envelope baselines are schema-validated JSON (2026-10-01): `scripts/doc-detective/envelope-schema.json` (JSON Schema 2020-12, `jsonschema` added to requirements); validated on build and on load, an invalid baseline fails the test as ENVELOPE_INVALID; `--build-envelope` prints the summary as JSON. (No LLM is involved in baselines, so "structured output" = schema-validated)
+- [x] Second code test `query_group_how_it_works` ("How it works: Query Group method"), to see how the report and markup scale:
+  - New markup options: `<!-- example config {"fragment": "field"} -->` wraps a one-field excerpt in `{"fields": [...]}` (comments kept; syntax-error line numbers corrected); `<!-- example document {"from": "<testId>"} -->` reuses another test's download link (still one copy of the URL)
+  - Found a docs bug: the section's output block never closed its outer `}` (syntax check: DOCS_MALFORMED line 293). Fixed on this branch only
+  - 10-run baseline: `source` "100" in 10/10 runs, so that block's `"$100"` is also wrong (judge passes it, 0.90). Not fixed yet: ask user (and whether to fix on v0 too, with the unclosed brace)
+  - Report scale: ~900px per code test (3 tests: 2674px). With many examples, consider collapsing identical/passing tests
+  - 43 offline tests
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
 - [x] CI workflow `.github/workflows/doc-detective-getting-started.yml` (2026-10-01): push to **v0 only** (no `pull_request`, so it doesn't run on this PR) + `workflow_dispatch`, `paths` filter. Pins doc-detective 4.38.1 with `--no-auto-update`. Missing `.env` in CI verified harmless. **Merging this PR triggers the first run**, so add secrets first. Original plan:
