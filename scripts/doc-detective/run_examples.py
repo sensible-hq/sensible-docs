@@ -17,8 +17,12 @@ An example is marked up in a doc with HTML comments, inside a Doc Detective test
     <!-- test end -->
 
 For each example, the runner:
-  1. Parses the config (allowing /* */ comments and trailing commas)
-  2. Uploads it as configuration <testId> in document type DOC_TYPE, published to development
+  1. Checks syntax, before any network call:
+     - config: JSON plus /* */ and // comments and trailing commas (Sensible accepts these)
+     - output: JSON plus /* */ and // comments and `...`. No trailing commas: Sensible never outputs them
+     - both: no duplicate keys, no NaN or Infinity. Errors give the line in the doc
+  2. Uploads the config exactly as the doc shows it, as configuration <testId> in document type
+     DOC_TYPE, published to development
   3. Extracts from the example document with the Python SDK. The URL comes from the first link
      after <!-- example document -->, so the visible download link is the only copy
   4. Checks that every key and value shown in the docs output agrees with the actual parsed_document.
@@ -34,6 +38,7 @@ for a human to review. It doesn't touch output blocks that contain comments or a
 Usage:
   run_examples.py --file "docs/document extraction/getting-started.md" --test extract_auto_insurance_anyco
   run_examples.py --file <doc> --list
+  run_examples.py --file <doc> --check-syntax    (no API key or network needed)
 
 Requires SENSIBLE_TEST_API_KEY (the docs test account's key) in .env at the repo root or in the environment.
 It deliberately doesn't fall back to SENSIBLE_API_KEY, so a missing key can't run tests against another account.
@@ -77,8 +82,11 @@ def is_ellipsis(value):
     return value in (ELLIPSIS, "...", "\u2026")
 
 
-def strip_json5(text):
+def strip_json5(text, trailing_commas=True):
     """Remove /* */ and // comments and trailing commas, leaving strings intact.
+
+    Removed comments keep their newlines, so parse errors report the right line. With
+    trailing_commas=False, a trailing comma raises SyntaxIssue instead of being removed.
 
     A bare `...` becomes the ELLIPSIS string. In an object's key position it becomes an
     `"__ELLIPSIS__": null` member, which drop_ellipsis_keys removes after parsing.
@@ -110,14 +118,52 @@ def strip_json5(text):
             i = j + 1
         elif text.startswith("/*", i):
             end = text.find("*/", i + 2)
-            i = n if end == -1 else end + 2
+            if end == -1:
+                raise SyntaxIssue("unclosed /* comment", text.count("\n", 0, i) + 1)
+            out.append("\n" * text.count("\n", i, end))
+            i = end + 2
         elif text.startswith("//", i):
             end = text.find("\n", i)
             i = n if end == -1 else end
         else:
             out.append(c)
             i += 1
-    return re.sub(r",(\s*[}\]])", r"\1", "".join(out))
+    stripped = "".join(out)
+    if not trailing_commas:
+        match = re.search(r",(\s*[}\]])", stripped)
+        if match:
+            raise SyntaxIssue("trailing comma", stripped.count("\n", 0, match.start()) + 1)
+    return re.sub(r",(\s*[}\]])", r"\1", stripped)
+
+
+class SyntaxIssue(Exception):
+    def __init__(self, message, line):
+        super().__init__(message)
+        self.line = line
+
+
+def strict_pairs(pairs):
+    keys = [k for k, _ in pairs if k != ELLIPSIS]
+    duplicates = sorted({k for k in keys if keys.count(k) > 1})
+    if duplicates:
+        raise ValueError(f"duplicate key {json.dumps(duplicates[0])}")
+    return dict(pairs)
+
+
+def reject_constant(name):
+    raise ValueError(f"{name} isn't valid JSON")
+
+
+def parse_block(text, trailing_commas):
+    """Parse a docs code block, raising SyntaxIssue with a line number relative to the block."""
+    stripped = strip_json5(text, trailing_commas)
+    try:
+        value = json.loads(stripped, object_pairs_hook=strict_pairs, parse_constant=reject_constant)
+    except json.JSONDecodeError as e:
+        raise SyntaxIssue(e.msg, e.lineno)
+    except ValueError as e:
+        raise SyntaxIssue(str(e), None)
+    return drop_ellipsis_keys(value)
 
 
 def drop_ellipsis_keys(value):
@@ -129,7 +175,19 @@ def drop_ellipsis_keys(value):
 
 
 def parse_json5(text):
-    return drop_ellipsis_keys(json.loads(strip_json5(text)))
+    return parse_block(text, trailing_commas=True)
+
+
+def check_syntax(test_id, example):
+    """Return (config, expected output), or raise DOCS_MALFORMED with the doc line of the problem."""
+    parsed = {}
+    for role, trailing_commas in (("config", True), ("output", False)):
+        try:
+            parsed[role] = parse_block(example[role], trailing_commas)
+        except SyntaxIssue as e:
+            where = f"line {example[role + '_line'] + e.line}" if e.line else f"{role} block at line {example[role + '_line']}"
+            raise ExampleError("DOCS_MALFORMED", f"{role} block: {e} ({example['file']}, {where})")
+    return parsed["config"], parsed["output"]
 
 
 def has_bare_ellipsis(text):
@@ -157,9 +215,10 @@ def parse_examples(path):
             if not fence:
                 raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: <!-- example {role} --> isn't followed by a code block")
             parts[role] = fence.group(1)
-            if role == "output":
-                offset = test_match.start(2)
-                parts["output_span"] = (offset + fence.start(1), offset + fence.end(1))
+            start = test_match.start(2) + fence.start(1)
+            parts[role + "_line"] = text.count("\n", 0, start)
+            parts[role + "_span"] = (start, test_match.start(2) + fence.end(1))
+            parts["file"] = path
         if parts:
             missing = {"config", "document_url", "output"} - parts.keys()
             if missing:
@@ -287,8 +346,9 @@ def delete_doc_type(key):
     return False
 
 
-def upload_config(key, type_id, name, config):
-    body = {"configuration": json.dumps(config), "publish_as": ENVIRONMENT}
+def upload_config(key, type_id, name, config_text):
+    """Upload the config as the doc shows it, comments and all: Sensible accepts JSON5-style configs."""
+    body = {"configuration": config_text, "publish_as": ENVIRONMENT}
     existing = api("GET", f"/document_types/{type_id}/configurations/{name}", key)
     if existing.status_code == 404:
         response = api("POST", f"/document_types/{type_id}/configurations", key, json={"name": name, **body})
@@ -299,18 +359,14 @@ def upload_config(key, type_id, name, config):
 
 
 def run_example(key, test_id, example, fix_path=None):
+    _, expected = check_syntax(test_id, example)
+
     response = requests.head(example["document_url"], allow_redirects=True, timeout=30)
     if response.status_code != 200:
         raise ExampleError("DOCUMENT_UNREACHABLE", f"{example['document_url']} returned {response.status_code}")
 
-    try:
-        config = json.loads(strip_json5(example["config"]))
-        expected = parse_json5(example["output"])
-    except json.JSONDecodeError as e:
-        raise ExampleError("DOCS_MALFORMED", f"can't parse config or output block: {e}")
-
     type_id = ensure_doc_type(key)
-    upload_config(key, type_id, test_id, config)
+    upload_config(key, type_id, test_id, example["config"])
 
     sensible = SensibleSDK(key)
     request = sensible.extract(
@@ -348,6 +404,7 @@ def main():
     parser.add_argument("--file", required=True, help="Markdown file with annotated examples")
     parser.add_argument("--test", action="append", help="testId to run (repeatable). Default: all in the file")
     parser.add_argument("--list", action="store_true", help="List annotated examples and exit")
+    parser.add_argument("--check-syntax", action="store_true", help="Only check config and output syntax. No API key or network needed")
     parser.add_argument(
         "--propose-fixes",
         action="store_true",
@@ -362,6 +419,16 @@ def main():
         for test_id, example in examples.items():
             print(f"{test_id}  {example['document_url']}")
         return 0
+    if args.check_syntax:
+        failed = 0
+        for test_id in args.test or list(examples):
+            try:
+                check_syntax(test_id, examples[test_id])
+                print(f"PASS {test_id}  syntax")
+            except ExampleError as e:
+                print(f"FAIL {test_id}  {e}")
+                failed += 1
+        return 1 if failed else 0
 
     key = load_api_key()
     if not key:
