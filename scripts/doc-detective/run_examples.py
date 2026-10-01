@@ -802,6 +802,11 @@ def main():
 
     selected = args.test or list(examples)
     if args.build_envelope:
+        fixtures = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
+        if os.path.abspath(args.file).startswith(fixtures + os.sep) and not os.environ.get("DOC_EXAMPLES_ENVELOPES_DIR"):
+            print("Refusing to build envelopes from a fixture: it would overwrite the real baselines in envelopes/. "
+                  "Set DOC_EXAMPLES_ENVELOPES_DIR to a scratch folder to build fixture baselines.", file=sys.stderr)
+            return 2
         try:
             for test_id in selected:
                 build_envelope(key, test_id, examples[test_id], args.build_envelope)
