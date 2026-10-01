@@ -111,11 +111,11 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 **Validate fingerprints across reference documents**
 
-You can test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options**, select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints. 
+You can test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options**, select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
 
-
+<br />
 
 #### fallbacks
 
@@ -167,10 +167,10 @@ Instead, write the following:
    each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
    In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
    in the document, and more than one element can match the same line.
-   For either array syntax, criteria are stricter in portfolios. In a portfolio, all the lines in the array must co-occur
-   on a single page. In a standalone document, the lines can occur across multiple pages.
+   For either array syntax, criteria are stricter in portfolios. In a portfolio, Sensible must find all the elements in the array
+   on a single page. In a standalone document, Sensible searches across multiple pages for the array's elements.
    Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
-   For example, if Sensible finds 3 out of 5 elements, it scores the array as 0 out of 1 matches.
+   For example, if Sensible finds 3 out of 5 elements in the array, it scores the array as 0 out of 1 matches.
    Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
    it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. */
         "match": [[
