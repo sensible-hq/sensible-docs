@@ -69,7 +69,7 @@ def write_excerpt(file_path: Path, excerpt: str) -> None:
             new_fm["excerpt"] = excerpt
         fm = new_fm
 
-    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
 
 
@@ -91,7 +91,7 @@ def sync_description(file_path: Path) -> None:
         return
 
     fm["metadata"]["description"] = excerpt
-    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
 
 

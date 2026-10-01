@@ -64,7 +64,7 @@ def sync_description(path: Path, dry_run: bool) -> bool:
 
     fm["metadata"]["description"] = excerpt
 
-    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     if not dry_run:
         path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
     return True

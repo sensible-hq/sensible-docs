@@ -43,7 +43,7 @@ def parse_frontmatter(content: str) -> dict | None:
 
 def yaml_scalar(value: str) -> str:
     """Return the YAML representation of value as a bare scalar (no key, no newline)."""
-    dumped = yaml.dump({"k": value}, default_flow_style=False, allow_unicode=True)
+    dumped = yaml.dump({"k": value}, default_flow_style=False, allow_unicode=True, width=float("inf"))
     # dumped is "k: value\n" or "k: 'value with: colon'\n"
     return dumped.split(": ", 1)[1].rstrip("\n")
 
