@@ -1,11 +1,11 @@
 ---
 title: Sections
-excerpt: Use Sensible Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
+excerpt: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Use Sensible Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
+  description: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
   robots: index
 next:
   description: ''
