@@ -55,14 +55,16 @@ def sync_description(path: Path, dry_run: bool) -> bool:
     if not excerpt:
         return False
 
-    metadata = fm.get("metadata") or {}
+    metadata = fm.get("metadata")
+    if metadata is None:
+        metadata = fm["metadata"] = {}
     if not isinstance(metadata, dict):
         return False
 
     if metadata.get("description") == excerpt:
         return False
 
-    fm["metadata"]["description"] = excerpt
+    metadata["description"] = excerpt
 
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     if not dry_run:

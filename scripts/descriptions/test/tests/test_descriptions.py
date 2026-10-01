@@ -246,6 +246,22 @@ class TestSyncDescription:
         assert result is True
         assert "description: My excerpt" in f.read_text()
 
+    def test_creates_metadata_block_when_absent(self, tmp_path):
+        # Regression: files with no metadata block raised KeyError and aborted the workflow.
+        f = make_md(tmp_path, "page.md", """\
+            ---
+            title: Test Page
+            excerpt: My excerpt
+            link:
+              new_tab: false
+            ---
+            Body text.
+            """)
+        assert sync_description.sync_description(f, dry_run=False) is True
+        fm = yaml.safe_load(f.read_text().split("---")[1])
+        assert fm["metadata"] == {"description": "My excerpt"}
+        assert fm["link"] == {"new_tab": False}
+
     def test_no_change_when_already_in_sync(self, tmp_path):
         f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT)
         result = sync_description.sync_description(f, dry_run=False)
