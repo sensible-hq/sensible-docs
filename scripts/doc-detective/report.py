@@ -11,6 +11,8 @@ import json
 import os
 import sys
 
+import envelope_issue
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -50,6 +52,16 @@ def main():
                     stdout = ((step.get("outputs") or {}).get("stdio") or {}).get("stdout", "").strip()
                     if stdout:
                         lines.append(f"\n```\n{stdout}\n```\n")
+    records = []
+    for path in sorted(glob.glob(os.path.join(args.output_dir, "examples", "*.json"))):
+        with open(path, encoding="utf-8") as f:
+            records.append(json.load(f))
+    rows = [(r["test_id"], *row) for r in records for row in envelope_issue.triage_rows(r)]
+    if rows:
+        lines += ["", "### LLM fields the judge failed or couldn't decide", "",
+                  "The judge asks whether the docs are still right; the [envelope] asks whether the product's behavior shifted from its baseline. Together they suggest what kind of problem it is:", "",
+                  "| Test | Field | Judge | Envelope | What it suggests |", "| --- | --- | --- | --- | --- |"]
+        lines += [f"| `{test}` | `{path}` | {verdict} | {state} | {note} |" for test, path, verdict, state, note in rows]
     print("\n".join(lines))
     return 0
 

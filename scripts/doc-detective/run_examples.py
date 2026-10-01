@@ -385,7 +385,9 @@ def summarize(record, expected, actual, index, exact, judged_results):
         details.append(count(marked, "part") + " marked ... not checked")
     if judged_results:
         details.append(count(len(judged_results), "LLM value") + (" differs" if len(judged_results) == 1 else " differ") + ", decided by the judge")
-    if exact or any(j["verdict"] == "fail" for j in judged_results):
+    if any(j["verdict"] == "error" for j in judged_results):
+        record["overall"] = "undecided: the judge errored"
+    elif exact or any(j["verdict"] == "fail" for j in judged_results):
         record["overall"] = "mismatch"
     elif not details and not diffs_exist(actual, expected):
         record["overall"] = "identical"
@@ -426,7 +428,10 @@ def print_summary(record):
     for note in record.get("not_checked", []):
         print(f"  Not checked (...): {note}")
     for field in record.get("llm_fields", []):
-        state = "[judge] decided" if field["judged"] else "identical to the docs"
+        if any(j["verdict"] == "error" for j in field["judged"]):
+            state = "[judge] undecided: the judge errored"
+        else:
+            state = "[judge] decided" if field["judged"] else "identical to the docs"
         note = " (fallback chain with a layout field)" if field["kind"] == "fallback" else ""
         print(f"  LLM field {field['field']}{note}: {state}")
     judge = record.get("judge")
@@ -619,7 +624,23 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
         try:
             exchange = llm_judge.judge(judge_key, claims, judge_model_override)
         except llm_judge.JudgeError as e:
-            raise ExampleError("JUDGE_ERROR", str(e))
+            # Fail closed: an unanswered judge question is never a pass. Still record what was sent
+            # and run the envelope, which doesn't depend on the judge, as context for triage.
+            judged_results = [
+                {
+                    "field": route[0], "path": claim["path"], "type": llm_judge.format_type(claim["type"]),
+                    "documented": claim["documented"], "actual": claim["observed"], "verdict": "error",
+                    "match": "error", "confidence": 0.0, "reasoning": f"The judge errored: {e}", "claim": "", "observed": "",
+                }
+                for (d, route), claim in zip(judged, claims)
+            ]
+            record["judge"] = {"model": judge_model_override or llm_judge.judge_model(), "system_prompt": llm_judge.CONFIG["system_prompt"],
+                               "user_prompt": llm_judge.build_user_prompt(claims), "raw_output": f"(no output: {e})"}
+            summarize(record, expected, actual, index, exact, judged_results)
+            check_envelope(record, test_id, example, actual, index)
+            env = record.get("envelope", {}).get("status")
+            context = {"within": "output is within the envelope", "outside": "output is outside the envelope"}.get(env, f"envelope {env or 'not checked'}")
+            raise ExampleError("JUDGE_ERROR", f"{e} ({context})")
         judge_model, results = exchange["model"], exchange["results"]
         record["judge"] = {k: exchange[k] for k in ("model", "system_prompt", "user_prompt", "raw_output")}
         for (d, route), claim, r in zip(judged, claims, results):

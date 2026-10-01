@@ -568,5 +568,76 @@ class CollapseTest(unittest.TestCase):
         self.assertIn("The judge wasn&#x27;t called", html_report.render_code_test(record).replace("wasn\'t", "wasn&#x27;t"))
 
 
+class JudgeErrorTest(unittest.TestCase):
+    def test_judge_error_fails_closed_and_still_runs_the_envelope(self):
+        import tempfile, envelope
+        documented = {"phone": {"type": "string", "value": "1800 123 4567"}}
+        returned = {"phone": {"type": "string", "value": "1800-123-4567"}}
+
+        def broken_judge(key, claims, model=None):
+            raise llm_judge.JudgeError("judge request to test-judge failed (529): overloaded")
+
+        class FakeHead:
+            status_code = 200
+
+        class FakeSDK:
+            def __init__(self, key):
+                pass
+
+            def extract(self, **kwargs):
+                return {}
+
+            def wait_for(self, request):
+                return {"status": "COMPLETE", "parsed_document": returned}
+
+        example = {"config": json.dumps(CONFIG), "output": json.dumps(documented), "document_url": "https://example.test/doc.pdf",
+                   "config_line": 0, "output_line": 0, "file": "test.md"}
+        record = {}
+        saved = (r.ENVELOPES_DIR, llm_judge.judge, r.requests.head, r.ensure_doc_type, r.upload_config, r.SensibleSDK, r.load_key)
+        with tempfile.TemporaryDirectory() as d:
+            # A baseline that only saw the spaced phone format, so the hyphenated one is outside it
+            baseline = envelope.build([envelope.observe_output(documented, list(llm_judge.FieldIndex(CONFIG).llm))], example["config"], "test")
+            with open(os.path.join(d, "test.json"), "w") as f:
+                json.dump(baseline, f)
+            r.ENVELOPES_DIR, llm_judge.judge = d, broken_judge
+            r.requests.head = lambda *a, **k: FakeHead()
+            r.ensure_doc_type = lambda key: "type-id"
+            r.upload_config = lambda *a, **k: None
+            r.SensibleSDK = FakeSDK
+            r.load_key = lambda var: "fake-key"
+            try:
+                with self.assertRaises(r.ExampleError) as caught:
+                    r.run_example("fake-key", "test", example, record=record)
+            finally:
+                r.ENVELOPES_DIR, llm_judge.judge, r.requests.head, r.ensure_doc_type, r.upload_config, r.SensibleSDK, r.load_key = saved
+        self.assertEqual(caught.exception.category, "JUDGE_ERROR")
+        self.assertIn("output is outside the envelope", str(caught.exception))
+        self.assertEqual(record["overall"], "undecided: the judge errored")
+        self.assertEqual(record["envelope"]["status"], "outside")
+        self.assertEqual(record["llm_fields"][0]["judged"][0]["verdict"], "error")
+
+
+class TriageTest(unittest.TestCase):
+    import envelope_issue as ei
+
+    def record(self, verdict, breaches, status="outside"):
+        return {"test_id": "t", "status": "fail", "llm_fields": [{"field": "phone", "judged": [{"path": "$.phone.value", "verdict": verdict}]}],
+                "envelope": {"status": status, "breaches": breaches}}
+
+    def test_four_combinations(self):
+        rows = lambda rec: self.ei.triage_rows(rec)[0]
+        self.assertIn("Likely a regression", rows(self.record("fail", {"phone": ["x"]}))[3])
+        self.assertIn("Fix the docs", rows(self.record("fail", {}, "within"))[3])
+        self.assertIn("investigate the output now", rows(self.record("error", {"phone": ["x"]}))[3])
+        self.assertIn("the product probably didn't change", rows(self.record("error", {}, "within"))[3])
+        self.assertIn("Rebuild the baseline", rows(self.record("fail", {}, "missing"))[3])
+
+    def test_a_breach_on_another_field_doesnt_count(self):
+        self.assertEqual(self.ei.triage_rows(self.record("fail", {"other": ["x"]}))[0][2], "within")
+
+    def test_judge_error_note_in_envelope_issue(self):
+        self.assertIn("the judge errored", self.ei.judge_note(self.record("error", {}), "phone"))
+
+
 if __name__ == "__main__":
     unittest.main()

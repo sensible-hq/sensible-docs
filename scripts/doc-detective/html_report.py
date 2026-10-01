@@ -79,7 +79,7 @@ ul { margin: 6px 0 0; padding-left: 20px; }
 """
 
 STATUS_CHIP = {"pass": ("pass", "Passed"), "warn": ("warn", "Passed with warnings"), "fail": ("fail", "Failed")}
-VERDICT_CHIP = {"pass": "pass", "warn": "warn", "fail": "fail"}
+VERDICT_CHIP = {"pass": "pass", "warn": "warn", "fail": "fail", "error": "fail"}
 
 
 def e(value):
@@ -174,7 +174,14 @@ def render_ui_test(test):
 def render_envelope(env, record=None):
     if not env:
         return ""
-    out = [f"<h3>Regression envelope {ENVELOPE}</h3>"]
+    out = [
+        f"<h3>Regression envelope {ENVELOPE}</h3>",
+        '<p class="muted" style="margin:0 0 8px">What this checks: whether each LLM field\'s output still looks like it did across the '
+        'baseline runs (format, type, unit, value and length ranges, null rate, confidence signal). It\'s independent of the docs and of '
+        'the judge: the judge asks whether the docs are still right; the envelope asks whether the product\'s behavior shifted. '
+        '<b>Within</b> means consistent with earlier runs. <b>Outside</b> means the behavior shifted: if the judge still passed the field, '
+        'the docs hold but the feature changed; if the judge failed it, it\'s likely a regression. It never changes a test\'s verdict.</p>',
+    ]
     if env["status"] == "missing":
         out.append('<p class="muted">No baseline yet. Build one with <code>run_examples.py --build-envelope 10</code> and commit <code>scripts/doc-detective/envelopes/</code>.</p>')
         return "\n".join(out)
@@ -240,6 +247,11 @@ def render_code_test(record):
         out.append('<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>')
     if record.get("status") == "fail" and record.get("message"):
         out.append(f'<h3>Failure</h3><pre>{e(record["message"])}</pre>')
+        rows = envelope_issue.triage_rows(record)
+        if rows:
+            out.append('<table><tr><th>Field</th><th>Judge</th><th>Envelope</th><th>What it suggests</th></tr>')
+            out += [f'<tr><td><code>{e(p)}</code></td><td>{JUDGE} <span class="chip fail">{e(v)}</span></td><td>{ENVELOPE} {e(s)}</td><td>{e(n)}</td></tr>' for p, v, s, n in rows]
+            out.append("</table>")
 
     layout = record.get("layout")
     if layout:
@@ -268,7 +280,8 @@ def render_code_test(record):
         out.append('<table><tr><th>Field</th><th>Type</th><th>Extraction prompt</th><th>Result</th></tr>')
         for f in fields:
             if f["judged"]:
-                worst = "fail" if any(x["verdict"] == "fail" for x in f["judged"]) else "warn" if any(x["verdict"] == "warn" for x in f["judged"]) else "pass"
+                verdicts = {x["verdict"] for x in f["judged"]}
+                worst = next(v for v in ("error", "fail", "warn", "pass") if v in verdicts)
                 result = f'{JUDGE} <span class="chip {VERDICT_CHIP[worst]}">{e(worst)}</span>'
             else:
                 result = '<span class="chip info">Identical to the docs</span>'
