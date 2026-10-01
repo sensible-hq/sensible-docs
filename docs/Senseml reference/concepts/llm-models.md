@@ -1,15 +1,11 @@
 ---
 title: LLM models
-excerpt: LLM models available in Sensible for document extraction methods, including
-  OpenAI, Anthropic, and Google options across List, Query Group, NLP Table, and Confidence
-  Signals configurations.
+excerpt: LLM models available in Sensible for document extraction methods, including OpenAI, Anthropic, and Google options across List, Query Group, and NLP Table.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: LLM models available in Sensible for document extraction methods, including
-    OpenAI, Anthropic, and Google options across List, Query Group, NLP Table, and
-    Confidence Signals configurations.
+  description: LLM models available in Sensible for document extraction methods, including OpenAI, Anthropic, and Google options across List, Query Group, and NLP Table.
   robots: index
 next:
   description: ''

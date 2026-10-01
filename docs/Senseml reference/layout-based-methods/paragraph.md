@@ -1,15 +1,11 @@
 ---
 title: Paragraph
-excerpt: Learn how the Paragraph method extracts paragraphs from documents, including
-  multi-column layouts and page-spanning content, with configuration examples and
-  output.
+excerpt: How the Paragraph method extracts paragraphs from documents, including multi-column layouts and page-spanning content, with configuration examples and output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how the Paragraph method extracts paragraphs from documents,
-    including multi-column layouts and page-spanning content, with configuration examples
-    and output.
+  description: How the Paragraph method extracts paragraphs from documents, including multi-column layouts and page-spanning content, with configuration examples and output.
   robots: index
 next:
   description: ''

@@ -1,13 +1,11 @@
 ---
 title: Environments
-excerpt: Learn how to test configuration updates in a Sensible Development environment
-  before publishing to production, including tips for accurate classification testing.
+excerpt: Test configuration updates in a Sensible Development environment before publishing to production, including tips for accurate classification testing.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to test configuration updates in a Sensible Development environment
-    before publishing to production, including tips for accurate classification testing.
+  description: Test configuration updates in a Sensible Development environment before publishing to production, including tips for accurate classification testing.
   robots: index
 next:
   description: ''

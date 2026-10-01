@@ -1,15 +1,11 @@
 ---
 title: SenseML reference introduction
-excerpt: SenseML reference guide covering fields, preprocessors, LLM and layout-based
-  methods, computed fields, sections, and config settings for extracting structured
-  data from documents.
+excerpt: SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: SenseML reference guide covering fields, preprocessors, LLM and layout-based
-    methods, computed fields, sections, and config settings for extracting structured
-    data from documents.
+  description: SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
   robots: index
 next:
   description: ''

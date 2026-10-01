@@ -1,13 +1,16 @@
-"""Tests for check_excerpt, add_excerpt, and sync_description scripts."""
+"""Tests for check_excerpt, add_excerpt, sync_description, fix_frontmatter, and shorten_excerpt scripts."""
 
 import textwrap
 from pathlib import Path
 
 import pytest
+import yaml
 
 import check_excerpt
 import add_excerpt
 import sync_description
+import fix_frontmatter
+import shorten_excerpt
 
 
 # ---------------------------------------------------------------------------
@@ -243,6 +246,30 @@ class TestSyncDescription:
         assert result is True
         assert "description: My excerpt" in f.read_text()
 
+    def test_creates_metadata_block_when_absent(self, tmp_path):
+        # Regression: files with no metadata block raised KeyError and aborted the workflow.
+        f = make_md(tmp_path, "page.md", """\
+            ---
+            title: Test Page
+            excerpt: My excerpt
+            link:
+              new_tab: false
+            ---
+            Body text.
+            """)
+        assert sync_description.sync_description(f, dry_run=False) is True
+        fm = yaml.safe_load(f.read_text().split("---")[1])
+        assert list(fm["metadata"].items()) == [("title", ""), ("description", "My excerpt"), ("robots", "index")]
+        assert fm["link"] == {"new_tab": False}
+        assert list(fm) == ["title", "excerpt", "hidden", "link", "metadata"]
+        assert fm["hidden"] is False
+
+    def test_inserts_description_after_title(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT_NO_DESC)
+        assert sync_description.sync_description(f, dry_run=False) is True
+        fm = yaml.safe_load(f.read_text().split("---")[1])
+        assert list(fm["metadata"]) == ["title", "description", "robots"]
+
     def test_no_change_when_already_in_sync(self, tmp_path):
         f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT)
         result = sync_description.sync_description(f, dry_run=False)
@@ -258,4 +285,227 @@ class TestSyncDescription:
         original = f.read_text()
         result = sync_description.sync_description(f, dry_run=True)
         assert result is True
+        assert f.read_text() == original
+
+
+# ---------------------------------------------------------------------------
+# fix_frontmatter
+# ---------------------------------------------------------------------------
+
+FM_UNDERINDENTED_CONTINUATION = """\
+    ---
+    title: Go-live checklist
+    excerpt: Essential checklist for deploying configs,
+      covering publishing and logging.
+    hidden: false
+    metadata:
+      title: ''
+      description: Essential checklist for deploying configs,
+      covering publishing and logging.
+      robots: index
+    ---
+    Body text.
+    """
+
+FM_UNQUOTED_COLON = """\
+    ---
+    title: Test Page
+    excerpt: Note: this value has a colon
+    hidden: false
+    ---
+    Body text.
+    """
+
+FM_BLOCK_SCALAR = """\
+    ---
+    title: Test Page
+    excerpt: |
+      Line one
+      Line two
+    hidden: false
+    metadata:
+      description: Broken,
+      continuation
+    ---
+    Body text.
+    """
+
+
+def load_fm(path: Path) -> dict:
+    content = path.read_text(encoding="utf-8")
+    fm_text, _, _ = fix_frontmatter.split_frontmatter(content)
+    return yaml.safe_load(fm_text)
+
+
+class TestFixFrontmatter:
+    def test_valid_file_untouched(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT)
+        original = f.read_text()
+        assert fix_frontmatter.fix_file(f, dry_run=False) == ("ok", None)
+        assert f.read_text() == original
+
+    def test_joins_underindented_continuation(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_UNDERINDENTED_CONTINUATION)
+        status, _ = fix_frontmatter.fix_file(f, dry_run=False)
+        assert status == "fixed"
+        fm = load_fm(f)
+        expected = "Essential checklist for deploying configs, covering publishing and logging."
+        assert fm["excerpt"] == expected
+        assert fm["metadata"]["description"] == expected
+        assert fm["metadata"]["robots"] == "index"
+        assert f.read_text().endswith("---\nBody text.\n")
+
+    def test_quotes_value_with_colon(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_UNQUOTED_COLON)
+        status, _ = fix_frontmatter.fix_file(f, dry_run=False)
+        assert status == "fixed"
+        assert load_fm(f)["excerpt"] == "Note: this value has a colon"
+
+    def test_block_scalar_preserved(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_BLOCK_SCALAR)
+        status, _ = fix_frontmatter.fix_file(f, dry_run=False)
+        assert status == "fixed"
+        fm = load_fm(f)
+        assert fm["excerpt"] == "Line one\nLine two\n"
+        assert fm["metadata"]["description"] == "Broken, continuation"
+
+    def test_crlf_preserved(self, tmp_path):
+        f = tmp_path / "page.md"
+        crlf = textwrap.dedent(FM_UNDERINDENTED_CONTINUATION).replace("\n", "\r\n")
+        f.write_bytes(crlf.encode("utf-8"))
+        status, _ = fix_frontmatter.fix_file(f, dry_run=False)
+        assert status == "fixed"
+        raw = f.read_bytes().decode("utf-8")
+        assert "\n" not in raw.replace("\r\n", "")
+
+    def test_dry_run_does_not_write(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_UNDERINDENTED_CONTINUATION)
+        original = f.read_text()
+        assert fix_frontmatter.fix_file(f, dry_run=True)[0] == "fixed"
+        assert f.read_text() == original
+
+    def test_unfixable_reported_and_untouched(self, tmp_path):
+        f = make_md(tmp_path, "page.md", """\
+            ---
+            title: [unclosed
+            ---
+            Body text.
+            """)
+        original = f.read_text()
+        status, error = fix_frontmatter.fix_file(f, dry_run=False)
+        assert status == "unfixable"
+        assert error
+        assert f.read_text() == original
+
+
+# ---------------------------------------------------------------------------
+# shorten_excerpt
+# ---------------------------------------------------------------------------
+
+class TestShortenExcerpt:
+    def test_short_text_unchanged(self):
+        text = "Learn how to use the Row method, including examples."
+        assert shorten_excerpt.shorten(text) == text
+
+    def test_drops_opener_when_that_is_enough(self):
+        text = "Learn how to " + "x" * 150
+        assert shorten_excerpt.shorten(text) == "X" + "x" * 149
+
+    def test_prefers_sentence_end(self):
+        text = (
+            "For corner cases, the Deskew preprocessor corrects skewed document alignment in Sensible. "
+            "In most cases Sensible applies default, automatic correction for skewed documents."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "For corner cases, the Deskew preprocessor corrects skewed document alignment in Sensible."
+        )
+
+    def test_clause_cut_outside_list(self):
+        text = (
+            "Concatenate method joins outputs of two or more fields into a single string or array, "
+            "with configurable delimiters and support for mixed string and array inputs."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Concatenate method joins outputs of two or more fields into a single string or array."
+        )
+
+    def test_list_cut_restores_oxford_conjunction(self):
+        text = (
+            "Overview of Sensible's LLM-powered features for document data extraction and classification, "
+            "including tables, lists, multimodal data, confidence signals, and portfolio segmentation."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Sensible's LLM-powered features for document data extraction and classification, "
+            "including tables, lists, multimodal data, and confidence signals."
+        )
+
+    def test_list_cut_two_items_no_comma(self):
+        text = (
+            "Checkbox method extracts boolean selection status from PDF checkboxes using form metadata "
+            "or pixel recognition, with parameters for position, size, and darkness threshold."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Checkbox method extracts boolean selection status from PDF checkboxes using form metadata "
+            "or pixel recognition, with parameters for position and size."
+        )
+
+    def test_phrase_cut(self):
+        text = (
+            "Scale preprocessor documentation explaining how to correct text size variations in scanned "
+            "documents like ID cards and receipts to enable accurate coordinate-based data extraction."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Scale preprocessor documentation explaining how to correct text size variations in scanned "
+            "documents like ID cards and receipts."
+        )
+
+    def test_word_cut_fallback(self):
+        text = " ".join(["word"] * 50)
+        result = shorten_excerpt.shorten(text)
+        assert len(result) <= 160
+        assert result.endswith("word.")
+
+    def test_results_fit_and_are_idempotent(self):
+        texts = [
+            "Learn how " + ", ".join(f"item{i}" for i in range(40)) + ", and last.",
+            "a " * 100,
+            "Learn how to do things, " + "with " * 40 + "end.",
+        ]
+        for text in texts:
+            once = shorten_excerpt.shorten(text)
+            assert len(once) <= 160
+            assert shorten_excerpt.shorten(once) == once
+
+    def test_shortens_file_fields(self, tmp_path):
+        long = "Learn how to " + "use this feature well " * 10
+        f = make_md(tmp_path, "page.md", f"""\
+            ---
+            title: Test Page
+            excerpt: {long}
+            hidden: false
+            metadata:
+              title: ''
+              description: {long}
+              robots: index
+            ---
+            Body text.
+            """)
+        changes = shorten_excerpt.shorten_file(f, dry_run=False)
+        assert [c[0] for c in changes] == ["excerpt", "metadata.description"]
+        fm = yaml.safe_load(f.read_text().split("---")[1])
+        assert len(fm["excerpt"]) <= 160
+        assert fm["excerpt"] == fm["metadata"]["description"]
+        assert fm["metadata"]["robots"] == "index"
+        assert f.read_text().endswith("---\nBody text.\n")
+
+    def test_dry_run_does_not_write(self, tmp_path):
+        f = make_md(tmp_path, "page.md", f"""\
+            ---
+            title: Test Page
+            excerpt: {"x " * 100}
+            ---
+            Body text.
+            """)
+        original = f.read_text()
+        assert shorten_excerpt.shorten_file(f, dry_run=True)
         assert f.read_text() == original

@@ -1,15 +1,11 @@
 ---
 title: Fingerprint mode
-excerpt: Fingerprint Mode controls extraction strictness for standalone files, determining
-  whether Sensible runs or skips configs based on fingerprint test results in Normal
-  or Strict mode.
+excerpt: Fingerprint Mode controls extraction strictness for standalone files.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Fingerprint Mode controls extraction strictness for standalone files,
-    determining whether Sensible runs or skips configs based on fingerprint test results
-    in Normal or Strict mode.
+  description: Fingerprint Mode controls extraction strictness for standalone files.
   robots: index
 next:
   description: ''

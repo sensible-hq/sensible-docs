@@ -1,13 +1,11 @@
 ---
 title: OCR
-excerpt: Learn how Sensible handles OCR for document extraction, including configurable
-  options for OCR level, preprocessor, and engine settings by document type or config.
+excerpt: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible handles OCR for document extraction, including configurable
-    options for OCR level, preprocessor, and engine settings by document type or config.
+  description: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
   robots: index
 next:
   description: ''

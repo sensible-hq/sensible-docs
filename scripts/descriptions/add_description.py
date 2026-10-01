@@ -58,7 +58,7 @@ def update_file_with_description(file_path: Path, description: str) -> bool:
     front_matter["metadata"]["description"] = description
 
     # Dump back to YAML, preserving reasonable formatting
-    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
 
     new_content = f"---\n{new_front_matter}---\n{rest_of_file}"
     file_path.write_text(new_content, encoding="utf-8")

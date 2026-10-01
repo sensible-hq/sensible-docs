@@ -1,15 +1,11 @@
 ---
 title: Extraction coverage
-excerpt: Learn how Sensible calculates extraction coverage scores, set human review
-  thresholds by document type, and interpret coverage results using validation penalties
-  and null fields.
+excerpt: How Sensible calculates extraction coverage scores, set human review thresholds by document type, and interpret coverage results.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible calculates extraction coverage scores, set human
-    review thresholds by document type, and interpret coverage results using validation
-    penalties and null fields.
+  description: How Sensible calculates extraction coverage scores, set human review thresholds by document type, and interpret coverage results.
   robots: index
 next:
   description: ''

@@ -1,15 +1,11 @@
 ---
 title: Field extraction order
-excerpt: Learn how Sensible's field extraction order works, including default sequencing
-  of fields, computed fields, and sections, plus how to configure custom extraction
-  order.
+excerpt: How Sensible's field extraction order works, including default sequencing of fields, computed fields, and sections.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible's field extraction order works, including default
-    sequencing of fields, computed fields, and sections, plus how to configure custom
-    extraction order.
+  description: How Sensible's field extraction order works, including default sequencing of fields, computed fields, and sections.
   robots: index
 next:
   description: ''

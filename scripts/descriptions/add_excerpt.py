@@ -60,7 +60,7 @@ def update_file_with_excerpt(file_path: Path, excerpt: str) -> bool:
             new_fm["excerpt"] = excerpt
         front_matter = new_fm
 
-    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False)
+    new_front_matter = yaml.dump(front_matter, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{rest_of_file}")
     return True
 
