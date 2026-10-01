@@ -379,10 +379,6 @@ def summarize(record, expected, actual, index, exact, judged_results):
 def print_summary(record):
     """Print a short summary for the Doc Detective report and the failure issue."""
     print(f"{record['test_id']}: {record.get('overall', '')}")
-    for field in record.get("llm_fields", []):
-        state = "judged" if field["judged"] else "identical to the docs"
-        note = " (fallback chain with a layout field)" if field["kind"] == "fallback" else ""
-        print(f"  LLM field {field['field']}{note}: {state}")
     layout = record.get("layout")
     if layout:
         if layout["mismatches"]:
@@ -393,6 +389,10 @@ def print_summary(record):
             print(f"  Layout fields: {layout['fields']}, all exact match")
     for note in record.get("not_checked", []):
         print(f"  Not checked (...): {note}")
+    for field in record.get("llm_fields", []):
+        state = "judged" if field["judged"] else "identical to the docs"
+        note = " (fallback chain with a layout field)" if field["kind"] == "fallback" else ""
+        print(f"  LLM field {field['field']}{note}: {state}")
     judge = record.get("judge")
     if judge:
         print(f"  Judge ({judge['model']}):")

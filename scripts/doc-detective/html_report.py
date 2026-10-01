@@ -114,22 +114,6 @@ def render_code_test(record):
     if record.get("status") == "fail" and record.get("message"):
         out.append(f'<h3>Failure</h3><pre>{e(record["message"])}</pre>')
 
-    fields = record.get("llm_fields", [])
-    out.append("<h3>LLM fields</h3>")
-    if fields:
-        out.append('<table><tr><th>Field</th><th>Extraction prompt</th><th>Result</th></tr>')
-        for f in fields:
-            if f["judged"]:
-                worst = "fail" if any(x["verdict"] == "fail" for x in f["judged"]) else "warn" if any(x["verdict"] == "warn" for x in f["judged"]) else "pass"
-                result = f'<span class="chip {VERDICT_CHIP[worst]}">Judged: {e(worst)}</span>'
-            else:
-                result = '<span class="chip info">Identical to the docs</span>'
-            note = ' <span class="muted">(fallback chain with a layout field)</span>' if f["kind"] == "fallback" else ""
-            out.append(f'<tr><td><code>{e(f["field"])}</code>{note}</td><td>{e(f["prompt"]) or "<span class=muted>none</span>"}</td><td>{result}</td></tr>')
-        out.append("</table>")
-    else:
-        out.append('<p class="muted">None in the documented output.</p>')
-
     layout = record.get("layout")
     if layout:
         out.append("<h3>Layout fields</h3>")
@@ -150,6 +134,22 @@ def render_code_test(record):
         if left.get("nested_keys"):
             out.append(f'<li>{left["nested_keys"]} nested key(s) in <code>parsed_document</code> that the docs leave out</li>')
         out.append("</ul>")
+
+    fields = record.get("llm_fields", [])
+    out.append("<h3>LLM fields</h3>")
+    if fields:
+        out.append('<table><tr><th>Field</th><th>Extraction prompt</th><th>Result</th></tr>')
+        for f in fields:
+            if f["judged"]:
+                worst = "fail" if any(x["verdict"] == "fail" for x in f["judged"]) else "warn" if any(x["verdict"] == "warn" for x in f["judged"]) else "pass"
+                result = f'<span class="chip {VERDICT_CHIP[worst]}">Judged: {e(worst)}</span>'
+            else:
+                result = '<span class="chip info">Identical to the docs</span>'
+            note = ' <span class="muted">(fallback chain with a layout field)</span>' if f["kind"] == "fallback" else ""
+            out.append(f'<tr><td><code>{e(f["field"])}</code>{note}</td><td>{e(f["prompt"]) or "<span class=muted>none</span>"}</td><td>{result}</td></tr>')
+        out.append("</table>")
+    else:
+        out.append('<p class="muted">None in the documented output.</p>')
 
     judge = record.get("judge")
     if judge:
