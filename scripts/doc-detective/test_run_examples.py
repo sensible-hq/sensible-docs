@@ -309,5 +309,85 @@ class UiStepTest(unittest.TestCase):
         self.assertNotIn("hunter2", page)
 
 
+class EnvelopeTest(unittest.TestCase):
+    import envelope as env
+
+    def phone(self, value, confidence="confident_answer"):
+        return {"phone": {"type": "string", "value": value, "confidenceSignal": confidence}}
+
+    def baseline(self, outputs, keys=("phone",)):
+        return self.env.build([self.env.observe_output(o, keys) for o in outputs], "CONFIG", "t")
+
+    def test_shape(self):
+        self.assertEqual(self.env.shape("1800-123-4567"), "9999-999-9999")
+        self.assertEqual(self.env.shape("Ab 12"), "aa 99")
+
+    def test_within_the_envelope(self):
+        base = self.baseline([self.phone("1800 123 4567"), self.phone("1800-123-4567")])
+        self.assertEqual(base["slots"]["phone"]["shapes"], ["9999 999 9999", "9999-999-9999"])
+        self.assertEqual(self.env.check(base, self.env.observe_output(self.phone("1800-123-4567"), ["phone"])), {})
+
+    def test_new_format_null_and_confidence_breach(self):
+        base = self.baseline([self.phone("1800 123 4567")] * 3)
+        new_format = self.env.check(base, self.env.observe_output(self.phone("(1800) 123.4567"), ["phone"]))
+        self.assertIn("new format", new_format["phone"][0])
+        nulled = self.env.check(base, self.env.observe_output({"phone": {"type": "string", "value": None}}, ["phone"]))
+        self.assertEqual(nulled["phone"], ["null; never null in the baseline"])
+        unsure = self.env.check(base, self.env.observe_output(self.phone("1800 123 4567", "unsure"), ["phone"]))
+        self.assertIn("confidence signal unsure", unsure["phone"][0])
+
+    def test_numbers_units_and_types(self):
+        money = lambda v, unit="$", typ="currency": {"premium": {"source": str(v), "value": v, "unit": unit, "type": typ}}
+        base = self.baseline([money(100), money(110)], ("premium",))
+        self.assertEqual(self.env.check(base, self.env.observe_output(money(105), ["premium"])), {})
+        self.assertIn("value 900", self.env.check(base, self.env.observe_output(money(900), ["premium"]))["premium"][0])
+        self.assertIn("unit €", self.env.check(base, self.env.observe_output(money(100, "€"), ["premium"]))["premium"][0])
+        typed = self.env.check(base, self.env.observe_output(money(100, typ="number"), ["premium"]))["premium"]
+        self.assertIn("type number", typed[0])
+        self.assertEqual(base["slots"]["premium"]["source_shapes"], ["999"])
+        source = self.env.check(base, self.env.observe_output({"premium": {"source": "$100", "value": 100, "unit": "$", "type": "currency"}}, ["premium"]))
+        self.assertIn("new source format '$999'", source["premium"][0])
+
+    def test_string_length(self):
+        text = lambda s: {"summary": {"type": "string", "value": s}}
+        sentences = ["The policy covers two vehicles and one driver.", "Covers two vehicles, one driver, and roadside help."]
+        base = self.baseline([text(s) for s in sentences], ("summary",))
+        self.assertEqual(base["slots"]["summary"]["shapes"], "free text")
+        within = "The policy covers two cars and a single driver."
+        self.assertEqual(self.env.check(base, self.env.observe_output(text(within), ["summary"])), {})
+        self.assertIn("length 5", self.env.check(base, self.env.observe_output(text("short"), ["summary"]))["summary"][0])
+
+    def test_list_and_table_counts(self):
+        rows = lambda n: {"vehicles": [{"make": {"type": "string", "value": "Honda"}}] * n}
+        base = self.baseline([rows(2), rows(3)], ("vehicles",))
+        self.assertIn("vehicles#count", base["slots"])
+        self.assertIn("vehicles[*].make", base["slots"])
+        self.assertIn("1 items", self.env.check(base, self.env.observe_output(rows(1), ["vehicles"]))["vehicles#count"][0])
+        table = {"t": {"columns": [{"id": "year", "values": [{"type": "number", "value": 2015}]}]}}
+        self.assertIn("t.columns[year].values[*]", self.baseline([table], ("t",))["slots"])
+
+    def test_missing_and_stale_baselines(self):
+        import tempfile
+        index = llm_judge.FieldIndex(CONFIG)
+        example = {"config": "CONFIG"}
+        with tempfile.TemporaryDirectory() as d:
+            saved, r.ENVELOPES_DIR = r.ENVELOPES_DIR, d
+            try:
+                record = {}
+                self.assertEqual(r.check_envelope(record, "t", example, self.phone("1"), index), [])
+                self.assertEqual(record["envelope"]["status"], "missing")
+                with open(os.path.join(d, "t.json"), "w") as f:
+                    json.dump(self.baseline([self.phone("1800 123 4567")]), f)
+                record = {}
+                warnings = r.check_envelope(record, "t", example, self.phone("(1800) 123.4567"), index)
+                self.assertEqual(record["envelope"]["status"], "outside")
+                self.assertTrue(warnings[0].startswith("envelope: phone: new format"))
+                record = {}
+                r.check_envelope(record, "t", {"config": "CHANGED"}, self.phone("1"), index)
+                self.assertEqual(record["envelope"]["status"], "stale")
+            finally:
+                r.ENVELOPES_DIR = saved
+
+
 if __name__ == "__main__":
     unittest.main()

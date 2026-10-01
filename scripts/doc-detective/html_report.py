@@ -47,6 +47,7 @@ h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: v
 .warn { color: var(--warn); background: var(--warn-bg); }
 .info { color: var(--info); background: var(--info-bg); }
 .judge { color: var(--judge); background: var(--judge-bg); border: 1px dashed var(--judge); font-weight: 700; letter-spacing: .03em; text-transform: none; }
+.envelope { color: var(--info); background: var(--info-bg); border: 1px dashed var(--info); font-weight: 700; letter-spacing: .03em; text-transform: none; }
 .disclaimer { border-left: 4px solid var(--judge); background: var(--card); padding: 10px 14px; border-radius: 6px; margin: 0 0 20px; }
 table { width: 100%; border-collapse: collapse; }
 td, th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
@@ -81,6 +82,7 @@ def j(value):
 
 
 JUDGE = '<span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span>'
+ENVELOPE = '<span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span>'
 DISCLAIMER = "Every check is deterministic (an exact comparison) unless it's labeled judge. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run."
 
 
@@ -160,6 +162,53 @@ def render_ui_test(test):
     return "\n".join(out)
 
 
+def render_envelope(env):
+    if not env:
+        return ""
+    out = [f"<h3>Regression envelope {ENVELOPE}</h3>"]
+    if env["status"] == "missing":
+        out.append('<p class="muted">No baseline yet. Build one with <code>run_examples.py --build-envelope 10</code> and commit <code>scripts/doc-detective/envelopes/</code>.</p>')
+        return "\n".join(out)
+    if env["status"] == "stale":
+        out.append(f'<p>{chip("warn", "Stale")} The config changed since the baseline was built ({e(env["built"])}). Rebuild it with <code>--build-envelope</code>.</p>')
+        return "\n".join(out)
+    if env["status"] == "within":
+        out.append(f'<p>{chip("pass", "Within the envelope")} Every LLM field measurement is inside the baseline of {env["runs"]} runs, built {e(env["built"])}.</p>')
+    else:
+        count = sum(len(r) for r in env["breaches"].values())
+        out.append(f'<p>{chip("warn", "Outside the envelope")} {count} measurement(s) fall outside the baseline of {env["runs"]} runs, built {e(env["built"])}. '
+                   'If the judge still passes these fields, the feature\'s behavior likely changed.</p><ul>')
+        out += [f"<li><code>{e(slot)}</code>: {e(reason)}</li>" for slot, reasons in env["breaches"].items() for reason in reasons]
+        out.append("</ul>")
+    rows = []
+    for slot, s in env.get("slots", {}).items():
+        if "count_min" in s:
+            measured = f'{s["count_min"]}-{s["count_max"]} items'
+        else:
+            bits = [f'null {round(s["null_rate"] * 100)}%']
+            if s["types"]:
+                bits.append("type " + ", ".join(s["types"]))
+            if isinstance(s.get("shapes"), list):
+                bits.append("formats " + ", ".join(repr(x) for x in s["shapes"]))
+            elif s.get("shapes"):
+                bits.append("free text")
+            if isinstance(s.get("source_shapes"), list):
+                bits.append("source formats " + ", ".join(repr(x) for x in s["source_shapes"]))
+            if "length_min" in s:
+                bits.append(f'length {s["length_min"]}-{s["length_max"]}')
+            if "number_min" in s:
+                bits.append(f'value {s["number_min"]}-{s["number_max"]}')
+            if s["units"]:
+                bits.append("unit " + ", ".join(s["units"]))
+            if s["confidence_signals"]:
+                bits.append("confidence " + ", ".join(s["confidence_signals"]))
+            measured = "; ".join(bits)
+        rows.append(f"<tr><td><code>{e(slot)}</code></td><td>{e(measured)}</td></tr>")
+    if rows:
+        out.append('<details><summary>Baseline</summary><table><tr><th>Measurement</th><th>Seen in the baseline runs</th></tr>' + "".join(rows) + "</table></details>")
+    return "\n".join(out)
+
+
 def render_code_test(record):
     out = [f'<section class="card" id="{e(record["test_id"])}">']
     out.append(f'<div class="row"><h2>{e(record["test_id"])}</h2>{chip(record.get("status", "fail"))}</div>')
@@ -233,6 +282,7 @@ def render_code_test(record):
             f'<span class="label" style="margin-top:10px">User</span><pre>{e(judge["user_prompt"])}</pre></details>'
             f'<details><summary>Full judge output (JSON)</summary><pre>{e(raw)}</pre></details>'
         )
+    out.append(render_envelope(record.get("envelope")))
     out.append("</section>")
     return "\n".join(out)
 
@@ -254,7 +304,8 @@ def render(output_dir):
         f"<title>Doc Detective report</title><style>{CSS}</style></head><body><main>",
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(source)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
-        f'<p class="disclaimer">{e(DISCLAIMER).replace("labeled judge", "labeled " + JUDGE)}</p>',
+        f'<p class="disclaimer">{e(DISCLAIMER).replace("labeled judge", "labeled " + JUDGE)} '
+        f'{ENVELOPE} checks compare this run with a baseline of earlier runs; a result outside the baseline is a warning, not a failure.</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',
     ]
     for t in dd_tests:

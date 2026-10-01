@@ -44,6 +44,10 @@ Usage:
   run_examples.py --file <doc> --list
   run_examples.py --file <doc> --check-syntax    (no API key or network needed)
 
+Regression envelopes: --build-envelope N extracts each example N times and saves a baseline of
+each LLM field's output to envelopes/<testId>.json (commit it). Later runs that fall outside the
+baseline get an envelope WARNING; the test still passes.
+
 Requires SENSIBLE_TEST_API_KEY (the docs test account's key) in .env at the repo root or in the environment.
 Judging LLM fields also requires ANTHROPIC_API_KEY (or ANTHROPIC_KEY), from the same places.
 It deliberately doesn't fall back to SENSIBLE_API_KEY, so a missing key can't run tests against another account.
@@ -61,6 +65,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".de
 import requests
 from sensibleapi import SensibleSDK
 
+import envelope
 import llm_judge
 
 API = "https://api.sensible.so/v0"
@@ -380,7 +385,7 @@ def summarize(record, expected, actual, index, exact, judged_results):
 def print_summary(record):
     """Print a short summary for the Doc Detective report and the failure issue."""
     print(f"{record['test_id']}: {record.get('overall', '')}")
-    print("  " + "Every check is deterministic (an exact comparison) unless it's labeled [judge]. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run.")
+    print("  " + "Every check is deterministic (an exact comparison) unless it's labeled [judge]. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run. [envelope] compares this run with a baseline of earlier runs; outside it is a warning.")
     layout = record.get("layout")
     if layout:
         if layout["mismatches"]:
@@ -402,6 +407,19 @@ def print_summary(record):
             for j in field["judged"]:
                 print(f"    [judge] {j['verdict'].upper()}  {j['path']}: {json.dumps(j['documented'], ensure_ascii=False)} -> {json.dumps(j['actual'], ensure_ascii=False)}  ({j['match']}, confidence {j['confidence']:.2f})")
                 print(f"      {j['reasoning']}")
+    env = record.get("envelope")
+    if env:
+        if env["status"] == "missing":
+            print("  [envelope] no baseline yet: run run_examples.py --build-envelope 10 and commit envelopes/")
+        elif env["status"] == "stale":
+            print(f"  [envelope] baseline is stale (the config changed since {env['built']}): rebuild it")
+        elif env["status"] == "within":
+            print(f"  [envelope] within the baseline of {env['runs']} runs ({env['built']})")
+        else:
+            print(f"  [envelope] WARNING: outside the baseline of {env['runs']} runs ({env['built']}):")
+            for slot, reasons in env["breaches"].items():
+                for reason in reasons:
+                    print(f"    {slot}: {reason}")
     print("  Full report: scripts/doc-detective/output/report.html")
 
 
@@ -595,12 +613,74 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
                 warnings.append(line)
 
     summarize(record, expected, actual, index, exact, judged_results)
+    warnings += check_envelope(record, test_id, example, actual, index)
     if failures:
         message = "docs output doesn't match the extraction:\n  " + "\n  ".join(failures)
         if fix_path and propose_fix(fix_path, example, apply_fixes(expected, fixable)):
             message += f"\n  Proposed fix written to {fix_path}"
         raise ExampleError("OUTPUT_DRIFT" if exact else "LLM_DRIFT", message)
     return warnings
+
+
+ENVELOPES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "envelopes")
+
+
+def envelope_path(test_id):
+    return os.path.join(ENVELOPES_DIR, f"{test_id}.json")
+
+
+def check_envelope(record, test_id, example, actual, index):
+    """Compare this run's LLM fields with the saved envelope. Returns warning lines for breaches."""
+    path = envelope_path(test_id)
+    if not index.llm:
+        return []
+    if not os.path.exists(path):
+        record["envelope"] = {"status": "missing"}
+        return []
+    with open(path, encoding="utf-8") as f:
+        baseline = json.load(f)
+    info = {"runs": baseline["runs"], "built": baseline["built"]}
+    if baseline["config_sha256"] != envelope.config_hash(example["config"]):
+        record["envelope"] = {"status": "stale", **info}
+        return []
+    breaches = envelope.check(baseline, envelope.observe_output(actual, index.llm))
+    record["envelope"] = {
+        "status": "outside" if breaches else "within",
+        **info,
+        "breaches": breaches,
+        "slots": baseline["slots"],
+    }
+    return [f"envelope: {slot}: {reason}" for slot, reasons in breaches.items() for reason in reasons]
+
+
+def build_envelope(key, test_id, example, runs):
+    """Extract an example `runs` times and save its LLM fields' envelope."""
+    config, _ = check_syntax(test_id, example)
+    index = llm_judge.FieldIndex(config)
+    if not index.llm:
+        print(f"SKIP {test_id}: no LLM fields")
+        return
+    type_id = ensure_doc_type(key)
+    upload_config(key, type_id, test_id, example["config"])
+    sensible = SensibleSDK(key)
+    observations = []
+    for i in range(runs):
+        result = sensible.wait_for(sensible.extract(
+            url=example["document_url"], document_type=DOC_TYPE, configuration_name=test_id,
+            environment=ENVIRONMENT, document_name=f"ci__{test_id}__envelope_{i + 1}.pdf",
+        ))
+        if result.get("status") != "COMPLETE":
+            raise ExampleError("EXTRACTION_ERROR", f"envelope run {i + 1}: status {result.get('status')}")
+        observations.append(envelope.observe_output(result.get("parsed_document") or {}, index.llm))
+        print(f"  run {i + 1}/{runs} done")
+    built = envelope.build(observations, example["config"], test_id)
+    os.makedirs(ENVELOPES_DIR, exist_ok=True)
+    with open(envelope_path(test_id), "w", encoding="utf-8") as f:
+        json.dump(built, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+    print(f"Wrote {os.path.relpath(envelope_path(test_id))} ({runs} runs, {len(built['slots'])} slots)")
+    for slot, summary in built["slots"].items():
+        print(f"  {slot}: {summary}")
 
 
 RECORDS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", "examples")
@@ -641,6 +721,7 @@ def main():
         help="On OUTPUT_DRIFT, rewrite the doc's output block with the actual values (default: DOC_EXAMPLES_PROPOSE_FIXES=1)",
     )
     parser.add_argument("--judge-model", help=f"Judge model ID (default: DOC_EXAMPLES_JUDGE_MODEL or {llm_judge.DEFAULT_JUDGE_MODEL})")
+    parser.add_argument("--build-envelope", type=int, metavar="N", help="Extract each example N times and save its LLM fields' regression envelope")
     parser.add_argument("--keep", action="store_true", help=f"Don't delete {DOC_TYPE} after the run (for debugging in the app)")
     args = parser.parse_args()
 
@@ -666,6 +747,14 @@ def main():
         return 2
 
     selected = args.test or list(examples)
+    if args.build_envelope:
+        try:
+            for test_id in selected:
+                build_envelope(key, test_id, examples[test_id], args.build_envelope)
+        finally:
+            if not args.keep and delete_doc_type(key):
+                print(f"Deleted document type {DOC_TYPE}")
+        return 0
     failed = 0
     try:
         for test_id in selected:
