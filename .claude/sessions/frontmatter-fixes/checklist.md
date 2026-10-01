@@ -21,6 +21,7 @@ Started from failed run https://github.com/sensible-hq/sensible-docs/actions/run
 - [x] Applied review edits (zip, file-types, llm-features, rotate-page, scale, sections/index, labeled-rows)
 - [x] Fix `KeyError: 'metadata'` in `sync_description.py` for docs with no metadata block (`extra-data.md`)
 - [x] Create the full ReadMe metadata block (`title: ''`, `description`, `robots: index`) when absent
+- [x] Add `hidden: false` when absent on every frontmatter write; `check_excerpt.py` flags `docs/` pages with no `title` (reference/ API pages are exempt)
 - [x] #738: consolidate onto `frontmatter.py`, one generator with length retry, drop description generation from `sync-llmstxt.yml`, delete `add_excerpt`/`add_description`/`check_descriptions`/`sync_excerpt`
 
 ## Left for Frances
