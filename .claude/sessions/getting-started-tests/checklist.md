@@ -55,3 +55,7 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
   - Steps: install doc-detective (pin version), `pip install -r scripts/doc-detective/requirements.txt`, `scripts/doc-detective/run.sh -i "docs/document extraction/getting-started.md"`; upload scrubbed reports as an artifact
   - Known gap: example PDF links point at `/v0/`, so a PR that changes the PDF tests the old one until merged
   - Optional: local `pre-push` git hook for the same run (not `pre-commit`: ~45s per commit is too slow)
+  - [x] Repo secrets added (2026-10-01): `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`
+  - [x] On failure (2026-10-01): one standing issue labeled `doc-detective` (comment on the open one, else create); for OUTPUT_DRIFT, a draft PR from reused branch `doc-detective/getting-started-fixes` that rewrites only the mismatched values (`--propose-fixes` / `DOC_EXAMPLES_PROPOSE_FIXES=1`; skips output blocks with comments). `scripts/doc-detective/report.py` builds the issue body from Doc Detective results. Verified with a local CI simulation (scratch worktree, no `.env`, env-only secrets): fix diff was exactly `"$100"` → `"100"`, no secrets in reports/log
+  - [ ] Not verified on GitHub yet: issue/PR creation, label creation, fix-branch push (first real run happens on merge)
+  - [ ] Until LLM guardrails exist, fix PRs will also propose LLM variation (e.g. phone formatting), and a later run can flip it back

@@ -12,3 +12,4 @@ scripts/test/probe_endpoints/outputs/
 .env
 scripts/doc-detective/output/
 scripts/doc-detective/.deps/
+.doc-detective/
