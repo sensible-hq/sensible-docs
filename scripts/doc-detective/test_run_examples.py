@@ -557,6 +557,12 @@ class CollapseTest(unittest.TestCase):
         self.assertIn('<details class="card test" id="t">', html_report.render_code_test(base))
         self.assertIn('<details class="card test" id="t" open>', html_report.render_code_test(dict(base, status="fail")))
 
+    def test_says_when_the_judge_wasnt_called(self):
+        import html_report
+        record = {"test_id": "t", "document_url": "https://example.test/a.pdf", "status": "pass", "overall": "identical",
+                  "llm_fields": [{"field": "p", "kind": "llm", "prompt": "", "type": "string", "judged": []}]}
+        self.assertIn("The judge wasn&#x27;t called", html_report.render_code_test(record).replace("wasn\'t", "wasn&#x27;t"))
+
 
 if __name__ == "__main__":
     unittest.main()

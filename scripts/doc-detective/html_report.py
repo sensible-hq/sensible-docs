@@ -279,6 +279,8 @@ def render_code_test(record):
         out.append('<p class="muted">None in the documented output.</p>')
 
     judge = record.get("judge")
+    if fields and not judge and record.get("overall"):
+        out.append('<p class="muted" style="margin:10px 0 0">The judge wasn\'t called: every LLM field matched the docs exactly.</p>')
     if judge:
         out.append(f'<h3>Judge reasoning {JUDGE} <span class="muted" style="text-transform:none;letter-spacing:0">({e(judge["model"])})</span></h3>')
         for f in fields:
