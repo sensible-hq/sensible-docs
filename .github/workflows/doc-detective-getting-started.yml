@@ -3,7 +3,7 @@
 # a code test that runs the tutorial config against the Sensible API and checks
 # the documented output.
 #
-# Runs only on pushes to v0 that change the guide or the test tooling, not on PRs.
+# Runs on pushes to v0 that change the guide or the test tooling, monthly, and on demand; not on PRs.
 #
 # On failure:
 # - Opens one issue labeled doc-detective, or comments on the open one
@@ -23,6 +23,10 @@ on:
       - ".doc-detective.json"
       - ".github/workflows/doc-detective-getting-started.yml"
   workflow_dispatch:
+  # Monthly, so product drift is caught even when nothing in the guide changes:
+  # the 1st of each month at 15:00 UTC. Scheduled runs use this file on the default branch (v0).
+  schedule:
+    - cron: "0 15 1 * *"
 
 # The code test creates and deletes one shared document type, so runs must not overlap.
 concurrency:

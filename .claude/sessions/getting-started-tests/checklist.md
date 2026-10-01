@@ -87,6 +87,7 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
   - [ ] Fixture links point at this branch; after merge, repoint them at v0 (the branch will be deleted)
   - [ ] Consider recording the example document's SHA-256 in each baseline: a changed PDF would then make the baseline stale instead of reading as a product regression (in the fixtures, the "regression" is really a changed input document)
 - [x] `--extend-envelope N` (2026-10-01): adds N runs to an existing, current baseline (counts add, null rate reweighted, sets combine, ranges widen; refuses missing or stale baselines); schema gets optional `updated`; report/summary show "extended …". Extended query_group_how_it_works to 20 runs: now has both phone formats. 52 offline tests
+- [x] Schedule (2026-10-01): monthly cron `0 15 1 * *` (1st at 15:00 UTC) added to the workflow, alongside push-to-v0 and manual runs; takes effect once merged (scheduled runs use the default branch's workflow file)
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
 - [x] CI workflow `.github/workflows/doc-detective-getting-started.yml` (2026-10-01): push to **v0 only** (no `pull_request`, so it doesn't run on this PR) + `workflow_dispatch`, `paths` filter. Pins doc-detective 4.38.1 with `--no-auto-update`. Missing `.env` in CI verified harmless. **Merging this PR triggers the first run**, so add secrets first. Original plan:
