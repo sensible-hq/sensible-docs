@@ -389,5 +389,13 @@ class EnvelopeTest(unittest.TestCase):
                 r.ENVELOPES_DIR = saved
 
 
+class DisclaimerTest(unittest.TestCase):
+    def test_envelope_sentence_names_the_baseline_size(self):
+        import html_report
+        self.assertIn("an established 10-result baseline of acceptable variance", html_report.envelope_sentence([{"envelope": {"runs": 10}}]))
+        self.assertIn("against an established baseline of", html_report.envelope_sentence([{"envelope": {"status": "missing"}}]))
+        self.assertIn("against an established baseline of", html_report.envelope_sentence([{"envelope": {"runs": 10}}, {"envelope": {"runs": 5}}]))
+
+
 if __name__ == "__main__":
     unittest.main()

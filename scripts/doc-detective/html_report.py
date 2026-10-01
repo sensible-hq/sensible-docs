@@ -287,6 +287,13 @@ def render_code_test(record):
     return "\n".join(out)
 
 
+def envelope_sentence(records):
+    """The envelope part of the disclaimer, naming the baseline size when every baseline agrees."""
+    sizes = {r["envelope"]["runs"] for r in records if r.get("envelope", {}).get("runs")}
+    baseline = f"an established {sizes.pop()}-result baseline" if len(sizes) == 1 else "an established baseline"
+    return f"An envelope result flags an LLM regression against {baseline} of acceptable variance; a result outside the baseline is a warning, not a failure."
+
+
 def render(output_dir):
     dd_tests = load_doc_detective(output_dir)
     records = {}
@@ -305,7 +312,7 @@ def render(output_dir):
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(source)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
         f'<p class="disclaimer">{e(DISCLAIMER).replace("labeled judge", "labeled " + JUDGE)} '
-        f'{ENVELOPE} checks compare this run with a baseline of earlier runs; a result outside the baseline is a warning, not a failure.</p>',
+        f'{ENVELOPE} {e(envelope_sentence(records.values()))}</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',
     ]
     for t in dd_tests:

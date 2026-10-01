@@ -385,7 +385,7 @@ def summarize(record, expected, actual, index, exact, judged_results):
 def print_summary(record):
     """Print a short summary for the Doc Detective report and the failure issue."""
     print(f"{record['test_id']}: {record.get('overall', '')}")
-    print("  " + "Every check is deterministic (an exact comparison) unless it's labeled [judge]. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run. [envelope] compares this run with a baseline of earlier runs; outside it is a warning.")
+    print("  " + "Every check is deterministic (an exact comparison) unless it's labeled [judge]. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run. [envelope]: an envelope result flags an LLM regression against an established baseline of acceptable variance; a result outside the baseline is a warning, not a failure.")
     layout = record.get("layout")
     if layout:
         if layout["mismatches"]:
