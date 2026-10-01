@@ -1,3 +1,3 @@
-session: region-include-anchor
-id: 8f7ebb9f-f32d-42e9-8974-25c7513963ee
-checklist: .claude/sessions/close-docs-pr-skill/checklist.md
+session: frontmatter fixes
+id: fdfe8599-5990-4bd1-a46b-9dcbe68c278d
+checklist: .claude/sessions/frontmatter-fixes/checklist.md

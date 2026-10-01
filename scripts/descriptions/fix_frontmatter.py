@@ -30,30 +30,11 @@ from pathlib import Path
 
 import yaml
 
+import frontmatter
+
 KEY_LINE = re.compile(r"^(?P<indent>\s*)(?P<dash>- )?(?P<key>[\w.\-]+):(?P<sep>\s+|$)(?P<value>.*)$")
 LIST_ITEM = re.compile(r"^\s*- ")
 BLOCK_SCALAR = re.compile(r"^[|>][-+0-9]*\s*(#.*)?$")
-
-
-def find_repo_root() -> Path:
-    candidate = Path(__file__).resolve().parent.parent.parent
-    if (candidate / "docs").is_dir():
-        return candidate
-    cwd = Path.cwd()
-    if (cwd / "docs").is_dir():
-        return cwd
-    raise SystemExit("Could not find repo root (expected docs/ directory)")
-
-
-def split_frontmatter(content: str) -> tuple[str, str, str] | None:
-    """Return (front matter text, closing delimiter + body, newline) or None if absent."""
-    if not content.startswith("---"):
-        return None
-    end = re.search(r"\n---\s*(\n|$)", content[3:])
-    if not end:
-        return None
-    newline = "\r\n" if "\r\n" in content[: end.start() + 3] else "\n"
-    return content[3 : end.start() + 3], content[end.start() + 3 :], newline
 
 
 def yaml_error(text: str) -> str | None:
@@ -141,12 +122,13 @@ def repair(text: str) -> str | None:
 def fix_file(path: Path, dry_run: bool) -> tuple[str, str | None]:
     """Return (status, error) where status is 'ok', 'fixed', or 'unfixable'."""
     content = path.open(encoding="utf-8", newline="").read()
-    parts = split_frontmatter(content)
+    parts = frontmatter.split(content)
     if parts is None:
         return "ok", None
 
-    front_matter, rest, newline = parts
-    normalized = front_matter.replace("\r\n", "\n")
+    rest = content[parts.closing :]
+    newline = "\r\n" if "\r\n" in parts.text else "\n"
+    normalized = parts.text.replace("\r\n", "\n")
     error = yaml_error(normalized)
     if error is None:
         return "ok", None
@@ -168,8 +150,8 @@ def main():
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
     args = parser.parse_args()
 
-    repo_root = find_repo_root()
-    paths = [Path(p) for p in args.paths] or sorted(repo_root.glob("docs/**/*.md"))
+    repo_root = frontmatter.find_repo_root()
+    paths = [Path(p) for p in args.paths] or [path for path, _ in frontmatter.iter_docs(repo_root)]
 
     fixed, unfixable = [], []
     for path in paths:

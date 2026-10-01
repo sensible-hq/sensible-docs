@@ -1,178 +1,164 @@
 #!/usr/bin/env python3
 """
-Generate or regenerate excerpts for docs using Claude.
+Generate excerpts for docs using Claude.
 
-Calls the Claude API to generate a concise excerpt for each specified file,
-writes it to the excerpt field (which is the source of truth), then syncs
-metadata.description to match.
+Writes the excerpt (the source of truth) and syncs metadata.description to
+match. In reference/, fills whichever of excerpt or metadata.description
+exists but is empty.
+
+Excerpts longer than 160 characters are sent back to Claude with their actual
+length, up to MAX_ATTEMPTS times. Anything still too long is shortened
+deterministically with shorten_excerpt.shorten().
 
 Usage:
-  python generate_excerpts.py <file1> [<file2> ...]   # specific files
-  python generate_excerpts.py --all                   # all docs/**/*.md
+  python generate_excerpts.py --missing               # files check_excerpt.py would flag
+  python generate_excerpts.py <file1> [<file2> ...]   # regenerate specific files
+  python generate_excerpts.py --all                   # regenerate all docs/**/*.md
+  python generate_excerpts.py --missing --dry-run     # print without writing
 
-Requires ANTHROPIC_API_KEY environment variable.
+Requires ANTHROPIC_API_KEY. Exits 1 if any file failed.
 """
 
 import argparse
 import json
 import os
-import re
 import sys
-import urllib.request
 import urllib.error
+import urllib.request
 from pathlib import Path
 
-import yaml
+import frontmatter
+from frontmatter import MAX_LENGTH
+from shorten_excerpt import shorten
 
-SCRIPT_DIR = Path(__file__).parent.resolve()
-REPO_ROOT = SCRIPT_DIR.parent.parent
+MODEL = "claude-sonnet-5"
+MAX_ATTEMPTS = 3
+CONTENT_CHARS = 4000
 
-
-def find_repo_root() -> Path:
-    candidate = Path(__file__).resolve().parent.parent.parent
-    if (candidate / "docs").is_dir():
-        return candidate
-    cwd = Path.cwd()
-    if (cwd / "docs").is_dir():
-        return cwd
-    raise SystemExit("Could not find repo root (expected docs/ directory)")
-
-
-def parse_frontmatter(content: str) -> tuple[dict | None, int]:
-    if not content.startswith("---"):
-        return None, -1
-    end = re.search(r"\n---\s*(\n|$)", content[3:])
-    if not end:
-        return None, -1
-    try:
-        fm = yaml.safe_load(content[3 : end.start() + 3]) or {}
-        return fm, end.end() + 3
-    except yaml.YAMLError:
-        return None, -1
+PROMPT = (
+    "Write a one-line excerpt for this documentation page, at most 150 characters. "
+    "It summarizes what the page covers in plain language, for SEO. "
+    "Return only the excerpt text, without quotes.\n\n"
+    "Title: {title}\n\nContent:\n{content}"
+)
+RETRY_PROMPT = "That's {length} characters. Rewrite it in at most 150 characters. Return only the excerpt text."
 
 
-def write_excerpt(file_path: Path, excerpt: str) -> None:
-    content = file_path.open(encoding="utf-8", newline="").read()
-    fm, rest_start = parse_frontmatter(content)
-    if fm is None:
-        raise ValueError(f"No front matter in {file_path}")
-
-    if "excerpt" in fm:
-        fm["excerpt"] = excerpt
-    else:
-        new_fm = {}
-        for k, v in fm.items():
-            new_fm[k] = v
-            if k == "title":
-                new_fm["excerpt"] = excerpt
-        if "excerpt" not in new_fm:
-            new_fm["excerpt"] = excerpt
-        fm = new_fm
-
-    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
-    file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
-
-
-def sync_description(file_path: Path) -> None:
-    content = file_path.open(encoding="utf-8", newline="").read()
-    fm, rest_start = parse_frontmatter(content)
-    if fm is None:
-        return
-
-    excerpt = fm.get("excerpt") or ""
-    if not excerpt:
-        return
-
-    metadata = fm.get("metadata") or {}
-    if not isinstance(metadata, dict):
-        return
-
-    if metadata.get("description") == excerpt:
-        return
-
-    fm["metadata"]["description"] = excerpt
-    new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
-    file_path.open("w", encoding="utf-8", newline="").write(f"---\n{new_front_matter}---\n{content[rest_start:]}")
-
-
-def generate_excerpt(file_path: Path, api_key: str) -> str:
-    content = file_path.open(encoding="utf-8", newline="").read()
-    fm, _ = parse_frontmatter(content)
-    title = (fm or {}).get("title", file_path.stem)
-
-    # Strip front matter for the content snippet
-    body_start = content.find("---", 3)
-    body = content[body_start + 3:].strip() if body_start != -1 else content
-
-    payload = json.dumps({
-        "model": "claude-sonnet-4-6",
-        "max_tokens": 160,
-        "messages": [{
-            "role": "user",
-            "content": (
-                "Generate a concise 1-line excerpt (max 160 characters) for this documentation page. "
-                "The excerpt should summarize what the page covers in plain language suitable for SEO. "
-                "Do NOT include quotes. Return the plain text only.\n\n"
-                f"Title: {title}\n\nContent:\n{body[:4000]}"
-            ),
-        }],
-    }).encode()
-
-    req = urllib.request.Request(
+def call_claude(messages: list[dict], api_key: str) -> str:
+    request = urllib.request.Request(
         "https://api.anthropic.com/v1/messages",
-        data=payload,
+        data=json.dumps({"model": MODEL, "max_tokens": 200, "messages": messages}).encode(),
         headers={
             "Content-Type": "application/json",
             "x-api-key": api_key,
             "anthropic-version": "2023-06-01",
         },
     )
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            result = json.loads(response.read())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"API error {e.code}: {e.read().decode(errors='replace')[:300]}") from e
+    text = next((block["text"] for block in result.get("content", []) if block.get("type") == "text"), "")
+    text = " ".join(text.split()).strip('"')
+    if not text:
+        raise RuntimeError(f"Empty response: {json.dumps(result)[:300]}")
+    return text
 
-    with urllib.request.urlopen(req) as resp:
-        result = json.loads(resp.read())
 
-    return result["content"][0]["text"].strip()
+def generate_excerpt(doc: frontmatter.Doc, api_key: str) -> str:
+    title = doc.fm.get("title") or doc.path.stem
+    body = doc.content[doc.body :].strip()[:CONTENT_CHARS]
+    messages = [{"role": "user", "content": PROMPT.format(title=title, content=body)}]
+
+    excerpt = call_claude(messages, api_key)
+    for _ in range(MAX_ATTEMPTS - 1):
+        if len(excerpt) <= MAX_LENGTH:
+            break
+        messages += [
+            {"role": "assistant", "content": excerpt},
+            {"role": "user", "content": RETRY_PROMPT.format(length=len(excerpt))},
+        ]
+        excerpt = call_claude(messages, api_key)
+    return shorten(excerpt)
+
+
+def target_field(rel: str, fm: dict, missing_only: bool) -> str | None:
+    if missing_only:
+        return frontmatter.missing_field(rel, fm)
+    if fm.get("hidden"):
+        return None
+    if not frontmatter.is_reference(rel) or "excerpt" in fm:
+        return "excerpt"
+    # Regenerating a reference/ file: only touch fields it already has.
+    return "metadata.description" if frontmatter.has_description_key(fm) else None
+
+
+def apply(rel: str, fm: dict, field: str, text: str) -> dict:
+    if field == "metadata.description":
+        return frontmatter.set_description(fm, text)
+    fm = frontmatter.set_excerpt(fm, text)
+    # docs/ always get a derived description; reference/ only if the key already exists.
+    if not frontmatter.is_reference(rel) or frontmatter.has_description_key(fm):
+        fm = frontmatter.set_description(fm, text)
+    return fm
+
+
+def warn(rel: str, message: str) -> None:
+    if os.environ.get("GITHUB_ACTIONS"):
+        print(f"::warning file={rel}::{message}")
+    else:
+        print(f"  Warning: {message}", file=sys.stderr)
 
 
 def main():
     parser = argparse.ArgumentParser(description="Generate excerpts for docs using Claude")
-    parser.add_argument("files", nargs="*", help="Files to process")
-    parser.add_argument("--all", action="store_true", help="Process all docs/**/*.md")
+    parser.add_argument("files", nargs="*", help="Files to regenerate")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--missing", action="store_true", help="Process files with a missing or empty excerpt")
+    group.add_argument("--all", action="store_true", help="Regenerate all docs/**/*.md")
     parser.add_argument("--dry-run", action="store_true", help="Print generated excerpts without writing")
     args = parser.parse_args()
+
+    if not (args.missing or args.all or args.files):
+        parser.print_help()
+        return 1
 
     api_key = os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_KEY")
     if not api_key:
         print("Error: ANTHROPIC_API_KEY or ANTHROPIC_KEY not set", file=sys.stderr)
         return 1
 
-    repo_root = find_repo_root()
-
-    if args.all:
-        paths = sorted(repo_root.glob("docs/**/*.md"))
-    elif args.files:
-        paths = [repo_root / f if not Path(f).is_absolute() else Path(f) for f in args.files]
+    repo_root = frontmatter.find_repo_root()
+    if args.files:
+        paths = [Path(f).resolve() for f in args.files]
+        targets = [(p, p.relative_to(repo_root).as_posix()) for p in paths]
     else:
-        parser.print_help()
-        return 1
+        targets = list(frontmatter.iter_docs(repo_root, ("docs", "reference") if args.missing else ("docs",)))
 
-    for path in paths:
-        fm, _ = parse_frontmatter(path.read_text(encoding="utf-8"))
-        if fm and fm.get("hidden"):
-            print(f"Skipped (hidden): {path}")
+    failed = 0
+    for path, rel in targets:
+        doc = frontmatter.read(path)
+        if doc.fm is None:
+            if doc.error:
+                warn(rel, "Skipped: invalid YAML frontmatter")
+            continue
+        field = target_field(rel, doc.fm, args.missing)
+        if field is None:
             continue
 
-        print(f"Generating: {path.relative_to(repo_root)}")
+        print(f"Generating {field}: {rel}")
         try:
-            excerpt = generate_excerpt(path, api_key)
-            print(f"  → {excerpt}")
-            if not args.dry_run:
-                write_excerpt(path, excerpt)
-                sync_description(path)
-        except Exception as e:
-            print(f"  Error: {e}", file=sys.stderr)
+            text = generate_excerpt(doc, api_key)
+        except (RuntimeError, urllib.error.URLError, TimeoutError) as e:
+            warn(rel, f"Could not generate {field}: {e}")
+            failed += 1
+            continue
+        print(f"  → ({len(text)}) {text}")
+        if not args.dry_run:
+            frontmatter.write(doc, apply(rel, doc.fm, field, text))
 
-    return 0
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

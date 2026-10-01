@@ -1,4 +1,4 @@
-"""Tests for check_excerpt, add_excerpt, sync_description, fix_frontmatter, and shorten_excerpt scripts."""
+"""Tests for the scripts/descriptions excerpt pipeline."""
 
 import textwrap
 from pathlib import Path
@@ -7,7 +7,8 @@ import pytest
 import yaml
 
 import check_excerpt
-import add_excerpt
+import frontmatter
+import generate_excerpts
 import sync_description
 import fix_frontmatter
 import shorten_excerpt
@@ -117,8 +118,7 @@ class TestCheckExcerpt:
         for name, content in (reference_files or {}).items():
             make_md(repo_root / "reference", name, content)
 
-        issues, _ = check_excerpt.check_excerpts(repo_root, ignore_list=set())
-        return issues
+        return check_excerpt.check_excerpts(repo_root)
 
     def test_docs_missing_excerpt_key_flagged(self, tmp_path):
         issues = self._run(tmp_path, docs_files={"page.md": FM_NO_EXCERPT})
@@ -138,8 +138,8 @@ class TestCheckExcerpt:
         issues = self._run(tmp_path, docs_files={"hidden.md": FM_HIDDEN})
         assert issues == []
 
-    def test_reference_missing_excerpt_key_skipped(self, tmp_path):
-        issues = self._run(tmp_path, reference_files={"page.md": FM_NO_EXCERPT})
+    def test_reference_missing_keys_skipped(self, tmp_path):
+        issues = self._run(tmp_path, reference_files={"page.md": FM_HIDDEN.replace("hidden: true", "hidden: false")})
         assert issues == []
 
     def test_reference_empty_excerpt_flagged(self, tmp_path):
@@ -147,85 +147,124 @@ class TestCheckExcerpt:
         assert len(issues) == 1
         assert issues[0]["reason"] == "Empty excerpt"
 
+    def test_reference_empty_description_without_excerpt_flagged(self, tmp_path):
+        # Previously handled by check_descriptions.py in sync-llmstxt.yml.
+        issues = self._run(tmp_path, reference_files={"page.md": FM_NO_EXCERPT})
+        assert len(issues) == 1
+        assert issues[0]["reason"] == "Empty metadata.description"
+
+    def test_missing_title_flagged(self, tmp_path):
+        issues = self._run(tmp_path, docs_files={"page.md": FM_WITH_EXCERPT.replace("    title: Test Page\n", "")})
+        assert [i["reason"] for i in issues] == ["Missing title key"]
+
+    def test_reference_api_page_without_title_skipped(self, tmp_path):
+        issues = self._run(tmp_path, reference_files={"page.md": "---\napi:\n  file: spec.json\nhidden: false\n---\n"})
+        assert issues == []
+
+    def test_invalid_yaml_flagged(self, tmp_path):
+        issues = self._run(tmp_path, docs_files={"page.md": "---\ntitle: [unclosed\n---\nBody.\n"})
+        assert len(issues) == 1
+        assert issues[0]["reason"].startswith("Invalid YAML frontmatter")
+
 
 # ---------------------------------------------------------------------------
-# add_excerpt
+# frontmatter
 # ---------------------------------------------------------------------------
 
-class TestAddExcerpt:
+def write_excerpt(path: Path, excerpt: str) -> bool:
+    doc = frontmatter.read(path)
+    if doc.fm is None:
+        return False
+    frontmatter.write(doc, frontmatter.set_excerpt(doc.fm, excerpt))
+    return True
+
+
+class TestFrontmatter:
     def test_updates_existing_excerpt(self, tmp_path):
         f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT)
-        result = add_excerpt.update_file_with_excerpt(f, "Updated excerpt")
-        assert result is True
-        content = f.read_text()
-        assert "excerpt: Updated excerpt" in content
+        assert write_excerpt(f, "Updated excerpt")
+        assert "excerpt: Updated excerpt" in f.read_text()
 
-    def test_inserts_excerpt_when_absent(self, tmp_path):
+    def test_inserts_excerpt_after_title(self, tmp_path):
         f = make_md(tmp_path, "page.md", FM_NO_EXCERPT)
-        result = add_excerpt.update_file_with_excerpt(f, "Brand new excerpt")
-        assert result is True
-        content = f.read_text()
-        assert "excerpt: Brand new excerpt" in content
-        # Should appear right after the title line
-        lines = content.splitlines()
+        assert write_excerpt(f, "Brand new excerpt")
+        lines = f.read_text().splitlines()
         title_idx = next(i for i, l in enumerate(lines) if l.startswith("title:"))
-        excerpt_idx = next(i for i, l in enumerate(lines) if l.startswith("excerpt:"))
-        assert excerpt_idx == title_idx + 1
-
-    def test_replaces_empty_excerpt(self, tmp_path):
-        f = make_md(tmp_path, "page.md", FM_EMPTY_EXCERPT)
-        result = add_excerpt.update_file_with_excerpt(f, "Filled in")
-        assert result is True
-        assert "excerpt: Filled in" in f.read_text()
+        assert lines[title_idx + 1] == "excerpt: Brand new excerpt"
 
     def test_replaces_multiline_yaml_excerpt(self, tmp_path):
         # Regression: multi-line YAML scalar excerpts left the continuation
         # line behind, duplicating part of the old value alongside the new one.
-        content = (
-            "---\n"
-            "title: Test Page\n"
-            "excerpt: Old first line of a long excerpt that wraps,\n"
-            "  covering many topics in the second line.\n"
-            "deprecated: false\n"
-            "---\nBody.\n"
-        )
         f = tmp_path / "page.md"
-        f.write_text(content, encoding="utf-8")
-        result = add_excerpt.update_file_with_excerpt(f, "New short excerpt")
-        assert result is True
+        f.write_text(
+            "---\ntitle: Test Page\nexcerpt: Old first line of a long excerpt that wraps,\n"
+            "  covering many topics in the second line.\ndeprecated: false\n---\nBody.\n",
+            encoding="utf-8",
+        )
+        assert write_excerpt(f, "New short excerpt")
         text = f.read_text()
         assert "excerpt: New short excerpt" in text
-        assert "covering many topics" not in text  # old continuation must be gone
+        assert "covering many topics" not in text
+
+    def test_long_values_not_wrapped(self, tmp_path):
+        # Regression: yaml.dump wrapped long values at 80 columns, which later broke go-live.md.
+        f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT)
+        long = "word " * 40
+        assert write_excerpt(f, long.strip())
+        assert f"excerpt: {long.strip()}\n" in f.read_text()
 
     def test_crlf_body_preserved(self, tmp_path):
-        # Regression: files with CRLF line endings in their body (e.g. code blocks
-        # pasted from Windows) must not have those endings stripped when only the
-        # front matter is updated.
-        content = (
-            "---\n"
-            "title: Test Page\n"
-            "excerpt: Old excerpt\n"
-            "deprecated: false\n"
-            "---\n"
-            "## Body\r\n"
-            "\r\n"
-            "```json\r\n"
-            '{"key": "value"}\r\n'
-            "```\r\n"
-        )
+        # Regression: CRLF line endings in the body must survive a front matter rewrite.
         f = tmp_path / "page.md"
-        f.write_bytes(content.encode("utf-8"))
-        result = add_excerpt.update_file_with_excerpt(f, "New excerpt")
-        assert result is True
+        f.write_bytes(
+            "---\ntitle: Test Page\nexcerpt: Old excerpt\n---\n## Body\r\n\r\n```json\r\n{}\r\n```\r\n".encode()
+        )
+        assert write_excerpt(f, "New excerpt")
         raw = f.read_bytes().decode("utf-8")
         assert "excerpt: New excerpt" in raw
-        assert "```json\r\n" in raw  # CRLF must survive the rewrite
+        assert "```json\r\n" in raw
 
-    def test_no_frontmatter_returns_false(self, tmp_path):
+    def test_no_frontmatter(self, tmp_path):
         f = tmp_path / "plain.md"
         f.write_text("No front matter here.\n", encoding="utf-8")
-        result = add_excerpt.update_file_with_excerpt(f, "some text")
-        assert result is False
+        assert not write_excerpt(f, "some text")
+
+    def test_write_adds_hidden_false(self, tmp_path):
+        f = make_md(tmp_path, "page.md", """\
+            ---
+            title: Test Page
+            link:
+              new_tab: false
+            ---
+            Body text.
+            """)
+        assert write_excerpt(f, "New")
+        fm = frontmatter.read(f).fm
+        assert list(fm) == ["title", "excerpt", "hidden", "link"]
+        assert fm["hidden"] is False
+
+    def test_write_keeps_existing_hidden(self, tmp_path):
+        f = make_md(tmp_path, "page.md", FM_HIDDEN)
+        assert write_excerpt(f, "New")
+        assert frontmatter.read(f).fm["hidden"] is True
+
+    def test_set_description_creates_metadata(self):
+        fm = frontmatter.set_description({"title": "T"}, "D")
+        assert fm == {"title": "T", "metadata": {"title": "", "description": "D", "robots": "index"}}
+
+    @pytest.mark.parametrize("rel, fm, expected", [
+        ("docs/a.md", {"title": "T"}, "excerpt"),
+        ("docs/a.md", {"excerpt": "  "}, "excerpt"),
+        ("docs/a.md", {"excerpt": "Fine"}, None),
+        ("docs/a.md", {"hidden": True}, None),
+        ("reference/a.md", {"title": "T"}, None),
+        ("reference/a.md", {"excerpt": ""}, "excerpt"),
+        ("reference/a.md", {"excerpt": "Fine", "metadata": {"description": ""}}, None),
+        ("reference/a.md", {"metadata": {"description": ""}}, "metadata.description"),
+        ("reference/a.md", {"metadata": {"description": "Fine"}}, None),
+    ])
+    def test_missing_field(self, rel, fm, expected):
+        assert frontmatter.missing_field(rel, fm) == expected
 
 
 # ---------------------------------------------------------------------------
@@ -332,9 +371,7 @@ FM_BLOCK_SCALAR = """\
 
 
 def load_fm(path: Path) -> dict:
-    content = path.read_text(encoding="utf-8")
-    fm_text, _, _ = fix_frontmatter.split_frontmatter(content)
-    return yaml.safe_load(fm_text)
+    return frontmatter.read(path).fm
 
 
 class TestFixFrontmatter:
@@ -476,7 +513,7 @@ class TestShortenExcerpt:
             assert len(once) <= 160
             assert shorten_excerpt.shorten(once) == once
 
-    def test_shortens_file_fields(self, tmp_path):
+    def test_shortens_excerpt_only(self, tmp_path):
         long = "Learn how to " + "use this feature well " * 10
         f = make_md(tmp_path, "page.md", f"""\
             ---
@@ -490,11 +527,12 @@ class TestShortenExcerpt:
             ---
             Body text.
             """)
-        changes = shorten_excerpt.shorten_file(f, dry_run=False)
-        assert [c[0] for c in changes] == ["excerpt", "metadata.description"]
+        old, new = shorten_excerpt.shorten_file(f, dry_run=False)
+        assert old == long.strip() and len(new) <= 160
         fm = yaml.safe_load(f.read_text().split("---")[1])
-        assert len(fm["excerpt"]) <= 160
-        assert fm["excerpt"] == fm["metadata"]["description"]
+        assert fm["excerpt"] == new
+        # sync_description.py owns metadata.description.
+        assert fm["metadata"]["description"] == long.strip()
         assert fm["metadata"]["robots"] == "index"
         assert f.read_text().endswith("---\nBody text.\n")
 
@@ -509,3 +547,52 @@ class TestShortenExcerpt:
         original = f.read_text()
         assert shorten_excerpt.shorten_file(f, dry_run=True)
         assert f.read_text() == original
+
+
+# ---------------------------------------------------------------------------
+# generate_excerpts
+# ---------------------------------------------------------------------------
+
+class TestGenerateExcerpts:
+    def test_retries_until_short_enough(self, tmp_path, monkeypatch):
+        replies = iter(["x" * 200, "y" * 170, "Short enough."])
+        calls = []
+
+        def fake_call(messages, api_key):
+            calls.append(list(messages))
+            return next(replies)
+
+        monkeypatch.setattr(generate_excerpts, "call_claude", fake_call)
+        doc = frontmatter.read(make_md(tmp_path, "page.md", FM_NO_EXCERPT))
+        assert generate_excerpts.generate_excerpt(doc, "key") == "Short enough."
+        assert len(calls) == 3
+        assert "200 characters" in calls[1][-1]["content"]
+
+    def test_shortens_after_max_attempts(self, tmp_path, monkeypatch):
+        long = "Learn how to " + "use this feature well " * 10
+        monkeypatch.setattr(generate_excerpts, "call_claude", lambda messages, api_key: long)
+        doc = frontmatter.read(make_md(tmp_path, "page.md", FM_NO_EXCERPT))
+        assert generate_excerpts.generate_excerpt(doc, "key") == shorten_excerpt.shorten(long)
+
+    @pytest.mark.parametrize("rel, fm, missing_only, expected", [
+        ("docs/a.md", {"excerpt": "Fine"}, True, None),
+        ("docs/a.md", {"excerpt": "Fine"}, False, "excerpt"),
+        ("docs/a.md", {"hidden": True}, False, None),
+        ("reference/a.md", {"title": "T"}, False, None),
+        ("reference/a.md", {"metadata": {"description": "Old"}}, False, "metadata.description"),
+    ])
+    def test_target_field(self, rel, fm, missing_only, expected):
+        assert generate_excerpts.target_field(rel, fm, missing_only) == expected
+
+    def test_apply_docs_sets_both_fields(self):
+        fm = generate_excerpts.apply("docs/a.md", {"title": "T"}, "excerpt", "New")
+        assert list(fm) == ["title", "excerpt", "metadata"]
+        assert fm["metadata"] == {"title": "", "description": "New", "robots": "index"}
+
+    def test_apply_reference_does_not_add_description(self):
+        fm = generate_excerpts.apply("reference/a.md", {"title": "T", "excerpt": ""}, "excerpt", "New")
+        assert fm == {"title": "T", "excerpt": "New"}
+
+    def test_apply_reference_description_only(self):
+        fm = generate_excerpts.apply("reference/a.md", {"metadata": {"description": ""}}, "metadata.description", "New")
+        assert fm == {"metadata": {"description": "New"}}
