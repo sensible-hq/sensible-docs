@@ -261,6 +261,8 @@ class TestSyncDescription:
         fm = yaml.safe_load(f.read_text().split("---")[1])
         assert list(fm["metadata"].items()) == [("title", ""), ("description", "My excerpt"), ("robots", "index")]
         assert fm["link"] == {"new_tab": False}
+        assert list(fm) == ["title", "excerpt", "hidden", "link", "metadata"]
+        assert fm["hidden"] is False
 
     def test_inserts_description_after_title(self, tmp_path):
         f = make_md(tmp_path, "page.md", FM_WITH_EXCERPT_NO_DESC)

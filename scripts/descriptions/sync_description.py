@@ -60,6 +60,20 @@ def with_description(metadata: dict | None, description: str) -> dict:
     return out
 
 
+def with_hidden(fm: dict) -> dict:
+    """Return fm with hidden: false added if absent, after deprecated/excerpt/title."""
+    if "hidden" in fm:
+        return fm
+    after = next((k for k in ("deprecated", "excerpt", "title") if k in fm), None)
+    out = {}
+    for key, value in fm.items():
+        out[key] = value
+        if key == after:
+            out["hidden"] = False
+    out.setdefault("hidden", False)
+    return out
+
+
 def sync_description(path: Path, dry_run: bool) -> bool:
     """Return True if the file was (or would be) updated."""
     content = path.open(encoding="utf-8", newline="").read()
@@ -78,6 +92,7 @@ def sync_description(path: Path, dry_run: bool) -> bool:
         return False
 
     fm["metadata"] = with_description(metadata, excerpt)
+    fm = with_hidden(fm)
 
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     if not dry_run:
