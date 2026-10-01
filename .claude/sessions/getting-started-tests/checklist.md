@@ -2,7 +2,8 @@
 
 Claude Code session name: doc-detective (renamed from getting-started-tests; checklist dir keeps the old name)
 Claude Code session ID: 720fe7cf-48da-4332-8c4b-866ca3fa807d
-Branch: getting-started-tests · started 2026-09-30 from /home/franc/GitHub/sensible-docs
+Branch: doc-detective-getting-started-tests (renamed from getting-started-tests 2026-10-01) · started 2026-09-30 from /home/franc/GitHub/sensible-docs
+PR: #737 (draft). Replaced #735, which GitHub closed when the head branch was renamed
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 720fe7cf-48da-4332-8c4b-866ca3fa807d`
 
 Goal: add real Doc Detective tests to `docs/document extraction/getting-started.md`, a mix of UI tests (Sensible app steps) and code tests (code samples).
