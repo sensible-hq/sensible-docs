@@ -46,6 +46,71 @@ Research 2026-10-01, from reading and running the backend code in a throwaway cl
 
 ---
 
+### How much work is auto-generating a spec from the backend? (estimate, 2026-10-01)
+
+Not measured end to end; based on what the backend has and lacks.
+
+- **Has:**
+  - JSON Schema request validation for most endpoints;
+  - named, exported response types for most endpoints;
+  - routes declared in one place;
+  - a schema generator already in use.
+- **Lacks:**
+  - any link from a route to its response type (handlers aren't typed with their response);
+  - typed error responses (plain-text messages mapped to status codes centrally);
+  - standard equivalents for the custom validation keywords.
+
+| Goal | Effort |
+|---|---|
+| **A. Structure-only spec for contract testing:** paths, params, request and response models, no prose. A mapping file for the ~42 documented operations, an assembler script, small backend changes (export body schemas, fix the odd type the generator can't read) | **About 2–4 days.** The extraction spec's ~10 operations first, roughly 1 day |
+| **B. The backend as the spec's source of truth:** generated on every build, with hand-written descriptions merged in | **A 1–2 week engineering project,** plus ongoing discipline |
+
+**Recommendation: A.** It's enough for leg 1, and it doesn't change how anyone works: descriptions and examples stay hand-written in `reference/`.
+
+### How the comparison works (deterministic, rules-based)
+
+No LLM. The same two inputs always give the same result.
+
+1. **Resolve references** on both sides (`$ref` into `components/schemas` or `definitions`). Cut recursive types and mark them.
+2. **Normalize the two dialects into one form:**
+   - OpenAPI 3.0 `nullable` and the generator's `anyOf [X, null]` both become "or null";
+   - maps (`additionalProperties`) count as objects, and tuple `items` as arrays;
+   - merge `allOf`;
+   - drop prose (descriptions, examples, `x-*`).
+3. **Flatten into paths:** `.` for properties, `[]` for array items, such as `classification_summary[].score.penalties`. Each path records its type, enum values and required status.
+4. **Compare path by path with explicit rules:**
+
+| Situation | Rule |
+|---|---|
+| Path in both | Compare type families: `integer` = `number` (TypeScript has no integer); map = object; enums as **sets**; formats ignored |
+| Only in the backend | Undocumented field: an error unless allowlisted |
+| Only in the spec | **Documented field that doesn't exist (hallucination): always an error** |
+| Required in the backend, not in the spec | The spec should mark it required |
+
+5. **Direction matters.**
+   - **Responses:** the spec must be a subset of the backend.
+   - **Requests:** the spec must not accept what the backend rejects. A *stricter* spec, like today's `environment` enum, is a warning, not an error.
+6. **Allowlist:** a checked-in list of deliberate omissions and known equivalences, each with a reason. For example `version_id` and `batchId`, and fields that only `GET /documents/{id}` returns.
+
+**First result (prototype, sync extraction response model):**
+- 51 paths match;
+- 2 real type differences: `environment` (string vs. enum) and `errors[].type` (enum vs. string);
+- 49 paths exist only in the backend, mostly nested under undocumented or GET-only fields;
+- **0 exist only in the spec.**
+
+**The prototype's known weak spots**, to fix before relying on it:
+- unions use only the first object branch;
+- it stops at 5 levels;
+- it compares text labels instead of structured nodes;
+- it ignores request vs. response direction;
+- it has no allowlist yet.
+
+**The real version:** about 200 lines of structured comparison, with no depth limit, branch-by-branch unions, direction-aware rules, an allowlist and an HTML view. Prove it with unit tests on hand-made schema pairs, including ones that must fail.
+
+**Off-the-shelf alternative:** wrap the generated schema in a minimal OpenAPI document and run **oasdiff**. It's deterministic and mature, but it answers "is this a breaking API change?", not "do the docs match the implementation?". Useful as a second opinion.
+
+---
+
 ## Leg 2: spec ↔ published reference
 
 Two parts, both deterministic and cheap.
@@ -152,6 +217,8 @@ Likely shape: **Spectral** on PRs for spec quality, a **Python runner** for legs
 ## Next steps
 
 - [x] Fill in leg 1 from the code research (2026-10-01)
+- [ ] Build the real leg 1 comparison (structured, direction-aware, allowlist, unit tests), starting with the extraction spec (goal A)
+- [ ] Ask engineering about goal A's small backend changes (export body schemas, generator-friendly types) and about CI access to the backend
 - [ ] Verify the leg 1 mismatches against the live API where it's cheap (errors don't create extractions): `environment=foo`, a YAML body, a 257-character `document_name`, a missing Content-Type
 - [ ] Report the engineering bug (finding 10) to engineering, privately
 - [ ] Review the `x-internal-note` values that cite backend source paths and remove the paths (finding 1)
