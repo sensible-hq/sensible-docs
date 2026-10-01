@@ -285,6 +285,102 @@ def subset_diffs(expected, actual, path=()):
     return [(path, expected, actual)]
 
 
+def coverage_notes(expected, actual, path=(), notes=None):
+    """Record what the comparison didn't check: `...` markers, shortened arrays, and keys the docs leave out.
+
+    Returns {"skipped": [paths], "abbreviated": [(path, shown, total)], "extra_top_level": [keys],
+    "extra_nested": count}.
+    """
+    if notes is None:
+        notes = {"skipped": [], "abbreviated": [], "extra_top_level": [], "extra_nested": 0}
+    if is_ellipsis(expected):
+        notes["skipped"].append(path)
+    elif isinstance(expected, dict) and isinstance(actual, dict):
+        extra = [k for k in actual if k not in expected]
+        if path:
+            notes["extra_nested"] += len(extra)
+        else:
+            notes["extra_top_level"] += extra
+        for k in expected:
+            if k in actual:
+                coverage_notes(expected[k], actual[k], path + (k,), notes)
+    elif isinstance(expected, list) and isinstance(actual, list):
+        cut = next((i for i, e in enumerate(expected) if is_ellipsis(e)), None)
+        if cut is None:
+            pairs = list(zip(range(len(expected)), range(len(actual)))) if len(expected) == len(actual) else []
+        else:
+            shown = [i for i, e in enumerate(expected) if not is_ellipsis(e)]
+            notes["abbreviated"].append((path, len(shown), len(actual)))
+            offset = len(actual) - len(expected)
+            pairs = [(i, i) for i in shown if i < cut] + [(i, i + offset) for i in shown if i > cut]
+            pairs = [(i, j) for i, j in pairs if 0 <= j < len(actual)]
+        for i, j in pairs:
+            coverage_notes(expected[i], actual[j], path + (i,), notes)
+    return notes
+
+
+def print_comparison(test_id, expected, actual, index, exact, judged_results):
+    """Print what was compared and how, for the Doc Detective report and the failure issue."""
+    notes = coverage_notes(expected, actual)
+    def count(n, word):
+        return f"{n} {word}" + ("" if n == 1 else "s")
+
+    details = []
+    left_out = []
+    if notes["extra_top_level"]:
+        left_out.append(count(len(notes["extra_top_level"]), "field"))
+    if notes["extra_nested"]:
+        left_out.append(count(notes["extra_nested"], "nested key"))
+    if left_out:
+        details.append("docs leave out " + " and ".join(left_out))
+    marked = len(notes["skipped"]) + len(notes["abbreviated"])
+    if marked:
+        details.append(count(marked, "part") + " marked ... not checked")
+    if judged_results:
+        details.append(count(len(judged_results), "LLM value") + " differ" + ("s" if len(judged_results) == 1 else "") + ", decided by the judge")
+    if exact or any(v == "fail" for _, _, _, v in judged_results):
+        overall = "mismatch"
+    elif not details and not diffs_exist(actual, expected):
+        overall = "identical"
+    else:
+        overall = "matches, not identical" + (f" ({'; '.join(details)})" if details else "")
+
+    print(f"Comparison for {test_id}")
+    print(f"  Docs output vs parsed_document: {overall}")
+    print("  Fields shown in the docs:")
+    keys = list(expected) if isinstance(expected, dict) else []
+    width = max((len(k) for k in keys), default=0)
+    for key in keys:
+        kind = ("fallback" if key in index.other else "LLM") if key in index.llm else ("layout" if key in index.other else "other")
+        events = [f"exact mismatch at {format_path(d[0])}" for d in exact if d[0][:1] == (key,)]
+        events += [
+            f"judged {format_path(d[0])}: {r['match']} ({r['confidence']:.2f}, {model}) -> {verdict.upper()}"
+            for d, model, r, verdict in judged_results
+            if d[0][:1] == (key,)
+        ]
+        if is_ellipsis(expected[key]):
+            events = ["not checked (...)"]
+        print(f"    {key.ljust(width)}  {kind.ljust(8)}  {'; '.join(events) or 'exact match'}")
+    if notes["skipped"] or notes["abbreviated"]:
+        print("  Not checked (...):")
+        for path in notes["skipped"]:
+            print(f"    {format_path(path)}")
+        for path, shown, total in notes["abbreviated"]:
+            print(f"    {format_path(path)}: docs show {shown} of {total} items")
+    if notes["extra_top_level"]:
+        print(f"  In parsed_document, not in the docs: {', '.join(notes['extra_top_level'])}")
+    if notes["extra_nested"]:
+        print(f"  Nested keys in parsed_document, not in the docs: {notes['extra_nested']}")
+    if judged_results:
+        print("  Judge reasoning:")
+        for d, model, r, verdict in judged_results:
+            print(f"    {format_path(d[0])}: {r['reasoning']}")
+
+
+def diffs_exist(expected, actual):
+    return bool(subset_diffs(expected, actual))
+
+
 def format_path(path):
     return "$" + "".join(f"[{p}]" if isinstance(p, int) else f".{p}" for p in path)
 
@@ -397,6 +493,7 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None)
     failures = [format_diff(d) for d in exact]
     fixable = list(exact)
     warnings = []
+    judged_results = []
     if judged:
         # ANTHROPIC_KEY: the name some local shells use for the same key
         judge_key = load_key("ANTHROPIC_API_KEY") or load_key("ANTHROPIC_KEY")
@@ -417,18 +514,19 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None)
             raise ExampleError("JUDGE_ERROR", str(e))
         for (d, route), r in zip(judged, results):
             verdict = llm_judge.classify(r)
+            judged_results.append((d, judge_model, r, verdict))
             fallback_note = " (fallback chain: a layout field shares this ID)" if route[2] else ""
             line = (
                 f"{format_diff(d)}\n    judge ({judge_model}){fallback_note}: "
                 f"{r['match']}, confidence {r['confidence']:.2f}. {r['reasoning']}"
             )
-            print(f"  {verdict.upper()} {line}")
             if verdict == "fail":
                 failures.append(line)
                 fixable.append(d)
             elif verdict == "warn":
                 warnings.append(line)
 
+    print_comparison(test_id, expected, result.get("parsed_document") or {}, index, exact, judged_results)
     if failures:
         message = "docs output doesn't match the extraction:\n  " + "\n  ".join(failures)
         if fix_path and propose_fix(fix_path, example, apply_fixes(expected, fixable)):

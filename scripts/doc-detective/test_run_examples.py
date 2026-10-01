@@ -155,5 +155,40 @@ class RunExampleTest(unittest.TestCase):
         self.assertEqual(len(warnings), 1)
 
 
+class ComparisonSummaryTest(unittest.TestCase):
+    def summary(self, docs, actual, exact=(), judged=()):
+        import contextlib, io
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            r.print_comparison("test", r.parse_json5(docs), actual, llm_judge.FieldIndex(CONFIG), list(exact), list(judged))
+        return out.getvalue()
+
+    def test_identical(self):
+        self.assertIn("vs parsed_document: identical", self.summary('{"policy_number": {"value": "1"}}', {"policy_number": {"value": "1"}}))
+
+    def test_subset_lists_what_the_docs_leave_out(self):
+        text = self.summary('{"policy_number": {"value": "1"}}', {"policy_number": {"value": "1", "type": "string"}, "phone": None})
+        self.assertIn("matches, not identical (docs leave out 1 field and 1 nested key)", text)
+        self.assertIn("In parsed_document, not in the docs: phone", text)
+
+    def test_abbreviated_array_and_skipped_value(self):
+        text = self.summary('{"vehicles": [{"make": "A"}, ...], "phone": "..."}', {"vehicles": [{"make": "A"}, {"make": "B"}, {"make": "C"}], "phone": "x"})
+        self.assertIn("$.vehicles: docs show 1 of 3 items", text)
+        self.assertIn("$.phone\n", text)
+        self.assertRegex(text, r"phone\s+LLM\s+not checked \(\.\.\.\)")
+        self.assertIn("2 parts marked ... not checked", text)
+
+    def test_field_kinds_and_judged_verdicts(self):
+        diff = (("phone", "value"), "1", "2")
+        text = self.summary('{"policy_number": {"value": "1"}, "phone": {"value": "1"}, "total": {"value": 1}}',
+                            {"policy_number": {"value": "1"}, "phone": {"value": "2"}, "total": {"value": 1}},
+                            judged=[(diff, "test-judge", {"match": "pass", "confidence": 0.9, "reasoning": "same"}, "pass")])
+        self.assertRegex(text, r"policy_number\s+layout\s+exact match")
+        self.assertRegex(text, r"phone\s+LLM\s+judged \$\.phone\.value: pass \(0\.90, test-judge\) -> PASS")
+        self.assertRegex(text, r"total\s+fallback\s+exact match")
+        self.assertIn("$.phone.value: same", text)
+        self.assertIn("matches, not identical (1 LLM value differs, decided by the judge)", text)
+
+
 if __name__ == "__main__":
     unittest.main()
