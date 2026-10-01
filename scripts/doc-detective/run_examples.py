@@ -4,7 +4,8 @@
 An example is marked up in a doc with HTML comments, inside a Doc Detective test:
 
     <!-- test {"testId": "extract_auto_insurance_anyco"} -->
-    <!-- example document {"url": "https://.../auto_insurance_anyco.pdf"} -->
+    <!-- example document -->
+    | Example document | [Download link](https://.../auto_insurance_anyco.pdf) |
     <!-- example config -->
     ```json
     { "fields": [ ... ] }
@@ -18,7 +19,8 @@ An example is marked up in a doc with HTML comments, inside a Doc Detective test
 For each example, the runner:
   1. Parses the config (allowing /* */ comments and trailing commas)
   2. Uploads it as configuration <testId> in document type DOC_TYPE, published to development
-  3. Extracts from the example document URL with the Python SDK
+  3. Extracts from the example document with the Python SDK. The URL comes from the first link
+     after <!-- example document -->, so the visible download link is the only copy
   4. Checks that the docs output is a subset of the actual parsed_document
 At the end of the run, it deletes DOC_TYPE (configs included). Extraction history stays in the app.
 
@@ -48,6 +50,8 @@ ENVIRONMENT = "development"
 TEST_RE = re.compile(r"<!--\s*test\s+(\{.*?\})\s*-->(.*?)<!--\s*test end\s*-->", re.S)
 MARKER_RE = re.compile(r"<!--\s*example\s+(config|document|output)\s*(\{.*?\})?\s*-->", re.S)
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
+# First Markdown link on the next non-blank line, for example the example document's download link
+LINK_RE = re.compile(r"\s*[^\n]*?\]\((https?://[^)\s]+)\)")
 
 
 class ExampleError(Exception):
@@ -94,7 +98,10 @@ def parse_examples(path):
             role = marker.group(1)
             options = json.loads(marker.group(2)) if marker.group(2) else {}
             if role == "document":
-                parts["document_url"] = options["url"]
+                link = LINK_RE.match(body, marker.end())
+                if not link:
+                    raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: <!-- example document --> isn't followed by a line with a link")
+                parts["document_url"] = link.group(1)
                 continue
             fence = FENCE_RE.match(body, marker.end())
             if not fence:

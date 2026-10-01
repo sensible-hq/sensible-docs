@@ -58,9 +58,14 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 <!-- step {"find": {"elementText": "New document type", "timeout": 15000}} -->
 <!-- test end -->
 
+<!-- test {"testId": "extract_auto_insurance_anyco", "description": "Run the tutorial config against the example document and check the documented output"} -->
+<!-- step {"runShell": {"command": "python3 scripts/doc-detective/run_examples.py --file \"docs/document extraction/getting-started.md\" --test extract_auto_insurance_anyco", "exitCodes": [0]}} -->
+
 1. In the [**Document Types**](https://app.sensible.so/document-types/) tab, Click **New document type**  to create a new document type. In the dialog:
 
    1. Download the following example document, then select it in the dialog for upload:
+
+   <!-- example document -->
 
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -86,10 +91,6 @@ For this tutorial, you'll extract these fields:
 * a couple of premiums
 * the policy number
 * the policy period
-
-<!-- test {"testId": "extract_auto_insurance_anyco", "description": "Run the tutorial config against the example document and check the documented output"} -->
-<!-- step {"runShell": {"command": "python3 scripts/doc-detective/run_examples.py --file \"docs/document extraction/getting-started.md\" --test extract_auto_insurance_anyco", "exitCodes": [0]}} -->
-<!-- example document {"url": "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf"} -->
 
 1. Paste this config into the left pane in the editor to extract the data:
 
