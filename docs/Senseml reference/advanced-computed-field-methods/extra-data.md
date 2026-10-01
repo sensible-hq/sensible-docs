@@ -1,7 +1,13 @@
 ---
 title: Extra data
+excerpt: Inject request-time data into extraction configs to validate, transform, and cross-check extracted fields across documents.
+hidden: false
 link:
   new_tab: false
+metadata:
+  title: ''
+  description: Inject request-time data into extraction configs to validate, transform, and cross-check extracted fields across documents.
+  robots: index
 ---
 Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data. You supply the data in a `extra_data` object as part of an asynchronous extraction request. You can customize each `extra_data` object for each document for which you request extraction.&#x20;
 
