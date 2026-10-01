@@ -3,6 +3,8 @@
 Branch: doc-detective-poc (PR #725) · Session: docs-as-tests · ID: 54fbb70b-2c5e-4a3b-8d24-8a1f1b7e79f8 · started 2026-09-23 from /home/franc/GitHub/sensible-docs
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 54fbb70b-2c5e-4a3b-8d24-8a1f1b7e79f8`
 
+> Superseded 2026-10-01: CONCEPT.md is retired. The design was built in PR #737 (branch `doc-detective-getting-started-tests`); see `scripts/doc-detective/README.md` there. Open items below that still matter are tracked in that PR's session checklist.
+
 - [x] Survey SenseML reference example structure (counts, JSON5, URL health)
 - [x] Confirm API constraints (no inline-config extract; SDK lacks config CRUD)
 - [x] Draft sessions/docs-as-tests/CONCEPT.md
