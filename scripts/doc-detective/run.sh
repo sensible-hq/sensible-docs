@@ -13,8 +13,13 @@ output_dir="$repo_root/scripts/doc-detective/output"
 secret_vars=(SENSIBLE_TEST_PASSWORD SENSIBLE_TEST_API_KEY ANTHROPIC_API_KEY ANTHROPIC_KEY)
 
 cd "$repo_root"
+# Code-test records from earlier runs would otherwise show up in this run's report
+rm -rf "$output_dir/examples"
 doc-detective -c .doc-detective.json "$@"
 status=$?
+
+# Readable report (output/report.html). Generated before scrubbing so the scrub covers it.
+python3 "$repo_root/scripts/doc-detective/html_report.py" "$output_dir" || echo "Couldn't generate report.html" >&2
 
 # Read secrets from the environment, falling back to .env (which Doc Detective
 # also loads, and which takes precedence over the environment).

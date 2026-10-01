@@ -72,15 +72,17 @@ class RoutingTest(unittest.TestCase):
 class RunExampleTest(unittest.TestCase):
     """run_example end to end, with the Sensible API and the judge replaced by stand-ins."""
 
-    def run_with(self, docs_output, actual, verdict="pass"):
+    def run_with(self, docs_output, actual, verdict="pass", record=None):
         sent = []
 
         def fake_judge(key, claims, model=None):
             sent.extend(claims)
-            return "test-judge", [
+            results = [
                 {"path": c["path"], "claim": "", "observed": "", "match": verdict, "confidence": 0.9, "reasoning": "stub"}
                 for c in claims
             ]
+            return {"model": "test-judge", "system_prompt": "SYSTEM", "user_prompt": llm_judge.build_user_prompt(claims),
+                    "raw_output": json.dumps({"results": results}), "results": results}
 
         class FakeHead:
             status_code = 200
@@ -112,7 +114,7 @@ class RunExampleTest(unittest.TestCase):
         }
         try:
             try:
-                return sent, r.run_example("fake-key", "test", example), None
+                return sent, r.run_example("fake-key", "test", example, record=record), None
             except r.ExampleError as e:
                 return sent, None, e
         finally:
@@ -155,39 +157,80 @@ class RunExampleTest(unittest.TestCase):
         self.assertEqual(len(warnings), 1)
 
 
-class ComparisonSummaryTest(unittest.TestCase):
-    def summary(self, docs, actual, exact=(), judged=()):
-        import contextlib, io
-        out = io.StringIO()
-        with contextlib.redirect_stdout(out):
-            r.print_comparison("test", r.parse_json5(docs), actual, llm_judge.FieldIndex(CONFIG), list(exact), list(judged))
-        return out.getvalue()
+class RecordTest(unittest.TestCase):
+    """What run_example records for the summary and the HTML report."""
+
+    def run_record(self, docs, actual, verdict="pass"):
+        record = {"test_id": "test"}
+        RunExampleTest.run_with(RunExampleTest(), docs, actual, verdict, record)
+        return record
 
     def test_identical(self):
-        self.assertIn("vs parsed_document: identical", self.summary('{"policy_number": {"value": "1"}}', {"policy_number": {"value": "1"}}))
+        docs = {"policy_number": {"value": "1"}, "phone": {"value": "x"}}
+        record = self.run_record(docs, docs)
+        self.assertEqual(record["overall"], "identical")
+        self.assertEqual([f["field"] for f in record["llm_fields"]], ["phone"])
+        self.assertEqual(record["llm_fields"][0]["judged"], [])
+        self.assertEqual(record["layout"], {"fields": 1, "mismatches": []})
+        self.assertNotIn("judge", record)
 
-    def test_subset_lists_what_the_docs_leave_out(self):
-        text = self.summary('{"policy_number": {"value": "1"}}', {"policy_number": {"value": "1", "type": "string"}, "phone": None})
-        self.assertIn("matches, not identical (docs leave out 1 field and 1 nested key)", text)
-        self.assertIn("In parsed_document, not in the docs: phone", text)
+    def test_left_out_and_abbreviated(self):
+        record = self.run_record(
+            {"vehicles": [{"make": "A"}, "..."], "policy_number": {"value": "1"}},
+            {"vehicles": [{"make": "A"}, {"make": "B"}, {"make": "C"}], "policy_number": {"value": "1", "type": "string"}, "phone": None},
+        )
+        self.assertEqual(record["overall"], "matches, not identical (docs leave out 1 field and 1 nested key; 1 part marked ... not checked)")
+        self.assertEqual(record["not_checked"], ["$.vehicles: docs show 1 of 3 items"])
+        self.assertEqual(record["left_out"], {"fields": ["phone"], "nested_keys": 1})
 
-    def test_abbreviated_array_and_skipped_value(self):
-        text = self.summary('{"vehicles": [{"make": "A"}, ...], "phone": "..."}', {"vehicles": [{"make": "A"}, {"make": "B"}, {"make": "C"}], "phone": "x"})
-        self.assertIn("$.vehicles: docs show 1 of 3 items", text)
-        self.assertIn("$.phone\n", text)
-        self.assertRegex(text, r"phone\s+LLM\s+not checked \(\.\.\.\)")
-        self.assertIn("2 parts marked ... not checked", text)
+    def test_judged_field_records_the_full_exchange(self):
+        record = self.run_record({"phone": {"value": "1800 123 4567"}}, {"phone": {"value": "1800-123-4567"}})
+        self.assertEqual(record["overall"], "matches, not identical (1 LLM value differs, decided by the judge)")
+        judged = record["llm_fields"][0]["judged"][0]
+        self.assertEqual((judged["path"], judged["documented"], judged["actual"], judged["verdict"]), ("$.phone.value", "1800 123 4567", "1800-123-4567", "pass"))
+        self.assertEqual(set(record["judge"]), {"model", "system_prompt", "user_prompt", "raw_output"})
+        self.assertIn("$.phone.value", record["judge"]["user_prompt"])
 
-    def test_field_kinds_and_judged_verdicts(self):
-        diff = (("phone", "value"), "1", "2")
-        text = self.summary('{"policy_number": {"value": "1"}, "phone": {"value": "1"}, "total": {"value": 1}}',
-                            {"policy_number": {"value": "1"}, "phone": {"value": "2"}, "total": {"value": 1}},
-                            judged=[(diff, "test-judge", {"match": "pass", "confidence": 0.9, "reasoning": "same"}, "pass")])
-        self.assertRegex(text, r"policy_number\s+layout\s+exact match")
-        self.assertRegex(text, r"phone\s+LLM\s+judged \$\.phone\.value: pass \(0\.90, test-judge\) -> PASS")
-        self.assertRegex(text, r"total\s+fallback\s+exact match")
-        self.assertIn("$.phone.value: same", text)
-        self.assertIn("matches, not identical (1 LLM value differs, decided by the judge)", text)
+    def test_summary_lists_llm_fields_and_counts_layout_fields(self):
+        import contextlib, io
+        record = self.run_record({"policy_number": {"value": "1"}, "phone": {"value": "a"}}, {"policy_number": {"value": "1"}, "phone": {"value": "b"}})
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            r.print_summary(record)
+        text = out.getvalue()
+        self.assertIn("LLM field phone: judged", text)
+        self.assertIn("Layout fields: 1, all exact match", text)
+        self.assertNotIn("policy_number", text)
+        self.assertIn('PASS  $.phone.value: "a" -> "b"', text)
+
+
+class PromptConfigTest(unittest.TestCase):
+    def test_prompts_come_from_judge_files(self):
+        with open(os.path.join(llm_judge.JUDGE_DIR, "system-prompt.md"), encoding="utf-8") as f:
+            self.assertEqual(llm_judge.CONFIG["system_prompt"], f.read().strip())
+        prompt = llm_judge.build_user_prompt([{"path": "$.a", "prompt": "p", "documented": "x", "observed": "y"}])
+        self.assertIn("- path: $.a", prompt)
+        self.assertIn('documented: "x"', prompt)
+        self.assertNotIn("$claims", prompt)
+
+
+class HtmlReportTest(unittest.TestCase):
+    def test_report_shows_llm_fields_prompt_and_output_escaped(self):
+        import tempfile
+        import html_report
+        record = RecordTest().run_record({"phone": {"value": "<b>1</b>"}}, {"phone": {"value": "<b>2</b>"}})
+        record.update(file="doc.md", document_url="https://example.test/doc.pdf", status="pass")
+        with tempfile.TemporaryDirectory() as out:
+            os.makedirs(os.path.join(out, "examples"))
+            with open(os.path.join(out, "examples", "test.json"), "w") as f:
+                json.dump(record, f)
+            with open(html_report.render(out), encoding="utf-8") as f:
+                page = f.read()
+        self.assertIn("<code>phone</code>", page)
+        self.assertIn("Full prompt the judge received", page)
+        self.assertIn("Full judge output (JSON)", page)
+        self.assertIn("&lt;b&gt;1&lt;/b&gt;", page)
+        self.assertNotIn("<b>1</b>", page)
 
 
 if __name__ == "__main__":

@@ -319,9 +319,22 @@ def coverage_notes(expected, actual, path=(), notes=None):
     return notes
 
 
-def print_comparison(test_id, expected, actual, index, exact, judged_results):
-    """Print what was compared and how, for the Doc Detective report and the failure issue."""
+def leaf_paths(value, path=()):
+    """Yield the path of every leaf (scalar or `...`) in a docs output block."""
+    if isinstance(value, dict) and value:
+        for k, v in value.items():
+            yield from leaf_paths(v, path + (k,))
+    elif isinstance(value, list) and value:
+        for i, v in enumerate(value):
+            yield from leaf_paths(v, path + (i,))
+    else:
+        yield path
+
+
+def summarize(record, expected, actual, index, exact, judged_results):
+    """Fill `record` with what was compared and how. Used by the summary and the HTML report."""
     notes = coverage_notes(expected, actual)
+
     def count(n, word):
         return f"{n} {word}" + ("" if n == 1 else "s")
 
@@ -337,44 +350,57 @@ def print_comparison(test_id, expected, actual, index, exact, judged_results):
     if marked:
         details.append(count(marked, "part") + " marked ... not checked")
     if judged_results:
-        details.append(count(len(judged_results), "LLM value") + " differ" + ("s" if len(judged_results) == 1 else "") + ", decided by the judge")
-    if exact or any(v == "fail" for _, _, _, v in judged_results):
-        overall = "mismatch"
+        details.append(count(len(judged_results), "LLM value") + (" differs" if len(judged_results) == 1 else " differ") + ", decided by the judge")
+    if exact or any(j["verdict"] == "fail" for j in judged_results):
+        record["overall"] = "mismatch"
     elif not details and not diffs_exist(actual, expected):
-        overall = "identical"
+        record["overall"] = "identical"
     else:
-        overall = "matches, not identical" + (f" ({'; '.join(details)})" if details else "")
+        record["overall"] = "matches, not identical" + (f" ({'; '.join(details)})" if details else "")
 
-    print(f"Comparison for {test_id}")
-    print(f"  Docs output vs parsed_document: {overall}")
-    print("  Fields shown in the docs:")
-    keys = list(expected) if isinstance(expected, dict) else []
-    width = max((len(k) for k in keys), default=0)
-    for key in keys:
-        kind = ("fallback" if key in index.other else "LLM") if key in index.llm else ("layout" if key in index.other else "other")
-        events = [f"exact mismatch at {format_path(d[0])}" for d in exact if d[0][:1] == (key,)]
-        events += [
-            f"judged {format_path(d[0])}: {r['match']} ({r['confidence']:.2f}, {model}) -> {verdict.upper()}"
-            for d, model, r, verdict in judged_results
-            if d[0][:1] == (key,)
-        ]
-        if is_ellipsis(expected[key]):
-            events = ["not checked (...)"]
-        print(f"    {key.ljust(width)}  {kind.ljust(8)}  {'; '.join(events) or 'exact match'}")
-    if notes["skipped"] or notes["abbreviated"]:
-        print("  Not checked (...):")
-        for path in notes["skipped"]:
-            print(f"    {format_path(path)}")
-        for path, shown, total in notes["abbreviated"]:
-            print(f"    {format_path(path)}: docs show {shown} of {total} items")
-    if notes["extra_top_level"]:
-        print(f"  In parsed_document, not in the docs: {', '.join(notes['extra_top_level'])}")
-    if notes["extra_nested"]:
-        print(f"  Nested keys in parsed_document, not in the docs: {notes['extra_nested']}")
-    if judged_results:
-        print("  Judge reasoning:")
-        for d, model, r, verdict in judged_results:
-            print(f"    {format_path(d[0])}: {r['reasoning']}")
+    # Each documented leaf belongs to the innermost field that produced it
+    llm_fields, layout_fields = {}, set()
+    for path in leaf_paths(expected):
+        key, kind = index.owner(path)
+        if kind in ("llm", "fallback"):
+            llm_fields.setdefault(key, {"field": key, "kind": kind, "prompt": index.llm[key], "judged": []})
+        elif key:
+            layout_fields.add(key)
+    for j in judged_results:
+        llm_fields[j["field"]]["judged"].append(j)
+    record["llm_fields"] = list(llm_fields.values())
+    record["layout"] = {"fields": len(layout_fields), "mismatches": [format_diff(d) for d in exact]}
+    record["not_checked"] = [format_path(p) for p in notes["skipped"]] + [
+        f"{format_path(p)}: docs show {shown} of {total} items" for p, shown, total in notes["abbreviated"]
+    ]
+    record["left_out"] = {"fields": notes["extra_top_level"], "nested_keys": notes["extra_nested"]}
+
+
+def print_summary(record):
+    """Print a short summary for the Doc Detective report and the failure issue."""
+    print(f"{record['test_id']}: {record.get('overall', '')}")
+    for field in record.get("llm_fields", []):
+        state = "judged" if field["judged"] else "identical to the docs"
+        note = " (fallback chain with a layout field)" if field["kind"] == "fallback" else ""
+        print(f"  LLM field {field['field']}{note}: {state}")
+    layout = record.get("layout")
+    if layout:
+        if layout["mismatches"]:
+            print(f"  Layout fields: {len(layout['mismatches'])} mismatch(es)")
+            for m in layout["mismatches"]:
+                print(f"    {m}")
+        else:
+            print(f"  Layout fields: {layout['fields']}, all exact match")
+    for note in record.get("not_checked", []):
+        print(f"  Not checked (...): {note}")
+    judge = record.get("judge")
+    if judge:
+        print(f"  Judge ({judge['model']}):")
+        for field in record["llm_fields"]:
+            for j in field["judged"]:
+                print(f"    {j['verdict'].upper()}  {j['path']}: {json.dumps(j['documented'], ensure_ascii=False)} -> {json.dumps(j['actual'], ensure_ascii=False)}  ({j['match']}, confidence {j['confidence']:.2f})")
+                print(f"      {j['reasoning']}")
+    print("  Full report: scripts/doc-detective/output/report.html")
 
 
 def diffs_exist(expected, actual):
@@ -461,8 +487,12 @@ def upload_config(key, type_id, name, config_text):
         raise ExampleError("CONFIG_INVALID", f"config upload returned {response.status_code}: {response.text[:500]}")
 
 
-def run_example(key, test_id, example, fix_path=None, judge_model_override=None):
-    """Run one example. Returns a list of warnings; raises ExampleError on failure."""
+def run_example(key, test_id, example, fix_path=None, judge_model_override=None, record=None):
+    """Run one example. Returns a list of warnings; raises ExampleError on failure.
+
+    Fills `record` (if given) with the comparison and the judge exchange, for the HTML report.
+    """
+    record = {} if record is None else record
     config, expected = check_syntax(test_id, example)
 
     response = requests.head(example["document_url"], allow_redirects=True, timeout=30)
@@ -509,12 +539,18 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None)
             for d, route in judged
         ]
         try:
-            judge_model, results = llm_judge.judge(judge_key, claims, judge_model_override)
+            exchange = llm_judge.judge(judge_key, claims, judge_model_override)
         except llm_judge.JudgeError as e:
             raise ExampleError("JUDGE_ERROR", str(e))
-        for (d, route), r in zip(judged, results):
+        judge_model, results = exchange["model"], exchange["results"]
+        record["judge"] = {k: exchange[k] for k in ("model", "system_prompt", "user_prompt", "raw_output")}
+        for (d, route), claim, r in zip(judged, claims, results):
             verdict = llm_judge.classify(r)
-            judged_results.append((d, judge_model, r, verdict))
+            judged_results.append({
+                "field": route[0], "path": claim["path"], "documented": claim["documented"], "actual": claim["observed"],
+                "verdict": verdict, "match": r["match"], "confidence": r["confidence"], "reasoning": r["reasoning"],
+                "claim": r["claim"], "observed": r["observed"],
+            })
             fallback_note = " (fallback chain: a layout field shares this ID)" if route[2] else ""
             line = (
                 f"{format_diff(d)}\n    judge ({judge_model}){fallback_note}: "
@@ -526,13 +562,23 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None)
             elif verdict == "warn":
                 warnings.append(line)
 
-    print_comparison(test_id, expected, result.get("parsed_document") or {}, index, exact, judged_results)
+    summarize(record, expected, result.get("parsed_document") or {}, index, exact, judged_results)
     if failures:
         message = "docs output doesn't match the extraction:\n  " + "\n  ".join(failures)
         if fix_path and propose_fix(fix_path, example, apply_fixes(expected, fixable)):
             message += f"\n  Proposed fix written to {fix_path}"
         raise ExampleError("OUTPUT_DRIFT" if exact else "LLM_DRIFT", message)
     return warnings
+
+
+RECORDS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output", "examples")
+
+
+def write_record(record):
+    """Save the run's record for html_report.py."""
+    os.makedirs(RECORDS_DIR, exist_ok=True)
+    with open(os.path.join(RECORDS_DIR, f"{record['test_id']}.json"), "w", encoding="utf-8") as f:
+        json.dump(record, f, indent=2, ensure_ascii=False)
 
 
 def load_key(var):
@@ -595,12 +641,19 @@ def main():
                 print(f"FAIL {test_id}  DOCS_MALFORMED: no annotated example with this testId in {args.file}")
                 failed += 1
                 continue
+            record = {"test_id": test_id, "file": args.file, "document_url": examples[test_id]["document_url"]}
             try:
-                warnings = run_example(key, test_id, examples[test_id], args.file if args.propose_fixes else None, args.judge_model)
+                warnings = run_example(key, test_id, examples[test_id], args.file if args.propose_fixes else None, args.judge_model, record)
+                record.update(status="warn" if warnings else "pass")
+                print_summary(record)
                 print(f"PASS {test_id}" + (f" with {len(warnings)} warning(s) from the LLM judge" if warnings else ""))
             except ExampleError as e:
+                record.update(status="fail", category=e.category, message=str(e))
+                if "overall" in record:
+                    print_summary(record)
                 print(f"FAIL {test_id}  {e}")
                 failed += 1
+            write_record(record)
     finally:
         if not args.keep and delete_doc_type(key):
             print(f"Deleted document type {DOC_TYPE}")
