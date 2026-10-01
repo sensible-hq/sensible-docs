@@ -25,7 +25,12 @@ def main():
         return 0
     data = json.load(open(results[-1], encoding="utf-8"))
 
-    lines = ["Doc Detective tests failed on `v0`."]
+    lines = [
+        "Doc Detective tests failed on `v0`.",
+        "",
+        "> Every check is deterministic (an exact comparison) unless it's labeled `[judge]`. A judge result is "
+        "probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run.",
+    ]
     if args.run_url:
         lines.append(f"\nWorkflow run: {args.run_url}")
     if args.pr_url:

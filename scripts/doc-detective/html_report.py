@@ -21,12 +21,14 @@ CSS = """
   --bg: #f7f7f5; --card: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --border: #e3e2dd;
   --code-bg: #f1f0ec; --pass: #1f7a4d; --pass-bg: #e3f3ea; --fail: #b3261e; --fail-bg: #fbe7e5;
   --warn: #8a5a00; --warn-bg: #fdf1d8; --info: #3b4a8a; --info-bg: #e8ebf7;
+  --judge: #6a3d9a; --judge-bg: #f1e9fa;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #161615; --card: #1f1f1d; --text: #ecebe6; --muted: #a3a29b; --border: #33332f;
     --code-bg: #262623; --pass: #6fd3a0; --pass-bg: #17322a; --fail: #ff8a80; --fail-bg: #3a1c1a;
     --warn: #f3c46b; --warn-bg: #3a2e14; --info: #a9b6f2; --info-bg: #222a45;
+    --judge: #c9a6f0; --judge-bg: #2e2340;
   }
 }
 * { box-sizing: border-box; }
@@ -44,6 +46,8 @@ h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: v
 .fail { color: var(--fail); background: var(--fail-bg); }
 .warn { color: var(--warn); background: var(--warn-bg); }
 .info { color: var(--info); background: var(--info-bg); }
+.judge { color: var(--judge); background: var(--judge-bg); border: 1px dashed var(--judge); font-weight: 700; letter-spacing: .03em; text-transform: none; }
+.disclaimer { border-left: 4px solid var(--judge); background: var(--card); padding: 10px 14px; border-radius: 6px; margin: 0 0 20px; }
 table { width: 100%; border-collapse: collapse; }
 td, th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
 th { font-size: 12px; color: var(--muted); font-weight: 600; }
@@ -74,6 +78,10 @@ def e(value):
 
 def j(value):
     return e(json.dumps(value, ensure_ascii=False))
+
+
+JUDGE = '<span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span>'
+DISCLAIMER = "Every check is deterministic (an exact comparison) unless it's labeled judge. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run."
 
 
 def chip(status, text=None):
@@ -142,7 +150,7 @@ def render_code_test(record):
         for f in fields:
             if f["judged"]:
                 worst = "fail" if any(x["verdict"] == "fail" for x in f["judged"]) else "warn" if any(x["verdict"] == "warn" for x in f["judged"]) else "pass"
-                result = f'<span class="chip {VERDICT_CHIP[worst]}">Judged: {e(worst)}</span>'
+                result = f'{JUDGE} <span class="chip {VERDICT_CHIP[worst]}">{e(worst)}</span>'
             else:
                 result = '<span class="chip info">Identical to the docs</span>'
             note = ' <span class="muted">(fallback chain with a layout field)</span>' if f["kind"] == "fallback" else ""
@@ -153,12 +161,12 @@ def render_code_test(record):
 
     judge = record.get("judge")
     if judge:
-        out.append(f'<h3>Judge reasoning <span class="muted" style="text-transform:none;letter-spacing:0">({e(judge["model"])})</span></h3>')
+        out.append(f'<h3>Judge reasoning {JUDGE} <span class="muted" style="text-transform:none;letter-spacing:0">({e(judge["model"])})</span></h3>')
         for f in fields:
             for v in f["judged"]:
                 pct = max(0, min(100, round(v["confidence"] * 100)))
                 out.append(
-                    f'<div class="verdict"><div class="row"><code>{e(v["path"])}</code>'
+                    f'<div class="verdict"><div class="row">{JUDGE}<code>{e(v["path"])}</code>'
                     f'<span class="muted">type <code>{e(v.get("type", "string"))}</code></span>'
                     f'<span class="chip {VERDICT_CHIP[v["verdict"]]}">{e(v["verdict"].upper())}</span>'
                     f'<span class="muted">match: {e(v["match"])}, confidence {v["confidence"]:.2f}</span>'
@@ -199,13 +207,15 @@ def render(output_dir):
         f"<title>Doc Detective report</title><style>{CSS}</style></head><body><main>",
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(source)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
+        f'<p class="disclaimer">{e(DISCLAIMER).replace("labeled judge", "labeled " + JUDGE)}</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Result</th><th>Details</th></tr>',
     ]
     for t in dd_tests:
         record = records.get(t["test_id"])
         status = record.get("status", t["status"]) if record else t["status"]
         if t["is_code"]:
-            details = f'<a href="#{e(t["test_id"])}">Comparison and judge reasoning</a>' if record else "No record"
+            judged = record and any(f["judged"] for f in record.get("llm_fields", []))
+            details = (f'<a href="#{e(t["test_id"])}">Comparison' + (" and judge reasoning</a> " + JUDGE if judged else "</a>")) if record else "No record"
             kind = "Code sample"
         else:
             details = f'{t["steps"]} steps' + ("".join(f'<br>Failed: {e(n)} — {e(r)}' for n, r in zip(t["failed"], t["failed_reason"])))

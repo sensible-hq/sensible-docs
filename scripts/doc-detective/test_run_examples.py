@@ -198,10 +198,11 @@ class RecordTest(unittest.TestCase):
         with contextlib.redirect_stdout(out):
             r.print_summary(record)
         text = out.getvalue()
-        self.assertIn("LLM field phone: judged", text)
+        self.assertIn("LLM field phone: [judge] decided", text)
+        self.assertIn("deterministic (an exact comparison) unless it's labeled [judge]", text)
         self.assertIn("Layout fields: 1, all exact match", text)
         self.assertNotIn("policy_number", text)
-        self.assertIn('PASS  $.phone.value: "a" -> "b"', text)
+        self.assertIn('[judge] PASS  $.phone.value: "a" -> "b"', text)
 
 
 class TypeTest(unittest.TestCase):
@@ -286,6 +287,9 @@ class HtmlReportTest(unittest.TestCase):
         self.assertIn("Full prompt the judge received", page)
         self.assertIn("Full judge output (JSON)", page)
         self.assertIn("&lt;b&gt;1&lt;/b&gt;", page)
+        self.assertIn('class="disclaimer"', page)
+        self.assertIn("unless it&#x27;s labeled <span class=\"chip judge\"", page)
+        self.assertGreaterEqual(page.count('class="chip judge"'), 4)  # disclaimer, field result, reasoning heading, verdict card
         self.assertNotIn("<b>1</b>", page)
 
 

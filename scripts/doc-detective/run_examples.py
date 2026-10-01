@@ -380,6 +380,7 @@ def summarize(record, expected, actual, index, exact, judged_results):
 def print_summary(record):
     """Print a short summary for the Doc Detective report and the failure issue."""
     print(f"{record['test_id']}: {record.get('overall', '')}")
+    print("  " + "Every check is deterministic (an exact comparison) unless it's labeled [judge]. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run.")
     layout = record.get("layout")
     if layout:
         if layout["mismatches"]:
@@ -391,15 +392,15 @@ def print_summary(record):
     for note in record.get("not_checked", []):
         print(f"  Not checked (...): {note}")
     for field in record.get("llm_fields", []):
-        state = "judged" if field["judged"] else "identical to the docs"
+        state = "[judge] decided" if field["judged"] else "identical to the docs"
         note = " (fallback chain with a layout field)" if field["kind"] == "fallback" else ""
         print(f"  LLM field {field['field']}{note}: {state}")
     judge = record.get("judge")
     if judge:
-        print(f"  Judge ({judge['model']}):")
+        print(f"  [judge] {judge['model']}:")
         for field in record["llm_fields"]:
             for j in field["judged"]:
-                print(f"    {j['verdict'].upper()}  {j['path']}: {json.dumps(j['documented'], ensure_ascii=False)} -> {json.dumps(j['actual'], ensure_ascii=False)}  ({j['match']}, confidence {j['confidence']:.2f})")
+                print(f"    [judge] {j['verdict'].upper()}  {j['path']}: {json.dumps(j['documented'], ensure_ascii=False)} -> {json.dumps(j['actual'], ensure_ascii=False)}  ({j['match']}, confidence {j['confidence']:.2f})")
                 print(f"      {j['reasoning']}")
     print("  Full report: scripts/doc-detective/output/report.html")
 
