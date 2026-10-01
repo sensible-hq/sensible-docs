@@ -21,12 +21,15 @@ For each example, the runner:
   2. Uploads it as configuration <testId> in document type DOC_TYPE, published to development
   3. Extracts from the example document with the Python SDK. The URL comes from the first link
      after <!-- example document -->, so the visible download link is the only copy
-  4. Checks that the docs output is a subset of the actual parsed_document
+  4. Checks that every key and value shown in the docs output agrees with the actual parsed_document.
+     Keys the docs leave out are ignored. `...` (bare, or as the string "...") marks what not to check:
+     a value, or the rest of an array ([first, second, ...], [first, ..., last]).
+     An array without `...` must match in full.
 At the end of the run, it deletes DOC_TYPE (configs included). Extraction history stays in the app.
 
 With --propose-fixes (or DOC_EXAMPLES_PROPOSE_FIXES=1, which CI sets), an OUTPUT_DRIFT failure also
 rewrites the mismatched values in the doc's output block to the actual values, as a proposed docs fix
-for a human to review. It doesn't touch output blocks that contain comments.
+for a human to review. It doesn't touch output blocks that contain comments or a bare `...`.
 
 Usage:
   run_examples.py --file "docs/document extraction/getting-started.md" --test extract_auto_insurance_anyco
@@ -67,13 +70,39 @@ class ExampleError(Exception):
         self.category = category
 
 
+ELLIPSIS = "__ELLIPSIS__"
+
+
+def is_ellipsis(value):
+    return value in (ELLIPSIS, "...", "\u2026")
+
+
 def strip_json5(text):
-    """Remove /* */ and // comments and trailing commas, leaving strings intact."""
+    """Remove /* */ and // comments and trailing commas, leaving strings intact.
+
+    A bare `...` becomes the ELLIPSIS string. In an object's key position it becomes an
+    `"__ELLIPSIS__": null` member, which drop_ellipsis_keys removes after parsing.
+    """
     out = []
+    stack = []
     i, n = 0, len(text)
     while i < n:
         c = text[i]
-        if c == '"':
+        if text.startswith("...", i):
+            previous = "".join(out).rstrip()[-1:]
+            key_position = bool(stack) and stack[-1] == "{" and previous in ("{", ",")
+            out.append(f'"{ELLIPSIS}": null' if key_position else f'"{ELLIPSIS}"')
+            i += 3
+        elif c in "{[":
+            stack.append(c)
+            out.append(c)
+            i += 1
+        elif c in "}]":
+            if stack:
+                stack.pop()
+            out.append(c)
+            i += 1
+        elif c == '"':
             j = i + 1
             while j < n and text[j] != '"':
                 j += 2 if text[j] == "\\" else 1
@@ -89,6 +118,22 @@ def strip_json5(text):
             out.append(c)
             i += 1
     return re.sub(r",(\s*[}\]])", r"\1", "".join(out))
+
+
+def drop_ellipsis_keys(value):
+    if isinstance(value, dict):
+        return {k: drop_ellipsis_keys(v) for k, v in value.items() if k != ELLIPSIS}
+    if isinstance(value, list):
+        return [drop_ellipsis_keys(v) for v in value]
+    return value
+
+
+def parse_json5(text):
+    return drop_ellipsis_keys(json.loads(strip_json5(text)))
+
+
+def has_bare_ellipsis(text):
+    return ELLIPSIS in strip_json5(text) and ELLIPSIS not in text
 
 
 def parse_examples(path):
@@ -127,10 +172,15 @@ MISSING = object()
 
 
 def subset_diffs(expected, actual, path=()):
-    """List (path, expected, actual) where `expected` isn't contained in `actual`.
+    """List (path, expected, actual) where what the docs show disagrees with `actual`.
 
-    Arrays are positional and length-checked. A key missing from `actual` reports actual as MISSING.
+    Paths index into `expected`, so a fix can be applied to the docs output. Keys the docs omit are
+    ignored, as is anything marked with `...`. Arrays match positionally: items before a `...` match
+    the start of the actual array, items after it match the end. Without `...`, lengths must match.
+    A key missing from `actual` reports actual as MISSING.
     """
+    if is_ellipsis(expected):
+        return []
     if isinstance(expected, dict):
         if not isinstance(actual, dict):
             return [(path, expected, actual)]
@@ -142,9 +192,21 @@ def subset_diffs(expected, actual, path=()):
                 diffs += subset_diffs(value, actual[key], path + (key,))
         return diffs
     if isinstance(expected, list):
-        if not isinstance(actual, list) or len(actual) != len(expected):
+        if not isinstance(actual, list):
             return [(path, expected, actual)]
-        return [d for i, (e, a) in enumerate(zip(expected, actual)) for d in subset_diffs(e, a, path + (i,))]
+        cut = next((i for i, e in enumerate(expected) if is_ellipsis(e)), None)
+        if cut is None:
+            if len(actual) != len(expected):
+                return [(path, expected, actual)]
+            pairs = [(i, i) for i in range(len(expected))]
+        else:
+            head = list(range(cut))
+            tail = [i for i in range(cut + 1, len(expected)) if not is_ellipsis(expected[i])]
+            if len(actual) < len(head) + len(tail):
+                return [(path, expected, actual)]
+            offset = len(actual) - len(expected)
+            pairs = [(i, i) for i in head] + [(i, i + offset) for i in tail]
+        return [d for i, j in pairs for d in subset_diffs(expected[i], actual[j], path + (i,))]
     if isinstance(expected, float) or isinstance(actual, float):
         if isinstance(actual, (int, float)) and abs(expected - actual) < 1e-9:
             return []
@@ -182,8 +244,8 @@ def apply_fixes(expected, diffs):
 
 def propose_fix(path, example, fixed_output):
     """Rewrite the example's output block in the doc with `fixed_output`."""
-    if "/*" in example["output"] or "//" in example["output"]:
-        print("  Not proposing a fix: the output block has comments", file=sys.stderr)
+    if "/*" in example["output"] or "//" in example["output"] or has_bare_ellipsis(example["output"]):
+        print("  Not proposing a fix: the output block has comments or a bare ...", file=sys.stderr)
         return False
     text = open(path, encoding="utf-8").read()
     start, end = example["output_span"]
@@ -239,7 +301,7 @@ def run_example(key, test_id, example, fix_path=None):
 
     try:
         config = json.loads(strip_json5(example["config"]))
-        expected = json.loads(strip_json5(example["output"]))
+        expected = parse_json5(example["output"])
     except json.JSONDecodeError as e:
         raise ExampleError("DOCS_MALFORMED", f"can't parse config or output block: {e}")
 
