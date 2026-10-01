@@ -59,6 +59,10 @@ jobs:
       - name: Install runner dependencies
         run: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
 
+      # Offline: comparison, routing to the LLM judge, and syntax checks. No secrets needed.
+      - name: Unit test the runner
+        run: python3 -m unittest discover -s scripts/doc-detective
+
       # Secrets come from env vars only. Don't write a .env here: Doc Detective's
       # loadVariables would make it override these values.
       # --no-auto-update keeps the pinned version. Doc Detective otherwise self-updates on startup.

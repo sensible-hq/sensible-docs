@@ -2,44 +2,21 @@
 
 LLM methods (Query Group, List, NLP Table) can return a correct answer that's worded or
 formatted differently from the docs, for example "1800-123-4567" instead of "1800 123 4567".
-The runner sends only the LLM fields whose values differ from the docs to a judge model,
-which decides per field whether the actual value still supports what the docs show.
+The runner sends only the mismatches that an LLM method produced to a judge model, which
+decides per field whether the actual value still supports what the docs show.
 
-The judge is a different model from the one that generated the answer. The generating model
-comes from the config's llmEngine provider (default: open-ai), looked up in the tables in
-docs/Senseml reference/concepts/llm-models.md.
+Judge model: DOC_EXAMPLES_JUDGE_MODEL, or DEFAULT_JUDGE_MODEL.
 """
 
 import json
+import os
 
 import anthropic
 
-JUDGE_MODEL = "claude-opus-5"
-ALTERNATE_JUDGE_MODEL = "claude-sonnet-5"
+DEFAULT_JUDGE_MODEL = "claude-sonnet-5-5"
 # A pass below this confidence is reported as a warning instead
 MIN_PASS_CONFIDENCE = 0.7
-
-# From docs/Senseml reference/concepts/llm-models.md. Update both together.
-GENERATOR_MODELS = {
-    "queryGroup": {
-        "default": {"open-ai": "GPT-4o mini", "anthropic": "Claude 4.5 Haiku", "google": "Gemini 3.1 Flash-Lite"},
-        "sourceIds": {"open-ai": "GPT-4o mini", "anthropic": "Claude 4.5 Sonnet", "google": "Gemini 3 Flash Preview"},
-    },
-    "list": {
-        "fast": {"open-ai": "GPT-4o mini", "anthropic": "Claude 4.5 Haiku", "google": "Gemini 3.1 Flash-Lite"},
-        "thorough": {"open-ai": "GPT-4o", "anthropic": "Claude 4.5 Sonnet", "google": "Gemini 3.1 Flash-Lite"},
-        "long": {"open-ai": "GPT-4o mini", "anthropic": "Claude 4.5 Haiku", "google": "Gemini 3.1 Flash-Lite"},
-    },
-    "nlpTable": {
-        "default": {"open-ai": "GPT-4o", "anthropic": "Claude 4.5 Haiku", "google": "Gemini 3.1 Flash-Lite"},
-    },
-}
-
-# Generating models that are the same model as a judge candidate
-SAME_MODEL = {
-    "claude-opus-5": {"Claude Opus 5"},
-    "claude-sonnet-5": {"Claude Sonnet 5"},
-}
+LLM_METHODS = {"queryGroup", "list", "nlpTable"}
 
 SYSTEM_PROMPT = """You are a documentation accuracy evaluator. You will receive output that documentation \
 shows for fields extracted from a document by an LLM, and the actual output from extracting the same \
@@ -84,38 +61,62 @@ class JudgeError(Exception):
     pass
 
 
-def llm_fields(config):
-    """Map each top-level output key produced by an LLM method to its generator model and prompt."""
-    fields = {}
-    for field in config.get("fields", []):
-        method = field.get("method") or {}
-        method_id = method.get("id")
-        if method_id not in GENERATOR_MODELS:
-            continue
-        provider = (method.get("llmEngine") or {}).get("provider", "open-ai").replace("openai", "open-ai")
-        if method_id == "queryGroup":
-            variant = "sourceIds" if method.get("sourceIds") else "default"
-            generator = GENERATOR_MODELS[method_id][variant].get(provider)
-            for query in method.get("queries", []):
-                fields[query["id"]] = {"method": method_id, "generator": generator, "prompt": query.get("description", "")}
-        else:
-            variant = (method.get("llmEngine") or {}).get("mode", "fast") if method_id == "list" else "default"
-            generator = GENERATOR_MODELS[method_id].get(variant, GENERATOR_MODELS[method_id][next(iter(GENERATOR_MODELS[method_id]))]).get(provider)
-            fields[field["id"]] = {"method": method_id, "generator": generator, "prompt": method.get("description", "")}
-    return fields
+class FieldIndex:
+    """Which output keys LLM methods produce, wherever they sit in the config.
+
+    Walks the whole config, so LLM methods nested in sections, conditionals, or any other
+    container count. An LLM method contributes its field ID (List, NLP Table) or its query IDs
+    (Query Group); any other method contributes its field ID as a non-LLM field.
+    """
+
+    def __init__(self, config):
+        self.llm = {}  # output key -> extraction prompt
+        self.other = set()
+        self._walk(config)
+
+    def _walk(self, node):
+        if isinstance(node, list):
+            for item in node:
+                self._walk(item)
+            return
+        if not isinstance(node, dict):
+            return
+        method = node.get("method")
+        if isinstance(method, dict) and "id" in method:
+            if method["id"] in LLM_METHODS:
+                if method["id"] == "queryGroup":
+                    for query in method.get("queries", []):
+                        self.llm[query["id"]] = query.get("description", "")
+                elif "id" in node:
+                    self.llm[node["id"]] = method.get("description", "")
+            elif "id" in node:
+                self.other.add(node["id"])
+        for value in node.values():
+            self._walk(value)
+
+    def route(self, path):
+        """Return (output key, prompt, mixed) if an LLM method produced the value at `path`, else None.
+
+        Decided by the innermost path segment that's a known field ID, so a layout field inside a
+        section stays exact while an LLM field inside it is judged. `mixed` is true when a non-LLM
+        field shares the ID (a fallback chain): the output doesn't say which one produced the value,
+        so it's judged.
+        """
+        for segment in reversed(path):
+            if isinstance(segment, str) and (segment in self.llm or segment in self.other):
+                if segment in self.llm:
+                    return segment, self.llm[segment], segment in self.other
+                return None
+        return None
 
 
-def pick_judge(generators):
-    """Return a judge model that differs from every generating model."""
-    for candidate in (JUDGE_MODEL, ALTERNATE_JUDGE_MODEL):
-        if not SAME_MODEL[candidate] & set(generators):
-            return candidate
-    raise JudgeError(f"no judge model differs from the generating models {sorted(generators)}")
+def judge_model():
+    return os.environ.get("DOC_EXAMPLES_JUDGE_MODEL") or DEFAULT_JUDGE_MODEL
 
 
-def judge(api_key, claims):
-    """Judge claims, each {"path", "prompt", "documented", "observed"}. Returns (judge model, results)."""
-    model = pick_judge({c["generator"] for c in claims if c.get("generator")})
+def judge(api_key, claims, model=None):
+    """Judge claims, each {"path", "prompt", "documented", "observed"}. Returns (model, results)."""
+    model = model or judge_model()
     lines = []
     for c in claims:
         lines.append(
@@ -132,24 +133,21 @@ def judge(api_key, claims):
     )
     client = anthropic.Anthropic(api_key=api_key)
     try:
-        response = client.beta.messages.create(
+        response = client.messages.create(
             model=model,
             max_tokens=16000,
             system=SYSTEM_PROMPT,
             messages=[{"role": "user", "content": user}],
             output_config={"format": {"type": "json_schema", "schema": VERDICT_SCHEMA}},
-            # On a safety decline, rerun on Anthropic's recommended fallback model
-            betas=["server-side-fallback-2026-07-01"],
-            fallbacks="default",
         )
     except anthropic.APIStatusError as e:
-        raise JudgeError(f"judge request failed ({e.status_code}): {e.message}")
+        raise JudgeError(f"judge request to {model} failed ({e.status_code}): {e.message}")
     except anthropic.APIConnectionError as e:
         raise JudgeError(f"couldn't reach the judge: {e}")
     if response.stop_reason == "refusal":
-        raise JudgeError("the judge declined to evaluate the claims")
+        raise JudgeError(f"{model} declined to evaluate the claims")
     if response.stop_reason == "max_tokens":
-        raise JudgeError("the judge's response was cut off")
+        raise JudgeError(f"{model}'s response was cut off")
     text = next(b.text for b in response.content if b.type == "text")
     results = {r["path"]: r for r in json.loads(text)["results"]}
     missing = [c["path"] for c in claims if c["path"] not in results]
