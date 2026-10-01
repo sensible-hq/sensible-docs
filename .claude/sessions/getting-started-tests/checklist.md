@@ -41,11 +41,17 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
   - DELETE /document_types removes configs and reference docs but NOT extraction history in the app
   - Full Doc Detective run (UI + code): 45s
 - [x] API key: switched to the docs test account's key, `SENSIBLE_TEST_API_KEY` in `.env` (2026-10-01). Runner never falls back to `SENSIBLE_API_KEY`; refuses with exit 2 if unset. Verified test account (3 doc types) != main account (58); both secrets absent from reports and terminal output
-- [ ] Main account has leftover extraction history from the 2026-09-30 runs (about 6 extractions named `ci__extract_auto_insurance_anyco.pdf`, development environment). Doc type `docs_ci_examples` was deleted. No public API deletes extractions; leave or clean up in the app
+- [x] Extraction history: accepted. Can't be deleted (no public API, and not in the app for this user). Main account keeps about 6 `ci__extract_auto_insurance_anyco.pdf` extractions from 2026-09-30; each future run adds one to the test account
 - [ ] Docs drift found: `bodily_injury_premium.source` is `"100"`, docs say `"$100"` (3/3 runs). Fix the Output block?
 - [x] Example doc URL: single source of truth. `<!-- example document -->` (no URL) sits directly above the visible download link; the runner reads the first link after it. Verified: changing the visible link makes the runner test the new URL (404 → DOCUMENT_UNREACHABLE). Code test `<!-- test -->` start moved to just before the "Configure the extraction" list
 - [ ] LLM fields: build expected-variation guardrails for passing (decided 2026-09-30). Trigger: `customer_service_phone.value` was `"1800-123-4567"` in 1 of 3 runs (docs: `"1800 123 4567"`). Open Qs: which variation is acceptable per field type (punctuation/whitespace for strings, numeric tolerance, presence-only); declared per example on `<!-- example output {...} -->` or per field; how many runs to sample before calling a field flaky
 - [ ] Investigate Doc Detective's capabilities for API contract testing: test-level `openApi` property, their docs pages `test-code/generate-tests-from-openapi.mdx` and `test-code/http-and-api.mdx`, `httpRequest` response validation against our specs in `reference/`. Related item already on docs-as-tests (#725) checklist
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
-- [ ] CI wiring (secrets, workflow)
+- [ ] CI: run the tests on every push/PR that changes getting-started.md (requested 2026-10-01). GitHub Actions workflow with a `paths` filter on `push` and `pull_request`:
+  - Paths: `docs/document extraction/getting-started.md`, `scripts/doc-detective/**`, `.doc-detective.json`
+  - Repo secrets: `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`. Pass as env vars; don't write a `.env` (it overrides env)
+  - `concurrency:` group so two runs don't share `docs_ci_examples` (one run's cleanup would delete the other's config)
+  - Steps: install doc-detective (pin version), `pip install -r scripts/doc-detective/requirements.txt`, `scripts/doc-detective/run.sh -i "docs/document extraction/getting-started.md"`; upload scrubbed reports as an artifact
+  - Known gap: example PDF links point at `/v0/`, so a PR that changes the PDF tests the old one until merged
+  - Optional: local `pre-push` git hook for the same run (not `pre-commit`: ~45s per commit is too slow)
