@@ -28,7 +28,8 @@ Usage:
   run_examples.py --file "docs/document extraction/getting-started.md" --test extract_auto_insurance_anyco
   run_examples.py --file <doc> --list
 
-Requires SENSIBLE_API_KEY in the environment.
+Requires SENSIBLE_TEST_API_KEY (the docs test account's key) in .env at the repo root or in the environment.
+It deliberately doesn't fall back to SENSIBLE_API_KEY, so a missing key can't run tests against another account.
 """
 
 import argparse
@@ -207,6 +208,17 @@ def run_example(key, test_id, example):
         raise ExampleError("OUTPUT_DRIFT", "docs output doesn't match the extraction:\n  " + "\n  ".join(diffs))
 
 
+def load_api_key():
+    """Read SENSIBLE_TEST_API_KEY from .env (wins, as with Doc Detective's loadVariables) or the environment."""
+    env_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".env")
+    if os.path.exists(env_path):
+        for line in open(env_path, encoding="utf-8"):
+            name, _, value = line.strip().partition("=")
+            if name == "SENSIBLE_TEST_API_KEY" and value:
+                return value
+    return os.environ.get("SENSIBLE_TEST_API_KEY")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--file", required=True, help="Markdown file with annotated examples")
@@ -221,9 +233,9 @@ def main():
             print(f"{test_id}  {example['document_url']}")
         return 0
 
-    key = os.environ.get("SENSIBLE_API_KEY")
+    key = load_api_key()
     if not key:
-        print("SENSIBLE_API_KEY isn't set", file=sys.stderr)
+        print("SENSIBLE_TEST_API_KEY isn't set in .env or the environment", file=sys.stderr)
         return 2
 
     selected = args.test or list(examples)
