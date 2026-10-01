@@ -178,7 +178,7 @@ You should see the following extracted data in the right pane:
 ```json
 {
   "bodily_injury_premium": {
-    "source": "$100",
+    "source": "100",
     "value": 100,
     "unit": "$",
     "type": "currency",
