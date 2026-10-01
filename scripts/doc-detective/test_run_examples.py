@@ -397,5 +397,39 @@ class DisclaimerTest(unittest.TestCase):
         self.assertIn("against an established baseline of", html_report.envelope_sentence([{"envelope": {"runs": 10}}, {"envelope": {"runs": 5}}]))
 
 
+class EnvelopeIssueTest(unittest.TestCase):
+    import envelope_issue as ei
+
+    def record(self, status, breaches=None, judged=None):
+        return {"test_id": "t", "file": "doc.md", "envelope": {"status": status, "runs": 10, "built": "2026-10-01", "breaches": breaches or {}},
+                "llm_fields": [{"field": "phone", "judged": judged or []}]}
+
+    def test_clear_none_and_attention(self):
+        self.assertEqual(self.ei.decide([self.record("within")])["state"], "clear")
+        self.assertEqual(self.ei.decide([{"test_id": "t"}])["state"], "none")
+        result = self.ei.decide([self.record("outside", {"phone": ["new format 'x'"]}, [{"verdict": "pass"}])], "RUN")
+        self.assertEqual(result["state"], "attention")
+        self.assertIn("`phone`: new format 'x' (**judge passed it**: the feature's behavior likely changed)", result["body"])
+        self.assertIn("--build-envelope 10", result["body"])
+        self.assertIn(f"<!-- envelope-fingerprint: {result['fingerprint']} -->", result["body"])
+
+    def test_judge_failed_and_exact_match_notes(self):
+        failed = self.ei.decide([self.record("outside", {"phone": ["r"]}, [{"verdict": "fail"}])])["body"]
+        self.assertIn("judge failed it", failed)
+        exact = self.ei.decide([self.record("outside", {"phone": ["r"]})])["body"]
+        self.assertIn("matched the docs exactly", exact)
+
+    def test_stale_and_missing_need_attention(self):
+        self.assertIn("baseline is stale", self.ei.decide([self.record("stale")])["body"])
+        self.assertIn("no baseline yet", self.ei.decide([self.record("missing")])["body"])
+
+    def test_fingerprint_is_stable_and_changes_with_breaches(self):
+        a = self.ei.decide([self.record("outside", {"phone": ["r1"], "phone.x": ["r2"]})], "RUN 1")
+        b = self.ei.decide([self.record("outside", {"phone.x": ["r2"], "phone": ["r1"]})], "RUN 2")
+        c = self.ei.decide([self.record("outside", {"phone": ["r3"]})])
+        self.assertEqual(a["fingerprint"], b["fingerprint"])
+        self.assertNotEqual(a["fingerprint"], c["fingerprint"])
+
+
 if __name__ == "__main__":
     unittest.main()

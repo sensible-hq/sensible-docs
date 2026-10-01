@@ -124,6 +124,37 @@ jobs:
             gh issue create --title "Doc Detective: getting started tests are failing" --label doc-detective --body-file "$RUNNER_TEMP/issue.md"
           fi
 
+      # A separate standing issue for envelope warnings, so they don't dilute the failure issue.
+      # Comments only when the breaches change; closes when a run is back within the envelope.
+      - name: Open, update, or close envelope issue
+        if: always() && steps.tests.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          LABEL: doc-detective-envelope
+        run: |
+          python3 scripts/doc-detective/envelope_issue.py scripts/doc-detective/output --run-url "$RUN_URL" > "$RUNNER_TEMP/envelope.json"
+          state=$(jq -r .state "$RUNNER_TEMP/envelope.json")
+          fingerprint=$(jq -r .fingerprint "$RUNNER_TEMP/envelope.json")
+          jq -r .body "$RUNNER_TEMP/envelope.json" > "$RUNNER_TEMP/envelope.md"
+          echo "Envelope state: $state"
+          gh label create "$LABEL" --color 5319E7 --description "Doc Detective regression envelope warnings" --force
+          issue=$(gh issue list --label "$LABEL" --state open --json number -q '.[0].number')
+          if [ "$state" = "attention" ]; then
+            if [ -z "$issue" ]; then
+              gh issue create --title "Doc Detective: LLM output shifted from its regression envelope" --label "$LABEL" --body-file "$RUNNER_TEMP/envelope.md"
+            else
+              last=$(gh issue view "$issue" --json body,comments -q '[.body] + [.comments[].body] | join("\n")' | grep -o 'envelope-fingerprint: [a-f0-9]*' | tail -1 | cut -d' ' -f2)
+              if [ "$last" != "$fingerprint" ]; then
+                gh issue comment "$issue" --body-file "$RUNNER_TEMP/envelope.md"
+              else
+                echo "Same breaches as the last report on #$issue; not commenting"
+              fi
+            fi
+          elif [ "$state" = "clear" ] && [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "$(cat "$RUNNER_TEMP/envelope.md")"
+          fi
+
       # run.sh scrubs secret values from these reports before upload.
       - name: Upload reports
         if: always()
