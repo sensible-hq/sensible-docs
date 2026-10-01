@@ -280,7 +280,7 @@ This config returns:
 ```json
 {
   "bodily_injury_premium": {
-    "source": "$100",
+    "source": "100",
     "value": 100,
     "unit": "$",
     "type": "currency",
