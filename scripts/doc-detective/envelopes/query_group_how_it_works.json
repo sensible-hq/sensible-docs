@@ -1,0 +1,48 @@
+{
+  "test_id": "query_group_how_it_works",
+  "runs": 10,
+  "built": "2026-10-01T21:27:19Z",
+  "config_sha256": "fa9482c1cff318be93634b482f7006c8ea6abbe1b4cedc94db072e5ec4468587",
+  "slots": {
+    "bodily_injury_premium": {
+      "observations": 10,
+      "null_rate": 0.0,
+      "types": [
+        "currency"
+      ],
+      "json_types": [
+        "int"
+      ],
+      "units": [
+        "$"
+      ],
+      "confidence_signals": [
+        "confident_answer"
+      ],
+      "source_shapes": [
+        "999"
+      ],
+      "number_min": 100,
+      "number_max": 100
+    },
+    "customer_service_phone": {
+      "observations": 10,
+      "null_rate": 0.0,
+      "types": [
+        "string"
+      ],
+      "json_types": [
+        "str"
+      ],
+      "units": [],
+      "confidence_signals": [
+        "confident_answer"
+      ],
+      "shapes": [
+        "9999 999 9999"
+      ],
+      "length_min": 13,
+      "length_max": 13
+    }
+  }
+}

@@ -1,0 +1,170 @@
+# Runs the Doc Detective tests in the layout-based getting started guide:
+# a UI test that signs in to the Sensible app with the docs test account, and
+# a code test that runs the tutorial config against the Sensible API and checks
+# the documented output.
+#
+# Runs only on pushes to v0 that change the guide or the test tooling, not on PRs.
+#
+# On failure:
+# - Opens one issue labeled doc-detective, or comments on the open one
+# - If the documented output drifted from what Sensible returns, opens a draft PR
+#   (or updates the open one) that rewrites the mismatched values. Review it: the
+#   drift can be a product regression, or LLM variation, not a docs bug.
+
+name: Doc Detective (getting started)
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - "docs/document extraction/getting-started.md"
+      - "scripts/doc-detective/**"
+      - ".doc-detective.json"
+      - ".github/workflows/doc-detective-getting-started.yml"
+  workflow_dispatch:
+
+# The code test creates and deletes one shared document type, so runs must not overlap.
+concurrency:
+  group: doc-detective-getting-started
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Setup python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install Doc Detective
+        run: npm install --global doc-detective@4.38.1
+
+      - name: Install runner dependencies
+        run: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
+
+      # Offline: comparison, routing to the LLM judge, and syntax checks. No secrets needed.
+      - name: Unit test the runner
+        run: python3 -m unittest discover -s scripts/doc-detective
+
+      # Secrets come from env vars only. Don't write a .env here: Doc Detective's
+      # loadVariables would make it override these values.
+      # --no-auto-update keeps the pinned version. Doc Detective otherwise self-updates on startup.
+      # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
+      - name: Run tests
+        id: tests
+        continue-on-error: true
+        run: scripts/doc-detective/run.sh --no-auto-update -i "docs/document extraction/getting-started.md"
+        env:
+          SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
+          SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DOC_EXAMPLES_PROPOSE_FIXES: "1"
+
+      - name: Open or update proposed docs fix PR
+        id: fix_pr
+        if: steps.tests.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          BRANCH: doc-detective/getting-started-fixes
+        run: |
+          if git diff --quiet -- docs/; then
+            echo "No proposed docs changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add -- docs/
+          git commit -m "Update getting started output to match Sensible" -m "Proposed by Doc Detective run $RUN_URL"
+          git push --force origin "$BRANCH"
+          pr=$(gh pr list --head "$BRANCH" --state open --json url -q '.[0].url')
+          if [ -z "$pr" ]; then
+            pr=$(gh pr create --draft --base v0 --head "$BRANCH" \
+              --title "Doc Detective: update getting started output to match Sensible" \
+              --body "Doc Detective found that the documented output in the getting started guide no longer matches what Sensible returns. This PR rewrites the mismatched values to the actual ones.
+
+          **Review before merging.** The difference can be a docs bug, a product regression (don't codify it), or LLM variation.
+
+          Run: $RUN_URL")
+          fi
+          echo "url=$pr" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update failure issue
+        if: steps.tests.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PR_URL: ${{ steps.fix_pr.outputs.url }}
+        run: |
+          python3 scripts/doc-detective/report.py scripts/doc-detective/output --run-url "$RUN_URL" ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
+          gh label create doc-detective --color D93F0B --description "Doc Detective docs test failures" --force
+          issue=$(gh issue list --label doc-detective --state open --json number -q '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body-file "$RUNNER_TEMP/issue.md"
+          else
+            gh issue create --title "Doc Detective: getting started tests are failing" --label doc-detective --body-file "$RUNNER_TEMP/issue.md"
+          fi
+
+      # A separate standing issue for envelope warnings, so they don't dilute the failure issue.
+      # Comments only when the breaches change; closes when a run is back within the envelope.
+      - name: Open, update, or close envelope issue
+        if: always() && steps.tests.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          LABEL: doc-detective-envelope
+        run: |
+          python3 scripts/doc-detective/envelope_issue.py scripts/doc-detective/output --run-url "$RUN_URL" > "$RUNNER_TEMP/envelope.json"
+          state=$(jq -r .state "$RUNNER_TEMP/envelope.json")
+          fingerprint=$(jq -r .fingerprint "$RUNNER_TEMP/envelope.json")
+          jq -r .body "$RUNNER_TEMP/envelope.json" > "$RUNNER_TEMP/envelope.md"
+          echo "Envelope state: $state"
+          gh label create "$LABEL" --color 5319E7 --description "Doc Detective regression envelope warnings" --force
+          issue=$(gh issue list --label "$LABEL" --state open --json number -q '.[0].number')
+          if [ "$state" = "attention" ]; then
+            if [ -z "$issue" ]; then
+              gh issue create --title "Doc Detective: LLM output shifted from its regression envelope" --label "$LABEL" --body-file "$RUNNER_TEMP/envelope.md"
+            else
+              last=$(gh issue view "$issue" --json body,comments -q '[.body] + [.comments[].body] | join("\n")' | grep -o 'envelope-fingerprint: [a-f0-9]*' | tail -1 | cut -d' ' -f2)
+              if [ "$last" != "$fingerprint" ]; then
+                gh issue comment "$issue" --body-file "$RUNNER_TEMP/envelope.md"
+              else
+                echo "Same breaches as the last report on #$issue; not commenting"
+              fi
+            fi
+          elif [ "$state" = "clear" ] && [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "$(cat "$RUNNER_TEMP/envelope.md")"
+          fi
+
+      # run.sh scrubs secret values from these reports before upload.
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: doc-detective-reports
+          path: scripts/doc-detective/output/
+          include-hidden-files: true
+          if-no-files-found: warn
+
+      - name: Fail the job if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1
