@@ -44,6 +44,22 @@ def parse_frontmatter(content: str) -> tuple[dict | None, int]:
         return None, -1
 
 
+def with_description(metadata: dict | None, description: str) -> dict:
+    """Return metadata with description set, in the shape ReadMe uses for every doc."""
+    if metadata is None:
+        return {"title": "", "description": description, "robots": "index"}
+    if "description" in metadata:
+        return {**metadata, "description": description}
+    # Insert after title to keep ReadMe's key order.
+    out = {}
+    for key, value in metadata.items():
+        out[key] = value
+        if key == "title":
+            out["description"] = description
+    out.setdefault("description", description)
+    return out
+
+
 def sync_description(path: Path, dry_run: bool) -> bool:
     """Return True if the file was (or would be) updated."""
     content = path.open(encoding="utf-8", newline="").read()
@@ -56,15 +72,12 @@ def sync_description(path: Path, dry_run: bool) -> bool:
         return False
 
     metadata = fm.get("metadata")
-    if metadata is None:
-        metadata = fm["metadata"] = {}
-    if not isinstance(metadata, dict):
+    if metadata is not None and not isinstance(metadata, dict):
+        return False
+    if (metadata or {}).get("description") == excerpt:
         return False
 
-    if metadata.get("description") == excerpt:
-        return False
-
-    metadata["description"] = excerpt
+    fm["metadata"] = with_description(metadata, excerpt)
 
     new_front_matter = yaml.dump(fm, default_flow_style=False, allow_unicode=True, sort_keys=False, width=float("inf"))
     if not dry_run:
