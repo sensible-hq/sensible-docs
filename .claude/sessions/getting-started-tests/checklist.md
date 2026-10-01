@@ -56,6 +56,16 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
 - [x] Syntax checks (2026-10-01), run before any network call and standalone via `--check-syntax` (no key needed): config = JSON + comments + trailing commas; output = JSON + comments + `...`, no trailing commas; both reject duplicate keys and NaN/Infinity; errors give the doc line (duplicate key/NaN give the block's start line only). Verified with 8 deliberately broken copies
 - [x] E5 answered (2026-10-01): Sensible accepts configs with `/* */` comments and trailing commas (upload 200 + extraction COMPLETE with all fields). Runner now uploads the config exactly as the doc shows it
 - [ ] Optional: run `--check-syntax` on pull requests (no secrets needed, a few seconds)
+- [ ] Self-audit both tests against the docs-as-tests failure modes for AI-written deterministic tests (requested 2026-10-01; do later). "Insufficient" coverage across the page is OK for now with only 2 tests, but each test must be thorough within its own scope:
+  - [ ] Necessary but insufficient: checks that something happened but not what (e.g. an API call returning 200 but its content never checked)
+  - [ ] Missing implicit assertions: things that seem obvious from the docs but aren't explicitly checked
+  - [ ] Testing inferred or hallucinated claims: what the test expects the docs to say, rather than what they actually say
+  - [ ] Silent or swallowed errors: broad error handling that treats any unexpected result as a pass, so the test can't fail
+  - Suspects to check first (unverified):
+    - UI test: does finding the text "New document type" prove the logged-in Document Types page loaded, or could another page or state show it? Do the tutorial's other claims in that step (the tab name, the dialog) need checks?
+    - Code test: `upload_config` publishes with `publish_as`, but does a config with errors still return 200 and extract? (The API says it doesn't reject configs with errors.) Is the `requests.head` check on the PDF enough (status only, no content type or size)?
+    - Swallowed errors: `run.sh` uses `set -uo pipefail` without `-e`; `propose_fix` returns False quietly; workflow steps use `continue-on-error`; `delete_doc_type` runs in a `finally` that could hide the original error; `report.py` returns 0 when no results file exists
+    - Each check should be shown to fail: so far a wrong password, a changed link, wrong output values, and broken syntax have each been shown to fail; list any checks that never have
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
 - [x] CI workflow `.github/workflows/doc-detective-getting-started.yml` (2026-10-01): push to **v0 only** (no `pull_request`, so it doesn't run on this PR) + `workflow_dispatch`, `paths` filter. Pins doc-detective 4.38.1 with `--no-auto-update`. Missing `.env` in CI verified harmless. **Merging this PR triggers the first run**, so add secrets first. Original plan:
