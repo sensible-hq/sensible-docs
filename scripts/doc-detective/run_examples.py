@@ -44,7 +44,7 @@ Usage:
   run_examples.py --file <doc> --check-syntax    (no API key or network needed)
 
 Requires SENSIBLE_TEST_API_KEY (the docs test account's key) in .env at the repo root or in the environment.
-Judging LLM fields also requires ANTHROPIC_API_KEY, from the same places.
+Judging LLM fields also requires ANTHROPIC_API_KEY (or ANTHROPIC_KEY), from the same places.
 It deliberately doesn't fall back to SENSIBLE_API_KEY, so a missing key can't run tests against another account.
 """
 
@@ -396,7 +396,8 @@ def run_example(key, test_id, example, fix_path=None):
     fixable = list(exact)
     warnings = []
     if judged:
-        judge_key = load_key("ANTHROPIC_API_KEY")
+        # ANTHROPIC_KEY: the name some local shells use for the same key
+        judge_key = load_key("ANTHROPIC_API_KEY") or load_key("ANTHROPIC_KEY")
         if not judge_key:
             raise ExampleError("JUDGE_UNAVAILABLE", "LLM fields differ but ANTHROPIC_API_KEY isn't set:\n  " + "\n  ".join(format_diff(d) for d in diffs))
         claims = [
