@@ -207,7 +207,11 @@ def subset_diffs(expected, actual, path=()):
             offset = len(actual) - len(expected)
             pairs = [(i, i) for i in head] + [(i, i + offset) for i in tail]
         return [d for i, j in pairs for d in subset_diffs(expected[i], actual[j], path + (i,))]
-    if isinstance(expected, float) or isinstance(actual, float):
+    if isinstance(expected, bool) or isinstance(actual, bool):
+        # In Python, True == 1 and False == 0. JSON booleans and numbers must not match.
+        if type(expected) is type(actual) and expected == actual:
+            return []
+    elif isinstance(expected, float) or isinstance(actual, float):
         if isinstance(actual, (int, float)) and abs(expected - actual) < 1e-9:
             return []
     elif expected == actual:
