@@ -1,72 +1,54 @@
 #!/usr/bin/env python3
-"""Summarize failed Doc Detective tests as Markdown, for a GitHub issue body.
+"""Reports from a run's output: Doc Detective's UI test results plus the code-test records.
 
-Usage: report.py <output dir> [--run-url URL] [--pr-url URL]
-Reads the newest testResults-*.json in the output directory.
+Usage:
+  report.py html --page PAGE             write output/report.html
+  report.py verify-ui --page PAGE        exit 1 if a UI test on the page has no Doc Detective result
+  report.py issue [--run-url URL] [--pr-url URL]    print the failure issue body (Markdown)
+  report.py envelope-issue [--run-url URL]          print {"state", "fingerprint", "body"} as JSON
+
+Every subcommand takes --output DIR (default: scripts/doc-detective/output).
 """
 
 import argparse
-import glob
 import json
 import os
 import sys
 
-import envelope_issue
+HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
+
+from codetests import markup, record, settings  # noqa: E402
+from codetests.reports import doc_detective, envelope_issue, html, issue  # noqa: E402
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("output_dir")
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("command", choices=["html", "verify-ui", "issue", "envelope-issue"])
+    parser.add_argument("--page", help="The docs page that was tested (html, verify-ui)")
+    parser.add_argument("--output", default=settings.OUTPUT_DIR)
     parser.add_argument("--run-url")
     parser.add_argument("--pr-url")
     args = parser.parse_args()
+    if args.command in ("html", "verify-ui") and not args.page:
+        parser.error(f"{args.command} needs --page")
 
-    results = sorted(glob.glob(os.path.join(args.output_dir, "testResults-*.json")))
-    if not results:
-        print("Doc Detective didn't write a results file. See the workflow run log.")
-        return 0
-    data = json.load(open(results[-1], encoding="utf-8"))
+    ui_results = doc_detective.load_results(args.output)
+    records = record.load_all(os.path.join(args.output, "code-tests"))
 
-    lines = [
-        "Doc Detective tests failed on `v0`.",
-        "",
-        "> Every check is deterministic (an exact comparison) unless it's labeled `[judge]`. A judge result is "
-        "probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run.",
-    ]
-    if args.run_url:
-        lines.append(f"\nWorkflow run: {args.run_url}")
-    if args.pr_url:
-        lines.append(f"\nProposed docs fix (review before merging, it may codify a product regression): {args.pr_url}")
-
-    for spec in data.get("specs", []):
-        for test in spec.get("tests", []):
-            if test.get("result") != "FAIL":
-                continue
-            lines.append(f"\n### `{test['testId']}`\n\nFile: `{os.path.relpath(test.get('contentPath', spec.get('specId', '')))}`\n")
-            for context in test.get("contexts", []):
-                for step in context.get("steps", []):
-                    if step.get("result") != "FAIL":
-                        continue
-                    action = next((k for k in step if k in ACTIONS), "step")
-                    lines.append(f"- **{action}** failed: {step.get('resultDescription', '')}")
-                    stdout = ((step.get("outputs") or {}).get("stdio") or {}).get("stdout", "").strip()
-                    if stdout:
-                        lines.append(f"\n```\n{stdout}\n```\n")
-    records = []
-    for path in sorted(glob.glob(os.path.join(args.output_dir, "examples", "*.json"))):
-        with open(path, encoding="utf-8") as f:
-            records.append(json.load(f))
-    rows = [(r["test_id"], *row) for r in records for row in envelope_issue.triage_rows(r)]
-    if rows:
-        lines += ["", "### LLM fields the judge failed or couldn't decide", "",
-                  "The judge asks whether the docs are still right; the [envelope] asks whether the product's behavior shifted from its baseline. Together they suggest what kind of problem it is:", "",
-                  "| Test | Field | Judge | Envelope | What it suggests |", "| --- | --- | --- | --- | --- |"]
-        lines += [f"| `{test}` | `{path}` | {verdict} | {state} | {note} |" for test, path, verdict, state, note in rows]
-    print("\n".join(lines))
+    if args.command == "html":
+        print(f"Wrote {html.render(args.page, ui_results, records, os.path.join(args.output, 'report.html'))}")
+    elif args.command == "verify-ui":
+        problems = doc_detective.verify_ui(markup.parse_page(args.page), ui_results)
+        for problem in problems:
+            print(f"FAIL {problem}")
+        return 1 if problems else 0
+    elif args.command == "issue":
+        print(issue.body(ui_results, records, args.run_url, args.pr_url))
+    else:
+        print(json.dumps(envelope_issue.decide(records, args.run_url)))
     return 0
 
-
-ACTIONS = {"goTo", "find", "click", "type", "runShell", "runCode", "httpRequest", "checkLink", "screenshot", "wait"}
 
 if __name__ == "__main__":
     sys.exit(main())

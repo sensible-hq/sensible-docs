@@ -1,7 +1,7 @@
-# Runs the Doc Detective tests in the layout-based getting started guide:
-# a UI test that signs in to the Sensible app with the docs test account, and
-# a code test that runs the tutorial config against the Sensible API and checks
-# the documented output.
+# Runs the tests in the layout-based getting started guide: Doc Detective runs its UI test
+# (signs in to the Sensible app with the docs test account), and code_tests.py runs its code
+# tests (each documented config against the Sensible API, checked against the documented
+# output). See scripts/doc-detective/README.md.
 #
 # Runs on pushes to v0 that change the guide or the test tooling, monthly, and on demand; not on PRs.
 #
@@ -65,16 +65,16 @@ jobs:
 
       # Offline: comparison, routing to the LLM judge, and syntax checks. No secrets needed.
       - name: Unit test the runner
-        run: python3 -m unittest discover -s scripts/doc-detective
+        run: python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective
 
-      # Secrets come from env vars only. Don't write a .env here: Doc Detective's
-      # loadVariables would make it override these values.
+      # Secrets come from env vars only. Don't write a .env here: its values would override these.
+      # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
       # --no-auto-update keeps the pinned version. Doc Detective otherwise self-updates on startup.
       # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
       - name: Run tests
         id: tests
         continue-on-error: true
-        run: scripts/doc-detective/run.sh --no-auto-update -i "docs/document extraction/getting-started.md"
+        run: scripts/doc-detective/run.sh --no-auto-update "docs/document extraction/getting-started.md"
         env:
           SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
           SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
@@ -119,7 +119,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           PR_URL: ${{ steps.fix_pr.outputs.url }}
         run: |
-          python3 scripts/doc-detective/report.py scripts/doc-detective/output --run-url "$RUN_URL" ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
+          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
           gh label create doc-detective --color D93F0B --description "Doc Detective docs test failures" --force
           issue=$(gh issue list --label doc-detective --state open --json number -q '.[0].number')
           if [ -n "$issue" ]; then
@@ -137,7 +137,7 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           LABEL: doc-detective-envelope
         run: |
-          python3 scripts/doc-detective/envelope_issue.py scripts/doc-detective/output --run-url "$RUN_URL" > "$RUNNER_TEMP/envelope.json"
+          python3 scripts/doc-detective/report.py envelope-issue --run-url "$RUN_URL" > "$RUNNER_TEMP/envelope.json"
           state=$(jq -r .state "$RUNNER_TEMP/envelope.json")
           fingerprint=$(jq -r .fingerprint "$RUNNER_TEMP/envelope.json")
           jq -r .body "$RUNNER_TEMP/envelope.json" > "$RUNNER_TEMP/envelope.md"

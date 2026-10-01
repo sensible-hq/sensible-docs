@@ -17,9 +17,13 @@ from datetime import datetime, timezone
 
 import jsonschema
 
-SCHEMA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "envelope-schema.json")
-with open(SCHEMA_PATH, encoding="utf-8") as f:
+
+from . import settings
+
+with open(os.path.join(settings.SCHEMAS_DIR, "envelope.schema.json"), encoding="utf-8") as f:
     SCHEMA = json.load(f)
+with open(os.path.join(settings.CONFIG_DIR, "envelope.json"), encoding="utf-8") as f:
+    CONFIG = json.load(f)
 
 
 class EnvelopeInvalid(Exception):
@@ -34,15 +38,43 @@ def validate(envelope):
         where = "/".join(str(p) for p in e.absolute_path) or "top level"
         raise EnvelopeInvalid(f"{where}: {e.message}")
 
-# Free text (3+ words with letters, or more than 40 characters) gets a length check, not a
-# format check. Digit groups don't count as words, so "1800 123 4567" stays structured.
-FREE_TEXT_WORDS = 3
-FREE_TEXT_LENGTH = 40
-# A structured string with more distinct formats than this is treated as free text
-MAX_SHAPES = 20
-# Lengths may stray this far outside the observed range (a fraction of it, or LENGTH_MIN_SLACK chars)
-LENGTH_SLACK = 0.25
-LENGTH_MIN_SLACK = 2
+
+# Tuning, from config/envelope.json. Free text (FREE_TEXT_WORDS+ words with letters, or more than
+# FREE_TEXT_LENGTH characters) gets a length check, not a format check; digit groups don't count as
+# words, so "1800 123 4567" stays structured. A structured string with more than MAX_SHAPES formats
+# is treated as free text. Lengths may stray LENGTH_SLACK of the range (at least LENGTH_MIN_SLACK
+# characters) outside the observed range.
+DEFAULT_RUNS = CONFIG["default_runs"]
+FREE_TEXT_WORDS = CONFIG["free_text_words"]
+FREE_TEXT_LENGTH = CONFIG["free_text_length"]
+MAX_SHAPES = CONFIG["max_shapes"]
+LENGTH_SLACK = CONFIG["length_slack"]
+LENGTH_MIN_SLACK = CONFIG["length_min_slack"]
+
+
+def path(test_id):
+    return os.path.join(settings.envelopes_dir(), f"{test_id}.json")
+
+
+def load(test_id):
+    """The saved baseline for a test, or None if there isn't one. Raises EnvelopeInvalid if it's malformed."""
+    if not os.path.exists(path(test_id)):
+        return None
+    try:
+        with open(path(test_id), encoding="utf-8") as f:
+            envelope = json.load(f)
+    except ValueError as e:
+        raise EnvelopeInvalid(f"not valid JSON ({e})")
+    validate(envelope)
+    return envelope
+
+
+def save(envelope):
+    validate(envelope)
+    os.makedirs(settings.envelopes_dir(), exist_ok=True)
+    with open(path(envelope["test_id"]), "w", encoding="utf-8") as f:
+        json.dump(envelope, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
 
 def config_hash(config_text):

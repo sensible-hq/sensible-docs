@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Doc Detective regression envelope",
-  "description": "Baseline of each LLM field's output over several runs of one example. Written by run_examples.py --build-envelope.",
+  "description": "Baseline of each LLM field's output over several runs of one example. Written by code_tests.py --build-envelope or --extend-envelope.",
   "type": "object",
   "required": [
     "test_id",

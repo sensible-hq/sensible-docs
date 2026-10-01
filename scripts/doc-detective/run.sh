@@ -1,37 +1,56 @@
 #!/usr/bin/env bash
-# Runs Doc Detective, then scrubs secret values from the report files.
-# Doc Detective writes typed keys (for example, the test account password)
-# to its JSON and HTML reports in plain text, and has no option to mask them.
+# Run a docs page's tests: Doc Detective runs its UI tests, code_tests.py runs its code tests.
+# Then write output/report.html and scrub secret values from every report file: Doc Detective
+# writes typed text (the test account password) to its reports in plain text.
 #
-# Usage: scripts/doc-detective/run.sh [doc-detective args...]
-# Example: scripts/doc-detective/run.sh -i "docs/document extraction/getting-started.md"
+# Usage:   scripts/doc-detective/run.sh [Doc Detective options] PAGE
+# Example: scripts/doc-detective/run.sh --no-auto-update "docs/document extraction/getting-started.md"
+#
+# Exits 1 if any step fails, including a UI test Doc Detective skipped. Each step still runs, so
+# the report always covers the whole page.
 
 set -uo pipefail
 
-repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
-output_dir="$repo_root/scripts/doc-detective/output"
-secret_vars=(SENSIBLE_TEST_PASSWORD SENSIBLE_TEST_API_KEY ANTHROPIC_API_KEY ANTHROPIC_KEY)
-
+here="$(cd "$(dirname "$0")" && pwd)"
+repo_root="$(cd "$here/../.." && pwd)"
+output_dir="$here/output"
 cd "$repo_root"
-# Code-test records from earlier runs would otherwise show up in this run's report
-rm -rf "$output_dir/examples"
-doc-detective -c .doc-detective.json "$@"
-status=$?
 
-# Readable report (output/report.html). Generated before scrubbing so the scrub covers it.
-python3 "$repo_root/scripts/doc-detective/html_report.py" "$output_dir" || echo "Couldn't generate report.html" >&2
+if (( $# < 1 )); then
+  echo "Usage: $0 [Doc Detective options] PAGE" >&2
+  exit 2
+fi
+page="${!#}"
+dd_options=("${@:1:$#-1}")
+if [[ ! -f "$page" ]]; then
+  echo "No such page: $page" >&2
+  exit 2
+fi
 
-# Read secrets from the environment, falling back to .env (which Doc Detective
-# also loads, and which takes precedence over the environment).
-for var in "${secret_vars[@]}"; do
-  value=""
-  if [[ -f .env ]]; then
-    value="$(grep -E "^${var}=" .env | tail -1 | cut -d= -f2-)"
-  fi
-  value="${value:-${!var:-}}"
+# .env values win over the environment, as with Doc Detective's loadVariables
+if [[ -f .env ]]; then
+  set -a
+  # shellcheck disable=SC1091
+  . ./.env
+  set +a
+fi
+
+rm -rf "$output_dir"
+mkdir -p "$output_dir"
+status=0
+
+doc-detective -c .doc-detective.json "${dd_options[@]}" -i "$page" || status=1
+python3 "$here/report.py" verify-ui --page "$page" || status=1
+python3 "$here/code_tests.py" --file "$page" || status=1
+python3 "$here/report.py" html --page "$page" || status=1
+
+# Scrub secrets last, so it covers report.html and the code-test records too
+while read -r var; do
+  [[ -z "$var" || "$var" == \#* ]] && continue
+  value="${!var:-}"
   [[ -z "$value" ]] && continue
   VALUE="$value" find "$output_dir" -type f \( -name '*.json' -o -name '*.html' \) \
     -exec perl -pi -e 's/\Q$ENV{VALUE}\E/********/g' {} +
-done
+done < "$here/config/secrets.txt"
 
 exit $status
