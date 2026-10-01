@@ -1,11 +1,11 @@
 ---
 title: Zip
-excerpt: Zip method combines tables, arrays, and sections into rows using source field IDs.
+excerpt: Zip method combines tables, arrays, and sections into rows using source field IDs, with regex support.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Zip method combines tables, arrays, and sections into rows using source field IDs.
+  description: Zip method combines tables, arrays, and sections into rows using source field IDs, with regex support.
   robots: index
 next:
   description: ''
