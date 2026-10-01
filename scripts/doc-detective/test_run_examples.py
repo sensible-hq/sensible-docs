@@ -340,7 +340,10 @@ class EnvelopeTest(unittest.TestCase):
         money = lambda v, unit="$", typ="currency": {"premium": {"source": str(v), "value": v, "unit": unit, "type": typ}}
         base = self.baseline([money(100), money(110)], ("premium",))
         self.assertEqual(self.env.check(base, self.env.observe_output(money(105), ["premium"])), {})
-        self.assertIn("value 900", self.env.check(base, self.env.observe_output(money(900), ["premium"]))["premium"][0])
+        self.assertEqual(self.env.check(base, self.env.observe_output(money(900), ["premium"]))["premium"],
+                         ["value 900; baseline values ranged from 100 to 110"])
+        single = self.baseline([money(100)], ("premium",))
+        self.assertIn("value 50; baseline value was always 100", self.env.check(single, self.env.observe_output(money(50), ["premium"]))["premium"])
         self.assertIn("unit €", self.env.check(base, self.env.observe_output(money(100, "€"), ["premium"]))["premium"][0])
         typed = self.env.check(base, self.env.observe_output(money(100, typ="number"), ["premium"]))["premium"]
         self.assertIn("type number", typed[0])
@@ -362,7 +365,8 @@ class EnvelopeTest(unittest.TestCase):
         base = self.baseline([rows(2), rows(3)], ("vehicles",))
         self.assertIn("vehicles#count", base["slots"])
         self.assertIn("vehicles[*].make", base["slots"])
-        self.assertIn("1 items", self.env.check(base, self.env.observe_output(rows(1), ["vehicles"]))["vehicles#count"][0])
+        self.assertEqual(self.env.check(base, self.env.observe_output(rows(1), ["vehicles"]))["vehicles#count"],
+                         ["1 item; baseline item counts ranged from 2 to 3"])
         table = {"t": {"columns": [{"id": "year", "values": [{"type": "number", "value": 2015}]}]}}
         self.assertIn("t.columns[year].values[*]", self.baseline([table], ("t",))["slots"])
 

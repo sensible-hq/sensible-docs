@@ -163,6 +163,24 @@ def build(runs, config_text, test_id):
     return built
 
 
+def baseline_range(low, high, noun):
+    """Describe the baseline's range in words: "baseline values ranged from 50 to 60", "baseline value was always 100"."""
+    if low == high:
+        return f"baseline {noun} was always {low}"
+    return f"baseline {noun}s ranged from {low} to {high}"
+
+
+JSON_NAMES = {"str": "string", "int": "number", "float": "number", "bool": "boolean", "list": "array", "dict": "object"}
+
+
+def baseline_saw(values, quote=False):
+    """Describe what the baseline saw: "baseline only saw currency", "baseline saw '9999 999 9999' or '9999-999-9999'"."""
+    shown = [repr(v) if quote else str(v) for v in values]
+    if len(shown) == 1:
+        return f"baseline only saw {shown[0]}"
+    return f"baseline saw {', '.join(shown[:-1])} or {shown[-1]}"
+
+
 def check(envelope, observations):
     """Return {slot: [reasons]} for every observation outside the envelope."""
     breaches = {}
@@ -178,7 +196,8 @@ def check(envelope, observations):
         if slot.endswith("#count"):
             for e in entries:
                 if not baseline["count_min"] <= e["count"] <= baseline["count_max"]:
-                    breach(slot, f"{e['count']} items; baseline had {baseline['count_min']}-{baseline['count_max']}")
+                    items = "item" if e["count"] == 1 else "items"
+                    breach(slot, f"{e['count']} {items}; {baseline_range(baseline['count_min'], baseline['count_max'], 'item count')}")
             continue
         for e in entries:
             if e["null"]:
@@ -186,22 +205,23 @@ def check(envelope, observations):
                     breach(slot, "null; never null in the baseline")
                 continue
             if e.get("type") and baseline["types"] and e["type"] not in baseline["types"]:
-                breach(slot, f"type {e['type']}; baseline had {', '.join(baseline['types'])}")
+                breach(slot, f"type {e['type']}; {baseline_saw(baseline['types'])}")
             if e.get("json_type") and baseline["json_types"] and e["json_type"] not in baseline["json_types"]:
-                breach(slot, f"value is a {e['json_type']}; baseline had {', '.join(baseline['json_types'])}")
+                breach(slot, f"value is a {JSON_NAMES.get(e['json_type'], e['json_type'])}; "
+                             f"{baseline_saw(sorted({JSON_NAMES.get(j, j) for j in baseline['json_types']}))}")
             if e.get("unit") and baseline["units"] and e["unit"] not in baseline["units"]:
-                breach(slot, f"unit {e['unit']}; baseline had {', '.join(baseline['units'])}")
+                breach(slot, f"unit {e['unit']}; {baseline_saw(baseline['units'])}")
             if e.get("confidence") and baseline["confidence_signals"] and e["confidence"] not in baseline["confidence_signals"]:
-                breach(slot, f"confidence signal {e['confidence']}; baseline had {', '.join(baseline['confidence_signals'])}")
+                breach(slot, f"confidence signal {e['confidence']}; {baseline_saw(baseline['confidence_signals'])}")
             if "shape" in e and isinstance(baseline.get("shapes"), list) and e["shape"] not in baseline["shapes"]:
-                breach(slot, f"new format {e['shape']!r}; baseline had {', '.join(repr(s) for s in baseline['shapes'])}")
+                breach(slot, f"new format {e['shape']!r}; {baseline_saw(baseline['shapes'], quote=True)}")
             if "source_shape" in e and isinstance(baseline.get("source_shapes"), list) and e["source_shape"] not in baseline["source_shapes"]:
-                breach(slot, f"new source format {e['source_shape']!r}; baseline had {', '.join(repr(s) for s in baseline['source_shapes'])}")
+                breach(slot, f"new source format {e['source_shape']!r}; {baseline_saw(baseline['source_shapes'], quote=True)}")
             if "length" in e and "length_min" in baseline:
                 spread = baseline["length_max"] - baseline["length_min"]
                 slack = max(LENGTH_MIN_SLACK, round(spread * LENGTH_SLACK), round(baseline["length_max"] * LENGTH_SLACK))
                 if not baseline["length_min"] - slack <= e["length"] <= baseline["length_max"] + slack:
-                    breach(slot, f"length {e['length']}; baseline had {baseline['length_min']}-{baseline['length_max']}")
+                    breach(slot, f"length {e['length']}; {baseline_range(baseline['length_min'], baseline['length_max'], 'length')}")
             if "number" in e and "number_min" in baseline and not baseline["number_min"] <= e["number"] <= baseline["number_max"]:
-                breach(slot, f"value {e['number']}; baseline had {baseline['number_min']}-{baseline['number_max']}")
+                breach(slot, f"value {e['number']}; {baseline_range(baseline['number_min'], baseline['number_max'], 'value')}")
     return breaches
