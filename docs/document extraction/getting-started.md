@@ -253,7 +253,7 @@ This config returns:
 ```json
 {
   "bodily_injury_premium": {
-    "source": "$100",
+    "source": "100",
     "value": 100,
     "unit": "$",
     "type": "currency",
@@ -263,7 +263,8 @@ This config returns:
     "value": "1800 123 4567",
     "type": "string",
     "confidenceSignal": "confident_answer"
-  },
+  }
+}
 ```
 
 Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
