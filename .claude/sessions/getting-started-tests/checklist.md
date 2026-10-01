@@ -36,6 +36,13 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
   - Estimate for a weekly docs Action: ~2 min/run, dominated by setup
 - [ ] Decide: LLM `queryGroup` in the layout tutorial's first config. Options: compare layout fields only; get AWS creds from eng; commit LLM cache entries to the sensible repo
 - [ ] Decide: where the suite lives (generated each run in docs CI vs committed to sensible repo's extractors/)
+- [x] Switched code tests to the API for now (2026-09-30). `scripts/doc-detective/run_examples.py`: parses `<!-- example config|document|output -->` markers inside the Doc Detective test, uploads config as `<testId>` in doc type `docs_ci_examples` (published to development), extracts with the Python SDK (`sensibleapi` 0.0.17), subset-compares against the docs Output block, deletes the doc type at the end (`--keep` to skip). Doc Detective calls it via a `runShell` step in test `extract_auto_insurance_anyco`
+  - Deps: `pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt` (no python3-venv on this machine)
+  - DELETE /document_types removes configs and reference docs but NOT extraction history in the app
+  - Full Doc Detective run (UI + code): 45s
+- [ ] Docs drift found: `bodily_injury_premium.source` is `"100"`, docs say `"$100"` (3/3 runs). Fix the Output block?
+- [ ] LLM variance: `customer_service_phone.value` was `"1800-123-4567"` in 1 of 3 runs (docs: `"1800 123 4567"`). Decide tolerance for LLM fields (e.g. per-path `ignore` or normalize option on `<!-- example output {...} -->`)
+- [ ] Investigate Doc Detective's capabilities for API contract testing: test-level `openApi` property, their docs pages `test-code/generate-tests-from-openapi.mdx` and `test-code/http-and-api.mdx`, `httpRequest` response validation against our specs in `reference/`. Related item already on docs-as-tests (#725) checklist
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
 - [ ] CI wiring (secrets, workflow)
