@@ -24,6 +24,10 @@ For each example, the runner:
   4. Checks that the docs output is a subset of the actual parsed_document
 At the end of the run, it deletes DOC_TYPE (configs included). Extraction history stays in the app.
 
+With --propose-fixes (or DOC_EXAMPLES_PROPOSE_FIXES=1, which CI sets), an OUTPUT_DRIFT failure also
+rewrites the mismatched values in the doc's output block to the actual values, as a proposed docs fix
+for a human to review. It doesn't touch output blocks that contain comments.
+
 Usage:
   run_examples.py --file "docs/document extraction/getting-started.md" --test extract_auto_insurance_anyco
   run_examples.py --file <doc> --list
@@ -108,6 +112,9 @@ def parse_examples(path):
             if not fence:
                 raise ExampleError("DOCS_MALFORMED", f"{test['testId']}: <!-- example {role} --> isn't followed by a code block")
             parts[role] = fence.group(1)
+            if role == "output":
+                offset = test_match.start(2)
+                parts["output_span"] = (offset + fence.start(1), offset + fence.end(1))
         if parts:
             missing = {"config", "document_url", "output"} - parts.keys()
             if missing:
@@ -116,28 +123,76 @@ def parse_examples(path):
     return examples
 
 
-def subset_diffs(expected, actual, path="$"):
-    """List the ways `expected` isn't contained in `actual`. Arrays are positional and length-checked."""
+MISSING = object()
+
+
+def subset_diffs(expected, actual, path=()):
+    """List (path, expected, actual) where `expected` isn't contained in `actual`.
+
+    Arrays are positional and length-checked. A key missing from `actual` reports actual as MISSING.
+    """
     if isinstance(expected, dict):
         if not isinstance(actual, dict):
-            return [f"{path}: expected an object, got {json.dumps(actual)}"]
+            return [(path, expected, actual)]
         diffs = []
         for key, value in expected.items():
             if key not in actual:
-                diffs.append(f"{path}.{key}: missing from actual output")
+                diffs.append((path + (key,), value, MISSING))
             else:
-                diffs += subset_diffs(value, actual[key], f"{path}.{key}")
+                diffs += subset_diffs(value, actual[key], path + (key,))
         return diffs
     if isinstance(expected, list):
         if not isinstance(actual, list) or len(actual) != len(expected):
-            return [f"{path}: expected {json.dumps(expected)}, got {json.dumps(actual)}"]
-        return [d for i, (e, a) in enumerate(zip(expected, actual)) for d in subset_diffs(e, a, f"{path}[{i}]")]
+            return [(path, expected, actual)]
+        return [d for i, (e, a) in enumerate(zip(expected, actual)) for d in subset_diffs(e, a, path + (i,))]
     if isinstance(expected, float) or isinstance(actual, float):
         if isinstance(actual, (int, float)) and abs(expected - actual) < 1e-9:
             return []
     elif expected == actual:
         return []
-    return [f"{path}: expected {json.dumps(expected)}, got {json.dumps(actual)}"]
+    return [(path, expected, actual)]
+
+
+def format_path(path):
+    return "$" + "".join(f"[{p}]" if isinstance(p, int) else f".{p}" for p in path)
+
+
+def format_diff(diff):
+    path, expected, actual = diff
+    if actual is MISSING:
+        return f"{format_path(path)}: missing from actual output"
+    return f"{format_path(path)}: expected {json.dumps(expected)}, got {json.dumps(actual)}"
+
+
+def apply_fixes(expected, diffs):
+    """Return a copy of `expected` with each mismatched value replaced by the actual value."""
+    fixed = json.loads(json.dumps(expected))
+    for path, _, actual in diffs:
+        if not path:
+            return actual
+        parent = fixed
+        for step in path[:-1]:
+            parent = parent[step]
+        if actual is MISSING:
+            del parent[path[-1]]
+        else:
+            parent[path[-1]] = actual
+    return fixed
+
+
+def propose_fix(path, example, fixed_output):
+    """Rewrite the example's output block in the doc with `fixed_output`."""
+    if "/*" in example["output"] or "//" in example["output"]:
+        print("  Not proposing a fix: the output block has comments", file=sys.stderr)
+        return False
+    text = open(path, encoding="utf-8").read()
+    start, end = example["output_span"]
+    if text[start:end] != example["output"]:
+        print("  Not proposing a fix: the doc changed during the run", file=sys.stderr)
+        return False
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text[:start] + json.dumps(fixed_output, indent=2, ensure_ascii=False) + text[end:])
+    return True
 
 
 def api(method, path, key, **kwargs):
@@ -177,7 +232,7 @@ def upload_config(key, type_id, name, config):
         raise ExampleError("CONFIG_INVALID", f"config upload returned {response.status_code}: {response.text[:500]}")
 
 
-def run_example(key, test_id, example):
+def run_example(key, test_id, example, fix_path=None):
     response = requests.head(example["document_url"], allow_redirects=True, timeout=30)
     if response.status_code != 200:
         raise ExampleError("DOCUMENT_UNREACHABLE", f"{example['document_url']} returned {response.status_code}")
@@ -205,7 +260,10 @@ def run_example(key, test_id, example):
 
     diffs = subset_diffs(expected, result.get("parsed_document") or {})
     if diffs:
-        raise ExampleError("OUTPUT_DRIFT", "docs output doesn't match the extraction:\n  " + "\n  ".join(diffs))
+        message = "docs output doesn't match the extraction:\n  " + "\n  ".join(format_diff(d) for d in diffs)
+        if fix_path and propose_fix(fix_path, example, apply_fixes(expected, diffs)):
+            message += f"\n  Proposed fix written to {fix_path}"
+        raise ExampleError("OUTPUT_DRIFT", message)
 
 
 def load_api_key():
@@ -224,6 +282,12 @@ def main():
     parser.add_argument("--file", required=True, help="Markdown file with annotated examples")
     parser.add_argument("--test", action="append", help="testId to run (repeatable). Default: all in the file")
     parser.add_argument("--list", action="store_true", help="List annotated examples and exit")
+    parser.add_argument(
+        "--propose-fixes",
+        action="store_true",
+        default=os.environ.get("DOC_EXAMPLES_PROPOSE_FIXES") == "1",
+        help="On OUTPUT_DRIFT, rewrite the doc's output block with the actual values (default: DOC_EXAMPLES_PROPOSE_FIXES=1)",
+    )
     parser.add_argument("--keep", action="store_true", help=f"Don't delete {DOC_TYPE} after the run (for debugging in the app)")
     args = parser.parse_args()
 
@@ -247,7 +311,7 @@ def main():
                 failed += 1
                 continue
             try:
-                run_example(key, test_id, examples[test_id])
+                run_example(key, test_id, examples[test_id], args.file if args.propose_fixes else None)
                 print(f"PASS {test_id}")
             except ExampleError as e:
                 print(f"FAIL {test_id}  {e}")
