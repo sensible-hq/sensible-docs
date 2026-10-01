@@ -14,6 +14,8 @@ import os
 import sys
 from datetime import datetime
 
+import envelope_issue
+
 DEFAULT_OUTPUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 
 CSS = """
@@ -67,8 +69,8 @@ details { margin: 10px 0 0; }
 details.test { margin: 0 0 20px; }
 details.test > summary { list-style: none; cursor: pointer; color: var(--text); font-weight: normal; }
 details.test > summary::-webkit-details-marker { display: none; }
-details.test > summary .row::before { content: "\25B8"; color: var(--muted); margin-right: 2px; }
-details.test[open] > summary .row::before { content: "\25BE"; }
+details.test > summary .row::before { content: "▸"; color: var(--muted); margin-right: 2px; }
+details.test[open] > summary .row::before { content: "▾"; }
 .toolbar { display: flex; gap: 8px; margin: 0 0 12px; }
 .toolbar button { font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); cursor: pointer; }
 summary { cursor: pointer; color: var(--info); font-weight: 600; }
@@ -169,7 +171,7 @@ def render_ui_test(test):
     return "\n".join(out)
 
 
-def render_envelope(env):
+def render_envelope(env, record=None):
     if not env:
         return ""
     out = [f"<h3>Regression envelope {ENVELOPE}</h3>"]
@@ -183,10 +185,11 @@ def render_envelope(env):
         out.append(f'<p>{chip("pass", "Within the envelope")} Every LLM field measurement is inside the baseline of {env["runs"]} runs, built {e(env["built"])}.</p>')
     else:
         count = sum(len(r) for r in env["breaches"].values())
-        out.append(f'<p>{chip("warn", "Outside the envelope")} {count} measurement(s) fall outside the baseline of {env["runs"]} runs, built {e(env["built"])}. '
-                   'If the judge still passes these fields, the feature\'s behavior likely changed.</p><ul>')
-        out += [f"<li><code>{e(slot)}</code>: {e(reason)}</li>" for slot, reasons in env["breaches"].items() for reason in reasons]
-        out.append("</ul>")
+        out.append(f'<p>{chip("warn", "Outside the envelope")} {count} measurement(s) fall outside the baseline of {env["runs"]} runs, built {e(env["built"])}.</p><ul>')
+        for slot, reasons in env["breaches"].items():
+            note = envelope_issue.judge_note(record or {}, envelope_issue.field_of(slot)).replace("**", "")
+            out += [f"<li><code>{e(slot)}</code>: {e(reason)} <span class=\"muted\">({e(note)})</span></li>" for reason in reasons]
+        out.append("</ul><p class=\"muted\">If the new output is acceptable, rebuild the baseline with <code>--build-envelope 10</code> and commit it. If it isn't, report it to engineering.</p>")
     rows = []
     for slot, s in env.get("slots", {}).items():
         if "count_min" in s:
@@ -302,7 +305,7 @@ def render_code_test(record):
             f'<span class="label" style="margin-top:10px">User</span><pre>{e(judge["user_prompt"])}</pre></details>'
             f'<details><summary>Full judge output (JSON)</summary><pre>{e(raw)}</pre></details>'
         )
-    out.append(render_envelope(record.get("envelope")))
+    out.append(render_envelope(record.get("envelope"), record))
     out.append("</details>")
     return "\n".join(out)
 

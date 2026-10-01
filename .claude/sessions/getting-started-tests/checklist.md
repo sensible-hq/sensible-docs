@@ -78,8 +78,9 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
 - [x] Second code test `query_group_how_it_works` ("How it works: Query Group method"), to see how the report and markup scale:
   - New markup options: `<!-- example config {"fragment": "field"} -->` wraps a one-field excerpt in `{"fields": [...]}` (comments kept; syntax-error line numbers corrected); `<!-- example document {"from": "<testId>"} -->` reuses another test's download link (still one copy of the URL)
   - Found a docs bug: the section's output block never closed its outer `}` (syntax check: DOCS_MALFORMED line 293). Fixed on this branch only
-  - 10-run baseline: `source` "100" in 10/10 runs, so that block's `"$100"` is also wrong (judge passes it, 0.90). Not fixed yet: ask user (and whether to fix on v0 too, with the unclosed brace)
-  - Report scale: ~900px per code test (3 tests: 2674px). With many examples, consider collapsing identical/passing tests
+  - 10-run baseline: `source` "100" in 10/10 runs, so that block's `"$100"` was wrong too. Fixed 2026-10-01 on the branch (e0bf4c860) and on v0 with the unclosed brace (b9fb59567)
+  - Report scale: ~900px per code test (3 tests: 2674px). DONE: test sections are collapsible (`<details>`); closed if a test simply passed (identical, nothing judged, within envelope), open for failures, judge decisions, and envelope warnings; Expand/Collapse all; links open their section
+  - Envelope warning rehearsed (2026-10-01): `DOC_EXAMPLES_ENVELOPES_DIR` pointed at an edited copy of the baselines (committed ones untouched); report and issue text checked by screenshot. Fixed from the rehearsal: "N warning(s) from the LLM judge" said for envelope warnings; arrow glyphs garbled by a Python escape; envelope text assumed a judge decision; each breach now notes what happened to the field
   - 43 offline tests
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
