@@ -639,5 +639,35 @@ class TriageTest(unittest.TestCase):
         self.assertIn("the judge errored", self.ei.judge_note(self.record("error", {}), "phone"))
 
 
+class ExtendEnvelopeTest(unittest.TestCase):
+    import envelope as env
+
+    def phone(self, value):
+        return self.env.observe_output({"phone": {"type": "string", "value": value, "confidenceSignal": "confident_answer"}}, ["phone"])
+
+    def test_merge_combines_runs_formats_and_ranges(self):
+        old = self.env.build([self.phone("1800 123 4567")] * 10, "C", "t")
+        new = self.env.build([self.phone("1800-123-4567")] * 2 + [self.phone("1800 123 4567")] * 8, "C", "t")
+        merged = self.env.merge(old, new)
+        self.assertEqual(merged["runs"], 20)
+        self.assertEqual(merged["slots"]["phone"]["observations"], 20)
+        self.assertEqual(merged["slots"]["phone"]["shapes"], ["9999 999 9999", "9999-999-9999"])
+        self.assertEqual(merged["built"], old["built"])
+        self.assertIn("updated", merged)
+        self.assertEqual(self.env.check(merged, self.phone("1800-123-4567")), {})
+
+    def test_null_rate_is_reweighted_and_counts_widen(self):
+        a = self.env.build([self.env.observe_output({"x": None}, ["x"])] + [self.env.observe_output({"x": {"type": "string", "value": "a"}}, ["x"])] * 3, "C", "t")
+        b = self.env.build([self.env.observe_output({"x": {"type": "string", "value": "a"}}, ["x"])] * 4, "C", "t")
+        self.assertEqual(self.env.merge(a, b)["slots"]["x"]["null_rate"], 0.125)
+        rows = lambda n: self.env.observe_output({"v": [{"m": {"type": "string", "value": "A"}}] * n}, ["v"])
+        merged = self.env.merge(self.env.build([rows(2)], "C", "t"), self.env.build([rows(5)], "C", "t"))
+        self.assertEqual(merged["slots"]["v#count"], {"count_min": 2, "count_max": 5})
+
+    def test_merge_refuses_different_configs(self):
+        with self.assertRaises(self.env.EnvelopeInvalid):
+            self.env.merge(self.env.build([self.phone("1")], "C1", "t"), self.env.build([self.phone("1")], "C2", "t"))
+
+
 if __name__ == "__main__":
     unittest.main()

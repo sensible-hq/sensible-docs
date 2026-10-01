@@ -163,6 +163,52 @@ def build(runs, config_text, test_id):
     return built
 
 
+def merge(old, new):
+    """Combine two envelopes for the same config: counts add, sets combine, ranges widen."""
+    if old["config_sha256"] != new["config_sha256"]:
+        raise EnvelopeInvalid("can't merge envelopes built from different configs")
+    slots = {}
+    for slot in sorted(set(old["slots"]) | set(new["slots"])):
+        a, b = old["slots"].get(slot), new["slots"].get(slot)
+        if a is None or b is None:
+            slots[slot] = a or b
+            continue
+        if "count_min" in a:
+            slots[slot] = {"count_min": min(a["count_min"], b["count_min"]), "count_max": max(a["count_max"], b["count_max"])}
+            continue
+        total = a["observations"] + b["observations"]
+        merged = {
+            "observations": total,
+            "null_rate": round((a["null_rate"] * a["observations"] + b["null_rate"] * b["observations"]) / total, 3),
+        }
+        for key in ("types", "json_types", "units", "confidence_signals"):
+            merged[key] = sorted(set(a[key]) | set(b[key]))
+        for key in ("shapes", "source_shapes"):
+            if key in a or key in b:
+                x, y = a.get(key, []), b.get(key, [])
+                if x == "free text" or y == "free text":
+                    merged[key] = "free text"
+                else:
+                    combined = sorted(set(x) | set(y))
+                    merged[key] = combined if len(combined) <= MAX_SHAPES else "free text"
+        for low, high in (("length_min", "length_max"), ("number_min", "number_max")):
+            lows = [s[low] for s in (a, b) if low in s]
+            if lows:
+                merged[low] = min(lows)
+                merged[high] = max(s[high] for s in (a, b) if high in s)
+        slots[slot] = merged
+    result = {
+        "test_id": old["test_id"],
+        "runs": old["runs"] + new["runs"],
+        "built": old["built"],
+        "updated": new["built"],
+        "config_sha256": old["config_sha256"],
+        "slots": slots,
+    }
+    validate(result)
+    return result
+
+
 def baseline_range(low, high, noun):
     """Describe the baseline's range in words: "baseline values ranged from 50 to 60", "baseline value was always 100"."""
     if low == high:

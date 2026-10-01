@@ -1,11 +1,12 @@
 {
   "test_id": "query_group_how_it_works",
-  "runs": 10,
+  "runs": 20,
   "built": "2026-10-01T21:27:19Z",
+  "updated": "2026-10-01T22:17:28Z",
   "config_sha256": "fa9482c1cff318be93634b482f7006c8ea6abbe1b4cedc94db072e5ec4468587",
   "slots": {
     "bodily_injury_premium": {
-      "observations": 10,
+      "observations": 20,
       "null_rate": 0.0,
       "types": [
         "currency"
@@ -26,7 +27,7 @@
       "number_max": 100
     },
     "customer_service_phone": {
-      "observations": 10,
+      "observations": 20,
       "null_rate": 0.0,
       "types": [
         "string"
@@ -39,7 +40,8 @@
         "confident_answer"
       ],
       "shapes": [
-        "9999 999 9999"
+        "9999 999 9999",
+        "9999-999-9999"
       ],
       "length_min": 13,
       "length_max": 13

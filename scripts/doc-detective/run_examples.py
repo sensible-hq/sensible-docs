@@ -694,7 +694,7 @@ def check_envelope(record, test_id, example, actual, index):
         envelope.validate(baseline)
     except (ValueError, envelope.EnvelopeInvalid) as e:
         raise ExampleError("ENVELOPE_INVALID", f"{os.path.relpath(path)} isn't a valid envelope: {e}. Rebuild it with --build-envelope")
-    info = {"runs": baseline["runs"], "built": baseline["built"]}
+    info = {"runs": baseline["runs"], "built": baseline["built"] + (f", extended {baseline['updated']}" if baseline.get("updated") else "")}
     if baseline["config_sha256"] != envelope.config_hash(example["config"]):
         record["envelope"] = {"status": "stale", **info}
         return []
@@ -708,13 +708,23 @@ def check_envelope(record, test_id, example, actual, index):
     return [f"envelope: {slot}: {reason}" for slot, reasons in breaches.items() for reason in reasons]
 
 
-def build_envelope(key, test_id, example, runs):
-    """Extract an example `runs` times and save its LLM fields' envelope."""
+def build_envelope(key, test_id, example, runs, extend=False):
+    """Extract an example `runs` times and save its LLM fields' envelope, or add the runs to the saved one."""
     config, _ = check_syntax(test_id, example)
     index = llm_judge.FieldIndex(config)
     if not index.llm:
         print(f"SKIP {test_id}: no LLM fields")
         return
+    existing = None
+    if extend:
+        path = envelope_path(test_id)
+        if not os.path.exists(path):
+            raise ExampleError("ENVELOPE_INVALID", f"{test_id}: no baseline to extend; build one with --build-envelope")
+        with open(path, encoding="utf-8") as f:
+            existing = json.load(f)
+        envelope.validate(existing)
+        if existing["config_sha256"] != envelope.config_hash(example["config"]):
+            raise ExampleError("ENVELOPE_INVALID", f"{test_id}: the baseline is stale (the config changed); rebuild it with --build-envelope")
     type_id = ensure_doc_type(key)
     upload_config(key, type_id, test_id, example["config"])
     sensible = SensibleSDK(key)
@@ -729,11 +739,14 @@ def build_envelope(key, test_id, example, runs):
         observations.append(envelope.observe_output(result.get("parsed_document") or {}, index.llm))
         print(f"  run {i + 1}/{runs} done")
     built = envelope.build(observations, example["config"], test_id)
+    if existing:
+        built = envelope.merge(existing, built)
     os.makedirs(ENVELOPES_DIR, exist_ok=True)
     with open(envelope_path(test_id), "w", encoding="utf-8") as f:
         json.dump(built, f, indent=2, ensure_ascii=False)
         f.write("\n")
-    print(f"Wrote {os.path.relpath(envelope_path(test_id))} ({runs} runs, {len(built['slots'])} slots, valid against envelope-schema.json)")
+    action = f"Added {runs} runs to" if existing else "Wrote"
+    print(f"{action} {os.path.relpath(envelope_path(test_id))} ({built['runs']} runs in total, {len(built['slots'])} slots, valid against envelope-schema.json)")
     print(json.dumps(built["slots"], indent=2, ensure_ascii=False))
 
 
@@ -776,6 +789,7 @@ def main():
     )
     parser.add_argument("--judge-model", help=f"Judge model ID (default: DOC_EXAMPLES_JUDGE_MODEL or {llm_judge.DEFAULT_JUDGE_MODEL})")
     parser.add_argument("--build-envelope", type=int, metavar="N", help="Extract each example N times and save its LLM fields' regression envelope")
+    parser.add_argument("--extend-envelope", type=int, metavar="N", help="Extract each example N more times and add the runs to its saved envelope")
     parser.add_argument("--keep", action="store_true", help=f"Don't delete {DOC_TYPE} after the run (for debugging in the app)")
     args = parser.parse_args()
 
@@ -801,7 +815,10 @@ def main():
         return 2
 
     selected = args.test or list(examples)
-    if args.build_envelope:
+    if args.build_envelope and args.extend_envelope:
+        print("Use --build-envelope or --extend-envelope, not both", file=sys.stderr)
+        return 2
+    if args.build_envelope or args.extend_envelope:
         fixtures = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
         if os.path.abspath(args.file).startswith(fixtures + os.sep) and not os.environ.get("DOC_EXAMPLES_ENVELOPES_DIR"):
             print("Refusing to build envelopes from a fixture: it would overwrite the real baselines in envelopes/. "
@@ -809,7 +826,7 @@ def main():
             return 2
         try:
             for test_id in selected:
-                build_envelope(key, test_id, examples[test_id], args.build_envelope)
+                build_envelope(key, test_id, examples[test_id], args.build_envelope or args.extend_envelope, extend=bool(args.extend_envelope))
         finally:
             if not args.keep and delete_doc_type(key):
                 print(f"Deleted document type {DOC_TYPE}")
