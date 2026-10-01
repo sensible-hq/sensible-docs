@@ -71,6 +71,7 @@ jobs:
           SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
           SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DOC_EXAMPLES_PROPOSE_FIXES: "1"
 
       - name: Open or update proposed docs fix PR

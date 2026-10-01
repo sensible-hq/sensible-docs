@@ -10,7 +10,7 @@ set -uo pipefail
 
 repo_root="$(cd "$(dirname "$0")/../.." && pwd)"
 output_dir="$repo_root/scripts/doc-detective/output"
-secret_vars=(SENSIBLE_TEST_PASSWORD SENSIBLE_TEST_API_KEY)
+secret_vars=(SENSIBLE_TEST_PASSWORD SENSIBLE_TEST_API_KEY ANTHROPIC_API_KEY)
 
 cd "$repo_root"
 doc-detective -c .doc-detective.json "$@"
