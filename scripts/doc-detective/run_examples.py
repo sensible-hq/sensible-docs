@@ -806,7 +806,9 @@ def main():
                 warnings = run_example(key, test_id, examples[test_id], args.file if args.propose_fixes else None, args.judge_model, record)
                 record.update(status="warn" if warnings else "pass")
                 print_summary(record)
-                print(f"PASS {test_id}" + (f" with {len(warnings)} warning(s) from the LLM judge" if warnings else ""))
+                envelope_warnings = sum(w.startswith("envelope:") for w in warnings)
+                sources = [f"{n} {name}" for n, name in ((len(warnings) - envelope_warnings, "[judge]"), (envelope_warnings, "[envelope]")) if n]
+                print(f"PASS {test_id}" + (f" with warnings: {', '.join(sources)}" if warnings else ""))
             except ExampleError as e:
                 record.update(status="fail", category=e.category, message=str(e))
                 if "overall" in record:
