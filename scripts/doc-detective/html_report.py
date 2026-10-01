@@ -101,16 +101,63 @@ def load_doc_detective(output_dir):
             failed = [s for s in steps if s.get("result") == "FAIL"]
             tests.append({
                 "test_id": test["testId"],
+                "description": test.get("description", ""),
                 "status": "pass" if test.get("result") == "PASS" else "fail",
-                "steps": len(steps),
-                "failed": [s.get("description") or next((k for k in s if k in ACTIONS), "step") for s in failed],
-                "failed_reason": [s.get("resultDescription", "") for s in failed],
+                "steps": [step_summary(s) for s in steps],
+                "failed": len(failed),
                 "is_code": any("runShell" in s for s in steps),
             })
     return tests
 
 
 ACTIONS = {"goTo", "find", "click", "type", "runShell", "runCode", "httpRequest", "checkLink", "screenshot", "wait"}
+
+
+def step_summary(step):
+    """Describe a Doc Detective step: its description, action and target, and result. Never typed text."""
+    action = next((k for k in step if k in ACTIONS), "step")
+    spec = step.get(action)
+    if action == "goTo":
+        target = spec.get("url", "") if isinstance(spec, dict) else spec
+        what = f"go to {target}"
+    elif action == "type":
+        what = f"type into {spec.get('selector', 'the focused element')}" if isinstance(spec, dict) else "type"
+    elif action in ("find", "click"):
+        if isinstance(spec, dict):
+            bits = [spec["selector"]] if spec.get("selector") else []
+            if spec.get("elementText"):
+                bits.append(f'"{spec["elementText"]}"')
+            what = f"{action} " + " with text ".join(bits)
+        else:
+            what = f'{action} "{spec}"'
+    elif action == "runShell":
+        what = "run the example runner"
+    else:
+        what = action
+    return {
+        "description": step.get("description", ""),
+        "action": what,
+        "result": {"PASS": "pass", "FAIL": "fail"}.get(step.get("result"), "skipped"),
+        "message": step.get("resultDescription", ""),
+        "seconds": round(step.get("durationMs", 0) / 1000, 1),
+    }
+
+
+def render_ui_test(test):
+    out = [f'<section class="card" id="{e(test["test_id"])}">']
+    out.append(f'<div class="row"><h2>{e(test["test_id"])}</h2>{chip(test["status"])}</div>')
+    if test["description"]:
+        out.append(f'<p class="muted" style="margin:6px 0 0">{e(test["description"])}</p>')
+    out.append('<h3>Steps</h3><table><tr><th>#</th><th>Step</th><th>Action</th><th>Result</th></tr>')
+    for i, s in enumerate(test["steps"], 1):
+        css = {"pass": "pass", "fail": "fail"}.get(s["result"], "info")
+        message = f'<br><span style="color:var(--fail)">{e(s["message"])}</span>' if s["result"] == "fail" else ""
+        out.append(
+            f'<tr><td class="muted">{i}</td><td>{e(s["description"]) or "<span class=muted>no description</span>"}{message}</td>'
+            f'<td><code>{e(s["action"])}</code></td><td><span class="chip {css}">{e(s["result"])}</span> <span class="muted">{s["seconds"]}s</span></td></tr>'
+        )
+    out.append("</table></section>")
+    return "\n".join(out)
 
 
 def render_code_test(record):
@@ -208,7 +255,7 @@ def render(output_dir):
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(source)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
         f'<p class="disclaimer">{e(DISCLAIMER).replace("labeled judge", "labeled " + JUDGE)}</p>',
-        '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Result</th><th>Details</th></tr>',
+        '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',
     ]
     for t in dd_tests:
         record = records.get(t["test_id"])
@@ -218,13 +265,15 @@ def render(output_dir):
             details = (f'<a href="#{e(t["test_id"])}">Comparison' + (" and judge reasoning</a> " + JUDGE if judged else "</a>")) if record else "No record"
             kind = "Code sample"
         else:
-            details = f'{t["steps"]} steps' + ("".join(f'<br>Failed: {e(n)} — {e(r)}' for n, r in zip(t["failed"], t["failed_reason"])))
+            failed = f', {t["failed"]} failed' if t["failed"] else ""
+            details = f'<a href="#{e(t["test_id"])}">{len(t["steps"])} steps{failed}</a>'
             kind = "App UI"
-        out.append(f'<tr><td><code>{e(t["test_id"])}</code></td><td>{kind}</td><td>{chip(status)}</td><td>{details}</td></tr>')
+        out.append(f'<tr><td><code>{e(t["test_id"])}</code></td><td>{kind}</td><td>{e(t["description"])}</td><td>{chip(status)}</td><td>{details}</td></tr>')
     for test_id, record in records.items():
         if not any(t["test_id"] == test_id for t in dd_tests):
-            out.append(f'<tr><td><code>{e(test_id)}</code></td><td>Code sample</td><td>{chip(record.get("status", "fail"))}</td><td><a href="#{e(test_id)}">Comparison and judge reasoning</a></td></tr>')
+            out.append(f'<tr><td><code>{e(test_id)}</code></td><td>Code sample</td><td></td><td>{chip(record.get("status", "fail"))}</td><td><a href="#{e(test_id)}">Comparison and judge reasoning</a></td></tr>')
     out.append("</table></section>")
+    out += [render_ui_test(t) for t in dd_tests if not t["is_code"]]
     out += [render_code_test(r) for r in records.values()]
     out.append("</main></body></html>")
     path = os.path.join(output_dir, "report.html")

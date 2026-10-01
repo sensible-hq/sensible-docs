@@ -293,5 +293,21 @@ class HtmlReportTest(unittest.TestCase):
         self.assertNotIn("<b>1</b>", page)
 
 
+class UiStepTest(unittest.TestCase):
+    def test_steps_show_descriptions_and_never_typed_text(self):
+        import html_report
+        steps = [
+            {"description": "Log into account: enter the password", "type": {"keys": "hunter2", "selector": "input[name=\"password\"]"}, "result": "PASS", "durationMs": 200},
+            {"description": "Log into account: click Sign in", "click": {"selector": "form button", "elementText": "Sign in"}, "result": "FAIL", "resultDescription": "Element not found", "durationMs": 5000},
+        ]
+        summaries = [html_report.step_summary(s) for s in steps]
+        self.assertEqual(summaries[0]["action"], 'type into input[name="password"]')
+        self.assertEqual(summaries[1]["action"], 'click form button with text "Sign in"')
+        page = html_report.render_ui_test({"test_id": "ui", "description": "Sign in", "status": "fail", "steps": summaries, "failed": 1})
+        self.assertIn("Log into account: enter the password", page)
+        self.assertIn("Element not found", page)
+        self.assertNotIn("hunter2", page)
+
+
 if __name__ == "__main__":
     unittest.main()
