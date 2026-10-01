@@ -363,7 +363,8 @@ def summarize(record, expected, actual, index, exact, judged_results):
     for path in leaf_paths(expected):
         key, kind = index.owner(path)
         if kind in ("llm", "fallback"):
-            llm_fields.setdefault(key, {"field": key, "kind": kind, "prompt": index.llm[key], "judged": []})
+            declared = index.types.get(key, {}).get("type") or "string"
+            llm_fields.setdefault(key, {"field": key, "kind": kind, "prompt": index.llm[key], "type": llm_judge.format_type(declared), "judged": []})
         elif key:
             layout_fields.add(key)
     for j in judged_results:
@@ -405,6 +406,28 @@ def print_summary(record):
 
 def diffs_exist(expected, actual):
     return bool(subset_diffs(expected, actual))
+
+
+def value_at(obj, path):
+    for segment in path:
+        try:
+            obj = obj[segment]
+        except (KeyError, IndexError, TypeError):
+            return MISSING
+    return obj
+
+
+def typed_field_path(expected, path):
+    """Return the path of the innermost documented object with a "type" key that contains `path`.
+
+    That object is the whole typed field (for example {source, value, unit, type}), which the judge
+    needs to compare value and source together. Falls back to `path` itself.
+    """
+    for end in range(len(path), -1, -1):
+        node = value_at(expected, path[:end])
+        if isinstance(node, dict) and "type" in node:
+            return path[:end]
+    return path
 
 
 def format_path(path):
@@ -514,7 +537,8 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
     if result.get("status") != "COMPLETE":
         raise ExampleError("EXTRACTION_ERROR", f"status {result.get('status')}: {json.dumps(result.get('errors'))[:500]}")
 
-    diffs = subset_diffs(expected, result.get("parsed_document") or {})
+    actual = result.get("parsed_document") or {}
+    diffs = subset_diffs(expected, actual)
     index = llm_judge.FieldIndex(config)
     routes = [index.route(d[0]) for d in diffs]
     exact = [d for d, route in zip(diffs, routes) if route is None]
@@ -533,11 +557,17 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
             {
                 "path": format_path(d[0]),
                 "prompt": route[1],
+                "type": index.type_for(d[0], expected),
                 "documented": d[1],
                 "observed": None if d[2] is MISSING else d[2],
+                "documented_field": value_at(expected, typed_field_path(expected, d[0])),
+                "actual_field": value_at(actual, typed_field_path(expected, d[0])),
             }
             for d, route in judged
         ]
+        for claim in claims:
+            if claim["actual_field"] is MISSING:
+                claim["actual_field"] = None
         try:
             exchange = llm_judge.judge(judge_key, claims, judge_model_override)
         except llm_judge.JudgeError as e:
@@ -547,7 +577,8 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
         for (d, route), claim, r in zip(judged, claims, results):
             verdict = llm_judge.classify(r)
             judged_results.append({
-                "field": route[0], "path": claim["path"], "documented": claim["documented"], "actual": claim["observed"],
+                "field": route[0], "path": claim["path"], "type": llm_judge.format_type(claim["type"]),
+                "documented": claim["documented"], "actual": claim["observed"],
                 "verdict": verdict, "match": r["match"], "confidence": r["confidence"], "reasoning": r["reasoning"],
                 "claim": r["claim"], "observed": r["observed"],
             })
@@ -562,7 +593,7 @@ def run_example(key, test_id, example, fix_path=None, judge_model_override=None,
             elif verdict == "warn":
                 warnings.append(line)
 
-    summarize(record, expected, result.get("parsed_document") or {}, index, exact, judged_results)
+    summarize(record, expected, actual, index, exact, judged_results)
     if failures:
         message = "docs output doesn't match the extraction:\n  " + "\n  ".join(failures)
         if fix_path and propose_fix(fix_path, example, apply_fixes(expected, fixable)):

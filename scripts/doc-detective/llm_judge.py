@@ -11,6 +11,7 @@ DOC_EXAMPLES_JUDGE_MODEL overrides the model.
 
 import json
 import os
+import re
 from string import Template
 
 import anthropic
@@ -32,7 +33,39 @@ def load_config():
     config["user_prompt"] = Template(read("user_prompt_file"))
     config["claim_template"] = Template(read("claim_template_file"))
     config["output_schema"] = json.loads(read("output_schema_file"))
+    config["type_examples"] = load_type_examples(os.path.join(JUDGE_DIR, config["types_reference_file"]))
     return config
+
+
+TYPE_NAMES = [
+    "Address", "Boolean", "Currency", "Date", "Distance", "Images", "Name", "Number", "Paragraph", "Percentage",
+    "Phone Number", "String", "Table", "Weight", "Compose", "Custom", "Replace", "Any", "Accounting Currency",
+]
+
+
+def load_type_examples(path):
+    """Map each type ID to its output example in the docs' types reference (types.md).
+
+    A type's section starts at its heading ("# Currency", "## Date"); its output example is the
+    section's first code block with a "value" key that isn't a config ("fields").
+    """
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        text = f.read()
+    heads = [(m.start(), m.group(1).strip()) for m in re.finditer(r"^#{1,2} +(.+)$", text, re.M)]
+    examples = {}
+    for i, (start, name) in enumerate(heads):
+        if name not in TYPE_NAMES:
+            continue
+        end = next((pos for pos, n in heads[i + 1:] if n in TYPE_NAMES), len(text))
+        for block in re.finditer(r"```[a-z]*\n(.*?)```", text[start:end], re.S):
+            if '"value"' in block.group(1) and '"fields"' not in block.group(1):
+                words = name.split()
+                type_id = words[0].lower() + "".join(w.capitalize() for w in words[1:])
+                examples[type_id] = re.sub(r"\s+", " ", block.group(1)).strip()
+                break
+    return examples
 
 
 CONFIG = load_config()
@@ -53,6 +86,7 @@ class FieldIndex:
 
     def __init__(self, config):
         self.llm = {}  # output key -> extraction prompt
+        self.types = {}  # output key -> {"type": declared type, "sub": {property or column ID: type}}
         self.other = set()
         self._walk(config)
 
@@ -69,8 +103,14 @@ class FieldIndex:
                 if method["id"] == "queryGroup":
                     for query in method.get("queries", []):
                         self.llm[query["id"]] = query.get("description", "")
+                        self.types[query["id"]] = {"type": query.get("type", "string"), "sub": {}}
                 elif "id" in node:
                     self.llm[node["id"]] = method.get("description", "")
+                    items = method.get("properties") or method.get("columns") or []
+                    self.types[node["id"]] = {
+                        "type": node.get("type"),
+                        "sub": {item["id"]: item.get("type", "string") for item in items if isinstance(item, dict) and "id" in item},
+                    }
             elif "id" in node:
                 self.other.add(node["id"])
         for value in node.values():
@@ -88,6 +128,32 @@ class FieldIndex:
                 return segment, "layout"
         return None, None
 
+    def type_for(self, path, expected):
+        """Return the declared type for the value at `path` in the documented output `expected`.
+
+        The innermost List property or NLP Table column on the path wins, then the query's or
+        field's own type. NLP Table output names columns by value ("columns": [{"id": ...}]), so
+        column IDs are read from `expected`. Undeclared types are "string", Sensible's default.
+        """
+        key, _ = self.owner(path)
+        info = self.types.get(key, {"type": None, "sub": {}})
+        found = None
+        node = expected
+        previous = None
+        for segment in path:
+            if isinstance(segment, str) and segment in info["sub"]:
+                found = info["sub"][segment]
+            if previous == "columns" and isinstance(segment, int) and isinstance(node, list) and segment < len(node):
+                column = node[segment]
+                if isinstance(column, dict) and column.get("id") in info["sub"]:
+                    found = info["sub"][column["id"]]
+            try:
+                node = node[segment]
+            except (KeyError, IndexError, TypeError):
+                node = None
+            previous = segment
+        return found or info["type"] or "string"
+
     def route(self, path):
         """Return (output key, prompt, mixed) if an LLM method produced the value at `path`, else None.
 
@@ -103,11 +169,28 @@ def judge_model():
     return os.environ.get("DOC_EXAMPLES_JUDGE_MODEL") or DEFAULT_JUDGE_MODEL
 
 
+def format_type(declared):
+    """Render a declared type: "currency", or "currency" plus its options in configurable syntax."""
+    if isinstance(declared, dict):
+        options = {k: v for k, v in declared.items() if k != "id"}
+        return declared.get("id", "string") + (f" with options {json.dumps(options, ensure_ascii=False)}" if options else "")
+    return str(declared)
+
+
+def type_example(declared):
+    type_id = declared.get("id") if isinstance(declared, dict) else declared
+    return CONFIG["type_examples"].get(type_id, "none in the type reference")
+
+
 def build_user_prompt(claims):
     blocks = [
         CONFIG["claim_template"].substitute(
             path=c["path"],
             prompt=json.dumps(c["prompt"]),
+            type=format_type(c.get("type", "string")),
+            type_example=type_example(c.get("type", "string")),
+            documented_field=json.dumps(c.get("documented_field", c["documented"]), ensure_ascii=False),
+            actual_field=json.dumps(c.get("actual_field", c["observed"]), ensure_ascii=False),
             documented=json.dumps(c["documented"], ensure_ascii=False),
             actual=json.dumps(c["observed"], ensure_ascii=False),
         )

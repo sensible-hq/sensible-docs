@@ -204,6 +204,62 @@ class RecordTest(unittest.TestCase):
         self.assertIn('PASS  $.phone.value: "a" -> "b"', text)
 
 
+class TypeTest(unittest.TestCase):
+    CONFIG = {"fields": [
+        {"method": {"id": "queryGroup", "queries": [
+            {"id": "premium", "description": "premium", "type": "currency"},
+            {"id": "notes", "description": "notes"},
+            {"id": "price_eur", "description": "price", "type": {"id": "currency", "currencySymbol": "€"}},
+        ]}},
+        {"id": "dinners", "type": "table", "method": {"id": "list", "description": "dinners", "properties": [
+            {"id": "dish", "description": "dish"}, {"id": "price", "description": "price", "type": "currency"}]}},
+        {"id": "vehicles", "type": "table", "method": {"id": "nlpTable", "description": "vehicles", "columns": [
+            {"id": "make", "description": "make"}, {"id": "year", "description": "year", "type": "number"}]}},
+    ]}
+    DOCS = {"vehicles": {"columns": [{"id": "make", "values": [{"value": "Honda"}]}, {"id": "year", "values": [{"value": 2015}]}]}}
+
+    def setUp(self):
+        self.index = llm_judge.FieldIndex(self.CONFIG)
+
+    def test_query_group_query_type(self):
+        self.assertEqual(self.index.type_for(("premium", "value"), {}), "currency")
+
+    def test_undeclared_type_is_string(self):
+        self.assertEqual(self.index.type_for(("notes", "value"), {}), "string")
+        self.assertEqual(self.index.type_for(("dinners", 0, "dish", "value"), {}), "string")
+
+    def test_list_property_type(self):
+        self.assertEqual(self.index.type_for(("dinners", 1, "price", "value"), {}), "currency")
+
+    def test_nlp_table_column_type_is_read_from_the_output(self):
+        self.assertEqual(self.index.type_for(("vehicles", "columns", 1, "values", 0, "value"), self.DOCS), "number")
+        self.assertEqual(self.index.type_for(("vehicles", "columns", 0, "values", 0, "value"), self.DOCS), "string")
+
+    def test_configurable_type_keeps_its_options(self):
+        declared = self.index.type_for(("price_eur", "value"), {})
+        self.assertEqual(llm_judge.format_type(declared), 'currency with options {"currencySymbol": "\u20ac"}')
+        self.assertIn('"unit": "$"', llm_judge.type_example(declared))
+
+    def test_type_examples_come_from_types_md(self):
+        examples = llm_judge.CONFIG["type_examples"]
+        self.assertEqual(examples["number"], '{ "source": "123456789", "value": 123456789, "type": "number" }')
+        self.assertIn('"+18557863246"', examples["phoneNumber"])
+        self.assertEqual(llm_judge.type_example("table"), "none in the type reference")
+
+    def test_claim_carries_type_and_whole_field(self):
+        sent, _, _ = RunExampleTest().run_with(
+            {"phone": {"type": "string", "value": "1800 123 4567"}},
+            {"phone": {"type": "string", "value": "1800-123-4567"}},
+        )
+        claim = sent[0]
+        self.assertEqual(claim["type"], "string")
+        self.assertEqual(claim["documented_field"], {"type": "string", "value": "1800 123 4567"})
+        self.assertEqual(claim["actual_field"], {"type": "string", "value": "1800-123-4567"})
+        prompt = llm_judge.build_user_prompt(sent)
+        self.assertIn("declared type: string", prompt)
+        self.assertIn('whole field as returned: {"type": "string", "value": "1800-123-4567"}', prompt)
+
+
 class PromptConfigTest(unittest.TestCase):
     def test_prompts_come_from_judge_files(self):
         with open(os.path.join(llm_judge.JUDGE_DIR, "system-prompt.md"), encoding="utf-8") as f:

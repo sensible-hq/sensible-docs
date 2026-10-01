@@ -138,7 +138,7 @@ def render_code_test(record):
     fields = record.get("llm_fields", [])
     out.append("<h3>LLM fields</h3>")
     if fields:
-        out.append('<table><tr><th>Field</th><th>Extraction prompt</th><th>Result</th></tr>')
+        out.append('<table><tr><th>Field</th><th>Type</th><th>Extraction prompt</th><th>Result</th></tr>')
         for f in fields:
             if f["judged"]:
                 worst = "fail" if any(x["verdict"] == "fail" for x in f["judged"]) else "warn" if any(x["verdict"] == "warn" for x in f["judged"]) else "pass"
@@ -146,7 +146,7 @@ def render_code_test(record):
             else:
                 result = '<span class="chip info">Identical to the docs</span>'
             note = ' <span class="muted">(fallback chain with a layout field)</span>' if f["kind"] == "fallback" else ""
-            out.append(f'<tr><td><code>{e(f["field"])}</code>{note}</td><td>{e(f["prompt"]) or "<span class=muted>none</span>"}</td><td>{result}</td></tr>')
+            out.append(f'<tr><td><code>{e(f["field"])}</code>{note}</td><td><code>{e(f.get("type", "string"))}</code></td><td>{e(f["prompt"]) or "<span class=muted>none</span>"}</td><td>{result}</td></tr>')
         out.append("</table>")
     else:
         out.append('<p class="muted">None in the documented output.</p>')
@@ -159,6 +159,7 @@ def render_code_test(record):
                 pct = max(0, min(100, round(v["confidence"] * 100)))
                 out.append(
                     f'<div class="verdict"><div class="row"><code>{e(v["path"])}</code>'
+                    f'<span class="muted">type <code>{e(v.get("type", "string"))}</code></span>'
                     f'<span class="chip {VERDICT_CHIP[v["verdict"]]}">{e(v["verdict"].upper())}</span>'
                     f'<span class="muted">match: {e(v["match"])}, confidence {v["confidence"]:.2f}</span>'
                     f'<span class="meter"><span style="width:{pct}%"></span></span></div>'
