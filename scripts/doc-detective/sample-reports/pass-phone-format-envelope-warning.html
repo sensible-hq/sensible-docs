@@ -1,0 +1,197 @@
+<!doctype html><html lang=en><head><meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doc Detective report</title><style>
+:root {
+  --bg: #f7f7f5; --card: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --border: #e3e2dd;
+  --code-bg: #f1f0ec; --pass: #1f7a4d; --pass-bg: #e3f3ea; --fail: #b3261e; --fail-bg: #fbe7e5;
+  --warn: #8a5a00; --warn-bg: #fdf1d8; --info: #3b4a8a; --info-bg: #e8ebf7;
+  --judge: #6a3d9a; --judge-bg: #f1e9fa;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161615; --card: #1f1f1d; --text: #ecebe6; --muted: #a3a29b; --border: #33332f;
+    --code-bg: #262623; --pass: #6fd3a0; --pass-bg: #17322a; --fail: #ff8a80; --fail-bg: #3a1c1a;
+    --warn: #f3c46b; --warn-bg: #3a2e14; --info: #a9b6f2; --info-bg: #222a45;
+    --judge: #c9a6f0; --judge-bg: #2e2340;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 960px; margin: 0 auto; padding: 32px 20px 64px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 0; }
+h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 22px 0 8px; }
+.sub { color: var(--muted); margin: 0 0 24px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; margin: 0 0 20px; }
+.row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.pass { color: var(--pass); background: var(--pass-bg); }
+.fail { color: var(--fail); background: var(--fail-bg); }
+.warn { color: var(--warn); background: var(--warn-bg); }
+.info { color: var(--info); background: var(--info-bg); }
+.judge { color: var(--judge); background: var(--judge-bg); border: 1px dashed var(--judge); font-weight: 700; letter-spacing: .03em; text-transform: none; }
+.envelope { color: var(--info); background: var(--info-bg); border: 1px dashed var(--info); font-weight: 700; letter-spacing: .03em; text-transform: none; }
+.disclaimer { border-left: 4px solid var(--judge); background: var(--card); padding: 10px 14px; border-radius: 6px; margin: 0 0 20px; }
+table { width: 100%; border-collapse: collapse; }
+td, th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-size: 12px; color: var(--muted); font-weight: 600; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--code-bg); padding: 12px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; margin: 6px 0 0; }
+.verdict { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin: 0 0 12px; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+@media (max-width: 600px) { .compare { grid-template-columns: 1fr; } }
+.compare div { background: var(--code-bg); border-radius: 6px; padding: 8px 10px; }
+.label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2px; }
+.reasoning { margin: 8px 0 0; }
+.meter { display: inline-block; width: 70px; height: 6px; background: var(--border); border-radius: 3px; vertical-align: middle; overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--pass); }
+details { margin: 10px 0 0; }
+details.test { margin: 0 0 20px; }
+details.test > summary { list-style: none; cursor: pointer; color: var(--text); font-weight: normal; }
+details.test > summary::-webkit-details-marker { display: none; }
+details.test > summary .row::before { content: "▸"; color: var(--muted); margin-right: 2px; }
+details.test[open] > summary .row::before { content: "▾"; }
+.toolbar { display: flex; gap: 8px; margin: 0 0 12px; }
+.toolbar button { font: inherit; font-size: 13px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); cursor: pointer; }
+summary { cursor: pointer; color: var(--info); font-weight: 600; }
+.muted { color: var(--muted); }
+ul { margin: 6px 0 0; padding-left: 20px; }
+</style></head><body><main>
+<div class="row"><h1>Doc Detective report</h1><span class="chip warn">Passed with warnings</span></div>
+<p class="sub">scripts/doc-detective/fixtures/getting-started-phone-format.md · 2026-10-01 16:14</p>
+<p class="disclaimer">Every check is deterministic (an exact comparison) unless it&#x27;s labeled <span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span>. A judge result is probabilistic: an LLM decided it, and the same input can get a different verdict or confidence on another run. <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span> An envelope result flags an LLM regression against an established 10-result baseline of acceptable variance; a result outside the baseline is a warning, not a failure.</p>
+<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>
+<tr><td><code>app_document_types_page</code></td><td>App UI</td><td>Sign in with the test account, then open the Document Types tab</td><td><span class="chip pass">Passed</span></td><td><a href="#app_document_types_page">7 steps</a></td></tr>
+<tr><td><code>extract_auto_insurance_anyco</code></td><td>Code sample</td><td>Run the tutorial config against the example document and check the documented output</td><td><span class="chip warn">Passed with warnings</span></td><td><a href="#extract_auto_insurance_anyco">Comparison and judge reasoning</a> <span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span></td></tr>
+<tr><td><code>query_group_how_it_works</code></td><td>Code sample</td><td>Run the Query Group excerpt on the tutorial&#x27;s example document and check the documented output</td><td><span class="chip warn">Passed with warnings</span></td><td><a href="#query_group_how_it_works">Comparison and judge reasoning</a> <span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span></td></tr>
+</table></section>
+<div class="toolbar"><button onclick="document.querySelectorAll('details.test').forEach(d => d.open = true)">Expand all</button><button onclick="document.querySelectorAll('details.test').forEach(d => d.open = false)">Collapse all</button><span class="muted" style="align-self:center">Sections that passed with nothing to review start collapsed.</span></div>
+<details class="card test" id="app_document_types_page">
+<summary><div class="row"><h2>app_document_types_page</h2><span class="chip pass">Passed</span><span class="muted">App UI · 7 steps</span></div></summary>
+<p class="muted" style="margin:6px 0 0">Sign in with the test account, then open the Document Types tab</p>
+<h3>Steps</h3><table><tr><th>#</th><th>Step</th><th>Action</th><th>Result</th></tr>
+<tr><td class="muted">1</td><td>Log into account: open the sign-in page</td><td><code>go to https://app.sensible.so/signin/</code></td><td><span class="chip pass">pass</span> <span class="muted">3.5s</span></td></tr>
+<tr><td class="muted">2</td><td>Log into account: enter the email</td><td><code>type into input[name=&quot;email&quot;]</code></td><td><span class="chip pass">pass</span> <span class="muted">0.2s</span></td></tr>
+<tr><td class="muted">3</td><td>Log into account: enter the password</td><td><code>type into input[name=&quot;password&quot;]</code></td><td><span class="chip pass">pass</span> <span class="muted">0.2s</span></td></tr>
+<tr><td class="muted">4</td><td>Log into account: click Sign in</td><td><code>click form button with text &quot;Sign in&quot;</code></td><td><span class="chip pass">pass</span> <span class="muted">0.4s</span></td></tr>
+<tr><td class="muted">5</td><td>Log into account: confirm you&#x27;re signed in (the account menu appears)</td><td><code>find [role=&quot;account-dropdown&quot;]</code></td><td><span class="chip pass">pass</span> <span class="muted">2.2s</span></td></tr>
+<tr><td class="muted">6</td><td>Open the Document Types tab</td><td><code>go to https://app.sensible.so/document-types/</code></td><td><span class="chip pass">pass</span> <span class="muted">1.0s</span></td></tr>
+<tr><td class="muted">7</td><td>Confirm the New document type button is on the page</td><td><code>find &quot;New document type&quot;</code></td><td><span class="chip pass">pass</span> <span class="muted">0.2s</span></td></tr>
+</table></details>
+<details class="card test" id="extract_auto_insurance_anyco" open>
+<summary><div class="row"><h2>extract_auto_insurance_anyco</h2><span class="chip warn">Passed with warnings</span><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span> <span class="chip warn">outside</span><span class="muted">Code sample</span></div></summary>
+<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: matches, not identical (1 LLM value differs, decided by the judge)</p>
+<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/doc-detective-getting-started-tests/scripts/doc-detective/fixtures/auto_insurance_anyco_phone_format.pdf">auto_insurance_anyco_phone_format.pdf</a></p>
+<h3>Layout fields</h3>
+<p>3 field(s), all an exact match.</p>
+<h3>LLM fields</h3>
+<table><tr><th>Field</th><th>Type</th><th>Extraction prompt</th><th>Result</th></tr>
+<tr><td><code>bodily_injury_premium</code></td><td><code>currency</code></td><td>bodily injury premium</td><td><span class="chip info">Identical to the docs</span></td></tr>
+<tr><td><code>customer_service_phone</code></td><td><code>string</code></td><td>insurer&#x27;s customer service phone number</td><td><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip pass">pass</span></td></tr>
+</table>
+<h3>Judge reasoning <span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="muted" style="text-transform:none;letter-spacing:0">(claude-sonnet-5-5)</span></h3>
+<div class="verdict"><div class="row"><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span><code>$.customer_service_phone.value</code><span class="muted">type <code>string</code></span><span class="chip pass">PASS</span><span class="muted">match: pass, confidence 0.93</span><span class="meter"><span style="width:93%"></span></span></div><div class="compare"><div><span class="label">Docs show</span><code>&quot;1800 123 4567&quot;</code></div><div><span class="label">Sensible returned</span><code>&quot;(1800) 123-4567&quot;</code></div></div><p class="reasoning">Both values contain the same digits (1800 123 4567) in the same order. The only difference is formatting: the actual output adds parentheses around 1800 and a hyphen between 123 and 4567. The declared type is string, so no phone normalization applies and this counts as a punctuation difference. The type key and confidenceSignal are unchanged.</p></div>
+<details><summary>Full prompt the judge received</summary><span class="label" style="margin-top:10px">System</span><pre>You are a documentation accuracy evaluator. You will receive output that documentation shows for fields extracted from a document by an LLM, and the actual output from extracting the same document with the same configuration today.
+
+For each claim, decide whether the actual value supports what the documentation shows, as a reader would understand it:
+- pass: the same answer. Differences in formatting, punctuation, whitespace, or equivalent wording don&#x27;t matter, for example &quot;1800 123 4567&quot; and &quot;1800-123-4567&quot;.
+- fail: a different answer. A different number, date, name, or meaning, or a value that&#x27;s missing or null.
+- partial: overlapping but not the same, for example the actual value includes only part of the documented answer, or adds substantive information the documentation doesn&#x27;t show.
+
+Each claim shows the value that differs (documented and actual) and the whole field it belongs to, so you can compare related keys such as value and source together. Each claim also includes the field&#x27;s declared Sensible type, from the config, and an output example for that type from Sensible&#x27;s type reference. The type constrains the output: Sensible filters and formats the LLM&#x27;s answer into the type&#x27;s output shape, and returns null if the answer doesn&#x27;t fit the type. Use the type as follows:
+- value is the normalized, typed answer, and it decides the claim. For numeric types (currency, number, percentage, distance, weight), compare value as a number. For date, compare the date. For phoneNumber, compare the normalized number.
+- source is the raw document text that value came from. A different source with the same value is a formatting difference.
+- A value of the wrong JSON type for the declared type, for example a string where the type is number, is a fail. So is an output type key that names a different type than the one declared.
+- For unit, a different unit for the same type is a fail.
+
+Evaluate only what is documented. Don&#x27;t assess undocumented fields or behavior.</pre><span class="label" style="margin-top:10px">User</span><pre>Claims to evaluate (one result per path, using the path exactly as given):
+
+- path: $.customer_service_phone.value
+  extraction prompt: &quot;insurer&#x27;s customer service phone number&quot;
+  declared type: string
+  Sensible output example for this type: { &quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;3 bil&quot; }
+  documented: &quot;1800 123 4567&quot;
+  actual: &quot;(1800) 123-4567&quot;
+  whole field as documented: {&quot;value&quot;: &quot;1800 123 4567&quot;, &quot;type&quot;: &quot;string&quot;, &quot;confidenceSignal&quot;: &quot;confident_answer&quot;}
+  whole field as returned: {&quot;value&quot;: &quot;(1800) 123-4567&quot;, &quot;type&quot;: &quot;string&quot;, &quot;confidenceSignal&quot;: &quot;confident_answer&quot;}
+
+For each claim, return claim (the documented assertion), observed (what the actual output shows), match, confidence from 0.0 to 1.0, and reasoning.</pre></details><details><summary>Full judge output (JSON)</summary><pre>{
+  &quot;results&quot;: [
+    {
+      &quot;path&quot;: &quot;$.customer_service_phone.value&quot;,
+      &quot;claim&quot;: &quot;1800 123 4567&quot;,
+      &quot;observed&quot;: &quot;(1800) 123-4567&quot;,
+      &quot;match&quot;: &quot;pass&quot;,
+      &quot;confidence&quot;: 0.93,
+      &quot;reasoning&quot;: &quot;Both values contain the same digits (1800 123 4567) in the same order. The only difference is formatting: the actual output adds parentheses around 1800 and a hyphen between 123 and 4567. The declared type is string, so no phone normalization applies and this counts as a punctuation difference. The type key and confidenceSignal are unchanged.&quot;
+    }
+  ]
+}</pre></details>
+<h3>Regression envelope <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span></h3>
+<p class="muted" style="margin:0 0 8px">What this checks: whether each LLM field's output still looks like it did across the baseline runs (format, type, unit, value and length ranges, null rate, confidence signal). It's independent of the docs and of the judge: the judge asks whether the docs are still right; the envelope asks whether the product's behavior shifted. <b>Within</b> means consistent with earlier runs. <b>Outside</b> means the behavior shifted: if the judge still passed the field, the docs hold but the feature changed; if the judge failed it, it's likely a regression. It never changes a test's verdict.</p>
+<p><span class="chip warn">Outside the envelope</span> 1 measurement(s) fall outside the baseline of 10 runs, built 2026-10-01T19:45:52Z.</p><ul>
+<li><code>customer_service_phone</code>: new format &#x27;(9999) 999-9999&#x27;; baseline saw &#x27;9999 999 9999&#x27; or &#x27;9999-999-9999&#x27; <span class="muted">(judge passed it: the feature&#x27;s behavior likely changed)</span></li>
+</ul><p class="muted">If the new output is acceptable, rebuild the baseline with <code>--build-envelope 10</code> and commit it. If it isn't, report it to engineering.</p>
+<details><summary>Baseline</summary><table><tr><th>Measurement</th><th>Seen in the baseline runs</th></tr><tr><td><code>bodily_injury_premium</code></td><td>null 0%; type currency; source formats &#x27;999&#x27;; value 100-100; unit $; confidence confident_answer</td></tr><tr><td><code>customer_service_phone</code></td><td>null 0%; type string; formats &#x27;9999 999 9999&#x27;, &#x27;9999-999-9999&#x27;; length 13-13; confidence confident_answer</td></tr></table></details>
+</details>
+<details class="card test" id="query_group_how_it_works" open>
+<summary><div class="row"><h2>query_group_how_it_works</h2><span class="chip warn">Passed with warnings</span><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span> <span class="chip warn">outside</span><span class="muted">Code sample</span></div></summary>
+<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: matches, not identical (1 LLM value differs, decided by the judge)</p>
+<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/doc-detective-getting-started-tests/scripts/doc-detective/fixtures/auto_insurance_anyco_phone_format.pdf">auto_insurance_anyco_phone_format.pdf</a> (the link in <a href="#extract_auto_insurance_anyco"><code>extract_auto_insurance_anyco</code></a>)</p>
+<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>
+<h3>Layout fields</h3>
+<p class="muted">None in the documented output.</p>
+<h3>LLM fields</h3>
+<table><tr><th>Field</th><th>Type</th><th>Extraction prompt</th><th>Result</th></tr>
+<tr><td><code>bodily_injury_premium</code></td><td><code>currency</code></td><td>in the table, what&#x27;s the bodily injury premium?</td><td><span class="chip info">Identical to the docs</span></td></tr>
+<tr><td><code>customer_service_phone</code></td><td><code>string</code></td><td>insurer&#x27;s customer service phone number</td><td><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip pass">pass</span></td></tr>
+</table>
+<h3>Judge reasoning <span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="muted" style="text-transform:none;letter-spacing:0">(claude-sonnet-5-5)</span></h3>
+<div class="verdict"><div class="row"><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span><code>$.customer_service_phone.value</code><span class="muted">type <code>string</code></span><span class="chip pass">PASS</span><span class="muted">match: pass, confidence 0.90</span><span class="meter"><span style="width:90%"></span></span></div><div class="compare"><div><span class="label">Docs show</span><code>&quot;1800 123 4567&quot;</code></div><div><span class="label">Sensible returned</span><code>&quot;(1800) 123-4567&quot;</code></div></div><p class="reasoning">Both values contain the same digits (1800 123 4567) and differ only in formatting (parentheses, hyphen, spacing). The declared type is string, so there is no normalization, but the answer is the same phone number. The confidenceSignal is the same in both.</p></div>
+<details><summary>Full prompt the judge received</summary><span class="label" style="margin-top:10px">System</span><pre>You are a documentation accuracy evaluator. You will receive output that documentation shows for fields extracted from a document by an LLM, and the actual output from extracting the same document with the same configuration today.
+
+For each claim, decide whether the actual value supports what the documentation shows, as a reader would understand it:
+- pass: the same answer. Differences in formatting, punctuation, whitespace, or equivalent wording don&#x27;t matter, for example &quot;1800 123 4567&quot; and &quot;1800-123-4567&quot;.
+- fail: a different answer. A different number, date, name, or meaning, or a value that&#x27;s missing or null.
+- partial: overlapping but not the same, for example the actual value includes only part of the documented answer, or adds substantive information the documentation doesn&#x27;t show.
+
+Each claim shows the value that differs (documented and actual) and the whole field it belongs to, so you can compare related keys such as value and source together. Each claim also includes the field&#x27;s declared Sensible type, from the config, and an output example for that type from Sensible&#x27;s type reference. The type constrains the output: Sensible filters and formats the LLM&#x27;s answer into the type&#x27;s output shape, and returns null if the answer doesn&#x27;t fit the type. Use the type as follows:
+- value is the normalized, typed answer, and it decides the claim. For numeric types (currency, number, percentage, distance, weight), compare value as a number. For date, compare the date. For phoneNumber, compare the normalized number.
+- source is the raw document text that value came from. A different source with the same value is a formatting difference.
+- A value of the wrong JSON type for the declared type, for example a string where the type is number, is a fail. So is an output type key that names a different type than the one declared.
+- For unit, a different unit for the same type is a fail.
+
+Evaluate only what is documented. Don&#x27;t assess undocumented fields or behavior.</pre><span class="label" style="margin-top:10px">User</span><pre>Claims to evaluate (one result per path, using the path exactly as given):
+
+- path: $.customer_service_phone.value
+  extraction prompt: &quot;insurer&#x27;s customer service phone number&quot;
+  declared type: string
+  Sensible output example for this type: { &quot;type&quot;: &quot;string&quot;, &quot;value&quot;: &quot;3 bil&quot; }
+  documented: &quot;1800 123 4567&quot;
+  actual: &quot;(1800) 123-4567&quot;
+  whole field as documented: {&quot;value&quot;: &quot;1800 123 4567&quot;, &quot;type&quot;: &quot;string&quot;, &quot;confidenceSignal&quot;: &quot;confident_answer&quot;}
+  whole field as returned: {&quot;value&quot;: &quot;(1800) 123-4567&quot;, &quot;type&quot;: &quot;string&quot;, &quot;confidenceSignal&quot;: &quot;confident_answer&quot;}
+
+For each claim, return claim (the documented assertion), observed (what the actual output shows), match, confidence from 0.0 to 1.0, and reasoning.</pre></details><details><summary>Full judge output (JSON)</summary><pre>{
+  &quot;results&quot;: [
+    {
+      &quot;path&quot;: &quot;$.customer_service_phone.value&quot;,
+      &quot;claim&quot;: &quot;1800 123 4567&quot;,
+      &quot;observed&quot;: &quot;(1800) 123-4567&quot;,
+      &quot;match&quot;: &quot;pass&quot;,
+      &quot;confidence&quot;: 0.9,
+      &quot;reasoning&quot;: &quot;Both values contain the same digits (1800 123 4567) and differ only in formatting (parentheses, hyphen, spacing). The declared type is string, so there is no normalization, but the answer is the same phone number. The confidenceSignal is the same in both.&quot;
+    }
+  ]
+}</pre></details>
+<h3>Regression envelope <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span></h3>
+<p class="muted" style="margin:0 0 8px">What this checks: whether each LLM field's output still looks like it did across the baseline runs (format, type, unit, value and length ranges, null rate, confidence signal). It's independent of the docs and of the judge: the judge asks whether the docs are still right; the envelope asks whether the product's behavior shifted. <b>Within</b> means consistent with earlier runs. <b>Outside</b> means the behavior shifted: if the judge still passed the field, the docs hold but the feature changed; if the judge failed it, it's likely a regression. It never changes a test's verdict.</p>
+<p><span class="chip warn">Outside the envelope</span> 1 measurement(s) fall outside the baseline of 10 runs, built 2026-10-01T21:27:19Z.</p><ul>
+<li><code>customer_service_phone</code>: new format &#x27;(9999) 999-9999&#x27;; baseline only saw &#x27;9999 999 9999&#x27; <span class="muted">(judge passed it: the feature&#x27;s behavior likely changed)</span></li>
+</ul><p class="muted">If the new output is acceptable, rebuild the baseline with <code>--build-envelope 10</code> and commit it. If it isn't, report it to engineering.</p>
+<details><summary>Baseline</summary><table><tr><th>Measurement</th><th>Seen in the baseline runs</th></tr><tr><td><code>bodily_injury_premium</code></td><td>null 0%; type currency; source formats &#x27;999&#x27;; value 100-100; unit $; confidence confident_answer</td></tr><tr><td><code>customer_service_phone</code></td><td>null 0%; type string; formats &#x27;9999 999 9999&#x27;; length 13-13; confidence confident_answer</td></tr></table></details>
+</details>
+<script>function openTarget(){var d=document.getElementById(location.hash.slice(1));if(d&&d.tagName==='DETAILS')d.open=true;}window.addEventListener('hashchange',openTarget);openTarget();</script>
+</main></body></html>
