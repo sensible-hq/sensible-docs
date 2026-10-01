@@ -33,7 +33,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list --state open --search "Add missing excerpts" --json number --jq 'length')
+          # Match the bot's branch prefix; a text search also matches PRs that merely mention the title.
+          EXISTING_PR=$(gh pr list --state open --limit 100 --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("claude/add-excerpts-"))] | length')
           echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
           if [ "$EXISTING_PR" -gt 0 ]; then
             echo "::notice::Skipping - existing PR already open for adding excerpts"

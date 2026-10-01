@@ -33,8 +33,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING=$(gh pr list --state open --search "Sync docs and llms.txt" \
-            --json number,headRefName --jq '.[0] // empty')
+          # Match the bot's branch prefix; a text search also matches PRs that merely mention the title.
+          EXISTING=$(gh pr list --state open --limit 100 --json number,headRefName \
+            --jq '[.[] | select(.headRefName | startswith("auto/sync-docs-"))] | .[0] // empty')
           if [ -n "$EXISTING" ]; then
             echo "mode=update" >> "$GITHUB_OUTPUT"
             echo "pr_number=$(echo "$EXISTING" | jq -r '.number')" >> "$GITHUB_OUTPUT"
