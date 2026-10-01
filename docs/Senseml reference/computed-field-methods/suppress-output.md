@@ -1,15 +1,11 @@
 ---
 title: Suppress output
-excerpt: Learn how to keep extraction results clean by using the suppressOutput method
-  to exclude specified intermediate fields from extraction output, keeping only transformed
-  data in results.
+excerpt: Keep extraction results clean by using the suppressOutput method to exclude specified intermediate fields from extraction output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to keep extraction results clean by using the suppressOutput
-    method to exclude specified intermediate fields from extraction output, keeping
-    only transformed data in results.
+  description: Keep extraction results clean by using the suppressOutput method to exclude specified intermediate fields from extraction output.
   robots: index
 next:
   description: ''

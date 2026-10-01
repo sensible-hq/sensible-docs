@@ -1,15 +1,11 @@
 ---
 title: 'Advanced: Zip sections'
-excerpt: Learn how to zip multiple table sections together in SenseML using section
-  groups, column selection, and field extraction order to combine data from separate
-  tables.
+excerpt: Zip multiple table sections together in SenseML using section groups, column selection, and field extraction order to combine data from separate tables.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to zip multiple table sections together in SenseML using
-    section groups, column selection, and field extraction order to combine data from
-    separate tables.
+  description: Zip multiple table sections together in SenseML using section groups, column selection, and field extraction order to combine data from separate tables.
   robots: index
 next:
   description: ''

@@ -1,14 +1,11 @@
 ---
 title: Supported file types
-excerpt: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction
-  and classification, with varying size limits and method compatibility by file type.
+excerpt: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files
-    for extraction and classification, with varying size limits and method compatibility
-    by file type.
+  description: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification.
   robots: index
 next:
   description: ''

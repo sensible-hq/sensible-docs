@@ -1,14 +1,11 @@
 ---
 title: Classifying documents by type
-excerpt: Learn how Sensible classifies documents by type using classify-only APIs,
-  single-doc extraction, and multi-doc requests including portfolios and email attachments.
+excerpt: How Sensible classifies documents by type using classify-only APIs, single-doc extraction, and multi-doc requests including portfolios and email attachments.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible classifies documents by type using classify-only
-    APIs, single-doc extraction, and multi-doc requests including portfolios and email
-    attachments.
+  description: How Sensible classifies documents by type using classify-only APIs, single-doc extraction, and multi-doc requests including portfolios and email attachments.
   robots: index
 next:
   description: ''

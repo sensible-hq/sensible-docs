@@ -1,11 +1,11 @@
 ---
 title: Go-live checklist
-excerpt: Essential pre-production checklist for deploying Sensible document extraction configs, covering publishing, naming consistency, null handling, error responses, and logging.
+excerpt: Essential pre-production checklist for deploying Sensible document extraction configs, covering publishing, naming consistency, and null handling.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Essential pre-production checklist for deploying Sensible document extraction configs, covering publishing, naming consistency, null handling, error responses, and logging.
+  description: Essential pre-production checklist for deploying Sensible document extraction configs, covering publishing, naming consistency, and null handling.
   robots: index
 next:
   description: ''

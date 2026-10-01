@@ -1,15 +1,11 @@
 ---
 title: Nearest checkbox
-excerpt: Learn how to use the Nearest Checkbox method to extract checkbox selection
-  status from documents using OCR and PDF form metadata, with flexible configuration
-  options.
+excerpt: Use the Nearest Checkbox method to extract checkbox selection status from documents using OCR and PDF form metadata, with flexible configuration options.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Nearest Checkbox method to extract checkbox selection
-    status from documents using OCR and PDF form metadata, with flexible configuration
-    options.
+  description: Use the Nearest Checkbox method to extract checkbox selection status from documents using OCR and PDF form metadata, with flexible configuration options.
   robots: index
 next:
   description: ''

@@ -1,4 +1,4 @@
-"""Tests for check_excerpt, add_excerpt, sync_description, and fix_frontmatter scripts."""
+"""Tests for check_excerpt, add_excerpt, sync_description, fix_frontmatter, and shorten_excerpt scripts."""
 
 import textwrap
 from pathlib import Path
@@ -10,6 +10,7 @@ import check_excerpt
 import add_excerpt
 import sync_description
 import fix_frontmatter
+import shorten_excerpt
 
 
 # ---------------------------------------------------------------------------
@@ -370,4 +371,117 @@ class TestFixFrontmatter:
         status, error = fix_frontmatter.fix_file(f, dry_run=False)
         assert status == "unfixable"
         assert error
+        assert f.read_text() == original
+
+
+# ---------------------------------------------------------------------------
+# shorten_excerpt
+# ---------------------------------------------------------------------------
+
+class TestShortenExcerpt:
+    def test_short_text_unchanged(self):
+        text = "Learn how to use the Row method, including examples."
+        assert shorten_excerpt.shorten(text) == text
+
+    def test_drops_opener_when_that_is_enough(self):
+        text = "Learn how to " + "x" * 150
+        assert shorten_excerpt.shorten(text) == "X" + "x" * 149
+
+    def test_prefers_sentence_end(self):
+        text = (
+            "For corner cases, the Deskew preprocessor corrects skewed document alignment in Sensible. "
+            "In most cases Sensible applies default, automatic correction for skewed documents."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "For corner cases, the Deskew preprocessor corrects skewed document alignment in Sensible."
+        )
+
+    def test_clause_cut_outside_list(self):
+        text = (
+            "Concatenate method joins outputs of two or more fields into a single string or array, "
+            "with configurable delimiters and support for mixed string and array inputs."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Concatenate method joins outputs of two or more fields into a single string or array."
+        )
+
+    def test_list_cut_restores_oxford_conjunction(self):
+        text = (
+            "Overview of Sensible's LLM-powered features for document data extraction and classification, "
+            "including tables, lists, multimodal data, confidence signals, and portfolio segmentation."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Sensible's LLM-powered features for document data extraction and classification, "
+            "including tables, lists, multimodal data, and confidence signals."
+        )
+
+    def test_list_cut_two_items_no_comma(self):
+        text = (
+            "Checkbox method extracts boolean selection status from PDF checkboxes using form metadata "
+            "or pixel recognition, with parameters for position, size, and darkness threshold."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Checkbox method extracts boolean selection status from PDF checkboxes using form metadata "
+            "or pixel recognition, with parameters for position and size."
+        )
+
+    def test_phrase_cut(self):
+        text = (
+            "Scale preprocessor documentation explaining how to correct text size variations in scanned "
+            "documents like ID cards and receipts to enable accurate coordinate-based data extraction."
+        )
+        assert shorten_excerpt.shorten(text) == (
+            "Scale preprocessor documentation explaining how to correct text size variations in scanned "
+            "documents like ID cards and receipts."
+        )
+
+    def test_word_cut_fallback(self):
+        text = " ".join(["word"] * 50)
+        result = shorten_excerpt.shorten(text)
+        assert len(result) <= 160
+        assert result.endswith("word.")
+
+    def test_results_fit_and_are_idempotent(self):
+        texts = [
+            "Learn how " + ", ".join(f"item{i}" for i in range(40)) + ", and last.",
+            "a " * 100,
+            "Learn how to do things, " + "with " * 40 + "end.",
+        ]
+        for text in texts:
+            once = shorten_excerpt.shorten(text)
+            assert len(once) <= 160
+            assert shorten_excerpt.shorten(once) == once
+
+    def test_shortens_file_fields(self, tmp_path):
+        long = "Learn how to " + "use this feature well " * 10
+        f = make_md(tmp_path, "page.md", f"""\
+            ---
+            title: Test Page
+            excerpt: {long}
+            hidden: false
+            metadata:
+              title: ''
+              description: {long}
+              robots: index
+            ---
+            Body text.
+            """)
+        changes = shorten_excerpt.shorten_file(f, dry_run=False)
+        assert [c[0] for c in changes] == ["excerpt", "metadata.description"]
+        fm = yaml.safe_load(f.read_text().split("---")[1])
+        assert len(fm["excerpt"]) <= 160
+        assert fm["excerpt"] == fm["metadata"]["description"]
+        assert fm["metadata"]["robots"] == "index"
+        assert f.read_text().endswith("---\nBody text.\n")
+
+    def test_dry_run_does_not_write(self, tmp_path):
+        f = make_md(tmp_path, "page.md", f"""\
+            ---
+            title: Test Page
+            excerpt: {"x " * 100}
+            ---
+            Body text.
+            """)
+        original = f.read_text()
+        assert shorten_excerpt.shorten_file(f, dry_run=True)
         assert f.read_text() == original

@@ -1,14 +1,11 @@
 ---
 title: List
-excerpt: LLM-based List method extracts repeating data like resume work history, invoice
-  line items, or insurance policy details from tables, free text, or structured layouts.
+excerpt: LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: LLM-based List method extracts repeating data like resume work history,
-    invoice line items, or insurance policy details from tables, free text, or structured
-    layouts.
+  description: LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
   robots: index
 next:
   description: ''

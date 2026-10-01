@@ -1,15 +1,11 @@
 ---
 title: Layout-based methods
-excerpt: Overview of layout-based extraction methods in Sensible, including Box, Table,
-  Checkbox, Region, Regex, and more for deterministically extracting structured data
-  from documents.
+excerpt: Layout-based extraction methods in Sensible, including Box, Table, Checkbox, Region, Regex, and more for deterministically extracting structured data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Overview of layout-based extraction methods in Sensible, including
-    Box, Table, Checkbox, Region, Regex, and more for deterministically extracting
-    structured data from documents.
+  description: Layout-based extraction methods in Sensible, including Box, Table, Checkbox, Region, Regex, and more for deterministically extracting structured data.
   robots: index
 next:
   description: ''

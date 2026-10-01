@@ -1,14 +1,11 @@
 ---
 title: Rotate page
-excerpt: Learn how to use the rotatePage preprocessor to automatically correct page
-  orientation by aligning matched anchor text horizontally in your document extractions.
+excerpt: Use the rotatePage preprocessor to automatically correct page orientation by aligning matched anchor text horizontally in your document extractions.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the rotatePage preprocessor to automatically correct
-    page orientation by aligning matched anchor text horizontally in your document
-    extractions.
+  description: Use the rotatePage preprocessor to automatically correct page orientation by aligning matched anchor text horizontally in your document extractions.
   robots: index
 next:
   description: ''

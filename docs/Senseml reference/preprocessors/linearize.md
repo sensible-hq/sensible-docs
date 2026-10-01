@@ -1,15 +1,11 @@
 ---
 title: Linearize
-excerpt: Linearize preprocessor breaks multi-column or block-layout document pages
-  into coordinate-based blocks, letting you control line sorting order for accurate
-  data extraction.
+excerpt: Linearize preprocessor breaks multi-column or block-layout document pages into coordinate-based blocks.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Linearize preprocessor breaks multi-column or block-layout document
-    pages into coordinate-based blocks, letting you control line sorting order for
-    accurate data extraction.
+  description: Linearize preprocessor breaks multi-column or block-layout document pages into coordinate-based blocks.
   robots: index
 next:
   description: ''

@@ -1,15 +1,11 @@
 ---
 title: Validating extractions
-excerpt: Learn how to write JsonLogic-based validations in Sensible to quality-control
-  document extractions, flag fields for human review, and test values, sums, and OCR
-  confidence scores.
+excerpt: Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to write JsonLogic-based validations in Sensible to quality-control
-    document extractions, flag fields for human review, and test values, sums, and
-    OCR confidence scores.
+  description: Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
   robots: index
 next:
   description: ''

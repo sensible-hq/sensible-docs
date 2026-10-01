@@ -1,15 +1,11 @@
 ---
 title: Ligature
-excerpt: Learn how to use the Ligature preprocessor in Sensible to intelligently replace
-  Unicode ligatures in PDF text extraction using configurable mappings and dictionary
-  lookups.
+excerpt: Use the Ligature preprocessor in Sensible to intelligently replace Unicode ligatures in PDF text extraction using configurable mappings and dictionary lookups.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Ligature preprocessor in Sensible to intelligently
-    replace Unicode ligatures in PDF text extraction using configurable mappings and
-    dictionary lookups.
+  description: Use the Ligature preprocessor in Sensible to intelligently replace Unicode ligatures in PDF text extraction using configurable mappings and dictionary lookups.
   robots: index
 next:
   description: ''
