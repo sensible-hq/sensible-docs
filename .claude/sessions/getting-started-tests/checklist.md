@@ -48,7 +48,7 @@ Prior art: `doc-detective-poc` branch (PR #725), `sessions/docs-as-tests/CONCEPT
 - [ ] Investigate Doc Detective's capabilities for API contract testing: test-level `openApi` property, their docs pages `test-code/generate-tests-from-openapi.mdx` and `test-code/http-and-api.mdx`, `httpRequest` response validation against our specs in `reference/`. Related item already on docs-as-tests (#725) checklist
 - [ ] Code tests: API/integration samples
 - [ ] Local green run
-- [ ] CI: run the tests on every push/PR that changes getting-started.md (requested 2026-10-01). GitHub Actions workflow with a `paths` filter on `push` and `pull_request`:
+- [x] CI workflow `.github/workflows/doc-detective-getting-started.yml` (2026-10-01): push to **v0 only** (no `pull_request`, so it doesn't run on this PR) + `workflow_dispatch`, `paths` filter. Pins doc-detective 4.38.1 with `--no-auto-update`. Missing `.env` in CI verified harmless. **Merging this PR triggers the first run**, so add secrets first. Original plan:
   - Paths: `docs/document extraction/getting-started.md`, `scripts/doc-detective/**`, `.doc-detective.json`
   - Repo secrets: `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`. Pass as env vars; don't write a `.env` (it overrides env)
   - `concurrency:` group so two runs don't share `docs_ci_examples` (one run's cleanup would delete the other's config)
