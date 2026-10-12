@@ -18,4 +18,4 @@ Source PRs: sensible-hq/sensible#3470 (engine: metadata.anchor on section output
 - [x] Add Violet box (section anchor) to color table; note dotted boxes need Show unextracted lines
 - [x] Move Validate fingerprints text + screenshot from fingerprint.md to color.md; leave link
 - [x] Replace sections/index.md display-row UI text with link to color.md#show-section-anchors
-- [ ] Decide whether to retitle color.md (currently "Source text traceability")
+- [x] Retitle color.md to "Visual troubleshooting in the SenseML editor"; "Color coding" H1 -> "Source text traceability"; "Options" H1 -> "Test and troubleshoot configs"

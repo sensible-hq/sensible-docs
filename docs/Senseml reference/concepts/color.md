@@ -1,22 +1,22 @@
 ---
-title: Source text traceability
-excerpt: Learn how Sensible uses color-coded overlays in the SenseML editor to trace
-  extracted fields to their source text
+title: Visual troubleshooting in the SenseML editor
+excerpt: Learn how to trace extracted fields to their source text with color-coded
+  overlays, and how to test and troubleshoot configs with the SenseML editor's options
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible uses color-coded overlays in the SenseML editor
-    to trace extracted fields to their source text
+  description: Learn how to trace extracted fields to their source text with color-coded
+    overlays, and how to test and troubleshoot configs with the SenseML editor's options
   robots: index
 next:
   description: ''
 ---
-Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the SenseML editor.
+Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the SenseML editor. Use the editor's options to control which symbols display, and to test configs on reference documents.
 
-# Color coding
+# Source text traceability
 
-The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text. To control which symbols display, use the editor's [Options](doc:color#options) menu.
+The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text. To control which symbols display, use the editor's [Options](doc:color#test-and-troubleshoot-configs) menu.
 
 | symbol                                                        | represents                                                                |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -255,7 +255,7 @@ Sensible can highlight the location of the source text for an LLM's response. No
 
   * If the LLM returns text that's not in the document, then location highlighting is inapplicable.
 
-# Options
+# Test and troubleshoot configs
 
 To manage reference documents and to change which symbols the SenseML editor displays, click **Options** in the toolbar over the rendered document. The menu contains the following options.
 
