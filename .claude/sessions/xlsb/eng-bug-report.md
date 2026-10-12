@@ -11,6 +11,33 @@ Tested against production (`https://api.sensible.so/v0`) on 2026-10-12 by the do
 Repro: `bash scripts/test/file_types/smoke_test_xlsb.sh` in sensible-hq/sensible-docs
 (branch `fe_xlsb_docs`, PR sensible-docs#741). Sample: `tests/data/test.xlsb` from #3474.
 
+## Smoke test results
+
+The smoke test runs 13 checks and prints this table at the end, flagging any check whose
+result differs from the 2026-10-12 baseline. The sections below explain each bug.
+
+| # | What it sends | Today | After fix | What it shows |
+| --- | --- | --- | --- | --- |
+| 1 | XLSB → `POST /classify` | ❌ 400 Missing request body | 400 No match found* | Bug 1 (gateway) |
+| 2 | XLSB → `POST /classify/async`, then poll `download_link` | ❌ 400 Missing request body; poll skipped | 200 with link; poll returns No match found* | Bug 1 |
+| 3 | XLSB → `POST /extract/cells` | ❌ 400 Missing request body or body.document | 200 COMPLETE | Bug 1 |
+| 4 | XLSB reference document: create, upload, check, delete | ✅ processed, deleted | same | Reference document upload works |
+| 5 | XLSX → `/classify` (control) | ✅ reaches the engine* | same | Baseline: XLSX works |
+| 6 | XLSX bytes declared as XLSM → `/classify` (control) | ❌ 400 Missing request body | No match found* | XLSM broken too, so the bug predates XLSB |
+| 7 | XLSB bytes declared as XLSX → `/classify` (control) | ✅ reaches the engine* | same | The engine reads XLSB fine |
+| 8 | XLSX bytes declared as XLS → `/classify` (control) | ❌ 400 Missing request body | No match found* | XLS broken too |
+| 9 | XLSB declared as `macroEnabled` (capital E) → `/classify` | ❌ 415 | same as check 1 after its fix | Bug 3 (case-sensitive) |
+| 10 | CSV → `/classify` | ❌ 400 Missing request body | No match found* | Bug 2 (classify ignores text bodies) |
+| 11 | CSV → `/extract/cells` | ✅ 200 COMPLETE | same | Contrast with 10: `/extract` reads CSV |
+| 12 | XLSB → `generate_upload_url`, upload, retrieve | ✅ COMPLETE, 2 pages | same | Workaround: async extraction |
+| 13 | XLSB as base64 JSON → `/extract/cells` | ✅ COMPLETE, 2 pages | same | Workaround: sync extraction |
+
+\* For classification, "No match found" means the request reached the engine: the sample isn't
+an invoice or bank statement, so there's no type to match.
+
+Fixing Bug 1 should turn checks 1, 2, 3, 6, and 8 into passes. Check 9 also needs Bug 3's fix,
+and check 10 needs Bug 2's. Each run uses 4 extraction credits (checks 3, 11, 12, and 13).
+
 ## Bug 1: Sync endpoints drop XLS, XLSM, and XLSB request bodies (high)
 
 **Symptom:** `POST /extract/{type}`, `POST /classify`, and `POST /classify/async` with a binary
