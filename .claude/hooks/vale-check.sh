@@ -1,20 +1,39 @@
 #!/usr/bin/env bash
-# Runs vale on any .md file written or edited. Called as a PostToolUse hook.
-# Exits 2 (injects feedback into Claude's context) if errors or warnings are found.
+# PostToolUse hook: runs Vale on a Markdown doc right after Claude writes or
+# edits it, and hands any warnings or errors back to Claude to fix.
+# Wired up in .claude/settings.json. Check it with scripts/vale-doctor.sh.
+#
+# Exit codes, as Claude Code reads them:
+#   0  nothing to report
+#   1  Vale isn't installed (shown to you, not Claude)
+#   2  alerts found (stderr goes to Claude)
 
-input=$(cat)
-file=$(echo "$input" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('tool_input',{}).get('file_path',''))" 2>/dev/null || true)
+file="$(jq -r '.tool_input.file_path // empty' 2>/dev/null)"
 
-[[ -z "$file" || "$file" != *.md ]] && exit 0
-[[ "$file" == *"/.github/styles/"* ]] && exit 0
-[[ "$file" == *"/.claude/"* ]] && exit 0
+case "$file" in
+  *.md | *.mdx) ;;
+  *) exit 0 ;;
+esac
+case "$file" in
+  */.claude/* | */.github/styles/*) exit 0 ;;
+esac
+[ -f "$file" ] || exit 0
 
-out=$(~/.local/bin/vale --no-wrap "$file" 2>&1) || true
-
-if echo "$out" | grep -qE "[1-9][0-9]* (error|warning)"; then
-  echo "Vale issues in $file — fix before proceeding:" >&2
-  echo "$out" >&2
-  exit 2
+vale="$(command -v vale || echo "$HOME/.local/bin/vale")"
+if [ ! -x "$vale" ]; then
+  echo "vale-check: Vale isn't installed or on PATH; skipping lint of $file" >&2
+  exit 1
 fi
 
-exit 0
+# Run from the file's directory so Vale finds the .vale.ini of the checkout
+# the file is in, which matters in worktrees
+out="$(cd "$(dirname "$file")" && "$vale" --no-exit --no-wrap --output=line --minAlertLevel=warning "$file" 2>&1)"
+[ -n "$out" ] || exit 0
+
+{
+  echo "Vale flagged $(grep -c . <<<"$out") warnings or errors in $file. Fix them, keeping the meaning."
+  echo "If one is a false positive, such as a product term, code, or a quote, leave the text and say why."
+  echo
+  echo "$out"
+} >&2
+exit 2
