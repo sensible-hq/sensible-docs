@@ -73,8 +73,27 @@ type (`...spreadsheetml.sheet`), not `application/vnd.ms-excel`. It's used by th
 processor and `src/processors/entities/{matcher,task}.ts`, so `.xls` email attachments may be
 typed as XLSX. Not tested; the sniffer may correct it.
 
+## Known limitation or bug? (checked 2026-10-12)
+
+- **Specs:** no `x-internal-note` or description restricts content types on the sync routes.
+  The extraction and classification request bodies list XLS and XLSM (and now XLSB) as
+  binary bodies with no caveat. The internal notes cover other topics (malware scan, undocumented
+  fields, camelCase).
+- **Docs:** Supported file types marks spreadsheet formats as supported for single-file
+  extraction with SDKs or API and for classification by type. `classify.md` says nothing about
+  file types.
+- **Engine history:** XLS (sensible#2739, 2024-12) and XLSM (sensible#3100, 2025-10) each changed
+  the app-level allowlists but neither touched the gateway's `binaryMediaTypes` (then in
+  `serverless.yml`). Neither PR mentions sync routes, the gateway, or a limitation. That points to
+  an oversight repeated three times, not a decision.
+- **Bug 3 caveat:** the spec enums list only the lowercase form, so a strict reading is
+  "send it lowercase." HTTP says media types are case-insensitive, so this is still a bug, but
+  the weakest of the three.
+
 ## Customer workaround until Bug 1 is fixed
 
-Send XLS, XLSM, and XLSB files with `generate_upload_url` or `extract_from_url`, not the
-synchronous `/extract` or `/classify` body. Classification has no upload-URL route, so XLS,
+Send XLS, XLSM, and XLSB files with `generate_upload_url` or `extract_from_url`. For sync
+`/extract`, the documented base64 option works: JSON body `{"document": "<base64>",
+"content_type": "application/vnd.ms-excel.sheet.binary.macroenabled.12"}` returned COMPLETE,
+page_count 2. Only the raw-bytes body fails. Classification has no upload-URL route, so XLS,
 XLSM, XLSB, and CSV classification has no workaround.
