@@ -253,6 +253,11 @@
             "schema": {
               "$ref": "#/components/schemas/BinaryDocument"
             }
+          },
+          "application/vnd.ms-excel.sheet.binary.macroenabled.12": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
           }
         }
       }
