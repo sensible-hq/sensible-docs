@@ -529,9 +529,6 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -598,9 +595,6 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -643,9 +637,6 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -686,9 +677,6 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -731,9 +719,6 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -753,10 +738,16 @@
                 "properties": {
                   "grants": {
                     "$ref": "#/components/schemas/Grants"
+                  },
+                  "expires": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "the date-time the token expires.\nSet this to a future date with enough time for the reviewer to complete the review.\nThe maximum value you can set is 30 days.\n"
                   }
                 },
                 "required": [
-                  "grants"
+                  "grants",
+                  "expires"
                 ]
               },
               "example": {
@@ -1386,15 +1377,20 @@
         "description": "A custom schema that you define using a [postprocessor](doc:postprocessors). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema."
       },
       "ReviewStatuses": {
-        "type": "string",
-        "nullable": true,
-        "enum": [
-          "NEEDS_REVIEW",
-          "APPROVED",
-          null,
-          "REJECTED"
+        "type": "array",
+        "items": {
+          "type": "string",
+          "nullable": true,
+          "enum": [
+            "NEEDS_REVIEW",
+            "APPROVED",
+            null,
+            "REJECTED"
+          ]
+        },
+        "example": [
+          "NEEDS_REVIEW"
         ],
-        "example": "NEEDS_REVIEW",
         "description": "The review status for each document in the portfolio, in order of their page ranges in the portfolio.  For more information, see [Human review](doc:human-review). Specify a webhook in the extraction request so that you can get a push notification when  a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`."
       },
       "ReviewStatus": {
@@ -1589,12 +1585,6 @@
             "type": "string",
             "format": "date-time",
             "description": "The creation date of the last extraction on this page of results (find this value in an extraction's `created` parameter)."
-          },
-          "cutoff_date": {
-            "type": "string",
-            "format": "date-time",
-            "example": null,
-            "description": "DEPRECATED. The `continuation_token` and `limit` parameters replace this parameter.  DESCRIPTION: Pass the cutoff_date parameter in the next request as the `end_date` parameter to retrieve the next page of extractions. Note that since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent  the date-time of an extraction that Sensible retrieved using the date range filter, and then removed using other filters."
           }
         }
       },
