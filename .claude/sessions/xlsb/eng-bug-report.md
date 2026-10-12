@@ -1,5 +1,12 @@
 # XLSB / spreadsheet upload bugs found while documenting sensible-hq/sensible#3474
 
+**TL;DR:** XLSB works through upload URLs, but `POST /extract`, `/classify`, and `/classify/async`
+reject raw XLS, XLSM, and XLSB bodies with "Missing request body". The cause is that the API
+Gateway `binaryMediaTypes` list in `gatewayV1.ts` omits all three, which has been true since XLS
+and XLSM support shipped. The fix is to add three content types to that list. Separately,
+`/classify` rejects CSV because its handler reads only binary bodies, and content type checks
+are case-sensitive, so `macroEnabled` (the casing Python sends) gets a 415.
+
 Tested against production (`https://api.sensible.so/v0`) on 2026-10-12 by the docs team.
 Repro: `bash scripts/test/file_types/smoke_test_xlsb.sh` in sensible-hq/sensible-docs
 (branch `fe_xlsb_docs`, PR sensible-docs#741). Sample: `tests/data/test.xlsb` from #3474.
