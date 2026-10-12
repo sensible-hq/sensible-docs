@@ -13,3 +13,13 @@ Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
 - [x] Open docs PR
 - [x] Confirm the Extract tab accepts .xlsb: yes, sensible-hq/sensible-app#1882 (merged) adds it to the dropzone and golden/quick-extraction pickers
 - [ ] After merge: run close-docs-pr
+
+## Production API tests (2026-10-12), sample: tests/data/test.xlsb from sensible-hq/sensible#3474
+
+- Reference document (configuration API): create on `cells` with xlsb content_type → 200; PUT to upload_url → 200; GET shows converted_url + thumbnail, error null. Deleted afterward (204, then 404). **Works.**
+- Binary request body endpoints all fail with "Missing request body" (400) for BOTH macroenabled types:
+  - POST /classify, POST /classify/async, POST /extract/{type}, with xlsb or xlsm content type
+  - Control: same bytes declared as xlsx reach the engine ("No match found"), so the reader is fine
+  - 415 message for a wrong-case header lists the xlsb type as allowed, so #3474 is deployed
+  - Likely cause: API gateway binary media types don't include the macroenabled types. Pre-existing for xlsm.
+- [ ] Report the gateway bug to engineering; decide whether to hold PR #741
