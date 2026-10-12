@@ -2,7 +2,7 @@
 
 Tested against production (`https://api.sensible.so/v0`) on 2026-10-12 by the docs team.
 Repro: `bash scripts/test/file_types/smoke_test_xlsb.sh` in sensible-hq/sensible-docs
-(branch `fe_xlsb_docs`, merged to `v0` with sensible-docs#741). Sample: `tests/data/test.xlsb` from #3474.
+(branch `fe_xlsb_docs`, PR sensible-docs#741). Sample: `tests/data/test.xlsb` from #3474.
 
 ## Bug 1: Sync endpoints drop XLS, XLSM, and XLSB request bodies (high)
 
