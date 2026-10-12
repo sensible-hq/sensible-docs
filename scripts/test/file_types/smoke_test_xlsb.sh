@@ -7,7 +7,9 @@
 # Bug write-up: .claude/sessions/xlsb/eng-bug-report.md
 #
 # The script prints each curl command before running it, then the response,
-# then what to expect. There's no automatic pass/fail: compare GOT with EXPECTED.
+# then what to expect. At the end it prints a summary table with PASS or FAIL for
+# each check, and flags any check whose result differs from what's expected today
+# (for example, after engineering ships a fix).
 #
 # Usage, from anywhere:  bash scripts/test/file_types/smoke_test_xlsb.sh
 # Needs SENSIBLE_API_KEY. Uses the "cells" document type.
@@ -33,13 +35,38 @@ mkdir -p scripts/test/file_types/outputs
 exec > >(tee "scripts/test/file_types/outputs/smoke_test_xlsb_$(date +%Y-%m-%d_%H-%M-%S).log") 2>&1
 
 # Prints a command, then runs it in this shell (so variables it sets are kept).
+# Saves what the command printed in $LAST, for the PASS/FAIL verdicts.
 run() {
-  local cmd
+  local cmd out
   cmd=$(cat)
   echo "\$ $cmd"
   echo "--- GOT:"
-  eval "$cmd"
+  out=$(mktemp)
+  eval "$cmd" > "$out" 2>&1
+  LAST=$(cat "$out")
+  rm -f "$out"
+  echo "$LAST"
   echo
+}
+
+# Verdicts. Each reads $LAST, the output of the most recent run.
+# PASS if the request got past the gateway and the content type check.
+reaches_engine() {
+  if grep -q "Missing request body" <<<"$LAST" || grep -q "^HTTP 415" <<<"$LAST"; then
+    echo FAIL
+  else
+    echo PASS
+  fi
+}
+# PASS if the extraction finished.
+completed() {
+  if grep -q '"status": "COMPLETE"' <<<"$LAST"; then echo PASS; else echo FAIL; fi
+}
+
+# Adds a row to the summary table: number, check, result, expected today, what it shows.
+ROWS=()
+record() {
+  ROWS+=("$1|$2|$3|$4|$5")
 }
 
 section() {
@@ -62,6 +89,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
   --data-binary @scripts/test/assets/xlsb_sample.xlsb
 CMD
+record 1 "XLSB -> POST /classify" "$(reaches_engine)" FAIL "Bug 1 (gateway)"
 
 
 section "2. POST /classify/async with an XLSB file" \
@@ -77,6 +105,7 @@ ASYNC=$(curl -s -w "\nHTTP %{http_code}" -X POST \
   --data-binary @scripts/test/assets/xlsb_sample.xlsb)
 echo "$ASYNC"
 CMD
+RESULT_2A=$(reaches_engine)
 echo "2b. Wait 15 seconds, then fetch the download_link (skipped if 2a returned none)"
 run <<'CMD'
 DOWNLOAD_LINK=$(echo "$ASYNC" | head -n -1 | jq -r '.download_link // empty' 2>/dev/null)
@@ -87,6 +116,8 @@ else
   curl -s -w "\nHTTP %{http_code}\n" "$DOWNLOAD_LINK"
 fi
 CMD
+if [ "$RESULT_2A" = PASS ] && grep -q "^HTTP 200" <<<"$LAST"; then RESULT_2=PASS; else RESULT_2=FAIL; fi
+record 2 "XLSB -> POST /classify/async, then poll" "$RESULT_2" FAIL "Bug 1"
 
 
 section "3. POST /extract/cells with an XLSB file" \
@@ -99,6 +130,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
   --data-binary @scripts/test/assets/xlsb_sample.xlsb
 CMD
+record 3 "XLSB -> POST /extract/cells" "$(reaches_engine)" FAIL "Bug 1"
 
 
 section "4. Upload an XLSB reference document to the cells document type, then delete it" \
@@ -133,12 +165,19 @@ curl -s "https://api.sensible.so/v0/document_types/$TYPE_ID/goldens/xlsb_smoke_t
   -H "Authorization: Bearer $SENSIBLE_API_KEY" |
   jq '{name, error, has_converted_url: (.converted_url != null)}'
 CMD
+if grep -q '"error": null' <<<"$LAST" && grep -q '"has_converted_url": true' <<<"$LAST"; then
+  RESULT_4=PASS
+else
+  RESULT_4=FAIL
+fi
 echo "4e. Delete the test reference document (expect HTTP 204)"
 run <<'CMD'
 curl -s -w "HTTP %{http_code}\n" -X DELETE \
   "https://api.sensible.so/v0/document_types/$TYPE_ID/goldens/xlsb_smoke_test_delete_me" \
   -H "Authorization: Bearer $SENSIBLE_API_KEY"
 CMD
+grep -q "^HTTP 204" <<<"$LAST" || RESULT_4=FAIL
+record 4 "XLSB reference document upload" "$RESULT_4" PASS "Reference document upload works"
 
 
 section "5. Control: POST /classify with an XLSX file" \
@@ -151,6 +190,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
   --data-binary @assets/pdfs/cell_rows.xlsx
 CMD
+record 5 "XLSX -> /classify (control)" "$(reaches_engine)" PASS "Baseline: XLSX works"
 
 
 section "6. Control: POST /classify with the XLSX file sent as XLSM" \
@@ -163,6 +203,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.ms-excel.sheet.macroenabled.12" \
   --data-binary @assets/pdfs/cell_rows.xlsx
 CMD
+record 6 "XLSX sent as XLSM -> /classify (control)" "$(reaches_engine)" FAIL "XLSM broken too: bug predates XLSB"
 
 
 section "7. Control: POST /classify with the XLSB file sent as XLSX" \
@@ -175,6 +216,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
   --data-binary @scripts/test/assets/xlsb_sample.xlsb
 CMD
+record 7 "XLSB sent as XLSX -> /classify (control)" "$(reaches_engine)" PASS "Engine reads XLSB fine"
 
 
 section "8. Control: POST /classify with the XLSX file sent as XLS" \
@@ -187,6 +229,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.ms-excel" \
   --data-binary @assets/pdfs/cell_rows.xlsx
 CMD
+record 8 "XLSX sent as XLS -> /classify (control)" "$(reaches_engine)" FAIL "XLS broken too"
 
 
 section "9. POST /classify with XLSB, content type spelled macroEnabled (capital E)" \
@@ -199,6 +242,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroEnabled.12" \
   --data-binary @scripts/test/assets/xlsb_sample.xlsb
 CMD
+record 9 "XLSB as macroEnabled (capital E) -> /classify" "$(reaches_engine)" FAIL "Bug 3 (case-sensitive)"
 
 
 echo
@@ -220,6 +264,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   -H "Content-Type: text/csv" \
   --data-binary @"$CSV_FILE"
 CMD
+record 10 "CSV -> /classify" "$(reaches_engine)" FAIL "Bug 2 (classify ignores text bodies)"
 
 
 section "11. POST /extract/cells with the same CSV file (compare with 10)" \
@@ -232,6 +277,7 @@ curl -s -X POST "https://api.sensible.so/v0/extract/cells" \
   --data-binary @"$CSV_FILE" |
   jq '{status, content_type, page_count, errors}'
 CMD
+record 11 "CSV -> /extract/cells" "$(completed)" PASS "Contrast with 10: /extract reads CSV"
 rm -f "$CSV_FILE"
 
 
@@ -259,6 +305,7 @@ curl -s "https://api.sensible.so/v0/documents/$(echo "$UPLOAD" | jq -r .id)" \
   -H "Authorization: Bearer $SENSIBLE_API_KEY" |
   jq '{status, content_type, page_count, errors}'
 CMD
+record 12 "XLSB -> generate_upload_url, upload, retrieve" "$(completed)" PASS "Workaround: async extraction"
 
 
 section "13. Workaround: POST /extract/cells with XLSB as base64 in a JSON body" \
@@ -274,3 +321,24 @@ curl -s -X POST "https://api.sensible.so/v0/extract/cells" \
   --data-binary @- |
   jq '{status, content_type, page_count, errors}'
 CMD
+record 13 "XLSB as base64 JSON -> /extract/cells" "$(completed)" PASS "Workaround: sync extraction"
+
+
+# Summary table. "Expected" is the result expected on 2026-10-12, before any fix.
+# A row marked CHANGED means the API now behaves differently than it did then.
+echo
+echo "=================================================================="
+echo "SUMMARY"
+echo "=================================================================="
+printf "%-3s %-46s %-7s %-9s %s\n" "#" "Check" "Result" "Expected" "What it shows"
+printf "%-3s %-46s %-7s %-9s %s\n" "--" "-----" "------" "--------" "-------------"
+PASSED=0; FAILED=0; CHANGED=0
+for row in "${ROWS[@]}"; do
+  IFS='|' read -r num check result expected shows <<<"$row"
+  flag=""
+  if [ "$result" != "$expected" ]; then flag="  <-- CHANGED"; CHANGED=$((CHANGED + 1)); fi
+  if [ "$result" = PASS ]; then PASSED=$((PASSED + 1)); else FAILED=$((FAILED + 1)); fi
+  printf "%-3s %-46s %-7s %-9s %s%s\n" "$num" "$check" "$result" "$expected" "$shows" "$flag"
+done
+echo
+echo "$PASSED passed, $FAILED failed, $CHANGED changed since 2026-10-12."
