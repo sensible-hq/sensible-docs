@@ -1189,6 +1189,11 @@
               "$ref": "#/components/schemas/BinaryDocument"
             }
           },
+          "application/vnd.ms-excel.sheet.binary.macroenabled.12": {
+            "schema": {
+              "$ref": "#/components/schemas/BinaryDocument"
+            }
+          },
           "text/csv": {
             "schema": {
               "$ref": "#/components/schemas/BinaryDocument"
@@ -2671,6 +2676,7 @@
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           "application/vnd.ms-excel",
           "application/vnd.ms-excel.sheet.macroenabled.12",
+          "application/vnd.ms-excel.sheet.binary.macroenabled.12",
           "text/csv",
           "application/json"
         ],

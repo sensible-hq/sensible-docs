@@ -16,7 +16,7 @@ Sensible supports the following file types:
 
 - PDF
 - Microsoft Word (DOC and DOCX)
-- Spreadsheet formats  (XLSX, XLS, XLSM, and CSV)
+- Spreadsheet formats  (XLSX, XLS, XLSM, XLSB, and CSV)
 - Single-page image formats (JPEG, PNG)
 - Multi-page image formats (TIFF)
 
