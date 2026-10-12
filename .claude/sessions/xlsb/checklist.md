@@ -23,4 +23,5 @@ Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
   - 415 message for a wrong-case header lists the xlsb type as allowed, so #3474 is deployed
   - Likely cause: API gateway binary media types don't include the macroenabled types. Pre-existing for xlsm.
 - [x] Add repeatable test: scripts/test/file_types/smoke_test_xlsb.sh (sample in scripts/test/assets/xlsb_sample.xlsb)
-- [ ] Report the gateway bug to engineering; decide whether to hold PR #741
+- [x] Bug report drafted: .claude/sessions/xlsb/eng-bug-report.md (smoke test extended to 12 checks)
+- [ ] Frances files the bugs with engineering; decide whether to hold PR #741
