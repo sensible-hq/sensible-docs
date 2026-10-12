@@ -15,7 +15,7 @@
 #
 # Results on 2026-10-12:
 #   1  POST /classify, XLSB                       FAIL  400 Missing request body
-#   2  POST /classify/async, XLSB                 FAIL  400 Missing request body
+#   2  POST /classify/async, XLSB                 FAIL  400 Missing request body (2b skipped)
 #   3  POST /extract, XLSB                        FAIL  400 Missing request body or body.document
 #   4  Reference document upload, XLSB            PASS
 #   5  POST /classify, XLSX (control)             PASS  reaches the engine
@@ -65,14 +65,27 @@ CMD
 
 
 section "2. POST /classify/async with an XLSB file" \
-  "400 Missing request body" \
-  "HTTP 200 with an id and download_link"
+  "2a: 400 Missing request body; 2b: skipped" \
+  "2a: HTTP 200 with an id and download_link; 2b: HTTP 200 {\"error\":\"No match found for document\"} (this sample matches no type)"
+echo "2a. Send the file. Like /classify, the async endpoint takes the file bytes in the"
+echo "    request body. It returns right away with a download_link to poll."
 run <<'CMD'
-curl -s -w "\nHTTP %{http_code}\n" -X POST \
+ASYNC=$(curl -s -w "\nHTTP %{http_code}" -X POST \
   "https://api.sensible.so/v0/classify/async?document_types=invoices,bank_statements" \
   -H "Authorization: Bearer $SENSIBLE_API_KEY" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/test/assets/xlsb_sample.xlsb
+  --data-binary @scripts/test/assets/xlsb_sample.xlsb)
+echo "$ASYNC"
+CMD
+echo "2b. Wait 15 seconds, then fetch the download_link (skipped if 2a returned none)"
+run <<'CMD'
+DOWNLOAD_LINK=$(echo "$ASYNC" | head -n -1 | jq -r '.download_link // empty' 2>/dev/null)
+if [ -z "$DOWNLOAD_LINK" ]; then
+  echo "skipped: no download_link"
+else
+  sleep 15
+  curl -s -w "\nHTTP %{http_code}\n" "$DOWNLOAD_LINK"
+fi
 CMD
 
 
