@@ -17,6 +17,9 @@ keep the optional vale pane, and add a check that tests the setup the way Claude
 - [x] Remove `disableAllHooks` from main checkout's `.claude/settings.local.json`
 - [x] Put `~/GitHub/claude-vale-pane` under git; align it (md/mdx only, same Vale lookup as the hook)
 
+## Folded in from the old `vale` worktree
+- [x] Moved its unstarted plan for a method-name Vale rule to `.claude/sessions/vale-method-names/` (`plan.md`, `style-guide-draft.md`). Most of the draft is already in `style-guide-overview.md`; the rule itself is still to do.
+
 ## Needs Frances (blocked for Claude by auto mode)
 - [ ] Delete PreToolUse + UserPromptSubmit Vale hooks from `~/.claude/settings.json`, then `rm ~/.claude/hooks/vale-changed.sh`
 - [ ] `rm -rf ~/.local/vale-mcp ~/GitHub/vale-server`; `rmdir ~/.local/share/vale/styles ~/.local/share/vale ~/.config/vale`
