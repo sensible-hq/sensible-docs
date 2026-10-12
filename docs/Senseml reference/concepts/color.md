@@ -16,7 +16,7 @@ Sensible displays the source text for extracted fields using color-coded symbols
 
 # Color coding
 
-The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text.
+The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text. To control which symbols display, use the editor's [Options](doc:color#options) menu.
 
 | symbol                                                        | represents                                                                |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -28,6 +28,7 @@ The SenseML editor uses color-coded overlays to visually represent how SenseML q
 | [Dotted blue box](doc:color#dotted-blue-box)                  | discarded method data                                                     |
 | [Dotted yellow box](doc:color#dotted-yellow-box)              | discarded anchor data                                                     |
 | [Pink box](doc:color#pink-box)                                | fingerprint                                                               |
+| [Violet box](doc:color#violet-box)                            | section anchor                                                            |
 | [Purple box](doc:color#purple-box)                            | location highlighting of source text for an extracted field; line details |
 
 ## Yellow box
@@ -118,7 +119,7 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 ## Dotted blue box
 
-***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method.
+***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Sensible hides discarded data by default. To display it, select [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
@@ -150,7 +151,7 @@ Common parameters resulting in filtering include:
 
 ## Dotted yellow box
 
-***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. 
+***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. Sensible hides discarded data by default. To display it, select [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, for the following config and example document:
 
@@ -211,6 +212,10 @@ fingerprint": {
 
 **Note** Sensible doesn't support fingerprint highlighting if you use preprocessors that change line indices, such as Split Lines and Merge Lines.
 
+## Violet box
+
+***Violet boxes*** represent the line each section anchors on in a [sections](doc:sections) group. Sensible hides section anchors by default. To display them, select [Show section anchors](doc:color#show-section-anchors).
+
 ## Purple box
 
 Purple boxes represet a selected line. To select a line:
@@ -249,3 +254,35 @@ Sensible can highlight the location of the source text for an LLM's response. No
   * If the document contains multiple candidates fuzzy matches (for example, two instances of `April 7`), Sensible chooses the top-scoring match. If candidates have similar scores, Sensible uses page location as a tie breaker and chooses the earliest match in the document.
 
   * If the LLM returns text that's not in the document, then location highlighting is inapplicable.
+
+# Options
+
+To manage reference documents and to change which symbols the SenseML editor displays, click **Options** in the toolbar over the rendered document. The menu contains the following options.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_viewer_options.png)
+
+## Upload sample doc
+
+Uploads a reference document to the config so that you can test the config's queries on it.
+
+## Download sample doc
+
+Downloads the reference document displayed in the editor.
+
+## Hide bounding boxes
+
+Hides all color-coded symbols so that you can read the rendered document without overlays. To display the symbols again, select **Show bounding boxes**.
+
+## Show unextracted lines
+
+Displays data that Sensible captured and then discarded, as [dotted blue boxes](doc:color#dotted-blue-box) for method data and [dotted yellow boxes](doc:color#dotted-yellow-box) for anchor data. Use this option to troubleshoot fields that return null or unexpected output.
+
+## Show section anchors
+
+Highlights the line each section anchors on with a [violet box](doc:color#violet-box). Sensible hides section anchors by default, since for repeating sections, such as line items, they can obscure other symbols. Use this option to troubleshoot [sections](doc:sections) when parameters such as Offset Y shift each section's start away from its anchor line.
+
+## Validate fingerprints
+
+Tests a config's [fingerprint](doc:fingerprint) against multiple reference documents at once. Select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints.
+
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
