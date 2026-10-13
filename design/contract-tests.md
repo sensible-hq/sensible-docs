@@ -51,7 +51,7 @@ current prober, and add a validator.
 | Specs | `reference/openapi_*.json` from the working tree, so you can test a spec change before merging it |
 | API key | `SENSIBLE_API_KEY` env var. Locally, from your shell. In Actions, mapped from the `SENSIBLE_TEST_API_KEY` secret. |
 | Request catalog | `scripts/test/probe_endpoints/catalog/*.yaml`, one file per spec file |
-| Test assets | PDFs in `assets/pdfs/` (already used by the prober) plus configs checked in next to the catalog |
+| Test account data | Fixtures in `scripts/test/probe_endpoints/fixtures/` (document types, configs, references, processors) and sample documents in `assets/pdfs/`. See [Test account](#test-account-rich-reproducible-data). |
 
 Make sure the local `SENSIBLE_API_KEY` is the test account's key, not a personal or production account's key, before
 the first run. The suite creates and deletes resources.
@@ -117,15 +117,103 @@ object`). Shape snapshots make the `VOLATILE_KEYS` list unnecessary, because IDs
 shape. A shape diff answers "did the API change since last week?" even where the spec is too loose to catch it
 (`additionalProperties: true`, empty object schemas).
 
-### Test account hygiene
+### Test account: rich, reproducible data
 
-- Prefix every resource the suite creates (document types, configs, goldens, processors) with `drift_probe_<run-id>_`.
-- Run destructive operations (DELETE) only on resources created in the same run.
+What the API returns depends on the account's data as much as on the request. Many response fields appear only when
+the document and the document type's config trigger them. For example, `validation_summary` needs validations,
+`reviewStatuses` needs review triggers, `classification_summary` needs a portfolio with fingerprints,
+`postprocessorOutput` needs a postprocessor, and `file_metadata` needs a PDF with metadata. A thin test account
+produces responses that pass strict validation only because they're mostly empty. So the test account's data is part
+of the test suite. It has to be rich, version-controlled, and rebuildable from scratch.
+
+#### Fixtures in the repo
+
+Everything the suite depends on is checked in as files that map directly to configuration API request bodies:
+
+```
+scripts/test/probe_endpoints/fixtures/
+  README.md                              # account bootstrap steps that the API can't do (see below)
+  manifest.yaml                          # what to seed, in order
+  document_types/
+    probe_w2s.json                       # body for POST /document_types: name + schema
+                                         #   (fingerprint_mode, ocr_engine, review_triggers, validations, ...)
+    probe_w2s/
+      configs/w2_2024.json               # SenseML; seeded with POST .../configurations, publish_as
+      configs/w2_2024.v2.json            # optional second version, so versions endpoints have data
+      goldens/w2_sample.yaml             # name, associated configuration, path to the PDF
+  processors/
+    probe_invoices.json                  # body for PUT /processors/email/{name}
+assets/pdfs/                             # sample documents (existing folder, already public)
+```
+
+Name long-lived fixtures with a fixed prefix (`probe_`), and name resources that a single run creates and destroys
+with `drift_probe_<run-id>_`, so the two never collide.
+
+#### Seed script
+
+`seed.py` rebuilds the account from the fixtures, using only the documented configuration API:
+
+1. **Document types**: create with `POST /document_types`, or update with `PUT /document_types/{id}` if the name
+   already exists.
+2. **Configs**: create with `POST /document_types/{id}/configurations` and publish with `publish_as`. Seed a second
+   version where the manifest asks for one, and publish versions to different environments, so the versions endpoints
+   and environment handling have data.
+3. **Reference documents (goldens)**: `POST /document_types/{id}/goldens` returns an `upload_url`. Upload the PDF to it
+   with a PUT, then associate the configuration.
+4. **Email processors**: `PUT /processors/email/{name}`.
+
+It's idempotent (safe to rerun), matches resources by name, and records the name-to-ID map that the request catalog
+uses. Two more modes:
+
+- `seed.py --check`: compare the live account with the fixtures, and report anything missing, changed, or extra.
+  Run it at the start of every contract run, so an account someone edited by hand doesn't masquerade as API drift.
+- `export.py`: pull the current account into fixture files. Use it once to bootstrap from today's test account, and
+  again whenever you deliberately change fixtures in the Sensible app instead of in the files.
+
+#### Coverage matrix
+
+Track which fixture triggers which conditional part of the API, and grow it until the observed-field report
+(below) is clean:
+
+| Response feature | Fixture that triggers it |
+| --- | --- |
+| `validations`, `validation_summary` (errors, warnings, skipped) | Config with validations that fail, warn, and skip |
+| `reviewStatuses`, review status | Document type with `review_triggers` plus a document that trips them |
+| Portfolio: `documents[]`, page ranges, `classification_summary` | Multi-document PDF plus at least two document types with fingerprints |
+| `coverage`, field-level `errors` | Config where some fields can't be found |
+| `postprocessorOutput` | Config with a postprocessor |
+| Computed fields, sections, tables | Config using each |
+| LLM-based methods | Config with Query Group and other LLM methods |
+| `file_metadata` | PDF with document metadata (open item in the current prober's checklist) |
+| `extra_data` | Request scenarios, no fixture needed |
+| Content types | One sample each: PDF, scanned PDF, JPEG, PNG, TIFF, DOCX, XLSX, XLSB, CSV |
+| Error codes | Password-protected PDF, corrupt PDF, a document no fingerprint matches |
+| Email processors | At least one processor per supported setup |
+
+Good sources of fixtures: the existing samples in `assets/pdfs/` and the open-source configuration library, which
+already pairs sample documents with configs. Every fixture document must be synthetic or public, because this repo
+is public. No real customer data and no real PII.
+
+#### Observed-field coverage
+
+Operation coverage isn't enough. During every run, record each JSON path seen in any response, then compare against
+every path in the spec's response schemas. Paths the spec documents but no response ever contained are **fixture
+gaps**. That's the measurable version of "the test account is rich enough", and the report lists them after the
+coverage gaps.
+
+#### What the API can't recreate
+
+Some account state can't be set through the documented API: creating the account and its API key, account-level
+feature settings, and anything set only by Sensible support. List these as manual bootstrap steps in
+`fixtures/README.md`. Before relying on a fixture, confirm whether its behavior (for example, human review) needs an
+account-level setting. I haven't checked which ones do.
+
+#### Run hygiene
+
+- Run destructive operations (DELETE) only on `drift_probe_<run-id>_` resources created in the same run. Never delete
+  `probe_` fixtures.
 - A cleanup step at the end of every run, and at the start of the next run, deletes leftover `drift_probe_*`
   resources.
-- Long-lived fixtures that scenarios read but never modify (for example, the `api_skill_*` document types) are created
-  idempotently by a setup step from configs checked into the repo. That makes the suite work against any test account,
-  which is item 1 in the current prober's checklist.
 
 ### Running it
 
@@ -137,7 +225,9 @@ shape. A shape diff answers "did the API change since last week?" even where the
 
 ### Output
 
-`outputs/<timestamp>/report.md`: DRIFT, then REVIEW, then coverage gaps, then the shape diff since the last snapshot.
+`outputs/<timestamp>/report.md`: account check (`seed.py --check`), then DRIFT, then REVIEW, then coverage gaps
+(operations, status codes, content types), then fixture gaps (documented fields never observed), then the shape diff
+since the last snapshot.
 Raw responses go next to it. Keep `outputs/` gitignored.
 
 ## Public repo: what's safe
@@ -154,9 +244,9 @@ don't already. The rules:
 
 - **It runs after deploy.** It finds drift once a change is live in production, not when the backend PR merges. The
   static skeleton in concept.md covers the pre-merge side.
-- **Coverage depends on scenarios.** Fields that only appear under conditions no scenario triggers (rare errors,
-  specific document types, account settings) go unchecked. The coverage report makes the gaps visible but can't fill
-  them.
+- **Coverage depends on scenarios and fixtures.** Fields that only appear under conditions no scenario or fixture
+  triggers (rare errors, unusual documents, account settings) go unchecked. The fixture-gap report makes them visible.
+  Filling them means adding fixtures, and some states may be impractical to trigger on purpose.
 - **Loose spec nodes** (`additionalProperties: true`, objects with no `properties`) can't be checked in strict mode.
   Shape snapshots still show changes there.
 - **Webhooks** need a public receiver. Options are a request-bin style service or skipping webhook payloads at first.
@@ -180,9 +270,13 @@ stage before production. It's their call, and this proposal doesn't depend on it
 
 ## Plan
 
-1. Add strict spec validation and shape snapshots to the existing extraction prober (no catalog yet). Run it once and
-   triage.
-2. Move scenarios into the catalog; add coverage reporting; cover all four spec files.
-3. Add error-code scenarios.
-4. Add the fixtures setup and cleanup steps, then the GitHub Actions workflow.
-5. Optional: Schemathesis exploration.
+1. Write `export.py` and snapshot today's test account into `fixtures/`, so the account is recoverable before
+   anything else changes. Then write `seed.py` and `seed.py --check`, and prove them by seeding a second, empty
+   account.
+2. Add strict spec validation, shape snapshots, and observed-field coverage to the existing extraction prober (no
+   catalog yet). Run it once and triage.
+3. Move scenarios into the catalog; add coverage reporting; cover all four spec files.
+4. Work through the coverage matrix: add fixtures until the fixture-gap report contains only paths you've decided
+   to accept.
+5. Add error-code scenarios, run cleanup, and the GitHub Actions workflow.
+6. Optional: Schemathesis exploration.
