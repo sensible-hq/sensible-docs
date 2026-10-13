@@ -1,13 +1,17 @@
 ---
 title: Visual troubleshooting in the SenseML editor
-excerpt: Learn how to trace extracted fields to their source text with color-coded
-  overlays, and how to test and troubleshoot configs with the SenseML editor's options
+excerpt: >-
+  Learn how to trace extracted fields to their source text with color-coded
+  overlays, and how to test and troubleshoot configs with the SenseML editor's
+  options
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to trace extracted fields to their source text with color-coded
-    overlays, and how to test and troubleshoot configs with the SenseML editor's options
+  description: >-
+    Learn how to trace extracted fields to their source text with color-coded
+    overlays, and how to test and troubleshoot configs with the SenseML editor's
+    options
   robots: index
 next:
   description: ''
@@ -33,7 +37,7 @@ The SenseML editor uses color-coded overlays to visually represent how SenseML q
 
 ## Yellow box
 
-***Yellow boxes*** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
+**_Yellow boxes_** represent anchors. For more information about anchors, see [Anchors](doc:anchor).
 
 For example, the following image shows:
 
@@ -61,7 +65,7 @@ The query used for the preceding image is:
 
 ## Blue box
 
-***Blue boxes*** represent method output. For more information about method, see [Method object](doc:method). 
+**_Blue boxes_** represent method output. For more information about method, see [Method object](doc:method).
 
 For example, the following image shows:
 
@@ -89,19 +93,19 @@ The query used for the preceding image is:
 
 ## Green box
 
-***Green boxes*** represent boxes, regions, tables, or [chunks](doc:prompt#full-prompt).
+**_Green boxes_** represent boxes, regions, tables, or [chunks](doc:prompt#full-prompt).
 
 ## Green point
 
-***Green points*** represent the following:
+**_Green points_** represent the following:
 
 * a starting point for recognizing a box or checkbox
 
 * a starting point for defining the coordinates of a region
 
-Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is *on* the box border itself, as specified by (`"position": "left"`).
+Green points can be useful for troubleshooting. For example, in the following image, Sensible can't recognize the box. The green dot provides a visual clue about the problem: the green dot is _on_ the box border itself, as specified by (`"position": "left"`).
 
- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_position_left.png)
+![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/box_position_left.png)
 
 If you specify to find the box borders by starting from the right edge of the anchor line's boundaries (`"position": "right"`), the green dot is far enough inside the borders for Sensible to recognize the box:
 
@@ -119,7 +123,7 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 ## Dotted blue box
 
-***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
+**_Dotted blue boxes_** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
@@ -151,7 +155,7 @@ Common parameters resulting in filtering include:
 
 ## Dotted yellow box
 
-***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
+**_Dotted yellow boxes_** represent discarded anchor data, for example for queries that return null. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, for the following config and example document:
 
@@ -172,7 +176,7 @@ For example, for the following config and example document:
 ```
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column.pdf) |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_filtered_anchor.png)
 
@@ -183,12 +187,11 @@ Common parameters resulting in discarded anchors include:
 * the field's data type (currency, date, address, etc)
 * the field's match method (first, last, all)
 * the anchor's start and end
-* the method's ID (for example, the Checkbox method filters out all anchor lines that aren't near a checkbox) 
+* the method's ID (for example, the Checkbox method filters out all anchor lines that aren't near a checkbox)
 
 ## Pink box
 
-***Pink boxes*** represent matching fingerprint tests.\
-In the following image, the pink text is a matching fingerprint. 
+**_Pink boxes_** represent matching fingerprint tests.<br />In the following image, the pink text is a matching fingerprint.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_fingerprint.png)
 
@@ -214,7 +217,7 @@ fingerprint": {
 
 ## Violet box
 
-***Violet boxes*** represent the line each section anchors on in a [sections](doc:sections) group. Sensible hides section anchors by default. To display them, see [Show section anchors](doc:color#show-section-anchors).
+**_Violet boxes_** represent the line each section anchors on in a [sections](doc:sections) group. Sensible hides section anchors by default. To display them, see [Show section anchors](doc:color#show-section-anchors).
 
 ## Purple box
 
@@ -236,9 +239,9 @@ You can select multiple lines to see their combined details.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/changelog_July2021_x-ray_mode.png)
 
-### Location highlighting
+## Location highlighting
 
-Sensible can highlight the location of the source text for an LLM's response. Note the following limitations for location highlighting for LLM-based methods: 
+Sensible can highlight the location of the source text for an LLM's response. Note the following limitations for location highlighting for LLM-based methods:
 
 * In general, since LLMs are indeterminate,Sensible selects source text for LLM-based methods using a variety of best-guess approaches:
 
