@@ -16,7 +16,7 @@ Sensible displays the source text for extracted fields using color-coded symbols
 
 # Source text traceability
 
-The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text. To control which symbols display, use the editor's [Options](doc:color#test-and-troubleshoot-configs) menu.
+The SenseML editor uses color-coded overlays to visually represent how SenseML queries operate on documents. Use these symbols to author queries, troubleshoot queries, and to trace extractions to their source text. To control which symbols display, see [Test and troubleshoot configs](doc:color#test-and-troubleshoot-configs).
 
 | symbol                                                        | represents                                                                |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -119,7 +119,7 @@ Yellow brackets denote sections' external ranges, which is an advanced configura
 
 ## Dotted blue box
 
-***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Sensible hides discarded data by default. To display it, select [Show unextracted lines](doc:color#show-unextracted-lines).
+***Dotted blue boxes*** represent discarded method data. Sensible methods filter out captured data depending on parameters you set in the field, the anchor, and the method. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, in the following image, a Row method captures everything to the right of the text "Python", but a tiebreaker selects "0" (dark blue box) and discards "first" (dotted blue box).
 
@@ -151,7 +151,7 @@ Common parameters resulting in filtering include:
 
 ## Dotted yellow box
 
-***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. Sensible hides discarded data by default. To display it, select [Show unextracted lines](doc:color#show-unextracted-lines).
+***Dotted yellow boxes*** represent discarded anchor data, for example for queries that return null. Sensible hides discarded data by default. To display it, see [Show unextracted lines](doc:color#show-unextracted-lines).
 
 For example, for the following config and example document:
 
@@ -214,7 +214,7 @@ fingerprint": {
 
 ## Violet box
 
-***Violet boxes*** represent the line each section anchors on in a [sections](doc:sections) group. Sensible hides section anchors by default. To display them, select [Show section anchors](doc:color#show-section-anchors).
+***Violet boxes*** represent the line each section anchors on in a [sections](doc:sections) group. Sensible hides section anchors by default. To display them, see [Show section anchors](doc:color#show-section-anchors).
 
 ## Purple box
 
