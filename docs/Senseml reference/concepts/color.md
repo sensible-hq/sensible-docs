@@ -257,9 +257,7 @@ Sensible can highlight the location of the source text for an LLM's response. No
 
 # Test and troubleshoot configs
 
-To manage reference documents and to change which symbols the SenseML editor displays, click **Options** in the toolbar over the rendered document. The menu contains the following options.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_viewer_options.png)
+Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options.
 
 ## Upload sample doc
 
@@ -271,7 +269,7 @@ Downloads the reference document displayed in the editor.
 
 ## Hide bounding boxes
 
-Hides all color-coded symbols so that you can read the rendered document without overlays. To display the symbols again, select **Show bounding boxes**.
+Hides all color-coded symbols and the gray boxes that represent each [line's](doc:lines) boundary box, so that you can read the rendered document without overlays. To display the symbols and boundary boxes again, select **Show bounding boxes**.
 
 ## Show unextracted lines
 
