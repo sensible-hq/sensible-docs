@@ -147,3 +147,61 @@ def schema_errors(spec: dict, schema: dict, instance) -> list[str]:
         f"{'/'.join(map(str, e.absolute_path)) or '<root>'}: {e.message}"
         for e in validator.iter_errors(instance)
     ]
+
+
+# ── Docs impact reporting ────────────────────────────────────────────────────
+# Each test carries @pytest.mark.docs_impact(change=..., where=..., pages=...,
+# if_pass=..., if_fail=..., if_skip=...). The test prints it before running, and
+# the terminal summary maps each outcome to what it means for the docs.
+
+_outcomes: dict = {}
+
+
+def pytest_configure(config):
+    config.addinivalue_line("markers", "docs_impact(**info): what a test's result means for the docs")
+
+
+def _impact(item) -> dict | None:
+    marker = item.get_closest_marker("docs_impact")
+    return marker.kwargs if marker else None
+
+
+@pytest.fixture(autouse=True)
+def _print_docs_impact(request):
+    info = _impact(request.node)
+    if info:
+        print(f"\n### DOCS IMPACT: {request.node.name}")
+        print(f"    Change in #744: {info['change']}")
+        print(f"    Spec location:  {info['where']}")
+        print(f"    Published docs: {info['pages']}")
+    yield
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call" or (report.when == "setup" and report.skipped):
+        reason = report.longrepr[2] if report.skipped and isinstance(report.longrepr, tuple) else None
+        _outcomes[item.nodeid] = (item, report.outcome, reason)
+
+
+def pytest_terminal_summary(terminalreporter):
+    rows = [row for row in _outcomes.values() if _impact(row[0])]
+    if not rows:
+        return
+    tr = terminalreporter
+    tr.section("docs impact")
+    for item, result, reason in rows:
+        info = _impact(item)
+        if result == "skipped" and reason and KEY_ENV in reason:
+            verdict = "Not run: no test key. Set SENSIBLE_TEST_API_KEY and rerun."
+        else:
+            verdict = {"passed": info["if_pass"], "failed": info["if_fail"],
+                       "skipped": info["if_skip"]}[result]
+        tr.write_line(f"{result.upper():8} {item.name}")
+        tr.write_line(f"         Spec: {info['where']}")
+        tr.write_line(f"         Docs: {verdict}")
+        if reason:
+            tr.write_line(f"         Skip reason: {reason.removeprefix('Skipped: ')}")
+        tr.write_line("")

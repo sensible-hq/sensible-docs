@@ -38,6 +38,18 @@ def _first_extraction_id(api) -> str:
 
 # ── expires on POST /account/auth_tokens ─────────────────────────────────────
 
+@pytest.mark.docs_impact(
+    change="Added `expires` to the request body and marked it required.",
+    where="reference/openapi_extraction.json > paths./account/auth_tokens.post.requestBody",
+    pages="API reference: Get token for review link (ref:account-auth-tokens)",
+    if_pass="Correct as published. The API requires `expires`, accepts the documented body, and its "
+            "response matches AuthTokenResponse. No docs change needed.",
+    if_fail="The spec is wrong. If the POST without `expires` returned 200, remove `expires` from "
+            "`required`. If the POST with `expires` failed or its response didn't validate, fix the "
+            "request schema, its example, or AuthTokenResponse to match the printed response.",
+    if_skip="Unverified: the test account has no extraction to build a grant from. Run any extraction "
+            "on the test account, then rerun.",
+)
 def test_auth_token_expires(api, specs):
     spec = specs["extraction"]
     request_schema = spec["paths"]["/account/auth_tokens"]["post"]["requestBody"]["content"][
@@ -76,6 +88,22 @@ def test_auth_token_expires(api, specs):
 
 # ── ReviewStatuses is an array, one entry per portfolio document ─────────────
 
+@pytest.mark.docs_impact(
+    change="Changed ReviewStatuses from a string to an array of nullable strings.",
+    where="reference/openapi_extraction.json > components.schemas.ReviewStatuses "
+          "(used by MultiExtractionSummaryResponse and ExtractionPortfolioRetrievalResponse)",
+    pages="API reference: List extractions (ref:list-extractions) and Retrieve extraction "
+          "(ref:retrieving-results); guide sample in docs/document extraction/portfolio.md, "
+          "which already shows an array",
+    if_pass="Correct as published. Live portfolio extractions return an array with one status per "
+            "document, matching the spec and the portfolio guide's sample.",
+    if_fail="The spec is wrong. Compare the printed `reviewStatuses` with the schema: fix the item enum, "
+            "nullability, or array type. If the count doesn't match `documents`, fix the ReviewStatuses "
+            "description too.",
+    if_skip="Unverified live. The docs change rests on the backend source review only. To verify, add a "
+            "portfolio document type with review triggers to the test account, run an extraction that "
+            "trips them, then rerun.",
+)
 def test_review_statuses_is_array_per_document(api, specs):
     spec = specs["extraction"]
     review_schema = spec["components"]["schemas"]["ReviewStatuses"]
@@ -116,6 +144,16 @@ def test_review_statuses_is_array_per_document(api, specs):
 
 # ── cutoff_date removed from GET /extractions ────────────────────────────────
 
+@pytest.mark.docs_impact(
+    change="Removed the deprecated `cutoff_date` field from the response.",
+    where="reference/openapi_extraction.json > components.schemas.ExtractionsResponseFiltered",
+    pages="API reference: List extractions (ref:list-extractions)",
+    if_pass="Correct as published. Production doesn't return `cutoff_date`, and every top-level field it "
+            "does return is documented. No docs change needed.",
+    if_fail="The spec is wrong. If `cutoff_date` came back, restore it in ExtractionsResponseFiltered. "
+            "If the failure lists other undocumented top-level fields, document them there.",
+    if_skip="Unverified: the API couldn't be reached with the test key. Check SENSIBLE_TEST_API_KEY and rerun.",
+)
 def test_list_extractions_has_no_cutoff_date(api, specs):
     spec = specs["extraction"]
     response_schema = spec["components"]["schemas"]["ExtractionsResponseFiltered"]
