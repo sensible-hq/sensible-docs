@@ -12,7 +12,7 @@ State when paused:
 - Branch is in sync with origin at Frances's commit 85ed43dfd. Frances is mid-rewrite of fingerprint.md: new structure (Standalone / Portfolios / Fingerprint scoring / Notes > Tips) with inline TODO and LEFT OFF markers (listed below).
 - Backend facts are verified against the `sensible` repo @ 242e382fd (see "Backend findings" below). Use them as ground truth over the older doc-based reasoning in this file.
 - Pending, not yet in the file: Claude's corrected "nested vs flat array" summary comment (in the last conversation turn). Its key correction: a **flat** array does NOT require separate lines; elements are searched independently and can match the same line. Frances hasn't said where it goes. It likely fills `/* flat array: TODO LEFT OFF */` (~line 219) and/or `/* further nested array behavior LEFT OFF */` (~line 256).
-- **Open disagreement** (see "OPEN DISAGREEMENT" near the end): whether portfolio tests pass/fail as a unit. Resolve it with the validator test described there before changing test/match terminology.
+- **Disagreement resolved (2026-10-13):** any failing match fails the whole portfolio fingerprint. The fallbacks tip is replaced with Boolean `any` guidance.
 - Next steps: (1) work through the inline TODOs below, (2) reorganize the Notes/Tips, (3) re-verify every claim against the Backend findings.
 
 ## To do: inline TODOs in fingerprint.md (as of 85ed43dfd)
@@ -26,7 +26,7 @@ Line numbers are approximate. Search for `TODO` / `LEFT OFF`.
 - [ ] **~86:** "TODO: add a screenshot of how that evaluates??" (standalone example). Probably a validator screenshot, via screenshots/ to final/.
 - [ ] **~136:** "TODO: add to that example how it evaluates?" (the portfolio.md example link)
 - [ ] **~142, `## Fingerprint scoring`:** "TODO: fill in and make it so it could be a standalone concept topic". Source material: Backend findings > Scoring, plus the flat vs nested section.
-- [ ] **~158, fallbacks tip:** "TODO: verify if this can actually be done?" Backend says **yes**. Separate `last` tests emit independent `last` signals, and either one ends the document (multi-extract.ts:258–290, 356). Could still confirm in the app.
+- [x] (Resolved 2026-10-13: tip replaced with Boolean `any` guidance) **~158, fallbacks tip:** "TODO: verify if this can actually be done?" Backend says **yes**. Separate `last` tests emit independent `last` signals, and either one ends the document (multi-extract.ts:258–290, 356). Could still confirm in the app.
 - [ ] **~170, test and verify fingerprints:** "Sensible automatically converts them TODO link". Needs the link to the validator docs (see "point readers to the fingerprint validation option" below). Typo: "If your write" should be "If you write".
 - [ ] **~176, "Prefer nested match arrays for stricter syntax":** TODO asks whether this is portfolio-specific, or whether to split into (a) nested match arrays and (b) combining page tests into arrays for portfolios.
   - Backend: **not portfolio-specific.** Nested vs flat changes ordering in both modes, and changes scoring in standalone (1 group vs N). In portfolios, the count doesn't change pass/fail. Suggests splitting as the TODO proposes. Typo: "doesn'tneed".
@@ -257,7 +257,15 @@ Proposal:
 - [ ] Portfolio sections: keep test-level pass/fail ("a test passes on a page if Sensible finds all its matches on that page"), because page types attach to tests.
 - [ ] Sweep fingerprint.md, fingerprint-mode.md:32 ("50% or more of tests"), json5-comments-reference.md:19, and the example comments for "test passes/fails" wording, and apply the rule above.
 
-## OPEN DISAGREEMENT: is there a test-level pass/fail in portfolios?
+## RESOLVED (2026-10-13): is there a test-level pass/fail in portfolios?
+
+**Resolution:** Frances's verification stands. In a portfolio, if any match fails, the whole fingerprint fails. So the fallbacks tip (separate `last` tests per wording) must be false. It's been replaced on the branch with: use an `any` Boolean match in a single test for alternate wordings. The live nested-array comment ("causes the whole fingerprint to fail") stays.
+- [x] Fallbacks tip replaced on the branch (it's still live on v0 until this PR merges)
+- [x] Inline "TODO: verify if this can actually be done?" removed
+
+The original discussion is kept below for the record.
+
+### (Archived) OPEN DISAGREEMENT: is there a test-level pass/fail in portfolios?
 
 **Update 2026-09-30:** Frances verified that in a portfolio, if ANY match fails, the whole thing fails. The live nested-array comment ("a partial score for a flat array causes the whole fingerprint to fail") stays as-is.
 - [ ] Record how it was verified. The in-app validator runs in single-document mode only, so a portfolio test needs a real portfolio extraction.
