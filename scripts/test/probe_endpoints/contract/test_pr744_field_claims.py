@@ -100,9 +100,9 @@ def test_auth_token_expires(api, specs):
     if_fail="The spec is wrong. Compare the printed `reviewStatuses` with the schema: fix the item enum, "
             "nullability, or array type. If the count doesn't match `documents`, fix the ReviewStatuses "
             "description too.",
-    if_skip="Unverified live. The docs change rests on the backend source review only. To verify, add a "
-            "portfolio document type with review triggers to the test account, run an extraction that "
-            "trips them, then rerun.",
+    if_skip="Unverified live. The docs change rests on the backend source review only. The test account "
+            "has no portfolio extraction. Run one (any portfolio gets reviewStatuses, with null entries "
+            "when nothing needs review), then rerun.",
 )
 def test_review_statuses_is_array_per_document(api, specs):
     spec = specs["extraction"]
@@ -113,17 +113,22 @@ def test_review_statuses_is_array_per_document(api, specs):
 
     print("\n=== test_review_statuses_is_array_per_document: ReviewStatuses is an array, "
           "one entry per portfolio document ===")
-    expect("HTTP 200. Only extractions with a review status are listed. Portfolio extractions show "
-           "`reviewStatuses` as an array such as [\"NEEDS_REVIEW\", null]. If the list has none, "
-           "the test skips because the test account lacks that data.")
-    status, body = api.request(
-        "GET", "/extractions", {"review_statuses": "APPROVED,NEEDS_REVIEW,REJECTED", "limit": 20})
-    assert status == 200, f"GET /extractions returned {status}: {body}"
-    portfolios = [e for e in body.get("extractions", []) if "reviewStatuses" in e]
+    # Every portfolio extraction has reviewStatuses: one entry per document, "NEEDS_REVIEW" or null
+    # (backend src/api/extract/entity.ts:876). Don't filter by review_statuses: that would drop
+    # portfolios whose entries are all null.
+    portfolios, token = [], None
+    for _ in range(5):
+        query = {"limit": 100, **({"continuation_token": token} if token else {})}
+        expect("HTTP 200 with a page of extractions. Portfolio extractions show `reviewStatuses` as an "
+               "array such as [\"NEEDS_REVIEW\", null]; single-document extractions don't have it.")
+        status, body = api.request("GET", "/extractions", query)
+        assert status == 200, f"GET /extractions returned {status}: {body}"
+        portfolios += [e for e in body.get("extractions", []) if "reviewStatuses" in e]
+        token = body.get("continuation_token")
+        if portfolios or not token:
+            break
     if not portfolios:
-        pytest.skip(
-            "The test account has no portfolio extraction with review statuses. "
-            "Add a fixture: a portfolio document type with review triggers.")
+        pytest.skip("The test account has no portfolio extractions in its recent history.")
 
     for summary in portfolios[:3]:
         # Claim 2: the list summary's reviewStatuses matches the documented schema.

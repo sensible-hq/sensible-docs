@@ -170,11 +170,14 @@ def _impact(item) -> dict | None:
 def _print_docs_impact(request):
     info = _impact(request.node)
     if info:
-        print(f"\n### DOCS IMPACT: {request.node.name}")
+        print("\n\n\n" + "#" * 100)
+        print(f"### DOCS IMPACT: {request.node.name}")
         print(f"    Change in #744: {info['change']}")
         print(f"    Spec location:  {info['where']}")
         print(f"    Published docs: {info['pages']}")
+        print("#" * 100)
     yield
+    print("\n")
 
 
 @pytest.hookimpl(hookwrapper=True)
@@ -199,9 +202,11 @@ def pytest_terminal_summary(terminalreporter):
         else:
             verdict = {"passed": info["if_pass"], "failed": info["if_fail"],
                        "skipped": info["if_skip"]}[result]
+        tr.write_line("")
         tr.write_line(f"{result.upper():8} {item.name}")
         tr.write_line(f"         Spec: {info['where']}")
         tr.write_line(f"         Docs: {verdict}")
         if reason:
             tr.write_line(f"         Skip reason: {reason.removeprefix('Skipped: ')}")
+        tr.write_line("-" * 100)
         tr.write_line("")
