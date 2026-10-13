@@ -19,3 +19,6 @@ Source PRs: sensible-hq/sensible#3470 (engine: metadata.anchor on section output
 - [x] Move Validate fingerprints text + screenshot from fingerprint.md to color.md; leave link
 - [x] Replace sections/index.md display-row UI text with link to color.md#show-section-anchors
 - [x] Retitle color.md to "Visual troubleshooting in the SenseML editor"; "Color coding" H1 -> "Source text traceability"; "Options" H1 -> "Test and troubleshoot configs"
+
+## Follow-ups
+- [ ] Update the update-docs-from-pr skill (.claude/skills/update-docs-from-pr/SKILL.md) to add Doc Detective tests for every new doc change (user request, 2026-10-13)
