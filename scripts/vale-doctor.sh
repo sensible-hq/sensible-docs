@@ -31,8 +31,9 @@ else
     printf '{"tool_name":"Edit","tool_input":{"file_path":"%s"}}' "$1" |
       env -i HOME="$HOME" PATH=/usr/bin:/bin CLAUDE_PROJECT_DIR="$root" /bin/sh -c "$cmd" 2>&1
   }
-  probe="$root/vale-doctor-probe.md"
-  trap 'rm -f "$probe"' EXIT
+  probe="$root/docs/vale-doctor-probe.md"
+  outside="$root/vale-doctor-probe.md"
+  trap 'rm -f "$probe" "$outside"' EXIT
 
   printf '# Probe\n\nWe will utilize this feature.\n' >"$probe"
   out="$(hook "$probe")"; code=$?
@@ -42,6 +43,10 @@ else
   printf '# Probe\n\nYou can use this feature.\n' >"$probe"
   out="$(hook "$probe")"; code=$?
   [ "$code" -eq 0 ] && [ -z "$out" ] && pass "quiet on a clean doc" || fail "clean doc gave exit $code: $(head -1 <<<"$out")"
+
+  printf '# Probe\n\nWe will utilize this feature.\n' >"$outside"
+  out="$(hook "$outside")"; code=$?
+  [ "$code" -eq 0 ] && [ -z "$out" ] && pass "ignores Markdown outside docs/ and reference/" || fail "file outside docs/ gave exit $code: $(head -1 <<<"$out")"
 
   out="$(hook "$root/.claude/settings.json")"; code=$?
   [ "$code" -eq 0 ] && pass "ignores non-Markdown files" || fail "non-Markdown file gave exit $code"

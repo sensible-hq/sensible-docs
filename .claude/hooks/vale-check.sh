@@ -14,10 +14,13 @@ case "$file" in
   *.md | *.mdx) ;;
   *) exit 0 ;;
 esac
-case "$file" in
-  */.claude/* | */.github/styles/*) exit 0 ;;
-esac
 [ -f "$file" ] || exit 0
+# Only the published docs: docs/ and reference/ at the root of the file's checkout
+root="$(git -C "$(dirname "$file")" rev-parse --show-toplevel 2>/dev/null)" || exit 0
+case "${file#"$root"/}" in
+  docs/* | reference/*) ;;
+  *) exit 0 ;;
+esac
 
 vale="$(command -v vale || echo "$HOME/.local/bin/vale")"
 if [ ! -x "$vale" ]; then

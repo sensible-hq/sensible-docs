@@ -11,6 +11,7 @@ keep the optional vale pane, and add a check that tests the setup the way Claude
 - [x] Wire it as a PostToolUse hook in `.claude/settings.json`
 - [x] Delete `.github/workflows/reviewdog.yml` (manual-only duplicate of lint_style.yml)
 - [x] Add `scripts/vale-doctor.sh`; all checks pass
+- [x] Scope Vale to `docs/` and `reference/` only: hook skips other paths; CI trigger fixed (was the nonexistent `readme-sync/v0/`) and lints only those folders; doctor checks a file outside them is ignored
 
 ## Done outside the repo
 - [x] Remove `vale` and `vale-mcp` MCP servers (`claude mcp remove`)
