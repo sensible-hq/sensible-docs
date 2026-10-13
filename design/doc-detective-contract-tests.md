@@ -8,7 +8,9 @@ Sources: Doc Detective's [Generate requests from OpenAPI](https://docs.doc-detec
 [Test HTTP and APIs](https://docs.doc-detective.com/docs/test-docs/http-and-api),
 [`httpRequest`](https://docs.doc-detective.com/docs/actions/httprequest), and the
 [`openApi`](https://docs.doc-detective.com/reference/schemas/openapi) and
-[`retry`](https://docs.doc-detective.com/reference/schemas/retry) references, read 2026-10-13. Nothing here has been
+[`retry`](https://docs.doc-detective.com/reference/schemas/retry) references, read 2026-10-13. Coverage and snapshot
+behavior was checked against the full docs index (`https://docs.doc-detective.com/docs/llms.txt`), the config
+reference, and the `doc-detective/doc-detective` source and ADRs. Nothing here has been
 run yet. Items marked **verify** are assumptions to check on the first run.
 
 ## Why it might be simpler
@@ -38,15 +40,27 @@ Each gap below is something the custom proposal treats as essential:
    from its `operationId`. You still write a step for every scenario. Each step is short, but coverage is only as good
    as the steps you write.
 2. **Schema validation isn't strict.** Validation follows the spec as written, and most of our object schemas don't
-   set `additionalProperties`, so JSON Schema allows extra fields. **A new or renamed field passes.**
-   `allowAdditionalFields: false` doesn't help here: it checks against the fields declared in the step's
-   `response.body`, not against the spec.
+   set `additionalProperties`, so JSON Schema allows extra fields. **A new or renamed field passes.** In the source,
+   both request and response validation compile the operation's schema with Ajv (`strictSchema: false`,
+   `allErrors: true`, `coerceTypes: false`). Nothing tightens it. `allowAdditionalFields: false` doesn't help: it
+   checks against the fields declared in the step's `response.body`, not against the spec. It also silently did
+   nothing until a fix in mid-2026 (ADR 01012, 2026-06-30), so pin a Doc Detective version from after that if you use
+   it.
 3. **It only tests documented status codes if you ask for them.** A step accepts whatever `statusCodes` lists, so a
    documented code that the API can never return is only caught if a scenario tries to trigger it. **Verify** what
    happens when the live response code has no schema in the spec.
-4. **No observed-field coverage or shape snapshots.** Saved-response comparison (`maxVariation`) is a text diff of
-   *values*. IDs, timestamps, and LLM output change every run, so it fails or needs a loose threshold that hides real
-   changes.
+4. **No observed-field coverage or shape snapshots.** Checked against the docs index, the reference schemas, and the
+   source on 2026-10-13:
+   - **Coverage**: Doc Detective once had a `runCoverage` command, but it measured *documentation* coverage (how much
+     doc markup such as UI text, links, and code blocks had tests), not API operations or response fields. It was
+     removed in v3 (ADR 00103, 2025-04-10: "coverage measurement and test suggestion are no longer available"). The
+     `coverageResults-<timestamp>.html` filename on the current reporters page is a leftover from it.
+   - **Snapshots**: saving a response with `path` and setting `maxVariation` compares the raw text against the saved
+     file with a character-level Levenshtein distance divided by length (`calculateFractionalDifference`). It
+     compares *values*, not structure, and exceeding the threshold is only a WARNING. IDs, timestamps, and LLM output
+     change every run, so it's noisy or needs a threshold loose enough to hide real changes. Levenshtein is also
+     quadratic in response size, which could be slow on large extraction responses with `text` or
+     `parsed_document`.
 5. **It doesn't read security schemes.** You set the `Authorization` header yourself. This is a one-line config entry.
 6. **Binary request bodies are unclear.** `request.body` is a string or JSON. Sending a raw PDF to `/extract`
    or uploading to an `upload_url` probably needs `runShell` and curl (**verify**).
