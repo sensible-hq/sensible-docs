@@ -260,7 +260,14 @@ Sensible can highlight the location of the source text for an LLM's response. No
 
 # Test and troubleshoot configs
 
-Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options.
+Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options:
+
+* [Upload sample doc](doc:color#upload-sample-doc)
+* [Download sample doc](doc:color#download-sample-doc)
+* [Hide bounding boxes](doc:color#hide-bounding-boxes)
+* [Show unextracted lines](doc:color#show-unextracted-lines)
+* [Show section anchors](doc:color#show-section-anchors)
+* [Validate fingerprints](doc:color#validate-fingerprints)
 
 ## Upload sample doc
 
