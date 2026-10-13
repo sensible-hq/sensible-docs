@@ -897,7 +897,8 @@
               "description": "Unsupported file type. See https://docs.sensible.so/docs/file-types."
             }
           }
-        }
+        },
+        "x-internal-note": "List 415 only on operations whose backend route declares `contentTypes`. The backend checks Content-Type only for those routes, so operations without a request body (all GET and DELETE operations) never return 415 from the backend. API Gateway can also return 415 for a request body sent with an unsupported Content-Encoding, which a request without a body can't trigger, so that case isn't listed either. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "429": {
         "description": "Too Many Requests",

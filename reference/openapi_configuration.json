@@ -877,7 +877,8 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "Removed 404. Backend: this route has returned 400 for an unknown document type or golden since it was added (commit f93336b1e, 2021-09-29, \"Separate out the standardizedText from extraction\"); sensible-hq/sensible#2254 (2024-02-26, \"WIP: Async extract text from golden\") moved the lookup into getDocTypeAndGoldenAndPdf without changing the status codes. An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both are 400, and no path in this handler returns 404. Current code: sensible-hq/sensible@181758ce5: route at src/api/extract-from-golden/handler.ts:767, lookup at lines 823-844, constants at src/api/common.ts:424 and 502. Other layers checked: API Gateway returns 403, not 404, for unmatched routes. The router's NOT_FOUND (src/api/router.ts:218-220) is thrown before its try/translateError block and enterRequestContext has no catch (src/context/index.ts:176-190), so it doesn't produce a 404 response; it also only fires for a route with no handler, and this route has a POST handler. translateError has no 404 mapping, and nothing in src/engine or src/services returns 404. getGoldenPdf can also return 400 when the golden's PDF was never uploaded, and the handler returns 500 if the PDF is missing from storage. Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked. Live check: none; this removal is verified in backend source only."
+          "x-review-note": "Removed 404. Backend: this route has returned 400 for an unknown document type or golden since it was added (commit f93336b1e, 2021-09-29, \"Separate out the standardizedText from extraction\"); sensible-hq/sensible#2254 (2024-02-26, \"WIP: Async extract text from golden\") moved the lookup into getDocTypeAndGoldenAndPdf without changing the status codes. An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both are 400, and no path in this handler returns 404. Current code: sensible-hq/sensible@181758ce5: route at src/api/extract-from-golden/handler.ts:767, lookup at lines 823-844, constants at src/api/common.ts:424 and 502. Other layers checked: API Gateway returns 403, not 404, for unmatched routes. The router's NOT_FOUND (src/api/router.ts:218-220) is thrown before its try/translateError block and enterRequestContext has no catch (src/context/index.ts:176-190), so it doesn't produce a 404 response; it also only fires for a route with no handler, and this route has a POST handler. translateError has no 404 mapping, and nothing in src/engine or src/services returns 404. getGoldenPdf can also return 400 when the golden's PDF was never uploaded, and the handler returns 500 if the PDF is missing from storage. Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked. Live check: none; this removal is verified in backend source only.",
+          "x-internal-note": "No 404 here: an unknown document type or golden returns a plain-text 400 (\"Specified document type does not exist\" or \"Specified golden does not exist\"). See .claude/skills/api-spec/error-response-source-of-truth.md."
         }
       }
     }
@@ -1623,7 +1624,8 @@
               "type": "string"
             }
           }
-        }
+        },
+        "x-internal-note": "List 404 only on operations whose handler returns NOT_FOUND for a missing resource. Don't add 404 for an unknown route or method: the router's NOT_FOUND for those isn't returned as a 404 response. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "415": {
         "description": "Unsupported Media Type",
@@ -1635,7 +1637,8 @@
               "example": "Messages related to the file format of the document to extract data from."
             }
           }
-        }
+        },
+        "x-internal-note": "List 415 only on operations whose backend route declares `contentTypes`. The backend checks Content-Type only for those routes, so operations without a request body (all GET and DELETE operations) never return 415 from the backend. API Gateway can also return 415 for a request body sent with an unsupported Content-Encoding, which a request without a body can't trigger, so that case isn't listed either. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "500": {
         "description": "Internal Server Error",
