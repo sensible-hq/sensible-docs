@@ -22,3 +22,4 @@ Source PRs: sensible-hq/sensible#3470 (engine: metadata.anchor on section output
 
 ## Follow-ups
 - [ ] Update the update-docs-from-pr skill (.claude/skills/update-docs-from-pr/SKILL.md) to add Doc Detective tests for every new doc change (user request, 2026-10-13)
+- [ ] Check whether sensible-hq/sensible#3470 (`anchor` in section metadata) changes public API output when verbosity is high, i.e. whether `withMetadata` is ever on for public API extractions. If it is, document `metadata.anchor`. (user request, 2026-10-13)
