@@ -20,7 +20,10 @@ backend (checked 2026-10-12), and fix confirmed drift.
 - [x] Antagonistic layer review (API Gateway, router, translateError, engine/services, validator, serialization)
 - [x] Live field tests: scripts/test/probe_endpoints/contract/test_pr744_field_claims.py (skip without SENSIBLE_TEST_API_KEY)
 
+- [x] Split: doc changes moved to #748 (openapi-drift-fixes worktree); #744 keeps design docs + contract tests; tests renamed test_pr748_*, CONTRACT_SPEC_DIR points them at #748's specs (5 pass there; 5 fail against v0 specs)
+
 ## Open
+- [ ] Merge #748 before #744 (or run #744's tests with CONTRACT_SPEC_DIR until #748 merges)
 - [x] Run the live field tests (2026-10-13): all 3 pass; portfolio reviewStatuses = [null, null, "NEEDS_REVIEW"]
 - [x] Live tests for the doc-text changes (2026-10-13): Get configuration returns the draft; documented upload command completes, old --data form FAILS ("Could not determine the content type")
 - [x] Test-account fixtures + seed.py (scripts/test/probe_endpoints/contract/fixtures, seed.py --check)

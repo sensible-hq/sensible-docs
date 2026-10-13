@@ -1,4 +1,4 @@
-"""Live checks for the descriptive text changes in sensible-docs#744.
+"""Live checks for the descriptive text changes in sensible-docs#748.
 
 - Get configuration returns the current draft, not necessarily the published
   version, and the documented way to get the published version works.
@@ -6,6 +6,7 @@
 
 Run from the repo root (-s shows each request, its response, and what to expect):
   python3 -m pytest scripts/test/probe_endpoints/contract -v -s --report-chars=s
+To check #748's specs before it merges, point CONTRACT_SPEC_DIR at its reference/ folder.
 
 Side effects: creates and then deletes one throwaway config (drift_probe_*) in
 the auto_insurance_quotes fixture document type, and runs two single-document
@@ -64,7 +65,12 @@ def _config(marker: str) -> dict:
             "fix the steps for getting the published version.",
     if_skip="Unverified: the test account has no auto_insurance_quotes document type. Run seed.py.",
 )
-def test_get_configuration_returns_draft(api):
+def test_get_configuration_returns_draft(api, specs):
+    # Claim 0: the spec's description says Get configuration returns the current draft.
+    description = specs["configuration"]["paths"]["/document_types/{type-id}/configurations/{config-name}"][
+        "get"]["description"]
+    assert "current draft" in description, "spec doesn't say Get configuration returns the current draft"
+
     type_id = _doc_type_id(api)
     name = f"drift_probe_{datetime.now(timezone.utc):%Y%m%d%H%M%S}"
     base = f"/document_types/{type_id}/configurations"

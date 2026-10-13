@@ -1,4 +1,4 @@
-"""Live checks for the request and response field changes in sensible-docs#744.
+"""Live checks for the request and response field changes in sensible-docs#748.
 
 Each test reads the claim from the spec in reference/ (not a hard-coded copy),
 then checks it against the live API using the test account:
@@ -9,6 +9,7 @@ then checks it against the live API using the test account:
 
 Run from the repo root (-s shows each request, its response, and what to expect):
   python3 -m pytest scripts/test/probe_endpoints/contract -v -s --report-chars=s
+To check #748's specs before it merges, point CONTRACT_SPEC_DIR at its reference/ folder.
 The key comes from SENSIBLE_TEST_API_KEY in the environment, or from the
 gitignored .env at the repo root (see conftest.py).
 

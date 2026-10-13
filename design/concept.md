@@ -1,6 +1,6 @@
 # API spec drift detection: concept
 
-Status: design. A throwaway prototype validated this approach on 2026-10-12. It found the drift fixed in sensible-docs#744, and its
+Status: design. A throwaway prototype validated this approach on 2026-10-12. It found the drift fixed in sensible-docs#748, and its
 scripts were deliberately not committed (see [Where it runs](#where-it-runs)). This document is enough to rebuild a
 cleaner version.
 

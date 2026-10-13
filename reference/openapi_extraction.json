@@ -99,7 +99,7 @@
       "post": {
         "operationId": "generate-an-upload-url",
         "summary": "Extract doc at a Sensible URL",
-        "description": "Extract data asynchronously from a document with the following steps:\n  1. Use this endpoint to generate a Sensible URL.\n  2. PUT your document at the `upload_url` returned from the previous step. Sensible extracts data from the document.\n  3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the response to poll the GET documents/{id} endpoint.\n\nFor supported file size and types, see [Supported file types](doc:file-types).\n\nFor example, if your call to `/generate_upload_url` specifies the document type with a `content_type` body parameter (recommended), your first two steps are as follows:\n\nStep 1. Generate the Sensible URL:\n\n```curl\ncurl --location 'https://api.sensible.so/v0/generate_upload_url/<YOUR_DOCUMENT_TYPE>' \\\n--header 'Content-Type: application/json' \\\n--header 'Accept: application/json' \\\n--header 'Authorization: Bearer REDACTED' \\\n--data '{\"content_type\":\"application/pdf\"}'\n```\n\nStep 2. PUT the document:\n\n```curl\ncurl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \\\n--header 'Content-Type: application/pdf' \\\n--data-binary '@YOUR_PATH_TO_DOCUMENT.pdf'\n```\n\nNote that in step 2:\n  - you must omit an authorization header\n  - the `Content-Type` header must match the `content_type` body parameter in step 1\n  - the pre-signed `upload_url` doesn't support Base64 encoded documents, so you PUT the document bytes directly to the endpoint.\n\n\nFor a step-by-step tutorial on calling this endpoint, see\n[Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).\n",
+        "description": "Extract data asynchronously from a document with the following steps:\n  1. Use this endpoint to generate a Sensible URL.\n  2. PUT your document at the `upload_url` returned from the previous step. Sensible extracts data from the document.\n  3. To retrieve the extraction, use a webhook, or use the extraction `id` returned in the response to poll the GET documents/{id} endpoint.\n\nFor supported file size and types, see [Supported file types](doc:file-types).\n\nFor example, if your call to `/generate_upload_url` specifies the document type with a `content_type` body parameter (recommended), your first two steps are as follows:\n\nStep 1. Generate the Sensible URL:\n\n```curl\ncurl --location 'https://api.sensible.so/v0/generate_upload_url/<YOUR_DOCUMENT_TYPE>' \\\n--header 'Content-Type: application/json' \\\n--header 'Accept: application/json' \\\n--header 'Authorization: Bearer REDACTED' \\\n--data '{\"content_type\":\"application/pdf\"}'\n```\n\nStep 2. PUT the document:\n\n```curl\ncurl --location --request PUT 'https://sensible-so-utility-bucket-dev-us-west-2.s3.us-west-2.amazonaws.com/REDACTED' \\\n--header 'Content-Type: application/pdf' \\\n--data 'YOUR_PATH_TO_DOCUMENT.pdf'\n```\n\nNote that in step 2:\n  - you must omit an authorization header\n  - the `Content-Type` header must match the `content_type` body parameter in step 1\n  - the pre-signed `upload_url` doesn't support Base64 encoded documents, so you PUT the document bytes directly to the endpoint.\n\n\nFor a step-by-step tutorial on calling this endpoint, see\n[Try asynchronous extraction from a Sensible URL](https://docs.sensible.so/docs/api-tutorial-async-2).\n",
         "parameters": [
           {
             "$ref": "#/components/parameters/document_type"
@@ -149,8 +149,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           }
-        },
-        "x-review-note": "Fixed the Step 2 PUT example: `--data 'YOUR_PATH_TO_DOCUMENT.pdf'` uploads the literal path text, not the file (curl only reads a file when the value starts with @, and --data strips newlines, which corrupts binary content). Changed to `--data-binary '@YOUR_PATH_TO_DOCUMENT.pdf'`, the form the API tutorials use (api-tutorial-sync.md, api-tutorial-async-2.md). The with-config and portfolio upload endpoints link here for the PUT step. The same fix is in docs/api/batch-api.md."
+        }
       }
     },
     "/extract_from_url/{document_type}": {
@@ -530,10 +529,12 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
-          },
-          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:280). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
+          }
         }
       }
     },
@@ -597,10 +598,12 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
-          },
-          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:289). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
+          }
         }
       }
     },
@@ -640,10 +643,12 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
-          },
-          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:297). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
+          }
         }
       }
     },
@@ -682,10 +687,12 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
-          },
-          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
+          }
         }
       }
     },
@@ -724,10 +731,12 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
+          "415": {
+            "$ref": "#/components/responses/415"
+          },
           "500": {
             "$ref": "#/components/responses/500"
-          },
-          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
+          }
         }
       }
     },
@@ -744,17 +753,10 @@
                 "properties": {
                   "grants": {
                     "$ref": "#/components/schemas/Grants"
-                  },
-                  "expires": {
-                    "type": "string",
-                    "format": "date-time",
-                    "description": "the date-time the token expires.\nSet this to a future date with enough time for the reviewer to complete the review.\nThe maximum value you can set is 30 days.\n",
-                    "x-review-note": "Added `expires` and marked it required. Backend: sensible-hq/sensible#2724 (2024-12-06, \"Auth token storage/handlers\") added `expires`, and sensible-hq/sensible#2828 (2025-02-25, \"make the auth-token body keys required\") made it required. A request built from the old spec, without `expires`, fails validation with a 400. The handler also rejects past dates and dates 30 or more days out, which the description already states. The description is copied word for word from AuthTokenResponse.expires, and this spec's request example already sent `expires`. Current code: sensible-hq/sensible@181758ce5: `required: [\"grants\", \"expires\"]` (src/api/account/auth-token-handlers.ts:128-133), date checks at lines 215-223. Other layers checked: the route allows API-key callers (no noMachineAccess), and the request validator's Ajv instance has no useDefaults or removeAdditional (src/api/validation/index.ts:976), so nothing fills in or strips `expires` before the required check. Live check: scripts/test/probe_endpoints/contract/test_pr744_field_claims.py::test_auth_token_expires."
                   }
                 },
                 "required": [
-                  "grants",
-                  "expires"
+                  "grants"
                 ]
               },
               "example": {
@@ -1384,22 +1386,16 @@
         "description": "A custom schema that you define using a [postprocessor](doc:postprocessors). For example, define this output when your app consumes a pre-existing schema and you don't want to use   Sensible's `parsed_document` schema."
       },
       "ReviewStatuses": {
-        "type": "array",
-        "items": {
-          "type": "string",
-          "nullable": true,
-          "enum": [
-            "NEEDS_REVIEW",
-            "APPROVED",
-            null,
-            "REJECTED"
-          ]
-        },
-        "example": [
-          "NEEDS_REVIEW"
+        "type": "string",
+        "nullable": true,
+        "enum": [
+          "NEEDS_REVIEW",
+          "APPROVED",
+          null,
+          "REJECTED"
         ],
-        "description": "The review status for each document in the portfolio, in order of their page ranges in the portfolio.  For more information, see [Human review](doc:human-review). Specify a webhook in the extraction request so that you can get a push notification when  a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`.",
-        "x-review-note": "Changed the type from string to an array of nullable strings. Backend: sensible-hq/sensible#2260 (2024-02-28, \"Human review extraction triggers + versioning\") declared `reviewStatuses?: (HumanReviewStatus | null)[]`, and sensible-hq/sensible#2340 (2024-05-09, \"Human review extraction updates\") added it to API responses as that array. The existing description, \"the review status for each document in the portfolio, in order of their page ranges\", already describes an array. Current code: sensible-hq/sensible@181758ce5: src/api/extract/response-types.ts:120. Other layers checked: the value is built with one entry per portfolio document (src/api/extract/entity.ts:876) and passed through unchanged in the retrieval, summary, and webhook responses (lines 1000, 1037, 1067). Live check: test_pr744_field_claims.py::test_review_statuses_is_array_per_document."
+        "example": "NEEDS_REVIEW",
+        "description": "The review status for each document in the portfolio, in order of their page ranges in the portfolio.  For more information, see [Human review](doc:human-review). Specify a webhook in the extraction request so that you can get a push notification when  a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`."
       },
       "ReviewStatus": {
         "type": "string",
@@ -1593,9 +1589,14 @@
             "type": "string",
             "format": "date-time",
             "description": "The creation date of the last extraction on this page of results (find this value in an extraction's `created` parameter)."
+          },
+          "cutoff_date": {
+            "type": "string",
+            "format": "date-time",
+            "example": null,
+            "description": "DEPRECATED. The `continuation_token` and `limit` parameters replace this parameter.  DESCRIPTION: Pass the cutoff_date parameter in the next request as the `end_date` parameter to retrieve the next page of extractions. Note that since Sensible applies the date range filters before all other filters, the `cutoff_date` can represent  the date-time of an extraction that Sensible retrieved using the date range filter, and then removed using other filters."
           }
-        },
-        "x-review-note": "Removed `cutoff_date`, which this spec already marked DEPRECATED. Backend: sensible-hq/sensible#2979 (2025-06-09, \"remove `cutoff-date` from extractions\") removed it from the response. Current code: sensible-hq/sensible@181758ce5: the response type has only `extractions`, `continuation_token`, and `last_evaluated_creation_date` (src/api/extractions/handler.ts:147-153), and \"cutoff_date\" doesn't appear in src/. Not provable from source: whether production runs a build from after #2979, because the domain mapping and live blue/green slot aren't in the repo. Live check: test_pr744_field_claims.py::test_list_extractions_has_no_cutoff_date."
+        }
       },
       "SingleExtractionSummaryResponse": {
         "allOf": [

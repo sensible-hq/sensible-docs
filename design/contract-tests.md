@@ -89,7 +89,7 @@ Scenarios to cover per operation, in priority order:
    (see [Limitations](#limitations)).
 3. **Documented error codes**: for each status code the spec lists, one scenario that triggers it. That includes 400
    for a bad body, 401 for a bad key, 404 for an unknown ID, 415 for a wrong `Content-Type`, and 429 only if it's cheap
-   to trigger. A documented code that no scenario can trigger is a finding in itself. sensible-docs#744 removed exactly
+   to trigger. A documented code that no scenario can trigger is a finding in itself. sensible-docs#748 removed exactly
    such codes (415 on GET operations).
 
 ### Validation (what makes this a contract test)

@@ -20,7 +20,9 @@ import pytest
 API_BASE = "https://api.sensible.so/v0"
 KEY_ENV = "SENSIBLE_TEST_API_KEY"
 REPO_ROOT = Path(__file__).resolve().parents[4]
-REFERENCE_DIR = REPO_ROOT / "reference"
+# Specs under test. Defaults to this checkout's reference/. Set CONTRACT_SPEC_DIR to test
+# another checkout's specs, for example a doc PR's worktree, before it merges.
+REFERENCE_DIR = Path(os.environ.get("CONTRACT_SPEC_DIR") or REPO_ROOT / "reference").resolve()
 DOTENV = REPO_ROOT / ".env"
 
 
@@ -130,6 +132,7 @@ def api() -> Api:
 
 @pytest.fixture(scope="session")
 def specs() -> dict:
+    print(f"\nSpecs under test: {REFERENCE_DIR}")
     return {
         name: json.loads((REFERENCE_DIR / f"openapi_{name}.json").read_text())
         for name in ("extraction", "configuration", "classification", "email")
@@ -199,7 +202,7 @@ def _print_docs_impact(request):
     if info:
         print("\n\n\n" + "#" * 100)
         print(f"### DOCS IMPACT: {request.node.name}")
-        print(f"    Change in #744: {info['change']}")
+        print(f"    Change in #748: {info['change']}")
         print(f"    Spec location:  {info['where']}")
         print(f"    Published docs: {info['pages']}")
         print("#" * 100)
