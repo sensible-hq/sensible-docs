@@ -43,7 +43,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:522), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "post": {
@@ -124,7 +125,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:556), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "put": {
@@ -215,7 +217,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:562), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -254,7 +257,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:640), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "post": {
@@ -341,7 +345,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:646), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "put": {
@@ -411,7 +416,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:652), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -453,7 +459,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:658), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -498,7 +505,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:664), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "put": {
@@ -585,7 +593,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:670), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -624,7 +633,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:333), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "post": {
@@ -711,7 +721,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:372), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       },
       "put": {
@@ -781,7 +792,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:373), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -816,7 +828,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:384), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     },
@@ -874,7 +887,8 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "PR #744 removed 404. The route (src/api/extract-from-golden/handler.ts:767) uses getDocTypeAndGoldenAndPdf (lines 823-844). An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both have statusCode 400 (src/api/common.ts:424, 502). No code path in this handler returns 404. Evidence from sensible-hq/sensible @ 181758ce5."
         }
       }
     }
