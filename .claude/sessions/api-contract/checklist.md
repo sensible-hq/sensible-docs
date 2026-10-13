@@ -21,7 +21,8 @@ backend (checked 2026-10-12), and fix confirmed drift.
 - [x] Live field tests: scripts/test/probe_endpoints/contract/test_pr744_field_claims.py (skip without SENSIBLE_TEST_API_KEY)
 
 ## Open
-- [ ] Run the live field tests with SENSIBLE_TEST_API_KEY and record results
+- [x] Run the live field tests (2026-10-13): all 3 pass; portfolio reviewStatuses = [null, null, "NEEDS_REVIEW"]
+- [x] Test-account fixtures + seed.py (scripts/test/probe_endpoints/contract/fixtures, seed.py --check)
 - [ ] PR review + merge
 - [ ] Decide whether drift tooling lives in this public repo (see sensitivity discussion)
 - [ ] Review-level findings not fixed in this PR: generate_upload_url missing ocr_engine,
