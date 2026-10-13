@@ -49,12 +49,13 @@ current prober, and add a validator.
 | Input | Source |
 | --- | --- |
 | Specs | `reference/openapi_*.json` from the working tree, so you can test a spec change before merging it |
-| API key | `SENSIBLE_API_KEY` env var. Locally, from your shell. In Actions, mapped from the `SENSIBLE_TEST_API_KEY` secret. |
+| API key | `SENSIBLE_TEST_API_KEY` env var, the dedicated test account's key. In Actions, it comes from the repo secret of the same name. |
 | Request catalog | `scripts/test/probe_endpoints/catalog/*.yaml`, one file per spec file |
 | Test account data | Fixtures in `scripts/test/probe_endpoints/fixtures/` (document types, configs, references, processors) and sample documents in `assets/pdfs/`. See [Test account](#test-account-rich-reproducible-data). |
 
-Make sure the local `SENSIBLE_API_KEY` is the test account's key, not a personal or production account's key, before
-the first run. The suite creates and deletes resources.
+Use only `SENSIBLE_TEST_API_KEY`. Never fall back to `SENSIBLE_API_KEY` or any other key, and exit with an error if
+the test key isn't set. The suite creates and deletes resources, so it must only ever touch the test account. The
+existing prober reads `SENSIBLE_API_KEY`; switch it as part of step 2 of the plan.
 
 ### Request catalog
 
@@ -218,7 +219,7 @@ account-level setting. I haven't checked which ones do.
 ### Running it
 
 - **Locally**: `python3 scripts/test/probe_endpoints/contract.py [--only extraction] [--update-snapshots]`
-- **GitHub Actions**: new workflow with `workflow_dispatch` and an optional weekly `schedule`, `SENSIBLE_API_KEY:
+- **GitHub Actions**: new workflow with `workflow_dispatch` and an optional weekly `schedule`, `SENSIBLE_TEST_API_KEY:
   ${{ secrets.SENSIBLE_TEST_API_KEY }}`. Upload the report and raw responses as a workflow artifact. Optionally open or
   update a GitHub issue when there's DRIFT that isn't in the accepted list.
 - **Accepted differences**: same format as concept.md (`fact`, `reason`, `recheck` date).
@@ -257,7 +258,7 @@ don't already. The rules:
 ## Optional: generated requests
 
 After the catalog exists, Schemathesis (`schemathesis run reference/openapi_extraction.json --url ... -H
-"Authorization: Bearer $SENSIBLE_API_KEY"`) can generate requests from the spec, including edge cases, and check
+"Authorization: Bearer $SENSIBLE_TEST_API_KEY"`) can generate requests from the spec, including edge cases, and check
 responses against it. It's useful for exploring request-side drift: values the spec allows that the API rejects, or
 the other way around. It creates resources freely, so run it only against the test account, and start with read-only
 operations.
