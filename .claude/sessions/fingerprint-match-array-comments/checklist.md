@@ -351,3 +351,20 @@ Frances added validator info and the nested-array comment to the **published** p
 - [ ] **Live nested-array comment claims** "a partial score for a flat array causes the whole fingerprint to fail". Per backend, a portfolio **test** fails on that page, and other tests still label pages (see OPEN DISAGREEMENT). There's also a stray `)` before `*/`. **Fixed the stray `)` on v0 (d6d4051f1).** Wording kept per Frances's verification.
 - [x] Live AVOID/PREFER parse errors fixed on v0 (d6d4051f1): commas, trailing commas, and whitespace-only lines.
 - [ ] **PR #727 now conflicts with v0** on fingerprint.md. Merge origin/v0 into the branch and resolve before continuing edits on the branch.
+
+## To do: link portfolio.md to the fingerprint page's portfolio example
+
+- [ ] From portfolio.md, link to the new fingerprint.md portfolio example (1040 configs on portfolio_bank_paystub_tax.pdf) as an example of a **deterministic** way to segment portfolios. It's the fingerprint counterpart to portfolio.md's LLM example, which uses the same file.
+  - Note: portfolio.md already has a `## Fingerprint example` (~line 207: three one-page docs in portfolio.pdf, auto insurance quote + loss run configs with `first` tests). Decide whether to link alongside it, replace it, or point it at the richer fingerprint.md example.
+  - Candidate spots: the "Fingerprint mode" bullet (~line 40), and the intro to `## LLM example` ("for a deterministic alternative using the same file, see...").
+  - Depends on the portfolio example being finished (pending the fingerprint-mode test runs below).
+
+## In progress: fingerprint-mode portfolio test runs (2026-10-13)
+
+The API is blocked: the test account hit its trial limit ("trial accounts are limited to 100 API calls per month", HTTP 429). Frances is to run these in the app (Extract > Portfolio > fingerprint mode > only `1040s`):
+- [ ] Test 1: `assets/pdfs/portfolio_bank_paystub_tax.pdf` (2020 Form 1040 pp. 1–2, Wells Fargo pp. 3–7, pay stub p. 8). Baseline. Which config claims pp. 1–2? (LLM mode picked 1040_2019.)
+- [ ] Test 2: `portfolio_senior1040_bank_paystub.pdf` (senior 1040-SR pp. 1–3, Wells Fargo pp. 4–8, pay stub p. 9). Built in the session scratchpad: `/tmp/claude-1000/-home-franc-GitHub-sensible-docs/abbb26a9-022f-426d-b62a-97bc541c74e3/scratchpad/fp-test/`. Rebuild with `pdfunite senior_1040_2021_sample.pdf` (from the config library refdocs) plus pp. 3–8 of portfolio_bank_paystub_tax.pdf. Tests `senior_1040_2021` with one failing last-page match (`preparer's name`, per the validator: 5/6).
+  - No document returned: confirms Frances's rule (any failing match fails the whole portfolio fingerprint).
+  - Document returned running past p. 3: confirms the code reading (`first` opens, the failed `last` never closes).
+- Test account: Frances created a `1040s` doc type (id 33cbcff7-…) with all 7 library 1040 configs. `senior_1040_2021`'s fingerprint matches the library.
+- Plan once the results are in: single-doc example + portfolio example, both using the `senior_1040_2021` fingerprint (and/or the 2020 1040 in portfolio_bank_paystub_tax.pdf), to compare standalone vs portfolio behavior.
