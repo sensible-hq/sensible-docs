@@ -4,7 +4,7 @@ Claude Code session name: xlsb
 Claude Code session ID: 1e71441a-3c84-48a0-baa5-c36aac379bbb
 Source PR: sensible-hq/sensible#3474 (Accept xlsb workbooks as a spreadsheet input)
 Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
-Docs PR: sensible-hq/sensible-docs#741 (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
+Docs PR: sensible-hq/sensible-docs#741, draft until the #741 decision (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
 
 ## Status (2026-10-12)
 
