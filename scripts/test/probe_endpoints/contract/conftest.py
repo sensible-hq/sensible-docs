@@ -1,8 +1,10 @@
 """Shared fixtures for live contract tests against the Sensible API.
 
 These tests call the real API with the dedicated test account. They read the
-key from SENSIBLE_TEST_API_KEY only and skip if it isn't set. They never fall
-back to another key, and never print the key.
+key from SENSIBLE_TEST_API_KEY only: from the environment if it's set there,
+otherwise from the gitignored .env at the repo root (the same file the
+getting-started Doc Detective tooling uses). They skip if neither has it, never
+fall back to another key, and never print the key.
 """
 
 import json
@@ -17,7 +19,22 @@ import pytest
 
 API_BASE = "https://api.sensible.so/v0"
 KEY_ENV = "SENSIBLE_TEST_API_KEY"
-REFERENCE_DIR = Path(__file__).resolve().parents[4] / "reference"
+REPO_ROOT = Path(__file__).resolve().parents[4]
+REFERENCE_DIR = REPO_ROOT / "reference"
+DOTENV = REPO_ROOT / ".env"
+
+
+def _read_key() -> str | None:
+    """SENSIBLE_TEST_API_KEY from the environment, else from the repo-root .env."""
+    if os.environ.get(KEY_ENV):
+        return os.environ[KEY_ENV]
+    if not DOTENV.is_file():
+        return None
+    for line in DOTENV.read_text().splitlines():
+        name, sep, value = line.strip().removeprefix("export ").partition("=")
+        if sep and name.strip() == KEY_ENV:
+            return value.split(" #")[0].strip().strip("'\"") or None
+    return None
 
 
 class Api:
@@ -49,9 +66,11 @@ class Api:
 
 @pytest.fixture(scope="session")
 def api() -> Api:
-    key = os.environ.get(KEY_ENV)
+    key = _read_key()
     if not key:
-        pytest.skip(f"{KEY_ENV} isn't set. These tests only run against the test account.")
+        pytest.skip(
+            f"{KEY_ENV} isn't in the environment or {DOTENV}. "
+            "These tests only run against the test account.")
     return Api(key)
 
 

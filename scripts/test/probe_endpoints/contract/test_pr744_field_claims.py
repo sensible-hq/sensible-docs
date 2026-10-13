@@ -7,8 +7,10 @@ then checks it against the live API using the test account:
 - ReviewStatuses: an array with one status (or null) per portfolio document.
 - GET /extractions: the response no longer includes `cutoff_date`.
 
-Run:
-  SENSIBLE_TEST_API_KEY=... python -m pytest scripts/test/probe_endpoints/contract -v
+Run from the repo root:
+  python3 -m pytest scripts/test/probe_endpoints/contract -v -rs
+The key comes from SENSIBLE_TEST_API_KEY in the environment, or from the
+gitignored .env at the repo root (see conftest.py).
 
 Side effect: test_auth_token_expires creates one auth token that expires 15
 minutes later. Error-code changes in the same PR (404, 415) aren't tested here.
