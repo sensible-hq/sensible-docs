@@ -1,15 +1,11 @@
 ---
 title: Checkbox
-excerpt: Checkbox method extracts boolean selection status from PDF checkboxes using
-  form metadata or pixel recognition, with parameters for position, size, and darkness
-  threshold.
+excerpt: Checkbox method extracts boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Checkbox method extracts boolean selection status from PDF checkboxes
-    using form metadata or pixel recognition, with parameters for position, size,
-    and darkness threshold.
+  description: Checkbox method extracts boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
   robots: index
 next:
   description: ''

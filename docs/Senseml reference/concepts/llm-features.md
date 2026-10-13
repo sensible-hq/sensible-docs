@@ -1,15 +1,11 @@
 ---
 title: LLM features overview
-excerpt: Overview of Sensible's LLM-powered features for document data extraction
-  and classification, including tables, lists, multimodal data, confidence signals,
-  and portfolio segmentation.
+excerpt: LLM-powered features for document data extraction and classification, including tables, lists, multimodal data, and portfolio segmentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Overview of Sensible's LLM-powered features for document data extraction
-    and classification, including tables, lists, multimodal data, confidence signals,
-    and portfolio segmentation.
+  description: LLM-powered features for document data extraction and classification, including tables, lists, multimodal data, and portfolio segmentation.
   robots: index
 next:
   description: ''

@@ -175,7 +175,7 @@ The following tips apply to fingerprints for  standalone documents.
 
 **test and verify fingerprints**
 
-In the Sensible app, you can verify and test fingerprints for stand-alone documents. If your write the fingerprints with portfolio syntax, Sensible automatically converts them TODO link
+In the Sensible app, you can verify and test fingerprints for stand-alone documents. If you write the fingerprints with portfolio syntax, Sensible automatically converts them. To test a config's fingerprint against multiple reference documents at once, see [Visual troubleshooting in the SenseML editor](doc:color#validate-fingerprints).
 
 #### Portfolio-specific tips
 
@@ -241,7 +241,7 @@ also avoid:
 }
 ```
 
-  Instead, write the following:
+Instead, write the following:
 
 ```json
 /* PREFER THIS SYNTAX */

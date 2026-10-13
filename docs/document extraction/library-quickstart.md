@@ -1,15 +1,11 @@
 ---
 title: Out-of-the-box extractions
-excerpt: Learn how to use Sensible's pre-built configuration library to extract data
-  from common business documents like bank statements, tax forms, and pay stubs in
-  minutes.
+excerpt: Use Sensible's pre-built configuration library to extract data from common business documents like bank statements, tax forms, and pay stubs in minutes.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use Sensible's pre-built configuration library to extract
-    data from common business documents like bank statements, tax forms, and pay stubs
-    in minutes.
+  description: Use Sensible's pre-built configuration library to extract data from common business documents like bank statements, tax forms, and pay stubs in minutes.
   robots: index
 next:
   description: ''

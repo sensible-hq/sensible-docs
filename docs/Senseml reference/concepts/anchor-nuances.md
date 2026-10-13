@@ -1,15 +1,11 @@
 ---
 title: Anchor variables
-excerpt: Learn how to define and reuse anchor variables in Sensible for concise syntax,
-  including examples with named anchors and conditional extraction across multiple
-  fields.
+excerpt: Define and reuse anchor variables in Sensible for concise syntax, including examples with named anchors and conditional extraction across multiple fields.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to define and reuse anchor variables in Sensible for concise
-    syntax, including examples with named anchors and conditional extraction across
-    multiple fields.
+  description: Define and reuse anchor variables in Sensible for concise syntax, including examples with named anchors and conditional extraction across multiple fields.
   robots: index
 next:
   description: ''

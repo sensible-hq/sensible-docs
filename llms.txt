@@ -161,7 +161,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Match arrays](https://docs.sensible.so/docs/match-arrays.md): Working with match arrays
 - [OCR](https://docs.sensible.so/docs/ocr.md): Optical character recognition overview
 - [Section nuances](https://docs.sensible.so/docs/section-nuances.md): Advanced section configuration
-- [Source text traceability](https://docs.sensible.so/docs/color.md): Trace extracted data to source and use color highlights in example PDFs to more easily author SenseML
+- [Visual troubleshooting in the SenseML editor](https://docs.sensible.so/docs/color.md): Trace extracted data to source with color highlights, and test and troubleshoot configs with the editor's options
 - [Supported file types](https://docs.sensible.so/docs/file-types.md): Supported document file formats
 - [Table methods](https://docs.sensible.so/docs/table-methods.md): Comparison of table extraction methods
 

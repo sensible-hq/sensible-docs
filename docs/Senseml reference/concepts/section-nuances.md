@@ -1,15 +1,11 @@
 ---
 title: Section nuances
-excerpt: Learn how Sensible handles sections and vertical sections, including range
-  detection, column recognition, and column selection configuration for structured
-  data extraction.
+excerpt: How Sensible handles sections and vertical sections, including range detection, column recognition, and column selection configuration.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible handles sections and vertical sections, including
-    range detection, column recognition, and column selection configuration for structured
-    data extraction.
+  description: How Sensible handles sections and vertical sections, including range detection, column recognition, and column selection configuration.
   robots: index
 next:
   description: ''

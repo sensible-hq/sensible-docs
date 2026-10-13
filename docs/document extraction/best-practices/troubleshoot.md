@@ -53,7 +53,7 @@ You can inspect a line to see:
 
 ## Inspect source text
 
-The Sensible app visually represents SenseML queries in rendered documents using colored symbols. For more information, see [Source text traceability](doc:color).
+The Sensible app visually represents SenseML queries in rendered documents using colored symbols. For more information, see [Visual troubleshooting in the SenseML editor](doc:color).
 
 ## Lint SenseML
 

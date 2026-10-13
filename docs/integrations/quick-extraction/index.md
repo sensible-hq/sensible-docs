@@ -1,15 +1,11 @@
 ---
 title: Quick extraction
-excerpt: Learn how to upload documents in bulk to Sensible, run extractions using
-  document types you create in your account, and download the extracted data as spreadsheets
-  or JSON.
+excerpt: Upload documents in bulk to Sensible, run extractions using document types you create in your account, and download the extracted data as spreadsheets or JSON.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to upload documents in bulk to Sensible, run extractions
-    using document types you create in your account, and download the extracted data
-    as spreadsheets or JSON.
+  description: Upload documents in bulk to Sensible, run extractions using document types you create in your account, and download the extracted data as spreadsheets or JSON.
   robots: index
 next:
   description: ''

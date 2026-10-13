@@ -1,17 +1,11 @@
 ---
 title: JsonLogic extensions
-excerpt: >-
-  Learn how Sensible extends JsonLogic with custom operators for transforming
-  and validating extracted document data, including syntax tips and supported
-  operations.
+excerpt: How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Learn how Sensible extends JsonLogic with custom operators for transforming
-    and validating extracted document data, including syntax tips and supported
-    operations.
+  description: How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
   robots: index
 next:
   description: ''
@@ -382,7 +376,7 @@ Returns `true` for arrays, including empty arrays. Returns `false` for `null`, o
 { "is_array": JsonLogic }
 ```
 
-For example, use Is Array to iterate over fields that can be either arrays or scalar values.  For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
+Use Is Array to iterate over fields whose output can be either arrays or scalar values.  For an example use case, see the [XML postprocessor](doc:xml-postprocessor).
 
 ### Example
 

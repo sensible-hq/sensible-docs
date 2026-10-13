@@ -36,6 +36,7 @@ In general, use this method:
 | width (**required**)   | number                            | The width in inches of the region. <br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | height (**required**)  | number                            | The height in inches of the region. <br/>You can visually determine this number in the Sensible app by changing the number and watching the green region box resize, or by clicking a point in the document in the Sensible app, then dragging to display inch dimensions. |
 | isAbsoluteOffset       | boolean. default: `false`         | Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the point defined in the Start parameter. |
+| includeAnchor          | boolean. default: `true`          | If false, excludes the anchor line from the method output when the anchor line is inside the region. Use this option when you make a region large enough to reliably capture your target data, and the region also captures the anchor line. <br/>**Note:** The default for this parameter is `true` for the Region method to preserve backward compatibility, and `false` for several other methods, for example, Box, Column, and Row methods. |
 | asImage                | boolean. default: `false`         | When true, Sensible returns the region as a PNG data URI, for example, `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABMgAAABaCAYAAA....` Sensible also returns the region's [coordinates](doc:images#notes). Use this option to capture visual content instead of extracting text. For example, use this option when your documents contain complex charts, from which neither LLM-based nor layout-based methods can reliably extract structured data. Extract the region containing the chart as an image and render it for a human to interpret. <br>For alternatives to this parameter, see [Image processing](doc:images). |
 | percentOverlapX        | number. default: `0.9`            | Configures the strictness of the criteria by which a region "contains" a line. By default, Sensible determines that a region contains a line if their widths overlap by more than 90% of the smaller of the two's width. Loosen the criteria if a line can partly fall outside a region. For example, if you set this parameter to 0.5, then Sensible determines that a region contains a line if their widths overlap by more than 50% of the smaller of the two's width. Note the line must also meet the Percent Overlap Y parameter's criteria. |
 | percentOverlapY        | number. default: `0.8`            | Configures strictness in the same manner as the Percent Overlap X parameter, but applies to height instead of width. |
@@ -57,6 +58,7 @@ The following example shows the preceding parameters documented with in-line com
         "width": 0.00, /* width of the region in inches */
         "height": 0.00, /* height of the region in inches */
         "isAbsoluteOffset": false, /* default: false. if true, offsets are relative to the top-left of the page, not to the Start parameter */
+        "includeAnchor": true, /* default: true. if false, excludes the anchor line from the output when the anchor line is inside the region */
         "asImage": false, /* default: false. if true, returns the region rendered as a data:image/png;base64,... string instead of extracting text */
         "percentOverlapX": 0.9, /* default: 0.9. fraction of width overlap required for a line to be inside the region; 0 accepts any overlap */
         "percentOverlapY": 0.8 /* default: 0.8. same as percentOverlapX, but for height */
@@ -85,10 +87,12 @@ The following example shows extracting a social security number from a W-9 form 
       "method": {
         "id": "region", /* extracts lines contained in a defined rectangular region */
         "start": "below", /* region's top-left corner starts at midpoint of anchor's bottom boundary */
-        "width": 2.15, /* region width in inches */
-        "height": 0.25, /* region height in inches */
-        "offsetX": -0.55, /* shifts region's top-left corner to the left from the Start parameter by the specified number of inches (positive: right, negative: left) */
-        "offsetY": 0.1 /* shifts region's top-left corner down from the Start parameter by the specified number of inches (positive: down, negative: up */
+        "width": 2.55, /* region width in inches */
+        "height": 0.6, /* region height in inches */
+        "offsetX": -0.65, /* shifts region's top-left corner to the left from the Start parameter by the specified number of inches (positive: right, negative: left) */
+        "offsetY": -0.15, /* shifts region's top-left corner up from the Start parameter by the specified number of inches (positive: down, negative: up) */
+        "includeAnchor": false, /* the region is large enough to capture the anchor line, so exclude the anchor line from the output */
+        "sortLines": "readingOrderLeftToRight" /* sorts lines by their likely reading order, left to right */
       }
     }
   ]
@@ -109,7 +113,7 @@ The following image shows the example document used with this example config:
 {
   "SSN": {
     "type": "string",
-    "value": "1 2 3 4 5 7 8 9 3 – –"
+    "value": "111 – 22 – 3333"
   }
 }
 ```

@@ -1,14 +1,11 @@
 ---
 title: Getting started with layout-based extractions
-excerpt: Learn how to extract structured data from documents using Sensible's layout-based
-  SenseML query language, including configs, anchors, methods, and API integration.
+excerpt: Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to extract structured data from documents using Sensible's
-    layout-based SenseML query language, including configs, anchors, methods, and
-    API integration.
+  description: Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
   robots: index
 next:
   description: ''
@@ -160,7 +157,7 @@ You should see the following extracted data in the right pane:
 ```json
 {
   "bodily_injury_premium": {
-    "source": "$100",
+    "source": "100",
     "value": 100,
     "unit": "$",
     "type": "currency",
@@ -253,7 +250,7 @@ This config returns:
 ```json
 {
   "bodily_injury_premium": {
-    "source": "$100",
+    "source": "100",
     "value": 100,
     "unit": "$",
     "type": "currency",
@@ -263,7 +260,8 @@ This config returns:
     "value": "1800 123 4567",
     "type": "string",
     "confidenceSignal": "confident_answer"
-  },
+  }
+}
 ```
 
 Try it out: change one of the questions to `"street address for the Anyco insurance company"` and see what you get.
