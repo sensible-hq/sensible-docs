@@ -44,7 +44,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:522), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/doc-type-handlers.ts:522)."
         }
       },
       "post": {
@@ -126,7 +126,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:556), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/doc-type-handlers.ts:556)."
         }
       },
       "put": {
@@ -218,7 +218,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/doc-type-handlers.ts:562), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/doc-type-handlers.ts:562)."
         }
       }
     },
@@ -258,7 +258,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:640), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:640)."
         }
       },
       "post": {
@@ -346,7 +346,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:646), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:646)."
         }
       },
       "put": {
@@ -417,7 +417,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:652), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:652)."
         }
       }
     },
@@ -460,7 +460,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:658), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:658)."
         }
       }
     },
@@ -506,7 +506,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:664), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:664)."
         }
       },
       "put": {
@@ -594,7 +594,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/configuration-handlers.ts:670), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:670)."
         }
       }
     },
@@ -634,7 +634,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:333), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/golden-handlers.ts:333)."
         }
       },
       "post": {
@@ -722,7 +722,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:372), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/golden-handlers.ts:372)."
         }
       },
       "put": {
@@ -793,7 +793,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:373), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/golden-handlers.ts:373)."
         }
       }
     },
@@ -829,7 +829,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/doc-type/golden-handlers.ts:384), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/golden-handlers.ts:384)."
         }
       }
     },
@@ -888,7 +888,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 404. The route (src/api/extract-from-golden/handler.ts:767) uses getDocTypeAndGoldenAndPdf (lines 823-844). An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both have statusCode 400 (src/api/common.ts:424, 502). No code path in this handler returns 404. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 404. Backend: sensible-hq/sensible#2254 (2024-02-26, \"Async extract text from golden\") introduced the golden lookup this route uses. An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both are 400, and no path in this handler returns 404. Current code: sensible-hq/sensible@181758ce5: route at src/api/extract-from-golden/handler.ts:767, lookup at lines 823-844, constants at src/api/common.ts:424 and 502."
         }
       }
     }

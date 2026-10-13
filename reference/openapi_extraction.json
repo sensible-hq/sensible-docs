@@ -532,7 +532,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/extractions/handler.ts:280), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:280)."
         }
       }
     },
@@ -599,7 +599,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/extractions/handler.ts:289), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:289)."
         }
       }
     },
@@ -642,7 +642,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/extractions/handler.ts:297), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/extractions/handler.ts:297)."
         }
       }
     },
@@ -684,7 +684,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes)."
         }
       }
     },
@@ -726,7 +726,7 @@
           "500": {
             "$ref": "#/components/responses/500"
           },
-          "x-review-note": "PR #744 removed 415. The backend returns 415 only when a handler declares accepted content types: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), and the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). This operation's handler is declared as `{ func }` with no `contentTypes` (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes), so it can't return 415. Evidence from sensible-hq/sensible @ 181758ce5."
+          "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes)."
         }
       }
     },
@@ -748,7 +748,7 @@
                     "type": "string",
                     "format": "date-time",
                     "description": "the date-time the token expires.\nSet this to a future date with enough time for the reviewer to complete the review.\nThe maximum value you can set is 30 days.\n",
-                    "x-review-note": "PR #744 added `expires` and marked it required. The backend request schema lists `required: [\"grants\", \"expires\"]` (src/api/account/auth-token-handlers.ts:128-133), so a request built from the old spec, without `expires`, fails validation with a 400. The handler also rejects past dates and dates 30 or more days out (lines 215-223), which the copied description already states. This spec's own request example already sent `expires`. The description is copied word for word from AuthTokenResponse.expires. Evidence from sensible-hq/sensible @ 181758ce5."
+                    "x-review-note": "Added `expires` and marked it required. Backend: sensible-hq/sensible#2724 (2024-12-06, \"Auth token storage/handlers\") added `expires`, and sensible-hq/sensible#2828 (2025-02-25, \"make the auth-token body keys required\") made it required. A request built from the old spec, without `expires`, fails validation with a 400. The handler also rejects past dates and dates 30 or more days out, which the description already states. The description is copied word for word from AuthTokenResponse.expires, and this spec's request example already sent `expires`. Current code: sensible-hq/sensible@181758ce5: `required: [\"grants\", \"expires\"]` (src/api/account/auth-token-handlers.ts:128-133), date checks at lines 215-223."
                   }
                 },
                 "required": [
@@ -1398,7 +1398,7 @@
           "NEEDS_REVIEW"
         ],
         "description": "The review status for each document in the portfolio, in order of their page ranges in the portfolio.  For more information, see [Human review](doc:human-review). Specify a webhook in the extraction request so that you can get a push notification when  a review status in the reviewStatuses array changes to `APPROVED` or `REJECTED` for extractions that returned `NEEDS_REVIEW`.",
-        "x-review-note": "PR #744 changed the type from string to an array of nullable strings. The backend declares `reviewStatuses?: (HumanReviewStatus | null)[]` on the portfolio response types (src/api/extract/response-types.ts:120; src/api/extract/entity.ts:103, 208, 812). The existing description already said \"the review status for each document in the portfolio, in order of their page ranges\", which only makes sense for an array. Evidence from sensible-hq/sensible @ 181758ce5."
+        "x-review-note": "Changed the type from string to an array of nullable strings. Backend: sensible-hq/sensible#2260 (2024-02-28, \"Human review extraction triggers + versioning\") declared `reviewStatuses?: (HumanReviewStatus | null)[]`, and sensible-hq/sensible#2340 (2024-05-09, \"Human review extraction updates\") added it to API responses as that array. The existing description, \"the review status for each document in the portfolio, in order of their page ranges\", already describes an array. Current code: sensible-hq/sensible@181758ce5: src/api/extract/response-types.ts:120."
       },
       "ReviewStatus": {
         "type": "string",
@@ -1594,7 +1594,7 @@
             "description": "The creation date of the last extraction on this page of results (find this value in an extraction's `created` parameter)."
           }
         },
-        "x-review-note": "PR #744 removed `cutoff_date`, which was already documented as DEPRECATED. The backend removed it in sensible-hq/sensible#2979 (commit 0c6537372, 2025-06-09, \"remove `cutoff-date` from extractions\"). The current response type has only `extractions`, `continuation_token`, and `last_evaluated_creation_date` (src/api/extractions/handler.ts:147-153), and \"cutoff_date\" doesn't appear anywhere in src/. Evidence from sensible-hq/sensible @ 181758ce5."
+        "x-review-note": "Removed `cutoff_date`, which this spec already marked DEPRECATED. Backend: sensible-hq/sensible#2979 (2025-06-09, \"remove `cutoff-date` from extractions\") removed it from the response. Current code: sensible-hq/sensible@181758ce5: the response type has only `extractions`, `continuation_token`, and `last_evaluated_creation_date` (src/api/extractions/handler.ts:147-153), and \"cutoff_date\" doesn't appear in src/."
       },
       "SingleExtractionSummaryResponse": {
         "allOf": [
