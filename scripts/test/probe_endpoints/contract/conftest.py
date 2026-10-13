@@ -42,7 +42,11 @@ class Api:
         self._key = key
 
     def request(self, method: str, path: str, query: dict | None = None, body=None):
-        """Return (status, parsed JSON body or raw text). Never raises on HTTP errors."""
+        """Return (status, parsed JSON body or raw text). Never raises on HTTP errors.
+
+        Prints the full request and response. Run pytest with -s to see them.
+        The Authorization header is always printed redacted.
+        """
         url = f"{API_BASE}{path}"
         if query:
             url += "?" + urllib.parse.urlencode(query)
@@ -51,17 +55,40 @@ class Api:
         if body is not None:
             data = json.dumps(body).encode()
             headers["Content-Type"] = "application/json"
+        _print_request(method, url, headers, body)
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
         try:
             with urllib.request.urlopen(req, timeout=60) as resp:
-                status, raw = resp.status, resp.read()
+                status, raw, resp_headers = resp.status, resp.read(), dict(resp.headers)
         except urllib.error.HTTPError as e:
-            status, raw = e.code, e.read()
+            status, raw, resp_headers = e.code, e.read(), dict(e.headers or {})
         text = raw.decode("utf-8", errors="replace")
         try:
-            return status, json.loads(text)
+            parsed = json.loads(text)
         except json.JSONDecodeError:
-            return status, text
+            parsed = text
+        _print_response(status, resp_headers, parsed)
+        return status, parsed
+
+
+def _pretty(value) -> str:
+    return json.dumps(value, indent=2) if isinstance(value, (dict, list)) else str(value)
+
+
+def _print_request(method: str, url: str, headers: dict, body) -> None:
+    shown = {k: ("Bearer <redacted>" if k.lower() == "authorization" else v) for k, v in headers.items()}
+    print(f"\n──── REQUEST ─────────────────────────────────────────\n{method} {url}")
+    for k, v in shown.items():
+        print(f"{k}: {v}")
+    if body is not None:
+        print(f"\n{_pretty(body)}")
+
+
+def _print_response(status: int, headers: dict, body) -> None:
+    print(f"\n──── RESPONSE ────────────────────────────────────────\nHTTP {status}")
+    for k, v in headers.items():
+        print(f"{k}: {v}")
+    print(f"\n{_pretty(body)}")
 
 
 @pytest.fixture(scope="session")

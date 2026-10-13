@@ -7,8 +7,8 @@ then checks it against the live API using the test account:
 - ReviewStatuses: an array with one status (or null) per portfolio document.
 - GET /extractions: the response no longer includes `cutoff_date`.
 
-Run from the repo root:
-  python3 -m pytest scripts/test/probe_endpoints/contract -v -rs
+Run from the repo root (-s shows each request, its response, and what to expect):
+  python3 -m pytest scripts/test/probe_endpoints/contract -v -s --report-chars=s
 The key comes from SENSIBLE_TEST_API_KEY in the environment, or from the
 gitignored .env at the repo root (see conftest.py).
 
@@ -21,6 +21,11 @@ from datetime import datetime, timedelta, timezone
 import pytest
 
 from conftest import schema_errors
+
+
+def expect(text: str) -> None:
+    """Print what the next request should show. Visible with pytest -s."""
+    print(f"\n>>> EXPECT: {text}")
 
 
 def _first_extraction_id(api) -> str:
@@ -43,6 +48,9 @@ def test_auth_token_expires(api, specs):
     assert "expires" in request_schema["properties"], "spec doesn't document `expires`"
     assert "expires" in request_schema.get("required", []), "spec doesn't mark `expires` required"
 
+    print("\n=== test_auth_token_expires: `expires` is a documented, required request field ===")
+    expect("HTTP 200 with an `extractions` list. The test only uses the first extraction's `id`, "
+           "to build a grant for the auth token.")
     extraction_id = _first_extraction_id(api)
     grants = [{"route": "/documents/{id}", "method": "GET", "path": {"id": extraction_id}}]
     expires = (datetime.now(timezone.utc) + timedelta(minutes=15)).isoformat(timespec="milliseconds")
@@ -51,12 +59,17 @@ def test_auth_token_expires(api, specs):
     # Claim 2: a body with `expires` matches the documented request schema and succeeds.
     body = {"grants": grants, "expires": expires}
     assert schema_errors(spec, request_schema, body) == []
+    expect("HTTP 200. The request body has `grants` and `expires` (15 minutes from now). The response "
+           "has `token`, `created`, `expires` (the value you sent), `grants`, and `usage` (empty). "
+           "The `token` is a live credential for the test account until it expires.")
     status, resp = api.request("POST", "/account/auth_tokens", body=body)
     assert status == 200, f"POST with expires returned {status}: {resp}"
     assert schema_errors(spec, response_schema, resp) == [], "response doesn't match AuthTokenResponse"
     assert "expires" in resp
 
     # Claim 3: the API rejects a body without `expires`, as the spec's `required` says.
+    expect("HTTP 400. Same request without `expires`, so the API's validation rejects it. The body is a "
+           "validation error that names `expires` as missing. A 200 here would mean the spec is wrong.")
     status, resp = api.request("POST", "/account/auth_tokens", body={"grants": grants})
     assert status == 400, f"POST without expires returned {status}, expected 400: {resp}"
 
@@ -70,6 +83,11 @@ def test_review_statuses_is_array_per_document(api, specs):
     # Claim 1: the spec documents an array.
     assert review_schema.get("type") == "array", "spec doesn't document ReviewStatuses as an array"
 
+    print("\n=== test_review_statuses_is_array_per_document: ReviewStatuses is an array, "
+          "one entry per portfolio document ===")
+    expect("HTTP 200. Only extractions with a review status are listed. Portfolio extractions show "
+           "`reviewStatuses` as an array such as [\"NEEDS_REVIEW\", null]. If the list has none, "
+           "the test skips because the test account lacks that data.")
     status, body = api.request(
         "GET", "/extractions", {"review_statuses": "APPROVED,NEEDS_REVIEW,REJECTED", "limit": 20})
     assert status == 200, f"GET /extractions returned {status}: {body}"
@@ -85,6 +103,8 @@ def test_review_statuses_is_array_per_document(api, specs):
         assert errors == [], f"summary {summary['id']}: {errors}"
 
         # Claim 3: on retrieval, there's one status per document in the portfolio.
+        expect("HTTP 200 with the full portfolio extraction. `reviewStatuses` has exactly as many "
+               "entries as `documents`, each one APPROVED, NEEDS_REVIEW, REJECTED, or null.")
         status, full = api.request("GET", f"/documents/{summary['id']}")
         assert status == 200, f"GET /documents/{summary['id']} returned {status}"
         statuses = full.get("reviewStatuses")
@@ -103,6 +123,9 @@ def test_list_extractions_has_no_cutoff_date(api, specs):
     # Claim 1: the spec no longer documents cutoff_date.
     assert "cutoff_date" not in response_schema["properties"]
 
+    print("\n=== test_list_extractions_has_no_cutoff_date: GET /extractions no longer returns cutoff_date ===")
+    expect("HTTP 200. Top-level fields are only `extractions`, `continuation_token`, and possibly "
+           "`last_evaluated_creation_date`. No `cutoff_date` anywhere at the top level.")
     status, body = api.request("GET", "/extractions", {"limit": 5})
     assert status == 200, f"GET /extractions returned {status}: {body}"
 
