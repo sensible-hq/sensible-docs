@@ -1,4 +1,5 @@
 .DS_Store
+.claude/active-session
 Thumbs.db
 **/.qbo_tokens.json
 **/__pycache__/
