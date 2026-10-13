@@ -1,5 +1,19 @@
 {
   "permissions": {
     "additionalDirectories": ["/home/franc/GitHub/sensible-docs-extra-data"]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale-check.sh",
+            "statusMessage": "Running Vale on the edited doc..."
+          }
+        ]
+      }
+    ]
   }
 }
