@@ -240,10 +240,37 @@ Two Doc Detective features apply to the published docs, not just the specs:
 | Debugging failures | Through Doc Detective's output | Your own code, full control |
 | Risk | Depends on a younger tool's OpenAPI features; several **verify** items | More code to own |
 
-**Recommendation:** start with Doc Detective. It covers the request building, schema validation, polling, and
-chaining that would otherwise be most of the custom code. The two small scripts restore strictness, fixture-gap
-reporting, and shape diffs. If the **verify** items go badly, for example if reports leak headers or raw uploads can't
-be expressed cleanly, the fixtures, catalog of scenarios, and both scripts carry over to the custom suite unchanged.
+**What the runner actually saves.** Either way you write the fixtures, `seed.py`, the strict-spec pass, and the
+coverage and shape report. Those are most of the work, and they're the same in both designs. What Doc Detective
+replaces is the remaining runner: building a request from an `operationId`, calling the validator, a polling loop,
+and passing IDs between steps. In a custom script that's a few hundred lines on top of a library such as
+`openapi-core`. So the saving is real but modest.
+
+Its real advantages:
+
+- **Declarative tests.** Scenarios are JSON or YAML that you edit as data, and reviewers can read them without
+  reading code. The custom design's YAML catalog gets close to this, but it still needs a runner you own.
+- **Maintained plumbing.** Request and response validation, CI reporters (`junit`, `html`, `json`, `runFolder`), and
+  a fail-the-build switch (`exitOnFail`) come with the tool.
+- **One tool for docs testing.** This is the advantage the custom suite can't match. The same tool, config, and test
+  account can later test curl samples in `docs/` (detected tests) and the request examples in the specs
+  (`useExample`).
+
+Its costs:
+
+- **Unknowns.** The **verify** items above (raw uploads, how parameters are placed, whether reports include the
+  `Authorization` header) are all known quantities in your own code.
+- **A moving target.** The CLI self-updates on startup by default (`autoUpdate: true` in the config reference), and
+  its behavior has changed recently: `allowAdditionalFields` was fixed in mid-2026, and coverage was removed in v3.
+  Pin a version and set `autoUpdate: false`, or a run can change behavior without any change on your side.
+- **Two toolchains.** Doc Detective is Node. The seed script and the existing prober are Python. Either accept both,
+  or write the scripts in Node.
+- **Debugging.** When a step fails, you debug through Doc Detective's output instead of your own code.
+
+**Recommendation:** if you want Doc Detective for testing the docs themselves (curl samples, spec examples), use it
+here too. Contract testing is a good first use, and the second use is nearly free. If contract testing is the only
+goal, the custom suite costs about the same to build and has no unknowns. Either way, build the fixtures, seed script,
+strict-spec pass, and report first: they carry over to either runner unchanged.
 
 ## Plan
 
