@@ -239,7 +239,7 @@ You can select multiple lines to see their combined details.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/changelog_July2021_x-ray_mode.png)
 
-## Location highlighting
+# Location highlighting
 
 Sensible can highlight the location of the source text for an LLM's response. Note the following limitations for location highlighting for LLM-based methods:
 
