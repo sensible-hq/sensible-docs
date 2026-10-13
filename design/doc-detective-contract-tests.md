@@ -30,7 +30,7 @@ Doc Detective already does most of what the custom suite would hand-build:
 | Save responses | `path` and `directory` on the step. `maxVariation` and `overwrite` give text-based snapshot comparison. |
 | Use spec examples as test data | `useExample: "request" \| "response" \| "both"` and `exampleKey` |
 
-The tests are JSON or YAML spec files rather than code, so you maintain test *data*, not a test framework.
+The tests are JSON or YAML spec files, so you maintain test *data* and Doc Detective maintains the runner. (The custom design's YAML catalog is also data. What differs is who owns the runner.)
 
 ## What it doesn't do
 
@@ -246,10 +246,11 @@ replaces is the remaining runner: building a request from an `operationId`, call
 and passing IDs between steps. In a custom script that's a few hundred lines on top of a library such as
 `openapi-core`. So the saving is real but modest.
 
+Not an advantage: declarative tests. The custom design's request catalog is already YAML scenarios that you edit as
+data. In both designs, scenarios are data; the only difference is who maintains the runner that reads them.
+
 Its real advantages:
 
-- **Declarative tests.** Scenarios are JSON or YAML that you edit as data, and reviewers can read them without
-  reading code. The custom design's YAML catalog gets close to this, but it still needs a runner you own.
 - **Maintained plumbing.** Request and response validation, CI reporters (`junit`, `html`, `json`, `runFolder`), and
   a fail-the-build switch (`exitOnFail`) come with the tool.
 - **One tool for docs testing.** This is the advantage the custom suite can't match. The same tool, config, and test
