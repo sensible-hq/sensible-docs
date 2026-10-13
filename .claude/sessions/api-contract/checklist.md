@@ -22,6 +22,7 @@ backend (checked 2026-10-12), and fix confirmed drift.
 
 ## Open
 - [x] Run the live field tests (2026-10-13): all 3 pass; portfolio reviewStatuses = [null, null, "NEEDS_REVIEW"]
+- [x] Live tests for the doc-text changes (2026-10-13): Get configuration returns the draft; documented upload command completes, old --data form FAILS ("Could not determine the content type")
 - [x] Test-account fixtures + seed.py (scripts/test/probe_endpoints/contract/fixtures, seed.py --check)
 - [ ] PR review + merge
 - [ ] Decide whether drift tooling lives in this public repo (see sensitivity discussion)
