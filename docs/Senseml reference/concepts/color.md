@@ -260,7 +260,14 @@ Sensible can highlight the location of the source text for an LLM's response. No
 
 # Test and troubleshoot configs
 
-Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options.
+Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options:
+
+* [Upload sample doc](doc:color#upload-sample-doc)
+* [Download sample doc](doc:color#download-sample-doc)
+* [Hide bounding boxes](doc:color#hide-bounding-boxes)
+* [Show unextracted lines](doc:color#show-unextracted-lines)
+* [Show section anchors](doc:color#show-section-anchors)
+* [Validate fingerprints](doc:color#validate-fingerprints)
 
 ## Upload sample doc
 
@@ -284,6 +291,6 @@ Highlights the line each section anchors on with a [violet box](doc:color#violet
 
 ## Validate fingerprints
 
-Tests a config's [fingerprint](doc:fingerprint) against multiple reference documents at once. Select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints.
+Tests a config's [fingerprint](doc:fingerprint) against multiple reference documents at once. Select **Validate fingerprints**, and Sensible launches a viewer for fingerprints and reference documents. Select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
