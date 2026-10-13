@@ -111,7 +111,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 **Validate fingerprints across reference documents**
 
-To test a config's fingerprint against multiple reference documents at once, see [Validate fingerprints](doc:color#validate-fingerprints).
+To test a config's fingerprint against multiple reference documents at once, see [Visual troubleshooting in the SenseML editor](doc:color#validate-fingerprints).
 
 <br />
 

@@ -40,7 +40,7 @@ To learn more about the steps you took in the tutorial, see:
 | [Anchor](doc:anchor)      | Fundamental concepts.                                                            |
 | [Label](doc:label)        | A frequently used extraction method.                                             |
 | [Box](doc:box)            | A frequently used extraction method.                                             |
-| [Color coding](doc:color) | Explains the colored boxes you see overlaid on the document in the Sensible app. |
+| [Visual troubleshooting in the SenseML editor](doc:color) | Explains the colored boxes you see overlaid on the document in the Sensible app. |
 
 ## Initial config
 
