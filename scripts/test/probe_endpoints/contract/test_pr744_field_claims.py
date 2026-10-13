@@ -12,11 +12,14 @@ Run from the repo root (-s shows each request, its response, and what to expect)
 The key comes from SENSIBLE_TEST_API_KEY in the environment, or from the
 gitignored .env at the repo root (see conftest.py).
 
-Side effect: test_auth_token_expires creates one auth token that expires 15
-minutes later. Error-code changes in the same PR (404, 415) aren't tested here.
+Side effects: test_auth_token_expires creates one auth token that expires 15
+minutes later. test_review_statuses_is_array_per_document runs one portfolio
+extraction of assets/pdfs/portfolio.pdf. Error-code changes in the same PR (404, 415) aren't tested here.
 """
 
+import time
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import pytest
 
@@ -88,6 +91,10 @@ def test_auth_token_expires(api, specs):
 
 # ── ReviewStatuses is an array, one entry per portfolio document ─────────────
 
+PORTFOLIO_PDF = Path(__file__).resolve().parents[4] / "assets" / "pdfs" / "portfolio.pdf"
+PORTFOLIO_TYPES = ["auto_insurance_quotes", "loss_run_reports"]  # docs/document extraction/portfolio.md
+
+
 @pytest.mark.docs_impact(
     change="Changed ReviewStatuses from a string to an array of nullable strings.",
     where="reference/openapi_extraction.json > components.schemas.ReviewStatuses "
@@ -95,14 +102,13 @@ def test_auth_token_expires(api, specs):
     pages="API reference: List extractions (ref:list-extractions) and Retrieve extraction "
           "(ref:retrieving-results); guide sample in docs/document extraction/portfolio.md, "
           "which already shows an array",
-    if_pass="Correct as published. Live portfolio extractions return an array with one status per "
+    if_pass="Correct as published. A live portfolio extraction returns an array with one status per "
             "document, matching the spec and the portfolio guide's sample.",
     if_fail="The spec is wrong. Compare the printed `reviewStatuses` with the schema: fix the item enum, "
             "nullability, or array type. If the count doesn't match `documents`, fix the ReviewStatuses "
             "description too.",
-    if_skip="Unverified live. The docs change rests on the backend source review only. The test account "
-            "has no portfolio extraction. Run one (any portfolio gets reviewStatuses, with null entries "
-            "when nothing needs review), then rerun.",
+    if_skip="Unverified live. The test account is missing the portfolio document types. Create them from "
+            "scripts/test/probe_endpoints/contract/fixtures/portfolio/, then rerun.",
 )
 def test_review_statuses_is_array_per_document(api, specs):
     spec = specs["extraction"]
@@ -111,40 +117,48 @@ def test_review_statuses_is_array_per_document(api, specs):
     # Claim 1: the spec documents an array.
     assert review_schema.get("type") == "array", "spec doesn't document ReviewStatuses as an array"
 
-    print("\n=== test_review_statuses_is_array_per_document: ReviewStatuses is an array, "
-          "one entry per portfolio document ===")
     # Every portfolio extraction has reviewStatuses: one entry per document, "NEEDS_REVIEW" or null
-    # (backend src/api/extract/entity.ts:876). Don't filter by review_statuses: that would drop
-    # portfolios whose entries are all null.
-    portfolios, token = [], None
-    for _ in range(5):
-        query = {"limit": 100, **({"continuation_token": token} if token else {})}
-        expect("HTTP 200 with a page of extractions. Portfolio extractions show `reviewStatuses` as an "
-               "array such as [\"NEEDS_REVIEW\", null]; single-document extractions don't have it.")
-        status, body = api.request("GET", "/extractions", query)
-        assert status == 200, f"GET /extractions returned {status}: {body}"
-        portfolios += [e for e in body.get("extractions", []) if "reviewStatuses" in e]
-        token = body.get("continuation_token")
-        if portfolios or not token:
+    # (backend src/api/extract/entity.ts:876). The loss_run_reports fixture has a coverage review
+    # trigger, so this portfolio should return a mix of null and "NEEDS_REVIEW".
+    expect("HTTP 200 with an extraction `id` and an `upload_url` (its signed query is redacted here). "
+           f"A 400 means the test account lacks one of {PORTFOLIO_TYPES}; the test then skips.")
+    status, created = api.request("POST", "/generate_upload_url",
+                                  query={"document_name": "contract_test_portfolio"},
+                                  body={"types": PORTFOLIO_TYPES, "content_type": "application/pdf"})
+    if status == 400:
+        pytest.skip(f"The test account can't run this portfolio: {created}")
+    assert status == 200, f"POST /generate_upload_url returned {status}: {created}"
+
+    expect(f"HTTP 200. Uploads {PORTFOLIO_PDF.name} from this repo's assets/pdfs.")
+    assert api.upload(created["upload_url"], PORTFOLIO_PDF, "application/pdf") == 200
+
+    expect("Polls GET /documents/{id} quietly until the extraction is COMPLETE (up to 3 minutes), then "
+           "prints the final response. It contains `documents` (two auto_insurance_quotes and one "
+           "loss_run_reports) and `reviewStatuses` with one entry per document: null for the quotes, "
+           "\"NEEDS_REVIEW\" for the loss run.")
+    for _ in range(36):
+        status, full = api.request("GET", f"/documents/{created['id']}", quiet=True)
+        if status == 200 and full.get("status") in ("COMPLETE", "FAILED"):
             break
-    if not portfolios:
-        pytest.skip("The test account has no portfolio extractions in its recent history.")
+        time.sleep(5)
+    status, full = api.request("GET", f"/documents/{created['id']}")
+    assert full.get("status") == "COMPLETE", f"extraction didn't complete: {full.get('status')}"
 
-    for summary in portfolios[:3]:
-        # Claim 2: the list summary's reviewStatuses matches the documented schema.
-        errors = schema_errors(spec, review_schema, summary["reviewStatuses"])
-        assert errors == [], f"summary {summary['id']}: {errors}"
+    # Claim 2: on retrieval, reviewStatuses matches the schema, with one entry per document.
+    statuses = full.get("reviewStatuses")
+    assert statuses is not None, "retrieval has no reviewStatuses"
+    assert schema_errors(spec, review_schema, statuses) == []
+    assert len(statuses) == len(full.get("documents", [])), (
+        f"{len(statuses)} statuses for {len(full.get('documents', []))} documents")
 
-        # Claim 3: on retrieval, there's one status per document in the portfolio.
-        expect("HTTP 200 with the full portfolio extraction. `reviewStatuses` has exactly as many "
-               "entries as `documents`, each one APPROVED, NEEDS_REVIEW, REJECTED, or null.")
-        status, full = api.request("GET", f"/documents/{summary['id']}")
-        assert status == 200, f"GET /documents/{summary['id']} returned {status}"
-        statuses = full.get("reviewStatuses")
-        assert statuses is not None, f"{summary['id']}: retrieval has no reviewStatuses"
-        assert schema_errors(spec, review_schema, statuses) == []
-        assert len(statuses) == len(full.get("documents", [])), (
-            f"{summary['id']}: {len(statuses)} statuses for {len(full.get('documents', []))} documents")
+    # Claim 3: the List extractions summary for the same extraction has the same shape.
+    expect("HTTP 200. The newest extraction in the list is this portfolio, with the same `reviewStatuses`.")
+    status, page = api.request("GET", "/extractions", {"limit": 5})
+    assert status == 200
+    summary = next((e for e in page.get("extractions", []) if e["id"] == created["id"]), None)
+    assert summary is not None, "the new portfolio extraction isn't in the first page of List extractions"
+    assert schema_errors(spec, review_schema, summary.get("reviewStatuses")) == []
+    assert summary["reviewStatuses"] == statuses
 
 
 # ── cutoff_date removed from GET /extractions ────────────────────────────────

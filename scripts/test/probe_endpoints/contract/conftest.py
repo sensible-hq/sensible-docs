@@ -41,7 +41,7 @@ class Api:
     def __init__(self, key: str):
         self._key = key
 
-    def request(self, method: str, path: str, query: dict | None = None, body=None):
+    def request(self, method: str, path: str, query: dict | None = None, body=None, quiet=False):
         """Return (status, parsed JSON body or raw text). Never raises on HTTP errors.
 
         Prints the full request and response. Run pytest with -s to see them.
@@ -55,7 +55,8 @@ class Api:
         if body is not None:
             data = json.dumps(body).encode()
             headers["Content-Type"] = "application/json"
-        _print_request(method, url, headers, body)
+        if not quiet:
+            _print_request(method, url, headers, body)
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
         try:
             with urllib.request.urlopen(req, timeout=60) as resp:
@@ -67,17 +68,43 @@ class Api:
             parsed = json.loads(text)
         except json.JSONDecodeError:
             parsed = text
-        _print_response(status, resp_headers, parsed)
+        if not quiet:
+            _print_response(status, resp_headers, parsed)
         return status, parsed
+
+    def upload(self, upload_url: str, path: Path, content_type: str) -> int:
+        """PUT a file to a pre-signed upload URL (no Authorization header). Returns the status."""
+        _print_request("PUT", upload_url, {"Content-Type": content_type}, f"<{path.stat().st_size} bytes of {path.name}>")
+        req = urllib.request.Request(upload_url, data=path.read_bytes(),
+                                     headers={"Content-Type": content_type}, method="PUT")
+        try:
+            with urllib.request.urlopen(req, timeout=120) as resp:
+                status = resp.status
+        except urllib.error.HTTPError as e:
+            status = e.code
+        print(f"\n──── RESPONSE ────────────────────────────────────────\nHTTP {status}")
+        return status
+
+
+def _redact(value):
+    """Hide pre-signed URL credentials (X-Amz-* query params) in printed output."""
+    if isinstance(value, dict):
+        return {k: _redact(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [_redact(v) for v in value]
+    if isinstance(value, str) and "X-Amz-" in value and "?" in value:
+        return value.split("?", 1)[0] + "?<signed query redacted>"
+    return value
 
 
 def _pretty(value) -> str:
+    value = _redact(value)
     return json.dumps(value, indent=2) if isinstance(value, (dict, list)) else str(value)
 
 
 def _print_request(method: str, url: str, headers: dict, body) -> None:
     shown = {k: ("Bearer <redacted>" if k.lower() == "authorization" else v) for k, v in headers.items()}
-    print(f"\n──── REQUEST ─────────────────────────────────────────\n{method} {url}")
+    print(f"\n──── REQUEST ─────────────────────────────────────────\n{method} {_redact(url)}")
     for k, v in shown.items():
         print(f"{k}: {v}")
     if body is not None:
