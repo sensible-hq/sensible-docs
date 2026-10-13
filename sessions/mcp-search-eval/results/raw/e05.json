@@ -1,0 +1,93 @@
+{
+  "question_id": "e05",
+  "question": "When a JsonLogic postprocessor transforms the output schema, do validations run on the pre- or post-transform parsed_document?",
+  "searches": [
+    {
+      "query": "JsonLogic postprocessor transform parsed_document",
+      "results": [
+        {"id": "sensiblehq/postprocessor", "title": "Postprocessor", "url": "https://docs.sensible.so/docs/postprocessor"},
+        {"id": "ref:sensiblehq/reference-document", "title": "Reference document", "url": "https://docs.sensible.so/reference/reference-document"}
+      ]
+    },
+    {
+      "query": "validations postprocessor order execution",
+      "results": [
+        {"id": "sensiblehq/validate-extractions", "title": "Validating extractions", "url": "https://docs.sensible.so/docs/validate-extractions"},
+        {"id": "sensiblehq/postprocessor", "title": "Postprocessor", "url": "https://docs.sensible.so/docs/postprocessor"}
+      ]
+    },
+    {
+      "query": "extraction pipeline order validations postprocessor sequence",
+      "results": [
+        {"id": "sensiblehq/validate-extractions", "title": "Validating extractions", "url": "https://docs.sensible.so/docs/validate-extractions"},
+        {"id": "sensiblehq/quality-control", "title": "Quality control", "url": "https://docs.sensible.so/docs/quality-control"}
+      ]
+    },
+    {
+      "query": "postprocessorOutput validations access parsed_document fields",
+      "results": [
+        {"id": "sensiblehq/postprocessor", "title": "Postprocessor", "url": "https://docs.sensible.so/docs/postprocessor"},
+        {"id": "sensiblehq/add-computed-fields", "title": "Add computed fields", "url": "https://docs.sensible.so/docs/add-computed-fields"}
+      ]
+    },
+    {
+      "query": "api response structure parsed_document postprocessorOutput validations",
+      "results": [
+        {"id": "sensiblehq/postprocessor", "title": "Postprocessor", "url": "https://docs.sensible.so/docs/postprocessor"},
+        {"id": "ref:sensiblehq/reference-document", "title": "Reference document", "url": "https://docs.sensible.so/reference/reference-document"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_docs": [
+    {
+      "id": "sensiblehq/postprocessor",
+      "title": "Postprocessor",
+      "url": "https://docs.sensible.so/docs/postprocessor",
+      "key_excerpts": [
+        "Using a postprocessor, you can transform the extracted data into a custom schema.",
+        "Postprocessor output is available in the `postprocessorOutput` object in the API response and in the postprocessed tab in the SenseML editor.",
+        "keepParsedDocument — If false, Sensible suppresses the `parsed_document` object's output.",
+        "The postprocessor outputs to `postprocessorOutput`; `parsed_document` remains a separate object."
+      ]
+    },
+    {
+      "id": "sensiblehq/validate-extractions",
+      "title": "Validating extractions",
+      "url": "https://docs.sensible.so/docs/validate-extractions",
+      "key_excerpts": [
+        "A validation is a condition for a field or fields written in JsonLogic that outputs a Boolean and either passes (for true output) or fails (for false output). Validations have access to fields' values in the `parsed_document` object.",
+        "Condition: Tests an extracted field or fields with a condition that evaluates to true or false.",
+        "The validation examples all reference `parsed_document` fields via `var` (e.g., `{\"var\": \"quote_rate.value\"}`)."
+      ]
+    },
+    {
+      "id": "sensiblehq/quality-control",
+      "title": "Quality control",
+      "url": "https://docs.sensible.so/docs/quality-control",
+      "key_excerpts": [
+        "Custom validation logic — Validating extractions: Throw extraction errors and warnings based on your custom rules."
+      ]
+    },
+    {
+      "id": "sensiblehq/add-computed-fields",
+      "title": "Add computed fields",
+      "url": "https://docs.sensible.so/docs/add-computed-fields",
+      "key_excerpts": [
+        "Not directly relevant to postprocessor/validation ordering."
+      ]
+    },
+    {
+      "id": "ref:sensiblehq/reference-document",
+      "title": "Reference document",
+      "url": "https://docs.sensible.so/reference/reference-document",
+      "key_excerpts": ["(No content returned)"]
+    },
+    {
+      "id": "ref:sensiblehq/configuration",
+      "title": "Configuration",
+      "url": "https://docs.sensible.so/reference/configuration",
+      "key_excerpts": ["(No content returned)"]
+    }
+  ]
+}

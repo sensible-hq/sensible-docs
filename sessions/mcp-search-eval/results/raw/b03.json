@@ -1,0 +1,51 @@
+{
+  "question": "How do I pull out a specific field from a PDF?",
+  "search_queries": [
+    "extract specific field from PDF",
+    "how to configure field extraction document"
+  ],
+  "search_results": [
+    {
+      "query": "extract specific field from PDF",
+      "results": [
+        {"id": "sensiblehq/field-query-object", "title": "Field query object", "url": "https://docs.sensible.so/docs/field-query-object"},
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "ref:sensiblehq/authentication", "title": "Authentication", "url": "https://docs.sensible.so/reference/authentication"}
+      ]
+    },
+    {
+      "query": "how to configure field extraction document",
+      "results": [
+        {"id": "sensiblehq/senseml-reference-introduction", "title": "SenseML reference introduction", "url": "https://docs.sensible.so/docs/senseml-reference-introduction"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/field-query-object",
+      "title": "Field query object",
+      "url": "https://docs.sensible.so/docs/field-query-object",
+      "content": "Structure of field queries in SenseML\n\nA field is the basic SenseML query unit for extracting a piece of document data. SenseML is a query language that lets you extract structured data from documents, for example, from PDFs. The output of a field is a JSON key-value pair that structures the extracted data.\n\nA field uses a method to extract data. SenseML contains layout-based and large language model (LLM)-based methods.\n\nHere's a simple example of a layout-based field and its output:\n\nField query:\n{\n \"fields\": [\n   {\n     /* find the first box in the document containing the text 'rents' and return all the other text in the box */\n     \"anchor\": \"rents\",\n     \"id\": \"rents_income\",\n     \"method\": {\n       \"id\": \"box\",\n     }\n   }\n ]\n}\n\nExtracted field output:\n{\n  \"rents_income\": {\n    \"type\": \"string\",\n    \"value\": \"$ 4,200\"\n  }\n}\n\nParameters:\n- id (required): string. Sensible uses the ID as the key in the structured key/value output.\n- anchor: Required for layout-based methods. Matched text that narrows down the location of the target data to extract.\n- method (required): object. Defines how to spatially expand out from the anchor and extract the target data.\n- type: The data type to extract, for example, a currency, an address, or a custom type you define.\n- match: first, last, all, allWithNull, mostFrequent. If there are multiple anchors, specifies which one to use."
+    },
+    {
+      "id": "ref:sensiblehq/choosing-an-endpoint",
+      "title": "Introduction",
+      "url": "https://docs.sensible.so/reference/choosing-an-endpoint",
+      "content": "Welcome to Sensible! To get started, see the following endpoints for extracting structured data from documents.\n\nEndpoints:\n- Document extraction (asynchronous): Extract doc at a Sensible URL, Extract doc at your URL. Takes a document file, such as a PDF, and returns extracted data asynchronously. Use the asynchronous endpoints in production.\n- Document extraction (synchronous): Extract data from a document. Returns extracted document data synchronously. Use this endpoint for testing.\n- Get Excel from PDFs: Get Excel extraction. Get well-structured Excel files converted from PDF documents.\n- Portfolio extraction (asynchronous): Extract portfolio at a Sensible URL, Extract portfolio at your URL. Use these endpoints with multiple documents packaged into one PDF file.\n- Document type classification: Classify document by type."
+    },
+    {
+      "id": "ref:sensiblehq/configuration",
+      "title": "Configuration",
+      "url": "https://docs.sensible.so/reference/configuration",
+      "content": "(no content returned)"
+    },
+    {
+      "id": "sensiblehq/senseml-reference-introduction",
+      "title": "SenseML reference introduction",
+      "url": "https://docs.sensible.so/docs/senseml-reference-introduction",
+      "content": "Overview of the SenseML query language\n\nUse the SenseML query language to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.\n\nSenseML topics include: Field query object, Preprocessors, LLM-based methods, layout-based methods, Configuration settings, Computed Field methods, Sections, Conditional execution, Large spreadsheet extraction, Postprocessor.\n\nA config specifies how to extract data and how to populate a target output schema.\n\nExample config extracts: _driver_name_raw (layout-based, using anchor 'name of driver' + label method below), policy_period and policy_number (LLM-based, queryGroup method), driver_name_last (computed field splitting the raw name).\n\nKey elements: Fields (queries that extract text), Preprocessors (e.g. pageRange to cut irrelevant pages), Fingerprints (tell Sensible which config to use), Computed fields (transform already-extracted data)."
+    }
+  ]
+}

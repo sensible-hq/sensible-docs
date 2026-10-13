@@ -1,0 +1,56 @@
+{
+  "question": "Is there a way to try it without setting up API calls?",
+  "search_queries": [
+    "try without API calls",
+    "playground demo no code try it out",
+    "getting started app editor without API key",
+    "Sensible app extract documents browser no code",
+    "quick extraction UI upload document extract tab",
+    "getting started AI LLM tutorial no code in browser"
+  ],
+  "search_results": [
+    {"id": "ref:sensiblehq/email-processor", "title": "Email processor", "url": "https://docs.sensible.so/reference/email-processor"},
+    {"id": "sensiblehq/examples", "title": "Code examples", "url": "https://docs.sensible.so/docs/examples"},
+    {"id": "sensiblehq/text-table", "title": "Text Table", "url": "https://docs.sensible.so/docs/text-table"},
+    {"id": "sensiblehq/field-query-object", "title": "Field query object", "url": "https://docs.sensible.so/docs/field-query-object"},
+    {"id": "ref:sensiblehq/mcp", "title": "MCP", "url": "https://docs.sensible.so/reference/mcp"},
+    {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"},
+    {"id": "sensiblehq/library-quickstart", "title": "Out-of-the-box extractions", "url": "https://docs.sensible.so/docs/library-quickstart"},
+    {"id": "sensiblehq/overview", "title": "Overview", "url": "https://docs.sensible.so/docs/overview"},
+    {"id": "sensiblehq/quickstart", "title": "API quickstart", "url": "https://docs.sensible.so/docs/quickstart"},
+    {"id": "sensiblehq/quick-extraction", "title": "Quick extraction", "url": "https://docs.sensible.so/docs/quick-extraction"},
+    {"id": "sensiblehq/getting-started-ai", "title": "Getting started", "url": "https://docs.sensible.so/docs/getting-started-ai"}
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/examples",
+      "title": "Code examples",
+      "url": "https://docs.sensible.so/docs/examples",
+      "content": "Example code for common API operations\n\nFor starter code calling the Sensible API, see the [code example repo](https://github.com/sensible-hq/sensible-code-examples)."
+    },
+    {
+      "id": "sensiblehq/quickstart",
+      "title": "API quickstart",
+      "url": "https://docs.sensible.so/docs/quickstart",
+      "content": "Quick start guide for the Sensible API\n\n# Introduction\n\nIn this quickstart, use an example SenseML configuration and example document to get a quick \"hello world\" API response.\n\n* To get started with extracting from your custom documents, see [Getting Started](https://docs.sensible.so/docs/getting-started-ai).\n\n# Extract example document data\n\nTo run an API call and return extracted, structured data from a downloaded example document:\n\n1. Get an account at [sensible.so](https://app.sensible.so/register).\n\n   **NOTE** In the Sensible app, don't rename the example doc type (**layout_basics**) or delete the **1_extract_your_first_data** config, or this example fails.\n\n2. Copy your API key from your [account page](https://app.sensible.so/account/).\n\n3. Copy the following code example into a plain-text application and replace `*YOUR_API_KEY*` with your API key:\n\n```shell\ncurl -L https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf --output 1_extract_your_first_data.pdf && curl --request POST --url \"https://api.sensible.so/v0/extract/layout_basics\" --header \"Authorization: Bearer YOUR_API_KEY\" --header \"Content-Type: application/pdf\" --data-binary \"@1_extract_your_first_data.pdf\"\n```\n\n3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf`) and runs it against an example document type (`layout_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object:\n\n```json\n{\n   \"parsed_document\":{\n      \"your_first_extracted_field\":{\n         \"type\":\"string\",\n         \"value\":\"Welcome to your first document\"\n      }\n   }\n}\n```\n\n# (Optional) See how it works in the Sensible app\n\nTo see this example in the Sensible app:\n\n1. Log into the [Sensible app](https://app.sensible.so/signin/).\n\n2. Navigate to the [first tutorial](https://app.sensible.so/editor/?d=layout_basics&c=1_extract_your_first_data&g=1_extract_your_first_data) config.\n\n3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran."
+    },
+    {
+      "id": "sensiblehq/library-quickstart",
+      "title": "Out-of-the-box extractions",
+      "url": "https://docs.sensible.so/docs/library-quickstart",
+      "content": "Pre-built extraction templates for different document types\n\nIf you want to extract from any of the following document types, you can get started in minutes using the [Sensible configuration library](https://www.sensible.so/configuration-library). The library provides out-of-the-box support for common business forms:\n\n* auto policy declaration pages\n* balance sheet\n* bank statements\n* closing disclosure\n* credit card statements\n* drivers license\n* explanation of benefit\n* health insurance claims\n* home policy declaration pages\n* loss runs\n* pay stubs\n* pet policy declaration pages\n* resumes\n* tax forms\n* verifications of employment\n* rent rolls\n* offering memorandums\n* ....and more\n\nTo add supported document types to your Sensible account:\n\n1. Click the **Template library** tab, and browse for your document type. Click **Use case** to view document types by industry.\n2. Click the document type you want to extract from. Sensible displays the specific forms it supports in the document type.\n3. Click **Clone to account**. Sensible displays the cloned document type and its form-specific configs in the **Document types** tab.\n4. Test the document type by uploading your sample documents, for example, using the [Extract](https://docs.sensible.so/docs/quick-extraction) tab."
+    },
+    {
+      "id": "sensiblehq/overview",
+      "title": "Overview",
+      "url": "https://docs.sensible.so/docs/overview",
+      "content": "Introduction to Sensible and its capabilities for document data extraction\n\nWelcome! Sensible is a developer-first platform for extracting structured data from documents...\n\n[Integrate](https://docs.sensible.so/docs/integrate) using Sensible's API, SDKs, quick-extract UI, or other tools"
+    },
+    {
+      "id": "sensiblehq/quick-extraction",
+      "title": "Quick extraction",
+      "url": "https://docs.sensible.so/docs/quick-extraction",
+      "content": "Learn how to use Sensible app's Extract tab to upload documents in bulk and download extracted data as Excel files for custom or supported document types.\n\nAfter you've configured extractions for your custom documents or for out-of-the-box supported documents, you can upload documents to the Sensible app in bulk and download the extracted data as Excel files.\n\nIn this tutorial you'll learn to:\n\n* upload documents to the Sensible app's **Extract** tab\n* automatically extract from the documents using pre-existing document types and configs\n* download the extracted data as Excel.\n\n## Extract from a file\n\nTake the following steps:\n\n1. Navigate to the [Extract](https://app.sensible.so/quick-extraction/) tab.\n\n2. Select **Document** for single-document files or **Portfolio** for documents bundled into a single file.\n\n3. In the **Document type** dropdown in the right pane, select the category that describes your document, for example, `resumes` or `bank_statements`. For portfolios, select multiple types.\n\n   Note: If you haven't created your own document type, select `llm_basics / Auto select`. The `llm_basics` document type contains interactive examples for bank statements, resumes, and contracts. If you specify `Auto select`, Sensible automatically detects the best-fitting extraction configuration, or \"config\", for the document you upload.\n\n3. Click **Upload document** and select your example document or documents.\n\n   If you don't have an example document, use the following document with the `llm_basics` document type:\n   Download link: https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/bank_3.pdf\n\n3. Click **Run Extraction**.\n\n4. Sensible displays the extracted data as JSON in the right pane. Click **Download excel** to convert the extracted document data to Excel.\n\nNote: Each downloaded Excel file contains the data from one document. To combine extracted documents into one Excel file, use the Sensible API or Sensible SDKs.\n\n## Extract from multiple files\n\nTo extract from multiple files in a batch, select and upload multiple files."
+    }
+  ]
+}

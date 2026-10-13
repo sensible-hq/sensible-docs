@@ -1,0 +1,84 @@
+{
+  "question": "How do I handle documents from the same category that look slightly different from each other?",
+  "search_queries": [
+    "handle documents that look different same category",
+    "multiple configs templates same document type fingerprint"
+  ],
+  "search_results": [
+    {
+      "query": "handle documents that look different same category",
+      "results": [
+        {"id": "sensiblehq/classify", "title": "Classifying documents by type", "url": "https://docs.sensible.so/docs/classify"},
+        {"id": "sensiblehq/document-type-settings", "title": "Document type settings", "url": "https://docs.sensible.so/docs/document-type-settings"}
+      ]
+    },
+    {
+      "query": "document variation layout differences same document type",
+      "results": [
+        {"id": "sensiblehq/descriptions", "title": "Document type descriptions", "url": "https://docs.sensible.so/docs/descriptions"},
+        {"id": "sensiblehq/repeat-layouts", "title": "Repeating layouts", "url": "https://docs.sensible.so/docs/repeat-layouts"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    },
+    {
+      "query": "multiple configs templates same document type fingerprint",
+      "results": [
+        {"id": "sensiblehq/fingerprint-mode", "title": "Fingerprint mode", "url": "https://docs.sensible.so/docs/fingerprint-mode"},
+        {"id": "sensiblehq/fingerprint", "title": "Fingerprint", "url": "https://docs.sensible.so/docs/fingerprint"},
+        {"id": "sensiblehq/config-settings", "title": "Config settings", "url": "https://docs.sensible.so/docs/config-settings"},
+        {"id": "sensiblehq/fallback-configs", "title": "Fallback LLM configs", "url": "https://docs.sensible.so/docs/fallback-configs"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/classify",
+      "title": "Classifying documents by type",
+      "url": "https://docs.sensible.so/docs/classify",
+      "content": "Automatically classify documents by type, for example, 'bank statement' or 'driver's license\n\nSensible \"classifies\" documents in the following senses:\n\n1. You can use the Sensible API to classify a document by its similarity to high-level document types you define in your Sensible account, without making an extraction request. For example, classify a document as a `1040s` document type or a `pay_stubs` document type. For more information, see the following  sections.\n2. When you extract data from a single document, you classify the document by specifying one of the high-level document types you defined in your account, for example `1040s` or `pay_stubs`. Sensible then automatically classifies the document by its subtype, or \"config\", in the document type, for example, the `1040s_2018` version or the `1040_20`  version of a `1040s` document. For more information, see DevOps platform.\n3. When you extract data from multiple documents in a single request, you specify a list of possible document types, and Sensible classifies both high-level document types and subtypes automatically.\n\nThe following sections cover using the Sensible API's Classify endpoints to return a document's high-level type.\n\n## Classify endpoints\n\nWhen you call Sensible's Classify API endpoints, Sensible classifies a document by comparing it to the types you define in your account. Sensible uses a document type's name and its description for LLM-based classification.\n\nTo optionally improve classification results, describe each document type in your account in its Settings tab. By default, Sensible classifies a document using all the types you define in your account.\n\n## Use cases for classification endpoints\n\nUse cases for the Classify endpoints include the following examples:\n- Prior to an extraction workflow. Determine which documents to extract before calling a Sensible extraction endpoint.\n- Independent from an extraction workflow. Determine where to route each document or to label each document in a system of record."
+    },
+    {
+      "id": "sensiblehq/document-type-settings",
+      "title": "Document type settings",
+      "url": "https://docs.sensible.so/docs/document-type-settings",
+      "content": "Configure document type behavior\n\nA document type is an API endpoint that you configure for extracting data from a general category of similar documents, for example, `bank_statments` or `1040s`. You configure extraction templates or leverage Sensible's out-of-the-box library.\n\nIn the endpoint, you configure *configs*, or templates that define how to extract data from subcategories of documents in the general document type category. The templates contain queries you write in Sensible's document-domain specific query language, SenseML. For example, a `bank_statements` document type can contain a template for Bank of America statements, a template for Wells Fargo statements, and a template for Chase statements.\n\nFor more information about creating and configuring document types, see Getting started.\n\nSee the following topics for options you can set in the Settings tab for each document type:\n- Fingerprint mode\n- OCR engine\n\nSee the following topics for other settings you can set for each document type:\n- Human review\n- OCR level\n- Validations"
+    },
+    {
+      "id": "sensiblehq/descriptions",
+      "title": "Document type descriptions",
+      "url": "https://docs.sensible.so/docs/descriptions",
+      "content": "Describe document types for classification\n\nDescribe a document type in its Settings tab to:\n- Enable segmenting documents' page ranges from a portfolio file using LLMs.\n- Improve classifying a document into an existing document type in your account.\n\nExamples of document type descriptions:\n- `Bank Statement - A financial document summarizing account activity over a defined period. Typically includes the bank's name/logo, account holder details, statement date, beginning and ending balances, and a detailed list of transactions such as deposits, withdrawals, and fees`\n- `form 5500 - A federally required document that reports the financial condition and operations of employee benefit plans...`\n- `Verification of employment - A formal document issued by an employer to confirm a person's job status, salary, and length of employment...`\n- `Rate Confirmation - A document issued by a freight broker or carrier outlining the agreed-upon payment for a specific shipment...`"
+    },
+    {
+      "id": "sensiblehq/repeat-layouts",
+      "title": "Repeating layouts",
+      "url": "https://docs.sensible.so/docs/repeat-layouts",
+      "content": "Handle documents with repeating sections\n\nTo extract complex, repeating data from documents, use layout-based sections to break the document into subdocuments. Then extract data from each subdocument with layout- or LLM-based fields. Note that for simpler repeating data, you can use the List method.\n\nFor more information, see sections."
+    },
+    {
+      "id": "sensiblehq/fingerprint-mode",
+      "title": "Fingerprint mode",
+      "url": "https://docs.sensible.so/docs/fingerprint-mode",
+      "content": "Configure fingerprint-based classification\n\nFingerprints test for matching text in a document to determine:\n1. the document's subtype for standalone files\n2. the document's page range in multi-document, or \"portfolio\", files.\n\nThe Fingerprint Mode configuration option applies to scenario 1, not scenario 2. You can configure this option in the Sensible app in the document type settings tab.\n\n## Standalone files\n\nFingerprints improve performance by testing for matching text in a single document before running or skipping a config in a specified document type.\n\nThe Fingerprint Mode configuration option determines the strictness of the tests. After Sensible runs and skips extractions, it returns the extraction that ran with the highest-scoring config. Sensible calculates the score as follows: score = num of non-null fields - penalties for validation errors or warnings.\n\n## Portfolio files\n\nSensible ignores the document type's Fingerprint Mode setting for portfolio files."
+    },
+    {
+      "id": "sensiblehq/fingerprint",
+      "title": "Fingerprint",
+      "url": "https://docs.sensible.so/docs/fingerprint",
+      "content": "Document fingerprinting for classification\n\nFingerprints test for matching text in a document to determine:\n1. the document's subtype, or \"config\", for standalone files\n2. a document's page range in multi-document, or \"portfolio\", files.\n\nFor standalone documents: Improve performance by testing for matching text in a document before running or skipping a \"config,\" or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time.\n\nThe core fingerprint syntax for standalone documents:\n{\n  \"fingerprint\": {\n    \"tests\": [\n      {\"type\": \"startsWith\", \"text\": \"anyco\"},\n      \"info@anyco.com\",\n      \"life insurance quote\"\n    ]\n  },\n  \"fields\": []\n}\n\nFor portfolios: A portfolio contains multiple documents combined into one file. Sensible uses fingerprints to segment a portfolio into documents.\n\nSensible must find 50% of all matches anywhere in a standalone document for it to pass (vs. 100% for portfolios)."
+    },
+    {
+      "id": "sensiblehq/config-settings",
+      "title": "Config settings",
+      "url": "https://docs.sensible.so/docs/config-settings",
+      "content": "SenseML configuration options\n\nA config is a template that defines how to extract data from a set of similar documents. For example, a `bank_statements` document type can contain a `bank_of_america` config and a `wells_fargo` config.\n\nThe following pages describe options you can set in configs:\n- Fingerprint\n- Verbosity"
+    },
+    {
+      "id": "sensiblehq/fallback-configs",
+      "title": "Fallback LLM configs",
+      "url": "https://docs.sensible.so/docs/fallback-configs",
+      "content": "Configuring fallback extraction strategies\n\nUse fallback configs to capture long-tail document variations in a document type. For example, if you have several high-volume providers of a document type, you can capture them with a few dedicated layout-based configs. Use a generalized LLM-based config to capture the long tail of smaller providers.\n\nFor an example implementation, see How to capture the long tail when extracting data from paystubs."
+    }
+  ]
+}

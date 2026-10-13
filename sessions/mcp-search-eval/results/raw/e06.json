@@ -1,0 +1,36 @@
+{
+  "question_id": "e06",
+  "question": "Can computed fields reference other computed fields, and if so, is there a declared evaluation order or does it depend on array position?",
+  "searches": [
+    {
+      "query": "computed fields reference other computed fields evaluation order",
+      "results": [
+        {"id": "sensiblehq/advanced-computed-field-methods", "title": "Advanced computed field methods", "url": "https://docs.sensible.so/docs/advanced-computed-field-methods"},
+        {"id": "sensiblehq/field-order", "title": "Field extraction order", "url": "https://docs.sensible.so/docs/field-order"},
+        {"id": "sensiblehq/add-computed-fields", "title": "Add computed fields", "url": "https://docs.sensible.so/docs/add-computed-fields"}
+      ]
+    },
+    {
+      "query": "computed field dependencies array position order",
+      "results": [
+        {"id": "sensiblehq/add-computed-fields", "title": "Add computed fields", "url": "https://docs.sensible.so/docs/add-computed-fields"},
+        {"id": "sensiblehq/field-order", "title": "Field extraction order", "url": "https://docs.sensible.so/docs/field-order"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/advanced-computed-field-methods",
+      "content": "Advanced methods for transforming extracted data\n\nThe following topics describe advanced computed field methods:\n\n* Add computed fields\n* Extra data\n* Copy to section\n* Copy from sections\n* Custom computation\n* Custom computation group\n* Get file metadata"
+    },
+    {
+      "id": "sensiblehq/field-order",
+      "content": "Control field extraction order\n\nDefault field extraction order:\nSensible adds each field to the output array sequentially after extracting it. By default you can specify fields, computed fields, and sections as sibling arrays.\n\nDefault order:\n1. Run fields array.\n2. Run computed fields, which transform fields output:\n   a. Run all computed fields that aren't Suppress Output methods.\n   b. Run Suppress Output fields.\n3. Run sections.\n4. Return all fields, computed fields, and sections.\n\nConfigurable extraction order:\nYou can use an alternative syntax to change the order in which to extract fields by placing everything in a single 'fields' array. This allows computed fields to run before sections (for example), or for sections to be available to subsequent computed fields.\n\nExample use case: With default execution order, a zip computed field that uses sections as sources would fail because computed fields execute before sections, so suppressed sections would return null. The configurable syntax allows specifying sections first, then a zip computed field that uses them, then a suppressOutput computed field."
+    },
+    {
+      "id": "sensiblehq/add-computed-fields",
+      "content": "Add computed fields to output — method for transforming extracted tables. Allows computed fields inside a nested fields array within the method. Source IDs reference other fields. Detailed example showing computed fields referencing regular fields by source_id."
+    }
+  ]
+}

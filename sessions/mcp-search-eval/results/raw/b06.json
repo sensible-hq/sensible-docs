@@ -1,0 +1,91 @@
+{
+  "question": "What does the output actually look like?",
+  "search_queries": [
+    "what does Sensible output look like",
+    "extraction output JSON format structure",
+    "output reference parsed fields value type",
+    "SenseML output parsed document JSON response",
+    "parsed_document API response structure validations errors"
+  ],
+  "search_results": [
+    {
+      "query": "what does Sensible output look like",
+      "results": [
+        {"id": "sensiblehq/examples", "title": "Code examples", "url": "https://docs.sensible.so/docs/examples"},
+        {"id": "sensiblehq/api-reference", "title": "API reference", "url": "https://docs.sensible.so/docs/api-reference"},
+        {"id": "sensiblehq/custom-computation", "title": "Custom computation", "url": "https://docs.sensible.so/docs/custom-computation"}
+      ]
+    },
+    {
+      "query": "extraction output JSON format structure",
+      "results": [
+        {"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    },
+    {
+      "query": "output reference parsed fields value type",
+      "results": [
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "sensiblehq/field-query-object", "title": "Field query object", "url": "https://docs.sensible.so/docs/field-query-object"}
+      ]
+    },
+    {
+      "query": "SenseML output parsed document JSON response",
+      "results": [
+        {"id": "sensiblehq/quickstart", "title": "API quickstart", "url": "https://docs.sensible.so/docs/quickstart"},
+        {"id": "sensiblehq/senseml-reference-introduction", "title": "SenseML reference introduction", "url": "https://docs.sensible.so/docs/senseml-reference-introduction"},
+        {"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"},
+        {"id": "ref:sensiblehq/choosing-an-endpoint", "title": "Introduction", "url": "https://docs.sensible.so/reference/choosing-an-endpoint"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "ref:sensiblehq/email-processor", "title": "Email processor", "url": "https://docs.sensible.so/reference/email-processor"}
+      ]
+    },
+    {
+      "query": "parsed_document API response structure validations errors",
+      "results": [
+        {"id": "sensiblehq/validate-extractions", "title": "Validating extractions", "url": "https://docs.sensible.so/docs/validate-extractions"},
+        {"id": "ref:sensiblehq/reference-document", "title": "Reference document", "url": "https://docs.sensible.so/reference/reference-document"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/quickstart",
+      "title": "API quickstart",
+      "url": "https://docs.sensible.so/docs/quickstart",
+      "content": "Quick start guide for the Sensible API\n\n# Introduction\n\nIn this quickstart, use an example SenseML configuration and example document to get a quick \"hello world\" API response.\n\n* To get started with extracting from your custom documents, see [Getting Started](https://docs.sensible.so/docs/getting-started-ai).\n\n# Extract example document data\n\nTo run an API call and return extracted, structured data from a downloaded example document:\n\n1. Get an account at [sensible.so](https://app.sensible.so/register).\n\n   **NOTE** In the Sensible app, don't rename the example doc type (**layout\\_basics**) or delete the **1\\_extract\\_your\\_first\\_data** config, or this example fails.\n\n2. Copy your API key from your [account page](https://app.sensible.so/account/).\n\n3. Copy the following code example into a plain-text application and replace `*YOUR_API_KEY*` with your API key:\n\n```shell\ncurl -L https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/1_extract_your_first_data.pdf --output 1_extract_your_first_data.pdf && curl --request POST --url \"https://api.sensible.so/v0/extract/layout_basics\" --header \"Authorization: Bearer YOUR_API_KEY\" --header \"Content-Type: application/pdf\" --data-binary \"@1_extract_your_first_data.pdf\"\n\n```\n\n3. Run the code sample in a command prompt. The code downloads an example document (`1_extract_your_first_data.pdf` ) and runs it against an example document type (`layout_basics`). The following excerpt of the API response shows the extracted document text in the `parsed_document` object:\n\n```json\n{\n   \"parsed_document\":{\n      \"your_first_extracted_field\":{\n         \"type\":\"string\",\n         \"value\":\"Welcome to your first document\"\n      }\n   }\n}\n```\n\n# (Optional) See how it works in the Sensible app\n\nTo see this example in the Sensible app:\n\n1. Log into the [Sensible app](https://app.sensible.so/signin/).\n\n2. Navigate to the [first tutorial](https://app.sensible.so/editor/?d=layout_basics&c=1_extract_your_first_data&g=1_extract_your_first_data) config.\n\n3. Visually examine the example document (middle pane), config (left pane), and extracted data (right pane) to better understand the API call you just ran.\n\n# Next\n\n* See the [API reference](https://docs.sensible.so/reference/choosing-an-endpoint) and [example code](https://github.com/sensible-hq/sensible-code-examples)\n* If you're new to APIs, see [API tutorials](https://docs.sensible.so/docs/api-tutorial)\n* To get started with authoring extraction configurations, or configs, for your custom documents, see [Getting Started](https://docs.sensible.so/docs/getting-started-ai)."
+    },
+    {
+      "id": "sensiblehq/senseml-reference-introduction",
+      "title": "SenseML reference introduction",
+      "url": "https://docs.sensible.so/docs/senseml-reference-introduction",
+      "content": "Overview of the SenseML query language\n\nUse the SenseML query language to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents.\n\nThe output of this example config is as follows:\n\n```json\n{\n  \"_driver_name_raw\": {\n    \"type\": \"string\",\n    \"value\": \"Petar Petrov\"\n  },\n  \"policy_period\": {\n    \"value\": \"April 14, 2021 - Oct 14, 2021\",\n    \"type\": \"string\"\n  },\n  \"policy_number\": {\n    \"value\": \"123456789\",\n    \"type\": \"string\"\n  },\n  \"driver_name_last\": {\n    \"value\": \"Petrov\",\n    \"type\": \"string\"\n  }\n}\n```"
+    },
+    {
+      "id": "sensiblehq/field-query-object",
+      "title": "Field query object",
+      "url": "https://docs.sensible.so/docs/field-query-object",
+      "content": "Structure of field queries in SenseML\n\nA field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data.\n\nSimple string field output example:\n```json\n{\n  \"rents_income\": {\n    \"type\": \"string\",\n    \"value\": \"$ 4,200\"\n  }\n}\n```\n\nTable field output example:\n```json\n{\n  \"name_of_output_key\": {\n    \"type\": \"string\",\n    \"value\": \"Below the matching anchor, this is the data to extract. The anchor is a label for this data.\"\n  },\n  \"overview_table\": {\n    \"columns\": [\n      {\n        \"id\": \"attribute\",\n        \"values\": [\n          {\"value\": \"key concepts\", \"type\": \"string\"},\n          {\"value\": \"key method categories\", \"type\": \"string\"}\n        ]\n      },\n      {\n        \"id\": \"description\",\n        \"values\": [\n          {\"value\": \"Fields, anchors, and methods\", \"type\": \"string\"},\n          {\"value\": \"LLM-based, layout-based, and computed\", \"type\": \"string\"}\n        ]\n      }\n    ],\n    \"title\": {\n      \"type\": \"string\",\n      \"value\": \"SenseML overview\"\n    }\n  }\n}\n```"
+    },
+    {
+      "id": "sensiblehq/validate-extractions",
+      "title": "Validating extractions",
+      "url": "https://docs.sensible.so/docs/validate-extractions",
+      "content": "Validate extracted data programmatically\n\nQuality control the data extractions in a document type by writing validations.\n\nExtraction excerpt example:\n```json\n{\n  \"parsed_document\": {\n    \"quote_rate\": {\n      \"source\": \"$800\",\n      \"value\": 800,\n      \"unit\": \"$\",\n      \"type\": \"currency\"\n    },\n    \"quote_duration\": {\n      \"type\": \"number\",\n      \"value\": \"6\"\n    },\n    \"broker.email\": null,\n    \"country\": {\n      \"type\": \"string\",\n      \"value\": \"USA\"\n    },\n    \"zip_code\": {\n      \"type\": \"number\",\n      \"value\": \"12345678901234456\"\n    }\n  }\n}\n```\n\nValidations output:\n```json\n{\n  \"validations\": [{\n    \"description\": \"The zip code is valid for USA or CA\",\n    \"severity\": \"warning\"\n  }, {\n    \"description\": \"Broker's email is in string@string format\",\n    \"severity\": \"skipped\",\n    \"message\": \"Missing prerequisites: broker.email\"\n  }],\n  \"validation_summary\": {\n    \"fields\": 5,\n    \"fields_present\": 4,\n    \"errors\": 0,\n    \"warnings\": 1,\n    \"skipped\": 1\n  }\n}\n```"
+    },
+    {
+      "id": "ref:sensiblehq/choosing-an-endpoint",
+      "title": "Introduction",
+      "url": "https://docs.sensible.so/reference/choosing-an-endpoint",
+      "content": "Welcome to Sensible! Overview of available endpoints for extracting structured data from documents, including synchronous and asynchronous extraction, Excel export, portfolio extraction, and document classification."
+    },
+    {
+      "id": "sensiblehq/examples",
+      "title": "Code examples",
+      "url": "https://docs.sensible.so/docs/examples",
+      "content": "For starter code calling the Sensible API, see the code example repo at https://github.com/sensible-hq/sensible-code-examples."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "question": "What happens when a section's anchor match text appears multiple times within a single section — does `requireStop` fully resolve this, or are there edge cases?",
+  "search_queries": [
+    "section anchor match text appears multiple times requireStop",
+    "sections anchor repeated duplicate match requireStop edge cases"
+  ],
+  "search_results": [
+    {"id": "sensiblehq/sections", "title": "Sections", "url": "https://docs.sensible.so/docs/sections"},
+    {"id": "sensiblehq/anchor", "title": "Anchor object", "url": "https://docs.sensible.so/docs/anchor"},
+    {"id": "sensiblehq/section-nuances", "title": "Section nuances", "url": "https://docs.sensible.so/docs/section-nuances"}
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/sections",
+      "title": "Sections",
+      "url": "https://docs.sensible.so/docs/sections",
+      "content": "Full sections reference page. Key excerpt on requireStop:\n\nrequireStop (Boolean, default: false): If true, each section ends when it matches the Stop parameter, instead of the default behavior of ending at the next starting line specified in the anchor's Match parameter.\nNote: Configure this parameter for horizontal sections when the starting line repeats in each section, to avoid prematurely ending each section.\nYou don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter. For more information, see Multiple anchors in section.\n\nSection nuances reference (from the parameters table inline comment):\nrequireStop: false — 'if true, sections end at the stop match, even if an anchor match precedes the stop match. Configure this to avoid prematurely ending each section if multiple anchor matches occur in a section'"
+    },
+    {
+      "id": "sensiblehq/anchor",
+      "title": "Anchor object",
+      "url": "https://docs.sensible.so/docs/anchor",
+      "content": "Anchor parameters: match (required for layout methods), start (begins search at a line, ignores text before it), end (stops search before a line), includeEnd (boolean, default false). No specific content about repeated anchor matches within sections."
+    },
+    {
+      "id": "sensiblehq/section-nuances",
+      "title": "Section nuances",
+      "url": "https://docs.sensible.so/docs/section-nuances",
+      "content": "Key section on 'Multiple anchors in section':\n\nIgnore multiple anchors: If you want to ignore multiple anchor matches inside the section, use the Require Stop parameter. You don't need to configure this parameter for matches that are on the same horizontal line as the anchor's Match parameter.\n\nMatch on all text: For horizontal sections, you can create a section starting at each newline if you match on all text for the Match parameter. Define a section array with specific text matches for the Start and End parameters, and specify the anchor's Match parameter using the regular expression `.+` which matches any characters. In this case, Sensible creates sections by splitting text into 'rows' at each newline.\n\nSection boundary logic (from Sections section):\n- If there's a required Stop, the next section stops below the next Stop line + Stop Y Offset parameter, and Sensible ignores any intervening anchor matches.\n- If there's no Stop parameter, the current section's range stops above the next anchor's Match + Y Offset parameters.\n- If there's an optional Stop parameter, the current section stops either above the next anchor's Match + Y Offset parameter, or below the next Stop line + Stop Y Offset parameter."
+    }
+  ]
+}

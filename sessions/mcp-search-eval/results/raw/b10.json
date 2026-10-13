@@ -1,0 +1,50 @@
+{
+  "question": "What happens if a field isn't present in a document?",
+  "search_queries": [
+    "field not present in document missing field null",
+    "field extraction fails returns null missing data"
+  ],
+  "search_results": [
+    {
+      "query": "field not present in document missing field null",
+      "results": [
+        {"id": "sensiblehq/fallbacks", "title": "Fallback fields", "url": "https://docs.sensible.so/docs/fallbacks"},
+        {"id": "sensiblehq/field-query-object", "title": "Field query object", "url": "https://docs.sensible.so/docs/field-query-object"}
+      ]
+    },
+    {
+      "query": "field extraction fails returns null missing data",
+      "results": [
+        {"id": "sensiblehq/accuracy-measures", "title": "Accuracy measures", "url": "https://docs.sensible.so/docs/accuracy-measures"},
+        {"id": "sensiblehq/field-query-object", "title": "Field query object", "url": "https://docs.sensible.so/docs/field-query-object"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/fallbacks",
+      "title": "Fallback fields",
+      "url": "https://docs.sensible.so/docs/fallbacks",
+      "content": "Use fallback fields to handle document variations in a document type. If a field fails to extract data, you can specify a backup, or fallback field to extract the same data using a different method. To specify fallbacks between fields, specify consecutive fields that use the same ID.\n\nFallbacks enable you to use a single config to extract data from similar documents whose formatting can vary. For example, say you want to extract a \"total amount\" field that appears in a table in document revision A and in a free-text paragraph in document revision B. You can define two fields in one configuration with the same ID (total_amount), which use the Row method and the Query Group method, respectively.\n\nA field evaluates as \"failed\" and falls back if it returns an empty array, null, or undefined. A field evaluates to \"passed\" and doesn't fall back if it returns an empty string or 0. Fallback fields can be of any kind. For example, you can fall back from a field, to a computed field, to a section group.\n\nLimitations:\n- Fallbacks don't work across nested objects.\n- Fallbacks don't work within a Query Group method.\n\nExample 1: consecutive fields with same ID using different anchors/methods.\nExample 2: LLM prompt fallbacks using anchors to force null returns and trigger fallback."
+    },
+    {
+      "id": "sensiblehq/field-query-object",
+      "title": "Field query object",
+      "url": "https://docs.sensible.so/docs/field-query-object",
+      "content": "A field is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair.\n\nKey parameters include:\n- id (required): Sensible uses the ID as the key in the structured key/value output (parsed_document object). If a field fails and returns null, you can specify a fallback field with the same ID.\n- anchor: For layout-based methods, required — matched text that narrows down the location of the target data. For LLM-based methods, optional — if the matched text is present anywhere in the document, Sensible runs the method on the whole document, otherwise it returns null.\n- method (required): defines how to extract target data.\n- type: the data type to extract.\n- match: first, last, all, allWithNull, mostFrequent — specifies which anchor to use when there are multiple matches."
+    },
+    {
+      "id": "sensiblehq/accuracy-measures",
+      "title": "Accuracy measures",
+      "url": "https://docs.sensible.so/docs/accuracy-measures",
+      "content": "You can measure the accuracy of data that Sensible extracts from a document in the following ways:\n- Logical validations: Write validations in JsonLogic to check that fields meet your conditions (e.g., return errors if a quoted rate is null).\n- OCR confidence scores: Get a score for the quality of text images.\n- Confidence signals: For LLM-extracted data, Sensible asks the LLM to report uncertainties.\n- Extraction coverage: A score measuring how fully an extraction captured all data. It's a percentage comparing non-null, validated fields to total fields returned by a config. For example, a coverage score of 70% with no validation errors means 30% of fields were null."
+    },
+    {
+      "id": "ref:sensiblehq/configuration",
+      "title": "Configuration",
+      "url": "https://docs.sensible.so/reference/configuration",
+      "content": "(no content returned)"
+    }
+  ]
+}

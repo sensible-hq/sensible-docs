@@ -1,0 +1,50 @@
+{
+  "question": "e04: How does the `tiebreaker` comparison operator (`>`, `<`) interact with a `currency` type field — does it compare numeric values or raw source strings?",
+  "searches": [
+    {
+      "query": "tiebreaker comparison operator currency type",
+      "results": [
+        {"id": "sensiblehq/types", "title": "Types", "url": "https://docs.sensible.so/docs/types"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    },
+    {
+      "query": "tiebreaker greater than less than field comparison",
+      "results": [
+        {"id": "sensiblehq/field-order", "title": "Field extraction order", "url": "https://docs.sensible.so/docs/field-order"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    },
+    {
+      "query": "tiebreaker anchor match multiple candidates",
+      "results": [
+        {"id": "sensiblehq/anchor", "title": "Anchor object", "url": "https://docs.sensible.so/docs/anchor"},
+        {"id": "sensiblehq/match-arrays", "title": "Match arrays", "url": "https://docs.sensible.so/docs/match-arrays"}
+      ]
+    },
+    {
+      "query": "tiebreaker method parameter first last",
+      "results": [
+        {"id": "sensiblehq/method", "title": "Method object", "url": "https://docs.sensible.so/docs/method"},
+        {"id": "sensiblehq/types", "title": "Types", "url": "https://docs.sensible.so/docs/types"}
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/method",
+      "url": "https://docs.sensible.so/docs/method",
+      "tiebreaker_excerpt": "comparison: Returns the first or last element, sorted alphanumerically using Unicode values. If you want to compare numeric amounts and ignore non-numbers, then add a numeric type such as type: currency as a top-level parameter to the field."
+    },
+    {
+      "id": "sensiblehq/types",
+      "url": "https://docs.sensible.so/docs/types",
+      "currency_output_excerpt": "{ \"source\": \"3 bil\", \"value\": 3000000000, \"unit\": \"$\", \"type\": \"currency\" }"
+    },
+    {
+      "id": "sensiblehq/field-order",
+      "url": "https://docs.sensible.so/docs/field-order",
+      "note": "No tiebreaker content — covers field extraction ordering only."
+    }
+  ]
+}

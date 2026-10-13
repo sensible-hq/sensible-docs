@@ -1,0 +1,46 @@
+{
+  "question": "How does Sensible OCR behave on a mixed PDF where some pages are digitally generated and others are scanned — do preprocessors apply uniformly?",
+  "search_queries": [
+    "OCR mixed PDF digitally generated scanned pages",
+    "preprocessors apply OCR settings PDF pages"
+  ],
+  "search_results": [
+    {"id": "sensiblehq/ocr", "title": "OCR", "url": "https://docs.sensible.so/docs/ocr"},
+    {"id": "sensiblehq/handwriting", "title": "Extracting handwriting and OCR text", "url": "https://docs.sensible.so/docs/handwriting"},
+    {"id": "sensiblehq/ocr-preprocessor", "title": "OCR preprocessor", "url": "https://docs.sensible.so/docs/ocr-preprocessor"},
+    {"id": "sensiblehq/preprocessors", "title": "Preprocessors", "url": "https://docs.sensible.so/docs/preprocessors"},
+    {"id": "sensiblehq/deskew", "title": "Deskew", "url": "https://docs.sensible.so/docs/deskew"}
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/ocr",
+      "title": "OCR",
+      "url": "https://docs.sensible.so/docs/ocr",
+      "content": "When you extract document data with Sensible, Sensible automatically performs optical character recognition (OCR) on the document for you, except in advanced cases. If the document doesn't require OCR, Sensible automatically extracts embedded text directly from the document to optimize performance.\n\nFor advanced cases, you can configure how Sensible OCRs documents using the following parameters:\n\n- OCR Level parameter (configurable for document types): Use this option to configure the criteria by which Sensible determines if a whole document requires OCR.\n- OCR preprocessor (configurable for configs): Use this option to OCR specified pages or page ranges in a document.\n- OCR Engine parameter (configurable for document types): Use this option to choose your OCR provider, for example, Amazon, Google, or Microsoft.\n\nFor an overview of how Sensible handles OCR for supported file types, see the following steps:\n\n1. Sensible converts several file types to PDFs.\n2. For file types that contain embedded text (for example, digital PDFs), Sensible extracts the text directly. If it completes this step, it skips the following steps.\n3. For file types that lack embedded text, Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:\n   - If the file type is an image (for example, PNG), Sensible runs OCR for the whole document.\n   - (Configurable) If the file is a PDF, Sensible processes the file using heuristics to determine if the whole document needs OCR. Configure this step using the document type's OCR Level parameter and OCR Engine.\n4. (Configurable) After additional intervening steps, Sensible applies your configured preprocessors, including the OCR preprocessor. This preprocessor runs for documents that don't trigger whole-document OCR in a previous step.\n\nNotes:\n- For more information about OCR versus embedded text extraction, see Solving direct text extraction from PDFs.\n- For information about extracting data from non-text images, such as photographs, charts, or illustrations, see the Query Group method's Multimodal Engine parameter."
+    },
+    {
+      "id": "sensiblehq/handwriting",
+      "title": "Extracting handwriting and OCR text",
+      "url": "https://docs.sensible.so/docs/handwriting",
+      "content": "Best practices for OCR and handwriting extraction.\n\nOCR tips: Sensible provides confidence scores for OCR'd text in the extraction when you configure high verbosity, so you know whether the extracted output comes from high- or low-quality text images. For document types that use OCR, write validations to warn you about extractions from low-quality scans.\n\nHandwriting tips:\n- Choosing an OCR engine: Choose Google OCR.\n- Defining regions: Handwriting can occupy an unpredictable region or even overlap other lines. To capture handwriting, Sensible recommends defining a region with a small height and long width that runs through the middle of the area that can contain the handwriting.\n- Correcting for vertical misalignment: Jitter in the vertical positions of handwritten lines can cause Sensible to incorrectly sort lines that a human reader interprets as following left to right. The Sort Lines parameter corrects this problem."
+    },
+    {
+      "id": "sensiblehq/ocr-preprocessor",
+      "title": "OCR preprocessor",
+      "url": "https://docs.sensible.so/docs/ocr-preprocessor",
+      "content": "Use the OCR preprocessor to selectively OCR pages in a document. This preprocessor is useful when a document contains both embedded text and text images. Selectively OCRing the pages containing text images, rather than the entire document, improves extraction performance. Examples of text images include handwriting and scanned text.\n\nIf the whole document is a scan or image file, you don't need to configure this preprocessor. In that case, Sensible OCRs the whole document by default.\n\nParameters:\n- type (required): 'ocr'\n- match (required unless pageLinesLimit specified): Match object or Match array. If specified, Sensible runs this preprocessor solely on the page containing the matched text. To match multiple pages, set matchAll to true.\n- matchAll (boolean): If true, OCRs all pages containing the line specified by the Match parameter.\n- pageLinesLimit (integer): Performs OCR on all pages containing the specified number of embedded text lines or fewer. Use this parameter to OCR pages for which no reliable text anchors exist. Sensible recommends specifying a small number relative to the typical number of page lines in the document type, since pages with a small number of embedded lines more likely contain text images. If specified in combination with a Match parameter, Sensible OCRs all pages that meet any of the match criteria or the number of page lines criteria.\n- pageOffset (number, default 0): The zero-indexed number of the page to OCR, counting from the page number of the text matched by the Match parameter.\n- engine: See OCR engine.\n\nExample config:\n{\n  \"preprocessors\": [\n    { \"type\": \"ocr\", \"match\": { \"type\": \"first\" } },\n    { \"type\": \"ocr\", \"match\": { \"type\": \"first\" }, \"pageOffset\": 3 },\n    { \"type\": \"ocr\", \"match\": \"additional riders\", \"matchAll\": true }\n  ],\n  \"fields\": [\n    {\n      \"id\": \"all_lines_in_doc\",\n      \"method\": { \"id\": \"documentRange\", \"includeAnchor\": true },\n      \"anchor\": { \"match\": { \"type\": \"first\" } }\n    }\n  ]\n}"
+    },
+    {
+      "id": "sensiblehq/preprocessors",
+      "title": "Preprocessors",
+      "url": "https://docs.sensible.so/docs/preprocessors",
+      "content": "Transform documents before extraction. Use the following preprocessors to clean up your documents before extracting structured data. Preprocessors execute in the order you define them in an array.\n\nAvailable preprocessors include: Deskew, Ligature, Linearize, Merge Lines, Multicolumn, NLP, OCR, Page Range, Remove Header, Remove Footer, Remove Lines, Remove Page, Rotate page, Scale, Split Lines.\n\nThe OCR preprocessor: Selectively OCRs pages in documents containing a mix of digitally generated text and text images (such as scanned text). If the whole PDF is a scan, you don't need to configure this preprocessor."
+    },
+    {
+      "id": "sensiblehq/deskew",
+      "title": "Deskew",
+      "url": "https://docs.sensible.so/docs/deskew",
+      "content": "Use this preprocessor to deskew documents in advanced cases where Sensible doesn't automatically correct the alignment of text in documents. ID cards and receipts are documents that can often be skewed, for example as a result of being photographed at an angle instead of straight on.\n\nParameters:\n- type (required): 'deskew'\n- fixedPoints (required): Deskews the text in a skewed document by mapping the positions of three skewed points to their ideal positions in an unskewed document.\n- matchAll (Boolean, default false): If true, deskews all pages containing the lines specified by the Fixed Points parameter.\n- start ('left' or 'right', default 'left'): Specifies whether the Fixed Point is at the upper-left or upper-right corner of the anchor line's boundaries.\n\nNotes on page transformation preprocessors:\n- Deskew: Handles complex page transformations (affine), requires advanced configuration.\n- Rotate Page: Sensible corrects rotation automatically in most cases. If it doesn't, configure the Rotate Page preprocessor.\n- Scale: Use as an easier-to-configure alternative to Deskew if only scale is affected."
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "question_id": "e10",
+  "question": "When two configs in the same document type have overlapping fingerprints and produce the same score, what's the tiebreaker?",
+  "searches": [
+    {
+      "query": "fingerprint tiebreaker overlapping configs same score",
+      "results": [
+        {"id": "sensiblehq/fingerprint-mode", "title": "Fingerprint mode", "url": "https://docs.sensible.so/docs/fingerprint-mode"},
+        {"id": "sensiblehq/fingerprint", "title": "Fingerprint", "url": "https://docs.sensible.so/docs/fingerprint"}
+      ]
+    },
+    {
+      "query": "config selection fingerprint score document type",
+      "results": [
+        {"id": "sensiblehq/fingerprint-mode", "title": "Fingerprint mode", "url": "https://docs.sensible.so/docs/fingerprint-mode"},
+        {"id": "sensiblehq/fingerprint", "title": "Fingerprint", "url": "https://docs.sensible.so/docs/fingerprint"},
+        {"id": "sensiblehq/config-settings", "title": "Config settings", "url": "https://docs.sensible.so/docs/config-settings"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"}
+      ]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/fingerprint-mode",
+      "title": "Fingerprint mode",
+      "url": "https://docs.sensible.so/docs/fingerprint-mode",
+      "content": "Configure fingerprint-based classification\n\nFingerprints test for matching text in a document to determine:\n1. the document's subtype for standalone files\n2. the document's page range in multi-document, or \"portfolio\", files.\n\nThe Fingerprint Mode configuration option applies to scenario 1, not scenario 2. You can configure this option in the Sensible app in the document type settings tab.\n\nStandalone files\nFingerprints improve performance by testing for matching text in a single document before running or skipping a config in a specified document type.\n\nThe Fingerprint Mode configuration option determines the strictness of the tests as follows:\n[table: Normal/Strict mode behavior based on fingerprint pass/fail]\n\nAfter Sensible runs and skips extractions, it returns the extraction that ran with the highest-scoring config. Sensible calculates the score as follows:\nscore = num of non-null fields - penalties for validation errors or warnings\n- validation error penalty = 1 * num fields with validation errors\n- validation warning penalty = 0.5 * num of fields with validation warnings\n\nPortfolio files\nSensible ignores the document type's Fingerprint Mode setting for portfolio files."
+    },
+    {
+      "id": "sensiblehq/fingerprint",
+      "title": "Fingerprint",
+      "url": "https://docs.sensible.so/docs/fingerprint",
+      "content": "Document fingerprinting for classification\n\nFingerprints test for matching text in a document to determine:\n1. the document's subtype, or 'config', for standalone files\n2. a document's page range in multi-document, or 'portfolio', files.\n\n[use case table, standalone vs portfolio]\n\nStandalone documents: A fingerprint consists of an array of tests, where each test is a string, a Match object, or array of Match objects.\n\nA config passes if 50% or more of tests in a config match text in document.\n\nPortfolios: Sensible must find 100% of all matches in all tests to segment a document in a portfolio."
+    },
+    {
+      "id": "sensiblehq/config-settings",
+      "title": "Config settings",
+      "url": "https://docs.sensible.so/docs/config-settings",
+      "content": "SenseML configuration options\n\nA config is a template that defines how to extract data from a set of similar documents. Options: Fingerprint, Verbosity."
+    },
+    {
+      "id": "ref:sensiblehq/configuration",
+      "title": "Configuration",
+      "url": "https://docs.sensible.so/reference/configuration",
+      "content": "(no output returned)"
+    }
+  ]
+}

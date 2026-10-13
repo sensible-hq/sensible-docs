@@ -1,0 +1,22 @@
+{
+  "question_id": "e15",
+  "question": "When a portfolio uses LLM segmentation and a document spans pages that start mid-page, how does Sensible fail — silent drop, error, or partial extraction?",
+  "searches": [
+    {
+      "query": "portfolio LLM segmentation document spans pages mid-page",
+      "results": [{"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"}]
+    },
+    {
+      "query": "portfolio segmentation page split error partial extraction",
+      "results": [{"id": "sensiblehq/portfolio", "title": "Multi-document extractions", "url": "https://docs.sensible.so/docs/portfolio"}]
+    }
+  ],
+  "fetched": [
+    {
+      "id": "sensiblehq/portfolio",
+      "title": "Multi-document extractions",
+      "url": "https://docs.sensible.so/docs/portfolio",
+      "key_excerpt": "Sensible doesn't support segmenting a document that start mid-page in a portfolio. It expects that the first page of each document in a portfolio starts at the top of a page."
+    }
+  ]
+}

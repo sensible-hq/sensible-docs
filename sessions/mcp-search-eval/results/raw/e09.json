@@ -1,0 +1,81 @@
+{
+  "question_id": "e09",
+  "question": "How does `angleFilter` in `removeLines` interact with different OCR engines (e.g., Google vs default) — is angle metadata available for all engines?",
+  "searches": [
+    {
+      "query": "angleFilter removeLines OCR engine",
+      "results": [
+        {"id": "sensiblehq/remove-lines", "title": "Remove lines", "url": "https://docs.sensible.so/docs/remove-lines"},
+        {"id": "sensiblehq/ocr-preprocessor", "title": "OCR preprocessor", "url": "https://docs.sensible.so/docs/ocr-preprocessor"},
+        {"id": "sensiblehq/handwriting", "title": "Extracting handwriting and OCR text", "url": "https://docs.sensible.so/docs/handwriting"}
+      ]
+    },
+    {
+      "query": "removeLines angle metadata Google OCR",
+      "results": [
+        {"id": "sensiblehq/remove-lines", "title": "Remove lines", "url": "https://docs.sensible.so/docs/remove-lines"},
+        {"id": "ref:sensiblehq/configuration", "title": "Configuration", "url": "https://docs.sensible.so/reference/configuration"},
+        {"id": "sensiblehq/handwriting", "title": "Extracting handwriting and OCR text", "url": "https://docs.sensible.so/docs/handwriting"}
+      ]
+    },
+    {
+      "query": "match angleFilter OCR Google angle availability",
+      "results": [
+        {"id": "sensiblehq/ocr", "title": "OCR", "url": "https://docs.sensible.so/docs/ocr"},
+        {"id": "sensiblehq/rotate-page", "title": "Rotate page", "url": "https://docs.sensible.so/docs/rotate-page"}
+      ]
+    },
+    {
+      "query": "match object type parameters isCaseSensitive angleFilter",
+      "results": [
+        {"id": "sensiblehq/match", "title": "Match object", "url": "https://docs.sensible.so/docs/match"}
+      ]
+    },
+    {
+      "query": "OCR engine Google Amazon Microsoft comparison features",
+      "results": [
+        {"id": "sensiblehq/ocr-engine", "title": "OCR engine", "url": "https://docs.sensible.so/docs/ocr-engine"},
+        {"id": "sensiblehq/ocr", "title": "OCR", "url": "https://docs.sensible.so/docs/ocr"},
+        {"id": "sensiblehq/handwriting", "title": "Extracting handwriting and OCR text", "url": "https://docs.sensible.so/docs/handwriting"}
+      ]
+    }
+  ],
+  "fetched_pages": [
+    {
+      "id": "sensiblehq/remove-lines",
+      "title": "Remove lines",
+      "url": "https://docs.sensible.so/docs/remove-lines",
+      "content": "Removes lines that match the specified text from all pages in the document. For example, use this preprocessor to remove watermarks. Parameters: type (required): removeLines; match (required): Match object or array of Match objects. Example shows using angleFilter to remove a rotated diagonal watermark (30-60 degrees). The angleFilter is a global parameter on Match objects."
+    },
+    {
+      "id": "sensiblehq/ocr-preprocessor",
+      "title": "OCR preprocessor",
+      "url": "https://docs.sensible.so/docs/ocr-preprocessor",
+      "content": "Use the OCR preprocessor to selectively OCR pages in a document. Parameters include type, match, matchAll, pageLinesLimit, pageOffset, engine. References OCR engine page for engine parameter."
+    },
+    {
+      "id": "sensiblehq/handwriting",
+      "title": "Extracting handwriting and OCR text",
+      "url": "https://docs.sensible.so/docs/handwriting",
+      "content": "Tips for handwriting: Choose Google OCR. Handwriting can occupy unpredictable regions. Use region method. Correct for vertical misalignment with Sort Lines parameter."
+    },
+    {
+      "id": "sensiblehq/match",
+      "title": "Match object",
+      "url": "https://docs.sensible.so/docs/match",
+      "content": "Global parameters available to most Match types include: minimumHeight, maximumHeight, reverse, xRangeFilter, angleFilter. angleFilter: Filters lines by their degree of rotation. Useful for targeting or excluding rotated text such as watermarks. Contains minAngle and maxAngle (both inclusive). Positive values indicate counter-clockwise rotation. Negative values indicate clockwise rotation. Zero indicates horizontal text. Not available as top-level parameter for Boolean matches."
+    },
+    {
+      "id": "sensiblehq/ocr-engine",
+      "title": "OCR engine",
+      "url": "https://docs.sensible.so/docs/ocr-engine",
+      "content": "Enums: Amazon (default for OCR preprocessor and document types), Microsoft (suited to typewritten docs, up to 50 MB), Lazarus (faster than Microsoft, similar output), Google (faster than Microsoft, suited to handwriting and docs 5 pages or fewer; does NOT merge words into lines automatically — use Merge Lines preprocessor). Portfolio extractions always use Microsoft OCR regardless of settings."
+    },
+    {
+      "id": "sensiblehq/ocr",
+      "title": "OCR",
+      "url": "https://docs.sensible.so/docs/ocr",
+      "content": "Overview of OCR options: OCR Level parameter (document types), OCR preprocessor (configs), OCR Engine parameter (document types). Sensible auto-OCRs documents in most cases. Steps: converts file types to PDF, extracts embedded text directly if possible, otherwise applies OCR."
+    }
+  ]
+}
