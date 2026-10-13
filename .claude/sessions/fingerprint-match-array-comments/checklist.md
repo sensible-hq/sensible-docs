@@ -6,14 +6,33 @@ Worktree: /home/franc/GitHub/sensible-docs-fingerprint-match-array-comments (bra
 PR: https://github.com/sensible-hq/sensible-docs/pull/727
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume abbb26a9-022f-426d-b62a-97bc541c74e3`
 
-## RESUME HERE (paused 2026-09-29)
+## RESUME HERE (updated 2026-10-13)
 
-State when paused:
-- Branch is in sync with origin at Frances's commit 85ed43dfd. Frances is mid-rewrite of fingerprint.md: new structure (Standalone / Portfolios / Fingerprint scoring / Notes > Tips) with inline TODO and LEFT OFF markers (listed below).
-- Backend facts are verified against the `sensible` repo @ 242e382fd (see "Backend findings" below). Use them as ground truth over the older doc-based reasoning in this file.
-- Pending, not yet in the file: Claude's corrected "nested vs flat array" summary comment (in the last conversation turn). Its key correction: a **flat** array does NOT require separate lines; elements are searched independently and can match the same line. Frances hasn't said where it goes. It likely fills `/* flat array: TODO LEFT OFF */` (~line 219) and/or `/* further nested array behavior LEFT OFF */` (~line 256).
-- **Disagreement resolved (2026-10-13):** any failing match fails the whole portfolio fingerprint. The fallbacks tip is replaced with Boolean `any` guidance.
-- Next steps: (1) work through the inline TODOs below, (2) reorganize the Notes/Tips, (3) re-verify every claim against the Backend findings.
+State:
+- PR #727 is **mergeable**. v0 was merged into the branch (cf1faecf2). Conflicts resolved in favor of the branch rewrite. v0's new validator link (`doc:color#validate-fingerprints`) was carried into the "test and verify fingerprints" tip.
+- Backend facts are verified against `sensible` @ 242e382fd (see "Backend findings"). Exception: portfolio scoring. Frances verified that any failing match fails the whole portfolio fingerprint (see RESOLVED section). That wins over the code reading.
+- Done since the pause: published nested/flat comment wording placed in PREFER; fallbacks tip replaced with "Alternate wordings" (Boolean `any`); live v0 parse fixes; October 2026 changelog draft created.
+- **Do edits on the branch, not live in ReadMe.** Live edits caused the last conflict.
+
+Next steps, in order:
+1. Inline TODOs (current list below, with line numbers as of cf1faecf2)
+2. Reorganize the Notes/Tips "grab-bag"
+3. Mirror key tips as inline comments in the examples
+4. Re-verify every claim against Backend findings and the RESOLVED portfolio rule
+
+### Current inline TODOs (as of cf1faecf2)
+- [ ] L24: use-case table, standalone row: "TODO: make this look better, write..."
+- [ ] L25: use-case table, portfolios row: "TODO fill in abbreviated syntax ex..."
+- [ ] L41: `tests` row, LEFT OFF: scoring side-note (by match, except chained arrays). The cell still says "100% of tests must pass" for portfolios. Reconcile with the RESOLVED rule (any failing match fails the whole fingerprint).
+- [ ] L56: standalone example `[[ // TODO: talk single vs flat array...`. Uses `//`, and the example doesn't parse until it's fixed.
+- [ ] L86: switch the standalone example to a fingerprint that's also used in the portfolio.md example, to compare standalone vs portfolio behavior. Candidates: 1040_2021, or the portfolio_bank_paystub_tax.pdf configs.
+- [ ] L88: screenshot of how the standalone example evaluates (validator)
+- [ ] L90: design the examples to test every assertion in the nested/flat "match arrays" comment
+- [ ] L140: add how the portfolio.md example evaluates
+- [ ] L146: `## Fingerprint scoring`: fill in, written so it could become a standalone concept topic
+- [ ] L184: "Prefer nested match arrays..." is not portfolio-specific (backend: nesting changes order in both modes, and scoring in standalone). Split it per the TODO. Typo: "doesn'tneed".
+- [ ] L227: `/* flat array: TODO LEFT OFF */` (second AVOID example)
+- [ ] L280: validator screenshots of the different behaviors
 
 ## To do: inline TODOs in fingerprint.md (as of 85ed43dfd)
 
