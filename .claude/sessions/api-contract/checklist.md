@@ -16,7 +16,12 @@ backend (checked 2026-10-12), and fix confirmed drift.
 - [x] Re-run drift check: only 2 known false positives remain (GET /documents/{id}
       classificationSummary and configuration are correctly documented)
 
+- [x] x-review-note on every change, citing the backend PRs behind each behavior
+- [x] Antagonistic layer review (API Gateway, router, translateError, engine/services, validator, serialization)
+- [x] Live field tests: scripts/test/probe_endpoints/contract/test_pr744_field_claims.py (skip without SENSIBLE_TEST_API_KEY)
+
 ## Open
+- [ ] Run the live field tests with SENSIBLE_TEST_API_KEY and record results
 - [ ] PR review + merge
 - [ ] Decide whether drift tooling lives in this public repo (see sensitivity discussion)
 - [ ] Review-level findings not fixed in this PR: generate_upload_url missing ocr_engine,
