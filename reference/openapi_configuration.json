@@ -319,7 +319,7 @@
       "get": {
         "operationId": "get-configuration",
         "summary": "Get configuration",
-        "description": "Get a configuration as stringified JSON.",
+        "description": "Get a configuration as stringified JSON. Sensible returns the configuration's current draft, or its latest version if it has no draft. That isn't necessarily the version published to an environment. To get the version published to an environment, find the version in the `versions` array whose `environments` lists that environment, then use [Get configuration by version](ref:get-configuration-by-version).",
         "tags": [
           "Configuration"
         ],
@@ -347,7 +347,8 @@
             "$ref": "#/components/responses/500"
           },
           "x-review-note": "Removed 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). This operation's handler declares no content types, so it can't return 415. Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487), and this handler is `{ func }` only (src/api/doc-type/configuration-handlers.ts:646). Other layers checked: API Gateway is a REST API with Lambda proxy integration and no request validators, so its own errors are 403, 413, 429, 502, and 504, never 415. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked."
-        }
+        },
+        "x-review-note": "Added which version this returns. Backend: getOneConfiguration returns versions[0] (src/api/doc-type/configuration-handlers.ts:288-294, comment: \"either we load the draft version explicitly or fall back to the latest version\"), and versionSort puts the draft first, then the rest newest first (lines 595-603). Current code: sensible-hq/sensible@181758ce5. Live check 2026-10-13 on the test account: this endpoint returned an 18:59 draft while a newer version, published to production at 19:05, existed. Described on this operation rather than on the shared ConfigurationResponse schema, because Get configuration by version also uses that schema and returns the requested version. version_id isn't mentioned because it's deliberately undocumented (see its x-internal-note)."
       },
       "put": {
         "operationId": "update-configuration",
