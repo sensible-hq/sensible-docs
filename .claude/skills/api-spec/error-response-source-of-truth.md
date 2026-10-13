@@ -83,8 +83,8 @@ Every error constant and both core response functions live here. Check this file
 
 1. Path params → accumulates into `accErrors[]`
 2. Query params → accumulates into `accErrors[]`
-3. Content-Type required? → throws `NO_CONTENT_TYPE_RESPONSE` (plain text, stops here)
-4. Content-Type in allowed list? → throws 415 plain text (stops here)
+3. Content-Type required? → throws `NO_CONTENT_TYPE_RESPONSE` (plain text, stops here). **Only runs if the route's handler declares `contentTypes`** (see step 4).
+4. Content-Type in allowed list? → throws 415 plain text (stops here). **Only runs if the route's handler declares `contentTypes`**: steps 3 and 4 are both inside `if (validationConfig.contentTypes)` (`validation/index.ts:782-794`), and the router passes `contentTypes: handler.contentTypes` (`router.ts:487`). See [When to list 415 and 404](#when-to-list-415-and-404).
 5. Body vs Zod schema → accumulates into `accErrors[]`
 6. `checkAuthentication()` → throws 401/403 constants (plain text, stops here)
 7. If any `accErrors`: throws `errorResponse(accErrors, context)` → **JSON 400**
@@ -92,6 +92,31 @@ Every error constant and both core response functions live here. Check this file
 **Key implication**: A path-validation 400 always produces JSON (step 1 accumulates then step 7 fires), not plain text. The spec previously documented these as plain text — that was wrong.
 
 `checkAuthentication()` (lines 654–730): throws only plain-text constants; never calls `errorResponse()`.
+
+---
+
+## When to list 415 and 404
+
+Verified 2026-10-13 against `sensible@181758ce5` (line numbers below are pinned to that commit). The specs carry short `x-internal-note`s on `components.responses.415`, `components.responses.404`, and `POST /extract_text_from_golden` that point here. Don't re-add the codes these rules exclude.
+
+### 415: only where the route declares `contentTypes`
+
+- The backend's only non-test 415 is `validation/index.ts:788`, inside `if (validationConfig.contentTypes)` (lines 782-794). A route whose handler has no `contentTypes` skips the check entirely, whatever Content-Type the client sends.
+- Every current GET and DELETE handler is declared as `{ func }` with no `contentTypes`, so **no GET or DELETE operation lists 415**. POST and PUT operations that declare `contentTypes` (extract, extract_from_url, generate_upload_url, classify, `POST /document_types`, `PUT /processors/email/{name}`, and so on) do list it.
+- To check an operation: open its route definition in the handler file (for example `src/api/doc-type/configuration-handlers.ts:632-670`) and look for `contentTypes` on that method.
+- API Gateway can return 415 by itself for a request body with an unsupported Content-Encoding. AWS: "If the specified coding isn't supported or the supplied payload isn't compressed with specified coding, API Gateway returns the 415 Unsupported Media Type error response." ([source](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-make-request-with-compressed-payload.html)) A request without a body can't trigger this, so it doesn't justify listing 415 on GET or DELETE.
+
+### 404: only where the handler returns `NOT_FOUND` for a missing resource
+
+- `NOT_FOUND` (`common.ts`) is the only 404. List 404 on an operation only if its handler path returns or throws it for a missing resource.
+- The router's own `NOT_FOUND` (`router.ts:218-220`) fires only when infra deploys a route that the router has no handler for (for example `POST /processors/email` today). It's thrown before the router's `try`/`translateError` block, and `enterRequestContext` has `try`/`finally` with no `catch` (`src/context/index.ts:176-190`), so it escapes as an unhandled Lambda error rather than a 404 response. It's never a reason to list 404.
+- Known gap, not yet in the spec: `GET /documents/{id}` returns `NOT_FOUND` for an unknown ID (`extractions/handler.ts:557`), and `generate_excel` / `generate_csv` throw it for a missing or incomplete extraction (`generate-file/makeFileRoutes.ts:62, 77, 81, 93`).
+
+### `POST /extract_text_from_golden/{type}`: 400, never 404
+
+- An unknown document type or golden returns a **plain-text 400**: `INVALID_DOCUMENT_TYPE_RESPONSE` ("Specified document type does not exist") or `INVALID_GOLDEN_NAME_RESPONSE` ("Specified golden does not exist"), thrown by `getDocTypeAndGoldenAndPdf` (`extract-from-golden/handler.ts:823-843`). This has been true since the route was added (commit `f93336b1e`, 2021-09-29). The plain-text shape for an unknown golden was also confirmed live in sensible-docs#654.
+- A golden whose PDF was never uploaded returns a **JSON** 400 (`errorResponse(PDF_HAS_NOT_BEEN_UPLOADED, { name, upload_url })`, `extract-from-golden/common.ts:518-529`). A golden whose PDF is missing from storage returns 500 (`UNKNOWN_ERROR_RESPONSE`).
+- No code path on this route returns 404.
 
 ---
 
