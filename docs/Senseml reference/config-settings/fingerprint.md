@@ -161,9 +161,9 @@ For information about configuring fingerprint strictness for standalone document
 
 Use the following tips when you define fingerprints:
 
-#### fallbacks
+#### Alternate wordings
 
-* If you want to specify alternate, or fallback, matches for the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and an `any` match that contains wording A and wording B.
+* If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and an `any` match that contains wording A and wording B.
 
 #### Turn off preprocessors
 
