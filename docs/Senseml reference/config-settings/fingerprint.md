@@ -50,7 +50,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
   "fingerprint": {
     /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
     "tests": [
-      /* array of tests; for standalone documents, the config passes if 50% or more of the tests pass */
+      /* array of tests; for standalone documents, the config passes if Sensible finds 50% or more of the matches */
       /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
          if array elements are out of order or not all elements are present, it fails */
       [[ // TODO: talk single vs flat array and make this a better example (see config library?)
@@ -170,11 +170,11 @@ Each row is a separate extraction with the following setup:
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in a test succeeds on every page the test should identify.
 
-## Fingerprint scoring
+# Fingerprint scoring
 
 Sensible scores fingerprints differently for standalone documents and for portfolios.
 
-### Standalone documents
+## Scoring for standalone documents
 
 Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters. The config passes if Sensible finds 50% or more of the matches. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
 
@@ -188,7 +188,7 @@ How many matches a fingerprint contains depends on its syntax:
 
 For example, the `senior_1040_2021` config in the Sensible configuration library has a fingerprint with two tests, and each test has a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the config passes. If each test instead had a nested array, the fingerprint would contain two matches, and the test with the missing element would count as zero matches. If Sensible finds the other test's elements in order, one match out of two still passes.
 
-### Portfolios
+## Scoring for portfolios
 
 Sensible scores each test on each page of the portfolio. A test passes on a page only if Sensible finds all the matches in the test on that page. A nested array also requires its elements to be in order, on separate lines.
 
@@ -202,23 +202,23 @@ For information about configuring fingerprint strictness for standalone document
 
 
 
-## Notes
+# Notes
 
 
 
-### Tips for authoring fingerprints
+## Tips for authoring fingerprints
 
 Use the following tips when you define fingerprints:
 
-#### Alternate wordings
+### Alternate wordings
 
 * If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and an `any` match that contains wording A and wording B.
 
-#### Turn off preprocessors
+### Turn off preprocessors
 
 * Sensible runs `fingerprints` before any `preprocessors`. Because of this behavior, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as Sensible recognizes them when Sensible runs the fingerprint tests.
 
-#### Standalone-specific tips
+### Standalone-specific tips
 
 The following tips apply to fingerprints for  standalone documents.
 
@@ -226,7 +226,7 @@ The following tips apply to fingerprints for  standalone documents.
 
 In the Sensible app, you can verify and test fingerprints for stand-alone documents. If you write the fingerprints with portfolio syntax, Sensible automatically converts them. To test a config's fingerprint against multiple reference documents at once, see [Visual troubleshooting in the SenseML editor](doc:color#validate-fingerprints).
 
-#### Portfolio-specific tips
+### Portfolio-specific tips
 
 The following tips apply to fingerprints for  portfolio documents.
 
@@ -300,19 +300,11 @@ Instead, write the following:
     {
       "page": "every",
       "match": [[
-        /* A nested array ("match": [[ ]]) in a fingerprint enforces stricter criteria than a flat array. In a nested array, or "chained matches",
-           each element matches a separate line, and Sensible must find all the lines in the document in the same order as in the array.
-           In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order
-           in the document, and more than one element can match the same line.
-           For either array syntax, criteria are stricter in portfolios. In a portfolio, Sensible must find all the elements in the array
-           on a single page. In a standalone document, Sensible searches across multiple pages for the array's elements.
-           Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
-           For example, if Sensible finds 3 out of 5 elements in the array, it scores the array as 0 out of 1 matches.
-           Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
-           it scores the array as 3 out of 5 matches.
-           In a portfolio, if any match in a test fails on the page the test should identify, the whole test fails on that page,
-           and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match in a test succeeds
-           on every page the test should identify. */
+        /* A nested array ("match": [[ ]]) is a match array: each element matches a separate line,
+           and Sensible must find the lines in the same order as in the array.
+           In a flat array ("match": [ ]), Sensible searches for each element independently, in any order.
+           In a portfolio, Sensible must find all the elements on the page that the test identifies.
+           Array syntax also changes how Sensible scores the fingerprint. See Fingerprint scoring. */
           {
             "text": "NARS",
             "type": "includes",
