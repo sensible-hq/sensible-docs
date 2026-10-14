@@ -69,7 +69,7 @@ jobs:
 
       # Secrets come from env vars only. Don't write a .env here: its values would override these.
       # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
-      # --no-auto-update keeps the pinned version. Doc Detective otherwise self-updates on startup.
+      # .doc-detective.json sets autoUpdate: false; --no-auto-update repeats it, so only the pinned version runs.
       # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
       - name: Run tests
         id: tests

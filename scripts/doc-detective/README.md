@@ -16,6 +16,8 @@ Both are written as HTML comments in the page, so readers never see them. Today 
    pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
    ```
 
+   `.doc-detective.json` turns off two Doc Detective defaults: **`autoUpdate`** (it would otherwise download and run a newer version from npm on startup, so only the pinned version runs) and **`telemetry`** (it would otherwise send anonymous usage data, versions and pass/fail counts, to PostHog). Doc Detective is AGPL-3.0; it's used only as an unmodified, separately run test tool, not distributed or hosted.
+
 2. Put the keys in `.env` at the repo root (it's git-ignored):
 
    ```

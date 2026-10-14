@@ -2,5 +2,9 @@
   "loadVariables": ".env",
   "detectSteps": false,
   "exitOnFail": true,
-  "output": "scripts/doc-detective/output"
+  "output": "scripts/doc-detective/output",
+  "autoUpdate": false,
+  "telemetry": {
+    "send": false
+  }
 }
