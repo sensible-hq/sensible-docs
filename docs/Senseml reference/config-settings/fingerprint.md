@@ -145,17 +145,25 @@ TODO: add to that example how it evalutes?
 
 If any match in a test fails on the page the test should identify, the whole test fails on that page. Sensible still segments the portfolio, but the page ranges can be wrong. The effect depends on the test's page type.
 
-The examples in the following table use the [portfolio_bank_paystub_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8. Each row is a separate extraction with the following setup:
+The following examples use the [portfolio_bank_paystub_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) portfolio, which contains the following documents:
+
+| pages | document                                 |
+| ----- | ---------------------------------------- |
+| 1–2   | 2020 Form 1040 tax return                |
+| 3–7   | Wells Fargo bank statement               |
+| 8     | pay stub                                 |
+
+Each row is a separate extraction with the following setup:
 
 - One document type that contains one config. The config's fingerprint includes the failing match shown in the row.
 - The portfolio extraction specifies only that document type, so no other document type's tests start or end documents.
 
-| page type of the failing test | document | failing match | effect | example |
-| ----------------------------- | -------- | ------------- | ------ | ------- |
-| `first` | tax return, pages 1–2 | `{"type": "endsWith", "text": "2021"}` | Sensible doesn't start the document on that page. If no other test starts the document, Sensible doesn't find it. | The tax return is for 2020, so the `endsWith` match fails on page 1. Sensible doesn't return a tax return. |
-| `last` | tax return, pages 1–2 | `{"type": "includes", "text": "Preparer's name"}` | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | The tax return's last page doesn't contain the text in the failing match, so the `last` test fails on page 2. Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
-| `every` | bank statement, pages 3–7 | `{"type": "includes", "text": "Wells Fargo"}` | Sensible ends the document on the previous page, which cuts the document short or splits it. | Only the first page of the statement includes the bank's name, so the match fails on page 4. Sensible returns the bank statement as page 3 only. |
-| `any` | bank statement, pages 3–7 | `{"type": "includes", "text": "Transaction history"}` | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | The statement's transaction history starts on its second page, so the match fails on page 3. Sensible returns the bank statement as pages 4–8, including the pay stub. |
+| page type of the failing test | document | failing match | effect | result |
+| ----------------------------- | -------- | ------------- | ------ | ------ |
+| `first` | tax return, pages 1–2 | `{"type": "endsWith", "text": "2021"}`<br/><br/>The tax return is for 2020, so the match fails on page 1. | Sensible doesn't start the document on that page. If no other test starts the document, Sensible doesn't find it. | Sensible doesn't return a tax return. |
+| `last` | tax return, pages 1–2 | `{"type": "includes", "text": "Preparer's name"}`<br/><br/>The tax return doesn't contain this text, so the match fails on page 2. | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
+| `every` | bank statement, pages 3–7 | `{"type": "includes", "text": "Wells Fargo"}`<br/><br/>Only the first page of the statement includes the bank's name, so the match fails on page 4. | Sensible ends the document on the previous page, which cuts the document short or splits it. | Sensible returns the bank statement as page 3 only. |
+| `any` | bank statement, pages 3–7 | `{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | Sensible returns the bank statement as pages 4–8, including the pay stub. |
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match succeeds on the pages it's meant to identify.
 
