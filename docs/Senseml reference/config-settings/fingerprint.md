@@ -172,8 +172,8 @@ Instead, write the following:
    Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
    it scores the array as 3 out of 5 matches.
    In a portfolio, if any match in a test fails on the page the test should identify, the whole test fails on that page,
-   and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match succeeds on the pages
-   it's meant to identify. */
+   and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match in a test succeeds
+   on every page the test should identify. */
         "match": [[
           {
             "text": "NARS",
