@@ -44,12 +44,12 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
   "fingerprint": {
     /* optional. Sensible skips this config if the fingerprint fails, improving performance when you have multiple configs */
     "tests": [
-      /* array of tests; in standalone syntax, each element counts as one match.
-         The config passes if Sensible finds 50% or more of the matches, here 2 out of 3 */
-      /* match 1 is a chained match, so it counts as one match. It succeeds only if Sensible finds
+      /* array of tests. in standalone syntax, each element counts as one match.
+         The config passes if Sensible finds 50% or more of the matches. In this example, there are 3 elements in the tests array, so if 2 out of 3 passes, the config passes */
+      /* The first element is a chained match ([]), so it counts as one match. The chained match succeeds only if Sensible finds
          all its Match objects in order, on separate lines. The lines can be on different pages.
          If a Match object is missing or out of order, the chained match fails */
-      [ /* TODO: make this a better example (see config library?) */
+      [ 
         {
           "type": "includes",
           "text": "wells fargo"
@@ -287,13 +287,13 @@ The following tips apply to fingerprints for  portfolio documents.
 Instead, use one of the following alternatives:
 
 ```json
-/* ALTERNATIVE ONE: less strict */
+/* ALTERNATIVE ONE for portfolios: less strict */
 "fingerprint": {
   "tests": [
     {
       "page": "every",
       "match": [
-        /* flat array: TODO EXPLAIN THAT DEPENDING ON THE documents you're dealing w/ maybe you don't care about ordering of lines in page */
+        /* flat array: In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order on the page, and more than one element can match the same line. They must all occur one the same page. Each element in the unordered array counts as one match. For more inforamtion see Fingerprint scoring */
           {
             "text": "NARS",
             "type": "includes",
@@ -313,7 +313,7 @@ Instead, use one of the following alternatives:
 or, for stricter syntax:
 
 ```json
-/* ALTERNATIVE TWO: stricter */
+/* ALTERNATIVE TWO for portfolios: stricter */
 "fingerprint": {
   "tests": [
     /* one test that contains a chained match array, so the array succeeds only if the lines occur on the same page in the order specified by the array */
@@ -322,9 +322,7 @@ or, for stricter syntax:
       "match": [[
         /* In a test's match parameter, a nested array ("match": [[ ]]) is a chained match: each element matches a separate line,
            and Sensible must find the lines in the same order as in the array.
-           In a flat array ("match": [ ]), Sensible searches for each element independently, in any order.
-           In a portfolio, Sensible must find all the elements on the page that the test identifies.
-           Chained match syntax also changes how Sensible scores the fingerprint. See Fingerprint scoring. */
+           Chained match syntax also changes how Sensible scores the fingerprint. For mroe information see Fingerprint scoring. */
           {
             "text": "NARS",
             "type": "includes",
