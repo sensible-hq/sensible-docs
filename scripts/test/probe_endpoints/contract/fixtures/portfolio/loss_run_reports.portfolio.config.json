@@ -1,0 +1,116 @@
+{
+  "fields": [
+    {
+      "id": "total_unprocessed_claims",
+      "type": "number",
+      "anchor": "total unprocessed claims",
+      "method": {
+        "id": "row"
+      }
+    },
+    {
+      "id": "monthly_total_unprocessed_claims",
+      "match": "all",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "unprocessed claims:",
+          "isCaseSensitive": true
+        },
+        "end": {
+          "text": "total claims",
+          "type": "startsWith"
+        }
+      },
+      "method": {
+        "id": "row",
+        "position": "right",
+        "includeAnchor": true
+      }
+    },
+    {
+      "id": "unprocessed_sept_oct_claims_sections",
+      "type": "sections",
+      "range": {
+        "anchor": {
+          "start": {
+            "text": "September",
+            "type": "startsWith",
+            "isCaseSensitive": true
+          },
+          "match": {
+            "type": "includes",
+            "text": "claim number"
+          },
+          "end": {
+            "type": "startsWith",
+            "text": "November",
+            "isCaseSensitive": true
+          }
+        },
+        "stop": {
+          "type": "includes",
+          "text": "Date of claim",
+          "isCaseSensitive": true
+        }
+      },
+      "fields": [
+        {
+          "id": "claim_number",
+          "type": "number",
+          "anchor": {
+            "match": {
+              "type": "startsWith",
+              "text": "Claim number:",
+              "isCaseSensitive": true
+            }
+          },
+          "method": {
+            "id": "label",
+            "position": "right"
+          }
+        },
+        {
+          "id": "phone_number",
+          "type": "phoneNumber",
+          "anchor": {
+            "match": {
+              "type": "includes",
+              "text": "Phone number",
+              "isCaseSensitive": true
+            }
+          },
+          "method": {
+            "id": "row",
+            "position": "right"
+          }
+        },
+        {
+          "id": "_everything_in_this_section",
+          "method": {
+            "id": "documentRange",
+            "includeAnchor": true
+          },
+          "anchor": {
+            "match": {
+              "type": "first"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "any unprocessed claim",
+            "type": "startsWith"
+          }
+        ]
+      }
+    ]
+  }
+}

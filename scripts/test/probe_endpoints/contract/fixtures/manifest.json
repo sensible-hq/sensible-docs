@@ -1,0 +1,43 @@
+{
+  "description": "Test-account fixtures for the contract tests. seed.py creates or updates everything here through the configuration API. Paths are relative to this file, except `pdf`, which is relative to the repo root. Config and reference names are `portfolio` (the test account's names); portfolio.md calls the configs `anyco` and `acme`.",
+  "document_types": [
+    {
+      "doctype": "portfolio/auto_insurance_quotes.doctype.json",
+      "source": "docs/document extraction/portfolio.md (fingerprint example)",
+      "configs": [
+        {
+          "name": "portfolio",
+          "file": "portfolio/auto_insurance_quotes.portfolio.config.json",
+          "publish_as": "production",
+          "source": "docs/document extraction/getting-started.md config plus the portfolio.md fingerprint"
+        }
+      ],
+      "references": [
+        {
+          "name": "portfolio",
+          "pdf": "assets/pdfs/portfolio.pdf",
+          "configuration": "portfolio"
+        }
+      ]
+    },
+    {
+      "doctype": "portfolio/loss_run_reports.doctype.json",
+      "source": "docs/document extraction/portfolio.md (fingerprint example), plus a coverage review trigger for the ReviewStatuses test",
+      "configs": [
+        {
+          "name": "portfolio",
+          "file": "portfolio/loss_run_reports.portfolio.config.json",
+          "publish_as": "production",
+          "source": "docs/Senseml reference/sections/sections-example-loss-run.md config plus the portfolio.md fingerprint"
+        }
+      ],
+      "references": [
+        {
+          "name": "portfolio",
+          "pdf": "assets/pdfs/portfolio.pdf",
+          "configuration": "portfolio"
+        }
+      ]
+    }
+  ]
+}

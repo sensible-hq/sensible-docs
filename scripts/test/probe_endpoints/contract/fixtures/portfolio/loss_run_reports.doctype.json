@@ -1,0 +1,9 @@
+{
+  "name": "loss_run_reports",
+  "schema": {
+    "fingerprint_mode": "fallback_to_all",
+    "review_triggers": {
+      "coverage_threshold": 1
+    }
+  }
+}

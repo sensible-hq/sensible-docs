@@ -1,0 +1,69 @@
+{
+  "fields": [
+    {
+      "method": {
+        "id": "queryGroup",
+        "searchBySummarization": "page",
+        "queries": [
+          {
+            "id": "bodily_injury_premium",
+            "description": "bodily injury premium",
+            "type": "currency"
+          },
+          {
+            "id": "customer_service_phone",
+            "description": "insurer's customer service phone number"
+          }
+        ]
+      }
+    },
+    {
+      "id": "policy_period",
+      "anchor": "policy period",
+      "method": {
+        "id": "label",
+        "position": "right"
+      }
+    },
+    {
+      "id": "comprehensive_premium",
+      "anchor": "comprehensive",
+      "type": "currency",
+      "method": {
+        "id": "row",
+        "position": "right",
+        "tiebreaker": "second"
+      }
+    },
+    {
+      "id": "policy_number",
+      "type": "string",
+      "anchor": {
+        "match": {
+          "text": "policy number",
+          "type": "startsWith"
+        }
+      },
+      "method": {
+        "id": "box"
+      }
+    }
+  ],
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "outline",
+            "type": "startsWith"
+          },
+          {
+            "text": "anycocarinsurance.com",
+            "type": "startsWith"
+          }
+        ]
+      }
+    ]
+  }
+}
