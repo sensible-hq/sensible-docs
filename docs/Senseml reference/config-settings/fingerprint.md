@@ -197,9 +197,9 @@ As a best practice, each element ("match") in the `match` parameter of each `tes
 
 In detail, Sensible scores each test on each page of the portfolio. A test classifies a given page as a page type (first, last, etc) only if Sensible finds all the elements in the test's `match` parameter on that page. 
 
-For example, say a config for a 1040 form uses portfolio fingerprint syntax. Its fingerprint has two tests, each containing 3 Match objects:
+For example, say a config for a 1040 form uses portfolio fingerprint syntax and runs in a portfolio extraction. Its fingerprint has two tests, each containing 3 Match objects:
 
-- in scenario A, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document in any order, the score is 5 of 6 matches.
+- in scenario A, each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document in any order, the score is 5 of 6 matches.
 - in scenario B `match` parameter instead had a [chained match](doc:fingerprint#chained-matches), the fingerprint contains two matches, and the chained match with the missing Match object counts as zero matches, so the score is 1 of 2 matches.  
 
 In either scenario, an incomplete score can result in inaccurate segmentation. Sensible recommends you design the fingerprint to score either 6/6 matches or 2/2 matches, respectively.
@@ -210,15 +210,15 @@ For more information, see [Troubleshooting portfolio fingerprints](doc:fingerpri
 
 ###  Chained matches
 
-A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. Write chained matches using different syntax depending on whether they're in standalone or portfolio syntax:
+A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. Write chained matches using different syntax depending on whether they're in standalone or portfolio syntax.
 
-The following table shows syntax for chained matches and other matches, and how Sensible scores matches, including chained matches:
+The following table shows syntax for chained matches and other matches, and how Sensible scores matches:
 
-| element ('match')                                            | standalone syntax                                            | portfolio syntax                                             | (portfolio) counts as                        | (standalone) counts as |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- | ---------------------- |
-| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | same                                                         | same                                                         | one match                                    | one match              |
-| chained match                                                | specify an array of Match objects as an element in the `tests` array: `"tests": [],...`. | nested array in a test's `match` parameter: `"match": [[ ]]`. A chained match also requires its Match objects to be on the same page. | one match                                    | one match              |
-| unordered array ('collection of matches')                    | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ ]`. Though unordered, it still requires all the Match objects to be on the same page, though they don't have to in separate lines | one match for each Match object in the array | N/A                    |
+| element ('match')                                            | standalone syntax                                            | portfolio syntax                                             | (standalone) counts as | (portfolio) counts as                        |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------- | -------------------------------------------- |
+| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | same                                                         | same                                                         | one mathc              | one match                                    |
+| chained match                                                | specify an array of Match objects as an element in the `tests` array: `"tests": [],...`. | nested array in a test's `match` parameter: `"match": [[ ]]`. A chained match also requires its Match objects to be on the same page. | one match              | one match                                    |
+| unordered array ('collection of matches')                    | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ ]`. Though unordered, it still requires all the Match objects to be on the same page, though they don't have to in separate lines | N/A                    | one match for each Match object in the array |
 
 
 
