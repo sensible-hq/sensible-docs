@@ -42,17 +42,19 @@ You use different syntaxes to define fingerprints depending on your use case. If
 
 ## Examples
 
-The following fingerprint tests a vendor-specific config, `wells_fargo_checking` in a document type, `bank statements`. This fingerprint tests that a document is a Wells Fargo checking account statement by using three tests: an array of Match objects, a Match object, and a string.
+The following fingerprint tests a vendor-specific config, `wells_fargo_checking` in a document type, `bank statements`. This fingerprint tests that a document is a Wells Fargo checking account statement by using three matches: a chained match, a Match object, and a string.
 
 ```json
 /* Sensible uses JSON5 to support in-line comments*/
 {
   "fingerprint": {
-    /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
+    /* optional. Sensible skips this config if the fingerprint fails, improving performance when you have multiple configs */
     "tests": [
-      /* array of tests; for standalone documents, the config passes if Sensible finds 50% or more of the matches */
-      /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
-         if array elements are out of order or not all elements are present, it fails */
+      /* array of tests; in standalone syntax, each element counts as one match.
+         The config passes if Sensible finds 50% or more of the matches, here 2 out of 3 */
+      /* match 1 is a chained match, so it counts as one match. It succeeds only if Sensible finds
+         all its Match objects in order, on separate lines. The lines can be on different pages.
+         If a Match object is missing or out of order, the chained match fails */
       [ /* TODO: make this a better example (see config library?) */
         {
           "type": "includes",
@@ -67,13 +69,13 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
           "text": "page 3"
         }
       ],
-      /* test 2 passes if Sensible finds a line that starts with "account" anywhere in the document */
+      /* match 2 succeeds if Sensible finds a line that starts with "account" anywhere in the document */
       {
         "type": "startsWith",
         "text": "account"
       },
-      /* test 3 passes if Sensible finds a line that includes "checking" anywhere in the document.
-         Sensible expands string tests to case-insensitive includes matches */
+      /* match 3 succeeds if Sensible finds a line that includes "checking" anywhere in the document.
+         Sensible expands a string to a case-insensitive includes match */
       "checking"
     ]
   },
@@ -81,7 +83,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
 }
 ```
 
-The config preferentially runs if the fingerprint tests pass.
+The config preferentially runs if the fingerprint passes.
 
 TODO: change this to a fingerprint that ALSO gets used in the portfolio.md example just as a standalone document instead, so we can compare behavior standalone vs portfolio.
 
