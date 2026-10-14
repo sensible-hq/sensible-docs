@@ -19,7 +19,8 @@ Depends on: PR #737 (docs-test tooling), PR #744 (API contract tests and design)
   - [ ] API contract tests (#744): same exercise against Doc Detective's `httpRequest` + `openApi` (#744 already has `design/doc-detective-contract-tests.md`; check it covers migration)
   - [ ] Parameter-table schema checks (#749: `scripts/param-tables/`): document how they'd run under Doc Detective (`runShell` per page or a custom markup pattern), and keep the planned `<!-- param tests {…} -->` marker in Doc Detective's statement shape
   - [ ] One migration guide per format, in `design/`, kept up to date when the format changes (the skill's "change a test format" step should require it)
+- [ ] Licensing rule (2026-10-14, compliance): avoid AGPL. Doc Detective only as an unmodified, separately run CLI (never modify, vendor, redistribute or host; autoUpdate and telemetry off). No agent-tools or its hosted MCP. The skill must check the license of any tool it proposes. See CONCEPT.md "Licensing rule"
 - [ ] Write `.claude/skills/add-doc-tests/SKILL.md`
 - [ ] Add the hook step to create-new-doc, update-existing-doc, update-docs-from-pr, create-concept-doc, create-docs-example, api-spec (optional: blog-how-to-parse-x)
 - [ ] Check json5-commenter and revise-doc-style preserve test markup
-- [ ] Try agent-tools' LSP server; copy its post-edit "tests may need updating" hook
+- [ ] Re-implement (don't install: agent-tools is AGPL) a post-edit "tests may need updating" hook

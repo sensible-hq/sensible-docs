@@ -38,7 +38,7 @@ Sources: Doc Detective's docs (`docs.doc-detective.com`, indexed by `/docs/llms.
   - show a **preview diff** before injecting tests into a page;
   - use a **fix loop capped at 3 tries**, after which the test is marked "needs manual review" (agent-tools generate, doc-testing and fix references).
 - **AI-judged checks:** tests are ranked deterministic > grounded probabilistic > ungrounded, and **CI gates use only deterministic tests**. For an AI judge: structured output, temperature 0, confidence zones (auto-pass ≥ 90%, human review 31–89%, auto-fail ≤ 30%). "AI should report what it observed, not what it expected."
-- **Hook:** agent-tools has a PostToolUse hook (`post-edit-warn-inline-tests`) that warns, after any edit to a page with inline tests, that the tests "may need updating". Worth copying for this repo.
+- **Hook:** agent-tools has a PostToolUse hook (`post-edit-warn-inline-tests`) that warns, after any edit to a page with inline tests, that the tests "may need updating". Worth re-implementing for this repo (the idea, not its code: agent-tools is AGPL).
 
 **Where its guidance doesn't fit us:**
 - **Its testability scoring skips reference material:** reference tables score 15%, which falls in "skip", and its first scan ignores API specifications. For Sensible, **parameter tables and the API reference are high-value claims**, so this skill needs its own rubric for them (below).
@@ -46,7 +46,7 @@ Sources: Doc Detective's docs (`docs.doc-detective.com`, indexed by `/docs/llms.
 - **The CLI exits 0 on failure** unless you pass `--exit-on-fail`. `run.sh` already handles this.
 - **Nothing on cost budgets or changed-files-only runs.** We decide both ourselves.
 
-**Use agent-tools directly, or write our own skill?** Write our own, and borrow its patterns. Its generator targets generic procedures, skips reference material, and doesn't know our code-test markup, the LLM judge, envelopes or the test account. Worth trying: **its LSP server** (schema diagnostics inside inline tests while editing) and **its post-edit hook**.
+**Use agent-tools directly, or write our own skill?** Write our own, and borrow its patterns. Its generator targets generic procedures, skips reference material, and doesn't know our code-test markup, the LLM judge, envelopes or the test account. Don't install it (AGPL; see the licensing rule). Re-implement the ideas worth having, such as the post-edit warning.
 
 ---
 
@@ -194,6 +194,21 @@ Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don'
 
 ---
 
+## Licensing rule (2026-10-14)
+
+Compliance flagged Doc Detective's license, AGPL-3.0, as viral. The rule for this skill and everything it builds on:
+
+- **Avoid AGPL software.** The one exception is Doc Detective itself, and only as an **unmodified CLI run as a separate program**: installed from npm at a pinned version, run locally or in CI. **Never modify, fork, vendor, copy code from, bundle, redistribute or host it.** `sensible-docs` is public, so committing Doc Detective's code here would count as redistribution.
+- **Keep `autoUpdate: false` and `telemetry.send: false`** in every `.doc-detective.json` (done on #737), so only the pinned version runs and no usage data leaves.
+- **Don't adopt agent-tools** (also AGPL-3.0), including its LSP and hooks, or its hosted MCP server, without compliance sign-off. Where this concept says "borrow its patterns", that means re-implementing the *ideas* (a post-edit warning, a capped fix loop), not copying its code. *This replaces the earlier "try its LSP server" next step.*
+- **Check the license of any new tool or dependency before adding it.** Prefer MIT, BSD, Apache-2.0, and flag GPL, AGPL or SSPL. Audit 2026-10-14:
+  - the test tooling's Python dependencies are permissive (`certifi` is MPL-2.0, a file-level copyleft);
+  - Spectral, oasdiff and Prism are Apache-2.0;
+  - Schemathesis and ts-json-schema-generator are MIT.
+- **Custom test formats** stay Doc Detective-compatible (see the checklist), written from its *documented syntax*, never by copying its code.
+
+---
+
 ## Open questions
 
 1. **Where tests live:** inline, as today. Doc Detective recommends inline for tests kept close to the content, and standalone spec files only for large suites, noting they make it "harder to maintain strict parallelism with documentation". Revisit if a page's tests grow long.
@@ -207,7 +222,7 @@ Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don'
 ## Next steps
 
 - [x] Fold in the Doc Detective best-practices research (2026-10-13)
-- [ ] Try agent-tools' LSP server and copy its post-edit "tests may need updating" hook
+- [ ] Re-implement (don't install: agent-tools is AGPL) a post-edit "tests may need updating" hook
 - [ ] Merge or settle #737 (tooling) and #744 (API tests), which this skill depends on
 - [x] Prototype the parameter-table schema check (`scripts/param-tables/`, 2026-10-14): `row.md` passes; first full run found 6 docs problems on 5 pages
 - [ ] Decide whether to fix the 6 parameter-table problems, in a separate docs PR
