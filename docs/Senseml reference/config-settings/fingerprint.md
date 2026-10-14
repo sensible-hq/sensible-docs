@@ -1,13 +1,13 @@
 ---
 title: Fingerprint
-excerpt: Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document
- portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types) 
+excerpt: >-
+  Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types)
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document
- portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types) 
+  description: >-
+    Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types)
   robots: index
 next:
   description: ''
