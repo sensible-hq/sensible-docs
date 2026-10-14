@@ -523,3 +523,11 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - [x] Per Frances, replaced the `last` row's failing match with `includes "Form 1040-SR"` (absent from every page of the PDF). Rerun `11c0f301-8983-4ce0-bcfa-0ad6215b64d4` (https://app.sensible.so/extraction?e=11c0f301-8983-4ce0-bcfa-0ad6215b64d4), config version `_VMCVAyK…` (production): pages 1–8, the same failure. The apostrophe tip is optional, not pursued.
 
 - [x] Per Frances, `every` row now uses `includes "Transaction history"` ("Wells Fargo" is a text image, so not a clear example). Rerun `f621c1c2-b504-4643-ab37-101c8ab02b2c` (https://app.sensible.so/extraction?e=f621c1c2-b504-4643-ab37-101c8ab02b2c), version `nWcCmywH…`: pages 4–7 (the first page is left out; the pay stub's every_failed ends it). Effect text now covers both the left-out page and the mid-document split. The split was verified earlier by run 6444973d (`Page [1245] of 7`: pages 3–4 and 6–7).
+
+## Done 2026-10-14: test fixtures committed
+
+`scripts/test/probe_endpoints/contract/fixtures/fingerprint/` holds:
+- `manifest.json`: same shape as #744's `fixtures/manifest.json`. A separate file, to avoid a conflict with #744.
+- `fp_demo_*.doctype.json` and `fp_demo_*.<config>.config.json`: exported from the test account's **production** versions (the ones behind the table).
+- `expected.json`: the PDF, its contents, the request, and for each case the expected `documents` (zero-indexed) plus the run that verified it.
+- [ ] When #744 merges: fold `fingerprint/manifest.json` into `fixtures/manifest.json` (or teach seed.py to read both). Add a claims test (like `test_pr748_*`) that runs each `expected.json` case.

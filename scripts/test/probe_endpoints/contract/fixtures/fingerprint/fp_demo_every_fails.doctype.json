@@ -1,0 +1,6 @@
+{
+  "name": "fp_demo_every_fails",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

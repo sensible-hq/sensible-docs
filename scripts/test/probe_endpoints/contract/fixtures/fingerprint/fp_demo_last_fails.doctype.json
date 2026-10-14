@@ -1,0 +1,6 @@
+{
+  "name": "fp_demo_last_fails",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

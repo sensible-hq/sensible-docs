@@ -1,0 +1,6 @@
+{
+  "name": "fp_demo_any_alternate",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

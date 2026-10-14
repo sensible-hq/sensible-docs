@@ -1,0 +1,74 @@
+{
+  "description": "Expected portfolio segmentation for each fixture. Run a fingerprint-mode portfolio extraction of `pdf` that requests ONLY the listed document type, and compare `documents` (zero-indexed startPage/endPage). `verified_run` is the test-account extraction that produced the result on 2026-10-14 (review: https://app.sensible.so/extraction?e=<id>).",
+  "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+  "pdf_contents": {
+    "0-1": "tax return for 2020 (Form 1040)",
+    "2-6": "Wells Fargo bank statement",
+    "7": "pay stub"
+  },
+  "request": {
+    "segment_documents_with": "fingerprints",
+    "environment": "production"
+  },
+  "cases": [
+    {
+      "document_type": "fp_demo_first_fails",
+      "failing_test_page_type": "first",
+      "document": "tax return, pages 1-2",
+      "expected_documents": [],
+      "verified_run": "3340f5b6-0947-48b2-8d19-cc3a428e5cc5"
+    },
+    {
+      "document_type": "fp_demo_last_fails",
+      "failing_test_page_type": "last",
+      "document": "tax return, pages 1-2",
+      "expected_documents": [
+        {
+          "configuration": "last_fails",
+          "startPage": 0,
+          "endPage": 7
+        }
+      ],
+      "verified_run": "11c0f301-8983-4ce0-bcfa-0ad6215b64d4"
+    },
+    {
+      "document_type": "fp_demo_every_fails",
+      "failing_test_page_type": "every",
+      "document": "bank statement, pages 3-7",
+      "expected_documents": [
+        {
+          "configuration": "every_fails",
+          "startPage": 3,
+          "endPage": 6
+        }
+      ],
+      "verified_run": "f621c1c2-b504-4643-ab37-101c8ab02b2c"
+    },
+    {
+      "document_type": "fp_demo_any_fails",
+      "failing_test_page_type": "any",
+      "document": "bank statement, pages 3-7",
+      "expected_documents": [
+        {
+          "configuration": "any_fails",
+          "startPage": 3,
+          "endPage": 7
+        }
+      ],
+      "verified_run": "d68045b1-0e30-4271-9719-08370f345d04"
+    },
+    {
+      "document_type": "fp_demo_any_alternate",
+      "failing_test_page_type": "last (any Boolean match)",
+      "document": "tax return, pages 1-2",
+      "expected_documents": [
+        {
+          "configuration": "any_alternate",
+          "startPage": 0,
+          "endPage": 1
+        }
+      ],
+      "verified_run": "bdf09121-9e59-4b92-ae8e-29087978f724"
+    }
+  ]
+}

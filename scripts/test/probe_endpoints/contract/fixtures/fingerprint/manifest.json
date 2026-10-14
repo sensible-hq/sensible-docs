@@ -1,0 +1,60 @@
+{
+  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table and 'Alternate wordings' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py); kept in their own manifest until #744 merges, then fold these entries into it. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation.",
+  "document_types": [
+    {
+      "doctype": "fp_demo_first_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "first_fails",
+          "file": "fp_demo_first_fails.first_fails.config.json",
+          "publish_as": "production"
+        }
+      ]
+    },
+    {
+      "doctype": "fp_demo_last_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "last_fails",
+          "file": "fp_demo_last_fails.last_fails.config.json",
+          "publish_as": "production"
+        }
+      ]
+    },
+    {
+      "doctype": "fp_demo_every_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "every_fails",
+          "file": "fp_demo_every_fails.every_fails.config.json",
+          "publish_as": "production"
+        }
+      ]
+    },
+    {
+      "doctype": "fp_demo_any_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "any_fails",
+          "file": "fp_demo_any_fails.any_fails.config.json",
+          "publish_as": "production"
+        }
+      ]
+    },
+    {
+      "doctype": "fp_demo_any_alternate.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Alternate wordings)",
+      "configs": [
+        {
+          "name": "any_alternate",
+          "file": "fp_demo_any_alternate.any_alternate.config.json",
+          "publish_as": "production"
+        }
+      ]
+    }
+  ]
+}
