@@ -568,3 +568,10 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 
 - [ ] Improve the `## Fingerprint example` in portfolio.md (around line 207): better inline comments, and maybe a more complex example. Frances noted it uses the `any` page type. The current v0 and branch versions use `"page": "first"` for both configs (lines 229, 261), so check which example she meant.
   - Ideas: use portfolio_bank_paystub_tax.pdf (the same file as the LLM example) so the two methods can be compared. Use `first` + `last` tests with chained matches. Reuse the verified behaviors from the troubleshooting table. Link from the LLM example to it as the deterministic alternative (see the earlier "link portfolio.md" item).
+
+## Done 2026-10-14: portfolio.md fingerprint example comments
+
+- Frances updated the example: auto quotes `first` test is now a chained match `[[anycocarinsurance.com, outline of quoted]]`; loss run is a flat array. The `any` Boolean comment was already gone.
+- Claude fixed the syntax (a missing comma, trailing commas) and expanded the comments using fingerprint.md's wording: the chained match definition (scored as one match, in order, on separate lines, same page), and the flat array (independent, any order, can share a line).
+- Verified on portfolio.pdf (test account, doc types `fp_pmd_auto`, `fp_pmd_loss`): run https://app.sensible.so/extraction?e=6372783d-0850-4c88-a3df-7208cf1021c1 returns auto p0, auto p1, loss p2. So the chained order holds on both quotes.
+- [ ] Optional: add `fp_pmd_auto` / `fp_pmd_loss` to `fixtures/fingerprint_portfolio/`.
