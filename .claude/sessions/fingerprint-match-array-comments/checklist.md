@@ -512,3 +512,10 @@ The demo configs were updated so each row's failing match is something a reader 
 
 Note: GET configuration still returned the older every_fails text after the PUT, but the run's p2–2 result only fits the new config. Versions were confirmed via /versions (new version labeled production).
 - [x] Table now has a "failing match" column. The `every` example changed from "split" to "cut short" to match the real result.
+
+
+### Correction 2026-10-14: why `Preparer's name` fails
+
+The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `Preparer’s name` with a curly apostrophe (U+2019), and the configs use a straight `'`. The earlier pdftotext check also used a straight apostrophe, so it wrongly reported the text as absent. The table row now explains the apostrophe mismatch.
+- The senior 1040-SR `preparer's name` failure (validator 5/6, test 2) likely has the same cause. Unverified: that sample is a scanned image, and its OCR text wasn't checked.
+- [ ] Consider a tip: use a regex with `.` for apostrophes (for example, `preparer.s name`), or a match without the apostrophe, so that curly and straight apostrophes both match.
