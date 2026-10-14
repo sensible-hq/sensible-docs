@@ -30,9 +30,9 @@ See the following table for more information:
 
 ## Parameters
 
-| key     | value                                                        | description |
-| ------- | ------------------------------------------------------------ | ----------- |
-| `tests` | array, where each element is a string, a [Match](doc:match) object, or a 'chained match' (array of Match objects) |             |
+| key     | value                                                        | description                                                  |
+| ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `tests` | array, where each element is a string, a [Match](doc:match) object, or a 'chained match' (array of Match objects) | Sensible uses matching text TODO better term? to preferentially run configs in a document type. |
 
 ## Examples
 
@@ -90,7 +90,7 @@ The following table shows parameters for each item in the `tests` array for  por
 
 | key                  | value                                                        | description for portfolios                                   |
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| match (**required**) | a string, a [Match object](doc:match), an array of unordered Match objects, or a [chained match](doc:fingerprint#fingerprint-scoring) | Specifies the text to match. Sensible must find all the elements ("matches") in the Match parameter on the same page. |
+| match (**required**) | a string, a [Match object](doc:match), an array of unordered Match objects, or a [chained match](doc:fingerprint#fingerprint-scoring) | Specifies the text to match. Sensible uses matches to segment documents' page ranges in portfolio files. |
 | offset               | integer                                                      | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds that match on the zero-indexed page 5 of a portfolio:<br/>- specifying `"offset": -1` starts the document segment on page 4 of the portfolio.<br/>- specifying `"offset": 2` starts the document segment on page 7 of the portfolio. |
 | page                 | `first`, `last`, `every`, `any`                              | Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. Use `first` to detect consecutive document segments of the same document type in a portfolio. If you specify `first` you must pair it with another test type such as `"page": "every"` or `"page": "last"`. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type, you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. Avoid specifying an `any` page test unless other page types fail to segment the portfolio.<br/>**Notes:** <br/>- For an example see TODO link to example below?? |
 
@@ -169,7 +169,7 @@ You use different syntaxes to define fingerprints depending on your use case. If
 -  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
 -  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the `match` parameter.
 
-## Fingerprint strictness
+## Fingerprint strictness in standalone documents
 
 For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
 
