@@ -147,12 +147,12 @@ If any match in a test fails on the page the test should identify, the whole tes
 
 The examples in the following table use the [portfolio_bank_paystub_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8:
 
-| page type of the failing test | effect                                                       | example                                                      |
-| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `first`                       | Sensible doesn't start a document on that page. If no other test starts the document, Sensible doesn't find it. | The `first` test for the tax return fails on page 1. Sensible doesn't return the tax return. |
-| `last`                        | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | The `last` test for the tax return fails on page 2. Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
-| `every`                       | Sensible ends the document on the previous page, so the document is cut short or split. | The `every` test for the bank statement fails on page 5. Sensible returns two bank statements, pages 3–4 and pages 6–7. |
-| `any`                         | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | The `any` test for the bank statement fails on page 3 and passes on page 4. Sensible returns the bank statement as pages 4–8, including the pay stub. |
+| document | page type of the failing test | effect | example |
+| -------- | ----------------------------- | ------ | ------- |
+| tax return, pages 1–2 | `first` | Sensible doesn't start the document on that page. If no other test starts the document, Sensible doesn't find it. | The tax return config's `first` test fails on page 1. Sensible doesn't return a tax return. |
+| tax return, pages 1–2 | `last` | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | The tax return config's `last` test fails on page 2. Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
+| bank statement, pages 3–7 | `every` | Sensible ends the document on the previous page, which cuts the document short or splits it. | The bank statement config's `every` test fails on page 5. Sensible returns two bank statements, pages 3–4 and pages 6–7. |
+| bank statement, pages 3–7 | `any` | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | The bank statement config's `any` test fails on page 3 and passes on page 4. Sensible returns the bank statement as pages 4–8, including the pay stub. |
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match succeeds on the pages it's meant to identify.
 
