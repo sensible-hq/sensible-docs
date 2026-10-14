@@ -32,3 +32,4 @@ backend (checked 2026-10-12), and fix confirmed drift.
 - [ ] Review-level findings not fixed in this PR: generate_upload_url missing ocr_engine,
       ocr_every_page, force_malware_scan; undocumented query params withMetadata,
       include_invalid, next, batch_id, extraction_id, environment
+- [ ] Licensing rule (2026-10-14, compliance flagged Doc Detective's AGPL-3.0): if the Doc Detective variant (`design/doc-detective-contract-tests.md`) is built, use Doc Detective only as an unmodified CLI run as a separate program; never modify, vendor, copy code from, bundle, redistribute or host it (this repo is public). Set `autoUpdate: false` and `telemetry.send: false` in its config, and scrub `SENSIBLE_TEST_API_KEY` from its results (it records the resolved `Authorization` header). Avoid other AGPL software (agent-tools, its hosted MCP). Check licenses before adding tools (current deps pytest, jsonschema: MIT). See PR #744 comment from 2026-10-14
