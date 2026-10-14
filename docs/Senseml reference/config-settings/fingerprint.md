@@ -145,7 +145,7 @@ TODO: add to that example how it evalutes?
 
 If any match in a test fails on the page the test should identify, the whole test fails on that page. Sensible still segments the portfolio, but the page ranges can be wrong. The effect depends on the test's page type.
 
-The following examples use an example portfolio that contains the following documents:
+The following examples use a portfolio with three documents:
 
 | pages | document                                 |
 | ----- | ---------------------------------------- |
