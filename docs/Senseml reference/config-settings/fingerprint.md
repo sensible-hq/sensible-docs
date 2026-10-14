@@ -19,16 +19,10 @@ Fingerprints test for matching text in a document to determine:
 
 See the following table for more information:
 
-| use case                                                     | description                                                  | related concepts                                             | Syntax                                                       |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | **Fallbacks:** <br/>Fingerprints let you fall back between configs. To fall back between fields *inside* a config, see [Fallback fields](doc:fallbacks). <br/><br/> **Classification**:<br/>Fingerprints let you determine the *subtype* of a standalone document. To determine the type of a standalone document, see [Classifying documents by type](doc:classify). | `fingerprint:`<br/>`tests: [array of strings, Match objects]`</br> TODO: make this look better, write in JSON syntax, |
-| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). | Use LLMs as an alternative to fingerprints to segment [portfolios](doc:portfolio). | TODO fill in abbreviated syntax example                      |
-
-
-You use different syntaxes to define fingerprints depending on your use case. If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter syntax (portfolio syntax) rather than relying on Sensible's automatic conversions between the two syntaxes.  Sensible automatically converts between the two as follows:
-
--  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
--  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the `match` parameter.
+| use case                                                     | description                                                  | related concepts                                             |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| [standalone documents](doc:fingerprint#standalone-documents) | Improve performance by testing for matching text in a document before running or skipping a "config," or subtype, in a specified document type. By skipping configs that fail a fingerprint, you can save processing time. This is relevant if a config contains computationally expensive operations like LLM-based methods, selective OCR, table recognition, or box recognition methods. | **Fallbacks:** <br/>Fingerprints let you fall back between configs. To fall back between fields *inside* a config, see [Fallback fields](doc:fallbacks). <br/><br/> **Classification**:<br/>Fingerprints let you determine the *subtype* of a standalone document. To determine the type of a standalone document, see [Classifying documents by type](doc:classify). |
+| [portfolios](doc:fingerprint#portfolios)                     | A portfolio contains multiple documents combined into one file, such as an invoice, a contract, and a tax form. Sensible uses fingerprints to segment a portfolio into documents. Fingerprints test for matching text that characterizes first, last, or other pages for documents in the portfolio. For more information, see [Multi-document extraction](doc:portfolio). | Use LLMs as an alternative to fingerprints to segment [portfolios](doc:portfolio). |
 
 
 
@@ -172,41 +166,66 @@ Each row is a separate extraction with the following setup:
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in a test succeeds on every page the test should identify.
 
-# Fingerprint scoring
-
-Sensible scores fingerprints differently for standalone documents and for portfolios.
-
-A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. How you write a chained match depends on the syntax:
-
-- In standalone syntax, specify an array of Match objects as an element in the `tests` array: `[ ]`.
-- In portfolio syntax, specify a nested array in a test's `match` parameter: `"match": [[ ]]`.
-
-## Scoring for standalone documents
-
-Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters. The config passes if Sensible finds 50% or more of the matches. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
-
-In standalone syntax, Sensible counts each element in the `tests` array as one match. If the config uses portfolio syntax, the count depends on each test's `match` parameter instead:
-
-| syntax | counts as |
-| ------ | --------- |
-| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | one match |
-| a chained match: an array of Match objects as an element in the `tests` array, `[ ]` | one match |
-| portfolio syntax: an array of Match objects in a test's `match` parameter, `"match": [ ]` | one match for each Match object in the array |
-| portfolio syntax: a chained match in a test's `match` parameter, `"match": [[ ]]` | one match |
-
-For example, the `senior_1040_2021` config in the Sensible configuration library uses portfolio syntax. Its fingerprint has two tests, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the config passes. If each `match` parameter instead had a chained match, the fingerprint would contain two matches, and the chained match with the missing Match object would count as zero matches. If Sensible finds the other chained match, one match out of two still passes.
-
-## Scoring for portfolios
-
-Sensible scores each test on each page of the portfolio. A test passes on a page only if Sensible finds all the matches in the test on that page. A chained match also requires its Match objects to be in order, on separate lines.
-
-When a test passes on a page, Sensible labels the page with the test's page type, for example `first` or `last`, and uses the labels to find where each document starts and ends. There's no 50% threshold, and the Fingerprint Mode setting doesn't apply. If a match fails on a page that its test should identify, Sensible can segment the portfolio incorrectly. For examples, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
 
+# Concepts
+
+## Fingerprint syntax and conversion
+
+You use different syntaxes to define fingerprints depending on your use case. If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter portfolio syntax.  Sensible automatically converts between the two as follows:
+
+-  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
+-  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the `match` parameter.
 
 ## Fingerprint strictness
 
 For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
+
+## Fingerprint scoring
+
+Sensible scores fingerprints differently for standalone documents and for portfolios.
+
+**Standalone documents**
+
+50% or more of the elements ("matches") in the `tests` array  must succeed.
+
+Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters if specified.  If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
+
+**Portfolios**
+
+As a best practice, each element ("match") in the `match` array of each `test` in the fingerprint must succeed.
+
+In detail, Sensible scores each test on each page of the portfolio. A test classafies a given page as a page type (first, last, etc) only if Sensible finds all the elements in the test's `match` array on that page. 
+
+For example, say a config for a 1040 form uses portfolio fingerprint syntax. Its fingerprint has two tests, each containing 3 Match objects:
+
+- in scenario A, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the score is 5 of 6 matches.
+- in scenario B `match` parameter instead had a chained match, the fingerprint would contain two matches, and the chained match with the missing Match object counts as zero matches, so the score is 1 of 2 matches.  In either case, this incomplete score can result in inaccurate segmentation; the goal in eitheris 6/6 matches or 2/2 matches.
+
+For more information, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
+
+
+
+###  Chained matches
+
+
+
+A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. How you write a chained match depends on the syntax:
+
+- In standalone syntax, specify an array of Match objects as an element in the `tests` array: `[ ]`.
+- In portfolio syntax, specify a nested array in a test's `match` parameter: `"match": [[ ]]`. A chained match also requires its Match objects to be on the *same* page.
+
+
+
+In standalone syntax, Sensible counts each element in the `tests` array as one match. If the config uses portfolio syntax, the count depends on each test's `match` parameter instead:
+
+| standalone syntax                                            | portfolio syntax                                             | (portfolio) counts as                        | (standalone) counts as |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- | ---------------------- |
+| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | one match                                    | one match              |
+| a chained match (`"tests": [],...`)                          | a chained match (`"match": [[ ]]`)                           | one match                                    | one match              |
+| N/A, arrays are ordered ("chained")                          | *unordered* array of Match objects in a test's `match` parameter, `"match": [ ]` | one match for each Match object in the array | N/A                    |
+
+
 
 
 
@@ -220,17 +239,17 @@ Use the following tips when you define fingerprints:
 
 ### Alternate wordings
 
-* If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and an `any` match that contains wording A and wording B.
+If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and a match that contains wording A and wording B as follows: TODO INCLUDE THE MATCH SYNTAX .
 
 ### Turn off preprocessors
 
-* Sensible runs `fingerprints` before any `preprocessors`. Because of this behavior, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as Sensible recognizes them when Sensible runs the fingerprint tests.
+Sensible runs `fingerprints` before any `preprocessors`. Because of this behavior, make sure to comment out any `preprocessors` before writing `fingerprints` so that the document in the editor displays the lines of text exactly as Sensible recognizes them when Sensible runs the fingerprint tests.
 
 ### Standalone-specific tips
 
 The following tips apply to fingerprints for  standalone documents.
 
-**test and verify fingerprints**
+**Test and verify fingerprints**
 
 In the Sensible app, you can verify and test fingerprints for stand-alone documents. If you write the fingerprints with portfolio syntax, Sensible automatically converts them. To test a config's fingerprint against multiple reference documents at once, see [Visual troubleshooting in the SenseML editor](doc:color#validate-fingerprints).
 
@@ -238,7 +257,7 @@ In the Sensible app, you can verify and test fingerprints for stand-alone docume
 
 The following tips apply to fingerprints for  portfolio documents.
 
-**Prefer nested match arrays for stricter syntax TODO: this doesn'tneed to be portfolio-specific right?? still true for standalone...? or break into two: nested match arrays, and separately, combine page tests into arrays? for portfolios**
+**Prefer match arrays to single-match tests**
 
 * Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
 
@@ -272,16 +291,16 @@ The following tips apply to fingerprints for  portfolio documents.
 }
 ```
 
-also avoid:
+Instead, use one of the following alternatives:
 
 ```json
-/* AVOID THIS SYNTAX */
+/* ALTERNATIVE ONE: less strict */
 "fingerprint": {
   "tests": [
     {
       "page": "every",
       "match": [
-        /* flat array: TODO LEFT OFF */
+        /* flat array: TODO EXPLAIN THAT DEPENDING ON THE documents you're dealing w/ maybe you don't care about ordering of lines in page */
           {
             "text": "NARS",
             "type": "includes",
@@ -301,10 +320,10 @@ also avoid:
 Instead, write the following:
 
 ```json
-/* PREFER THIS SYNTAX */
+/* ALTERNATIVE TWO: stricter */
 "fingerprint": {
   "tests": [
-    /* one test that contains a match array, so the test passes only if the lines occur in the document in the order specified by the array */
+    /* one test that contains a match array, so the array succeeds only if the lines occur in the document in the order specified by the array */
     {
       "page": "every",
       "match": [[
