@@ -276,7 +276,18 @@ Proposal:
 - [ ] Portfolio sections: keep test-level pass/fail ("a test passes on a page if Sensible finds all its matches on that page"), because page types attach to tests.
 - [ ] Sweep fingerprint.md, fingerprint-mode.md:32 ("50% or more of tests"), json5-comments-reference.md:19, and the example comments for "test passes/fails" wording, and apply the rule above.
 
-## RESOLVED (2026-10-13): is there a test-level pass/fail in portfolios?
+## RESOLVED AGAIN (2026-10-14): tests pass/fail independently per page (verified by test run)
+
+**Superseded the 2026-10-13 resolution.** Fingerprint-mode portfolio runs in the test account (doc type `1040s`, all 7 library configs):
+- Test 1, `37c0c9a3-8f26-405e-8b27-baf3e4f968e2`: portfolio_bank_paystub_tax.pdf returns `1040_2020`, pages 0–1. Correct.
+- Test 2, `3d614620-626d-4222-8973-b220844b7a46`: 9-page file (senior 1040-SR pp. 0–2, Wells Fargo pp. 3–7, pay stub p. 8) returns `senior_1040_2021`, **pages 0–8**. The `first` test opened the document. The `last` test had a failing match (`preparer's name`, which also fails in the validator) and never closed it, so the document absorbed the rest of the file.
+- Conclusion: a failing match fails **its test on that page**, not the whole fingerprint. Segmentation still happens but can be wrong. Matches the code reading of `multi-extract.ts`.
+- [x] Live nested-array comment corrected on v0 (1f66774cc) and on the branch: "If any match in a test fails on the page the test should identify, the whole test fails on that page, and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match succeeds on the pages it's meant to identify."
+- [ ] Re-check the "Alternate wordings" rewrite. The original fallbacks tip (separate `last` tests per wording) was dropped on the false premise that it must fail. Tests are independent, so it probably works. The `any` version is still valid. Decide whether to keep `any` only, or mention both. Untested.
+- [ ] Only the `last` case is verified. The `first`/`every`/`any` effects are code-reading only (Frances decided not to document the full per-page-type table).
+- [ ] Cleanup: an abandoned upload doc `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253` (no file) is in the test account.
+
+### (Archived) RESOLVED (2026-10-13): is there a test-level pass/fail in portfolios?
 
 **Resolution:** Frances's verification stands. In a portfolio, if any match fails, the whole fingerprint fails. So the fallbacks tip (separate `last` tests per wording) must be false. It's been replaced on the branch with: use an `any` Boolean match in a single test for alternate wordings. The live nested-array comment ("causes the whole fingerprint to fail") stays.
 - [x] Fallbacks tip replaced on the branch (it's still live on v0 until this PR merges)
@@ -368,3 +379,8 @@ The API is blocked: the test account hit its trial limit ("trial accounts are li
   - Document returned running past p. 3: confirms the code reading (`first` opens, the failed `last` never closes).
 - Test account: Frances created a `1040s` doc type (id 33cbcff7-…) with all 7 library 1040 configs. `senior_1040_2021`'s fingerprint matches the library.
 - Plan once the results are in: single-doc example + portfolio example, both using the `senior_1040_2021` fingerprint (and/or the 2020 1040 in portfolio_bank_paystub_tax.pdf), to compare standalone vs portfolio behavior.
+
+
+## Later: add a validator tip once portfolio-mode validation ships
+
+- [ ] When the fingerprint validator supports portfolio mode, add after the "Design your fingerprints so that every match succeeds..." guidance: "To check, validate the fingerprint against several reference documents for the config ([Validate fingerprints](doc:color#validate-fingerprints)). Any match that fails on one of them is a risk." Not before then: the validator runs in single-document mode only.
