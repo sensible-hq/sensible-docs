@@ -172,7 +172,27 @@ Tests for other document types in the portfolio can hide these errors. For examp
 
 ## Fingerprint scoring
 
-TODO: fill in and make it so it could be a standalone concept topic
+Sensible scores fingerprints differently for standalone documents and for portfolios.
+
+### Standalone documents
+
+Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters. The config passes if Sensible finds 50% or more of the matches. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
+
+How many matches a fingerprint contains depends on its syntax:
+
+| syntax | counts as |
+| ------ | --------- |
+| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | one match |
+| a flat array of Match objects, `[ ]` | one match for each element in the array |
+| a nested array of Match objects, `[[ ]]` | one match. It succeeds only if Sensible finds all the elements in the array, in order, on separate lines. |
+
+For example, the `senior_1040_2021` config in the Sensible configuration library has a fingerprint with two tests, and each test has a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the config passes. If each test instead had a nested array, the fingerprint would contain two matches, and the test with the missing element would count as zero matches. If Sensible finds the other test's elements in order, one match out of two still passes.
+
+### Portfolios
+
+Sensible scores each test on each page of the portfolio. A test passes on a page only if Sensible finds all the matches in the test on that page. A nested array also requires its elements to be in order, on separate lines.
+
+When a test passes on a page, Sensible labels the page with the test's page type, for example `first` or `last`, and uses the labels to find where each document starts and ends. There's no 50% threshold, and the Fingerprint Mode setting doesn't apply. If a match fails on a page that its test should identify, Sensible can segment the portfolio incorrectly. For examples, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
 
 
