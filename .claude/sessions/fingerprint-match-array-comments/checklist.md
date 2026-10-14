@@ -6,6 +6,36 @@ Worktree: /home/franc/GitHub/sensible-docs-fingerprint-match-array-comments (bra
 PR: https://github.com/sensible-hq/sensible-docs/pull/727
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume abbb26a9-022f-426d-b62a-97bc541c74e3`
 
+## OPEN ITEMS (consolidated 2026-10-14; supersedes the unchecked boxes further down)
+
+The older sections below are kept as history. Many of their unchecked boxes are done or obsolete. Use this list.
+
+**fingerprint.md content**
+- [ ] L35 `tests` row: "Sensible uses *matching text TODO better term?* …". Suggestion: "Sensible uses the fingerprint's matches to decide which configs to run in a document type."
+- [ ] Standalone example (Wells Fargo): the name `wells_fargo_checking` and the doc type are invented, and don't match the real library config of that name (whose fingerprint is an `any` of product names + "page 1"). `endsWith "page 2"` fails on "Page 2 of N" footers. Pick a real config, or rename it so it isn't mistaken for the library one.
+- [ ] Frontmatter excerpt/description: a working draft. Typo "wells_fago", ~330 chars, "e.g." twice. ReadMe uses it as the page summary.
+- [ ] "Prefer match arrays to single-match tests" tip: update to chained-match terminology. Optionally cite the verified comparison (separate tests pp. 3–7 vs one test pp. 4–7) as its evidence. Re-check the AVOID/PREFER comments against knowledge/fingerprints.md.
+- [ ] CSE guidance on when to use chained matches (`first`/`last` tests, doc types with many similar configs, strict Fingerprint Mode). Generalize it, don't name the customer, and phrase billing as "documents you haven't configured".
+- [ ] Notes reorganization ("grab-bag"): confirm whether the current Notes > Troubleshooting / Tips structure is done.
+- [ ] Mirror key tips as inline comments in examples (for example, a commented-out `"preprocessors"` block with "fingerprints run before preprocessors").
+- [ ] "Fingerprint strictness in standalone documents" is a one-sentence link that duplicates the link in Fingerprint scoring. Keep or cut.
+- [ ] Minor: the portfolio `match` row links "chained match" to `#fingerprint-scoring`; `#chained-matches` is more direct.
+
+**portfolio.md**
+- [ ] Link from the LLM example (and/or the "Fingerprint mode" bullet, ~L40) to fingerprint.md's portfolio content as the deterministic alternative.
+
+**Later / external**
+- [ ] When the validator supports portfolio mode: add the "validate against several reference documents" sentence after the "every match in a test succeeds" guidance, and add validator screenshots.
+- [ ] Optional tip: curly vs straight apostrophes (`preparer.s name` regex).
+- [ ] `drafts/blog-oocl-delivery-orders-20260622.md` (main checkout, untracked) still says "all tests must pass" (lines 33, 269).
+- [ ] When #744 merges: fold `fixtures/fingerprint_portfolio/manifest.json` into `fixtures/manifest.json`, and add a claims test that runs `expected.json`.
+- [ ] Test account: delete the abandoned upload `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253`. Keep the `fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*` doc types as fixtures.
+
+**Before merging PR #727**
+- [ ] Update the PR description (it's out of date again: scoring, troubleshooting, fixtures, knowledge doc, and the portfolio.md changes are missing).
+- [ ] Decide whether to keep the session files in the PR (`.claude-session`, `.claude/active-session`, this checklist).
+- [ ] Resolve/reply to the old GitHub review comments.
+
 ## RESUME HERE (updated 2026-10-13)
 
 State:
