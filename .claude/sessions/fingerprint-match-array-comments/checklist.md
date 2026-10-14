@@ -14,7 +14,7 @@ The older sections below are kept as history. Many of their unchecked boxes are 
 - [ ] L35 `tests` row: "Sensible uses *matching text TODO better term?* …". Suggestion: "Sensible uses the fingerprint's matches to decide which configs to run in a document type."
 - [ ] Standalone example (Wells Fargo): the name `wells_fargo_checking` and the doc type are invented, and don't match the real library config of that name (whose fingerprint is an `any` of product names + "page 1"). `endsWith "page 2"` fails on "Page 2 of N" footers. Pick a real config, or rename it so it isn't mistaken for the library one.
 - [ ] Frontmatter excerpt/description: a working draft. Typo "wells_fago", ~330 chars, "e.g." twice. ReadMe uses it as the page summary.
-- [ ] "Prefer match arrays to single-match tests" tip: update to chained-match terminology. Optionally cite the verified comparison (separate tests pp. 3–7 vs one test pp. 4–7) as its evidence. Re-check the AVOID/PREFER comments against knowledge/fingerprints.md.
+- [x] (Rechecked 2026-10-14: Frances rewrote it as AVOID + ALTERNATIVE ONE (flat, less strict) + ALTERNATIVE TWO (chained, stricter), and all blocks parse. Remaining: typo "mroe" at ~L279; optional comparison-run evidence) "Prefer match arrays to single-match tests" tip: update to chained-match terminology. Optionally cite the verified comparison (separate tests pp. 3–7 vs one test pp. 4–7) as its evidence. Re-check the AVOID/PREFER comments against knowledge/fingerprints.md.
 - [ ] CSE guidance on when to use chained matches (`first`/`last` tests, doc types with many similar configs, strict Fingerprint Mode). Generalize it, don't name the customer, and phrase billing as "documents you haven't configured".
 - [ ] Notes reorganization ("grab-bag"): confirm whether the current Notes > Troubleshooting / Tips structure is done.
 - [ ] Mirror key tips as inline comments in examples (for example, a commented-out `"preprocessors"` block with "fingerprints run before preprocessors").
@@ -29,12 +29,12 @@ The older sections below are kept as history. Many of their unchecked boxes are 
 - [ ] Optional tip: curly vs straight apostrophes (`preparer.s name` regex).
 - [ ] `drafts/blog-oocl-delivery-orders-20260622.md` (main checkout, untracked) still says "all tests must pass" (lines 33, 269).
 - [ ] When #744 merges: fold `fixtures/fingerprint_portfolio/manifest.json` into `fixtures/manifest.json`, and add a claims test that runs `expected.json`.
-- [ ] Test account: delete the abandoned upload `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253`. Keep the `fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*` doc types as fixtures.
+- [ ] Test account: delete the abandoned upload `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253` (rechecked: still WAITING). Keep the `fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*` doc types as fixtures.
 
 **Before merging PR #727**
 - [ ] Update the PR description (it's out of date again: scoring, troubleshooting, fixtures, knowledge doc, and the portfolio.md changes are missing).
 - [ ] Decide whether to keep the session files in the PR (`.claude-session`, `.claude/active-session`, this checklist).
-- [ ] Resolve/reply to the old GitHub review comments.
+- [ ] Resolve/reply to the old GitHub review comments. (Rechecked: 4 unresolved threads, all outdated; their wording changes were applied on 2026-10-01. Just resolve them.)
 
 ## RESUME HERE (updated 2026-10-13)
 
