@@ -519,3 +519,5 @@ Note: GET configuration still returned the older every_fails text after the PUT,
 The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `Preparer’s name` with a curly apostrophe (U+2019), and the configs use a straight `'`. The earlier pdftotext check also used a straight apostrophe, so it wrongly reported the text as absent. The table row now explains the apostrophe mismatch.
 - The senior 1040-SR `preparer's name` failure (validator 5/6, test 2) likely has the same cause. Unverified: that sample is a scanned image, and its OCR text wasn't checked.
 - [ ] Consider a tip: use a regex with `.` for apostrophes (for example, `preparer.s name`), or a match without the apostrophe, so that curly and straight apostrophes both match.
+
+- [x] Per Frances, replaced the `last` row's failing match with `includes "Form 1040-SR"` (absent from every page of the PDF). Rerun `11c0f301-8983-4ce0-bcfa-0ad6215b64d4` (https://app.sensible.so/extraction?e=11c0f301-8983-4ce0-bcfa-0ad6215b64d4), config version `_VMCVAyK…` (production): pages 1–8, the same failure. The apostrophe tip is optional, not pursued.
