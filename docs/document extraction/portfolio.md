@@ -224,19 +224,19 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 "fingerprint": {
     "tests": [
       {
-        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array using the`any` match type. */
+        /* in combination, these matches are unique to the first page.  */
         "page": "first",
-        "match": [         
-          {
-            "text": "outline",
-            "type": "startsWith"
-          },
+        "match": [[ 
           {
             "text": "anycocarinsurance.com",
             "type": "startsWith"
           }
-        ]
+          {
+            "text": "outline of quoted",
+            "type": "startsWith"
+          },
+
+        ]]
       }
     ]
   },
@@ -256,14 +256,20 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
 "fingerprint": {
     "tests": [
       {
-        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array using the`any` match type. */
+        /* in combination, these matches are unique to the first page. */
         "page": "first",
         "match": [
+
+           
           {
-            "text": "any unprocessed claim",
-            "type": "startsWith"
-          }
+            "text": "within 90 days",
+            "type": "includes"
+          },
+            /* because this is an unordered, flat array, this match succeeds even though 1. it occurs before the '90 days' match 2. shares a line with the '90 days' match  */ 
+                      {
+            "text": "unprocessed claim",
+            "type": "includes"
+          },
         ]
       }
     ]
