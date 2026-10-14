@@ -29,7 +29,7 @@ Next steps, in order:
 - [ ] L88: screenshot of how the standalone example evaluates (validator)
 - [ ] L90: design the examples to test every assertion in the nested/flat "match arrays" comment
 - [ ] L140: add how the portfolio.md example evaluates
-- [ ] L146: `## Fingerprint scoring`: fill in, written so it could become a standalone concept topic
+- [x] (Done 2026-10-14: H1 with "Scoring for standalone documents" and "Scoring for portfolios") L146: `## Fingerprint scoring`: fill in, written so it could become a standalone concept topic
 - [ ] L184: "Prefer nested match arrays..." is not portfolio-specific (backend: nesting changes order in both modes, and scoring in standalone). Split it per the TODO. Typo: "doesn'tneed".
 - [ ] L227: `/* flat array: TODO LEFT OFF */` (second AVOID example)
 - [ ] L280: validator screenshots of the different behaviors
@@ -531,3 +531,5 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - `fp_demo_*.doctype.json` and `fp_demo_*.<config>.config.json`: exported from the test account's **production** versions (the ones behind the table).
 - `expected.json`: the PDF, its contents, the request, and for each case the expected `documents` (zero-indexed) plus the run that verified it.
 - [ ] When #744 merges: fold `fingerprint_portfolio/manifest.json` into `fixtures/manifest.json` (or teach seed.py to read both). Add a claims test (like `test_pr748_*`) that runs each `expected.json` case.
+
+- [x] 2026-10-14: Shortened the PREFER array comment to the ordering and page rules, with a pointer to Fingerprint scoring. Promoted `# Fingerprint scoring` and `# Notes` to H1. Changed the standalone pass rule to "50% of the matches" in the fingerprint.md example comment, fingerprint-mode.md:28, and json5-comments-reference.md:19.
