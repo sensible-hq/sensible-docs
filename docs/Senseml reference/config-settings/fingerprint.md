@@ -141,6 +141,21 @@ TODO: add to that example how it evalutes?
 
 
 
+## Troubleshooting portfolio fingerprints
+
+If any match in a test fails on the page the test should identify, the whole test fails on that page. Sensible still segments the portfolio, but the page ranges can be wrong. The effect depends on the test's page type.
+
+The examples in the following table use the [portfolio_bank_paystub_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8:
+
+| page type of the failing test | effect                                                       | example                                                      |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| `first`                       | Sensible doesn't start a document on that page. If no other test starts the document, Sensible doesn't find it. | The `first` test for the tax return fails on page 1. Sensible doesn't return the tax return. |
+| `last`                        | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | The `last` test for the tax return fails on page 2. Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
+| `every`                       | Sensible ends the document on the previous page, so the document is cut short or split. | The `every` test for the bank statement fails on page 5. Sensible returns two bank statements, pages 3–4 and pages 6–7. |
+| `any`                         | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | The `any` test for the bank statement fails on page 3 and passes on page 4. Sensible returns the bank statement as pages 4–8, including the pay stub. |
+
+Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match succeeds on the pages it's meant to identify.
+
 ## Fingerprint scoring
 
 TODO: fill in and make it so it could be a standalone concept topic

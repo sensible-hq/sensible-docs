@@ -384,3 +384,116 @@ The API is blocked: the test account hit its trial limit ("trial accounts are li
 ## Later: add a validator tip once portfolio-mode validation ships
 
 - [ ] When the fingerprint validator supports portfolio mode, add after the "Design your fingerprints so that every match succeeds..." guidance: "To check, validate the fingerprint against several reference documents for the config ([Validate fingerprints](doc:color#validate-fingerprints)). Any match that fails on one of them is a risk." Not before then: the validator runs in single-document mode only.
+
+
+## Done: portfolio fingerprint failure demos (2026-10-14), basis for "Troubleshooting portfolio fingerprints"
+
+All runs: fingerprint mode, `portfolio_bank_paystub_tax.pdf` (1040 pp. 0–1, Wells Fargo pp. 2–6, pay stub p. 7; zero-indexed), test account, production environment. There's one doc type per config, so configs can't interact. All four results match the code reading of `identifyDocuments` (multi-extract.ts).
+
+Internal review links (route from sensible-app `DocumentNameAndID.tsx`, local copy dated 2026-06; log in to the **test account**):
+
+| demo | result | link |
+| --- | --- | --- |
+| first_fails | NO DOCUMENTS | https://app.sensible.so/extraction?e=1d2f8348-b73b-4c86-a617-476acf532b50 |
+| last_fails | p0–7 (pages 1–8) | https://app.sensible.so/extraction?e=66028533-7e5b-4e13-ad87-8055908276fa |
+| every_fails | p2–3 and p5–6 (pages 3–4, 6–7) | https://app.sensible.so/extraction?e=6444973d-fa33-423c-bce8-e9f41e2f27db |
+| any_fails | p3–7 (pages 4–8) | https://app.sensible.so/extraction?e=d68045b1-0e30-4271-9719-08370f345d04 |
+
+Test-account doc types (kept as fixtures; delete when no longer needed):
+- `fp_demo_first_fails` (bdfe9df0-82d2-489c-b004-acab776516ea), config `first_fails`
+- `fp_demo_last_fails` (993e52f9-0fc6-4168-9c52-a289d4b8a4b4), config `last_fails`
+- `fp_demo_every_fails` (ce2ad62c-92d7-4a7d-8c23-c2002035558d), config `every_fails`
+- `fp_demo_any_fails` (752535a4-1fdb-4773-b63b-280f0bd5e6d6), config `any_fails`
+
+Earlier runs: `1040s` baseline https://app.sensible.so/extraction?e=37c0c9a3-8f26-405e-8b27-baf3e4f968e2 (1040_2020 p0–1). Senior 1040-SR `last` failure https://app.sensible.so/extraction?e=3d614620-626d-4222-8973-b220844b7a46 (p0–8). Abandoned upload to delete: `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253`.
+
+Fingerprints (candidate fixtures for the inline-test / doc-test work in PRs #737, #749, #744; NOT for the public docs). The failing match is `"this phrase is not in the document"`:
+
+```json
+{
+  "first_fails": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "type": "regex",
+            "pattern": "u.s.\\s+individual\\s+income\\s+tax\\s+return",
+            "flags": "i"
+          },
+          {
+            "type": "includes",
+            "text": "this phrase is not in the document"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "type": "includes",
+            "text": "Form 1040 (2020) Page 2"
+          }
+        ]
+      }
+    ]
+  },
+  "last_fails": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "type": "regex",
+            "pattern": "u.s.\\s+individual\\s+income\\s+tax\\s+return",
+            "flags": "i"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "type": "includes",
+            "text": "Form 1040 (2020) Page 2"
+          },
+          {
+            "type": "includes",
+            "text": "this phrase is not in the document"
+          }
+        ]
+      }
+    ]
+  },
+  "every_fails": {
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          {
+            "type": "regex",
+            "pattern": "Page [1245] of 7"
+          }
+        ]
+      }
+    ]
+  },
+  "any_fails": {
+    "tests": [
+      {
+        "page": "any",
+        "match": [
+          {
+            "type": "includes",
+            "text": "Transaction history"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+- [x] "Troubleshooting portfolio fingerprints" section drafted on the branch (before `## Fingerprint scoring`). Table: page type / effect / example, plus the masking note and the "design every match to succeed" guidance. No configs in the public docs.
+- [ ] Review the section wording. Decide whether the table's example column should say "tax return" or "1040".
+- [ ] Optional: wire these four demos into the doc-test fixtures (#737/#749/#744) so the table's claims are regression-tested.
