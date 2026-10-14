@@ -149,7 +149,7 @@ The following examples use a portfolio with three documents:
 
 | pages | document                                 |
 | ----- | ---------------------------------------- |
-| 1–2   | 2020 Form 1040 tax return                |
+| 1–2   | tax return for 2020                      |
 | 3–7   | Wells Fargo bank statement               |
 | 8     | pay stub                                 |
 
