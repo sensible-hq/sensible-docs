@@ -533,3 +533,15 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - [ ] When #744 merges: fold `fingerprint_portfolio/manifest.json` into `fixtures/manifest.json` (or teach seed.py to read both). Add a claims test (like `test_pr748_*`) that runs each `expected.json` case.
 
 - [x] 2026-10-14: Shortened the PREFER array comment to the ordering and page rules, with a pointer to Fingerprint scoring. Promoted `# Fingerprint scoring` and `# Notes` to H1. Changed the standalone pass rule to "50% of the matches" in the fingerprint.md example comment, fingerprint-mode.md:28, and json5-comments-reference.md:19.
+
+## FINDING 2026-10-14: in simple (standalone) syntax, flat and nested are NOT different, and nested is invalid
+
+- Code (`standardize.ts` `standardizeFingerprint` simple branch → `standardizeMatch`): each element of `tests` becomes ONE unit. An array element `[A, B]` is a chained match array (ordered, separate lines). `flatMap` would also flatten `[[A, B]]` to the same thing.
+- API probe (temp doc type, deleted): `tests: [[A, B]]` publishes fine. `tests: [[[A, B]]]` is **rejected**: "the supplied configuration cannot be published due to errors … configuration/fingerprint/tests/0 must be string / object…". The schema's `tests` items are AnchorMatch, which allows arrays of Match objects but not arrays of arrays.
+- So flat vs nested only matters in a **portfolio-syntax `match`**: `[A, B]` is two independent units, and `[[A, B]]` is one chained unit.
+- Wrong on the branch right now:
+  - [ ] Standalone Wells Fargo example uses `[[ ... ]]` in `tests`, which doesn't publish. Change it to `[ ... ]`. The comment about order/succeeding lines stays true.
+  - [ ] Scoring for standalone documents table: rewrite it in terms of "each element in the `tests` array". Keep flat-vs-nested only for portfolio-syntax configs (`match` arrays), including when they're reused on standalone documents.
+  - [ ] L41 `tests` param row ("array or nested array"): wrong for simple syntax.
+  - [ ] PREFER example comment ("A nested array ... match array"): correct, because it's portfolio syntax. Maybe say "in a test's `match`".
+- Frances's proposal: in standalone docs, say "element in the `tests` array" instead of "match". Accurate for simple syntax.
