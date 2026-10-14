@@ -69,6 +69,48 @@
         }
       ],
       "verified_run": "bdf09121-9e59-4b92-ae8e-29087978f724"
+    },
+    {
+      "document_type": "fp_portfolio_chained",
+      "failing_test_page_type": "every (one test, chained match)",
+      "document": "bank statement, pages 3-7",
+      "expected_documents": [
+        {
+          "configuration": "chained",
+          "startPage": 3,
+          "endPage": 6
+        }
+      ],
+      "verified_run": "3d327aba-018c-4966-a674-f0c229a21194",
+      "claim": "In a portfolio, separate single-match tests are looser than one test: a passing every test starts a document even if another every test fails on that page (separate_tests includes p2; flat_array and chained don't)."
+    },
+    {
+      "document_type": "fp_portfolio_flat_array",
+      "failing_test_page_type": "every (one test, flat array)",
+      "document": "bank statement, pages 3-7",
+      "expected_documents": [
+        {
+          "configuration": "flat_array",
+          "startPage": 3,
+          "endPage": 6
+        }
+      ],
+      "verified_run": "74b38c37-c94c-4928-bbdd-7837270eda32",
+      "claim": "In a portfolio, separate single-match tests are looser than one test: a passing every test starts a document even if another every test fails on that page (separate_tests includes p2; flat_array and chained don't)."
+    },
+    {
+      "document_type": "fp_portfolio_separate_tests",
+      "failing_test_page_type": "every (two separate single-match tests)",
+      "document": "bank statement, pages 3-7",
+      "expected_documents": [
+        {
+          "configuration": "separate_tests",
+          "startPage": 2,
+          "endPage": 6
+        }
+      ],
+      "verified_run": "de0539a9-b147-4365-b980-d381ad8319ee",
+      "claim": "In a portfolio, separate single-match tests are looser than one test: a passing every test starts a document even if another every test fails on that page (separate_tests includes p2; flat_array and chained don't)."
     }
   ]
 }

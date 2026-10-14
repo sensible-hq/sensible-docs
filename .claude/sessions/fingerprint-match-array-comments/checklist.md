@@ -548,3 +548,23 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - [x] 2026-10-14, settled with Frances (her validator screenshot: `tests: [ [Form 1040, Page 2], "tax" ]` shows "2 matchers", with the first labeled "2 chained matchers"): in standalone syntax, a chained match is a flat `[ ]` element of `tests`. `[[ ]]` is only for a portfolio test's `match`. Fixed the WF example (`[[ ]]` to `[ ]`, TODO now `/* */`), the `tests` row value/description, the scoring table (standalone rows vs portfolio-syntax `match` rows), and the PREFER comment ("In a test's match parameter...").
 - [ ] The `tests` row still has Frances's LEFT OFF notes, including the stale "100% of tests must pass" for portfolios.
 - [x] 2026-10-14: Adopted the term "chained match" (it matches the validator UI's "chained matchers"). Defined once at the top of # Fingerprint scoring, and used in the scoring table, the example, portfolio scoring, the portfolio `match` row, and the portfolio Parameters intro. "Nested array" remains only where it describes how to write a chained match in portfolio syntax.
+
+## Verified 2026-10-14: separate single-match tests vs one test (portfolio)
+
+Frances challenged Claude's claim that two single-match tests and one flat-array test behave the same in a portfolio. Run on portfolio_bank_paystub_tax.pdf, one doc type each, all `every`, phrases `August 11, 2021` (pp. 2–6) and `Transaction history` (pp. 3–6):
+
+| fingerprint | result | run |
+| --- | --- | --- |
+| two separate tests | **p2–6** | https://app.sensible.so/extraction?e=de0539a9-b147-4365-b980-d381ad8319ee |
+| one test, flat `[A, T]` | p3–6 | https://app.sensible.so/extraction?e=74b38c37-c94c-4928-bbdd-7837270eda32 |
+| one test, chained `[[A, T]]` | p3–6 | https://app.sensible.so/extraction?e=3d327aba-018c-4966-a674-f0c229a21194 |
+
+- **Claude's claim was wrong.** Separate tests aren't AND-ed. On p2, the passing test starts the document even though the other `every` test fails on that page (`every_failed` only closes an already-open document). So separate single-match tests are looser in portfolios, and the "Prefer match arrays to single-match tests" tip holds.
+- Standalone counts are the same (2 matches either way).
+- Test-account doc types: `fp_portfolio_separate_tests`, `fp_portfolio_flat_array`, `fp_portfolio_chained`. Added to `fixtures/fingerprint_portfolio/` (manifest + expected.json, with a `claim` field).
+- [ ] Optional: add this comparison to the PREFER/AVOID tip as the evidence for it (the AVOID example would then include the statement's first page).
+
+## To do: improve the portfolio.md fingerprint example
+
+- [ ] Improve the `## Fingerprint example` in portfolio.md (around line 207): better inline comments, and maybe a more complex example. Frances noted it uses the `any` page type. The current v0 and branch versions use `"page": "first"` for both configs (lines 229, 261), so check which example she meant.
+  - Ideas: use portfolio_bank_paystub_tax.pdf (the same file as the LLM example) so the two methods can be compared. Use `first` + `last` tests with chained matches. Reuse the verified behaviors from the troubleshooting table. Link from the LLM example to it as the deterministic alternative (see the earlier "link portfolio.md" item).
