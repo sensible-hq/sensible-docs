@@ -526,8 +526,8 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 
 ## Done 2026-10-14: test fixtures committed
 
-`scripts/test/probe_endpoints/contract/fixtures/fingerprint/` holds:
+`scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/` holds (renamed from `fingerprint/` 2026-10-14, to leave room for other fingerprint fixture types):
 - `manifest.json`: same shape as #744's `fixtures/manifest.json`. A separate file, to avoid a conflict with #744.
 - `fp_demo_*.doctype.json` and `fp_demo_*.<config>.config.json`: exported from the test account's **production** versions (the ones behind the table).
 - `expected.json`: the PDF, its contents, the request, and for each case the expected `documents` (zero-indexed) plus the run that verified it.
-- [ ] When #744 merges: fold `fingerprint/manifest.json` into `fixtures/manifest.json` (or teach seed.py to read both). Add a claims test (like `test_pr748_*`) that runs each `expected.json` case.
+- [ ] When #744 merges: fold `fingerprint_portfolio/manifest.json` into `fixtures/manifest.json` (or teach seed.py to read both). Add a claims test (like `test_pr748_*`) that runs each `expected.json` case.
