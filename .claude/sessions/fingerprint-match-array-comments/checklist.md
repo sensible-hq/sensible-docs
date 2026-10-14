@@ -521,3 +521,5 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - [ ] Consider a tip: use a regex with `.` for apostrophes (for example, `preparer.s name`), or a match without the apostrophe, so that curly and straight apostrophes both match.
 
 - [x] Per Frances, replaced the `last` row's failing match with `includes "Form 1040-SR"` (absent from every page of the PDF). Rerun `11c0f301-8983-4ce0-bcfa-0ad6215b64d4` (https://app.sensible.so/extraction?e=11c0f301-8983-4ce0-bcfa-0ad6215b64d4), config version `_VMCVAyK…` (production): pages 1–8, the same failure. The apostrophe tip is optional, not pursued.
+
+- [x] Per Frances, `every` row now uses `includes "Transaction history"` ("Wells Fargo" is a text image, so not a clear example). Rerun `f621c1c2-b504-4643-ab37-101c8ab02b2c` (https://app.sensible.so/extraction?e=f621c1c2-b504-4643-ab37-101c8ab02b2c), version `nWcCmywH…`: pages 4–7 (the first page is left out; the pay stub's every_failed ends it). Effect text now covers both the left-out page and the mid-document split. The split was verified earlier by run 6444973d (`Page [1245] of 7`: pages 3–4 and 6–7).
