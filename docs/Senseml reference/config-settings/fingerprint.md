@@ -168,7 +168,7 @@ Each row is a separate extraction with the following setup:
 | `every` | bank statement, pages 3–7 | `{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible leaves that page out of the document. If the page is in the middle of the document, Sensible ends the document on the previous page, which splits the document. | Sensible returns the bank statement as pages 4–7. The pay stub on page 8 fails the `every` test, which ends the document on page 7. |
 | `any` | bank statement, pages 3–7 | `{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | Sensible returns the bank statement as pages 4–8, including the pay stub, because nothing ends the document. An `any` test doesn't end a document. |
 
-Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match succeeds on the pages it's meant to identify.
+Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in a test succeeds on every page the test should identify.
 
 ## Fingerprint scoring
 
@@ -291,8 +291,8 @@ Instead, write the following:
            Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
            it scores the array as 3 out of 5 matches.
            In a portfolio, if any match in a test fails on the page the test should identify, the whole test fails on that page,
-           and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match succeeds on the pages
-           it's meant to identify. */
+           and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match in a test succeeds
+           on every page the test should identify. */
           {
             "text": "NARS",
             "type": "includes",
