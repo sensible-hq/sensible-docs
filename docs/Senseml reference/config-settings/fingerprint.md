@@ -145,13 +145,16 @@ TODO: add to that example how it evalutes?
 
 If any match in a test fails on the page the test should identify, the whole test fails on that page. Sensible still segments the portfolio, but the page ranges can be wrong. The effect depends on the test's page type.
 
-The following examples use the [portfolio_bank_paystub_tax.pdf](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) portfolio, which contains the following documents:
+The following examples use an example portfolio that contains the following documents:
 
 | pages | document                                 |
 | ----- | ---------------------------------------- |
 | 1–2   | 2020 Form 1040 tax return                |
 | 3–7   | Wells Fargo bank statement               |
 | 8     | pay stub                                 |
+
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
 
 Each row is a separate extraction with the following setup:
 
