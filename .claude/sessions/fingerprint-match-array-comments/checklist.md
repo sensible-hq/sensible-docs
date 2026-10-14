@@ -497,3 +497,18 @@ Fingerprints (candidate fixtures for the inline-test / doc-test work in PRs #737
 - [x] "Troubleshooting portfolio fingerprints" section drafted on the branch (before `## Fingerprint scoring`). Table: page type / effect / example, plus the masking note and the "design every match to succeed" guidance. No configs in the public docs.
 - [ ] Review the section wording. Decide whether the table's example column should say "tax return" or "1040".
 - [ ] Optional: wire these four demos into the doc-test fixtures (#737/#749/#744) so the table's claims are regression-tested.
+
+
+### Update 2026-10-14: realistic failing matches (table "failing match" column)
+
+The demo configs were updated so each row's failing match is something a reader might plausibly write, then rerun on portfolio_bank_paystub_tax.pdf (test account, production):
+
+| demo | failing match | result | link |
+| --- | --- | --- | --- |
+| first_fails | `first`: `endsWith "2021"` (the return is for 2020), plus the IRS regex | NO DOCUMENTS | https://app.sensible.so/extraction?e=3340f5b6-0947-48b2-8d19-cc3a428e5cc5 |
+| last_fails | `last`: `includes "Form 1040 (2020) Page 2"` + `includes "Preparer's name"` (absent) | p0–7 (pages 1–8); config version ChnfQstQ… | https://app.sensible.so/extraction?e=4ad3df0a-7658-43e9-b0ff-dfb6d5897c4e |
+| every_fails | `every`: `includes "Wells Fargo"` (only on the statement's first page) | p2–2 (page 3 only); "cut short" | https://app.sensible.so/extraction?e=acd6c932-7f18-43d6-ba26-135742926f23 |
+| any_fails | unchanged: `any`: `includes "Transaction history"` | p3–7 (pages 4–8) | https://app.sensible.so/extraction?e=d68045b1-0e30-4271-9719-08370f345d04 |
+
+Note: GET configuration still returned the older every_fails text after the PUT, but the run's p2–2 result only fits the new config. Versions were confirmed via /versions (new version labeled production).
+- [x] Table now has a "failing match" column. The `every` example changed from "split" to "cut short" to match the real result.
