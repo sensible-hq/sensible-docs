@@ -32,7 +32,7 @@ See the following table for more information:
 
 | key     | value                                                        | description                                                  |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `tests` | array, where each element is a string, a [Match](doc:match) object, or a 'chained match' (array of Match objects) | Sensible uses matching text TODO better term? to preferentially run configs in a document type. |
+| `tests` | array, where each element is a string, a [Match](doc:match) object, or a 'chained match' (array of Match objects) | Sensible uses *matching text TODO better term?* to preferentially run configs in a document type. |
 
 ## Examples
 
