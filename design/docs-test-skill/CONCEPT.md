@@ -131,8 +131,34 @@ Two different kinds of claim.
 | The default (`default: right`) | **The schema has no defaults** (0 of its properties declare one). Behavioral check: the example config without the parameter and with it set to the default must give identical output | yes | 2 extractions per default |
 | The behavior described | A code test example that shows the effect, ideally two outputs that differ when the value changes | depends on the method | 1–2 extractions |
 
-- **Also catches gaps:** schema properties the table doesn't document. For example, Row's schema has 12 properties and `row.md`'s table lists 4. Some of the others are global parameters documented on another page, so the check needs a list of global parameters, but it surfaces the question.
-- **Proving it can fail:** a misspelled parameter name or a wrong enum value must fail the schema check.
+- **Also catches gaps:** schema parameters the table doesn't document, after excluding global parameters, which are read from `method.md`'s own table. (Row's 12 schema parameters are fully covered: 4 in `row.md`, 8 global ones in `method.md`.)
+
+**Decision: how parameter tables are marked up (2026-10-14).** Neither per-row inline tests nor separate spec files:
+
+| Check | Markup | Why |
+|---|---|---|
+| Schema checks: names, required, types, allowed values, defaults that the schema would reject, gaps | **None.** The table's `id` row (for example `` `row` ``) names the schema definition | The table is the claim, so parsing it tests exactly what readers see and can't drift. It runs over every reference page with no page edits, like a linter |
+| Each documented value is accepted | None: built from the table | Config uploads only |
+| Defaults and described behavior (costs extractions) | **One comment above the table**, naming the page's code-test example and the rows to check, for example `<!-- param tests {"example": "row_two_tables", "defaults": ["position", "includeAnchor"]} -->` | Opt-in per row, because it costs extractions. It sits next to the table, as Doc Detective recommends for inline tests |
+
+Not per-row comments: a comment inside a Markdown table breaks the table, and there are a few hundred rows. Not spec files: these checks aren't Doc Detective actions, and a sidecar would repeat every parameter name and drift ("harder to maintain strict parallelism with documentation", Doc Detective). *Not yet verified: how ReadMe renders a comment directly above a table; keep a blank line between them.*
+
+**Prototype (2026-10-14): `scripts/param-tables/check_param_tables.py`.** No dependencies, no markup, reads the public schema. `--all` checks every page under `docs/Senseml reference/`.
+- **Parses** each `key | value | description` table separately, using that table's `id` row. On `types.md` it prefers type definitions, since types and methods share ids like `paragraph`. It treats "default: none / infinity / no change" as prose.
+- **Reads the schema's shapes:** finds definitions defined inline and behind URL-encoded `$ref`s. Merges a method's variants: a parameter is valid if any variant has it, and required only if every variant requires it.
+- **Proved it can fail:** 7 broken copies of `row.md` (misspelled name, disallowed value, wrong required flag, wrong type, disallowed default; missing row, unlisted value). The first five fail with exit 1 at the right line, and the last two warn. 18 offline unit tests (`python3 -m unittest discover -s scripts/param-tables`).
+- **First full run (31 pages with method tables):** 12 errors, which come down to **6 real docs problems on 5 pages**, each checked by hand against the page and the schema:
+
+  | Page | Problem |
+  |---|---|
+  | `signature.md` | No row marked required; the schema requires `id`, `start`, `offsetX`, `offsetY`, `width`, `height` |
+  | `text-table.md` | The table says `id` is `` `table` ``; the schema and the page's own examples use `textTable` |
+  | `query-group.md` | `queries` is required in every schema variant, not marked |
+  | `add-computed-fields.md` | `fields` is required, not marked |
+  | `get-file-metadata.md` | `type` is required, not marked |
+
+  Plus 17 warnings: schema parameters no table lists, such as `source_id` on several computed-field pages, Query Group's chunking options, and Box's `overlapX`/`overlapY`. **These are leads, not findings.** Some are documented elsewhere or deliberately undocumented; not yet checked.
+- **Early versions produced false errors** (one table's `id` applied to the whole page, one variant picked instead of all, "default: none" read as a value, `` `number` `` read as a type word). Each is now a unit test. Expect more page conventions to surface as the tool sees more pages.
 
 ### 4. API changes (OpenAPI specs in `reference/`)
 
@@ -175,7 +201,7 @@ Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don'
 3. **When tests run:** on every docs PR (`--check-syntax` only), on merge to `v0` (full, as on #737), or weekly?
 4. **Defaults:** the SenseML schema has none. Is it worth asking engineering to add `default` to the schema, so default claims become a free deterministic check?
 5. **UI state:** a cleanup convention for procedures that create objects in the shared test account?
-6. **Global parameters** (`tiebreaker`, `lineFilters`, …): a list, so the parameter-table gap check doesn't flag them on every method page.
+6. ~~**Global parameters:** a list?~~ Read from `method.md`'s table instead, so no separate list to maintain.
 7. **Judge confidence zones:** agent-tools suggests auto-pass ≥ 90%, review 31–89%, auto-fail ≤ 30%; our judge passes at ≥ 70%. Align?
 
 ## Next steps
@@ -183,6 +209,10 @@ Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don'
 - [x] Fold in the Doc Detective best-practices research (2026-10-13)
 - [ ] Try agent-tools' LSP server and copy its post-edit "tests may need updating" hook
 - [ ] Merge or settle #737 (tooling) and #744 (API tests), which this skill depends on
-- [ ] Prototype the parameter-table schema check on one page (`row.md`)
+- [x] Prototype the parameter-table schema check (`scripts/param-tables/`, 2026-10-14): `row.md` passes; first full run found 6 docs problems on 5 pages
+- [ ] Decide whether to fix the 6 parameter-table problems, in a separate docs PR
+- [ ] Triage the 17 gap warnings (documented elsewhere, deliberately undocumented, or missing)
+- [ ] Add the opt-in behavioral checks (defaults, each value accepted) driven by the `<!-- param tests -->` marker
+- [ ] Run the schema check on docs PRs (no secrets, a few seconds)
 - [ ] Write the skill (`.claude/skills/add-doc-tests/SKILL.md`) and add its hook to the skills above
 - [ ] Check that `json5-commenter` and `revise-doc-style` preserve test markup

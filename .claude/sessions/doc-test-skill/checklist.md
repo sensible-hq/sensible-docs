@@ -12,7 +12,8 @@ Depends on: PR #737 (docs-test tooling), PR #744 (API contract tests and design)
 - [x] Research Doc Detective's best practices (docs + agent-tools) and fold into the concept
 - [x] Draft the concept: triage rubric, per-surface tests (UI, code, SenseML reference incl. parameter tables, API), skill hooks
 - [ ] User review of the concept and open questions
-- [ ] Prototype the parameter-table schema check on `row.md`
+- [x] Parameter tables: decided no per-row markup and no spec files; schema checks need no markup, behavioral checks get one marker above the table (2026-10-14)
+- [x] Prototype `scripts/param-tables/check_param_tables.py` + 18 offline tests; `row.md` passes; full run found 6 docs problems on 5 pages (signature, text-table, query-group, add-computed-fields, get-file-metadata), 17 gap warnings untriaged
 - [ ] Write `.claude/skills/add-doc-tests/SKILL.md`
 - [ ] Add the hook step to create-new-doc, update-existing-doc, update-docs-from-pr, create-concept-doc, create-docs-example, api-spec (optional: blog-how-to-parse-x)
 - [ ] Check json5-commenter and revise-doc-style preserve test markup
