@@ -129,7 +129,7 @@ In detail, Sensible scores each test on each page of the portfolio. A test class
 
 For more information, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
-###  Chained matches
+### Chained matches
 
 A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. Write chained matches using different syntax depending on whether they're in standalone or portfolio syntax.
 
