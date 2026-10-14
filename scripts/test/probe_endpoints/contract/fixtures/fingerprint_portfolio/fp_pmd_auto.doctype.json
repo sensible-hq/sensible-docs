@@ -1,0 +1,6 @@
+{
+  "name": "fp_pmd_auto",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

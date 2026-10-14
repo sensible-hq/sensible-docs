@@ -88,6 +88,28 @@
           "publish_as": "production"
         }
       ]
+    },
+    {
+      "doctype": "fp_pmd_auto.doctype.json",
+      "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
+      "configs": [
+        {
+          "name": "auto",
+          "file": "fp_pmd_auto.auto.config.json",
+          "publish_as": "production"
+        }
+      ]
+    },
+    {
+      "doctype": "fp_pmd_loss.doctype.json",
+      "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
+      "configs": [
+        {
+          "name": "loss",
+          "file": "fp_pmd_loss.loss.config.json",
+          "publish_as": "production"
+        }
+      ]
     }
   ]
 }

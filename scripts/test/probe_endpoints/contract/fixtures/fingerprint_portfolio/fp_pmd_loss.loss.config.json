@@ -1,0 +1,20 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "text": "within 90 days",
+            "type": "includes"
+          },
+          {
+            "text": "unprocessed claim",
+            "type": "includes"
+          }
+        ]
+      }
+    ]
+  },
+  "fields": []
+}
