@@ -187,45 +187,38 @@ Sensible scores fingerprints differently for standalone documents and for portfo
 
 **Standalone documents**
 
-50% or more of the elements ("matches") in the `tests` array  must succeed.
+50% or more of the elements ("matches") in the `tests` array  must succeed. 
 
 Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters if specified.  If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
 
 **Portfolios**
 
-As a best practice, each element ("match") in the `match` array of each `test` in the fingerprint must succeed.
+As a best practice, each element ("match") in the `match` parameter of each `test` in the fingerprint must succeed.
 
-In detail, Sensible scores each test on each page of the portfolio. A test classafies a given page as a page type (first, last, etc) only if Sensible finds all the elements in the test's `match` array on that page. 
+In detail, Sensible scores each test on each page of the portfolio. A test classifies a given page as a page type (first, last, etc) only if Sensible finds all the elements in the test's `match` parameter on that page. 
 
 For example, say a config for a 1040 form uses portfolio fingerprint syntax. Its fingerprint has two tests, each containing 3 Match objects:
 
-- in scenario A, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the score is 5 of 6 matches.
-- in scenario B `match` parameter instead had a chained match, the fingerprint would contain two matches, and the chained match with the missing Match object counts as zero matches, so the score is 1 of 2 matches.  In either case, this incomplete score can result in inaccurate segmentation; the goal in eitheris 6/6 matches or 2/2 matches.
+- in scenario A, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document in any order, the score is 5 of 6 matches.
+- in scenario B `match` parameter instead had a [chained match](doc:fingerprint#chained-matches), the fingerprint contains two matches, and the chained match with the missing Match object counts as zero matches, so the score is 1 of 2 matches.  
+
+In either scenario, an incomplete score can result in inaccurate segmentation. Sensible recommends you design the fingerprint to score either 6/6 matches or 2/2 matches, respectively.
+
+*TODO add a screenshot of the different behaviors for each of these from the validator!*
 
 For more information, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
-
-
 ###  Chained matches
 
+A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. Write chained matches using different syntax depending on whether they're in standalone or portfolio syntax:
 
+The following table shows syntax for chained matches and other matches, and how Sensible scores matches, including chained matches:
 
-A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. How you write a chained match depends on the syntax:
-
-- In standalone syntax, specify an array of Match objects as an element in the `tests` array: `[ ]`.
-- In portfolio syntax, specify a nested array in a test's `match` parameter: `"match": [[ ]]`. A chained match also requires its Match objects to be on the *same* page.
-
-
-
-In standalone syntax, Sensible counts each element in the `tests` array as one match. If the config uses portfolio syntax, the count depends on each test's `match` parameter instead:
-
-| standalone syntax                                            | portfolio syntax                                             | (portfolio) counts as                        | (standalone) counts as |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- | ---------------------- |
-| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | one match                                    | one match              |
-| a chained match (`"tests": [],...`)                          | a chained match (`"match": [[ ]]`)                           | one match                                    | one match              |
-| N/A, arrays are ordered ("chained")                          | *unordered* array of Match objects in a test's `match` parameter, `"match": [ ]` | one match for each Match object in the array | N/A                    |
-
-
+| element ('match')                                            | standalone syntax                                            | portfolio syntax                                             | (portfolio) counts as                        | (standalone) counts as |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------------- | ---------------------- |
+| a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | same                                                         | same                                                         | one match                                    | one match              |
+| chained match                                                | specify an array of Match objects as an element in the `tests` array: `"tests": [],...`. | nested array in a test's `match` parameter: `"match": [[ ]]`. A chained match also requires its Match objects to be on the same page. | one match                                    | one match              |
+| unordered array ('collection of matches')                    | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ ]`. Though unordered, it still requires all the Match objects to be on the same page, though they don't have to in separate lines | one match for each Match object in the array | N/A                    |
 
 
 
@@ -317,13 +310,13 @@ Instead, use one of the following alternatives:
 }
 ```
 
-Instead, write the following:
+or, for stricter syntax:
 
 ```json
 /* ALTERNATIVE TWO: stricter */
 "fingerprint": {
   "tests": [
-    /* one test that contains a match array, so the array succeeds only if the lines occur in the document in the order specified by the array */
+    /* one test that contains a chained match array, so the array succeeds only if the lines occur on the same page in the order specified by the array */
     {
       "page": "every",
       "match": [[
@@ -331,7 +324,7 @@ Instead, write the following:
            and Sensible must find the lines in the same order as in the array.
            In a flat array ("match": [ ]), Sensible searches for each element independently, in any order.
            In a portfolio, Sensible must find all the elements on the page that the test identifies.
-           Array syntax also changes how Sensible scores the fingerprint. See Fingerprint scoring. */
+           Chained match syntax also changes how Sensible scores the fingerprint. See Fingerprint scoring. */
           {
             "text": "NARS",
             "type": "includes",
@@ -348,4 +341,3 @@ Instead, write the following:
 }
 ```
 
-TODO add a screenshot of the different behaviors for each of these from the validator!
