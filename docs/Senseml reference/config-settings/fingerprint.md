@@ -38,7 +38,7 @@ You use different syntaxes to define fingerprints depending on your use case. If
 
 | key     | value                                                        | description for standalone documents                         |
 | ------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `tests` | array or nested array,<br/> where each item is a string, a  [Match](doc:match) object, or array of Match objects. | Choosing an array or nested array affects how Sensible scores an array of Match objects. LEFT OFF: Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:<br/><br/>* If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.<br/>* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass for Sensible to give the document a "passing" score.<br/>TODO: maybe make a side-note that scoring isn't by test (test's aren't a think that  pass/fail) but rather BY MATCH (except in case of 'chained match arrays'?) |
+| `tests` | array, where each element is a string, a [Match](doc:match) object, or an array of Match objects | Sensible counts each element as one match. An array of Match objects is a chained match: Sensible must find all its elements in order, on separate lines. For more information, see [Fingerprint scoring](doc:fingerprint#fingerprint-scoring). LEFT OFF: Portfolio fingerprints differ from single-file document fingerprints in the following behaviors:<br/><br/>* If you specify a Match array in a test, then Sensible must find all the matches in the array on the *same* page in the portfolio for the test to pass and for Sensible to identify a page as "first", "last", or another type. In single-file documents, matches can occur anywhere in a document.<br/>* 100% of tests must pass for Sensible to segment a document in a portfolio. In single-file documents, 50% of tests must pass for Sensible to give the document a "passing" score.<br/>TODO: maybe make a side-note that scoring isn't by test (test's aren't a think that  pass/fail) but rather BY MATCH (except in case of 'chained match arrays'?) |
 
 ## Examples
 
@@ -53,7 +53,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
       /* array of tests; for standalone documents, the config passes if Sensible finds 50% or more of the matches */
       /* test 1 passes if Sensible finds all the matches in the array in succeeding lines (can be across multiple pages);
          if array elements are out of order or not all elements are present, it fails */
-      [[ // TODO: talk single vs flat array and make this a better example (see config library?)
+      [ /* TODO: make this a better example (see config library?) */
         {
           "type": "includes",
           "text": "wells fargo"
@@ -66,7 +66,7 @@ The following fingerprint tests a vendor-specific config, `wells_fargo_checking`
           "type": "endsWith",
           "text": "page 3"
         }
-      ]],
+      ],
       /* test 2 passes if Sensible finds a line that starts with "account" anywhere in the document */
       {
         "type": "startsWith",
@@ -178,15 +178,16 @@ Sensible scores fingerprints differently for standalone documents and for portfo
 
 Sensible searches the whole document for each match in the fingerprint, and ignores the Page and Offset parameters. The config passes if Sensible finds 50% or more of the matches. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
 
-How many matches a fingerprint contains depends on its syntax:
+In standalone syntax, Sensible counts each element in the `tests` array as one match. If the config uses portfolio syntax, the count depends on each test's `match` parameter instead:
 
 | syntax | counts as |
 | ------ | --------- |
 | a string, a Match object, or a [Boolean match](doc:match#boolean-matches) | one match |
-| a flat array of Match objects, `[ ]` | one match for each element in the array |
-| a nested array of Match objects, `[[ ]]` | one match. It succeeds only if Sensible finds all the elements in the array, in order, on separate lines. |
+| an array of Match objects as an element in the `tests` array, `[ ]` | one chained match. It succeeds only if Sensible finds all the elements in the array, in order, on separate lines. |
+| portfolio syntax: a flat array in a test's `match` parameter, `"match": [ ]` | one match for each element in the array |
+| portfolio syntax: a nested array in a test's `match` parameter, `"match": [[ ]]` | one chained match |
 
-For example, the `senior_1040_2021` config in the Sensible configuration library has a fingerprint with two tests, and each test has a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the config passes. If each test instead had a nested array, the fingerprint would contain two matches, and the test with the missing element would count as zero matches. If Sensible finds the other test's elements in order, one match out of two still passes.
+For example, the `senior_1040_2021` config in the Sensible configuration library uses portfolio syntax. Its fingerprint has two tests, and each test's `match` parameter is a flat array of three Match objects, so the fingerprint contains six matches. If Sensible finds five of them in a document, the config passes. If each `match` parameter instead had a nested array, the fingerprint would contain two matches, and the test with the missing element would count as zero matches. If Sensible finds the other test's elements in order, one match out of two still passes.
 
 ## Scoring for portfolios
 
@@ -300,7 +301,7 @@ Instead, write the following:
     {
       "page": "every",
       "match": [[
-        /* A nested array ("match": [[ ]]) is a match array: each element matches a separate line,
+        /* In a test's match parameter, a nested array ("match": [[ ]]) is a chained match: each element matches a separate line,
            and Sensible must find the lines in the same order as in the array.
            In a flat array ("match": [ ]), Sensible searches for each element independently, in any order.
            In a portfolio, Sensible must find all the elements on the page that the test identifies.

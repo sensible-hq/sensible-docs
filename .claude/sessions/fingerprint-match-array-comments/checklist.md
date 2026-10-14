@@ -545,3 +545,5 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
   - [ ] L41 `tests` param row ("array or nested array"): wrong for simple syntax.
   - [ ] PREFER example comment ("A nested array ... match array"): correct, because it's portfolio syntax. Maybe say "in a test's `match`".
 - Frances's proposal: in standalone docs, say "element in the `tests` array" instead of "match". Accurate for simple syntax.
+- [x] 2026-10-14, settled with Frances (her validator screenshot: `tests: [ [Form 1040, Page 2], "tax" ]` shows "2 matchers", with the first labeled "2 chained matchers"): in standalone syntax, a chained match is a flat `[ ]` element of `tests`. `[[ ]]` is only for a portfolio test's `match`. Fixed the WF example (`[[ ]]` to `[ ]`, TODO now `/* */`), the `tests` row value/description, the scoring table (standalone rows vs portfolio-syntax `match` rows), and the PREFER comment ("In a test's match parameter...").
+- [ ] The `tests` row still has Frances's LEFT OFF notes, including the stale "100% of tests must pass" for portfolios.
