@@ -561,7 +561,7 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 
 - **Claude's claim was wrong.** Separate tests aren't AND-ed. On p2, the passing test starts the document even though the other `every` test fails on that page (`every_failed` only closes an already-open document). So separate single-match tests are looser in portfolios, and the "Prefer match arrays to single-match tests" tip holds.
 - Standalone counts are the same (2 matches either way).
-- Test-account doc types: `fp_portfolio_separate_tests`, `fp_portfolio_flat_array`, `fp_portfolio_chained`. Candidate fixtures for `fixtures/fingerprint_portfolio/`.
+- Test-account doc types: `fp_portfolio_separate_tests`, `fp_portfolio_flat_array`, `fp_portfolio_chained`. Added to `fixtures/fingerprint_portfolio/` (manifest + expected.json, with a `claim` field).
 - [ ] Optional: add this comparison to the PREFER/AVOID tip as the evidence for it (the AVOID example would then include the statement's first page).
 
 ## To do: improve the portfolio.md fingerprint example
