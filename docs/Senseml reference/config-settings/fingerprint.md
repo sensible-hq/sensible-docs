@@ -147,20 +147,16 @@ The following table shows syntax and scoring for chained matches and other match
 
 If any element in a test fails on the page the test targets, Sensible doesn't classify the page's type. Sensible still segments the portfolio, but the page ranges can be wrong.
 
-The following scenario shows how incorrect segmentation depends on the test's page type, using the following example portfolio document:
+The following scenario shows how incorrect segmentation depends on the test's page type. The example portfolio contains three documents:
+
+- pages 1–2: tax return for 2020
+- pages 3–7: Wells Fargo bank statement
+- page 8: pay stub
 
 <!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints", "description": "Each row of the portfolio troubleshooting table"} -->
 <!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-
-The example portfolio contains three documents:
-
-| pages | document                                 |
-| ----- | ---------------------------------------- |
-| 1–2   | tax return for 2020                      |
-| 3–7   | Wells Fargo bank statement               |
-| 8     | pay stub                                 |
 
 In the following table:
 
