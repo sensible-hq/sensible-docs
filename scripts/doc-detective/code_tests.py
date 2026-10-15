@@ -127,7 +127,7 @@ def check_fixtures(selected, client):
             print(f"FAIL {name}  {e}")
             drifted += 1
             continue
-        note = "  (an unpublished draft exists; tests use the published version)" if state["draft"] else ""
+        note = "  (an unpublished edit in the app differs from the published config; tests use the published version)" if state["draft"] else ""
         if state["drift"]:
             drifted += 1
             print(f"DRIFT {name}{note}")

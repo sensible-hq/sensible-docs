@@ -95,8 +95,8 @@ class SensibleClient:
 
         Returns a dict: name, config_name, type_id (None if the doc type is missing), and `drift`, a
         list of readable differences between the committed files and the test account (the doc type's
-        settings, and the config published to settings.FIXTURE_ENVIRONMENT). `draft` is True when the
-        config's newest version isn't the published one: an unpublished edit, which doesn't affect tests."""
+        settings, and the config published to settings.FIXTURE_ENVIRONMENT). `draft` is True when there's
+        an unpublished edit whose content differs from the published config. It doesn't affect tests."""
         import os
 
         with open(doctype_file, encoding="utf-8") as f:
@@ -197,15 +197,24 @@ class SensibleClient:
         versions = response.json()
         versions = versions if isinstance(versions, list) else versions.get("versions", [])
         version = next((v["version_id"] for v in versions if settings.FIXTURE_ENVIRONMENT in (v.get("environments") or [])), None)
-        published_at = next((v.get("datetime", "") for v in versions if v["version_id"] == version), "")
-        # An edit saved in the app but not published (the editor autosaves drafts)
-        draft = any(v.get("draft") and v.get("datetime", "") > published_at for v in versions)
         if not version:
-            return None, draft
+            return None, False
+        published = self._config_version(type_id, config_name, version)
+        # An unpublished edit in the app. The editor autosaves a draft just from opening a config, so
+        # only a draft whose content differs from the published config counts.
+        published_at = next((v.get("datetime", "") for v in versions if v["version_id"] == version), "")
+        drafts = sorted((v for v in versions if v.get("draft") and v.get("datetime", "") > published_at), key=lambda v: v.get("datetime", ""))
+        draft = bool(drafts) and self._config_version(type_id, config_name, drafts[-1]["version_id"]) != published
+        return published, draft
+
+    def _config_version(self, type_id, config_name, version):
         response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/{version}")
         response.raise_for_status()
         config = response.json()["configuration"]
-        return (json.loads(config) if isinstance(config, str) else config), draft
+        try:
+            return json.loads(config) if isinstance(config, str) else config
+        except json.JSONDecodeError:
+            return config  # a draft with comments or a syntax error still counts as different
 
     def extract_portfolio(self, url, doc_types, document_name, timeout=600):
         """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents)."""
