@@ -126,7 +126,7 @@ Sensible searches the whole document for each element in the fingerprint.  If mo
 
 **Portfolios using portfolio syntax**
 
-In order to avoid incorrect segmentation, you must design the fingerprint so *each* element ("match") in the `match` parameter of *each* `test` in the fingerprint succeeds i.
+In order to avoid incorrect segmentation, you must design the fingerprint so *each* element ("match") in the `match` parameter of *each* `test` in the fingerprint succeeds.
 
 In detail, Sensible scores each test on each page of the portfolio. A test classifies a given page as a page type (for example, `first` or  `last`) only if Sensible finds all the elements in the test's `match` parameter on that page.  A fingerprint that correctly identifies some of the page types and misses others can result in inaccurate segmentation. 
 
