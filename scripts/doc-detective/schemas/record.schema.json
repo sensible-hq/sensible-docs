@@ -273,6 +273,10 @@
               }
             }
           }
+        },
+        "row": {
+          "type": "string",
+          "description": "Label of the claims-table row this test checks"
         }
       }
     }

@@ -201,3 +201,70 @@ class SegmentTest(unittest.TestCase):
     def test_editor_url(self):
         self.assertEqual(markup.editor_url("fixture_d", "fixture_c", "fixture_g"),
                          "https://app.sensible.so/editor/?d=fixture_d&c=fixture_c&g=fixture_g")
+
+
+CLAIMS_PAGE = """
+| example | claim |
+| ------- | ----- |
+| A | first claim |
+| B | second claim |
+
+<!-- code test {"testId": "t_a", "segment": "fingerprints"} -->
+<!-- example document -->
+| Example document | [Download link](https://example.test/p.pdf) |
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [], "row": "A"} -->
+<!-- code test end -->
+
+<!-- code test {"testId": "t_b", "segment": "fingerprints"} -->
+<!-- example document {"from": "t_a"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [], "row": "B"} -->
+<!-- code test end -->
+"""
+
+
+class ClaimsTableTest(unittest.TestCase):
+    """Tests bind to labeled rows of a claims table; rows can't drift from their tests unnoticed."""
+
+    def parse(self, text):
+        return markup.parse_page(write_page(self, text))
+
+    def test_unreviewed_row_fails_until_accepted(self):
+        path = write_page(self, CLAIMS_PAGE)
+        page = markup.parse_page(path)
+        with self.assertRaises(CodeTestError) as caught:
+            markup.check_syntax(page.code_tests["t_a"])
+        self.assertIn("has no row_sha yet", str(caught.exception))
+        self.assertEqual(sorted(markup.accept_rows(page)), ["t_a", "t_b"])
+        page = markup.parse_page(path)
+        for test in page.code_tests.values():
+            markup.check_syntax(test)  # accepted: no error
+        self.assertEqual(markup.accept_rows(page), [])
+
+    def test_edited_row_fails(self):
+        path = write_page(self, CLAIMS_PAGE)
+        markup.accept_rows(markup.parse_page(path))
+        with open(path, encoding="utf-8") as f:
+            text = f.read().replace("second claim", "changed claim")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(text)
+        test = markup.parse_page(path).code_tests["t_b"]
+        with self.assertRaises(CodeTestError) as caught:
+            markup.check_syntax(test)
+        self.assertIn("changed since its test was last reviewed", str(caught.exception))
+
+    def test_row_without_a_test_is_malformed(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(CLAIMS_PAGE.replace("| B | second claim |", "| B | second claim |\n| C | third claim |"))
+        self.assertIn("rows without a test: C", str(caught.exception))
+
+    def test_unknown_row_is_malformed(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(CLAIMS_PAGE.replace('"row": "B"', '"row": "Z"'))
+        self.assertIn("no claims-table row labeled 'Z'", str(caught.exception))
+
+    def test_row_bound_twice_is_malformed(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(CLAIMS_PAGE.replace('"row": "B"', '"row": "A"'))
+        self.assertIn("bound to two tests", str(caught.exception))

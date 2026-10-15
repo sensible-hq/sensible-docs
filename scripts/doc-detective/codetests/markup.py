@@ -28,6 +28,15 @@ instead of a code block, and compare page ranges instead of parsed_document:
 
 Pages in `expect` are printed (1-based) page numbers, to match the page's prose; [] means no documents.
 
+A test can bind to a row of a claims table: a Markdown table whose first column is headed "example".
+Each row's first cell is a short label (for example "B"):
+
+    <!-- example output {"compare": "documents", "expect": [...], "row": "B", "row_sha": "<12 hex>"} -->
+
+Every labeled row must have exactly one test, and every "row" must name a labeled row. "row_sha" is a
+hash of the row's text when its test was last reviewed: if the row changes, the test fails until you
+check its expect and run code_tests.py --accept-rows.
+
 Test IDs must be unique across both kinds of test on a page.
 """
 
@@ -74,6 +83,11 @@ class CodeTest:
     fixtures: list = field(default_factory=list)  # "<dir>/<doctype>" names from settings.TEST_FIXTURES_DIR
     compare: str = ""  # "documents": compare portfolio page ranges with `expect`, not parsed_document
     expect: object = None
+    row: str = ""  # label of the claims-table row this test checks
+    row_sha: str = ""  # hash of that row's text when the test was last reviewed
+    row_text: str = ""  # the row's current text, filled in by parse_page
+    row_span: tuple = (0, 0)  # character offsets of the row_sha value in the page, for --accept-rows
+    marker_span: tuple = (0, 0)  # character offsets of the example output marker
 
 
 @dataclass
@@ -137,6 +151,10 @@ def _code_test(text, match, path):
             if options["compare"] != "documents":
                 raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown compare {options['compare']!r}; use \"documents\" ({where})")
             test.compare, test.expect = options["compare"], options.get("expect")
+            test.row, test.row_sha = options.get("row", ""), options.get("row_sha", "")
+            sha = re.search(r'"row_sha"\s*:\s*"([^"]*)"', marker.group(0))
+            test.row_span = (offset + marker.start() + sha.start(1), offset + marker.start() + sha.end(1)) if sha else (0, 0)
+            test.marker_span = (offset + marker.start(), offset + marker.end())
             continue
         fence = FENCE_RE.match(body, marker.end())
         if not fence:
@@ -191,6 +209,8 @@ def parse_page(path):
         if not any(start <= marker.start() < end for start, end in code_spans):
             raise CodeTestError(DOCS_MALFORMED, f"{path}, line {_line(text, marker.start())}: <!-- example {marker.group(1)} --> is outside any <!-- code test -->")
 
+    _bind_rows(text, page)
+
     for test in page.code_tests.values():
         if test.document_from:
             source = page.code_tests.get(test.document_from)
@@ -206,6 +226,9 @@ def check_syntax(test):
     Configs may have comments and trailing commas (Sensible accepts them). Output blocks may have
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
+    if test.row and test.row_sha != row_hash(test.row_text):
+        state = "has no row_sha yet" if not test.row_sha else "changed since its test was last reviewed"
+        raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: claims-table row {test.row!r} {state}. Check that the test's expect still matches the row, then run code_tests.py --file PAGE --accept-rows ({test.file})")
     if test.compare == "documents":
         expect = test.expect
         if not isinstance(expect, list) or not all(
@@ -281,3 +304,73 @@ def editor_url(doctype, config, reference):
     from urllib.parse import urlencode
 
     return "https://app.sensible.so/editor/?" + urlencode({"d": doctype, "c": config, "g": reference})
+
+
+TABLE_ROW_RE = re.compile(r"^\|(.*)\|\s*$")
+
+
+def claims_rows(text):
+    """Rows of the page's claims tables (first column headed "example"): {label: (row text, line)}."""
+    rows, lines = {}, text.split("\n")
+    i = 0
+    while i < len(lines) - 1:
+        header = TABLE_ROW_RE.match(lines[i].strip())
+        if header and header.group(1).split("|")[0].strip().lower() == "example" and set(lines[i + 1].replace("|", "").strip()) <= set("-: "):
+            i += 2
+            while i < len(lines) and TABLE_ROW_RE.match(lines[i].strip()):
+                label = lines[i].strip().strip("|").split("|")[0].strip()
+                if label in rows:
+                    raise CodeTestError(DOCS_MALFORMED, f"claims-table label {label!r} is used on line {rows[label][1]} and line {i + 1}")
+                rows[label] = (lines[i].strip(), i + 1)
+                i += 1
+            continue
+        i += 1
+    return rows
+
+
+def row_hash(row_text):
+    import hashlib
+
+    return hashlib.sha256(" ".join(row_text.split()).encode("utf-8")).hexdigest()[:12]
+
+
+def _bind_rows(text, page):
+    """Each claims-table row has exactly one test, and each test's row exists."""
+    rows = claims_rows(text)
+    bound = {}
+    for test in page.code_tests.values():
+        if not test.row:
+            continue
+        if test.row not in rows:
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: no claims-table row labeled {test.row!r} in {page.path}")
+        if test.row in bound:
+            raise CodeTestError(DOCS_MALFORMED, f"claims-table row {test.row!r} is bound to two tests: {bound[test.row]} and {test.test_id}")
+        bound[test.row] = test.test_id
+        test.row_text = rows[test.row][0]
+    missing = [f"{label} (line {line})" for label, (_, line) in rows.items() if label not in bound]
+    if missing:
+        raise CodeTestError(DOCS_MALFORMED, f"{page.path}: claims-table rows without a test: {', '.join(missing)}")
+
+
+def accept_rows(page):
+    """Write each bound test's current row hash into its marker. Returns the test IDs updated."""
+    with open(page.path, encoding="utf-8") as f:
+        text = f.read()
+    updated, edits = [], []
+    for test in page.code_tests.values():
+        if not test.row or test.row_sha == row_hash(test.row_text):
+            continue
+        sha = row_hash(test.row_text)
+        if test.row_span != (0, 0):
+            edits.append((test.row_span, sha))
+        else:
+            start, end = test.marker_span
+            marker = text[start:end]
+            close = marker.rindex("}")
+            edits.append(((start + close, start + close), f', "row_sha": "{sha}"'))
+        updated.append(test.test_id)
+    for (start, end), value in sorted(edits, reverse=True):
+        text = text[:start] + value + text[end:]
+    with open(page.path, "w", encoding="utf-8") as f:
+        f.write(text)
+    return updated

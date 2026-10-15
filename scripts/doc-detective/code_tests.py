@@ -10,6 +10,7 @@ Usage:
   code_tests.py --file PAGE --build-envelope 10   build each code test's regression baseline from 10 runs
   code_tests.py --file PAGE --extend-envelope 10  add 10 runs to each saved baseline
   code_tests.py --file PAGE --check-fixtures      report fixtures that differ from the test account (no changes)
+  code_tests.py --file PAGE --accept-rows         record claims-table rows as reviewed (after checking their tests)
 
 Needs SENSIBLE_TEST_API_KEY, and an Anthropic key to judge LLM values, in .env or the environment.
 """
@@ -39,6 +40,7 @@ def main():
     parser.add_argument("--judge-model", help=f"Judge model ID (default: {settings.JUDGE_MODEL_VAR} or {judge.DEFAULT_MODEL})")
     parser.add_argument("--build-envelope", type=int, metavar="N", help="Extract each code test N times and save its LLM fields' baseline")
     parser.add_argument("--extend-envelope", type=int, metavar="N", help="Extract each code test N more times and add the runs to its saved baseline")
+    parser.add_argument("--accept-rows", action="store_true", help="After checking that each changed claims-table row still matches its test's expect, record the rows as reviewed")
     parser.add_argument("--check-fixtures", action="store_true", help="Compare the code tests' fixtures with the test account and report differences, without changing anything")
     parser.add_argument("--keep", action="store_true", help=f"Don't delete the {settings.DOC_TYPE} document type afterward (to inspect it in the app)")
     args = parser.parse_args()
@@ -49,6 +51,10 @@ def main():
     except CodeTestError as e:
         print(f"FAIL {args.file}  {e}")
         return 1
+    if args.accept_rows:
+        updated = markup.accept_rows(page)
+        print("\n".join(f"Accepted row for {t}" for t in updated) or "All claims-table rows already accepted")
+        return 0
     if args.list:
         for t in sorted(page.ui_tests + list(page.code_tests.values()), key=lambda t: t.line):
             kind = "UI test  " if isinstance(t, markup.UiTest) else "code test"

@@ -41,6 +41,7 @@ Other commands:
 | --- | --- |
 | `code_tests.py --file PAGE --check-syntax` | Checks the markup and code blocks. No keys or network. |
 | `code_tests.py --file PAGE --list` | Lists the page's tests. |
+| `code_tests.py --file PAGE --accept-rows` | Records claims-table rows as reviewed, after you've checked their tests still match. |
 | `code_tests.py --file PAGE --check-fixtures` | Reports fixtures that differ from the test account, without changing anything. |
 | `code_tests.py --file PAGE --test ID` | Runs one code test. |
 | `code_tests.py --file PAGE --build-envelope 10` | Builds each code test's regression baseline from 10 runs. |
@@ -111,6 +112,12 @@ For a claim about how fingerprints segment a portfolio, a code test runs committ
 | `example output {"compare": "documents", "expect": [...]}` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
+
+**Claims tables:** a test can check one row of a table whose first column is headed `example`. Give each row a short, reader-friendly label (`A`, `B`, ...), and bind the test with `"row": "B"` in its `example output` marker. The runner then requires:
+- every labeled row has exactly one test, and every `row` names a labeled row (`DOCS_MALFORMED` otherwise);
+- the row hasn't changed since its test was last reviewed. The marker's `"row_sha"` is a hash of the row's text. If the row changes, the test fails until you check that its `expect` still matches the row, and run `code_tests.py --file PAGE --accept-rows`, which records the new hashes.
+
+So a table edit can't silently drift from its tests, and adding a row without a test fails the run.
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, and the test passes **with a `[fixture]` warning** that names each difference, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 

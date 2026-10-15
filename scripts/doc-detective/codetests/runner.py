@@ -110,6 +110,7 @@ def _run_segments(rec, test, client):
     actual = sorted([[d.get("configuration"), d["startPage"] + 1, d["endPage"] + 1] for d in documents], key=lambda d: (d[1], d[2]))
     rec["segments"] = {
         "fixtures": list(test.fixtures),
+        **({"row": test.row} if test.row else {}),
         "document_types": doc_types,
         "editors": editors,
         "extraction_id": extraction_id,
