@@ -11,7 +11,7 @@ Working name: **`add-doc-tests`**.
 It builds on two pieces of existing work:
 - **The docs-test tooling on PR #737** (`scripts/doc-detective/`):
   - UI tests: Doc Detective inline `<!-- test -->` and `<!-- step -->` comments;
-  - code tests: `<!-- code test -->` with `example document`, `example config` and `example output` markers, run by `code_tests.py`;
+  - code tests: `<!-- code test -->` with `inline document`, `inline config` and `inline output` markers for parts published on the page, plus `fixture` (a private, committed doc type and config) and `expect` (an expectation written in the test), run by `code_tests.py`. Renamed from `example …` in PR #727; see `scripts/doc-detective/README.md`;
   - the LLM judge, regression envelopes, `run.sh`, and the HTML report.
 - **The API drift and contract-test design on PR #744** (`design/`), which this concept reuses for API changes rather than redesigning.
 
