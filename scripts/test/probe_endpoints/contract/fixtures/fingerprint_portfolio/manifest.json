@@ -1,112 +1,112 @@
 {
-  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table 'Alternate wordings' tip, and 'Prefer match arrays to single-match tests' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py); kept in their own manifest until #744 merges, then fold these entries into it. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation.",
+  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table 'Alternate wordings' tip, and 'Prefer match arrays to single-match tests' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py); kept in their own manifest until #744 merges, then fold these entries into it. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation. Fixture doc types and configs are prefixed `fixture_` so they aren't deleted by accident in the app; the code-test runner refuses fixtures without the prefix.",
   "document_types": [
     {
-      "doctype": "fp_demo_first_fails.doctype.json",
+      "doctype": "fixture_fp_demo_first_fails.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
       "configs": [
         {
-          "name": "first_fails",
-          "file": "fp_demo_first_fails.first_fails.config.json",
+          "name": "fixture_first_fails",
+          "file": "fixture_fp_demo_first_fails.fixture_first_fails.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_demo_last_fails.doctype.json",
+      "doctype": "fixture_fp_demo_last_fails.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
       "configs": [
         {
-          "name": "last_fails",
-          "file": "fp_demo_last_fails.last_fails.config.json",
+          "name": "fixture_last_fails",
+          "file": "fixture_fp_demo_last_fails.fixture_last_fails.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_demo_every_fails.doctype.json",
+      "doctype": "fixture_fp_demo_every_fails.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
       "configs": [
         {
-          "name": "every_fails",
-          "file": "fp_demo_every_fails.every_fails.config.json",
+          "name": "fixture_every_fails",
+          "file": "fixture_fp_demo_every_fails.fixture_every_fails.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_demo_any_fails.doctype.json",
+      "doctype": "fixture_fp_demo_any_fails.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
       "configs": [
         {
-          "name": "any_fails",
-          "file": "fp_demo_any_fails.any_fails.config.json",
+          "name": "fixture_any_fails",
+          "file": "fixture_fp_demo_any_fails.fixture_any_fails.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_demo_any_alternate.doctype.json",
+      "doctype": "fixture_fp_demo_any_alternate.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Alternate wordings)",
       "configs": [
         {
-          "name": "any_alternate",
-          "file": "fp_demo_any_alternate.any_alternate.config.json",
+          "name": "fixture_any_alternate",
+          "file": "fixture_fp_demo_any_alternate.fixture_any_alternate.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_portfolio_chained.doctype.json",
+      "doctype": "fixture_fp_portfolio_chained.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
       "configs": [
         {
-          "name": "chained",
-          "file": "fp_portfolio_chained.chained.config.json",
+          "name": "fixture_chained",
+          "file": "fixture_fp_portfolio_chained.fixture_chained.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_portfolio_flat_array.doctype.json",
+      "doctype": "fixture_fp_portfolio_flat_array.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
       "configs": [
         {
-          "name": "flat_array",
-          "file": "fp_portfolio_flat_array.flat_array.config.json",
+          "name": "fixture_flat_array",
+          "file": "fixture_fp_portfolio_flat_array.fixture_flat_array.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_portfolio_separate_tests.doctype.json",
+      "doctype": "fixture_fp_portfolio_separate_tests.doctype.json",
       "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
       "configs": [
         {
-          "name": "separate_tests",
-          "file": "fp_portfolio_separate_tests.separate_tests.config.json",
+          "name": "fixture_separate_tests",
+          "file": "fixture_fp_portfolio_separate_tests.fixture_separate_tests.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_pmd_auto.doctype.json",
+      "doctype": "fixture_fp_pmd_auto.doctype.json",
       "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
       "configs": [
         {
-          "name": "auto",
-          "file": "fp_pmd_auto.auto.config.json",
+          "name": "fixture_auto",
+          "file": "fixture_fp_pmd_auto.fixture_auto.config.json",
           "publish_as": "production"
         }
       ]
     },
     {
-      "doctype": "fp_pmd_loss.doctype.json",
+      "doctype": "fixture_fp_pmd_loss.doctype.json",
       "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
       "configs": [
         {
-          "name": "loss",
-          "file": "fp_pmd_loss.loss.config.json",
+          "name": "fixture_loss",
+          "file": "fixture_fp_pmd_loss.fixture_loss.config.json",
           "publish_as": "production"
         }
       ]

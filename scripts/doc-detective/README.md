@@ -98,15 +98,15 @@ For a claim about how fingerprints segment a portfolio, a code test runs committ
 <!-- code test {"testId": "segment_last_test_fails", "description": "...", "segment": "fingerprints"} -->
 <!-- example document -->
 | Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
-<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 ```
 
 | Marker | Meaning |
 | --- | --- |
 | `code test {"segment": "fingerprints"}` | A portfolio extraction that segments with fingerprints. |
-| `example config {"fixture": "<dir>/<doctype>"}` | A doc type and its one config from `scripts/test/probe_endpoints/contract/fixtures/<dir>/` (`<doctype>.doctype.json`, `<doctype>.<config>.config.json`). Repeatable: each fixture is its own doc type, and all are requested together. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `example config {"fixture": "<dir>/<doctype>"}` | A doc type and its one config from `scripts/test/probe_endpoints/contract/fixtures/<dir>/` (`<doctype>.doctype.json`, `<doctype>.<config>.config.json`). Repeatable: each fixture is its own doc type, and all are requested together. Fixture doc type and config names must start with `fixture_`, so nobody deletes them in the app by accident; the runner rejects a fixture without the prefix. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
 | `example output {"compare": "documents", "expect": [...]}` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.

@@ -178,8 +178,8 @@ In the following table:
 | bank statement, pages 3–7 | an `every` test that contains:<br/>`{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible leaves that page out of the document. If the page is in the middle of the document, Sensible ends the document on the previous page, which splits the document. | Sensible returns the bank statement as pages 4–7. The pay stub on page 8 fails the `every` test, which ends the document on page 7. |
 | bank statement, pages 3–7 | an `any` test that contains:<br/>`{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | Sensible returns the bank statement as pages 4–8, including the pay stub, because nothing ends the document. An `any` test doesn't end a document. **Note:** Avoid specifying an `any` page test unless other page types fail to segment the portfolio. |
 
-<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds.

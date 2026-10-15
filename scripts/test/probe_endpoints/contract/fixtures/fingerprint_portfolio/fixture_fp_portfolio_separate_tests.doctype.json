@@ -1,5 +1,5 @@
 {
-  "name": "fp_portfolio_chained",
+  "name": "fixture_fp_portfolio_separate_tests",
   "schema": {
     "ocr_engine": "amazon"
   }

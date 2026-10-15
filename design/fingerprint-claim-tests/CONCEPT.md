@@ -62,14 +62,14 @@ If the contrast ever gives the same result as the claim, the test reports `NOT_D
 
 | # | claim | mode | fixture | status |
 | - | ----- | ---- | ------- | ------ |
-| 1 | Troubleshooting row `first`: no tax return | portfolio | `fp_demo_first_fails` | fixture exists |
-| 2 | row `last`: pages 1–8 | portfolio | `fp_demo_last_fails` (+ contrast `any_alternate`) | exists |
-| 3 | row `every`: pages 4–7 | portfolio | `fp_demo_every_fails` | exists |
-| 4 | row `any`: pages 4–8 | portfolio | `fp_demo_any_fails` | exists |
-| 5 | Alternate wordings: `any` match in one test | portfolio | `fp_demo_any_alternate`; better: the page's block with `substitute` | exists |
-| 6 | Prefer tip: separate tests looser than one test; ALT ONE / ALT TWO | portfolio | `fp_portfolio_*`; better: the page's three blocks with `substitute` | exists |
-| 7 | flat array: no partial credit across pages | portfolio | `fp_portfolio_flat_array` | exists |
-| 8 | portfolio.md fingerprint example: quotes on pp. 1, 2; loss run p. 3 | portfolio | the page's two blocks as written | exists (`fp_pmd_*`) |
+| 1 | Troubleshooting row `first`: no tax return | portfolio | `fixture_fp_demo_first_fails` | fixture exists |
+| 2 | row `last`: pages 1–8 | portfolio | `fixture_fp_demo_last_fails` (+ contrast `any_alternate`) | exists |
+| 3 | row `every`: pages 4–7 | portfolio | `fixture_fp_demo_every_fails` | exists |
+| 4 | row `any`: pages 4–8 | portfolio | `fixture_fp_demo_any_fails` | exists |
+| 5 | Alternate wordings: `any` match in one test | portfolio | `fixture_fp_demo_any_alternate`; better: the page's block with `substitute` | exists |
+| 6 | Prefer tip: separate tests looser than one test; ALT ONE / ALT TWO | portfolio | `fixture_fp_portfolio_*`; better: the page's three blocks with `substitute` | exists |
+| 7 | flat array: no partial credit across pages | portfolio | `fixture_fp_portfolio_flat_array` | exists |
+| 8 | portfolio.md fingerprint example: quotes on pp. 1, 2; loss run p. 3 | portfolio | the page's two blocks as written | exists (`fixture_fp_pmd_*`) |
 | 9 | standalone: config passes at ≥50% of matches | standalone | new: 1 doc type, configs at 2/4 (ran) and 1/4 (skipped) | **new fixture** |
 | 10 | standalone: a chained match counts as one, in order, can span pages | standalone | new | **new fixture** |
 | 11 | `[[ ]]` as a Tests element is rejected; `[ ]` publishes | validate | page's table syntax | **new**, no extraction |
@@ -97,7 +97,7 @@ Cost: one extraction per test, plus one per contrast. That's about 20 small extr
 | --- | --- |
 | configs uploaded from page blocks | deleted right after their extraction, in a `finally` (as #737 does today) |
 | temporary doc types (`docs_ci_examples_<n>`, one config each) | deleted at the end of **each test**, in a `finally`, not just at the end of the run. A startup sweep deletes leftover `docs_ci_examples_*` doc types from crashed runs. `--keep` skips deletion for debugging, as in #737. |
-| fixture doc types (`fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*`) | never deleted. They're persistent, and `seed.py` restores or republishes them when they're missing or differ. |
+| fixture doc types (`fixture_fp_demo_*`, `fixture_fp_portfolio_*`, `fixture_fp_pmd_*`) | never deleted. They're persistent, and `seed.py` restores or republishes them when they're missing or differ. |
 | extractions | **can't be deleted**: the public API has no DELETE for documents or extractions (its only DELETEs are doc types, configs, config versions, reference documents, and email processors). Name them `ci__<testId>` so they're easy to filter, and accept the build-up in the dedicated test account. |
 
 ## Dependencies and order
@@ -112,5 +112,5 @@ Cost: one extraction per test, plus one per contrast. That's about 20 small extr
 
 1. **Where expectations live:** in the page comment (proposed), or in `expected.json` with the comment holding only an ID? The comment keeps claim and assertion together. A JSON file keeps the page lighter.
 2. **`substitute` vs fixtures:** substitution tests the page's real code shape, but adds a mapping a reviewer must check. Fixtures are simpler but can drift from the page's example.
-3. **Test account hygiene:** the temp doc types created per run need deleting. The persistent fixture doc types (`fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*`) stay.
+3. **Test account hygiene:** the temp doc types created per run need deleting. The persistent fixture doc types (`fixture_fp_demo_*`, `fixture_fp_portfolio_*`, `fixture_fp_pmd_*`) stay.
 4. **OCR:** pin `ocr_engine` in fixture doc types. Avoid scanned PDFs (the senior 1040-SR) for gating tests.

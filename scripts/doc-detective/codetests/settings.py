@@ -21,6 +21,8 @@ ENVIRONMENT = "development"
 TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints", "contract", "fixtures")
 # Fixture configs are published to this environment, and fixture extractions run in it
 FIXTURE_ENVIRONMENT = "production"
+# Fixture doc type and config names start with this, so they aren't deleted by accident in the app
+FIXTURE_PREFIX = "fixture_"
 
 # Keys. The Sensible key is the docs test account's; there's deliberately no fallback to
 # SENSIBLE_API_KEY, so a missing key can't run tests against another account.

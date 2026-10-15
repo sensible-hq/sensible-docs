@@ -12,19 +12,19 @@
   },
   "cases": [
     {
-      "document_type": "fp_demo_first_fails",
+      "document_type": "fixture_fp_demo_first_fails",
       "failing_test_page_type": "first",
       "document": "tax return, pages 1-2",
       "expected_documents": [],
       "verified_run": "3340f5b6-0947-48b2-8d19-cc3a428e5cc5"
     },
     {
-      "document_type": "fp_demo_last_fails",
+      "document_type": "fixture_fp_demo_last_fails",
       "failing_test_page_type": "last",
       "document": "tax return, pages 1-2",
       "expected_documents": [
         {
-          "configuration": "last_fails",
+          "configuration": "fixture_last_fails",
           "startPage": 0,
           "endPage": 7
         }
@@ -32,12 +32,12 @@
       "verified_run": "11c0f301-8983-4ce0-bcfa-0ad6215b64d4"
     },
     {
-      "document_type": "fp_demo_every_fails",
+      "document_type": "fixture_fp_demo_every_fails",
       "failing_test_page_type": "every",
       "document": "bank statement, pages 3-7",
       "expected_documents": [
         {
-          "configuration": "every_fails",
+          "configuration": "fixture_every_fails",
           "startPage": 3,
           "endPage": 6
         }
@@ -45,12 +45,12 @@
       "verified_run": "f621c1c2-b504-4643-ab37-101c8ab02b2c"
     },
     {
-      "document_type": "fp_demo_any_fails",
+      "document_type": "fixture_fp_demo_any_fails",
       "failing_test_page_type": "any",
       "document": "bank statement, pages 3-7",
       "expected_documents": [
         {
-          "configuration": "any_fails",
+          "configuration": "fixture_any_fails",
           "startPage": 3,
           "endPage": 7
         }
@@ -58,12 +58,12 @@
       "verified_run": "d68045b1-0e30-4271-9719-08370f345d04"
     },
     {
-      "document_type": "fp_demo_any_alternate",
+      "document_type": "fixture_fp_demo_any_alternate",
       "failing_test_page_type": "last (any Boolean match)",
       "document": "tax return, pages 1-2",
       "expected_documents": [
         {
-          "configuration": "any_alternate",
+          "configuration": "fixture_any_alternate",
           "startPage": 0,
           "endPage": 1
         }
@@ -71,12 +71,12 @@
       "verified_run": "bdf09121-9e59-4b92-ae8e-29087978f724"
     },
     {
-      "document_type": "fp_portfolio_chained",
+      "document_type": "fixture_fp_portfolio_chained",
       "failing_test_page_type": "every (one test, chained match)",
       "document": "bank statement, pages 3-7",
       "expected_documents": [
         {
-          "configuration": "chained",
+          "configuration": "fixture_chained",
           "startPage": 3,
           "endPage": 6
         }
@@ -85,12 +85,12 @@
       "claim": "In a portfolio, separate single-match tests are looser than one test: a passing every test starts a document even if another every test fails on that page (separate_tests includes p2; flat_array and chained don't)."
     },
     {
-      "document_type": "fp_portfolio_flat_array",
+      "document_type": "fixture_fp_portfolio_flat_array",
       "failing_test_page_type": "every (one test, flat array)",
       "document": "bank statement, pages 3-7",
       "expected_documents": [
         {
-          "configuration": "flat_array",
+          "configuration": "fixture_flat_array",
           "startPage": 3,
           "endPage": 6
         }
@@ -99,12 +99,12 @@
       "claim": "In a portfolio, separate single-match tests are looser than one test: a passing every test starts a document even if another every test fails on that page (separate_tests includes p2; flat_array and chained don't)."
     },
     {
-      "document_type": "fp_portfolio_separate_tests",
+      "document_type": "fixture_fp_portfolio_separate_tests",
       "failing_test_page_type": "every (two separate single-match tests)",
       "document": "bank statement, pages 3-7",
       "expected_documents": [
         {
-          "configuration": "separate_tests",
+          "configuration": "fixture_separate_tests",
           "startPage": 2,
           "endPage": 6
         }
@@ -114,8 +114,8 @@
     },
     {
       "document_types": [
-        "fp_pmd_auto",
-        "fp_pmd_loss"
+        "fixture_fp_pmd_auto",
+        "fixture_fp_pmd_loss"
       ],
       "pdf": "assets/pdfs/portfolio.pdf",
       "pdf_contents": {
@@ -126,20 +126,20 @@
       "claim": "portfolio.md fingerprint example: the auto quote's chained match [[anycocarinsurance.com, outline of quoted]] holds in order on each quote's first page, and the loss run's flat array matches even though 'unprocessed claim' precedes 'within 90 days' on the same line.",
       "expected_documents": [
         {
-          "documentType": "fp_pmd_auto",
-          "configuration": "auto",
+          "documentType": "fixture_fp_pmd_auto",
+          "configuration": "fixture_auto",
           "startPage": 0,
           "endPage": 0
         },
         {
-          "documentType": "fp_pmd_auto",
-          "configuration": "auto",
+          "documentType": "fixture_fp_pmd_auto",
+          "configuration": "fixture_auto",
           "startPage": 1,
           "endPage": 1
         },
         {
-          "documentType": "fp_pmd_loss",
-          "configuration": "loss",
+          "documentType": "fixture_fp_pmd_loss",
+          "configuration": "fixture_loss",
           "startPage": 2,
           "endPage": 2
         }

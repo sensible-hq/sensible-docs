@@ -1,5 +1,5 @@
 {
-  "name": "fp_demo_every_fails",
+  "name": "fixture_fp_demo_any_fails",
   "schema": {
     "ocr_engine": "amazon"
   }

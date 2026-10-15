@@ -610,3 +610,8 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 - `?withMetadata=true` has no fingerprint info. Standalone extraction responses always carry `classification_summary` (`fingerprints`, `fingerprints_present`, `score`).
 - [ ] **API spec bug:** `reference/openapi_extraction.json` > `Classification.fingerprints_present` says "The number of this config's fingerprints that Sensible found in the document". It's actually the number of matching LINES and can exceed `fingerprints` (run c1facbc8: senior_1040_2021 9 of 6). Fix the description (and check openapi_classification.json).
 - Per-match pass/fail is only in golden extractions (`fingerprint_matcher_results`, app-internal endpoint), which is what the validator uses.
+
+## 2026-10-15: fixtures renamed with a `fixture_` prefix (Frances)
+- Fixture doc types and configs are now `fixture_*` (for example, `fixture_fp_demo_last_fails` / `fixture_last_fails`), so they aren't deleted by accident in the app. The runner (`markup.fixture_files`) rejects a fixture without the prefix.
+- Renamed the files, manifest.json, and expected.json. Seeded all 10 in the test account with the runner's `ensure_fixture`, and deleted the 10 old unprefixed doc types (`fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*`). Older checklist entries and run IDs above still use the old names.
+- Test `segment_last_test_fails` passes against the renamed fixture (extraction 9df15338).

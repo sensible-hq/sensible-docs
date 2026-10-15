@@ -238,4 +238,8 @@ def fixture_files(name):
     configs = glob.glob(os.path.join(base, f"{glob.escape(doctype)}.*.config.json"))
     if not directory or not os.path.exists(doctype_file) or len(configs) != 1:
         raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: expected {os.path.relpath(doctype_file, settings.REPO_ROOT)} and exactly one {doctype}.<config>.config.json beside it")
+    config = os.path.basename(configs[0])[len(doctype) + 1:-len(".config.json")]
+    # Fixtures live in the shared test account; the prefix marks them so nobody deletes them in the app by accident
+    if not doctype.startswith(settings.FIXTURE_PREFIX) or not config.startswith(settings.FIXTURE_PREFIX):
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: the doc type and config names must start with {settings.FIXTURE_PREFIX!r} (found {doctype!r}, {config!r})")
     return doctype_file, configs[0]

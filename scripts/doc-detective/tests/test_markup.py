@@ -123,8 +123,8 @@ SEGMENT_TEST = """
 <!-- code test {"testId": "seg", "description": "claim", "segment": "fingerprints"} -->
 <!-- example document -->
 | Example document | [Download link](https://example.test/p.pdf) |
-<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 """
 
@@ -137,17 +137,17 @@ class SegmentTest(unittest.TestCase):
 
     def test_reads_fixtures_and_expected_documents(self):
         test = self.parse(SEGMENT_TEST).code_tests["seg"]
-        self.assertEqual((test.segment, test.fixtures, test.compare), ("fingerprints", ["fingerprint_portfolio/fp_demo_last_fails"], "documents"))
-        self.assertEqual(markup.check_syntax(test), (None, [["last_fails", 1, 8]]))
+        self.assertEqual((test.segment, test.fixtures, test.compare), ("fingerprints", ["fingerprint_portfolio/fixture_fp_demo_last_fails"], "documents"))
+        self.assertEqual(markup.check_syntax(test), (None, [["fixture_last_fails", 1, 8]]))
 
     def test_expect_must_be_one_based_page_ranges(self):
-        test = self.parse(SEGMENT_TEST.replace('[["last_fails", 1, 8]]', '[["last_fails", 0, 7]]')).code_tests["seg"]
+        test = self.parse(SEGMENT_TEST.replace('[["fixture_last_fails", 1, 8]]', '[["fixture_last_fails", 0, 7]]')).code_tests["seg"]
         with self.assertRaises(CodeTestError) as caught:
             markup.check_syntax(test)
         self.assertIn("1-based", str(caught.exception))
 
     def test_missing_fixture_is_malformed(self):
-        test = self.parse(SEGMENT_TEST.replace("fp_demo_last_fails", "no_such_fixture")).code_tests["seg"]
+        test = self.parse(SEGMENT_TEST.replace("fixture_fp_demo_last_fails", "fixture_no_such")).code_tests["seg"]
         with self.assertRaises(CodeTestError) as caught:
             markup.check_syntax(test)
         self.assertEqual(caught.exception.category, "DOCS_MALFORMED")
@@ -161,3 +161,20 @@ class SegmentTest(unittest.TestCase):
         with self.assertRaises(CodeTestError) as caught:
             self.parse(SEGMENT_TEST.replace('"compare": "documents"', '"compare": "pages"'))
         self.assertIn("unknown compare", str(caught.exception))
+
+    def test_fixture_names_need_the_prefix(self):
+        import os, tempfile, json
+        from codetests import settings
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, "d"))
+            with open(os.path.join(root, "d", "unprefixed.doctype.json"), "w") as f:
+                json.dump({"name": "unprefixed", "schema": {}}, f)
+            with open(os.path.join(root, "d", "unprefixed.cfg.config.json"), "w") as f:
+                json.dump({"fields": []}, f)
+            old, settings.TEST_FIXTURES_DIR = settings.TEST_FIXTURES_DIR, root
+            try:
+                with self.assertRaises(CodeTestError) as caught:
+                    markup.fixture_files("d/unprefixed")
+            finally:
+                settings.TEST_FIXTURES_DIR = old
+        self.assertIn("must start with 'fixture_'", str(caught.exception))

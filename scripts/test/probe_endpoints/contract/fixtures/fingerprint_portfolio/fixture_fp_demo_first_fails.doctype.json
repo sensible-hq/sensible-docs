@@ -1,5 +1,5 @@
 {
-  "name": "fp_pmd_auto",
+  "name": "fixture_fp_demo_first_fails",
   "schema": {
     "ocr_engine": "amazon"
   }
