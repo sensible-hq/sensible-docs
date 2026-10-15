@@ -18,6 +18,8 @@ JUDGE_UNAVAILABLE = "JUDGE_UNAVAILABLE"
 JUDGE_ERROR = "JUDGE_ERROR"
 # A saved baseline doesn't match envelope.schema.json, or can't be extended
 ENVELOPE_INVALID = "ENVELOPE_INVALID"
+# The test couldn't run: an unexpected error in the runner or its setup (for example a malformed key)
+RUNNER_ERROR = "RUNNER_ERROR"
 
 
 class CodeTestError(Exception):

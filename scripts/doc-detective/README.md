@@ -127,6 +127,7 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
 | `ENVELOPE_INVALID` | A saved baseline doesn't match `schemas/envelope.schema.json`. |
+| `RUNNER_ERROR` | The test couldn't run: an unexpected error in the runner or its setup, such as a key with stray whitespace. The message is recorded with keys redacted, and the traceback is in the log. |
 
 Everything is deterministic except what's labeled **judge**: an LLM decided it, and the same input can get a different verdict on another run.
 

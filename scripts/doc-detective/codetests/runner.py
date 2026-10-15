@@ -15,11 +15,12 @@ envelope never changes a verdict; it informs triage.
 import json
 import os
 import sys
+import traceback
 
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, CodeTestError,
+    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, CodeTestError,
 )
 
 
@@ -82,7 +83,12 @@ def run_code_test(test, client, judge=judge_module.judge, judge_key=None, judge_
         _run(rec, test, client, judge, judge_key, judge_model, fix)
         rec["status"] = "warn" if rec["warnings"] else "pass"
     except CodeTestError as e:
-        rec.update(status="fail", category=e.category, message=str(e))
+        rec.update(status="fail", category=e.category, message=settings.redact(str(e)))
+    except Exception as e:  # noqa: BLE001 -- record it, so the report and issue say what broke
+        # Messages can echo request headers, so redact keys before recording or printing
+        rec.update(status="fail", category=RUNNER_ERROR,
+                   message=settings.redact(f"{RUNNER_ERROR}: {type(e).__name__}: {e}"))
+        print(settings.redact(traceback.format_exc()), file=sys.stderr)
     return rec
 
 

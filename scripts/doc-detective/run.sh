@@ -48,6 +48,9 @@ python3 "$here/report.py" html --page "$page" || status=1
 while read -r var; do
   [[ -z "$var" || "$var" == \#* ]] && continue
   value="${!var:-}"
+  # Trim surrounding whitespace: a secret saved with a trailing newline still appears trimmed in reports
+  value="${value#"${value%%[![:space:]]*}"}"
+  value="${value%"${value##*[![:space:]]}"}"
   [[ -z "$value" ]] && continue
   VALUE="$value" find "$output_dir" -type f \( -name '*.json' -o -name '*.html' \) \
     -exec perl -pi -e 's/\Q$ENV{VALUE}\E/********/g' {} +
