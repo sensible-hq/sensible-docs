@@ -303,6 +303,21 @@ def render_code_test(record):
     return "\n".join(out)
 
 
+def details_label(test, rec):
+    """Link text for a test's details, unique to the test: what it checked, not a generic word."""
+    seg = rec.get("segments")
+    if seg:
+        def pages(docs):
+            return ", ".join(f"pages {s}–{n}" for _, s, n in docs) or "no documents"
+        if seg.get("row"):
+            number, _, row_id = seg["row"].partition(": ")
+            where = f"Row {number} ({row_id})"
+        else:
+            where = test.test_id
+        return f"{where}: {pages(seg['expected'])}"
+    return f"{test.test_id}: output comparison"
+
+
 def render_usage(usage):
     """The test account's Sensible usage: this run, and the month to date (from Sensible, after the run)."""
     if not usage:
@@ -310,11 +325,15 @@ def render_usage(usage):
     parts = []
     run = usage.get("run")
     if run:
-        parts.append(f'This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s).')
+        calls = sorted((run.get("by_call") or {}).items(), key=lambda kv: -kv[1])
+        breakdown = (" <details style=\"display:inline\"><summary style=\"display:inline;font-weight:normal\">by call</summary>"
+                     + ", ".join(f"<code>{e(c)}</code> {n}" for c, n in calls) + "</details>") if calls else ""
+        parts.append(f'This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s){breakdown}.')
     month, budget = usage.get("month"), usage.get("budget")
     if month:
         line = (f'Test account since {e(month["since"])}: {month["extractions"]} extraction(s), {month["charged"]} charged '
-                f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other).')
+                f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other). '
+                '<span title="Sensible charges a single-document extraction once, and a portfolio extraction once per document it returns (at least once), so charged can exceed extractions.">Why charged ≥ extractions?</span>')
         if budget:
             state = "fail" if month["charged"] >= budget else "warn" if month["charged"] >= 0.8 * budget else "pass"
             line += f' {chip(state, f"{month["charged"]} of {budget} monthly extraction budget")}'
@@ -354,12 +373,12 @@ def render(page_path, ui_results, records, out_path, usage=None):
             if result and len(result["steps"]) < test.steps:
                 status = "fail"
             failed = f', {result["failed"]} failed' if result and result["failed"] else ""
-            details = f'<a href="#{e(test.test_id)}">{len(result["steps"]) if result else 0} steps{failed}</a>'
+            details = f'<a href="#{e(test.test_id)}">{e(test.test_id)}: {len(result["steps"]) if result else 0} steps{failed}</a>'
             label = "UI test"
         else:
             rec = by_id.get(test.test_id)
             status = rec["status"] if rec else "not run"
-            details = (f'<a href="#{e(test.test_id)}">Comparison' + (" and judge reasoning</a> " + JUDGE if judged(rec) else "</a>")) if rec else "Not run"
+            details = (f'<a href="#{e(test.test_id)}">{e(details_label(test, rec))}' + (" and judge reasoning</a> " + JUDGE if judged(rec) else "</a>")) if rec else "Not run"
             label = "Code test"
         out.append(f'<tr><td><code>{e(test.test_id)}</code></td><td>{label}</td><td>{e(test.description)}</td><td>{chip(status)}</td><td>{details}</td></tr>')
     out.append("</table></section>")
@@ -373,7 +392,10 @@ def render(page_path, ui_results, records, out_path, usage=None):
     out.append("<script>"
                "document.querySelectorAll('.toolbar button').forEach(function(b){b.addEventListener('click',function(){"
                "document.querySelectorAll('details.test').forEach(function(d){d.open=b.dataset.open==='1';});});});"
-               "function openTarget(){var d=document.getElementById(location.hash.slice(1));if(d&&d.tagName==='DETAILS')d.open=true;}"
+               # Following a details link opens only that section, so the eye can follow where the link went
+               "function openTarget(){var d=document.getElementById(location.hash.slice(1));if(!d||d.tagName!=='DETAILS')return;"
+               "document.querySelectorAll('details.test').forEach(function(x){x.open=(x===d);});d.scrollIntoView({block:'start'});}"
+               "document.querySelectorAll('a[href^=\"#\"]').forEach(function(a){a.addEventListener('click',function(){setTimeout(openTarget,0);});});"
                "window.addEventListener('hashchange',openTarget);openTarget();</script>")
     out.append("</main></body></html>")
     with open(out_path, "w", encoding="utf-8") as f:

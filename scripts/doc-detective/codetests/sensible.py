@@ -6,6 +6,7 @@ document type removes its configs; extraction history stays in the app.
 """
 
 import json
+import re
 import time
 
 from . import settings
@@ -18,12 +19,21 @@ class SensibleClient:
         self._type_id = None
         # This run's Sensible API usage, for the report. SDK extractions count as one request each,
         # though the SDK also polls, so "requests" is a lower bound.
-        self.counts = {"requests": 0, "extractions": 0}
+        self.counts = {"requests": 0, "extractions": 0, "by_call": {}}
+        self._doc_types = None  # GET /document_types, cached for the run
 
     def _api(self, method, path, **kwargs):
         import requests
 
         self.counts["requests"] += 1
+        call = path.split("?")[0]
+        call = re.sub(r"/[0-9a-f]{8}-[0-9a-f-]{27,}", "/{id}", call)  # doc type and extraction IDs
+        call = re.sub(r"(?<=/configurations/)[^/]+|(?<=/goldens/)[^/]+", "{name}", call)
+        call = re.sub(r"(?<=/versions/)[^/]+|(?<=\{name\}/)(?!versions)[^/]+", "{version}", call)
+        call = f"{method} {call}"
+        self.counts["by_call"][call] = self.counts["by_call"].get(call, 0) + 1
+        if method != "GET" and path.startswith("/document_types") and path.count("/") == (1 if method == "POST" else 2):
+            self._doc_types = None  # a doc type was created or deleted
         return requests.request(method, f"{settings.API}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
 
     def document_status(self, url):
@@ -32,10 +42,16 @@ class SensibleClient:
 
         return requests.head(url, allow_redirects=True, timeout=30).status_code
 
+    def document_types(self):
+        """The test account's doc types, fetched once per run (refreshed after a doc type is created or deleted)."""
+        if self._doc_types is None:
+            response = self._api("GET", "/document_types")
+            response.raise_for_status()
+            self._doc_types = response.json()
+        return self._doc_types
+
     def _doc_type_id(self):
-        response = self._api("GET", "/document_types")
-        response.raise_for_status()
-        return next((d["id"] for d in response.json() if d["name"] == settings.DOC_TYPE), None)
+        return next((d["id"] for d in self.document_types() if d["name"] == settings.DOC_TYPE), None)
 
     def ensure_doc_type(self):
         if self._type_id:
@@ -96,7 +112,7 @@ class SensibleClient:
 
     # -- Fixtures and portfolio extractions (fingerprint claims) --
 
-    def fixture_drift(self, doctype_file, config_file, references=()):
+    def fixture_drift(self, doctype_file, config_file, references=(), check_drafts=True):
         """Compare a fixture with the test account, without changing anything.
 
         Returns a dict: name, config_name, type_id (None if the doc type is missing), and `drift`, a
@@ -113,16 +129,14 @@ class SensibleClient:
         config_name = os.path.basename(config_file)[len(name) + 1:-len(".config.json")]
         state = {"name": name, "config_name": config_name, "doctype": doctype, "config": config, "type_id": None, "drift": [], "draft": False,
                  "references": list(references), "missing_refs": [], "relinked_refs": []}
-        response = self._api("GET", "/document_types")
-        response.raise_for_status()
-        live_type = next((d for d in response.json() if d["name"] == name), None)
+        live_type = next((d for d in self.document_types() if d["name"] == name), None)
         if not live_type:
             state["drift"].append(f"doc type {name} is missing from the test account")
             state["missing_refs"] = list(references)
             return state
         state["type_id"] = live_type["id"]
         state["drift"] += [f"doc type {name} settings: {d}" for d in json_diff(doctype.get("schema") or {}, live_type.get("schema") or {})]
-        published, state["draft"] = self._published_config(live_type["id"], config_name)
+        published, state["draft"] = self._published_config(live_type["id"], config_name, check_drafts)
         if published is None:
             state["drift"].append(f"config {name}/{config_name} isn't published to {settings.FIXTURE_ENVIRONMENT}")
         else:
@@ -147,7 +161,8 @@ class SensibleClient:
 
         Returns (doc type name, config name, warnings). Each warning describes something the runner
         restored, for example a config someone edited and published in the app."""
-        state = self.fixture_drift(doctype_file, config_file, references)
+        # Drafts don't affect tests, so a normal run skips fetching them (--check-fixtures reports them)
+        state = self.fixture_drift(doctype_file, config_file, references, check_drafts=False)
         name, config_name, type_id = state["name"], state["config_name"], state["type_id"]
         if not state["drift"]:
             return name, config_name, []
@@ -194,7 +209,7 @@ class SensibleClient:
         if put.status_code != 200:
             raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) returned {put.status_code}")
 
-    def _published_config(self, type_id, config_name):
+    def _published_config(self, type_id, config_name, check_drafts=True):
         """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""
         response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/versions")
         if response.status_code == 404:
@@ -209,7 +224,7 @@ class SensibleClient:
         # An unpublished edit in the app. The editor autosaves a draft just from opening a config, so
         # only a draft whose content differs from the published config counts.
         published_at = next((v.get("datetime", "") for v in versions if v["version_id"] == version), "")
-        drafts = sorted((v for v in versions if v.get("draft") and v.get("datetime", "") > published_at), key=lambda v: v.get("datetime", ""))
+        drafts = sorted((v for v in versions if check_drafts and v.get("draft") and v.get("datetime", "") > published_at), key=lambda v: v.get("datetime", ""))
         draft = bool(drafts) and self._config_version(type_id, config_name, drafts[-1]["version_id"]) != published
         return published, draft
 
@@ -233,6 +248,7 @@ class SensibleClient:
         extraction_id = response.json()["id"]
         self.counts["extractions"] += 1
         deadline = time.time() + timeout
+        time.sleep(10)  # a portfolio extraction never finishes sooner, so don't poll before then
         while True:
             result = self._api("GET", f"/documents/{extraction_id}").json()
             if result.get("status") in ("COMPLETE", "FAILED"):

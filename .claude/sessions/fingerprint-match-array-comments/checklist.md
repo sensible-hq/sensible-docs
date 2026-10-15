@@ -632,3 +632,12 @@ To decide:
 - [ ] Where a report lives: keep the Actions artifact zip, or also host report.html (for example, GitHub Pages on a `gh-pages` branch, overwritten per run, or one path per run), so the issue can link straight to a viewable page
 - [ ] Optional: write the text summary to the job summary (`$GITHUB_STEP_SUMMARY`), so results show on the run page without downloading anything
 - [ ] Confirm: silent on pass, issue on failure (current behavior). Fixture-restored warnings: should they open or comment on an issue too, since they mean someone edited a fixture in the app?
+
+## To do: open an issue about `fingerprints_present`'s ambiguous meaning (Frances, 2026-10-15)
+
+- [ ] Open an issue (sensible-hq/sensible, or sensible-docs for the spec side) about the classification summary's fingerprint counts:
+  - Public API `classification_summary[]`: `fingerprints` = the number of flattened matches the config declares, and `fingerprints_present` = **the number of matching lines** (`fingerprintMatches.length`, every occurrence of every successful match). It can exceed `fingerprints`: run c1facbc8 has `senior_1040_2021` at 9 of 6.
+  - The spec (`reference/openapi_extraction.json`, `Classification.fingerprints_present`) says "The number of this config's fingerprints that Sensible found in the document". That's wrong for current behavior.
+  - sensible #816 (Jan 2022) designed it as a count of matched fingerprints ("fingerprintMatches": 2, "totalFingerprints": 3), so this may be a **backend regression**, not just a spec wording problem.
+  - Related internal fields (golden extractions only): `fingerprint_total` (matches declared) and `fingerprint_matcher_results` (per-match results), from sensible #3450.
+  - Ask engineering: which is intended? Fix the code (count matches) or the spec (count lines), and consider exposing per-match pass/fail publicly (see #1862, #1810).
