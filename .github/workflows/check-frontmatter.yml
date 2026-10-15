@@ -1,0 +1,46 @@
+name: Check frontmatter
+
+# Fails a PR if a changed docs/ or reference/ page has YAML frontmatter that
+# doesn't parse. ReadMe can't render such pages ("Error in user YAML").
+# generate-descriptions.yml repairs frontmatter, but only after merge to v0.
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - 'reference/**/*.md'
+      - '.github/workflows/check-frontmatter.yml'
+
+jobs:
+  check-frontmatter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Check changed files
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git diff -z --name-only --diff-filter=AMR "$BASE_SHA"...HEAD -- 'docs/**/*.md' 'reference/**/*.md' > changed.txt
+          if [ ! -s changed.txt ]; then
+            echo "No changed pages."
+            exit 0
+          fi
+
+          xargs -0 python scripts/descriptions/fix_frontmatter.py --dry-run --json < changed.txt > report.json
+          cat report.json
+
+          jq -r '.fixed[] | "::error file=\(.)::Invalid frontmatter. Run: python scripts/descriptions/fix_frontmatter.py \"\(.)\""' report.json
+          jq -r '.unfixable[] | "::error file=\(.path)::Invalid frontmatter that fix_frontmatter.py cannot repair: \(.error | gsub("\n"; " "))"' report.json
+          jq -e '(.fixed + .unfixable) | length == 0' report.json > /dev/null
