@@ -153,8 +153,8 @@ If any element in a test fails on the page the test targets, Sensible doesn't cl
 
 The following scenario shows how incorrect segmentation depends on the test's page type, using the following example portfolio document:
 
-<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment": "fingerprints", "description": "Each row of the portfolio troubleshooting table"} -->
-<!-- example document -->
+<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints", "description": "Each row of the portfolio troubleshooting table"} -->
+<!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
 
@@ -180,11 +180,11 @@ In the following table:
 | bank statement, pages 3–7 | an `every` test that contains:<br/>`{"type": "regex", "pattern": "Page [1245] of 7"}`<br/><br/>The regular expression matches the statement's page numbers `Page 1 of 7`, `Page 2 of 7`, `Page 4 of 7`, and `Page 5 of 7`, but not `Page 3 of 7`, so the match fails on page 5. | None. | Sensible ends the document on the previous page, and starts a new document on the next page where the test passes, which splits the document. | Sensible returns two bank statements, pages 3–4 and pages 6–7. The pay stub on page 8 fails the `every` test, which ends the second statement on page 7. |
 | bank statement, pages 3–7 | an `any` test that contains:<br/>`{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | Sensible returns the bank statement as pages 4–8, including the pay stub, because nothing ends the document. An `any` test doesn't end a document. **Note:** Avoid specifying an `any` page test unless other page types fail to segment the portfolio. |
 
-<!-- row {"rowId": "first_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_first_fails"}, "expect": []} -->
-<!-- row {"rowId": "last_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"}, "expect": [["fixture_last_fails", 1, 8]]} -->
-<!-- row {"rowId": "every_test_fails_first_page", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_every_fails"}, "expect": [["fixture_every_fails", 4, 7]]} -->
-<!-- row {"rowId": "every_test_fails_mid_document", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_every_split"}, "expect": [["fixture_every_split", 3, 4], ["fixture_every_split", 6, 7]]} -->
-<!-- row {"rowId": "any_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_any_fails"}, "expect": [["fixture_any_fails", 4, 8]]} -->
+<!-- row {"rowId": "first_test_fails", "fixture": {"name": "fixture_fp_demo_first_fails"}, "expect": {"compare": "documents", "documents": []}} -->
+<!-- row {"rowId": "last_test_fails", "fixture": {"name": "fixture_fp_demo_last_fails"}, "expect": {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]}} -->
+<!-- row {"rowId": "every_test_fails_first_page", "fixture": {"name": "fixture_fp_demo_every_fails"}, "expect": {"compare": "documents", "documents": [["fixture_every_fails", 4, 7]]}} -->
+<!-- row {"rowId": "every_test_fails_mid_document", "fixture": {"name": "fixture_fp_demo_every_split"}, "expect": {"compare": "documents", "documents": [["fixture_every_split", 3, 4], ["fixture_every_split", 6, 7]]}} -->
+<!-- row {"rowId": "any_test_fails", "fixture": {"name": "fixture_fp_demo_any_fails"}, "expect": {"compare": "documents", "documents": [["fixture_any_fails", 4, 8]]}} -->
 <!-- table test end -->
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds.

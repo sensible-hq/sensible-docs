@@ -1,5 +1,8 @@
 # Concept: code tests for fingerprint claims
 
+> **Superseded markup (2026-10-15):** the markup sketched below was replaced during implementation. Current syntax: `inline` / `fixture` / `expect` markers, `segment_documents_with`, fixtures named by doc type name, and tables of claims as one `<!-- table -->` tag plus one `<!-- table test -->` with `<!-- row -->` entries. See `scripts/doc-detective/README.md`. The claim inventory, contrast pairs, and cleanup sections below are still current.
+
+
 Status: draft · 2026-10-15 (revised: code-test options, not a new test type) · PR #727 · builds on #737 (inline code tests), #744 (fixtures, seed.py), #749 (claim triage)
 
 ## The idea

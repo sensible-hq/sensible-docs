@@ -25,15 +25,15 @@ class PageTest(unittest.TestCase):
     def test_fragment_is_wrapped_and_document_is_reused(self):
         page = self.parse(CODE_TEST_PAGE + """
 <!-- code test {"testId": "second"} -->
-<!-- example document {"from": "first"} -->
-<!-- example config {"fragment": "field"} -->
+<!-- inline document {"from": "first"} -->
+<!-- inline config {"fragment": "field"} -->
 ```json
  {
       /* a comment */
       "method": {"id": "queryGroup", "queries": []}
     },
 ```
-<!-- example output -->
+<!-- inline output -->
 ```json
 {}
 ```
@@ -48,15 +48,15 @@ class PageTest(unittest.TestCase):
 
     def test_fragment_syntax_errors_point_at_the_doc_line(self):
         page = self.parse("""<!-- code test {"testId": "t"} -->
-<!-- example document {"from": "first"} -->
-<!-- example config {"fragment": "field"} -->
+<!-- inline document {"from": "first"} -->
+<!-- inline config {"fragment": "field"} -->
 ```json
 {
   "method": {"id": "queryGroup"
   "queries": []}
 },
 ```
-<!-- example output -->
+<!-- inline output -->
 ```json
 {}
 ```
@@ -67,7 +67,7 @@ class PageTest(unittest.TestCase):
         self.assertRegex(str(caught.exception), r"line [67]\)")
 
     def test_from_must_name_a_code_test_with_a_link(self):
-        self.assertMalformed(CODE_TEST_PAGE.replace("<!-- example document -->", '<!-- example document {"from": "nope"} -->'), "names no code test with its own document link")
+        self.assertMalformed(CODE_TEST_PAGE.replace("<!-- inline document -->", '<!-- inline document {"from": "nope"} -->'), "names no code test with its own document link")
 
     def test_test_ids_are_unique_across_ui_and_code_tests(self):
         ui = '<!-- test {"testId": "first"} -->\n<!-- step {"goTo": "https://x.test"} -->\n<!-- test end -->\n'
@@ -77,14 +77,14 @@ class PageTest(unittest.TestCase):
         self.assertMalformed(CODE_TEST_PAGE + CODE_TEST_PAGE, "testId 'first' is used on line 1")
 
     def test_example_markers_must_be_inside_a_code_test(self):
-        self.assertMalformed(CODE_TEST_PAGE + "\n<!-- example output -->\n```json\n{}\n```\n", "is outside any <!-- code test -->")
+        self.assertMalformed(CODE_TEST_PAGE + "\n<!-- inline output -->\n```json\n{}\n```\n", "is outside any <!-- code test -->")
 
     def test_example_markers_inside_a_doc_detective_test_are_rejected(self):
         page = CODE_TEST_PAGE.replace("<!-- code test ", "<!-- test ").replace("<!-- code test end -->", "<!-- test end -->")
         self.assertMalformed(page, "wrap a code test in <!-- code test --> instead")
 
     def test_missing_parts_and_bad_ids(self):
-        self.assertMalformed(CODE_TEST_PAGE.replace("<!-- example output -->", "<!-- not a marker -->"), "missing <!-- example output -->")
+        self.assertMalformed(CODE_TEST_PAGE.replace("<!-- inline output -->", "<!-- not a marker -->"), "missing <!-- inline output -->")
         self.assertMalformed(CODE_TEST_PAGE.replace('"testId": "first"', '"testId": "First-Test"'), "must be lowercase letters")
         self.assertMalformed(CODE_TEST_PAGE.replace('"testId": "first", ', '"testId": "first" '), "isn't valid JSON")
 
@@ -120,11 +120,11 @@ if __name__ == "__main__":
 
 
 SEGMENT_TEST = """
-<!-- code test {"testId": "seg", "description": "claim", "segment": "fingerprints"} -->
-<!-- example document -->
+<!-- code test {"testId": "seg", "description": "claim", "segment_documents_with": "fingerprints"} -->
+<!-- inline document -->
 | Example document | [Download link](https://example.test/p.pdf) |
-<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
+<!-- fixture {"name": "fixture_fp_demo_last_fails"} -->
+<!-- expect {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 """
 
@@ -137,7 +137,7 @@ class SegmentTest(unittest.TestCase):
 
     def test_reads_fixtures_and_expected_documents(self):
         test = self.parse(SEGMENT_TEST).code_tests["seg"]
-        self.assertEqual((test.segment, test.fixtures, test.compare), ("fingerprints", ["fingerprint_portfolio/fixture_fp_demo_last_fails"], "documents"))
+        self.assertEqual((test.segment_documents_with, test.fixtures, test.compare), ("fingerprints", ["fixture_fp_demo_last_fails"], "documents"))
         self.assertEqual(markup.check_syntax(test), (None, [["fixture_last_fails", 1, 8]]))
 
     def test_expect_must_be_one_based_page_ranges(self):
@@ -154,13 +154,13 @@ class SegmentTest(unittest.TestCase):
 
     def test_documents_compare_needs_fingerprint_segmentation(self):
         with self.assertRaises(CodeTestError) as caught:
-            self.parse(SEGMENT_TEST.replace(', "segment": "fingerprints"', ""))
-        self.assertIn('needs "segment": "fingerprints"', str(caught.exception))
+            self.parse(SEGMENT_TEST.replace(', "segment_documents_with": "fingerprints"', ""))
+        self.assertIn('needs "segment_documents_with"', str(caught.exception))
 
     def test_unknown_compare_is_malformed(self):
         with self.assertRaises(CodeTestError) as caught:
             self.parse(SEGMENT_TEST.replace('"compare": "documents"', '"compare": "pages"'))
-        self.assertIn("unknown compare", str(caught.exception))
+        self.assertIn('expect needs "compare"', str(caught.exception))
 
     def test_fixture_names_need_the_prefix(self):
         import os, tempfile, json
@@ -174,7 +174,7 @@ class SegmentTest(unittest.TestCase):
             old, settings.TEST_FIXTURES_DIR = settings.TEST_FIXTURES_DIR, root
             try:
                 with self.assertRaises(CodeTestError) as caught:
-                    markup.fixture_files("d/unprefixed")
+                    markup.fixture_files("unprefixed")
             finally:
                 settings.TEST_FIXTURES_DIR = old
         self.assertIn("must start with 'fixture_'", str(caught.exception))
@@ -193,7 +193,7 @@ class SegmentTest(unittest.TestCase):
             old, settings.TEST_FIXTURES_DIR = settings.TEST_FIXTURES_DIR, root
             try:
                 with self.assertRaises(CodeTestError) as caught:
-                    markup.fixture_references("d/fixture_x")
+                    markup.fixture_references("fixture_x")
             finally:
                 settings.TEST_FIXTURES_DIR = old
         self.assertIn("needs at least one reference document", str(caught.exception))
@@ -205,8 +205,8 @@ class SegmentTest(unittest.TestCase):
 
 
 TABLE_PAGE = """
-<!-- table test {"testId": "tt", "table": "claims", "segment": "fingerprints", "description": "each row"} -->
-<!-- example document -->
+<!-- table test {"testId": "tt", "table": "claims", "segment_documents_with": "fingerprints", "description": "each row"} -->
+<!-- inline document -->
 | Example document | [Download link](https://example.test/p.pdf) |
 
 <!-- table {"tableId": "claims"} -->
@@ -215,8 +215,8 @@ TABLE_PAGE = """
 | first | none |
 | second | pages 1-8 |
 
-<!-- row {"rowId": "first_row", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_first_fails"}, "expect": []} -->
-<!-- row {"rowId": "second_row", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"}, "expect": [["fixture_last_fails", 1, 8]]} -->
+<!-- row {"rowId": "first_row", "fixture": {"name": "fixture_fp_demo_first_fails"}, "expect": {"compare": "documents", "documents": []}} -->
+<!-- row {"rowId": "second_row", "fixture": {"name": "fixture_fp_demo_last_fails"}, "expect": {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]}} -->
 <!-- table test end -->
 """
 
@@ -254,3 +254,25 @@ class TableTestTest(unittest.TestCase):
         with self.assertRaises(CodeTestError) as caught:
             self.parse(TABLE_PAGE.replace("| claim | result |", "Some text"))
         self.assertIn("isn't followed by a Markdown table", str(caught.exception))
+
+
+class RenamedMarkupTest(unittest.TestCase):
+    """The old #737 markers and the "segment" option fail with a message naming the new markup."""
+
+    def parse(self, text):
+        return markup.parse_page(write_page(self, text))
+
+    def test_old_example_markers_name_their_replacement(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(CODE_TEST_PAGE.replace("<!-- inline config -->", "<!-- example config -->"))
+        self.assertIn("was renamed <!-- inline config -->", str(caught.exception))
+
+    def test_old_segment_option_names_its_replacement(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(SEGMENT_TEST.replace('"segment_documents_with"', '"segment"'))
+        self.assertIn('"segment" was renamed "segment_documents_with"', str(caught.exception))
+
+    def test_old_row_config_names_its_replacement(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(TABLE_PAGE.replace('"fixture": {"name": "fixture_fp_demo_first_fails"}', '"config": {"fixture": "fixture_fp_demo_first_fails"}'))
+        self.assertIn('was renamed "fixture"', str(caught.exception))

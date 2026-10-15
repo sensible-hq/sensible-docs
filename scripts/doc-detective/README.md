@@ -64,19 +64,21 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 
 ### Code tests
 
+Markers inside a code test say where each part comes from: **`inline`** parts are published on the page (what readers see and copy), a **`fixture`** is private and committed (a doc type, its SenseML config, and a reference document in the test account), and **`expect`** is an expectation written in the test itself, for claims the page makes in prose or a table. "Config" always means a SenseML config; a test's own JSON is its **options**.
+
 ````markdown
 <!-- code test {"testId": "extract_auto_insurance_anyco", "description": "Run the tutorial config against the example document and check the documented output"} -->
 
-   <!-- example document -->
+   <!-- inline document -->
 
    | Example document | [Download link](https://raw.githubusercontent.com/.../auto_insurance_anyco.pdf) |
 
-<!-- example config -->
+<!-- inline config -->
 ```json
 { "fields": [ ... ] }
 ```
 
-<!-- example output -->
+<!-- inline output -->
 ```json
 { "policy_number": { ... } }
 ```
@@ -85,38 +87,38 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 
 | Marker | Points at |
 | --- | --- |
-| `<!-- example document -->` | The first link on the next line: the page's own download link, so there's one copy of the URL. |
-| `<!-- example document {"from": "ID"} -->` | Another code test's document, for a section without its own link. |
-| `<!-- example config -->` | The next code block: the config, uploaded exactly as written, comments included. |
-| `<!-- example config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
-| `<!-- example output -->` | The next code block: the output the page claims. |
+| `<!-- inline document -->` | The first link on the next line: the page's own download link, so there's one copy of the URL. |
+| `<!-- inline document {"from": "ID"} -->` | Another code test's document, for a section without its own link. |
+| `<!-- inline config -->` | The next code block: the config, uploaded exactly as written, comments included. |
+| `<!-- inline config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
+| `<!-- inline output -->` | The next code block: the output the page claims. |
 
 ### Fingerprint claims (portfolio segments)
 
-For a claim about how fingerprints segment a portfolio, a code test runs committed **fixtures** instead of a code block on the page, and compares the extraction's documents (configs and page ranges) instead of `parsed_document`:
+For a claim about how fingerprints segment a portfolio, a code test runs a private **fixture** instead of a code block on the page, and checks an **expect** written in the test, comparing the extraction's documents (configs and page ranges) instead of `parsed_document`:
 
 ```markdown
-<!-- code test {"testId": "segment_last_test_fails", "description": "...", "segment": "fingerprints"} -->
-<!-- example document -->
+<!-- code test {"testId": "last_test_fails", "description": "...", "segment_documents_with": "fingerprints"} -->
+<!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
-<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
+<!-- fixture {"name": "fixture_fp_demo_last_fails"} -->
+<!-- expect {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 ```
 
-| Marker | Meaning |
+| Marker or option | Meaning |
 | --- | --- |
-| `code test {"segment": "fingerprints"}` | A portfolio extraction that segments with fingerprints. |
-| `example config {"fixture": "<dir>/<doctype>"}` | A doc type and its one config from `scripts/test/probe_endpoints/contract/fixtures/<dir>/` (`<doctype>.doctype.json`, `<doctype>.<config>.config.json`). Repeatable: each fixture is its own doc type, and all are requested together. Fixture doc type and config names must start with `fixture_`, so nobody deletes them in the app by accident; the runner rejects a fixture without the prefix. Every fixture doc type also needs at least one reference document, listed under `references` in its folder's `manifest.json` (`name`, also prefixed `fixture_`; `pdf`, repo-relative; `configuration`), so you can open it in the SenseML editor. The report links each fixture to the editor: `https://app.sensible.so/editor/?d=<doctype>&c=<config>&g=<reference>`. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
-| `example output {"compare": "documents", "expect": [...]}` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
+| `code test {"segment_documents_with": "fingerprints"}` | A portfolio extraction, segmented with fingerprints. Named after the public API's parameter, which it sets. Without it, a code test runs a single-document extraction. |
+| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed under `scripts/test/probe_endpoints/contract/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, and a reference document in the folder's `manifest.json`). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `<!-- expect {"compare": "documents", "documents": [...]} -->` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
 
 **Tables of claims:** tag the table with one comment, and check it with one table test that has a row entry for each table row, in order (like a Doc Detective test and its steps). The table itself has no other markers, so readers see it unchanged:
 
 ```markdown
-<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment": "fingerprints", "description": "..."} -->
-<!-- example document -->
+<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints", "description": "..."} -->
+<!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
 
 <!-- table {"tableId": "portfolio_failures"} -->
@@ -125,12 +127,14 @@ These comparisons are exact: fingerprinting uses no LLM, so there's no judge and
 | tax return, pages 1–2 | ... | ... | Sensible doesn't return a tax return. |
 | tax return, pages 1–2 | ... | ... | Sensible returns the tax return as pages 1–8, ... |
 
-<!-- row {"rowId": "first_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_first_fails"}, "expect": []} -->
-<!-- row {"rowId": "last_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"}, "expect": [["fixture_last_fails", 1, 8]]} -->
+<!-- row {"rowId": "first_test_fails", "fixture": {"name": "fixture_fp_demo_first_fails"}, "expect": {"compare": "documents", "documents": []}} -->
+<!-- row {"rowId": "last_test_fails", "fixture": {"name": "fixture_fp_demo_last_fails"}, "expect": {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]}} -->
 <!-- table test end -->
 ```
 
-The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
+A row's keys are marker names with the same options (`fixture`, `expect`), so a row converts to a code test and back mechanically: `rowId` becomes `testId`, each key becomes its marker, and the table test's `inline document` and `segment_documents_with` move onto the code test. The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
+
+**Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, and the test passes **with a `[fixture]` warning** that names each difference, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 
