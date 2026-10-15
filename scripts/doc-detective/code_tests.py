@@ -104,7 +104,7 @@ def cleanup(args, client):
     """Delete the temporary document type. A failure here is reported but never hides a test's own
     result or error: records are already saved, and the next run reuses the document type."""
     # Only delete the temporary doc type if this run used it: another page's run may be using it now
-    if args.keep or not client.used_temp_doc_type:
+    if args.keep or not getattr(client, "used_temp_doc_type", True):
         return
     try:
         if client.delete_doc_type():

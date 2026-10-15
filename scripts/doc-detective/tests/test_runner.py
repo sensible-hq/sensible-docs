@@ -180,3 +180,23 @@ class SecretHandlingTest(RunnerTestCase):
         args = mock.Mock(keep=False)
         with mock.patch("sys.stderr"):
             code_tests.cleanup(args, UndeletableClient({}))  # must not raise
+
+    def test_cleanup_leaves_the_temp_doc_type_if_this_run_didnt_use_it(self):
+        """Another page's run may be using docs_ci_examples, so a run that never used it must not delete it."""
+        import code_tests
+
+        class TrackingClient(FakeClient):
+            deleted = False
+
+            def delete_doc_type(self):
+                TrackingClient.deleted = True
+                return True
+
+        client = TrackingClient({})
+        client.used_temp_doc_type = False
+        code_tests.cleanup(mock.Mock(keep=False), client)
+        self.assertFalse(TrackingClient.deleted)
+        client.used_temp_doc_type = True
+        with mock.patch("builtins.print"):
+            code_tests.cleanup(mock.Mock(keep=False), client)
+        self.assertTrue(TrackingClient.deleted)
