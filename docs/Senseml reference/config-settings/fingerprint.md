@@ -1,13 +1,13 @@
 ---
 title: Fingerprint
 excerpt: >-
-  Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types)
+  Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (for example, identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (for example, find wells_fargo bank statement page range in a hundred-page mortgage application PDF that contains other document types)
 deprecated: false
 hidden: false
 metadata:
   title: ''
   description: >-
-    Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (e.g. identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (e.g. find wells_fago bank statement page range in a hundred-page mortgage application PDF that contains other document types)
+    Learn how Sensible tests documents for matching text patterns ("fingerprints"). Two distinct use cases: 1. identify document subtypes (for example, identify wells_fargo in bank_statements doc type) 2. segment multi-document portfolios (for example, find wells_fargo bank statement page range in a hundred-page mortgage application PDF that contains other document types)
   robots: index
 next:
   description: ''
@@ -15,7 +15,7 @@ next:
 Fingerprints test for matching text in a document to determine:
 
 1. the document's subtype, or "config", for standalone files
-2. the document's page range in multi-document, or "portfolio", files.
+2. the document's page range in multi-document files, or "portfolios."
 
 See the following table for more information:
 
@@ -95,9 +95,9 @@ The config preferentially runs if the fingerprint passes.
 | -------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | match (**required**) | a string, a [Match object](doc:match), an array of unordered Match objects, or a [chained match](doc:fingerprint#chained-matches) | Specifies the text to match. Sensible uses matches to segment a document's page range in portfolio files. |
 | offset               | integer                                                      | Specifies where to start or end the document segment, offset in pages relative to the first or last page defined by the Match parameter. For example, if you specify that the page that contains the phrase "A summary of your rights" is the first page of a segment, and Sensible finds that match on the zero-indexed page 5 of a portfolio:<br/>- specifying `"offset": -1` starts the document segment on page 4 of the portfolio.<br/>- specifying `"offset": 2` starts the document segment on page 7 of the portfolio. |
-| page                 | `first`, `last`, `every`, `any`                              | Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. Use `first` to detect consecutive document segments of the same document type in a portfolio. If you specify `first` you must pair it with another test type such as `"page": "every"` or `"page": "last"`. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria.  If you define this page type, you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. Avoid specifying an `any` page test unless other page types fail to segment the portfolio. |
+| page                 | `first`, `last`, `every`, `any`                              | Configure with the following enums:<br/>`first` - The first page of a document segment must meet the match criteria. Use `first` to detect consecutive document segments of the same document type in a portfolio. If you specify `first` you must pair it with another test type such as `"page": "every"` or `"page": "last"`. <br/>`last` - The last page of a document segment must meet the match criteria. If you specify `last`, you must pair it with a different page type, such as `every`. <br/>`every` - Every page in the document segment must meet the match criteria. If you define this page type, you must pair it with a different page type, such as `last`. <br/>`any`- Any page in the document segment can meet the criteria. Avoid specifying an `any` page test unless other page types fail to segment the portfolio. |
 
-## Portfolio Examples
+## Portfolio examples
 
 For an example of using fingerprints to extract multiple documents from a portfolio file, see [Multi-document extraction](doc:portfolio#fingerprint-example). 
 
@@ -105,7 +105,7 @@ For an example of using fingerprints to extract multiple documents from a portfo
 
 ## Fingerprint syntax conversion
 
-If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter portfolio syntax.  Sensible automatically converts between the two syntaxes as follows:
+If you expect that you'll use a config in both standalone and portfolio extraction requests (generally a rare circumstance), Sensible recommends you use the stricter portfolio syntax. Sensible automatically converts between the two syntaxes as follows:
 
 -  To convert to portfolio, Sensible automatically expands standalone document syntax for portfolio fingerprints using `"page" : "any"`.  
 -  To convert to standalone, Sensible discards all portfolio-specific parameters in each test and only retains the value of the Match parameter. In detail, it ignores the Page and Offset parameters if specified.
@@ -120,15 +120,15 @@ Sensible scores fingerprints differently for standalone documents and for portfo
 
 **Standalone documents using standalone syntax**
 
-50% or more of the elements ("matches") in the `tests` array  must succeed for the config to "pass". 
+50% or more of the elements ("matches") in the `tests` array must succeed for the config to "pass."
 
-Sensible searches the whole document for each element in the fingerprint.  If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
+Sensible searches the whole document for each element in the fingerprint. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
 
 **Portfolios using portfolio syntax**
 
-In order to avoid incorrect segmentation, you must design the fingerprint so *each* element ("match") in the `match` parameter of *each* `test` in the fingerprint succeeds.
+To avoid incorrect segmentation, you must design the fingerprint so *each* element ("match") in the `match` parameter of *each* `test` in the fingerprint succeeds.
 
-In detail, Sensible scores each test on each page of the portfolio. A test classifies a given page as a page type (for example, `first` or  `last`) only if Sensible finds all the elements in the test's `match` parameter on that page.  A fingerprint that correctly identifies some of the page types and misses others can result in inaccurate segmentation. 
+In detail, Sensible scores each test on each page of the portfolio. A test classifies a given page as a page type (for example, `first` or  `last`) only if Sensible finds all the elements in the test's `match` parameter on that page. A fingerprint that correctly identifies some of the page types and misses others can result in inaccurate segmentation. 
 
 For more information, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
@@ -142,7 +142,7 @@ The following table shows syntax and scoring for chained matches and other match
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------------------- | ------------------------------------------------------------ |
 | a string or a [Match](doc:match) object, including [Boolean match](doc:match#boolean-matches) | syntax is consistent                                         | syntax is consistent                                         | one match                         | one match                                                    |
 | chained match                                                | flat array of Match objects as an element in the `tests` array: `"tests":[ [A, B],...]`. | nested array in a test's `match` parameter: `"match": [[ A, B ]]`. A chained match requires its Match objects to be on the same page. | one match                         | one match                                                    |
-| unordered array                                              | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ A, B ]`. All elements must be on the same page to classify the page type, but elements can be unordered and don't need to appear in separate lines. | N/A                               | one match for each Match object in the array TODO/question: if you have 2 out of 4 on 1 page, and 2 on a succeeding page, does only the first page count and you get 2/4? what practical effect does the scoring have compared to a chained match --- doesn't it end up being 'one match' in the end b/c the page type passes or fails..? |
+| unordered array                                              | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ A, B ]`. All elements must be on the same page to classify the page type, but elements can be unordered and don't need to appear in separate lines. | N/A                               | no partial credit: the test passes on a page only if Sensible finds every Match object on that page. For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page. |
 
 # Notes
 
@@ -185,7 +185,42 @@ Use the following tips when you define fingerprints.
 
 ### Alternate wordings
 
-If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and a match that contains wording A and wording B as follows: TODO INCLUDE THE MATCH SYNTAX .
+If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and a match that contains wording A and wording B as follows:
+
+```json
+"fingerprint": {
+  "tests": [
+    {
+      "page": "first",
+      "match": [
+        {
+          "type": "includes",
+          "text": "text that's always on the first page"
+        }
+      ]
+    },
+    {
+      "page": "last",
+      "match": [
+        {
+          /* the test passes on a page that contains either wording */
+          "type": "any",
+          "matches": [
+            {
+              "type": "includes",
+              "text": "wording A from revision 1"
+            },
+            {
+              "type": "includes",
+              "text": "wording B from revision 2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
 ### Turn off preprocessors
 
@@ -205,7 +240,7 @@ The following tips apply to fingerprints for portfolio documents.
 
 **Prefer match arrays to single-match tests**
 
-* Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests.  In other words, don't write the following:
+* Unless the document contains a highly unusual and characteristic `string` or `match` object, always use an array of `match` objects, rather than an array of single-match tests. In other words, don't write the following:
 
 ```json
 /* AVOID THIS SYNTAX */
