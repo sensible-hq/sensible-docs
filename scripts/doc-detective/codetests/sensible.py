@@ -21,6 +21,7 @@ class SensibleClient:
         # though the SDK also polls, so "requests" is a lower bound.
         self.counts = {"requests": 0, "extractions": 0, "by_call": {}}
         self._doc_types = None  # GET /document_types, cached for the run
+        self.used_temp_doc_type = False  # whether this run used settings.DOC_TYPE, so cleanup only deletes it then
 
     def _api(self, method, path, **kwargs):
         import requests
@@ -54,6 +55,7 @@ class SensibleClient:
         return next((d["id"] for d in self.document_types() if d["name"] == settings.DOC_TYPE), None)
 
     def ensure_doc_type(self):
+        self.used_temp_doc_type = True
         if self._type_id:
             return self._type_id
         self._type_id = self._doc_type_id()

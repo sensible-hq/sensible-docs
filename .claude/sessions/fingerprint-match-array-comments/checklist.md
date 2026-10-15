@@ -6,43 +6,15 @@ Worktree: /home/franc/GitHub/sensible-docs-fingerprint-match-array-comments (bra
 PR: https://github.com/sensible-hq/sensible-docs/pull/727
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume abbb26a9-022f-426d-b62a-97bc541c74e3`
 
-## OPEN ITEMS (rechecked 2026-10-15; supersedes every unchecked box further down)
+## OPEN ITEMS: resolved 2026-10-15
 
-Everything below this section is history. Use this list.
-
-**fingerprint.md content**
-- [ ] Wells Fargo standalone example: the matches ("statement period", "transaction history") are invented, and there's no example PDF, so the example can't be tested. Pick a real config + PDF (for example, the library's 1040 or the portfolio file's statement pages), or accept it as illustrative.
-- [ ] CSE guidance on when to use chained matches (`first`/`last` tests, doc types with many similar configs, strict Fingerprint Mode). Not on the page yet. Generalize it, and don't name the customer.
-- [ ] Notes structure: Notes > Troubleshooting / Tips > Alternate wordings, Turn off preprocessors, Standalone-specific, Portfolio-specific. Is the "grab-bag" reorganization done?
-- [ ] "Fingerprint strictness in standalone documents": a one-sentence link that duplicates the link in Fingerprint scoring. Keep or cut.
-- [ ] Optional: mirror more tips as inline comments in examples (only the preprocessor tip is done).
-- [ ] Optional tip: curly vs straight apostrophes (`preparer.s name` regex).
-
-**portfolio.md**
-- [ ] Link from the LLM example (and/or the Fingerprint mode bullet, ~L40) to fingerprint.md's portfolio content (troubleshooting table, chained matches) as the deterministic alternative.
-
-**Tests and tooling**
-- [ ] Add fingerprint.md (and portfolio.md) to CI. The only docs-test workflow is `doc-detective-getting-started.yml`, for getting-started.md alone. Also decide report hosting (Actions artifact zip vs a hosted page) and whether fixture-restored warnings open an issue (see "REMIND FRANCES: how test reports publish in CI").
-- [ ] More fingerprint claims to test (concept doc inventory #9–14): standalone 50% threshold, standalone chained matches, `[[ ]]` rejected in standalone syntax, string = case-insensitive includes, standalone ignores Page/Offset, `offset` example. Needs `classification`/`publish` comparisons.
-- [ ] Contrast runs (`expect` that must differ), from the concept doc. Not built.
-- [ ] getting-started.md's two code tests weren't run locally after the inline rename (no `sensibleapi`/Anthropic key locally). The first CI run after merge confirms them.
-- [ ] Open branches using `<!-- example ... -->` markers (check #749) will fail until they switch to `inline`.
-- [ ] When #744 merges: fold `fixtures/fingerprint_portfolio/manifest.json` into its manifest/seed.py. `expected.json` is now redundant with the page's table test; retire it or generate it.
-- [ ] #750 (PR frontmatter check) is open, waiting on review/merge.
-- [ ] Later: when the validator supports portfolio mode, add the "validate against several reference documents" sentence and screenshots.
-
-**Issues to open**
-- [ ] `fingerprints_present` counts matching lines, not matches; spec says matches; possible regression from sensible #816 (details in "To do: open an issue about `fingerprints_present`").
-
-**Housekeeping**
-- [ ] `drafts/blog-oocl-delivery-orders-20260622.md` (main checkout, untracked) still says "all tests must pass" (2 places).
-- [ ] Test account: the abandoned upload `6ff7ec01…` is still WAITING and can't be deleted via the API. Check the app or leave it.
-
-**Before merging PR #727**
-- [ ] Update the PR description. It's out of date: no mention of the table test, inline/fixture/expect rename, runner changes, fixtures, drift checks, usage reporting, or knowledge doc.
-- [ ] Resolve the 4 old GitHub review threads (all outdated; their wording went in on Oct 1).
-- [ ] Decide whether the session files stay in the PR (`.claude-session`, `.claude/active-session`, this checklist).
-- [ ] Merging changes getting-started.md, which triggers #737's CI.
+Frances chose items 2, 7, 10, 11, 13 to do, and closed the rest (no further action).
+- [x] 2. CSE guidance: "When to use chained matches" tip (portfolio first/last tests; doc types with many similar configs; strict Fingerprint Mode), generalized, no customer name.
+- [x] 7. fingerprint.md in CI: `.github/workflows/doc-tests-fingerprint.yml` (push to v0 on page/fixtures/tooling, monthly, on demand; own issue label `doc-tests-fingerprint`; report artifact). run.sh skips Doc Detective on pages without UI tests. Fixed cleanup: code_tests.py only deletes `docs_ci_examples` if its run used it (a fingerprint run could have deleted it mid getting-started run). Verified locally: run.sh pass; simulated failure renders the issue body. Can't dispatch before merge (workflow_dispatch needs the file on v0).
+- [x] 10. getting-started.md code tests pass with the renamed markup (both within their envelopes); full offline suite passes with deps installed.
+- [x] 11. No open branch uses old markers in a test. Updated #749's concept doc wording to inline/fixture/expect.
+- [x] 13. #750 confirmed: throwaway draft PR #753 with broken frontmatter failed the check (run 38817847873); #753 closed, branch deleted; #750 test plan ticked.
+- Closed without action: Wells Fargo example, notes reorg, strictness one-liner, more inline tips, apostrophe tip, portfolio.md link, more claims tests, contrast runs, #744 fold-in, validator portfolio mode, fingerprints_present issue, OOCL blog draft, abandoned upload, PR description, review threads, session files, getting-started CI trigger note.
 
 ## RESUME HERE (updated 2026-10-13)
 

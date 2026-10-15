@@ -56,6 +56,8 @@ td, th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--bord
 th { font-size: 12px; color: var(--muted); font-weight: 600; }
 code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
 code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+td code { overflow-wrap: anywhere; }
+td { overflow-wrap: anywhere; }
 pre { background: var(--code-bg); padding: 12px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; margin: 6px 0 0; }
 .verdict { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin: 0 0 12px; }
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
@@ -326,23 +328,23 @@ def render_usage(usage):
     run = usage.get("run")
     if run:
         calls = sorted((run.get("by_call") or {}).items(), key=lambda kv: -kv[1])
-        breakdown = (" <details style=\"display:inline\"><summary style=\"display:inline;font-weight:normal\">by call</summary>"
-                     + ", ".join(f"<code>{e(c)}</code> {n}" for c, n in calls) + "</details>") if calls else ""
-        parts.append(f'This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s){breakdown}.')
+        breakdown = ('<details style="margin:2px 0 0"><summary style="font-weight:normal">Requests by call</summary><ul>'
+                     + "".join(f"<li><code>{e(c)}</code>: {n}</li>" for c, n in calls) + "</ul></details>") if calls else ""
+        parts.append(f'<div>This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s).{breakdown}</div>')
     month, budget = usage.get("month"), usage.get("budget")
     if month:
-        line = (f'Test account since {e(month["since"])}: {month["extractions"]} extraction(s), {month["charged"]} charged '
+        line = (f'<div>Test account since {e(month["since"])}: {month["extractions"]} extraction(s), {month["charged"]} charged '
                 f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other). '
                 '<span title="Sensible charges a single-document extraction once, and a portfolio extraction once per document it returns (at least once), so charged can exceed extractions.">Why charged ≥ extractions?</span>')
         if budget:
             state = "fail" if month["charged"] >= budget else "warn" if month["charged"] >= 0.8 * budget else "pass"
             line += f' {chip(state, f"{month["charged"]} of {budget} monthly extraction budget")}'
-        parts.append(line)
+        parts.append(line + "</div>")
     elif usage.get("error"):
-        parts.append(f'Test account usage this month: unavailable ({e(usage["error"])}).')
+        parts.append(f'<div>Test account usage this month: unavailable ({e(usage["error"])}).</div>')
     if not parts:
         return ""
-    return '<p class="muted" style="margin:-16px 0 20px">' + " ".join(parts) + "</p>"
+    return '<div class="muted" style="margin:-16px 0 20px;display:grid;gap:4px">' + "".join(parts) + "</div>"
 
 
 def render(page_path, ui_results, records, out_path, usage=None):
