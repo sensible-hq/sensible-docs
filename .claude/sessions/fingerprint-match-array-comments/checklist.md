@@ -615,3 +615,20 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 - Fixture doc types and configs are now `fixture_*` (for example, `fixture_fp_demo_last_fails` / `fixture_last_fails`), so they aren't deleted by accident in the app. The runner (`markup.fixture_files`) rejects a fixture without the prefix.
 - Renamed the files, manifest.json, and expected.json. Seeded all 10 in the test account with the runner's `ensure_fixture`, and deleted the 10 old unprefixed doc types (`fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*`). Older checklist entries and run IDs above still use the old names.
 - Test `segment_last_test_fails` passes against the renamed fixture (extraction 9df15338).
+
+## REMIND FRANCES: how test reports publish in CI (asked 2026-10-15)
+
+Her questions: are reports invisible when tests pass, and linked from an issue or PR when they fail? Are they hosted as a Claude artifact (she doesn't like that ID), or some other way?
+
+What #737's CI does today (`.github/workflows/doc-detective-getting-started.yml`):
+- **Only getting-started.md is in CI.** The workflow is per-page and runs `run.sh` on that page alone. **fingerprint.md's tests don't run in CI yet.** They'd need their own workflow (or the workflow generalized to every page with tests).
+- Triggers: pushes to v0 that change the page or the tooling, monthly (1st, 15:00 UTC), and on demand. **Never on PRs.**
+- **Reports:** every run, pass or fail, uploads `scripts/doc-detective/output/` (report.html + records) as a **GitHub Actions artifact** (`doc-detective-reports`, a zip on the run page, default 90-day retention). Nothing is hosted as a web page. You download the zip and open report.html locally. A passing run is effectively invisible unless you open the run.
+- **On failure:** one standing issue labeled `doc-detective` (created, or commented on) with the failure summary and the run URL, where the report zip is. Plus, for documented-output drift, a draft PR that rewrites the output. That proposed fix doesn't apply to fingerprint (segment) tests: there's no output block to rewrite.
+- **The Claude artifact link** (claude.ai/code/artifact/3640ec19-…) is something Claude published by hand during this session. It isn't part of CI, and CI won't publish there.
+
+To decide:
+- [ ] Add fingerprint.md (and portfolio.md) to CI: a new workflow, or generalize the existing one to run every page that has tests
+- [ ] Where a report lives: keep the Actions artifact zip, or also host report.html (for example, GitHub Pages on a `gh-pages` branch, overwritten per run, or one path per run), so the issue can link straight to a viewable page
+- [ ] Optional: write the text summary to the job summary (`$GITHUB_STEP_SUMMARY`), so results show on the run page without downloading anything
+- [ ] Confirm: silent on pass, issue on failure (current behavior). Fixture-restored warnings: should they open or comment on an issue too, since they mean someone edited a fixture in the app?
