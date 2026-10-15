@@ -37,7 +37,7 @@ To extract from a portfolio, take the following steps:
 1. Enable segmentation with one of the following alternatives:
 
 - **LLM mode**: In the document type's **Settings** tab, describe the document type in the **Description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [Document type descriptions](doc:descriptions).
-- **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
+- **Fingerprint mode**: Specify [fingerprints](doc:fingerprint#portfolios) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
 
 2. Create an extraction request with one of the following alternatives:
 
