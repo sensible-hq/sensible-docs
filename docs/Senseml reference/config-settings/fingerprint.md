@@ -120,7 +120,7 @@ Sensible scores fingerprints differently for standalone documents and for portfo
 
 **Standalone documents using standalone syntax**
 
-50% or more of the elements ("matches") in the `tests` array  must succeed. 
+50% or more of the elements ("matches") in the `tests` array  must succeed for the config to "pass". 
 
 Sensible searches the whole document for each element in the fingerprint.  If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
 
