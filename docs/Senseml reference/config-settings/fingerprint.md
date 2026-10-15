@@ -110,10 +110,6 @@ If you use a config in both standalone and portfolio extraction requests, write 
 - To convert to portfolio syntax, Sensible expands standalone syntax into a test with `"page": "any"`.
 - To convert to standalone syntax, Sensible keeps the value of each test's Match parameter and ignores the Page and Offset parameters.
 
-## Fingerprint strictness in standalone documents
-
-For information about configuring fingerprint strictness for standalone documents, see [Fingerprint mode](doc:fingerprint-mode).
-
 ## Fingerprint scoring
 
 Sensible scores fingerprints differently for standalone documents and for portfolios.
