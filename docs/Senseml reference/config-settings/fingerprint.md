@@ -187,7 +187,7 @@ In the following table:
 <!-- row {"rowId": "any_test_fails", "fixture": {"name": "fixture_fp_demo_any_fails"}, "expect": {"compare": "documents", "documents": [["fixture_any_fails", 4, 8]]}} -->
 <!-- table test end -->
 
-Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds.
+Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds. When troubleshooting, test one document type at a time.
 
 
 ## Tips for authoring fingerprints
