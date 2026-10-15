@@ -28,14 +28,19 @@ instead of a code block, and compare page ranges instead of parsed_document:
 
 Pages in `expect` are printed (1-based) page numbers, to match the page's prose; [] means no documents.
 
-A test can bind to a row of a claims table: a Markdown table whose first column is headed "example".
-Each row's first cell is a short label (for example "B"):
+A table of claims gets one tag, and one table test checks it, with a row entry for each of its rows
+(like a Doc Detective test and its steps). The table itself has no markers, so it reads as usual:
 
-    <!-- example output {"compare": "documents", "expect": [...], "row": "B", "row_sha": "<12 hex>"} -->
+    <!-- table {"tableId": "portfolio_failures"} -->
+    | ... | ... |
+    <!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment": "fingerprints"} -->
+    <!-- example document -->                       or {"from": "<testId>"}
+    <!-- row {"rowId": "last_test_fails", "config": {"fixture": "<dir>/<doctype>"}, "expect": [...]} -->
+    <!-- table test end -->
 
-Every labeled row must have exactly one test, and every "row" must name a labeled row. "row_sha" is a
-hash of the row's text when its test was last reviewed: if the row changes, the test fails until you
-check its expect and run code_tests.py --accept-rows.
+The tag and the test must name each other, and the test needs one row entry per table row, in the
+table's order: adding or deleting a row without updating the test fails the run. Row content isn't
+compared; the tag is the hint that the table and the test change together.
 
 Test IDs must be unique across both kinds of test on a page.
 """
@@ -83,11 +88,8 @@ class CodeTest:
     fixtures: list = field(default_factory=list)  # "<dir>/<doctype>" names from settings.TEST_FIXTURES_DIR
     compare: str = ""  # "documents": compare portfolio page ranges with `expect`, not parsed_document
     expect: object = None
-    row: str = ""  # label of the claims-table row this test checks
-    row_sha: str = ""  # hash of that row's text when the test was last reviewed
-    row_text: str = ""  # the row's current text, filled in by parse_page
-    row_span: tuple = (0, 0)  # character offsets of the row_sha value in the page, for --accept-rows
-    marker_span: tuple = (0, 0)  # character offsets of the example output marker
+    table: str = ""  # the tagged table this test's row belongs to
+    row: str = ""  # "<n>: <rowId>", the row of that table this test checks
 
 
 @dataclass
@@ -151,10 +153,6 @@ def _code_test(text, match, path):
             if options["compare"] != "documents":
                 raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown compare {options['compare']!r}; use \"documents\" ({where})")
             test.compare, test.expect = options["compare"], options.get("expect")
-            test.row, test.row_sha = options.get("row", ""), options.get("row_sha", "")
-            sha = re.search(r'"row_sha"\s*:\s*"([^"]*)"', marker.group(0))
-            test.row_span = (offset + marker.start() + sha.start(1), offset + marker.start() + sha.end(1)) if sha else (0, 0)
-            test.marker_span = (offset + marker.start(), offset + marker.end())
             continue
         fence = FENCE_RE.match(body, marker.end())
         if not fence:
@@ -205,11 +203,12 @@ def parse_page(path):
         page.code_tests[test.test_id] = test
         code_spans.append((match.start(), match.end()))
 
+    code_spans += [(m.start(), m.end()) for m in TABLE_TEST_RE.finditer(text)]
     for marker in MARKER_RE.finditer(text):
         if not any(start <= marker.start() < end for start, end in code_spans):
             raise CodeTestError(DOCS_MALFORMED, f"{path}, line {_line(text, marker.start())}: <!-- example {marker.group(1)} --> is outside any <!-- code test -->")
 
-    _bind_rows(text, page)
+    _table_tests(text, path, page, claim)
 
     for test in page.code_tests.values():
         if test.document_from:
@@ -226,9 +225,6 @@ def check_syntax(test):
     Configs may have comments and trailing commas (Sensible accepts them). Output blocks may have
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
-    if test.row and test.row_sha != row_hash(test.row_text):
-        state = "has no row_sha yet" if not test.row_sha else "changed since its test was last reviewed"
-        raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: claims-table row {test.row!r} {state}. Check that the test's expect still matches the row, then run code_tests.py --file PAGE --accept-rows ({test.file})")
     if test.compare == "documents":
         expect = test.expect
         if not isinstance(expect, list) or not all(
@@ -306,71 +302,96 @@ def editor_url(doctype, config, reference):
     return "https://app.sensible.so/editor/?" + urlencode({"d": doctype, "c": config, "g": reference})
 
 
-TABLE_ROW_RE = re.compile(r"^\|(.*)\|\s*$")
+TABLE_TAG_RE = re.compile(r"<!--\s*table\s+(\{.*?\})\s*-->", re.S)
+TABLE_TEST_RE = re.compile(r"<!--\s*table test\s+(\{.*?\})\s*-->(.*?)<!--\s*table test end\s*-->", re.S)
+ROW_RE = re.compile(r"<!--\s*row\s+(\{.*?\})\s*-->", re.S)
+TABLE_LINE_RE = re.compile(r"^\s*\|.*\|\s*$")
 
 
-def claims_rows(text):
-    """Rows of the page's claims tables (first column headed "example"): {label: (row text, line)}."""
-    rows, lines = {}, text.split("\n")
+def _table_rows(text, tag_end):
+    """Number of data rows in the Markdown table that follows a table tag."""
+    lines = text[tag_end:].split("\n")
     i = 0
-    while i < len(lines) - 1:
-        header = TABLE_ROW_RE.match(lines[i].strip())
-        if header and header.group(1).split("|")[0].strip().lower() == "example" and set(lines[i + 1].replace("|", "").strip()) <= set("-: "):
-            i += 2
-            while i < len(lines) and TABLE_ROW_RE.match(lines[i].strip()):
-                label = lines[i].strip().strip("|").split("|")[0].strip()
-                if label in rows:
-                    raise CodeTestError(DOCS_MALFORMED, f"claims-table label {label!r} is used on line {rows[label][1]} and line {i + 1}")
-                rows[label] = (lines[i].strip(), i + 1)
-                i += 1
-            continue
+    while i < len(lines) and not lines[i].strip():
         i += 1
+    if i + 1 >= len(lines) or not TABLE_LINE_RE.match(lines[i]) or not set(lines[i + 1].replace("|", "").strip()) <= set("-: ") or not lines[i + 1].strip():
+        return None
+    rows = 0
+    for line in lines[i + 2:]:
+        if not TABLE_LINE_RE.match(line):
+            break
+        rows += 1
     return rows
 
 
-def row_hash(row_text):
-    import hashlib
-
-    return hashlib.sha256(" ".join(row_text.split()).encode("utf-8")).hexdigest()[:12]
-
-
-def _bind_rows(text, page):
-    """Each claims-table row has exactly one test, and each test's row exists."""
-    rows = claims_rows(text)
-    bound = {}
-    for test in page.code_tests.values():
-        if not test.row:
-            continue
-        if test.row not in rows:
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: no claims-table row labeled {test.row!r} in {page.path}")
-        if test.row in bound:
-            raise CodeTestError(DOCS_MALFORMED, f"claims-table row {test.row!r} is bound to two tests: {bound[test.row]} and {test.test_id}")
-        bound[test.row] = test.test_id
-        test.row_text = rows[test.row][0]
-    missing = [f"{label} (line {line})" for label, (_, line) in rows.items() if label not in bound]
-    if missing:
-        raise CodeTestError(DOCS_MALFORMED, f"{page.path}: claims-table rows without a test: {', '.join(missing)}")
+def _json(text, where, kind):
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as e:
+        raise CodeTestError(DOCS_MALFORMED, f"{where}: the {kind} comment isn't valid JSON ({e.msg})")
 
 
-def accept_rows(page):
-    """Write each bound test's current row hash into its marker. Returns the test IDs updated."""
-    with open(page.path, encoding="utf-8") as f:
-        text = f.read()
-    updated, edits = [], []
-    for test in page.code_tests.values():
-        if not test.row or test.row_sha == row_hash(test.row_text):
-            continue
-        sha = row_hash(test.row_text)
-        if test.row_span != (0, 0):
-            edits.append((test.row_span, sha))
-        else:
-            start, end = test.marker_span
-            marker = text[start:end]
-            close = marker.rindex("}")
-            edits.append(((start + close, start + close), f', "row_sha": "{sha}"'))
-        updated.append(test.test_id)
-    for (start, end), value in sorted(edits, reverse=True):
-        text = text[:start] + value + text[end:]
-    with open(page.path, "w", encoding="utf-8") as f:
-        f.write(text)
-    return updated
+def _table_tests(text, path, page, claim):
+    """Read table tags and table tests; expand each row entry into a CodeTest."""
+    tables = {}
+    for tag in TABLE_TAG_RE.finditer(text):
+        where = f"{path}, line {_line(text, tag.start())}"
+        table_id = _json(tag.group(1), where, "table").get("tableId", "")
+        if not TEST_ID_RE.match(table_id):
+            raise CodeTestError(DOCS_MALFORMED, f"{where}: tableId {table_id!r} must be lowercase letters, digits, and underscores")
+        if table_id in tables:
+            raise CodeTestError(DOCS_MALFORMED, f"{where}: tableId {table_id!r} is used twice")
+        rows = _table_rows(text, tag.end())
+        if rows is None:
+            raise CodeTestError(DOCS_MALFORMED, f"{where}: <!-- table {{\"tableId\": \"{table_id}\"}} --> isn't followed by a Markdown table")
+        tables[table_id] = rows
+
+    tested = set()
+    for match in TABLE_TEST_RE.finditer(text):
+        test_id, description, line = _test_header(text, match, path, "table test")
+        header = json.loads(match.group(1))
+        where = f"{path}, line {line}"
+        table_id = header.get("table", "")
+        if table_id not in tables:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: no <!-- table {{\"tableId\": \"{table_id}\"}} --> on the page ({where})")
+        if table_id in tested:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: table {table_id!r} already has a table test ({where})")
+        tested.add(table_id)
+        body, offset = match.group(2), match.start(2)
+        document = MARKER_RE.search(body)
+        if not document or document.group(1) != "document":
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a table test needs <!-- example document --> before its rows ({where})")
+        options = json.loads(document.group(2)) if document.group(2) else {}
+        document_url, document_from = "", options.get("from", "")
+        if not document_from:
+            link = LINK_RE.match(body, document.end())
+            if not link:
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: <!-- example document --> isn't followed by a line with a link ({where})")
+            document_url = link.group(1)
+        entries = list(ROW_RE.finditer(body))
+        if len(entries) != tables[table_id]:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: table {table_id!r} has {tables[table_id]} row(s) but its test has {len(entries)} row entr{'y' if len(entries) == 1 else 'ies'}. Add or remove row entries so there's one per table row, in the table's order ({where})")
+        for n, entry in enumerate(entries, start=1):
+            entry_where = f"{path}, line {_line(text, offset + entry.start())}"
+            row = _json(entry.group(1), entry_where, "row")
+            row_id = row.get("rowId", "")
+            if not TEST_ID_RE.match(row_id):
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: rowId {row_id!r} must be lowercase letters, digits, and underscores ({entry_where})")
+            config = row.get("config") or {}
+            if "fixture" not in config:
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: row {row_id} needs \"config\": {{\"fixture\": \"<dir>/<doctype>\"}} ({entry_where})")
+            test = CodeTest(f"{test_id}__{row_id}", f"{description} (row {n}: {row_id})" if description else f"row {n}: {row_id}",
+                            path, _line(text, offset + entry.start()))
+            test.segment = header.get("segment", "")
+            test.fixtures = [config["fixture"]]
+            test.compare, test.expect = row.get("compare", "documents"), row.get("expect")
+            test.document_url, test.document_from = document_url, document_from
+            test.table, test.row = table_id, f"{n}: {row_id}"
+            if test.compare != "documents" or test.segment != "fingerprints":
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: table test rows support \"segment\": \"fingerprints\" with compare \"documents\" ({entry_where})")
+            claim(test.test_id, test.line)
+            page.code_tests[test.test_id] = test
+
+    untested = sorted(set(tables) - tested)
+    if untested:
+        raise CodeTestError(DOCS_MALFORMED, f"{path}: tagged table(s) without a table test: {', '.join(untested)}")

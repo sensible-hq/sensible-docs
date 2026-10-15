@@ -41,7 +41,6 @@ Other commands:
 | --- | --- |
 | `code_tests.py --file PAGE --check-syntax` | Checks the markup and code blocks. No keys or network. |
 | `code_tests.py --file PAGE --list` | Lists the page's tests. |
-| `code_tests.py --file PAGE --accept-rows` | Records claims-table rows as reviewed, after you've checked their tests still match. |
 | `code_tests.py --file PAGE --check-fixtures` | Reports fixtures that differ from the test account, without changing anything. |
 | `code_tests.py --file PAGE --test ID` | Runs one code test. |
 | `code_tests.py --file PAGE --build-envelope 10` | Builds each code test's regression baseline from 10 runs. |
@@ -113,11 +112,25 @@ For a claim about how fingerprints segment a portfolio, a code test runs committ
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
 
-**Claims tables:** a test can check one row of a table whose first column is headed `example`. Give each row a short, reader-friendly label (`A`, `B`, ...), and bind the test with `"row": "B"` in its `example output` marker. The runner then requires:
-- every labeled row has exactly one test, and every `row` names a labeled row (`DOCS_MALFORMED` otherwise);
-- the row hasn't changed since its test was last reviewed. The marker's `"row_sha"` is a hash of the row's text. If the row changes, the test fails until you check that its `expect` still matches the row, and run `code_tests.py --file PAGE --accept-rows`, which records the new hashes.
+**Tables of claims:** tag the table with one comment, and check it with one table test that has a row entry for each table row, in order (like a Doc Detective test and its steps). The table itself has no other markers, so readers see it unchanged:
 
-So a table edit can't silently drift from its tests, and adding a row without a test fails the run.
+```markdown
+<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment": "fingerprints", "description": "..."} -->
+<!-- example document -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
+
+<!-- table {"tableId": "portfolio_failures"} -->
+| document | failing test | ... | result |
+| -------- | ------------ | --- | ------ |
+| tax return, pages 1–2 | ... | ... | Sensible doesn't return a tax return. |
+| tax return, pages 1–2 | ... | ... | Sensible returns the tax return as pages 1–8, ... |
+
+<!-- row {"rowId": "first_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_first_fails"}, "expect": []} -->
+<!-- row {"rowId": "last_test_fails", "config": {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"}, "expect": [["fixture_last_fails", 1, 8]]} -->
+<!-- table test end -->
+```
+
+The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, and the test passes **with a `[fixture]` warning** that names each difference, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 

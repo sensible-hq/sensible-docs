@@ -11,7 +11,7 @@ def summary(record):
     seg = record.get("segments")
     if seg:
         fmt = lambda docs: "; ".join(f"{c} pages {s}-{e}" for c, s, e in docs) or "no documents"
-        lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)" + (f", claims-table row {seg['row']}" if seg.get("row") else ""))
+        lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)" + (f", table {seg.get('table')} row {seg['row']}" if seg.get("row") else ""))
         lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
         lines += [f"  Editor: {x['url']}" for x in seg.get("editors", [])]
         lines.append(f"  Page claims: {fmt(seg['expected'])}")

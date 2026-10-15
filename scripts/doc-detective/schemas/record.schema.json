@@ -276,7 +276,11 @@
         },
         "row": {
           "type": "string",
-          "description": "Label of the claims-table row this test checks"
+          "description": "'<n>: <rowId>', the row of the tagged table this test checks"
+        },
+        "table": {
+          "type": "string",
+          "description": "tableId of the tagged table"
         }
       }
     }

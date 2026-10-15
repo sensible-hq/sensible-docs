@@ -211,7 +211,7 @@ def render_code_test(record):
         link = f"https://app.sensible.so/extraction/?e={seg['extraction_id']}"
         out.append("<h3>Portfolio segments</h3>")
         if seg.get("row"):
-            out.append(f'<p>Checks row <strong>{e(seg["row"])}</strong> of the page\'s claims table (column <em>example</em>).</p>')
+            out.append(f'<p>Checks row <strong>{e(seg["row"])}</strong> of table <code>{e(seg.get("table", ""))}</code>.</p>')
         out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
         out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
                    f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
