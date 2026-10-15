@@ -1,6 +1,6 @@
 ---
 title: Fingerprint mode
-excerpt: Fingerprint Mode controls extraction strictness for standalone files.
+excerpt: Throwaway test: an unquoted value: with a colon breaks YAML
 deprecated: false
 hidden: false
 metadata:
