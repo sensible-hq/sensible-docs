@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Run a docs page's tests: Doc Detective runs its UI tests, code_tests.py runs its code tests.
-# Then write output/report.html and scrub secret values from every report file: Doc Detective
-# writes typed text (the test account password) to its reports in plain text.
+# Then write output/report.html and scrub secret values from every report file (scrub.sh): Doc
+# Detective writes typed text (the test account password) to its reports in plain text.
 #
 # Usage:   scripts/doc-detective/run.sh [Doc Detective options] PAGE
 # Example: scripts/doc-detective/run.sh --no-auto-update "docs/document extraction/getting-started.md"
@@ -45,15 +45,6 @@ python3 "$here/code_tests.py" --file "$page" || status=1
 python3 "$here/report.py" html --page "$page" || status=1
 
 # Scrub secrets last, so it covers report.html and the code-test records too
-while read -r var; do
-  [[ -z "$var" || "$var" == \#* ]] && continue
-  value="${!var:-}"
-  # Trim surrounding whitespace: a secret saved with a trailing newline still appears trimmed in reports
-  value="${value#"${value%%[![:space:]]*}"}"
-  value="${value%"${value##*[![:space:]]}"}"
-  [[ -z "$value" ]] && continue
-  VALUE="$value" find "$output_dir" -type f \( -name '*.json' -o -name '*.html' \) \
-    -exec perl -pi -e 's/\Q$ENV{VALUE}\E/********/g' {} +
-done < "$here/config/secrets.txt"
+"$here/scrub.sh" "$output_dir" || status=1
 
 exit $status
