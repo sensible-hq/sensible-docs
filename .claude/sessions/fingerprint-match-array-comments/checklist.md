@@ -29,7 +29,7 @@ The older sections below are kept as history. Many of their unchecked boxes are 
 - [ ] Optional tip: curly vs straight apostrophes (`preparer.s name` regex).
 - [ ] `drafts/blog-oocl-delivery-orders-20260622.md` (main checkout, untracked) still says "all tests must pass" (lines 33, 269).
 - [ ] When #744 merges: fold `fixtures/fingerprint_portfolio/manifest.json` into `fixtures/manifest.json`, and add a claims test that runs `expected.json`.
-- [ ] Test account: delete the abandoned upload `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253` (rechecked: still WAITING). Keep the `fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*` doc types as fixtures.
+- [ ] Test account: the abandoned upload `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253` (still WAITING) **can't be deleted via the public API** (no DELETE for documents). Check whether the app can delete it, or leave it. Keep the `fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*` doc types as fixtures.
 
 **Before merging PR #727**
 - [ ] Update the PR description (it's out of date again: scoring, troubleshooting, fixtures, knowledge doc, and the portfolio.md changes are missing).

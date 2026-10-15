@@ -91,6 +91,15 @@ All additive. No new test type and no new runner module:
 
 Cost: one extraction per test, plus one per contrast. That's about 20 small extractions per full run of both pages. Schedule: like #737 (pushes to v0 that touch the pages or fixtures, plus monthly). Because they're deterministic, they could optionally gate PRs.
 
+## Test account cleanup
+
+| resource | cleanup |
+| --- | --- |
+| configs uploaded from page blocks | deleted right after their extraction, in a `finally` (as #737 does today) |
+| temporary doc types (`docs_ci_examples_<n>`, one config each) | deleted at the end of **each test**, in a `finally`, not just at the end of the run. A startup sweep deletes leftover `docs_ci_examples_*` doc types from crashed runs. `--keep` skips deletion for debugging, as in #737. |
+| fixture doc types (`fp_demo_*`, `fp_portfolio_*`, `fp_pmd_*`) | never deleted. They're persistent, and `seed.py` restores or republishes them when they're missing or differ. |
+| extractions | **can't be deleted**: the public API has no DELETE for documents or extractions (its only DELETEs are doc types, configs, config versions, reference documents, and email processors). Name them `ci__<testId>` so they're easy to filter, and accept the build-up in the dedicated test account. |
+
 ## Dependencies and order
 
 1. #744 merges (seed.py, fixtures layout). Then fold `fingerprint_portfolio/manifest.json` into it.
