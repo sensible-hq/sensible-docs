@@ -1,0 +1,16 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          {
+            "type": "regex",
+            "pattern": "Page [1245] of 7"
+          }
+        ]
+      }
+    ]
+  },
+  "fields": []
+}

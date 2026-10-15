@@ -180,6 +180,24 @@
           "configuration": "fixture_loss"
         }
       ]
+    },
+    {
+      "doctype": "fixture_fp_demo_every_split.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints, every row: a failing page in the middle splits the document)",
+      "configs": [
+        {
+          "name": "fixture_every_split",
+          "file": "fixture_fp_demo_every_split.fixture_every_split.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_every_split"
+        }
+      ]
     }
   ]
 }

@@ -182,6 +182,30 @@ In the following table:
 <!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
 <!-- code test end -->
 
+<!-- code test {"testId": "segment_first_test_fails", "description": "A first test with a failing match: Sensible doesn't find the tax return", "segment": "fingerprints"} -->
+<!-- example document {"from": "segment_last_test_fails"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_first_fails"} -->
+<!-- example output {"compare": "documents", "expect": []} -->
+<!-- code test end -->
+
+<!-- code test {"testId": "segment_every_test_fails_first_page", "description": "An every test that fails on the statement's first page: Sensible leaves that page out (pages 4-7)", "segment": "fingerprints"} -->
+<!-- example document {"from": "segment_last_test_fails"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_every_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_every_fails", 4, 7]]} -->
+<!-- code test end -->
+
+<!-- code test {"testId": "segment_every_test_fails_mid_document", "description": "An every test that fails on a page in the middle: Sensible splits the statement (pages 3-4 and 6-7)", "segment": "fingerprints"} -->
+<!-- example document {"from": "segment_last_test_fails"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_every_split"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_every_split", 3, 4], ["fixture_every_split", 6, 7]]} -->
+<!-- code test end -->
+
+<!-- code test {"testId": "segment_any_test_fails", "description": "An any test that fails on the statement's first page: the statement starts late and absorbs the pay stub (pages 4-8)", "segment": "fingerprints"} -->
+<!-- example document {"from": "segment_last_test_fails"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_any_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["fixture_any_fails", 4, 8]]} -->
+<!-- code test end -->
+
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds.
 
 
