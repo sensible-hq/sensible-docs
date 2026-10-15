@@ -317,7 +317,7 @@ def render_usage(usage):
                 f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other).')
         if budget:
             state = "fail" if month["charged"] >= budget else "warn" if month["charged"] >= 0.8 * budget else "pass"
-            line += f' {chip(state, f"{month["charged"]} of {budget} charged budget")}'
+            line += f' {chip(state, f"{month["charged"]} of {budget} monthly extraction budget")}'
         parts.append(line)
     elif usage.get("error"):
         parts.append(f'Test account usage this month: unavailable ({e(usage["error"])}).')

@@ -194,7 +194,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 **Usage line:** each report's header shows the docs test account's Sensible usage, so testing costs stay visible:
 - **This run:** extractions, and API requests (a lower bound: the SDK's own polling isn't counted). `code_tests.py` writes these to `output/run.json`.
 - **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
-- **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a number of charged extractions. The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run.
+- **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run.
 
 
 - **`output/report.html`**: every test in page order, sections collapsed unless they need attention, judge verdicts with the full prompt and output, envelope results with the baseline. Test sections are labeled UI test or Code test.
