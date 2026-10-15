@@ -1,5 +1,5 @@
 {
-  "description": "Expected portfolio segmentation for each fixture. Run a fingerprint-mode portfolio extraction of `pdf` that requests ONLY the listed document type, and compare `documents` (zero-indexed startPage/endPage). `verified_run` is the test-account extraction that produced the result on 2026-10-14 (review: https://app.sensible.so/extraction?e=<id>). A case with `document_types` (plural) requests all of them in one extraction, and a case-level `pdf` overrides the top-level one.",
+  "description": "Expected portfolio segmentation for each fixture. Run a fingerprint-mode portfolio extraction of `pdf` that requests ONLY the listed document type, and compare `documents` (zero-indexed startPage/endPage). `verified_run` is the test-account extraction that produced the result on 2026-10-14 (review: https://app.sensible.so/extraction/?e=<id>). A case with `document_types` (plural) requests all of them in one extraction, and a case-level `pdf` overrides the top-level one.",
   "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
   "pdf_contents": {
     "0-1": "tax return for 2020 (Form 1040)",

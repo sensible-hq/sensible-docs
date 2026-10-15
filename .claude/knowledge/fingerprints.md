@@ -5,7 +5,7 @@ Last verified: 2026-10-14 (PR #727). Backend: `sensible-hq/sensible` @ `242e382f
 Sources:
 
 - **code**: `src/engine/fingerprints.ts`, `src/engine/configurations/standardize.ts`, `src/engine/anchor.ts`, `src/engine/multi-extract.ts`.
-- **run**: a fingerprint-mode extraction in the test account (`SENSIBLE_TEST_API_KEY`). Review at `https://app.sensible.so/extraction?e=<id>` while logged in to the test account.
+- **run**: a fingerprint-mode extraction in the test account (`SENSIBLE_TEST_API_KEY`). Review at `https://app.sensible.so/extraction/?e=<id>` while logged in to the test account. The trailing slash before `?e=` is required: `/extraction?e=` doesn't load, even though sensible-app's code links it that way.
 - **fixture**: `scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/` (configs, `manifest.json`, and `expected.json` with each verifying run).
 - **validator**: SenseML editor > Options > Validate fingerprints. It runs in single-document mode only, so it can't show portfolio behavior.
 

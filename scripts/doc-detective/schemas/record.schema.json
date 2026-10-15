@@ -206,7 +206,8 @@
           "source": {
             "enum": [
               "judge",
-              "envelope"
+              "envelope",
+              "fixture"
             ]
           },
           "text": {

@@ -15,6 +15,7 @@ def summary(record):
         lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
         lines.append(f"  Page claims: {fmt(seg['expected'])}")
         lines.append(f"  Sensible:    {fmt(seg['actual'])}")
+        lines += [f"  [fixture] WARNING: {w['text']}" for w in record["warnings"] if w["source"] == "fixture"]
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]

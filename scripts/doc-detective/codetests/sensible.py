@@ -90,11 +90,13 @@ class SensibleClient:
 
     # -- Fixtures and portfolio extractions (fingerprint claims) --
 
-    def ensure_fixture(self, doctype_file, config_file):
-        """Make sure the fixture's doc type exists and its config is published, as committed.
+    def fixture_drift(self, doctype_file, config_file):
+        """Compare a fixture with the test account, without changing anything.
 
-        Fixture doc types are persistent: they're created or republished here when missing or
-        different, and never deleted. Returns (doc type name, config name)."""
+        Returns a dict: name, config_name, type_id (None if the doc type is missing), and `drift`, a
+        list of readable differences between the committed files and the test account (the doc type's
+        settings, and the config published to settings.FIXTURE_ENVIRONMENT). `draft` is True when the
+        config's newest version isn't the published one: an unpublished edit, which doesn't affect tests."""
         import os
 
         with open(doctype_file, encoding="utf-8") as f:
@@ -103,40 +105,72 @@ class SensibleClient:
             config = json.load(f)
         name = doctype["name"]
         config_name = os.path.basename(config_file)[len(name) + 1:-len(".config.json")]
+        state = {"name": name, "config_name": config_name, "doctype": doctype, "config": config, "type_id": None, "drift": [], "draft": False}
         response = self._api("GET", "/document_types")
         response.raise_for_status()
-        type_id = next((d["id"] for d in response.json() if d["name"] == name), None)
+        live_type = next((d for d in response.json() if d["name"] == name), None)
+        if not live_type:
+            state["drift"].append(f"doc type {name} is missing from the test account")
+            return state
+        state["type_id"] = live_type["id"]
+        state["drift"] += [f"doc type {name} settings: {d}" for d in json_diff(doctype.get("schema") or {}, live_type.get("schema") or {})]
+        published, state["draft"] = self._published_config(live_type["id"], config_name)
+        if published is None:
+            state["drift"].append(f"config {name}/{config_name} isn't published to {settings.FIXTURE_ENVIRONMENT}")
+        else:
+            state["drift"] += [f"config {name}/{config_name}: {d}" for d in json_diff(config, published)]
+        state["published"] = published
+        return state
+
+    def ensure_fixture(self, doctype_file, config_file):
+        """Make sure the fixture's doc type and published config match the committed files, restoring
+        them if they don't. Fixture doc types are persistent: created when missing, never deleted.
+
+        Returns (doc type name, config name, warnings). Each warning describes something the runner
+        restored, for example a config someone edited and published in the app."""
+        state = self.fixture_drift(doctype_file, config_file)
+        name, config_name, type_id = state["name"], state["config_name"], state["type_id"]
+        if not state["drift"]:
+            return name, config_name, []
         if not type_id:
-            response = self._api("POST", "/document_types", json=doctype)
+            response = self._api("POST", "/document_types", json=state["doctype"])
             if not response.ok:
                 raise CodeTestError(CONFIG_INVALID, f"creating fixture doc type {name} returned {response.status_code}: {response.text[:300]}")
             type_id = response.json()["id"]
-        published = self._published_config(type_id, config_name)
-        if published != config:
-            body = {"configuration": json.dumps(config), "publish_as": settings.FIXTURE_ENVIRONMENT}
-            if published is None:
-                response = self._api("POST", f"/document_types/{type_id}/configurations", json={"name": config_name, **body})
-            else:
+            state["published"] = None
+        elif any(d.startswith(f"doc type {name} settings") for d in state["drift"]):
+            response = self._api("PUT", f"/document_types/{type_id}", json={"name": name, "schema": state["doctype"].get("schema") or {}})
+            if not response.ok:
+                raise CodeTestError(CONFIG_INVALID, f"restoring fixture doc type {name} settings returned {response.status_code}: {response.text[:300]}")
+        if state.get("published") != state["config"]:
+            body = {"configuration": json.dumps(state["config"]), "publish_as": settings.FIXTURE_ENVIRONMENT}
+            exists = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}").status_code != 404
+            if exists:
                 response = self._api("PUT", f"/document_types/{type_id}/configurations/{config_name}", json=body)
+            else:
+                response = self._api("POST", f"/document_types/{type_id}/configurations", json={"name": config_name, **body})
             if not response.ok:
                 raise CodeTestError(CONFIG_INVALID, f"publishing fixture config {name}/{config_name} returned {response.status_code}: {response.text[:300]}")
-        return name, config_name
+        warnings = [f"restored fixture from the committed files ({d})" for d in state["drift"]]
+        return name, config_name, warnings
 
     def _published_config(self, type_id, config_name):
-        """The config published to the fixture environment, parsed, or None if there isn't one."""
+        """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""
         response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/versions")
         if response.status_code == 404:
-            return None
+            return None, False
         response.raise_for_status()
         versions = response.json()
         versions = versions if isinstance(versions, list) else versions.get("versions", [])
         version = next((v["version_id"] for v in versions if settings.FIXTURE_ENVIRONMENT in (v.get("environments") or [])), None)
+        newest = max(versions, key=lambda v: v.get("datetime", ""), default=None)
+        draft = bool(newest and version and newest["version_id"] != version)
         if not version:
-            return None
+            return None, draft
         response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/{version}")
         response.raise_for_status()
         config = response.json()["configuration"]
-        return json.loads(config) if isinstance(config, str) else config
+        return (json.loads(config) if isinstance(config, str) else config), draft
 
     def extract_portfolio(self, url, doc_types, document_name, timeout=600):
         """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents)."""
@@ -158,3 +192,22 @@ class SensibleClient:
         if result.get("status") != "COMPLETE":
             raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id}: status {result.get('status')}: {json.dumps(result.get('errors'))[:300]}")
         return extraction_id, result.get("documents") or []
+
+
+def json_diff(committed, live, path="$"):
+    """Readable differences between a committed fixture value and the test account's value."""
+    if isinstance(committed, dict) and isinstance(live, dict):
+        out = []
+        for key in sorted(set(committed) | set(live), key=str):
+            if key not in live:
+                out.append(f"{path}.{key} is missing in the test account (committed {json.dumps(committed[key])[:80]})")
+            elif key not in committed:
+                out.append(f"{path}.{key} was added in the test account ({json.dumps(live[key])[:80]})")
+            else:
+                out += json_diff(committed[key], live[key], f"{path}.{key}")
+        return out
+    if isinstance(committed, list) and isinstance(live, list) and len(committed) == len(live):
+        return [d for i, (a, b) in enumerate(zip(committed, live)) for d in json_diff(a, b, f"{path}[{i}]")]
+    if committed != live:
+        return [f"{path}: committed {json.dumps(committed)[:80]}, test account {json.dumps(live)[:80]}"]
+    return []

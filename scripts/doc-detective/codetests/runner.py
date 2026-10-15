@@ -99,7 +99,11 @@ def _run_segments(rec, test, client):
     status = client.document_status(test.document_url)
     if status != 200:
         raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
-    doc_types = [client.ensure_fixture(*markup.fixture_files(name))[0] for name in test.fixtures]
+    doc_types = []
+    for name in test.fixtures:
+        doc_type, _, restored = client.ensure_fixture(*markup.fixture_files(name))
+        doc_types.append(doc_type)
+        rec["warnings"] += [{"source": "fixture", "text": f"{name}: {w}"} for w in restored]
     extraction_id, documents = client.extract_portfolio(test.document_url, doc_types, f"ci__{test.test_id}")
     actual = sorted([[d.get("configuration"), d["startPage"] + 1, d["endPage"] + 1] for d in documents], key=lambda d: (d[1], d[2]))
     rec["segments"] = {

@@ -206,13 +206,19 @@ def render_code_test(record):
     if seg:
         def docs(items):
             return "<br>".join(f"<code>{e(c)}</code> pages {s}–{n}" for c, s, n in items) or '<span class="muted">no documents</span>'
-        link = f"https://app.sensible.so/extraction?e={seg['extraction_id']}"
+        link = f"https://app.sensible.so/extraction/?e={seg['extraction_id']}"
         out.append("<h3>Portfolio segments</h3>")
         out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
         out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
                    f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
         out.append(f'<p class="muted">Fixtures: {", ".join(f"<code>{e(x)}</code>" for x in seg["fixtures"])}. '
                    f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+        restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
+        if restored:
+            out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
+                       'so the runner restored it before the run. Check whether someone edited it in the app:</p><ul>')
+            out += [f"<li><code>{e(r)}</code></li>" for r in restored]
+            out.append("</ul>")
 
     layout = record.get("layout")
     if layout:

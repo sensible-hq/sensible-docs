@@ -313,7 +313,7 @@ Proposal:
 - Test 2, `3d614620-626d-4222-8973-b220844b7a46`: 9-page file (senior 1040-SR pp. 0–2, Wells Fargo pp. 3–7, pay stub p. 8) returns `senior_1040_2021`, **pages 0–8**. The `first` test opened the document. The `last` test had a failing match (`preparer's name`, which also fails in the validator) and never closed it, so the document absorbed the rest of the file.
 - Conclusion: a failing match fails **its test on that page**, not the whole fingerprint. Segmentation still happens but can be wrong. Matches the code reading of `multi-extract.ts`.
 - [x] Live nested-array comment corrected on v0 (1f66774cc) and on the branch: "If any match in a test fails on the page the test should identify, the whole test fails on that page, and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match succeeds on the pages it's meant to identify."
-- [x] (Verified 2026-10-14 by run `bdf09121-9e59-4b92-ae8e-29087978f724`, https://app.sensible.so/extraction?e=bdf09121-9e59-4b92-ae8e-29087978f724: a `last` test with `any` of an absent and a present wording returned the tax return as pages 1–2, vs pages 1–8 without it. Keep the `any` tip and don't document separate fallback tests. Doc type `fp_demo_any_alternate` e1150725-….) Re-check the "Alternate wordings" rewrite. The original fallbacks tip (separate `last` tests per wording) was dropped on the false premise that it must fail. Tests are independent, so it probably works. The `any` version is still valid. Decide whether to keep `any` only, or mention both. Untested.
+- [x] (Verified 2026-10-14 by run `bdf09121-9e59-4b92-ae8e-29087978f724`, https://app.sensible.so/extraction/?e=bdf09121-9e59-4b92-ae8e-29087978f724: a `last` test with `any` of an absent and a present wording returned the tax return as pages 1–2, vs pages 1–8 without it. Keep the `any` tip and don't document separate fallback tests. Doc type `fp_demo_any_alternate` e1150725-….) Re-check the "Alternate wordings" rewrite. The original fallbacks tip (separate `last` tests per wording) was dropped on the false premise that it must fail. Tests are independent, so it probably works. The `any` version is still valid. Decide whether to keep `any` only, or mention both. Untested.
 - [ ] Only the `last` case is verified. The `first`/`every`/`any` effects are code-reading only (Frances decided not to document the full per-page-type table).
 - [ ] Cleanup: an abandoned upload doc `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253` (no file) is in the test account.
 
@@ -424,10 +424,10 @@ Internal review links (route from sensible-app `DocumentNameAndID.tsx`, local co
 
 | demo | result | link |
 | --- | --- | --- |
-| first_fails | NO DOCUMENTS | https://app.sensible.so/extraction?e=1d2f8348-b73b-4c86-a617-476acf532b50 |
-| last_fails | p0–7 (pages 1–8) | https://app.sensible.so/extraction?e=66028533-7e5b-4e13-ad87-8055908276fa |
-| every_fails | p2–3 and p5–6 (pages 3–4, 6–7) | https://app.sensible.so/extraction?e=6444973d-fa33-423c-bce8-e9f41e2f27db |
-| any_fails | p3–7 (pages 4–8) | https://app.sensible.so/extraction?e=d68045b1-0e30-4271-9719-08370f345d04 |
+| first_fails | NO DOCUMENTS | https://app.sensible.so/extraction/?e=1d2f8348-b73b-4c86-a617-476acf532b50 |
+| last_fails | p0–7 (pages 1–8) | https://app.sensible.so/extraction/?e=66028533-7e5b-4e13-ad87-8055908276fa |
+| every_fails | p2–3 and p5–6 (pages 3–4, 6–7) | https://app.sensible.so/extraction/?e=6444973d-fa33-423c-bce8-e9f41e2f27db |
+| any_fails | p3–7 (pages 4–8) | https://app.sensible.so/extraction/?e=d68045b1-0e30-4271-9719-08370f345d04 |
 
 Test-account doc types (kept as fixtures; delete when no longer needed):
 - `fp_demo_first_fails` (bdfe9df0-82d2-489c-b004-acab776516ea), config `first_fails`
@@ -435,7 +435,7 @@ Test-account doc types (kept as fixtures; delete when no longer needed):
 - `fp_demo_every_fails` (ce2ad62c-92d7-4a7d-8c23-c2002035558d), config `every_fails`
 - `fp_demo_any_fails` (752535a4-1fdb-4773-b63b-280f0bd5e6d6), config `any_fails`
 
-Earlier runs: `1040s` baseline https://app.sensible.so/extraction?e=37c0c9a3-8f26-405e-8b27-baf3e4f968e2 (1040_2020 p0–1). Senior 1040-SR `last` failure https://app.sensible.so/extraction?e=3d614620-626d-4222-8973-b220844b7a46 (p0–8). Abandoned upload to delete: `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253`.
+Earlier runs: `1040s` baseline https://app.sensible.so/extraction/?e=37c0c9a3-8f26-405e-8b27-baf3e4f968e2 (1040_2020 p0–1). Senior 1040-SR `last` failure https://app.sensible.so/extraction/?e=3d614620-626d-4222-8973-b220844b7a46 (p0–8). Abandoned upload to delete: `6ff7ec01-34e0-4f2d-8dbc-e7889a3db253`.
 
 Fingerprints (candidate fixtures for the inline-test / doc-test work in PRs #737, #749, #744; NOT for the public docs). The failing match is `"this phrase is not in the document"`:
 
@@ -535,10 +535,10 @@ The demo configs were updated so each row's failing match is something a reader 
 
 | demo | failing match | result | link |
 | --- | --- | --- | --- |
-| first_fails | `first`: `endsWith "2021"` (the return is for 2020), plus the IRS regex | NO DOCUMENTS | https://app.sensible.so/extraction?e=3340f5b6-0947-48b2-8d19-cc3a428e5cc5 |
-| last_fails | `last`: `includes "Form 1040 (2020) Page 2"` + `includes "Preparer's name"` (absent) | p0–7 (pages 1–8); config version ChnfQstQ… | https://app.sensible.so/extraction?e=4ad3df0a-7658-43e9-b0ff-dfb6d5897c4e |
-| every_fails | `every`: `includes "Wells Fargo"` (only on the statement's first page) | p2–2 (page 3 only); "cut short" | https://app.sensible.so/extraction?e=acd6c932-7f18-43d6-ba26-135742926f23 |
-| any_fails | unchanged: `any`: `includes "Transaction history"` | p3–7 (pages 4–8) | https://app.sensible.so/extraction?e=d68045b1-0e30-4271-9719-08370f345d04 |
+| first_fails | `first`: `endsWith "2021"` (the return is for 2020), plus the IRS regex | NO DOCUMENTS | https://app.sensible.so/extraction/?e=3340f5b6-0947-48b2-8d19-cc3a428e5cc5 |
+| last_fails | `last`: `includes "Form 1040 (2020) Page 2"` + `includes "Preparer's name"` (absent) | p0–7 (pages 1–8); config version ChnfQstQ… | https://app.sensible.so/extraction/?e=4ad3df0a-7658-43e9-b0ff-dfb6d5897c4e |
+| every_fails | `every`: `includes "Wells Fargo"` (only on the statement's first page) | p2–2 (page 3 only); "cut short" | https://app.sensible.so/extraction/?e=acd6c932-7f18-43d6-ba26-135742926f23 |
+| any_fails | unchanged: `any`: `includes "Transaction history"` | p3–7 (pages 4–8) | https://app.sensible.so/extraction/?e=d68045b1-0e30-4271-9719-08370f345d04 |
 
 Note: GET configuration still returned the older every_fails text after the PUT, but the run's p2–2 result only fits the new config. Versions were confirmed via /versions (new version labeled production).
 - [x] Table now has a "failing match" column. The `every` example changed from "split" to "cut short" to match the real result.
@@ -550,9 +550,9 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 - The senior 1040-SR `preparer's name` failure (validator 5/6, test 2) likely has the same cause. Unverified: that sample is a scanned image, and its OCR text wasn't checked.
 - [ ] Consider a tip: use a regex with `.` for apostrophes (for example, `preparer.s name`), or a match without the apostrophe, so that curly and straight apostrophes both match.
 
-- [x] Per Frances, replaced the `last` row's failing match with `includes "Form 1040-SR"` (absent from every page of the PDF). Rerun `11c0f301-8983-4ce0-bcfa-0ad6215b64d4` (https://app.sensible.so/extraction?e=11c0f301-8983-4ce0-bcfa-0ad6215b64d4), config version `_VMCVAyK…` (production): pages 1–8, the same failure. The apostrophe tip is optional, not pursued.
+- [x] Per Frances, replaced the `last` row's failing match with `includes "Form 1040-SR"` (absent from every page of the PDF). Rerun `11c0f301-8983-4ce0-bcfa-0ad6215b64d4` (https://app.sensible.so/extraction/?e=11c0f301-8983-4ce0-bcfa-0ad6215b64d4), config version `_VMCVAyK…` (production): pages 1–8, the same failure. The apostrophe tip is optional, not pursued.
 
-- [x] Per Frances, `every` row now uses `includes "Transaction history"` ("Wells Fargo" is a text image, so not a clear example). Rerun `f621c1c2-b504-4643-ab37-101c8ab02b2c` (https://app.sensible.so/extraction?e=f621c1c2-b504-4643-ab37-101c8ab02b2c), version `nWcCmywH…`: pages 4–7 (the first page is left out; the pay stub's every_failed ends it). Effect text now covers both the left-out page and the mid-document split. The split was verified earlier by run 6444973d (`Page [1245] of 7`: pages 3–4 and 6–7).
+- [x] Per Frances, `every` row now uses `includes "Transaction history"` ("Wells Fargo" is a text image, so not a clear example). Rerun `f621c1c2-b504-4643-ab37-101c8ab02b2c` (https://app.sensible.so/extraction/?e=f621c1c2-b504-4643-ab37-101c8ab02b2c), version `nWcCmywH…`: pages 4–7 (the first page is left out; the pay stub's every_failed ends it). Effect text now covers both the left-out page and the mid-document split. The split was verified earlier by run 6444973d (`Page [1245] of 7`: pages 3–4 and 6–7).
 
 ## Done 2026-10-14: test fixtures committed
 
@@ -585,9 +585,9 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 
 | fingerprint | result | run |
 | --- | --- | --- |
-| two separate tests | **p2–6** | https://app.sensible.so/extraction?e=de0539a9-b147-4365-b980-d381ad8319ee |
-| one test, flat `[A, T]` | p3–6 | https://app.sensible.so/extraction?e=74b38c37-c94c-4928-bbdd-7837270eda32 |
-| one test, chained `[[A, T]]` | p3–6 | https://app.sensible.so/extraction?e=3d327aba-018c-4966-a674-f0c229a21194 |
+| two separate tests | **p2–6** | https://app.sensible.so/extraction/?e=de0539a9-b147-4365-b980-d381ad8319ee |
+| one test, flat `[A, T]` | p3–6 | https://app.sensible.so/extraction/?e=74b38c37-c94c-4928-bbdd-7837270eda32 |
+| one test, chained `[[A, T]]` | p3–6 | https://app.sensible.so/extraction/?e=3d327aba-018c-4966-a674-f0c229a21194 |
 
 - **Claude's claim was wrong.** Separate tests aren't AND-ed. On p2, the passing test starts the document even though the other `every` test fails on that page (`every_failed` only closes an already-open document). So separate single-match tests are looser in portfolios, and the "Prefer match arrays to single-match tests" tip holds.
 - Standalone counts are the same (2 matches either way).
@@ -603,7 +603,7 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 
 - Frances updated the example: auto quotes `first` test is now a chained match `[[anycocarinsurance.com, outline of quoted]]`; loss run is a flat array. The `any` Boolean comment was already gone.
 - Claude fixed the syntax (a missing comma, trailing commas) and expanded the comments using fingerprint.md's wording: the chained match definition (scored as one match, in order, on separate lines, same page), and the flat array (independent, any order, can share a line).
-- Verified on portfolio.pdf (test account, doc types `fp_pmd_auto`, `fp_pmd_loss`): run https://app.sensible.so/extraction?e=6372783d-0850-4c88-a3df-7208cf1021c1 returns auto p0, auto p1, loss p2. So the chained order holds on both quotes.
+- Verified on portfolio.pdf (test account, doc types `fp_pmd_auto`, `fp_pmd_loss`): run https://app.sensible.so/extraction/?e=6372783d-0850-4c88-a3df-7208cf1021c1 returns auto p0, auto p1, loss p2. So the chained order holds on both quotes.
 - [x] Added `fp_pmd_auto` / `fp_pmd_loss` to `fixtures/fingerprint_portfolio/` (multi-doc-type case with its own `pdf`).
 
 ## Found 2026-10-15: fingerprint results in the API (see knowledge/fingerprints.md)
