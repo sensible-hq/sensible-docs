@@ -605,3 +605,8 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 - Claude fixed the syntax (a missing comma, trailing commas) and expanded the comments using fingerprint.md's wording: the chained match definition (scored as one match, in order, on separate lines, same page), and the flat array (independent, any order, can share a line).
 - Verified on portfolio.pdf (test account, doc types `fp_pmd_auto`, `fp_pmd_loss`): run https://app.sensible.so/extraction?e=6372783d-0850-4c88-a3df-7208cf1021c1 returns auto p0, auto p1, loss p2. So the chained order holds on both quotes.
 - [x] Added `fp_pmd_auto` / `fp_pmd_loss` to `fixtures/fingerprint_portfolio/` (multi-doc-type case with its own `pdf`).
+
+## Found 2026-10-15: fingerprint results in the API (see knowledge/fingerprints.md)
+- `?withMetadata=true` has no fingerprint info. Standalone extraction responses always carry `classification_summary` (`fingerprints`, `fingerprints_present`, `score`).
+- [ ] **API spec bug:** `reference/openapi_extraction.json` > `Classification.fingerprints_present` says "The number of this config's fingerprints that Sensible found in the document". It's actually the number of matching LINES and can exceed `fingerprints` (run c1facbc8: senior_1040_2021 9 of 6). Fix the description (and check openapi_classification.json).
+- Per-match pass/fail is only in golden extractions (`fingerprint_matcher_results`, app-internal endpoint), which is what the validator uses.

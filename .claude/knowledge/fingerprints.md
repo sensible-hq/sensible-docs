@@ -56,6 +56,16 @@ Effect of a failing test, by page type (portfolio_bank_paystub_tax.pdf, one doc 
 
 Another document type's tests can hide these errors. For example, the next document's `first` test ends a document whose `last` test failed.
 
+### Fingerprint results in API responses
+
+| where | fields | notes | source |
+| ----- | ------ | ----- | ------ |
+| `GET /documents/{id}` (standalone extractions), **with or without** `?withMetadata=true` | `classification_summary[]`: `configuration`, `fingerprints`, `fingerprints_present`, `score` (`value`, `fields_present`, `penalties`) | One entry per config. Configs that passed (and ran) have `score`. Configs that failed don't. `withMetadata=true` only adds `text` and `parsed_document_with_metadata`, and has **no** fingerprint info. | code (`entity.ts` `classificationSummaryResponse`, `extract.ts`); run `c1facbc8-ae5b-4d50-b973-ae4c673da916` |
+| `fingerprints` | the number of flattened matches the config declares | e.g. 6 for `senior_1040_2021` | run |
+| `fingerprints_present` | the number of **matching lines** (`fingerprintMatches.length`, every occurrence of every successful match), **not** the number of matches that succeeded | It can exceed `fingerprints` (9 of 6 for `senior_1040_2021`, matching the validator's "Lines: 9"), so you can't compute pass/fail from it. The API spec describes it as "the number of this config's fingerprints that Sensible found", which is wrong. | code, run |
+| golden (reference document) extractions: `POST /extract_from_golden/...` (app-internal, not in the public spec) | `fingerprints` (AnchorPoints), `fingerprint_total`, `fingerprint_matcher_results` (index-aligned with the flattened matches; an empty entry is a match that found nothing) | Per-match pass/fail. This is what powers the validator's "5/6" and the per-matcher rows. It's emitted only for golden extractions. | code (`extract-from-golden/common.ts`, sensible #3450) |
+| portfolio extractions | none | No fingerprint results per document. | code |
+
 ### Alternate wordings
 
 An `any` Boolean match in a single test handles alternate wordings. Run `bdf09121-9e59-4b92-ae8e-29087978f724`: a `last` test with `any` of an absent and a present wording returned pages 1–2 (pages 1–8 without it). Separate `last` tests per wording probably also work, because tests are independent, but that's **untested**. The docs use `any` only.
