@@ -67,7 +67,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
    <!-- example document -->
 
-   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/doc-detective-getting-started-tests/scripts/doc-detective/fixtures/auto_insurance_anyco_phone_format.pdf) |
+   | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/scripts/doc-detective/fixtures/auto_insurance_anyco_phone_format.pdf) |
    | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
 
    2. For the document type name, enter `auto_insurance_quotes`.

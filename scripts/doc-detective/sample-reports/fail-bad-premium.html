@@ -91,7 +91,7 @@ ul { margin: 6px 0 0; padding-left: 20px; }
 <details class="card test" id="extract_auto_insurance_anyco" open>
 <summary><div class="row"><h2>extract_auto_insurance_anyco</h2><span class="chip fail">Failed</span><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span> <span class="chip warn">outside</span><span class="muted">Code test</span></div></summary>
 <p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: mismatch</p>
-<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/doc-detective-getting-started-tests/scripts/doc-detective/fixtures/auto_insurance_anyco_bad_premium.pdf">auto_insurance_anyco_bad_premium.pdf</a></p>
+<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/scripts/doc-detective/fixtures/auto_insurance_anyco_bad_premium.pdf">auto_insurance_anyco_bad_premium.pdf</a></p>
 <h3>Failure</h3><pre>LLM_DRIFT: docs output doesn&#x27;t match the extraction:
   $.bodily_injury_premium.source: expected &quot;100&quot;, got &quot;150&quot;
     judge (claude-sonnet-5-5): fail, confidence 0.97. The raw source text differs (&quot;100&quot; vs &quot;150&quot;), and the underlying value also differs (100 vs 150), so this is a different answer, not a formatting difference.
@@ -173,7 +173,7 @@ For each claim, return claim (the documented assertion), observed (what the actu
 <details class="card test" id="extract_query_group_excerpt" open>
 <summary><div class="row"><h2>extract_query_group_excerpt</h2><span class="chip fail">Failed</span><span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span> <span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span> <span class="chip warn">outside</span><span class="muted">Code test</span></div></summary>
 <p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: mismatch</p>
-<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/doc-detective-getting-started-tests/scripts/doc-detective/fixtures/auto_insurance_anyco_bad_premium.pdf">auto_insurance_anyco_bad_premium.pdf</a> (the link in <a href="#extract_auto_insurance_anyco"><code>extract_auto_insurance_anyco</code></a>)</p>
+<p class="muted" style="margin:4px 0 0">Example document: <a href="https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/scripts/doc-detective/fixtures/auto_insurance_anyco_bad_premium.pdf">auto_insurance_anyco_bad_premium.pdf</a> (the link in <a href="#extract_auto_insurance_anyco"><code>extract_auto_insurance_anyco</code></a>)</p>
 <p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>
 <h3>Failure</h3><pre>LLM_DRIFT: docs output doesn&#x27;t match the extraction:
   $.bodily_injury_premium.source: expected &quot;100&quot;, got &quot;150&quot;

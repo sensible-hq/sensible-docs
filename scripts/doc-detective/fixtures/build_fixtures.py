@@ -21,7 +21,7 @@ import os
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 PAGE = os.path.join(REPO_ROOT, "docs", "document extraction", "getting-started.md")
-BRANCH = "doc-detective-getting-started-tests"
+BRANCH = "v0"
 REAL_PDF = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf"
 FIXTURE_URL = f"https://raw.githubusercontent.com/sensible-hq/sensible-docs/{BRANCH}/scripts/doc-detective/fixtures/"
 
