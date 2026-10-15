@@ -53,10 +53,10 @@ The following example tests whether a standalone document is a Wells Fargo check
          The fingerprint passes if Sensible finds 50% or more of the elements ('matches') in the tests array. In this example, there are 3 elements in the tests array, so if 2 out of 3 passes, the config passes. The 3 elements are: a chained match, a Match object, and a string. */
       /* The first element is a chained match ([]), so Sensible scores it as one match. The chained match succeeds only if Sensible finds
          all its Match objects in order, on separate lines. The lines can be on different pages.
-         If a Match object is missing or out of order, the chained match fails */
+         If a Match object fails, the chained match fails */
       [ 
         {
-          "type": "includes",
+          "type": "includes",a
           "text": "wells fargo"
         },
         {
@@ -151,9 +151,12 @@ The following table shows syntax and scoring for chained matches and other match
 
 If any element in a test fails on the page the test targets, Sensible doesn't classify the page's type. Sensible still segments the portfolio, but the page ranges can be wrong.
 
-The following scenario shows how incorrect segmentation depends on the test's page type.
+The following scenario shows how incorrect segmentation depends on the test's page type, using the following example portfolio document:
 
-The portfolio contains three documents:
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+
+The example portfolio contains three documents:
 
 | pages | document                                 |
 | ----- | ---------------------------------------- |
@@ -161,14 +164,9 @@ The portfolio contains three documents:
 | 3–7   | Wells Fargo bank statement               |
 | 8     | pay stub                                 |
 
-<!-- code test {"testId": "segment_last_test_fails", "description": "A last test with a failing match makes the tax return absorb the following pages", "segment": "fingerprints"} -->
-<!-- example document -->
-| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
-
 In the following table:
 
-- Each row represents a separate portfolio extraction.
+- Each row represents a separate portfolio extraction of the example portfolio.
 - Each extraction specifies one document type that contains one config. The config's fingerprint includes a failing match.
 
 | document | failing test | other tests in the config | effect | result |
@@ -177,10 +175,6 @@ In the following table:
 | tax return, pages 1–2 | a `last` test that contains:<br/>`{"type": "includes", "text": "Form 1040-SR"}`<br/><br/>The tax return is a standard Form 1040, not the Form 1040-SR for seniors, so the match fails on page 2. | A `first` test that passes on page 1, so Sensible starts the document there. | Sensible doesn't end the document on that page. The document includes the following pages until another document starts or the portfolio ends. | Sensible returns the tax return as pages 1–8, including the bank statement and the pay stub. |
 | bank statement, pages 3–7 | an `every` test that contains:<br/>`{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible leaves that page out of the document. If the page is in the middle of the document, Sensible ends the document on the previous page, which splits the document. | Sensible returns the bank statement as pages 4–7. The pay stub on page 8 fails the `every` test, which ends the document on page 7. |
 | bank statement, pages 3–7 | an `any` test that contains:<br/>`{"type": "includes", "text": "Transaction history"}`<br/><br/>The statement's transaction history starts on its second page, so the match fails on page 3. | None. | Sensible doesn't start the document on that page. The document starts on the first page where the test passes, and continues until another document starts or the portfolio ends. | Sensible returns the bank statement as pages 4–8, including the pay stub, because nothing ends the document. An `any` test doesn't end a document. **Note:** Avoid specifying an `any` page test unless other page types fail to segment the portfolio. |
-
-<!-- example config {"fixture": "fingerprint_portfolio/fixture_fp_demo_last_fails"} -->
-<!-- example output {"compare": "documents", "expect": [["fixture_last_fails", 1, 8]]} -->
-<!-- code test end -->
 
 Tests for other document types in the portfolio can hide these errors. For example, if the next document's `first` test passes, Sensible ends the previous document even if its `last` test failed. Design your fingerprints so that every match in every test succeeds.
 
