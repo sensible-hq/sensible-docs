@@ -1,6 +1,7 @@
 """Paths, names, and secrets for code tests: the one place they're defined."""
 
 import os
+import re
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # scripts/doc-detective
 REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -23,6 +24,11 @@ TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints"
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
 FIXTURE_PREFIX = "fixture_"
+# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
+FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# A hard cap on extractions per run, so a page that grows or a bug can't spend the test account's budget
+MAX_EXTRACTIONS_VAR = "DOC_TESTS_MAX_EXTRACTIONS"
+MAX_EXTRACTIONS_DEFAULT = 20
 
 # Keys. The Sensible key is the docs test account's; there's deliberately no fallback to
 # SENSIBLE_API_KEY, so a missing key can't run tests against another account.
@@ -77,8 +83,19 @@ def secret_values():
     return [v for v in (key(n) for n in names) if v]
 
 
+def max_extractions():
+    """The per-run extraction cap: DOC_TESTS_MAX_EXTRACTIONS, or MAX_EXTRACTIONS_DEFAULT."""
+    value = (os.environ.get(MAX_EXTRACTIONS_VAR) or "").strip()
+    return int(value) if value.isdigit() else MAX_EXTRACTIONS_DEFAULT
+
+
+# Presigned S3 URLs (reference document uploads) carry credentials in their query string
+PRESIGNED_RE = re.compile(r"(X-Amz-[A-Za-z-]+=)[^&\s'\"]+")
+
+
 def redact(text):
-    """Replace every secret value in `text` with ********, for messages that may echo a key."""
+    """Replace every secret value in `text` with ********, for messages that may echo a key, and
+    the credentials in any presigned S3 URL."""
     for value in secret_values():
         text = text.replace(value, "********")
-    return text
+    return PRESIGNED_RE.sub(r"\1********", text)

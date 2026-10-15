@@ -136,12 +136,13 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 
 **Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
 
-**If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, and the test passes **with a `[fixture]` warning** that names each difference, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
+**If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, checks the restore took (the test fails if it didn't), and the test passes **with a `[fixture]` warning** that names each difference. CI lists these warnings on the run's summary page, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 
 ### Rules
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
-- `example` markers go inside a `<!-- code test -->`, never a Doc Detective `<!-- test -->`.
+- `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `...`, but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
@@ -198,7 +199,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 **Usage line:** each report's header shows the docs test account's Sensible usage, so testing costs stay visible:
 - **This run:** extractions, and API requests (a lower bound: the SDK's own polling isn't counted). `code_tests.py` writes these to `output/run.json`.
 - **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
-- **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run.
+- **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run. What does stop a run is a hard cap of 20 extractions per run (`DOC_TESTS_MAX_EXTRACTIONS` overrides it): an extraction past the cap fails its test with `RUNNER_ERROR`, so a page that grows, or a bug, can't spend the test account's budget.
 
 
 - **`output/report.html`**: every test in page order, sections collapsed unless they need attention, judge verdicts with the full prompt and output, envelope results with the baseline. Test sections are labeled UI test or Code test.

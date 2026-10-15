@@ -17,6 +17,7 @@ on:
     paths:
       - "docs/Senseml reference/config-settings/fingerprint.md"
       - "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**"
+      - "assets/pdfs/portfolio_bank_paystub_tax.pdf"
       - "scripts/doc-detective/**"
       - ".github/workflows/doc-tests-fingerprint.yml"
   workflow_dispatch:
@@ -37,14 +38,18 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
+      # Actions are pinned to commit SHAs, since this job holds the test account's API key.
+      # The job never pushes, so the token isn't left on disk for later steps.
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
@@ -58,16 +63,29 @@ jobs:
       # The page has no UI tests, so run.sh skips Doc Detective. Secrets come from env vars only.
       # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
       # DOC_TESTS_MONTHLY_BUDGET (repo variable, optional): the report shows usage against it.
+      # A step timeout fails this step, so the issue still opens; a job timeout would skip that.
+      # Keep it above 5 portfolio extractions x extract_portfolio's 240-second timeout.
       - name: Run tests
         id: tests
         continue-on-error: true
+        timeout-minutes: 24
         run: scripts/doc-detective/run.sh "docs/Senseml reference/config-settings/fingerprint.md"
         env:
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
           DOC_TESTS_MONTHLY_BUDGET: ${{ vars.DOC_TESTS_MONTHLY_BUDGET }}
 
+      # Restored fixtures are warnings, not failures: list them on the run's summary page
+      - name: Summarize warnings
+        if: always()
+        run: |
+          warnings=$(jq -r '.warnings[]? | "- \(.source): \(.text)"' scripts/doc-detective/output/code-tests/*.json 2>/dev/null || true)
+          if [ -n "$warnings" ]; then
+            { echo "### Warnings"; echo; echo "$warnings"; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Also when a step before the tests failed (dependencies, unit tests), so a scheduled run never fails silently
       - name: Open or update failure issue
-        if: steps.tests.outcome == 'failure'
+        if: failure() || steps.tests.outcome == 'failure'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -84,7 +102,7 @@ jobs:
       # run.sh scrubs secret values from these reports before upload.
       - name: Upload reports
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: doc-tests-fingerprint-reports
           path: scripts/doc-detective/output/
@@ -92,5 +110,5 @@ jobs:
           if-no-files-found: warn
 
       - name: Fail the job if tests failed
-        if: steps.tests.outcome == 'failure'
+        if: always() && steps.tests.outcome == 'failure'
         run: exit 1

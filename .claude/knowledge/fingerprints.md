@@ -1,12 +1,12 @@
 # Fingerprints: verified behavior
 
-Last verified: 2026-10-14 (PR #727). Backend: `sensible-hq/sensible` @ `242e382fd`.
+Last verified: 2026-10-14 (PR #727) against the backend source.
 
 Sources:
 
-- **code**: `src/engine/fingerprints.ts`, `src/engine/configurations/standardize.ts`, `src/engine/anchor.ts`, `src/engine/multi-extract.ts`.
-- **run**: a fingerprint-mode extraction in the test account (`SENSIBLE_TEST_API_KEY`). Review at `https://app.sensible.so/extraction/?e=<id>` while logged in to the test account. The trailing slash before `?e=` is required: `/extraction?e=` doesn't load, even though sensible-app's code links it that way.
-- **fixture**: `scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/` (configs, `manifest.json`, and `expected.json` with each verifying run).
+- **code**: the backend's fingerprint, anchor, and portfolio segmentation code (private repo).
+- **run**: a fingerprint-mode extraction in the test account (`SENSIBLE_TEST_API_KEY`). Review at `https://app.sensible.so/extraction/?e=<id>` while logged in to the test account. The trailing slash before `?e=` is required: `/extraction?e=` doesn't load.
+- **fixture**: `scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/` (configs and `manifest.json`; the page's table test holds the expected results).
 - **validator**: SenseML editor > Options > Validate fingerprints. It runs in single-document mode only, so it can't show portfolio behavior.
 
 ## Verified rules
@@ -18,7 +18,7 @@ Sources:
 | Standalone (simple) syntax: `tests` is an array whose elements are strings, Match objects, Boolean matches, or arrays of Match objects. | code, schema |
 | In standalone syntax, an array element of `tests` (`"tests": [ [A, B], ... ]`) is a **chained match**. | code; validator labels it "2 chained matchers" |
 | `[[A, B]]` as an element of `tests` is **invalid**: "the supplied configuration cannot be published … tests/0 must be string / object". | API probe |
-| Portfolio syntax: each test is `{page, offset?, match}`. In `match`, `[A, B]` is independent matches (any order, can share a line), and `[[A, B]]` is a chained match. | code (`standardize.ts` maps `[A, B]` to `[[A], [B]]`) |
+| Portfolio syntax: each test is `{page, offset?, match}`. In `match`, `[A, B]` is independent matches (any order, can share a line), and `[[A, B]]` is a chained match. | code |
 | A string is a case-insensitive `includes` match. | code (`standardizeMatch`), anchor docs |
 | All Match types work in fingerprints, including Boolean (`any`/`all`/`not`), `first`, and `repeat`. `page` and `firstInSection` matchers don't. | schema, code (`getMatchResult`) |
 
@@ -61,10 +61,10 @@ Another document type's tests can hide these errors. For example, the next docum
 
 | where | fields | notes | source |
 | ----- | ------ | ----- | ------ |
-| `GET /documents/{id}` (standalone extractions), **with or without** `?withMetadata=true` | `classification_summary[]`: `configuration`, `fingerprints`, `fingerprints_present`, `score` (`value`, `fields_present`, `penalties`) | One entry per config. Configs that passed (and ran) have `score`. Configs that failed don't. `withMetadata=true` only adds `text` and `parsed_document_with_metadata`, and has **no** fingerprint info. | code (`entity.ts` `classificationSummaryResponse`, `extract.ts`); run `c1facbc8-ae5b-4d50-b973-ae4c673da916` |
+| `GET /documents/{id}` (standalone extractions), **with or without** `?withMetadata=true` | `classification_summary[]`: `configuration`, `fingerprints`, `fingerprints_present`, `score` (`value`, `fields_present`, `penalties`) | One entry per config. Configs that passed (and ran) have `score`. Configs that failed don't. `withMetadata=true` only adds `text` and `parsed_document_with_metadata`, and has **no** fingerprint info. | code; run `c1facbc8-ae5b-4d50-b973-ae4c673da916` |
 | `fingerprints` | the number of flattened matches the config declares | e.g. 6 for `senior_1040_2021` | run |
 | `fingerprints_present` | the number of **matching lines** (`fingerprintMatches.length`, every occurrence of every successful match), **not** the number of matches that succeeded | It can exceed `fingerprints` (9 of 6 for `senior_1040_2021`, matching the validator's "Lines: 9"), so you can't compute pass/fail from it. The API spec describes it as "the number of this config's fingerprints that Sensible found", which is wrong. | code, run |
-| golden (reference document) extractions: `POST /extract_from_golden/...` (app-internal, not in the public spec) | `fingerprints` (AnchorPoints), `fingerprint_total`, `fingerprint_matcher_results` (index-aligned with the flattened matches; an empty entry is a match that found nothing) | Per-match pass/fail. This is what powers the validator's "5/6" and the per-matcher rows. It's emitted only for golden extractions. | code (`extract-from-golden/common.ts`, sensible #3450) |
+| reference document extractions (an internal endpoint, not in the public API) | per-match results, aligned with the flattened matches | Per-match pass/fail. This is what powers the validator's "5/6" and the per-matcher rows. It's emitted only for golden extractions. | code |
 | portfolio extractions | none | No fingerprint results per document. | code |
 
 ### Alternate wordings

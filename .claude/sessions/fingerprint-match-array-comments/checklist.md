@@ -20,7 +20,7 @@ Frances chose items 2, 7, 10, 11, 13 to do, and closed the rest (no further acti
 
 State:
 - PR #727 is **mergeable**. v0 was merged into the branch (cf1faecf2). Conflicts resolved in favor of the branch rewrite. v0's new validator link (`doc:color#validate-fingerprints`) was carried into the "test and verify fingerprints" tip.
-- Backend facts are verified against `sensible` @ 242e382fd (see "Backend findings"). Exception: portfolio scoring. Frances verified that any failing match fails the whole portfolio fingerprint (see RESOLVED section). That wins over the code reading.
+- Backend facts are verified against the backend source (see "Backend findings"). Exception: portfolio scoring. Frances verified that any failing match fails the whole portfolio fingerprint (see RESOLVED section). That wins over the code reading.
 - Done since the pause: published nested/flat comment wording placed in PREFER; fallbacks tip replaced with "Alternate wordings" (Boolean `any`); live v0 parse fixes; October 2026 changelog draft created.
 - **Do edits on the branch, not live in ReadMe.** Live edits caused the last conflict.
 
@@ -49,13 +49,13 @@ Next steps, in order:
 Line numbers are approximate. Search for `TODO` / `LEFT OFF`.
 
 - [ ] **~41, `tests` parameter row, LEFT OFF:** the description cell has the moved "Portfolio fingerprints differ..." text, plus a TODO to side-note that scoring isn't by test but by match (except chained match arrays).
-  - Backend: standalone scoring counts **matcher groups**. A simple-syntax test = 1 group. A nested `[[ ]]` = 1 group. Each element of a flat portfolio `match: [ ]` = its own group (fingerprints.ts:57, 97; standardize.ts:43). So "by match, except chained arrays" is right.
-  - Also in that cell: "100% of tests must pass for Sensible to segment a document in a portfolio" is **wrong** per backend. Each test is an independent per-page signal. Within one test, all groups must be found on the page (multi-extract.ts:274).
+  - Backend: standalone scoring counts **matcher groups**. A simple-syntax test = 1 group. A nested `[[ ]]` = 1 group. Each element of a flat portfolio `match: [ ]` = its own group. So "by match, except chained arrays" is right.
+  - Also in that cell: "100% of tests must pass for Sensible to segment a document in a portfolio" is **wrong** per backend. Each test is an independent per-page signal. Within one test, all groups must be found on the page.
 - [ ] **~56, standalone example:** `[[ // TODO: talk single vs flat array and make this a better example (see config library?)`. Uses `//`, and the rule is `/* */` only. Look in sensible-configuration-library for a real example.
 - [ ] **~86:** "TODO: add a screenshot of how that evaluates??" (standalone example). Probably a validator screenshot, via screenshots/ to final/.
 - [ ] **~136:** "TODO: add to that example how it evaluates?" (the portfolio.md example link)
 - [ ] **~142, `## Fingerprint scoring`:** "TODO: fill in and make it so it could be a standalone concept topic". Source material: Backend findings > Scoring, plus the flat vs nested section.
-- [x] (Resolved 2026-10-13: tip replaced with Boolean `any` guidance) **~158, fallbacks tip:** "TODO: verify if this can actually be done?" Backend says **yes**. Separate `last` tests emit independent `last` signals, and either one ends the document (multi-extract.ts:258–290, 356). Could still confirm in the app.
+- [x] (Resolved 2026-10-13: tip replaced with Boolean `any` guidance) **~158, fallbacks tip:** "TODO: verify if this can actually be done?" Backend says **yes**. Separate `last` tests emit independent `last` signals, and either one ends the document. Could still confirm in the app.
 - [ ] **~170, test and verify fingerprints:** "Sensible automatically converts them TODO link". Needs the link to the validator docs (see "point readers to the fingerprint validation option" below). Typo: "If your write" should be "If you write".
 - [ ] **~176, "Prefer nested match arrays for stricter syntax":** TODO asks whether this is portfolio-specific, or whether to split into (a) nested match arrays and (b) combining page tests into arrays for portfolios.
   - Backend: **not portfolio-specific.** Nested vs flat changes ordering in both modes, and changes scoring in standalone (1 group vs N). In portfolios, the count doesn't change pass/fail. Suggests splitting as the TODO proposes. Typo: "doesn'tneed".
@@ -174,16 +174,16 @@ Still unknown, so test in the Sensible app:
 
 - [x] Check the backend (sibling repo `sensible`) for whether fingerprint tests support every Match type: string (`equals`, `startsWith`, `endsWith`, `includes`), `regex`, `first`, Boolean (`any`, `all`, `not`), and `repeat`. Look at config validation/schema and the matcher code path fingerprints use.
 
-**Result (Boolean support):** all Match types that anchors accept are supported, including Boolean. Evidence (sensible @ 242e382fd):
+**Result (Boolean support):** all Match types that anchors accept are supported, including Boolean. Evidence from the backend source:
 - Schema: `configuration.schema.json` `Fingerprint.tests` is an array of `AnchorMatch` or `FingerprintMatch`. `FingerprintMatch.match` is `AnchorMatch` or an array of them. `AnchorMatch` = string | Matcher | RepeatMatcher | array. `Matcher` variants: `equals/startsWith/includes/endsWith`, `regex`, `any`, `all`, `not`, `first`.
-- Runtime: fingerprints call `findMatches` (anchor.ts:174), then `matchNext`, then `getMatchResult` (helpers.ts:169), which handles `any`/`all`/`not` first. It's the same code path as anchors.
-- `repeat` is expanded by `standardizeMatch` (standardize.ts:151–155).
+- Runtime: fingerprints call `findMatches`, then `matchNext`, then `getMatchResult`, which handles `any`/`all`/`not` first. It's the same code path as anchors.
+- `repeat` is expanded by `standardizeMatch`.
 - NOT allowed in fingerprints: `page` and `firstInSection` matchers (they're `AnchorComponent`, not `AnchorMatch`).
-- Caveat: no unit test covers Boolean matches in fingerprints (fingerprints.test.ts, multi-extract.test.ts).
+- Caveat: no unit test covers Boolean matches in fingerprints.
 
-## Backend findings: several beliefs in this PR are wrong (sensible @ 242e382fd)
+## Backend findings: several beliefs in this PR are wrong (checked against the backend source)
 
-### How Sensible standardizes a fingerprint (standardize.ts:27–57)
+### How Sensible standardizes a fingerprint
 - **Simple (standalone) syntax** `tests: [T1, T2, T3]` becomes ONE test: `{page: "any", match: [std(T1), std(T2), std(T3)]}`. It is not three `any` tests.
 - **Portfolio syntax** `{page, match: X}`: `(Array.isArray(X) ? X : [X]).map(standardizeMatch)`.
   - `"match": [A, B]` becomes `[[A], [B]]`: two **independent** matcher groups. This is NOT a match array.
@@ -191,15 +191,15 @@ Still unknown, so test in the Sensible app:
   - The nested `[[...]]` in the original PREFER example was therefore meaningful. Removing it changed the semantics.
 
 ### Match order
-- **Order matters inside a chained match array.** `matchArrayInner` (anchor.ts:250–299) reduces over the matchers. Each one searches from `prevMatch.lineIndex + 1` (anchor.ts:276), and `matchNext` only scans forward (anchor.ts:301–329).
-- **Order doesn't matter between independent groups:** standalone tests, or the elements of a flat portfolio `"match": [A, B]`. Each group runs its own `findMatches` (fingerprints.ts:49).
+- **Order matters inside a chained match array.** `matchArrayInner` reduces over the matchers. Each one searches from `prevMatch.lineIndex + 1`, and `matchNext` only scans forward.
+- **Order doesn't matter between independent groups:** standalone tests, or the elements of a flat portfolio `"match": [A, B]`. Each group runs its own `findMatches`.
 - So Frances is right that order doesn't matter for the current PREFER example (flat `[NARS, Name of Insured]`). But it does matter for Wells Fargo test 1 (a nested array in simple syntax) and for `[[A, B]]` in portfolio syntax.
 
 ### Scoring
-- **Standalone:** `filterConfigurationsOnFingerprints` (fingerprints.ts:97) flattens every test's matcher groups, ignores `page` and `offset`, searches the whole document, and passes if groups found / total groups ≥ 0.5 (fingerprints.ts:14, 57).
+- **Standalone:** `filterConfigurationsOnFingerprints` flattens every test's matcher groups, ignores `page` and `offset`, searches the whole document, and passes if groups found / total groups ≥ 0.5.
   - Portfolio-syntax config used standalone: `"match": [A, B]` counts as **2 groups**. So the flat PREFER example has the same "only 'Name of Insured' passes" weakness as the AVOID example. `[[A, B]]` counts as 1.
   - Answers the TODO at fingerprint.md:35: `page` is ignored, and multi-page chained arrays can pass (the search spans pages).
-- **Portfolio:** `matchPages` (multi-extract.ts:258–290) evaluates **each test independently on each page**, with threshold 1 (line 274): every matcher group *in that test* must be found on that page. Each passing test emits its own first/last/every/any signal. A failing `every` test emits `every_failed`.
+- **Portfolio:** `matchPages` evaluates **each test independently on each page**, with threshold 1: every matcher group *in that test* must be found on that page. Each passing test emits its own first/last/every/any signal. A failing `every` test emits `every_failed`.
   - So "100% of tests must pass" is wrong. It's 100% of the matcher groups within a test, per page. My edit to fingerprint.md:108 ("matches" to "tests") made it less accurate. The original "100% of all matches in all tests" was closer.
   - The **fallbacks tip is correct**. Two separate `last` tests give two independent `last` signals, and either one ends the document. My concern was wrong.
   - AVOID vs PREFER in a portfolio with `every`: two one-group tests and one test with two flat groups behave the same (both groups required on every page).
@@ -216,12 +216,12 @@ Still unknown, so test in the Sensible app:
 
 The docs never explain this, and they call a flat portfolio `match` array a "match array" (fingerprint.md:33, :116, test criteria tip; portfolio.md:227–228). The docs need to explain:
 
-- [ ] **Order.** For order to matter, use `"match": [[A, B]]`. This is a real match array: Sensible must find A, then B on a later line (anchor.ts:250–299). If order shouldn't matter, use `"match": [A, B]`. Sensible searches for A and B independently (standardize.ts:43 turns it into `[[A], [B]]`).
+- [ ] **Order.** For order to matter, use `"match": [[A, B]]`. This is a real match array: Sensible must find A, then B on a later line. If order shouldn't matter, use `"match": [A, B]`. Sensible searches for A and B independently.
 - [ ] **How many units it counts as.** The syntax also sets how many units Sensible scores:
   - `[[A, B]]` counts as **1** unit. It passes or fails as a whole.
   - `[A, B]` counts as **2** units, scored individually.
-  - Where this matters: when Sensible runs a portfolio-syntax config on a **standalone** document, it flattens all the units and passes the config if 50% or more are found (fingerprints.ts:57, 97). So `[A, B]` passes on A alone, and `[[A, B]]` doesn't.
-  - Where it doesn't: in a **portfolio**, every unit in a test must be found on the page (threshold 1, multi-extract.ts:274), so 1 vs 2 units makes no difference to pass/fail. Only order and same-page matter there.
+  - Where this matters: when Sensible runs a portfolio-syntax config on a **standalone** document, it flattens all the units and passes the config if 50% or more are found. So `[A, B]` passes on A alone, and `[[A, B]]` doesn't.
+  - Where it doesn't: in a **portfolio**, every unit in a test must be found on the page, so 1 vs 2 units makes no difference to pass/fail. Only order and same-page matter there.
 - [ ] Both forms require all units on the same page in a portfolio.
 - [ ] Where to document it: the fingerprint.md `match` parameter row (add "array of Match arrays"), the test criteria tip, match-arrays.md, and the portfolio.md comment that calls a flat array a "match array"
 - [ ] Rework the AVOID/PREFER tip around this. Its original point (group the phrases so they pass or fail together) only holds with `[[ ]]`.
@@ -265,7 +265,7 @@ Frances drafted this, and Claude corrected it. Placement TBD (likely ~line 219 o
 
 Frances's question: in portfolio mode, take a `first` test with a 7-element array. 3 elements co-occur on one page, and 2 co-occur on a later page. How does Sensible score that? Does it drop the second page and report "3 out of 7"?
 
-Expected answer from the backend: the test fails outright, with no partial score. `matchPages` (multi-extract.ts:258–290) evaluates the test on each page separately, with threshold 1 (line 274). Page A finds 3/7 and page B finds 2/7, so neither page gets a `first` label, and the counts from the two pages are never added together. This holds for flat `[ ]` and nested `[[ ]]` arrays alike. The point of testing it is to learn what the failure looks like, for troubleshooting.
+Expected answer from the backend: the test fails outright, with no partial score. `matchPages` evaluates the test on each page separately, with threshold 1. Page A finds 3/7 and page B finds 2/7, so neither page gets a `first` label, and the counts from the two pages are never added together. This holds for flat `[ ]` and nested `[[ ]]` arrays alike. The point of testing it is to learn what the failure looks like, for troubleshooting.
 
 - [ ] Test it in the app's fingerprint validator. Record what it reports: per-page counts (3/7 and 2/7), only the best page, or just "failed"?
 - [ ] Record the downstream effect on segmentation: with no `first` page, does Sensible leave those pages unsegmented, or assign them to another config?
@@ -276,8 +276,8 @@ Expected answer from the backend: the test fails outright, with no partial score
 Frances's proposal: there's no such thing as a test that passes or fails. A fingerprint is an array of matches, and each match passes or fails (a nested match array is one unit). So drop "test" terminology and refer to "matches".
 
 What the backend says:
-- **Standalone: Frances is right.** Sensible flattens every test into a list of match units and scores units found / total ≥ 0.5 (fingerprints.ts:57, 97). A unit is a string, a Match object, or a nested match array. It's also each element of a flat portfolio-syntax `match: [ ]`. Nothing is scored at the "test" level.
-- **Portfolio: tests are real.** `matchPages` (multi-extract.ts:258–290) evaluates **each test** on each page. The test passes on that page if all its match units are found there (threshold 1, line 274). A passing test emits a first/last/every/any signal. A failing `every` test emits `every_failed`. That's pass/fail at the test level, and page types and offset only exist on tests.
+- **Standalone: Frances is right.** Sensible flattens every test into a list of match units and scores units found / total ≥ 0.5. A unit is a string, a Match object, or a nested match array. It's also each element of a flat portfolio-syntax `match: [ ]`. Nothing is scored at the "test" level.
+- **Portfolio: tests are real.** `matchPages` evaluates **each test** on each page. The test passes on that page if all its match units are found there (threshold 1). A passing test emits a first/last/every/any signal. A failing `every` test emits `every_failed`. That's pass/fail at the test level, and page types and offset only exist on tests.
 - `tests` is also the literal config key, so the word can't disappear entirely.
 
 Proposal:
@@ -291,7 +291,7 @@ Proposal:
 **Superseded the 2026-10-13 resolution.** Fingerprint-mode portfolio runs in the test account (doc type `1040s`, all 7 library configs):
 - Test 1, `37c0c9a3-8f26-405e-8b27-baf3e4f968e2`: portfolio_bank_paystub_tax.pdf returns `1040_2020`, pages 0–1. Correct.
 - Test 2, `3d614620-626d-4222-8973-b220844b7a46`: 9-page file (senior 1040-SR pp. 0–2, Wells Fargo pp. 3–7, pay stub p. 8) returns `senior_1040_2021`, **pages 0–8**. The `first` test opened the document. The `last` test had a failing match (`preparer's name`, which also fails in the validator) and never closed it, so the document absorbed the rest of the file.
-- Conclusion: a failing match fails **its test on that page**, not the whole fingerprint. Segmentation still happens but can be wrong. Matches the code reading of `multi-extract.ts`.
+- Conclusion: a failing match fails **its test on that page**, not the whole fingerprint. Segmentation still happens but can be wrong. Matches the code reading.
 - [x] Live nested-array comment corrected on v0 (1f66774cc) and on the branch: "If any match in a test fails on the page the test should identify, the whole test fails on that page, and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match succeeds on the pages it's meant to identify."
 - [x] (Verified 2026-10-14 by run `bdf09121-9e59-4b92-ae8e-29087978f724`, https://app.sensible.so/extraction/?e=bdf09121-9e59-4b92-ae8e-29087978f724: a `last` test with `any` of an absent and a present wording returned the tax return as pages 1–2, vs pages 1–8 without it. Keep the `any` tip and don't document separate fallback tests. Doc type `fp_demo_any_alternate` e1150725-….) Re-check the "Alternate wordings" rewrite. The original fallbacks tip (separate `last` tests per wording) was dropped on the false premise that it must fail. Tests are independent, so it probably works. The `any` version is still valid. Decide whether to keep `any` only, or mention both. Untested.
 - [ ] Only the `last` case is verified. The `first`/`every`/`any` effects are code-reading only (Frances decided not to document the full per-page-type table).
@@ -315,17 +315,8 @@ The original discussion is kept below for the record.
 
 **Claude's position (full rationale):**
 
-The code groups the "every match must pass" check by test, not across the whole fingerprint. From `multi-extract.ts:258–290` (sensible @ 242e382fd):
+The code groups the "every match must pass" check by test, not across the whole fingerprint. Paraphrased from the backend source, the per-page loop checks each test on its own, with a threshold of 1.
 
-```ts
-for (const fingerprint of fingerprints) {          // each test
-  if (fingerprintMatch(cleanText, fingerprint.match, /* this page only */, 1)?.passed) {
-    pageMatches[pageNumber].push({ ..., type: fingerprint.page });   // label the page
-  } else if (fingerprint.page === "every") {
-    pageMatches[pageNumber].push({ ..., type: "every_failed" });
-  }
-}
-```
 
 - **Matches are scored separately, but only within one test.** `fingerprintMatch` searches for each match in `fingerprint.match` on its own, and with a threshold of `1` all of them must be found on the page. Frances is right about that part.
 - **The result is one pass/fail per test.** `.passed` is a single yes or no for that test's matches, and it decides whether that test's `page` label goes on the page. Other tests' matches aren't part of that decision.
@@ -358,7 +349,6 @@ Frances wants several of the Notes/Tips repeated as inline comments in the examp
 ## To do: document the fingerprint validator in fingerprint.md (changelog links here)
 
 - [ ] The October 2026 changelog entry "Validate fingerprints across reference documents" links to [Fingerprint](doc:fingerprint). Add the validator docs to fingerprint.md so that link lands on real content. This extends the existing "point readers to the fingerprint validation option" item and the "test and verify fingerprints" tip (TODO link, ~line 170).
-  - Source: sensible-app PR #1878 (and sensible #3450)
   - Path: SenseML editor > **Options** > **Validate fingerprints**. Only the `fingerprint` block is used. The config's own reference docs are preselected, and selecting other configs' docs checks for false positives.
   - Results: **Matches** / **Partial** (marked *below threshold* when fewer than half matched) / **No match**. `matched/total` counts flattened matchers, not tests (PR: "a single test carrying `match: ["ACME", "Invoice"]` counts as two"). This supports the flat vs nested scoring explanation. Each expanded row shows whether each match hit, its line count, and its page.
   - Single-document mode only: the Page parameter has no effect. Portfolio support may come later.
@@ -398,9 +388,9 @@ The API is blocked: the test account hit its trial limit ("trial accounts are li
 
 ## Done: portfolio fingerprint failure demos (2026-10-14), basis for "Troubleshooting portfolio fingerprints"
 
-All runs: fingerprint mode, `portfolio_bank_paystub_tax.pdf` (1040 pp. 0–1, Wells Fargo pp. 2–6, pay stub p. 7; zero-indexed), test account, production environment. There's one doc type per config, so configs can't interact. All four results match the code reading of `identifyDocuments` (multi-extract.ts).
+All runs: fingerprint mode, `portfolio_bank_paystub_tax.pdf` (1040 pp. 0–1, Wells Fargo pp. 2–6, pay stub p. 7; zero-indexed), test account, production environment. There's one doc type per config, so configs can't interact. All four results match the code reading of `identifyDocuments`.
 
-Internal review links (route from sensible-app `DocumentNameAndID.tsx`, local copy dated 2026-06; log in to the **test account**):
+Review links (log in to the **test account**):
 
 | demo | result | link |
 | --- | --- | --- |
@@ -546,7 +536,7 @@ The text IS on page 2 of the tax return (Frances's screenshot). The PDF prints `
 
 ## FINDING 2026-10-14: in simple (standalone) syntax, flat and nested are NOT different, and nested is invalid
 
-- Code (`standardize.ts` `standardizeFingerprint` simple branch → `standardizeMatch`): each element of `tests` becomes ONE unit. An array element `[A, B]` is a chained match array (ordered, separate lines). `flatMap` would also flatten `[[A, B]]` to the same thing.
+- Code: each element of `tests` becomes ONE unit. An array element `[A, B]` is a chained match array (ordered, separate lines). `flatMap` would also flatten `[[A, B]]` to the same thing.
 - API probe (temp doc type, deleted): `tests: [[A, B]]` publishes fine. `tests: [[[A, B]]]` is **rejected**: "the supplied configuration cannot be published due to errors … configuration/fingerprint/tests/0 must be string / object…". The schema's `tests` items are AnchorMatch, which allows arrays of Match objects but not arrays of arrays.
 - So flat vs nested only matters in a **portfolio-syntax `match`**: `[A, B]` is two independent units, and `[[A, B]]` is one chained unit.
 - Wrong on the branch right now:
@@ -589,7 +579,7 @@ Frances challenged Claude's claim that two single-match tests and one flat-array
 ## Found 2026-10-15: fingerprint results in the API (see knowledge/fingerprints.md)
 - `?withMetadata=true` has no fingerprint info. Standalone extraction responses always carry `classification_summary` (`fingerprints`, `fingerprints_present`, `score`).
 - [ ] **API spec bug:** `reference/openapi_extraction.json` > `Classification.fingerprints_present` says "The number of this config's fingerprints that Sensible found in the document". It's actually the number of matching LINES and can exceed `fingerprints` (run c1facbc8: senior_1040_2021 9 of 6). Fix the description (and check openapi_classification.json).
-- Per-match pass/fail is only in golden extractions (`fingerprint_matcher_results`, app-internal endpoint), which is what the validator uses.
+- Per-match pass/fail is only in golden extractions (an internal endpoint), which is what the validator uses.
 
 ## 2026-10-15: fixtures renamed with a `fixture_` prefix (Frances)
 - Fixture doc types and configs are now `fixture_*` (for example, `fixture_fp_demo_last_fails` / `fixture_last_fails`), so they aren't deleted by accident in the app. The runner (`markup.fixture_files`) rejects a fixture without the prefix.
@@ -615,9 +605,26 @@ To decide:
 
 ## To do: open an issue about `fingerprints_present`'s ambiguous meaning (Frances, 2026-10-15)
 
-- [ ] Open an issue (sensible-hq/sensible, or sensible-docs for the spec side) about the classification summary's fingerprint counts:
+- [ ] Open an issue (engineering, or sensible-docs for the spec side) about the classification summary's fingerprint counts:
   - Public API `classification_summary[]`: `fingerprints` = the number of flattened matches the config declares, and `fingerprints_present` = **the number of matching lines** (`fingerprintMatches.length`, every occurrence of every successful match). It can exceed `fingerprints`: run c1facbc8 has `senior_1040_2021` at 9 of 6.
   - The spec (`reference/openapi_extraction.json`, `Classification.fingerprints_present`) says "The number of this config's fingerprints that Sensible found in the document". That's wrong for current behavior.
-  - sensible #816 (Jan 2022) designed it as a count of matched fingerprints ("fingerprintMatches": 2, "totalFingerprints": 3), so this may be a **backend regression**, not just a spec wording problem.
-  - Related internal fields (golden extractions only): `fingerprint_total` (matches declared) and `fingerprint_matcher_results` (per-match results), from sensible #3450.
-  - Ask engineering: which is intended? Fix the code (count matches) or the spec (count lines), and consider exposing per-match pass/fail publicly (see #1862, #1810).
+  - The original design counted matched fingerprints, so ask whether the code or the spec is wrong.
+  - Per-match results exist only in reference document extractions, which are internal.
+  - Ask engineering: which is intended? Fix the code (count matches) or the spec (count lines), and consider exposing per-match pass/fail publicly.
+
+## 2026-10-15: security and robustness review (crucible), fixes
+
+Question: could anyone use this public repo to run extractions or get the key? No: neither docs-test workflow runs on PRs, and fork PRs get no secrets. The real exposure is who can write to v0, which includes ReadMe's bidirectional sync.
+
+- [x] Removed a customer name (CSE quote) from the checklist and rewrote the branch history so no commit contains it. Needs a force-push (Frances runs it). The PR's read-only ref still holds the old commit; only GitHub Support can purge it.
+- [x] Removed private backend details (repo SHA, file:line references, a code excerpt, internal endpoint and field names, private PR numbers) from `knowledge/fingerprints.md` and this checklist. Function names remain.
+- [x] `extract_portfolio`: fails on `errors` or a missing `documents` list (a complete extraction with errors no longer passes the `[]` row). Retries transient poll errors (5xx, 429, dropped connections). Timeout 600 → 240 s.
+- [x] Hard per-run extraction cap: 20, `DOC_TESTS_MAX_EXTRACTIONS` overrides.
+- [x] Fixtures: the `.doctype.json` `"name"` must match its file name; reference PDFs must be under `assets/pdfs/`; reference names are restricted; `ensure_fixture` refuses unprefixed names before changing anything, and re-checks drift after a restore (fails if it didn't take).
+- [x] A failed reference PDF upload deletes the empty reference document (so the next run re-uploads) and never records the presigned URL; `redact()` also strips `X-Amz-*` values.
+- [x] Markup: table rows without a trailing pipe count; `fixture`/`segment_documents_with` need an `expect`; one `expect` per test; no stray markers in a table test; pages must be integers with first ≤ last; IDs use `fullmatch`.
+- [x] Workflow: actions pinned to SHAs, `persist-credentials: false`, step timeout 24 min (job 30) so a slow run still opens the issue, issue also opens when an earlier step fails, warnings listed on the run summary, PDF added to trigger paths.
+- [x] Deleted `expected.json`; manifest description says the runner reads this folder's manifest.
+- [x] 23 new offline tests (113 total); all fail against the old code. Live run: 5/5 pass, 5 extractions, 26 requests.
+- [ ] Not done (not requested): positive-control fixture for row 1 (same config minus the failing match); detecting extra configs in a fixture doc type; usage budget parsing of "1,000".
+- [ ] Separate PR (pre-existing from #737): getting-started workflow can upload Doc Detective's unscrubbed password if a run is cancelled; pin `requirements.txt`. ReadMe/`runShell` exposure: propose only (bidirectional sync must stay).

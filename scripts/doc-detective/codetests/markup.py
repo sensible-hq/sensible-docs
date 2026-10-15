@@ -69,7 +69,8 @@ COMPARES = ("documents",)
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
 # First Markdown link on the next non-blank line, for example the example document's download link
 LINK_RE = re.compile(r"\s*[^\n]*?\]\((https?://[^)\s]+)\)")
-TEST_ID_RE = re.compile(r"^[a-z0-9_]+$")
+TEST_ID_RE = re.compile(r"[a-z0-9_]+")
+REF_NAME_RE = re.compile(re.escape(settings.FIXTURE_PREFIX) + r"[A-Za-z0-9_.-]+")
 
 
 @dataclass
@@ -120,7 +121,7 @@ def _test_header(text, match, path, kind):
     except json.JSONDecodeError as e:
         raise CodeTestError(DOCS_MALFORMED, f"{path}, line {line}: the {kind} comment isn't valid JSON ({e.msg})")
     test_id = header.get("testId", "")
-    if not TEST_ID_RE.match(test_id):
+    if not TEST_ID_RE.fullmatch(test_id):
         raise CodeTestError(DOCS_MALFORMED, f"{path}, line {line}: testId {test_id!r} must be lowercase letters, digits, and underscores")
     return test_id, header.get("description", ""), line
 
@@ -177,6 +178,8 @@ def _code_test(text, match, path):
             test.fixtures.append(options["name"])
             continue
         if role == "expect":
+            if test.compare:
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: more than one <!-- expect --> ({where})")
             test.compare, test.expect = _expect(options, test_id, where)
             continue
         fence = FENCE_RE.match(body, marker.end())
@@ -197,6 +200,8 @@ def _code_test(text, match, path):
     where = f"{path}, line {line}"
     if "document" not in seen:
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where})")
+    if (test.segment_documents_with or test.fixtures) and test.compare != "documents":
+        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\" and <!-- fixture --> need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
     if test.compare == "documents":
         if not test.segment_documents_with or not test.fixtures or test.config or test.output:
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: an expect with compare \"documents\" needs \"segment_documents_with\" and fixtures, and no inline config or output ({where})")
@@ -261,9 +266,10 @@ def check_syntax(test):
     if test.compare == "documents":
         expect = test.expect
         if not isinstance(expect, list) or not all(
-            isinstance(d, list) and len(d) == 3 and isinstance(d[0], str) and all(isinstance(n, int) and n >= 1 for n in d[1:]) for d in expect
+            isinstance(d, list) and len(d) == 3 and isinstance(d[0], str)
+            and all(type(n) is int and n >= 1 for n in d[1:]) and d[1] <= d[2] for d in expect
         ):
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect's documents must be a list of [config, firstPage, lastPage] with 1-based pages ({test.file}, line {test.line})")
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect's documents must be a list of [config, firstPage, lastPage] with 1-based pages, firstPage <= lastPage ({test.file}, line {test.line})")
         for name in test.fixtures:
             fixture_files(name)  # raises DOCS_MALFORMED if the fixture is missing
             fixture_references(name)  # or has no reference document
@@ -307,6 +313,14 @@ def fixture_files(name):
     # Fixtures live in the shared test account; the prefix marks them so nobody deletes them in the app by accident
     if not name.startswith(settings.FIXTURE_PREFIX) or not config.startswith(settings.FIXTURE_PREFIX):
         raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: the doc type and config names must start with {settings.FIXTURE_PREFIX!r} (found {name!r}, {config!r})")
+    # The runner changes the doc type named inside the file, so it must be the checked file name
+    try:
+        with open(doctype_file, encoding="utf-8") as f:
+            inner = json.load(f).get("name")
+    except (OSError, json.JSONDecodeError, AttributeError) as e:
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: can't read {os.path.relpath(doctype_file, settings.REPO_ROOT)} ({e})")
+    if inner != name:
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: {os.path.relpath(doctype_file, settings.REPO_ROOT)} has \"name\": {inner!r}; it must match the file name")
     return doctype_file, configs[0]
 
 
@@ -331,8 +345,11 @@ def fixture_references(name):
     if not refs:
         raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: needs at least one reference document in {os.path.relpath(manifest_file, settings.REPO_ROOT)}, so it can be opened in the SenseML editor")
     for ref in refs:
-        if not ref.get("name", "").startswith(settings.FIXTURE_PREFIX):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r}")
+        if not REF_NAME_RE.fullmatch(ref.get("name", "")):
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r} and use only letters, digits, _ . -")
+        pdf = os.path.realpath(os.path.join(settings.REPO_ROOT, ref.get("pdf", "")))
+        if not pdf.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not pdf.endswith(".pdf"):
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} must be a .pdf under {os.path.relpath(settings.FIXTURE_PDFS_DIR, settings.REPO_ROOT)}")
         if ref.get("configuration") != config:
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
         if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
@@ -361,9 +378,10 @@ def _table_rows(text, tag_end):
         i += 1
     if i + 1 >= len(lines) or not TABLE_LINE_RE.match(lines[i]) or not set(lines[i + 1].replace("|", "").strip()) <= set("-: ") or not lines[i + 1].strip():
         return None
+    # A row ends at the first blank or pipe-less line; GFM renders a row without its trailing pipe too
     rows = 0
     for line in lines[i + 2:]:
-        if not TABLE_LINE_RE.match(line):
+        if not line.strip() or "|" not in line:
             break
         rows += 1
     return rows
@@ -382,7 +400,7 @@ def _table_tests(text, path, page, claim):
     for tag in TABLE_TAG_RE.finditer(text):
         where = f"{path}, line {_line(text, tag.start())}"
         table_id = _json(tag.group(1), where, "table").get("tableId", "")
-        if not TEST_ID_RE.match(table_id):
+        if not TEST_ID_RE.fullmatch(table_id):
             raise CodeTestError(DOCS_MALFORMED, f"{where}: tableId {table_id!r} must be lowercase letters, digits, and underscores")
         if table_id in tables:
             raise CodeTestError(DOCS_MALFORMED, f"{where}: tableId {table_id!r} is used twice")
@@ -407,6 +425,9 @@ def _table_tests(text, path, page, claim):
         document = MARKER_RE.search(body)
         if not document or ROLES[" ".join(document.group(1).split())] != "document":
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a table test needs <!-- inline document --> before its rows ({where})")
+        stray = [m for m in MARKER_RE.finditer(body) if m.start() != document.start()]
+        if stray:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a table test takes only one <!-- inline document -->; put fixture and expect in each <!-- row --> ({path}, line {_line(text, offset + stray[0].start())})")
         options = json.loads(document.group(2)) if document.group(2) else {}
         document_url, document_from = "", options.get("from", "")
         if not document_from:
@@ -421,7 +442,7 @@ def _table_tests(text, path, page, claim):
             entry_where = f"{path}, line {_line(text, offset + entry.start())}"
             row = _json(entry.group(1), entry_where, "row")
             row_id = row.get("rowId", "")
-            if not TEST_ID_RE.match(row_id):
+            if not TEST_ID_RE.fullmatch(row_id):
                 raise CodeTestError(DOCS_MALFORMED, f"{test_id}: rowId {row_id!r} must be lowercase letters, digits, and underscores ({entry_where})")
             if "config" in row:
                 raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a row's \"config\": {{\"fixture\": ...}} was renamed \"fixture\": {{\"name\": \"<doc type name>\"}} ({entry_where})")

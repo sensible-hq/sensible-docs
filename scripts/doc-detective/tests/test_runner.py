@@ -200,3 +200,48 @@ class SecretHandlingTest(RunnerTestCase):
         with mock.patch("builtins.print"):
             code_tests.cleanup(mock.Mock(keep=False), client)
         self.assertTrue(TrackingClient.deleted)
+
+
+class SegmentRunTest(unittest.TestCase):
+    """_run_segments against committed fixtures: page ranges compared exactly, in any order."""
+
+    class PortfolioClient(FakeClient):
+        def __init__(self, documents, restored=()):
+            super().__init__({})
+            self.documents, self.restored = documents, list(restored)
+
+        def ensure_fixture(self, doctype_file, config_file, references=()):
+            name = os.path.basename(doctype_file)[:-len(".doctype.json")]
+            return name, os.path.basename(config_file)[len(name) + 1:-len(".config.json")], self.restored
+
+        def extract_portfolio(self, url, doc_types, document_name):
+            return "e1", self.documents
+
+    def run_test(self, expect, documents, **kwargs):
+        from codetests.markup import CodeTest
+        test = CodeTest(test_id="seg", description="d", file="t.md", line=1, document_url="https://example.test/p.pdf")
+        test.segment_documents_with, test.fixtures = "fingerprints", ["fixture_fp_demo_every_split"]
+        test.compare, test.expect = "documents", expect
+        rec = runner.run_code_test(test, self.PortfolioClient(documents, **kwargs))
+        record.validate(rec)
+        return rec
+
+    def test_matching_ranges_pass_in_any_order(self):
+        documents = [{"configuration": "fixture_every_split", "startPage": 5, "endPage": 6},
+                     {"configuration": "fixture_every_split", "startPage": 2, "endPage": 3}]
+        rec = self.run_test([["fixture_every_split", 3, 4], ["fixture_every_split", 6, 7]], documents)
+        self.assertEqual(rec["status"], "pass")
+        self.assertEqual(rec["segments"]["actual"], [["fixture_every_split", 3, 4], ["fixture_every_split", 6, 7]])
+
+    def test_a_different_range_fails(self):
+        rec = self.run_test([["fixture_every_split", 3, 4]], [{"configuration": "fixture_every_split", "startPage": 2, "endPage": 4}])
+        self.assertEqual((rec["status"], rec["category"]), ("fail", "SEGMENTS_DRIFT"))
+
+    def test_no_documents_when_some_were_expected_fails(self):
+        rec = self.run_test([["fixture_every_split", 3, 4]], [])
+        self.assertEqual((rec["status"], rec["category"]), ("fail", "SEGMENTS_DRIFT"))
+
+    def test_a_restored_fixture_warns(self):
+        rec = self.run_test([], [], restored=["restored fixture from the committed files (config drifted)"])
+        self.assertEqual(rec["status"], "warn")
+        self.assertEqual(rec["warnings"][0]["source"], "fixture")

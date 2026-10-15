@@ -37,7 +37,7 @@ Fingerprinting uses no LLM, so these comparisons are **deterministic**: #737's j
 | `example output {"compare": "publish", "expect": {"publish": "rejected", "error_contains": "tests/0 must be"}}` | publish only, no extraction | |
 | `example contrast {...}` | a control run that must give a **different** result (see below) | |
 
-The expected value goes in the marker, next to the claim, because these claims live in prose and table cells, not in output code blocks. `fixtures/fingerprint_portfolio/` keeps only configs and doc types (`manifest.json`). `expected.json` is retired, or generated from the markers for the contract tests.
+The expected value goes in the marker, next to the claim, because these claims live in prose and table cells, not in output code blocks. `fixtures/fingerprint_portfolio/` keeps only configs and doc types (`manifest.json`). `expected.json` was deleted: the markers hold the expected results.
 
 ## Compared with today's code tests
 

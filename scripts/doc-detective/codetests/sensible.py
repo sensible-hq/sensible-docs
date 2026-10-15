@@ -10,7 +10,7 @@ import re
 import time
 
 from . import settings
-from .errors import CONFIG_INVALID, EXTRACTION_ERROR, CodeTestError
+from .errors import CONFIG_INVALID, EXTRACTION_ERROR, RUNNER_ERROR, CodeTestError
 
 
 class SensibleClient:
@@ -36,6 +36,13 @@ class SensibleClient:
         if method != "GET" and path.startswith("/document_types") and path.count("/") == (1 if method == "POST" else 2):
             self._doc_types = None  # a doc type was created or deleted
         return requests.request(method, f"{settings.API}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
+
+    def _charge(self):
+        """Count an extraction, refusing it if the run already made settings.max_extractions()."""
+        cap = settings.max_extractions()
+        if self.counts["extractions"] >= cap:
+            raise CodeTestError(RUNNER_ERROR, f"refusing extraction {self.counts['extractions'] + 1}: the per-run cap is {cap} ({settings.MAX_EXTRACTIONS_VAR})")
+        self.counts["extractions"] += 1
 
     def document_status(self, url):
         """The HTTP status of the example document's link (200 when it resolves)."""
@@ -100,8 +107,8 @@ class SensibleClient:
         from sensibleapi import SensibleSDK
 
         sdk = SensibleSDK(self.key)
+        self._charge()
         self.counts["requests"] += 1
-        self.counts["extractions"] += 1
         result = sdk.wait_for(sdk.extract(
             url=url, document_type=settings.DOC_TYPE, configuration_name=config_name,
             environment=settings.ENVIRONMENT, document_name=document_name,
@@ -168,6 +175,9 @@ class SensibleClient:
         name, config_name, type_id = state["name"], state["config_name"], state["type_id"]
         if not state["drift"]:
             return name, config_name, []
+        # markup.fixture_files checks this too; repeat it here, just before changing the test account
+        if not (name.startswith(settings.FIXTURE_PREFIX) and config_name.startswith(settings.FIXTURE_PREFIX)):
+            raise CodeTestError(CONFIG_INVALID, f"refusing to restore {name}/{config_name}: fixture names must start with {settings.FIXTURE_PREFIX!r}")
         if not type_id:
             response = self._api("POST", "/document_types", json=state["doctype"])
             if not response.ok:
@@ -193,6 +203,10 @@ class SensibleClient:
             response = self._api("PUT", f"/document_types/{type_id}/goldens/{ref['name']}", json={"configuration": ref["configuration"]})
             if not response.ok:
                 raise CodeTestError(CONFIG_INVALID, f"relinking reference document {name}/{ref['name']} returned {response.status_code}: {response.text[:300]}")
+        # Check the restore took, so a test never runs against a config that isn't the committed one
+        remaining = self.fixture_drift(doctype_file, config_file, references, check_drafts=False)["drift"]
+        if remaining:
+            raise CodeTestError(CONFIG_INVALID, f"fixture {name} still differs from the committed files after restoring it: {'; '.join(remaining)[:500]}")
         warnings = [f"restored fixture from the committed files ({d})" for d in state["drift"]]
         return name, config_name, warnings
 
@@ -206,10 +220,17 @@ class SensibleClient:
                              json={"name": ref["name"], "configuration": ref["configuration"], "content_type": "application/pdf"})
         if not response.ok:
             raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
-        with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
-            put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
-        if put.status_code != 200:
-            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) returned {put.status_code}")
+        try:
+            with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
+                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
+            problem = None if put.status_code == 200 else f"returned {put.status_code}"
+        except requests.RequestException as e:
+            # Only the exception type: its message includes the presigned upload URL
+            problem = f"failed ({type(e).__name__})"
+        if problem:
+            # Delete the empty reference document, so the next run sees it's missing and uploads it again
+            self._api("DELETE", f"/document_types/{type_id}/goldens/{ref['name']}")
+            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) {problem}")
 
     def _published_config(self, type_id, config_name, check_drafts=True):
         """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""
@@ -239,8 +260,13 @@ class SensibleClient:
         except json.JSONDecodeError:
             return config  # a draft with comments or a syntax error still counts as different
 
-    def extract_portfolio(self, url, doc_types, document_name, timeout=600):
-        """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents)."""
+    def extract_portfolio(self, url, doc_types, document_name, timeout=240):
+        """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents).
+
+        Keep timeout x the page's segment tests under the workflow's timeout-minutes."""
+        import requests
+
+        self._charge()
         response = self._api(
             "POST", f"/extract_from_url?environment={settings.FIXTURE_ENVIRONMENT}&document_name={document_name}",
             json={"document_url": url, "types": doc_types, "segment_documents_with": "fingerprints"},
@@ -248,19 +274,29 @@ class SensibleClient:
         if not response.ok:
             raise CodeTestError(EXTRACTION_ERROR, f"portfolio extraction request returned {response.status_code}: {response.text[:300]}")
         extraction_id = response.json()["id"]
-        self.counts["extractions"] += 1
         deadline = time.time() + timeout
         time.sleep(10)  # a portfolio extraction never finishes sooner, so don't poll before then
         while True:
-            result = self._api("GET", f"/documents/{extraction_id}").json()
-            if result.get("status") in ("COMPLETE", "FAILED"):
-                break
+            # A gateway error or dropped connection mid-poll is transient: poll again
+            try:
+                poll = self._api("GET", f"/documents/{extraction_id}")
+                transient = poll.status_code >= 500 or poll.status_code == 429
+            except (requests.ConnectionError, requests.Timeout):
+                transient = True
+            if not transient:
+                poll.raise_for_status()
+                result = poll.json()
+                if result.get("status") in ("COMPLETE", "FAILED"):
+                    break
             if time.time() > deadline:
                 raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
             time.sleep(5)
-        if result.get("status") != "COMPLETE":
+        # A complete extraction with errors, or without a documents list, isn't evidence of "no documents"
+        if result.get("status") != "COMPLETE" or result.get("errors"):
             raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id}: status {result.get('status')}: {json.dumps(result.get('errors'))[:300]}")
-        return extraction_id, result.get("documents") or []
+        if not isinstance(result.get("documents"), list):
+            raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id}: the response has no documents list")
+        return extraction_id, result["documents"]
 
 
 def json_diff(committed, live, path="$"):
