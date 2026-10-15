@@ -90,7 +90,7 @@ class SensibleClient:
 
     # -- Fixtures and portfolio extractions (fingerprint claims) --
 
-    def fixture_drift(self, doctype_file, config_file):
+    def fixture_drift(self, doctype_file, config_file, references=()):
         """Compare a fixture with the test account, without changing anything.
 
         Returns a dict: name, config_name, type_id (None if the doc type is missing), and `drift`, a
@@ -105,12 +105,14 @@ class SensibleClient:
             config = json.load(f)
         name = doctype["name"]
         config_name = os.path.basename(config_file)[len(name) + 1:-len(".config.json")]
-        state = {"name": name, "config_name": config_name, "doctype": doctype, "config": config, "type_id": None, "drift": [], "draft": False}
+        state = {"name": name, "config_name": config_name, "doctype": doctype, "config": config, "type_id": None, "drift": [], "draft": False,
+                 "references": list(references), "missing_refs": [], "relinked_refs": []}
         response = self._api("GET", "/document_types")
         response.raise_for_status()
         live_type = next((d for d in response.json() if d["name"] == name), None)
         if not live_type:
             state["drift"].append(f"doc type {name} is missing from the test account")
+            state["missing_refs"] = list(references)
             return state
         state["type_id"] = live_type["id"]
         state["drift"] += [f"doc type {name} settings: {d}" for d in json_diff(doctype.get("schema") or {}, live_type.get("schema") or {})]
@@ -120,15 +122,26 @@ class SensibleClient:
         else:
             state["drift"] += [f"config {name}/{config_name}: {d}" for d in json_diff(config, published)]
         state["published"] = published
+        for ref in references:
+            response = self._api("GET", f"/document_types/{live_type['id']}/goldens/{ref['name']}")
+            if response.status_code == 404:
+                state["drift"].append(f"reference document {name}/{ref['name']} is missing")
+                state["missing_refs"].append(ref)
+                continue
+            response.raise_for_status()
+            linked = response.json().get("configuration")
+            if linked != ref["configuration"]:
+                state["drift"].append(f"reference document {name}/{ref['name']}: linked to config {linked!r}, committed {ref['configuration']!r}")
+                state["relinked_refs"].append(ref)
         return state
 
-    def ensure_fixture(self, doctype_file, config_file):
+    def ensure_fixture(self, doctype_file, config_file, references=()):
         """Make sure the fixture's doc type and published config match the committed files, restoring
         them if they don't. Fixture doc types are persistent: created when missing, never deleted.
 
         Returns (doc type name, config name, warnings). Each warning describes something the runner
         restored, for example a config someone edited and published in the app."""
-        state = self.fixture_drift(doctype_file, config_file)
+        state = self.fixture_drift(doctype_file, config_file, references)
         name, config_name, type_id = state["name"], state["config_name"], state["type_id"]
         if not state["drift"]:
             return name, config_name, []
@@ -151,8 +164,29 @@ class SensibleClient:
                 response = self._api("POST", f"/document_types/{type_id}/configurations", json={"name": config_name, **body})
             if not response.ok:
                 raise CodeTestError(CONFIG_INVALID, f"publishing fixture config {name}/{config_name} returned {response.status_code}: {response.text[:300]}")
+        for ref in state["missing_refs"]:
+            self._upload_reference(type_id, ref)
+        for ref in state["relinked_refs"]:
+            response = self._api("PUT", f"/document_types/{type_id}/goldens/{ref['name']}", json={"configuration": ref["configuration"]})
+            if not response.ok:
+                raise CodeTestError(CONFIG_INVALID, f"relinking reference document {name}/{ref['name']} returned {response.status_code}: {response.text[:300]}")
         warnings = [f"restored fixture from the committed files ({d})" for d in state["drift"]]
         return name, config_name, warnings
+
+    def _upload_reference(self, type_id, ref):
+        """Create a reference document and upload its PDF from the repo."""
+        import os
+
+        import requests
+
+        response = self._api("POST", f"/document_types/{type_id}/goldens",
+                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": "application/pdf"})
+        if not response.ok:
+            raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
+        with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
+            put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
+        if put.status_code != 200:
+            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) returned {put.status_code}")
 
     def _published_config(self, type_id, config_name):
         """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""
@@ -163,8 +197,9 @@ class SensibleClient:
         versions = response.json()
         versions = versions if isinstance(versions, list) else versions.get("versions", [])
         version = next((v["version_id"] for v in versions if settings.FIXTURE_ENVIRONMENT in (v.get("environments") or [])), None)
-        newest = max(versions, key=lambda v: v.get("datetime", ""), default=None)
-        draft = bool(newest and version and newest["version_id"] != version)
+        published_at = next((v.get("datetime", "") for v in versions if v["version_id"] == version), "")
+        # An edit saved in the app but not published (the editor autosaves drafts)
+        draft = any(v.get("draft") and v.get("datetime", "") > published_at for v in versions)
         if not version:
             return None, draft
         response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/{version}")

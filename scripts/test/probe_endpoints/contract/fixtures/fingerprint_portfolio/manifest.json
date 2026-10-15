@@ -1,5 +1,5 @@
 {
-  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table 'Alternate wordings' tip, and 'Prefer match arrays to single-match tests' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py); kept in their own manifest until #744 merges, then fold these entries into it. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation. Fixture doc types and configs are prefixed `fixture_` so they aren't deleted by accident in the app; the code-test runner refuses fixtures without the prefix.",
+  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table 'Alternate wordings' tip, and 'Prefer match arrays to single-match tests' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py); kept in their own manifest until #744 merges, then fold these entries into it. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation. Fixture doc types and configs are prefixed `fixture_` so they aren't deleted by accident in the app; the code-test runner refuses fixtures without the prefix. Every fixture doc type has at least one reference document (also prefixed `fixture_`), so you can open it in the SenseML editor.",
   "document_types": [
     {
       "doctype": "fixture_fp_demo_first_fails.doctype.json",
@@ -9,6 +9,13 @@
           "name": "fixture_first_fails",
           "file": "fixture_fp_demo_first_fails.fixture_first_fails.config.json",
           "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_first_fails"
         }
       ]
     },
@@ -21,6 +28,13 @@
           "file": "fixture_fp_demo_last_fails.fixture_last_fails.config.json",
           "publish_as": "production"
         }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_last_fails"
+        }
       ]
     },
     {
@@ -31,6 +45,13 @@
           "name": "fixture_every_fails",
           "file": "fixture_fp_demo_every_fails.fixture_every_fails.config.json",
           "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_every_fails"
         }
       ]
     },
@@ -43,6 +64,13 @@
           "file": "fixture_fp_demo_any_fails.fixture_any_fails.config.json",
           "publish_as": "production"
         }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_any_fails"
+        }
       ]
     },
     {
@@ -53,6 +81,13 @@
           "name": "fixture_any_alternate",
           "file": "fixture_fp_demo_any_alternate.fixture_any_alternate.config.json",
           "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_any_alternate"
         }
       ]
     },
@@ -65,6 +100,13 @@
           "file": "fixture_fp_portfolio_chained.fixture_chained.config.json",
           "publish_as": "production"
         }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_chained"
+        }
       ]
     },
     {
@@ -75,6 +117,13 @@
           "name": "fixture_flat_array",
           "file": "fixture_fp_portfolio_flat_array.fixture_flat_array.config.json",
           "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_flat_array"
         }
       ]
     },
@@ -87,6 +136,13 @@
           "file": "fixture_fp_portfolio_separate_tests.fixture_separate_tests.config.json",
           "publish_as": "production"
         }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "configuration": "fixture_separate_tests"
+        }
       ]
     },
     {
@@ -98,6 +154,13 @@
           "file": "fixture_fp_pmd_auto.fixture_auto.config.json",
           "publish_as": "production"
         }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio",
+          "pdf": "assets/pdfs/portfolio.pdf",
+          "configuration": "fixture_auto"
+        }
       ]
     },
     {
@@ -108,6 +171,13 @@
           "name": "fixture_loss",
           "file": "fixture_fp_pmd_loss.fixture_loss.config.json",
           "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio",
+          "pdf": "assets/pdfs/portfolio.pdf",
+          "configuration": "fixture_loss"
         }
       ]
     }

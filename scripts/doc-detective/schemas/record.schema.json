@@ -254,6 +254,25 @@
           "items": {
             "type": "array"
           }
+        },
+        "editors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "fixture",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "fixture": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }

@@ -211,7 +211,13 @@ def render_code_test(record):
         out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
         out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
                    f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
-        out.append(f'<p class="muted">Fixtures: {", ".join(f"<code>{e(x)}</code>" for x in seg["fixtures"])}. '
+        editors = {x["fixture"]: x["url"] for x in seg.get("editors", [])}
+
+        def fixture(name):
+            editor = f' (<a href="{e(editors[name])}">open in the SenseML editor</a>)' if name in editors else ""
+            return f"<code>{e(name)}</code>{editor}"
+
+        out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
                    f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
         restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
         if restored:

@@ -121,7 +121,8 @@ def check_fixtures(selected, client):
     drifted = 0
     for name in names:
         try:
-            state = client.fixture_drift(*markup.fixture_files(name))
+            refs = markup.fixture_references(name)
+            state = client.fixture_drift(*markup.fixture_files(name), refs)
         except CodeTestError as e:
             print(f"FAIL {name}  {e}")
             drifted += 1
@@ -133,6 +134,7 @@ def check_fixtures(selected, client):
             print("\n".join(f"  {d}" for d in state["drift"]))
         else:
             print(f"OK    {name}{note}")
+        print(f"      editor: {markup.editor_url(state['name'], state['config_name'], refs[0]['name'])}")
     if drifted:
         print(f"{drifted} fixture(s) differ from the committed files. A normal run restores them and warns.")
     return 1 if drifted else 0

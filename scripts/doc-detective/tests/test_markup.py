@@ -178,3 +178,26 @@ class SegmentTest(unittest.TestCase):
             finally:
                 settings.TEST_FIXTURES_DIR = old
         self.assertIn("must start with 'fixture_'", str(caught.exception))
+
+    def test_fixture_needs_a_reference_document(self):
+        import os, tempfile, json
+        from codetests import settings
+        with tempfile.TemporaryDirectory() as root:
+            os.makedirs(os.path.join(root, "d"))
+            with open(os.path.join(root, "d", "fixture_x.doctype.json"), "w") as f:
+                json.dump({"name": "fixture_x", "schema": {}}, f)
+            with open(os.path.join(root, "d", "fixture_x.fixture_c.config.json"), "w") as f:
+                json.dump({"fields": []}, f)
+            with open(os.path.join(root, "d", "manifest.json"), "w") as f:
+                json.dump({"document_types": [{"doctype": "fixture_x.doctype.json", "configs": [{"name": "fixture_c"}]}]}, f)
+            old, settings.TEST_FIXTURES_DIR = settings.TEST_FIXTURES_DIR, root
+            try:
+                with self.assertRaises(CodeTestError) as caught:
+                    markup.fixture_references("d/fixture_x")
+            finally:
+                settings.TEST_FIXTURES_DIR = old
+        self.assertIn("needs at least one reference document", str(caught.exception))
+
+    def test_editor_url(self):
+        self.assertEqual(markup.editor_url("fixture_d", "fixture_c", "fixture_g"),
+                         "https://app.sensible.so/editor/?d=fixture_d&c=fixture_c&g=fixture_g")
