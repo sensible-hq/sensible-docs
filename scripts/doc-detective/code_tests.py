@@ -90,9 +90,20 @@ def main():
             print("\n".join(text.summary(rec)))
             failed += rec["status"] == "fail"
     finally:
-        if not args.keep and client.delete_doc_type():
-            print(f"Deleted document type {settings.DOC_TYPE}")
+        cleanup(args, client)
     return 1 if failed else 0
+
+
+def cleanup(args, client):
+    """Delete the temporary document type. A failure here is reported but never hides a test's own
+    result or error: records are already saved, and the next run reuses the document type."""
+    if args.keep:
+        return
+    try:
+        if client.delete_doc_type():
+            print(f"Deleted document type {settings.DOC_TYPE}")
+    except Exception as e:  # noqa: BLE001
+        print(settings.redact(f"WARN couldn't delete document type {settings.DOC_TYPE}: {type(e).__name__}: {e}"), file=sys.stderr)
 
 
 def build_envelopes(args, selected, client):
@@ -116,8 +127,7 @@ def build_envelopes(args, selected, client):
         print(f"FAIL  {e}")
         return 1
     finally:
-        if not args.keep and client.delete_doc_type():
-            print(f"Deleted document type {settings.DOC_TYPE}")
+        cleanup(args, client)
     return 0
 
 

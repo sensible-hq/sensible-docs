@@ -145,3 +145,38 @@ class ProposeFixTest(RunnerTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SecretHandlingTest(RunnerTestCase):
+    """The first CI run broke on a secret saved with a trailing newline, and the crash left no record."""
+
+    def test_keys_are_trimmed(self):
+        with mock.patch.dict(os.environ, {settings.SENSIBLE_KEY_VAR: "  test-key\n"}):
+            self.assertEqual(settings.key(settings.SENSIBLE_KEY_VAR), "test-key")
+        with mock.patch.dict(os.environ, {settings.SENSIBLE_KEY_VAR: " \n"}):
+            self.assertIsNone(settings.key(settings.SENSIBLE_KEY_VAR))
+
+    def test_unexpected_error_is_recorded_with_keys_redacted(self):
+        class CrashingClient(FakeClient):
+            def upload_config(self, name, text):
+                raise ValueError("Invalid header value: 'Bearer secret-123'")
+
+        with mock.patch.dict(os.environ, {settings.SENSIBLE_KEY_VAR: "secret-123\n"}), \
+                mock.patch("sys.stderr"):
+            rec = runner.run_code_test(code_test({}), CrashingClient({}), judge=FakeJudge(), judge_key="k")
+        record.validate(rec)
+        self.assertEqual((rec["status"], rec["category"]), ("fail", "RUNNER_ERROR"))
+        self.assertIn("ValueError", rec["message"])
+        self.assertNotIn("secret-123", rec["message"])
+        self.assertIn("********", rec["message"])
+
+    def test_failed_cleanup_doesnt_raise(self):
+        import code_tests
+
+        class UndeletableClient(FakeClient):
+            def delete_doc_type(self):
+                raise RuntimeError("delete failed")
+
+        args = mock.Mock(keep=False)
+        with mock.patch("sys.stderr"):
+            code_tests.cleanup(args, UndeletableClient({}))  # must not raise

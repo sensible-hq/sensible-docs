@@ -46,5 +46,28 @@ def load_dotenv():
 
 
 def key(*names):
-    """The first of these environment variables that has a value, or None."""
-    return next((os.environ[n] for n in names if os.environ.get(n)), None)
+    """The first of these environment variables that has a value, or None.
+
+    Values are trimmed: a secret pasted with a trailing newline would otherwise make an invalid
+    HTTP header (which is what broke the first CI run).
+    """
+    for name in names:
+        value = (os.environ.get(name) or "").strip()
+        if value:
+            return value
+    return None
+
+
+def secret_values():
+    """The trimmed values of every variable in config/secrets.txt that's set."""
+    path = os.path.join(HERE, "config", "secrets.txt")
+    with open(path, encoding="utf-8") as f:
+        names = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+    return [v for v in (key(n) for n in names) if v]
+
+
+def redact(text):
+    """Replace every secret value in `text` with ********, for messages that may echo a key."""
+    for value in secret_values():
+        text = text.replace(value, "********")
+    return text
