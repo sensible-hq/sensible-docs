@@ -31,6 +31,10 @@ JUDGE_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_KEY")  # ANTHROPIC_KEY: a name
 JUDGE_MODEL_VAR = "DOC_EXAMPLES_JUDGE_MODEL"
 PROPOSE_FIXES_VAR = "DOC_EXAMPLES_PROPOSE_FIXES"
 ENVELOPES_DIR_VAR = "DOC_EXAMPLES_ENVELOPES_DIR"
+# Optional monthly budget, in charged extractions, for the test account; the report warns when it's used up
+BUDGET_VAR = "DOC_TESTS_MONTHLY_BUDGET"
+# This run's API usage, written by code_tests.py and read by the report
+RUN_FILE = os.path.join(OUTPUT_DIR, "run.json")
 
 
 def envelopes_dir():

@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Local installs: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import envelope, judge, markup, record, runner, settings  # noqa: E402
+from codetests import envelope, judge, markup, record, runner, settings, usage  # noqa: E402
 from codetests.errors import CodeTestError  # noqa: E402
 from codetests.reports import text  # noqa: E402
 from codetests.sensible import SensibleClient  # noqa: E402
@@ -96,6 +96,7 @@ def main():
             failed += rec["status"] == "fail"
     finally:
         cleanup(args, client)
+        usage.save_run(client.counts)
     return 1 if failed else 0
 
 

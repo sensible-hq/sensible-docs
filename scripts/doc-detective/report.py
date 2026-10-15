@@ -18,8 +18,24 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import markup, record, settings  # noqa: E402
+from codetests import markup, record, settings, usage  # noqa: E402
 from codetests.reports import doc_detective, envelope_issue, html, issue  # noqa: E402
+
+
+def usage_summary(output_dir):
+    """This run's API usage, plus the test account's month to date from Sensible. Called after the
+    tests run. A failure here never fails the report: it shows why the numbers are missing."""
+    settings.load_dotenv()
+    summary = {"run": usage.load_run(output_dir), "budget": usage.budget()}
+    key = settings.key(settings.SENSIBLE_KEY_VAR)
+    if not key:
+        summary["error"] = f"{settings.SENSIBLE_KEY_VAR} isn't set"
+        return summary
+    try:
+        summary["month"] = usage.month_to_date(key)
+    except Exception as e:  # noqa: BLE001
+        summary["error"] = settings.redact(f"{type(e).__name__}: {e}")
+    return summary
 
 
 def main():
@@ -37,7 +53,7 @@ def main():
     records = record.load_all(os.path.join(args.output, "code-tests"))
 
     if args.command == "html":
-        print(f"Wrote {html.render(args.page, ui_results, records, os.path.join(args.output, 'report.html'))}")
+        print(f"Wrote {html.render(args.page, ui_results, records, os.path.join(args.output, 'report.html'), usage_summary(args.output))}")
     elif args.command == "verify-ui":
         problems = doc_detective.verify_ui(markup.parse_page(args.page), ui_results)
         for problem in problems:

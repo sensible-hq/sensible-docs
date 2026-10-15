@@ -303,7 +303,30 @@ def render_code_test(record):
     return "\n".join(out)
 
 
-def render(page_path, ui_results, records, out_path):
+def render_usage(usage):
+    """The test account's Sensible usage: this run, and the month to date (from Sensible, after the run)."""
+    if not usage:
+        return ""
+    parts = []
+    run = usage.get("run")
+    if run:
+        parts.append(f'This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s).')
+    month, budget = usage.get("month"), usage.get("budget")
+    if month:
+        line = (f'Test account since {e(month["since"])}: {month["extractions"]} extraction(s), {month["charged"]} charged '
+                f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other).')
+        if budget:
+            state = "fail" if month["charged"] >= budget else "warn" if month["charged"] >= 0.8 * budget else "pass"
+            line += f' {chip(state, f"{month["charged"]} of {budget} charged budget")}'
+        parts.append(line)
+    elif usage.get("error"):
+        parts.append(f'Test account usage this month: unavailable ({e(usage["error"])}).')
+    if not parts:
+        return ""
+    return '<p class="muted" style="margin:-16px 0 20px">' + " ".join(parts) + "</p>"
+
+
+def render(page_path, ui_results, records, out_path, usage=None):
     """Write report.html for one page."""
     page = markup.parse_page(page_path)
     by_id = {r["test_id"]: r for r in records}
@@ -318,6 +341,7 @@ def render(page_path, ui_results, records, out_path):
         f"<title>Doc Detective report</title><style>{CSS}</style></head><body><main>",
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(shown_path)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
+        render_usage(usage),
         f'<p class="disclaimer">{e(wording.judge_disclaimer()).replace("labeled judge", "labeled " + JUDGE)} '
         f'{ENVELOPE} {e(wording.envelope_sentence(records))}</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',

@@ -16,10 +16,14 @@ class SensibleClient:
     def __init__(self, key):
         self.key = key
         self._type_id = None
+        # This run's Sensible API usage, for the report. SDK extractions count as one request each,
+        # though the SDK also polls, so "requests" is a lower bound.
+        self.counts = {"requests": 0, "extractions": 0}
 
     def _api(self, method, path, **kwargs):
         import requests
 
+        self.counts["requests"] += 1
         return requests.request(method, f"{settings.API}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
 
     def document_status(self, url):
@@ -78,6 +82,8 @@ class SensibleClient:
         from sensibleapi import SensibleSDK
 
         sdk = SensibleSDK(self.key)
+        self.counts["requests"] += 1
+        self.counts["extractions"] += 1
         result = sdk.wait_for(sdk.extract(
             url=url, document_type=settings.DOC_TYPE, configuration_name=config_name,
             environment=settings.ENVIRONMENT, document_name=document_name,
@@ -225,6 +231,7 @@ class SensibleClient:
         if not response.ok:
             raise CodeTestError(EXTRACTION_ERROR, f"portfolio extraction request returned {response.status_code}: {response.text[:300]}")
         extraction_id = response.json()["id"]
+        self.counts["extractions"] += 1
         deadline = time.time() + timeout
         while True:
             result = self._api("GET", f"/documents/{extraction_id}").json()
