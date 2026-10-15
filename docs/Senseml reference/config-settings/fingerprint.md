@@ -122,7 +122,7 @@ Sensible scores fingerprints differently for standalone documents and for portfo
 
 For the config to pass, Sensible must find 50% or more of the elements, or "matches," in the Tests parameter.
 
-Sensible searches the whole document for each element in the fingerprint. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For more information, see [Fingerprint mode](doc:fingerprint-mode).
+Sensible searches the whole document for each element in the fingerprint. If more than one config passes, Sensible runs all the configs that pass and returns the extraction with the highest score. For information about configuring the strictness with which Sensible runs or skips configs, see [Fingerprint mode](doc:fingerprint-mode).
 
 **Portfolios using portfolio syntax**
 
