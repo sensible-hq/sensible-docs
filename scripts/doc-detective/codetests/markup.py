@@ -214,6 +214,7 @@ def check_syntax(test):
             raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect must be a list of [config, firstPage, lastPage] with 1-based pages ({test.file}, line {test.line})")
         for name in test.fixtures:
             fixture_files(name)  # raises DOCS_MALFORMED if the fixture is missing
+            fixture_references(name)  # or has no reference document
         return None, expect
     parsed = {}
     for role, text, line, trailing_commas in (("config", test.config, test.config_line, True), ("output", test.output, test.output_line, False)):
@@ -243,3 +244,40 @@ def fixture_files(name):
     if not doctype.startswith(settings.FIXTURE_PREFIX) or not config.startswith(settings.FIXTURE_PREFIX):
         raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: the doc type and config names must start with {settings.FIXTURE_PREFIX!r} (found {doctype!r}, {config!r})")
     return doctype_file, configs[0]
+
+
+def fixture_references(name):
+    """The reference documents of fixture "<dir>/<doctype>", from <dir>/manifest.json.
+
+    Every fixture doc type needs at least one, so it can be opened in the SenseML editor. Each is
+    {"name", "pdf" (repo-relative), "configuration"}, in the contract-test manifest's shape."""
+    import os
+
+    directory, _, doctype = name.rpartition("/")
+    _, config_file = fixture_files(name)
+    config = os.path.basename(config_file)[len(doctype) + 1:-len(".config.json")]
+    manifest_file = os.path.join(settings.TEST_FIXTURES_DIR, directory, "manifest.json")
+    try:
+        with open(manifest_file, encoding="utf-8") as f:
+            manifest = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: can't read {os.path.relpath(manifest_file, settings.REPO_ROOT)} ({e})")
+    entry = next((d for d in manifest.get("document_types", []) if d.get("doctype") == f"{doctype}.doctype.json"), None)
+    refs = (entry or {}).get("references") or []
+    if not refs:
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: needs at least one reference document in {os.path.relpath(manifest_file, settings.REPO_ROOT)}, so it can be opened in the SenseML editor")
+    for ref in refs:
+        if not ref.get("name", "").startswith(settings.FIXTURE_PREFIX):
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r}")
+        if ref.get("configuration") != config:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
+        if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} doesn't exist")
+    return refs
+
+
+def editor_url(doctype, config, reference):
+    """The SenseML editor, opened on a fixture's config and reference document."""
+    from urllib.parse import urlencode
+
+    return "https://app.sensible.so/editor/?" + urlencode({"d": doctype, "c": config, "g": reference})

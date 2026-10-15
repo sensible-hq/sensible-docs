@@ -13,6 +13,7 @@ def summary(record):
         fmt = lambda docs: "; ".join(f"{c} pages {s}-{e}" for c, s, e in docs) or "no documents"
         lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)")
         lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
+        lines += [f"  Editor: {x['url']}" for x in seg.get("editors", [])]
         lines.append(f"  Page claims: {fmt(seg['expected'])}")
         lines.append(f"  Sensible:    {fmt(seg['actual'])}")
         lines += [f"  [fixture] WARNING: {w['text']}" for w in record["warnings"] if w["source"] == "fixture"]
