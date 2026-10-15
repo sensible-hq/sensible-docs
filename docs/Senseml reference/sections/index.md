@@ -1,15 +1,11 @@
 ---
 title: Sections
-excerpt: Learn how to use Sensible Sections to extract repeated or complex document
-  elements like claims into structured arrays using horizontal or vertical section
-  configurations.
+excerpt: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use Sensible Sections to extract repeated or complex document
-    elements like claims into structured arrays using horizontal or vertical section
-    configurations.
+  description: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
   robots: index
 next:
   description: ''
@@ -44,7 +40,7 @@ The following image shows columnar vertical sections. For more information, see 
 | type                  | `sections`                                             | Specifies that this field extracts sections.                                                                                                                                                                                                                                                                                                                                                                                                   |
 | range  (**required**) | object                                                 | Specifies the document area from which to extract an array of sections.<br/> **horizontal sections:**  The sections can span pages and non-section text. For example, in the preceding claims image, sections can interleave with month headings.<br/><br/> **vertical sections:** The sections can span pages. By default, they can't span text that breaks the column format.<br/>For the Range object's parameters, see the following table. |
 | sections              |                                                        | Specifies sections inside sections. Use this for complex sections that contain nested repeated elements, for example, [a grid of tables](doc:sections-example-table-grid). Each nested section searches for its range inside each parent section's range.                                                                                                                                                                                      |
-| display               | boolean. Default: true                                 | Specifies to display the start and end of each section as brackets overlaid on the rendered document in the Sensible app. Use the brackets to visually troubleshoot sections.                                                                                                                                                                                                                                                                  |
+| display               | boolean. Default: true                                 | Specifies to display the start and end of each section as brackets overlaid on the rendered document in the Sensible app. Use the brackets to visually troubleshoot sections. To also highlight the line each section anchors on, see [Visual troubleshooting in the SenseML editor](doc:color#show-section-anchors).                                                                                                                                                                                                                                                                  |
 | requiredFields        | object                                                 | Array of field IDs that must be non-null for Sensible to return a section.<br/> In the [Claims loss run example](doc:sections-example-loss-run), add the following code to the sections to omit claims that lack a phone number: <br/> `"requiredFields": ["phone_number"],`<br/>With the preceding code, Sensible omits claim number `9876543211`  from the example output.                                                                   |
 | fields                | array of [fields](doc:field-query-object)              | Specifies fields to extract information that you expect to repeat in each section.                                                                                                                                                                                                                                                                                                                                                             |
 | computed\_fields      | array of [computed fields](doc:computed-field-methods) | Specifies to output computed fields to each section. The computed fields have access to each section's fields. To get access to and transform the output of fields that aren't in the sections' range, use the [Copy To Section](doc:copy-to-section) method.                                                                                                                                                                                  |

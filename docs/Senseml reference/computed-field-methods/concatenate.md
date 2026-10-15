@@ -1,14 +1,11 @@
 ---
 title: Concatenate
-excerpt: Concatenate method joins outputs of two or more fields into a single string
-  or array, with configurable delimiters and support for mixed string and array inputs.
+excerpt: Concatenate method joins outputs of two or more fields into a single string or array.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Concatenate method joins outputs of two or more fields into a single
-    string or array, with configurable delimiters and support for mixed string and
-    array inputs.
+  description: Concatenate method joins outputs of two or more fields into a single string or array.
   robots: index
 next:
   description: ''

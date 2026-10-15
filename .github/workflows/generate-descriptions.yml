@@ -14,6 +14,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
 
     steps:
       - name: Checkout repository
@@ -32,81 +33,60 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          EXISTING_PR=$(gh pr list --state open --search "Add missing excerpts" --json number --jq 'length')
+          # Match the bot's branch prefix; a text search also matches PRs that merely mention the title.
+          EXISTING_PR=$(gh pr list --state open --limit 100 --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("claude/add-excerpts-"))] | length')
           echo "count=$EXISTING_PR" >> "$GITHUB_OUTPUT"
           if [ "$EXISTING_PR" -gt 0 ]; then
             echo "::notice::Skipping - existing PR already open for adding excerpts"
           fi
 
-      - name: Check for missing excerpts
+      - name: Fix invalid frontmatter
         if: steps.existing_pr.outputs.count == '0'
-        id: check
+        id: fix
         run: |
-          python scripts/descriptions/check_excerpt.py
+          RESULT=$(python scripts/descriptions/fix_frontmatter.py --json)
+          echo "$RESULT" | jq -r '.fixed[] | "Fixed: \(.)"'
+          UNFIXABLE=$(echo "$RESULT" | jq -c '.unfixable')
+          echo "unfixable=$UNFIXABLE" >> "$GITHUB_OUTPUT"
+          echo "unfixable_count=$(echo "$UNFIXABLE" | jq length)" >> "$GITHUB_OUTPUT"
 
-          MISSING=$(python scripts/descriptions/check_excerpt.py --json)
-          echo "missing=$MISSING" >> "$GITHUB_OUTPUT"
-          COUNT=$(echo "$MISSING" | jq length)
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-
-      - name: Generate excerpts with Claude
-        if: steps.existing_pr.outputs.count == '0' && steps.check.outputs.count != '0'
+      - name: Generate missing excerpts with Claude
+        if: steps.existing_pr.outputs.count == '0'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          echo '${{ steps.check.outputs.missing }}' | jq -c '.[]' | while read -r item; do
-            FILE_PATH=$(echo "$item" | jq -r '.path')
-            TITLE=$(echo "$item" | jq -r '.title')
+          # Per-file failures are reported as warnings; the remaining check below catches them.
+          python scripts/descriptions/generate_excerpts.py --missing \
+            || echo "::warning::Some excerpts could not be generated"
 
-            echo "Processing: $FILE_PATH"
-
-            CONTENT=$(head -c 4000 "$FILE_PATH")
-
-            RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
-              -H "Content-Type: application/json" \
-              -H "x-api-key: $ANTHROPIC_API_KEY" \
-              -H "anthropic-version: 2023-06-01" \
-              -d "$(jq -n \
-                --arg title "$TITLE" \
-                --arg content "$CONTENT" \
-                '{
-                  model: "claude-sonnet-4-6",
-                  max_tokens: 160,
-                  messages: [{
-                    role: "user",
-                    content: "Generate a concise 1-line excerpt (max 160 characters) for this documentation page. The excerpt should summarize what the page is about for SEO purposes. Do NOT include quotes around your response. Just return the plain text.\n\nTitle: \($title)\n\nContent:\n\($content)"
-                  }]
-                }')")
-
-            EXCERPT=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n')
-
-            echo "  Generated: $EXCERPT"
-
-            python scripts/descriptions/add_excerpt.py "$FILE_PATH" "$EXCERPT"
-          done
+      - name: Shorten excerpts over 160 characters
+        if: steps.existing_pr.outputs.count == '0'
+        run: python scripts/descriptions/shorten_excerpt.py
 
       - name: Sync metadata.description from excerpts
         if: steps.existing_pr.outputs.count == '0'
-        id: sync
+        run: python scripts/descriptions/sync_description.py
+
+      - name: Check results
+        if: steps.existing_pr.outputs.count == '0'
+        id: status
         run: |
-          python scripts/descriptions/sync_description.py
           if git diff --quiet; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           fi
+          # Files still missing an excerpt, apart from unfixable frontmatter (reported in its own issue).
+          REMAINING=$(python scripts/descriptions/check_excerpt.py --json \
+            | jq '[.[] | select(.reason | startswith("Invalid YAML") | not)] | length')
+          echo "remaining=$REMAINING" >> "$GITHUB_OUTPUT"
 
       - name: Create Pull Request
-        if: steps.existing_pr.outputs.count == '0' && (steps.check.outputs.count != '0' || steps.sync.outputs.has_changes == 'true')
-        id: pr
+        if: steps.existing_pr.outputs.count == '0' && steps.status.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if git diff --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
@@ -114,7 +94,7 @@ jobs:
           git checkout -b "$BRANCH_NAME"
 
           git add -A
-          git commit -m "Add missing excerpts and sync metadata.description"
+          git commit -m "Add missing excerpts, fix frontmatter, and sync metadata.description"
 
           git push origin "$BRANCH_NAME"
 
@@ -122,7 +102,9 @@ jobs:
 
           gh pr create \
             --title "Add missing excerpts" \
-            --body "This PR adds missing excerpts to documentation files and syncs \`metadata.description\` to match.
+            --body "This PR adds missing excerpts to documentation files, repairs invalid YAML frontmatter, shortens excerpts over 160 characters, and syncs \`metadata.description\` to match.
+
+          Frontmatter repairs are mechanical (re-joining wrapped lines, quoting values that contain \`: \`). Shortening is rule-based (dropping openers like \"Learn how to\", then trailing clauses or list items). Check the diff for those files.
 
           Excerpts were automatically generated by Claude based on the content of each file. \`excerpt\` is the source of truth — \`metadata.description\` is derived from it.
 
@@ -134,9 +116,25 @@ jobs:
             --head "$BRANCH_NAME" \
             --base ${{ github.event.repository.default_branch }}
 
-      - name: Fail if changes were needed
-        if: steps.existing_pr.outputs.count == '0' && (steps.check.outputs.count != '0' || steps.sync.outputs.has_changes == 'true')
+      - name: Open issue for frontmatter that couldn't be auto-fixed
+        if: steps.existing_pr.outputs.count == '0' && steps.fix.outputs.unfixable_count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UNFIXABLE: ${{ steps.fix.outputs.unfixable }}
         run: |
-          echo "::error::Missing or out-of-sync excerpts were found and a PR has been created to fix them."
-          echo "Please review and merge the PR."
+          TITLE="Invalid frontmatter needs a manual fix"
+          BODY=$(echo "$UNFIXABLE" | jq -r '"These files have YAML frontmatter that `scripts/descriptions/fix_frontmatter.py` could not repair. The excerpt workflow skips them until they are fixed.\n\n" + (map("### `\(.path)`\n```\n\(.error)\n```") | join("\n\n"))')
+          EXISTING=$(gh issue list --state open --search "in:title \"$TITLE\"" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue edit "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --body "$BODY"
+          fi
+          echo "$UNFIXABLE" | jq -r '.[] | "::error file=\(.path)::Invalid frontmatter could not be auto-fixed"'
+
+      - name: Fail if changes were needed
+        if: steps.existing_pr.outputs.count == '0' && (steps.status.outputs.has_changes == 'true' || steps.status.outputs.remaining != '0' || steps.fix.outputs.unfixable_count != '0')
+        run: |
+          echo "::error::Missing excerpts, out-of-sync descriptions, or invalid frontmatter were found."
+          echo "Please review and merge the PR, and fix any files listed in the open 'Invalid frontmatter' issue."
           exit 1

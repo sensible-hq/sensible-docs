@@ -1,15 +1,11 @@
 ---
 title: Handling document variations
-excerpt: Learn how to handle document variations in SenseML by conditionally executing
-  extraction fields across different layouts, formats, and content structures for
-  unified output.
+excerpt: Handle document variations in SenseML by conditionally executing extraction fields across different layouts, formats, and content structures for unified output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to handle document variations in SenseML by conditionally
-    executing extraction fields across different layouts, formats, and content structures
-    for unified output.
+  description: Handle document variations in SenseML by conditionally executing extraction fields across different layouts, formats, and content structures for unified output.
   robots: index
 next:
   description: ''

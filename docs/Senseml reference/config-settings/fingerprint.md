@@ -111,9 +111,7 @@ Portfolio fingerprints differ from single-file document fingerprints in the foll
 
 **Validate fingerprints across reference documents**
 
-You can test a config's fingerprint against multiple reference documents at once. In the SenseML editor, click **Options**, select **Validate fingerprints**, select reference documents, and click **Validate**. For each document, Sensible reports whether the fingerprint matches, partially matches, or doesn't match. You can expand each result to see which matches found text, how many lines they matched, and on which page. To check for false positives, select reference documents that belong to other configs. The validator tests fingerprints the way Sensible runs them for standalone documents, so it ignores the Page parameter in [portfolio](doc:portfolio) fingerprints.
-
-![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/fingerprint_validation_1.png)
+To test a config's fingerprint against multiple reference documents at once, see [Visual troubleshooting in the SenseML editor](doc:color#validate-fingerprints).
 
 <br />
 
@@ -172,7 +170,10 @@ Instead, write the following:
    Array syntax also affects fingerprint scoring. Sensible scores a nested array as one match that either succeeds or fails.
    For example, if Sensible finds 3 out of 5 elements in the array, it scores the array as 0 out of 1 matches.
    Sensible scores each element in a flat array independently. For example, if Sensible finds 3 out of 5 elements,
-   it scores the array as 3 out of 5 matches. In a portfolio, all matches must succeed, so a partial score for a flat array causes the whole fingerprint to fail. */
+   it scores the array as 3 out of 5 matches.
+   In a portfolio, if any match in a test fails on the page the test should identify, the whole test fails on that page,
+   and Sensible can segment the portfolio incorrectly. Design your fingerprints so that every match in a test succeeds
+   on every page the test should identify. */
         "match": [[
           {
             "text": "NARS",

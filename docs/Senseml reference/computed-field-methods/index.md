@@ -1,15 +1,11 @@
 ---
 title: Computed field methods
-excerpt: Learn how Computed Field methods transform extracted document data using
-  built-in logic, LLMs, external context, or custom logic to clean, standardize, and
-  enrich outputs.
+excerpt: How Computed Field methods transform extracted document data using built-in logic, LLMs, external context, or custom logic to clean and standardize.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Computed Field methods transform extracted document data
-    using built-in logic, LLMs, external context, or custom logic to clean, standardize,
-    and enrich outputs.
+  description: How Computed Field methods transform extracted document data using built-in logic, LLMs, external context, or custom logic to clean and standardize.
   robots: index
 next:
   description: ''

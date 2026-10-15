@@ -1,0 +1,41 @@
+name: Test scripts
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/descriptions/**'
+      - 'scripts/llms_txt/**'
+      - '.github/workflows/test-scripts.yml'
+  push:
+    branches:
+      - v0
+    paths:
+      - 'scripts/descriptions/**'
+      - 'scripts/llms_txt/**'
+      - '.github/workflows/test-scripts.yml'
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        suite:
+          - scripts/descriptions/test/tests
+          - scripts/llms_txt/test/tests
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml pytest
+
+      - name: Run tests
+        working-directory: ${{ matrix.suite }}
+        run: python -m pytest -q

@@ -1,15 +1,11 @@
 ---
 title: Fallback LLM configs
-excerpt: Learn how to use fallback LLM configs to handle long-tail document variations
-  and capture data from smaller, less common document providers within a document
-  type.
+excerpt: Use fallback LLM configs to handle long-tail document variations and capture data from smaller, less common document providers within a document type.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use fallback LLM configs to handle long-tail document
-    variations and capture data from smaller, less common document providers within
-    a document type.
+  description: Use fallback LLM configs to handle long-tail document variations and capture data from smaller, less common document providers within a document type.
   robots: index
 next:
   description: ''

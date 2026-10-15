@@ -1,15 +1,11 @@
 ---
 title: Anchor object
-excerpt: Learn how the Anchor object works in Sensible, including its parameters,
-  simple and complex syntax, and how it locates data for layout-based and LLM-based
-  extraction methods.
+excerpt: How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how the Anchor object works in Sensible, including its parameters,
-    simple and complex syntax, and how it locates data for layout-based and LLM-based
-    extraction methods.
+  description: How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
   robots: index
 next:
   description: ''
