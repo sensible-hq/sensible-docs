@@ -138,20 +138,20 @@ A *chained match* is an array of Match objects that Sensible scores as one match
 
 The following table shows syntax and scoring for chained matches and other matches:
 
-| element ('match')                                            | standalone documents using standalone syntax                 | portfolios using portfolio syntax                            | in standalone scoring, counts as: | in portfolio scoring, counts as:                             |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------------------- | ------------------------------------------------------------ |
-| a string or a [Match](doc:match) object, including [Boolean match](doc:match#boolean-matches) | syntax is consistent                                         | syntax is consistent                                         | one match                         | one match                                                    |
-| chained match                                                | flat array of Match objects as an element in the `tests` array: `"tests":[ [A, B],...]`. | nested array in a test's `match` parameter: `"match": [[ A, B ]]`. A chained match requires its Match objects to be on the same page. | one match                         | one match                                                    |
-| unordered array                                              | N/A, Match arrays are always ordered                         | array of Match objects in a test's `match` parameter, `"match": [ A, B ]`. All elements must be on the same page to classify the page type, but elements can be unordered and don't need to appear in separate lines. | N/A                               | no partial credit: the test passes on a page only if Sensible finds every Match object on that page. For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page. |
+| element ('match')                                            | standalone syntax for standalone documents                   | in  this context, scores as:                                 | portfolios syntax for portfolios                             | in this context, scores as:                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| a string or a [Match](doc:match) object, including [Boolean match](doc:match#boolean-matches) | syntax is consistent                                         | one match                                                    | syntax is consistent                                         | one match                                                    |
+| chained match                                                | flat array of Match objects as an element in the `tests` array: `"tests":[ [A, B],...]`. | one match                                                    | nested array in a test's `match` parameter: `"match": [[ A, B ]]` | no partial credit: the test classifies a page only if Sensible finds every Match object on that page in successive lines.<br/>For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page. |
+| unordered array                                              | N/A, only flat array syntax ` [ ]` is valid, and Match arrays are always ordered | N/A</br> (**note:** If you're using portfolio syntax for a standalone document extraction, each element in the flat array scores as one match) | array of Match objects in a test's `match` parameter, `"match": [ A, B ]`. | no partial credit: the test classifies a page only if Sensible finds every Match object on that page, in any order and in any lines. <br/>For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page. |
 
 # Notes
 
 
 ## Troubleshooting portfolio fingerprints
 
-If any element in a test fails on the page the test targets, Sensible doesn't classify the page's type. Sensible still segments the portfolio, but the page ranges can be wrong. The effect depends on the test's page type.
+If any element in a test fails on the page the test targets, Sensible doesn't classify the page's type. If Sensible still segments the portfolio, the page ranges can be wrong. 
 
-The following scenario illustrates incorrect segmentation in a portfolio. 
+The following scenario illustrates incorrect segmentation in a portfolio, depending on the test's page type. 
 
 The portfolio contains three documents:
 
@@ -167,7 +167,7 @@ The portfolio contains three documents:
 In the following table:
 
 - Each row represents a separate portfolio extraction. 
-- Each extraction specifies *one* document type that contains one config. The config's fingerprint includes a failing match.
+- Each extraction specifies one document type that contains one config. The config's fingerprint includes a failing match.
 
 | document | failing test | other tests in the config | effect | result |
 | -------- | ------------- | ------------------------- | ------ | ------ |
