@@ -18,6 +18,8 @@ JUDGE_UNAVAILABLE = "JUDGE_UNAVAILABLE"
 JUDGE_ERROR = "JUDGE_ERROR"
 # A saved baseline doesn't match envelope.schema.json, or can't be extended
 ENVELOPE_INVALID = "ENVELOPE_INVALID"
+# A portfolio extraction's documents (configs and page ranges) don't match the ones the page claims
+SEGMENTS_DRIFT = "SEGMENTS_DRIFT"
 # The test couldn't run: an unexpected error in the runner or its setup (for example a malformed key)
 RUNNER_ERROR = "RUNNER_ERROR"
 

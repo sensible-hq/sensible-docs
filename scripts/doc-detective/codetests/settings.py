@@ -16,6 +16,11 @@ DEPS_DIR = os.path.join(HERE, ".deps")
 API = "https://api.sensible.so/v0"
 DOC_TYPE = "docs_ci_examples"
 ENVIRONMENT = "development"
+# Test-account fixtures (doc types and configs) that code tests can run instead of a page's code block.
+# Same layout as the contract-test fixtures: <dir>/<doctype>.doctype.json and <dir>/<doctype>.<config>.config.json
+TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints", "contract", "fixtures")
+# Fixture configs are published to this environment, and fixture extractions run in it
+FIXTURE_ENVIRONMENT = "production"
 
 # Keys. The Sensible key is the docs test account's; there's deliberately no fallback to
 # SENSIBLE_API_KEY, so a missing key can't run tests against another account.

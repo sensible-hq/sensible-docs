@@ -20,7 +20,7 @@ import traceback
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, CodeTestError,
+    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
 )
 
 
@@ -92,7 +92,31 @@ def run_code_test(test, client, judge=judge_module.judge, judge_key=None, judge_
     return rec
 
 
+def _run_segments(rec, test, client):
+    """Fingerprint claim: run the fixtures as a portfolio and compare page ranges exactly.
+    Fingerprinting uses no LLM, so there's no judge and no envelope."""
+    _, expected = markup.check_syntax(test)
+    status = client.document_status(test.document_url)
+    if status != 200:
+        raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
+    doc_types = [client.ensure_fixture(*markup.fixture_files(name))[0] for name in test.fixtures]
+    extraction_id, documents = client.extract_portfolio(test.document_url, doc_types, f"ci__{test.test_id}")
+    actual = sorted([[d.get("configuration"), d["startPage"] + 1, d["endPage"] + 1] for d in documents], key=lambda d: (d[1], d[2]))
+    rec["segments"] = {
+        "fixtures": list(test.fixtures),
+        "document_types": doc_types,
+        "extraction_id": extraction_id,
+        "expected": expected,
+        "actual": actual,
+    }
+    if actual != sorted(expected, key=lambda d: (d[1], d[2])):
+        fmt = lambda docs: "; ".join(f"{c} pages {a}-{b}" for c, a, b in docs) or "no documents"
+        raise CodeTestError(SEGMENTS_DRIFT, f"the page claims {fmt(expected)}, but Sensible returned {fmt(actual)} (extraction {extraction_id})")
+
+
 def _run(rec, test, client, judge, judge_key, judge_model, fix):
+    if test.compare == "documents":
+        return _run_segments(rec, test, client)
     config, expected = markup.check_syntax(test)
     status = client.document_status(test.document_url)
     if status != 200:

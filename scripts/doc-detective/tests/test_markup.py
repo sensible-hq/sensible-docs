@@ -117,3 +117,47 @@ class SyntaxTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+SEGMENT_TEST = """
+<!-- code test {"testId": "seg", "description": "claim", "segment": "fingerprints"} -->
+<!-- example document -->
+| Example document | [Download link](https://example.test/p.pdf) |
+<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- code test end -->
+"""
+
+
+class SegmentTest(unittest.TestCase):
+    """Fingerprint claims: fixture configs, a portfolio extraction, and page ranges instead of parsed_document."""
+
+    def parse(self, text):
+        return markup.parse_page(write_page(self, text))
+
+    def test_reads_fixtures_and_expected_documents(self):
+        test = self.parse(SEGMENT_TEST).code_tests["seg"]
+        self.assertEqual((test.segment, test.fixtures, test.compare), ("fingerprints", ["fingerprint_portfolio/fp_demo_last_fails"], "documents"))
+        self.assertEqual(markup.check_syntax(test), (None, [["last_fails", 1, 8]]))
+
+    def test_expect_must_be_one_based_page_ranges(self):
+        test = self.parse(SEGMENT_TEST.replace('[["last_fails", 1, 8]]', '[["last_fails", 0, 7]]')).code_tests["seg"]
+        with self.assertRaises(CodeTestError) as caught:
+            markup.check_syntax(test)
+        self.assertIn("1-based", str(caught.exception))
+
+    def test_missing_fixture_is_malformed(self):
+        test = self.parse(SEGMENT_TEST.replace("fp_demo_last_fails", "no_such_fixture")).code_tests["seg"]
+        with self.assertRaises(CodeTestError) as caught:
+            markup.check_syntax(test)
+        self.assertEqual(caught.exception.category, "DOCS_MALFORMED")
+
+    def test_documents_compare_needs_fingerprint_segmentation(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(SEGMENT_TEST.replace(', "segment": "fingerprints"', ""))
+        self.assertIn('needs "segment": "fingerprints"', str(caught.exception))
+
+    def test_unknown_compare_is_malformed(self):
+        with self.assertRaises(CodeTestError) as caught:
+            self.parse(SEGMENT_TEST.replace('"compare": "documents"', '"compare": "pages"'))
+        self.assertIn("unknown compare", str(caught.exception))

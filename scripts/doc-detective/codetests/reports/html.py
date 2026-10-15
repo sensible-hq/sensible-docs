@@ -202,6 +202,18 @@ def render_code_test(record):
             out += [f'<tr><td><code>{e(p)}</code></td><td>{JUDGE} <span class="chip fail">{e(v)}</span></td><td>{ENVELOPE} {e(s)}</td><td>{e(n)}</td></tr>' for p, v, s, n in rows]
             out.append("</table>")
 
+    seg = record.get("segments")
+    if seg:
+        def docs(items):
+            return "<br>".join(f"<code>{e(c)}</code> pages {s}–{n}" for c, s, n in items) or '<span class="muted">no documents</span>'
+        link = f"https://app.sensible.so/extraction?e={seg['extraction_id']}"
+        out.append("<h3>Portfolio segments</h3>")
+        out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
+        out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
+                   f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
+        out.append(f'<p class="muted">Fixtures: {", ".join(f"<code>{e(x)}</code>" for x in seg["fixtures"])}. '
+                   f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+
     layout = record.get("layout")
     if layout:
         out.append("<h3>Layout fields</h3>")

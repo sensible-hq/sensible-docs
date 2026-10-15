@@ -6,6 +6,7 @@ document type removes its configs; extraction history stays in the app.
 """
 
 import json
+import time
 
 from . import settings
 from .errors import CONFIG_INVALID, EXTRACTION_ERROR, CodeTestError
@@ -86,3 +87,74 @@ class SensibleClient:
         if result.get("configuration") != config_name:
             raise CodeTestError(EXTRACTION_ERROR, f"Sensible used configuration {result.get('configuration')!r}, not {config_name!r}")
         return result.get("parsed_document") or {}
+
+    # -- Fixtures and portfolio extractions (fingerprint claims) --
+
+    def ensure_fixture(self, doctype_file, config_file):
+        """Make sure the fixture's doc type exists and its config is published, as committed.
+
+        Fixture doc types are persistent: they're created or republished here when missing or
+        different, and never deleted. Returns (doc type name, config name)."""
+        import os
+
+        with open(doctype_file, encoding="utf-8") as f:
+            doctype = json.load(f)
+        with open(config_file, encoding="utf-8") as f:
+            config = json.load(f)
+        name = doctype["name"]
+        config_name = os.path.basename(config_file)[len(name) + 1:-len(".config.json")]
+        response = self._api("GET", "/document_types")
+        response.raise_for_status()
+        type_id = next((d["id"] for d in response.json() if d["name"] == name), None)
+        if not type_id:
+            response = self._api("POST", "/document_types", json=doctype)
+            if not response.ok:
+                raise CodeTestError(CONFIG_INVALID, f"creating fixture doc type {name} returned {response.status_code}: {response.text[:300]}")
+            type_id = response.json()["id"]
+        published = self._published_config(type_id, config_name)
+        if published != config:
+            body = {"configuration": json.dumps(config), "publish_as": settings.FIXTURE_ENVIRONMENT}
+            if published is None:
+                response = self._api("POST", f"/document_types/{type_id}/configurations", json={"name": config_name, **body})
+            else:
+                response = self._api("PUT", f"/document_types/{type_id}/configurations/{config_name}", json=body)
+            if not response.ok:
+                raise CodeTestError(CONFIG_INVALID, f"publishing fixture config {name}/{config_name} returned {response.status_code}: {response.text[:300]}")
+        return name, config_name
+
+    def _published_config(self, type_id, config_name):
+        """The config published to the fixture environment, parsed, or None if there isn't one."""
+        response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/versions")
+        if response.status_code == 404:
+            return None
+        response.raise_for_status()
+        versions = response.json()
+        versions = versions if isinstance(versions, list) else versions.get("versions", [])
+        version = next((v["version_id"] for v in versions if settings.FIXTURE_ENVIRONMENT in (v.get("environments") or [])), None)
+        if not version:
+            return None
+        response = self._api("GET", f"/document_types/{type_id}/configurations/{config_name}/{version}")
+        response.raise_for_status()
+        config = response.json()["configuration"]
+        return json.loads(config) if isinstance(config, str) else config
+
+    def extract_portfolio(self, url, doc_types, document_name, timeout=600):
+        """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents)."""
+        response = self._api(
+            "POST", f"/extract_from_url?environment={settings.FIXTURE_ENVIRONMENT}&document_name={document_name}",
+            json={"document_url": url, "types": doc_types, "segment_documents_with": "fingerprints"},
+        )
+        if not response.ok:
+            raise CodeTestError(EXTRACTION_ERROR, f"portfolio extraction request returned {response.status_code}: {response.text[:300]}")
+        extraction_id = response.json()["id"]
+        deadline = time.time() + timeout
+        while True:
+            result = self._api("GET", f"/documents/{extraction_id}").json()
+            if result.get("status") in ("COMPLETE", "FAILED"):
+                break
+            if time.time() > deadline:
+                raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
+            time.sleep(5)
+        if result.get("status") != "COMPLETE":
+            raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id}: status {result.get('status')}: {json.dumps(result.get('errors'))[:300]}")
+        return extraction_id, result.get("documents") or []

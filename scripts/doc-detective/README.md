@@ -90,6 +90,27 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 | `<!-- example config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
 | `<!-- example output -->` | The next code block: the output the page claims. |
 
+### Fingerprint claims (portfolio segments)
+
+For a claim about how fingerprints segment a portfolio, a code test runs committed **fixtures** instead of a code block on the page, and compares the extraction's documents (configs and page ranges) instead of `parsed_document`:
+
+```markdown
+<!-- code test {"testId": "segment_last_test_fails", "description": "...", "segment": "fingerprints"} -->
+<!-- example document -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
+<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- code test end -->
+```
+
+| Marker | Meaning |
+| --- | --- |
+| `code test {"segment": "fingerprints"}` | A portfolio extraction that segments with fingerprints. |
+| `example config {"fixture": "<dir>/<doctype>"}` | A doc type and its one config from `scripts/test/probe_endpoints/contract/fixtures/<dir>/` (`<doctype>.doctype.json`, `<doctype>.<config>.config.json`). Repeatable: each fixture is its own doc type, and all are requested together. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `example output {"compare": "documents", "expect": [...]}` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
+
+These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
+
 ### Rules
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
@@ -123,6 +144,7 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 | `CONFIG_INVALID` | Sensible rejected the config. |
 | `EXTRACTION_ERROR` | The extraction didn't complete, or used the wrong config. |
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
+| `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |

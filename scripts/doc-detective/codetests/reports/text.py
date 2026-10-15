@@ -8,6 +8,13 @@ from . import wording
 def summary(record):
     """Lines describing what a code test compared and decided."""
     lines = []
+    seg = record.get("segments")
+    if seg:
+        fmt = lambda docs: "; ".join(f"{c} pages {s}-{e}" for c, s, e in docs) or "no documents"
+        lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)")
+        lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
+        lines.append(f"  Page claims: {fmt(seg['expected'])}")
+        lines.append(f"  Sensible:    {fmt(seg['actual'])}")
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]

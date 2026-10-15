@@ -17,6 +17,17 @@ example's parts:
     <!-- example output -->                         the next code block is the documented output
     <!-- code test end -->
 
+For claims about portfolio segmentation (fingerprints), a code test can run committed fixtures
+instead of a code block, and compare page ranges instead of parsed_document:
+
+    <!-- code test {"testId": "...", "description": "...", "segment": "fingerprints"} -->
+    <!-- example document -->
+    <!-- example config {"fixture": "<dir>/<doctype>"} -->   a doc type and its config, from the test fixtures; repeatable
+    <!-- example output {"compare": "documents", "expect": [["<config>", firstPage, lastPage], ...]} -->
+    <!-- code test end -->
+
+Pages in `expect` are printed (1-based) page numbers, to match the page's prose; [] means no documents.
+
 Test IDs must be unique across both kinds of test on a page.
 """
 
@@ -24,7 +35,7 @@ import json
 import re
 from dataclasses import dataclass, field
 
-from . import jsonish
+from . import jsonish, settings
 from .errors import DOCS_MALFORMED, CodeTestError
 
 UI_TEST_RE = re.compile(r"<!--\s*test\s+(\{.*?\})\s*-->(.*?)<!--\s*test end\s*-->", re.S)
@@ -59,6 +70,10 @@ class CodeTest:
     document_url: str = ""
     document_from: str = ""  # another code test whose document this one reuses
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
+    segment: str = ""  # "fingerprints": a portfolio extraction that segments with fingerprints
+    fixtures: list = field(default_factory=list)  # "<dir>/<doctype>" names from settings.TEST_FIXTURES_DIR
+    compare: str = ""  # "documents": compare portfolio page ranges with `expect`, not parsed_document
+    expect: object = None
 
 
 @dataclass
@@ -95,6 +110,10 @@ def wrap_field_fragment(text):
 def _code_test(text, match, path):
     test_id, description, line = _test_header(text, match, path, "code test")
     test = CodeTest(test_id, description, path, line)
+    header = json.loads(match.group(1))
+    test.segment = header.get("segment", "")
+    if test.segment not in ("", "fingerprints"):
+        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown segment {test.segment!r}; use \"fingerprints\" ({path}, line {line})")
     body, offset = match.group(2), match.start(2)
     seen = set()
     for marker in MARKER_RE.finditer(body):
@@ -110,6 +129,14 @@ def _code_test(text, match, path):
             if not link:
                 raise CodeTestError(DOCS_MALFORMED, f"{test_id}: <!-- example document --> isn't followed by a line with a link ({where})")
             test.document_url = link.group(1)
+            continue
+        if role == "config" and "fixture" in options:
+            test.fixtures.append(options["fixture"])
+            continue
+        if role == "output" and "compare" in options:
+            if options["compare"] != "documents":
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown compare {options['compare']!r}; use \"documents\" ({where})")
+            test.compare, test.expect = options["compare"], options.get("expect")
             continue
         fence = FENCE_RE.match(body, marker.end())
         if not fence:
@@ -127,6 +154,8 @@ def _code_test(text, match, path):
             test.output_line = text.count("\n", 0, start)
             test.output_span = (start, offset + fence.end(1))
     missing = {"config", "document", "output"} - seen
+    if test.compare == "documents" and (test.segment != "fingerprints" or not test.fixtures or test.config):
+        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: compare \"documents\" needs \"segment\": \"fingerprints\" and fixture configs only ({path}, line {line})")
     if missing:
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- example {'/'.join(sorted(missing))} --> ({path}, line {line})")
     return test
@@ -177,6 +206,15 @@ def check_syntax(test):
     Configs may have comments and trailing commas (Sensible accepts them). Output blocks may have
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
+    if test.compare == "documents":
+        expect = test.expect
+        if not isinstance(expect, list) or not all(
+            isinstance(d, list) and len(d) == 3 and isinstance(d[0], str) and all(isinstance(n, int) and n >= 1 for n in d[1:]) for d in expect
+        ):
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect must be a list of [config, firstPage, lastPage] with 1-based pages ({test.file}, line {test.line})")
+        for name in test.fixtures:
+            fixture_files(name)  # raises DOCS_MALFORMED if the fixture is missing
+        return None, expect
     parsed = {}
     for role, text, line, trailing_commas in (("config", test.config, test.config_line, True), ("output", test.output, test.output_line, False)):
         try:
@@ -187,3 +225,17 @@ def check_syntax(test):
             where = f"line {line + e.line + shift}" if e.line else f"{role} block at line {line}"
             raise CodeTestError(DOCS_MALFORMED, f"{role} block: {e} ({test.file}, {where})")
     return parsed["config"], parsed["output"]
+
+
+def fixture_files(name):
+    """The doc type file and the single config file of fixture "<dir>/<doctype>"."""
+    import glob
+    import os
+
+    directory, _, doctype = name.rpartition("/")
+    base = os.path.join(settings.TEST_FIXTURES_DIR, directory)
+    doctype_file = os.path.join(base, f"{doctype}.doctype.json")
+    configs = glob.glob(os.path.join(base, f"{glob.escape(doctype)}.*.config.json"))
+    if not directory or not os.path.exists(doctype_file) or len(configs) != 1:
+        raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: expected {os.path.relpath(doctype_file, settings.REPO_ROOT)} and exactly one {doctype}.<config>.config.json beside it")
+    return doctype_file, configs[0]
