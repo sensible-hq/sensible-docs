@@ -1,49 +1,50 @@
-# Concept: inline tests for fingerprint claims
+# Concept: code tests for fingerprint claims
 
-Status: draft · 2026-10-15 · PR #727 · builds on #737 (inline code tests), #744 (fixtures, seed.py), #749 (claim triage)
+Status: draft · 2026-10-15 (revised: code-test options, not a new test type) · PR #727 · builds on #737 (inline code tests), #744 (fixtures, seed.py), #749 (claim triage)
 
 ## The idea
 
-`fingerprint.md` and `portfolio.md` make claims about how Sensible behaves: "this config passes", "Sensible returns the tax return as pages 1–8", "a `[[ ]]` element in Tests is invalid". Each claim gets an inline test next to it, in the same HTML-comment style as #737's code tests. A runner checks the claim against the docs test account.
+`fingerprint.md` and `portfolio.md` make claims about how Sensible behaves: "this config passes", "Sensible returns the tax return as pages 1–8", "a `[[ ]]` element in Tests is invalid". Each claim gets an inline test next to it.
 
-Unlike #737's code tests, these checks are **deterministic**. Fingerprinting uses no LLM, so the tests need no judge and no regression envelope, and can compare results exactly. Per the #749 research, that makes them eligible to gate CI.
+These are **#737 code tests**, not a new test type: run a config on a document, and compare the response with what the page claims. Two things differ from today's code tests, and both are options on #737's existing markers:
 
-## What's different from #737's code tests
+1. **Where the config comes from:** often a committed **fixture** rather than the next code block. Many of the page's examples are illustrative (`"NARS"`, `"wording A from revision 1"`) and can't run as written.
+2. **What part of the response is compared:** page ranges (`documents`), which configs ran (`classification_summary`), or whether the config publishes, instead of `parsed_document`.
 
-| | #737 code test | fingerprint claim test |
-| --- | --- | --- |
-| What's checked | a config's `parsed_document` against the page's output block | which configs pass (standalone), page ranges (portfolio), or config validity |
-| Configs | the page's code block, uploaded to a temp doc type | the page's code block, **or** a committed fixture when the page's example is illustrative |
-| Doc types | one temp doc type, one config | often **several** doc types, one config each (isolation), and sometimes several configs on purpose (claims about how configs interact) |
-| Extraction | single document | single document, or **portfolio** (`types` + `segment_documents_with: fingerprints`) |
-| Nondeterminism | LLM judge + envelopes | none. Pin the OCR engine, and prefer PDFs with a text layer. |
+Fingerprinting uses no LLM, so these comparisons are **deterministic**: #737's judge and envelopes don't apply. Per the #749 research, that makes them eligible to gate CI.
 
-## Markup
-
-One new block, `<!-- fingerprint test -->`, with the same rules as #737 (single-line JSON, unique `testId`, comments between list items):
+## Markup: extensions to #737's markers
 
 ```markdown
-<!-- fingerprint test {"testId": "portfolio_last_fails", "claim": "A failing last test makes the document absorb the following pages", "mode": "portfolio", "document": {"from": "portfolio_contents"}, "configs": [{"fixture": "fp_demo_last_fails"}], "expect": {"documents": [["last_fails", 1, 8]]}} -->
+<!-- code test {"testId": "extract_portfolio_last_fails", "description": "A failing last test makes the document absorb the following pages", "segment": "fingerprints"} -->
+<!-- example document {"from": "portfolio_contents"} -->
+<!-- example config {"fixture": "fingerprint_portfolio/fp_demo_last_fails"} -->
+<!-- example output {"compare": "documents", "expect": [["last_fails", 1, 8]]} -->
+<!-- example contrast {"config": {"fixture": "fingerprint_portfolio/fp_demo_any_alternate"}, "expect": [["any_alternate", 1, 2]]} -->
+<!-- code test end -->
 ```
 
-| key | meaning |
-| --- | --- |
-| `mode` | `portfolio`, `standalone`, or `validate` (publish only) |
-| `document` | `{"link": true}` = the next download link on the page (like #737's `example document`); `{"from": "<testId>"}` = reuse another test's document |
-| `configs` | each item is `{"fixture": "<doctype>"}` (from `fixtures/fingerprint_portfolio/`), or `{"block": "next"}` = the next `json` code block on the page, uploaded as written |
-| `substitute` | optional. Text replacements applied to a page block before upload, so an **illustrative** example (`"NARS"`, `"wording A from revision 1"`) runs with real text from the test PDF while keeping the page's exact structure. Example: `{"NARS": "August 11, 2021", "Name of Insured": "Transaction history"}` |
-| `expect` | what the claim says will happen (below) |
-| `contrast` | optional. A second run that must give a **different** result (see "Every test must be able to fail") |
-
-`expect` shapes, all exact:
-
-| mode | expect | checked against |
+| marker / option | new behavior | existing behavior kept |
 | --- | --- | --- |
-| `portfolio` | `{"documents": [[config, firstPage, lastPage], ...]}`, with **printed** (1-based) page numbers to match the prose; `[]` = no documents | `documents[].configuration/startPage/endPage` (0-based) |
-| `standalone` | `{"ran": ["cfgA", ...], "skipped": ["cfgB"]}` | `classification_summary`: a config **ran** if it has `score`. Don't use `fingerprints_present`: it counts matching lines, not matches. |
-| `validate` | `{"publish": "rejected", "error_contains": "tests/0 must be"}` or `{"publish": "ok"}` | the configuration API's response |
+| `code test {"segment": "fingerprints"}` | portfolio extraction: `types` + `segment_documents_with` | omitted = single-document extraction |
+| `example config {"fixture": "<dir>/<doctype>"}` | load the config and its doc type from `scripts/test/probe_endpoints/contract/fixtures/` (seeded by #744's `seed.py`). Several `example config` markers = several doc types, one config each, requested together. | no options = the next code block, uploaded as written |
+| `example config {"substitute": {"NARS": "August 11, 2021"}}` | apply text replacements to the next code block before upload, so an illustrative example runs with real text while keeping the page's exact structure | |
+| `example output {"compare": "documents", "expect": [[config, first, last], ...]}` | compare portfolio page ranges. Printed (1-based) pages match the prose. `[]` = no documents. | no options = compare the next code block with `parsed_document` |
+| `example output {"compare": "classification", "expect": {"ran": [...], "skipped": [...]}}` | standalone: a config **ran** if its `classification_summary` entry has `score` (never `fingerprints_present`, which counts matching lines) | |
+| `example output {"compare": "publish", "expect": {"publish": "rejected", "error_contains": "tests/0 must be"}}` | publish only, no extraction | |
+| `example contrast {...}` | a control run that must give a **different** result (see below) | |
 
-Expectations live **in the page comment**, next to the claim, so a reviewer sees the prose and its assertion together. `fixtures/fingerprint_portfolio/` keeps only configs and doc types (`manifest.json`, seeded by #744's `seed.py`). `expected.json` is retired, or generated from the page comments for the contract tests.
+The expected value goes in the marker, next to the claim, because these claims live in prose and table cells, not in output code blocks. `fixtures/fingerprint_portfolio/` keeps only configs and doc types (`manifest.json`). `expected.json` is retired, or generated from the markers for the contract tests.
+
+## Compared with today's code tests
+
+| | today | with these options |
+| --- | --- | --- |
+| Config source | next code block | code block, code block with `substitute`, or fixture |
+| Doc types | one temp doc type, one config | one or several (one config each, for isolation), or a fixture doc type |
+| Extraction | single document | single document or portfolio |
+| Compared | `parsed_document` | also `documents`, `classification`, `publish` |
+| Judge / envelopes | for LLM fields | skipped: no LLM fields |
 
 ## Every test must be able to fail
 
@@ -80,21 +81,21 @@ If the contrast ever gives the same result as the claim, the test reports `NOT_D
 
 **Don't test:** page-type pairing (a CSE best practice, not behavior), "preferentially runs" wording, the use-case table, and the preprocessor tip (a workflow recommendation).
 
-## Runner
+## Runner changes (#737's `code_tests.py`)
 
-Extend #737's `code_tests.py` rather than adding a second tool:
-- `codetests/markup.py`: parse `fingerprint test`, check its keys, resolve `document` / `configs` / `substitute`.
-- `codetests/sensible.py`: add portfolio extraction (`types`, `segment_documents_with`), a publish-only validate call, and `classification_summary` reads.
-- new `codetests/fingerprint.py`: seed fixtures (#744's `seed.py`), create temp doc types for page blocks (`docs_ci_fp_<testId>_<n>`), run, compare, and run the contrast.
-- `codetests/record.py` and `reports/`: one record per test. New failure categories: `SEGMENTS_DRIFT`, `CONFIG_SELECTION_DRIFT`, `VALIDATION_DRIFT`, `NOT_DISCRIMINATING`.
+All additive. No new test type and no new runner module:
+- `codetests/markup.py`: parse the new options and the `example contrast` marker; check them in `--check-syntax`.
+- `codetests/sensible.py`: portfolio extraction (`types`, `segment_documents_with`), a publish-only call, and fixture doc types (seeded via #744's `seed.py`, or created per run as `docs_ci_examples_<n>`).
+- `codetests/compare.py`: `documents`, `classification`, and `publish` comparisons. These are exact, so they never route to the judge.
+- `codetests/record.py` and `reports/`: new failure categories `SEGMENTS_DRIFT`, `CONFIG_SELECTION_DRIFT`, `VALIDATION_DRIFT`, `NOT_DISCRIMINATING`.
 
-Cost: one extraction per run, plus one per contrast. That's about 20 small extractions per full run of both pages. Schedule: like #737 (pushes to v0 that touch the pages or fixtures, plus monthly), and because it's deterministic, optionally a PR gate.
+Cost: one extraction per test, plus one per contrast. That's about 20 small extractions per full run of both pages. Schedule: like #737 (pushes to v0 that touch the pages or fixtures, plus monthly). Because they're deterministic, they could optionally gate PRs.
 
 ## Dependencies and order
 
 1. #744 merges (seed.py, fixtures layout). Then fold `fingerprint_portfolio/manifest.json` into it.
 2. #737 merges (runner, markup, reports).
-3. Add `fingerprint test` support + new fixtures (#9–14).
+3. Add the code-test options + new fixtures (#9–14).
 4. Add the comments to fingerprint.md and portfolio.md, proving each can fail (contrast or a deliberate mutation) before keeping it.
 5. Optional: the #749 `add-doc-tests` skill learns this test kind.
 
