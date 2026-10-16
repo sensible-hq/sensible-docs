@@ -24,6 +24,8 @@ TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints"
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
 FIXTURE_PREFIX = "fixture_"
+# Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
+TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
 # Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
 FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
 # A hard cap on extractions per run, so a page that grows or a bug can't spend the test account's budget

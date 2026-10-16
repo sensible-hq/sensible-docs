@@ -24,7 +24,7 @@ def test_rows(page, ui_results, records):
         if not rec:
             rows.append((test.line, test.test_id, "Code test", "not run", ""))
             continue
-        checked = html.details_label(test, rec) if rec.get("segments") else f"documented output vs Sensible: {rec['overall']}" if rec.get("overall") else ""
+        checked = html.details_label(test, rec) if rec.get("segments") or rec.get("fingerprint") else f"documented output vs Sensible: {rec['overall']}" if rec.get("overall") else ""
         rows.append((test.line, test.test_id, "Code test", rec["status"], checked))
     return [row[1:] for row in sorted(rows, key=lambda r: r[0])]
 
