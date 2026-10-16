@@ -1,12 +1,14 @@
 ---
 title: Multi-document extractions
-excerpt: Learn how to extract data from multi-document portfolio files using LLM-based
+excerpt: >-
+  Learn how to extract data from multi-document portfolio files using LLM-based
   or fingerprint segmentation methods in Sensible.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to extract data from multi-document portfolio files using
+  description: >-
+    Learn how to extract data from multi-document portfolio files using
     LLM-based or fingerprint segmentation methods in Sensible.
   robots: index
 next:
@@ -227,9 +229,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
       /* in combination, these matches are unique to the first page */
       "page": "first",
       "match": [[
-        /* chained match: Sensible scores this array as one match, no matter how many Match objects it contains.
-           The chained match succeeds only if Sensible finds all its Match objects on the same page,
-           in order, on separate lines. Here, "anycocarinsurance.com" must occur before "outline of quoted" */
+        /* chained match: succeeds only if Sensible finds all its Match objects on the same page, in order, on separate lines. Here, "anycocarinsurance.com" must occur before "outline of quoted" */
         {
           "text": "anycocarinsurance.com",
           "type": "startsWith"
@@ -261,16 +261,14 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
       /* in combination, these matches are unique to the first page */
       "page": "first",
       "match": [
-        /* flat array: Sensible searches for each Match object independently, and scores each one as a separate match.
-           All the Match objects must be on the same page, but they can be in any order
-           and don't need to be on separate lines */
+        /* flat array: All the Match objects must be on the same page, but they can be in any order and don't need to be on separate lines */
         {
           "text": "within 90 days",
           "type": "includes"
         },
         {
           /* because this is a flat array, this match succeeds even though "unprocessed claim" occurs before
-             "within 90 days", on the same line: "Any unprocessed claim number must be processed within 90 days of receipt." */
+             "within 90 days", and both matchs occur on the same line: "Any unprocessed claim number must be processed within 90 days of receipt." */
           "text": "unprocessed claim",
           "type": "includes"
         }
