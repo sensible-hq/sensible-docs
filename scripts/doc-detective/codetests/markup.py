@@ -65,7 +65,9 @@ MARKER_RE = re.compile(r"<!--\s*(inline\s+config|inline\s+document|inline\s+outp
 # Markers renamed from #737's first version: fail loudly rather than silently not running
 OLD_MARKER_RE = re.compile(r"<!--\s*example\s+(config|document|output)\b")
 ROLES = {"inline config": "config", "inline document": "document", "inline output": "output", "fixture": "fixture", "expect": "expect"}
-COMPARES = ("documents",)
+COMPARES = ("documents", "fingerprint")
+# A name for an inline sample's doc type or config: what the expected documents refer to
+NAME_RE = re.compile(r"[a-z0-9_]+")
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
 # First Markdown link on the next non-blank line, for example the example document's download link
 LINK_RE = re.compile(r"\s*[^\n]*?\]\((https?://[^)\s]+)\)")
@@ -95,6 +97,9 @@ class CodeTest:
     document_url: str = ""
     document_from: str = ""  # another code test whose document this one reuses
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
+    config_shift: int = 0  # lines the wrapper adds above the page's text, for syntax error line numbers
+    # Inline fingerprint samples, each run in its own temporary doc type: [{"doc_type", "config", "text", "line", "shift"}]
+    inline_configs: list = field(default_factory=list)
     segment_documents_with: str = ""  # set: a portfolio extraction, segmented this way (the API parameter)
     fixtures: list = field(default_factory=list)  # fixture names: doc type names in the test account
     compare: str = ""  # "documents": compare portfolio page ranges with `expect`, not parsed_document
@@ -143,11 +148,29 @@ def _segmentation(header, test_id, where):
     return value
 
 
+def wrap_fingerprint_fragment(text):
+    """Turn a `"fingerprint": {...},` excerpt into a runnable config with no fields."""
+    body = text.rstrip()
+    if body.endswith(","):
+        body = body[:-1]
+    return "{\n" + body + ',\n  "fields": []\n}'
+
+
 def _expect(options, test_id, where):
-    """(compare, expected) from an expect marker's or row's options."""
+    """(compare, expected) from an expect marker's or row's options. For "documents", the expected
+    documents (or None: take them from the inline output); for "fingerprint", the options."""
     compare = options.get("compare")
     if compare not in COMPARES:
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: expect needs \"compare\": one of {', '.join(COMPARES)} ({where})")
+    if compare == "fingerprint":
+        variants = options.get("variants", [])
+        if not isinstance(options.get("passes"), bool) or not isinstance(variants, list) or not all(
+            isinstance(v, dict) and isinstance(v.get("passes"), bool) and isinstance(v.get("break"), list) and v["break"]
+            and all(type(i) is int and i >= 0 for i in v["break"]) for v in variants
+        ):
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs \"passes\": true or false, and optional \"variants\": "
+                                f"[{{\"break\": [<test index>, ...], \"passes\": true or false}}] ({where})")
+        return compare, {"passes": options["passes"], "variants": variants}
     return compare, options.get("documents")
 
 
@@ -188,10 +211,25 @@ def _code_test(text, match, path):
         start = offset + fence.start(1)
         if role == "config":
             fragment = options.get("fragment")
-            if fragment not in (None, "field"):
-                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown config fragment {fragment!r}; use \"field\" ({where})")
+            if fragment not in (None, "field", "fingerprint"):
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: unknown config fragment {fragment!r}; use \"field\" or \"fingerprint\" ({where})")
+            config_text = wrap_field_fragment(fence.group(1)) if fragment == "field" else \
+                wrap_fingerprint_fragment(fence.group(1)) if fragment == "fingerprint" else fence.group(1)
+            shift = {"field": 2, "fingerprint": 1}.get(fragment, 0)
+            if "doc_type" in options or "config" in options:
+                # One of several samples run together as a portfolio, each in its own doc type
+                names = (options.get("doc_type", ""), options.get("config", ""))
+                if not all(NAME_RE.fullmatch(n) for n in names):
+                    raise CodeTestError(DOCS_MALFORMED, f"{test_id}: an inline config in a portfolio test needs \"doc_type\" and \"config\", "
+                                        f"lowercase letters, digits, and underscores ({where})")
+                test.inline_configs.append({"doc_type": names[0], "config": names[1], "text": config_text,
+                                            "line": text.count("\n", 0, start), "shift": shift})
+                continue
+            if test.config:
+                raise CodeTestError(DOCS_MALFORMED, f"{test_id}: more than one <!-- inline config -->; for a portfolio, give each \"doc_type\" and \"config\" ({where})")
             test.fragment = fragment == "field"
-            test.config = wrap_field_fragment(fence.group(1)) if test.fragment else fence.group(1)
+            test.config_shift = shift
+            test.config = config_text
             test.config_line = text.count("\n", 0, start)
         else:
             test.output = fence.group(1)
@@ -200,11 +238,19 @@ def _code_test(text, match, path):
     where = f"{path}, line {line}"
     if "document" not in seen:
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where})")
-    if (test.segment_documents_with or test.fixtures) and test.compare != "documents":
-        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\" and <!-- fixture --> need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
+    if (test.segment_documents_with or test.fixtures or test.inline_configs) and test.compare != "documents":
+        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\", <!-- fixture -->, and portfolio inline configs need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
     if test.compare == "documents":
-        if not test.segment_documents_with or not test.fixtures or test.config or test.output:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: an expect with compare \"documents\" needs \"segment_documents_with\" and fixtures, and no inline config or output ({where})")
+        if not test.segment_documents_with or bool(test.fixtures) == bool(test.inline_configs) or test.config:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: an expect with compare \"documents\" needs \"segment_documents_with\", and either fixtures "
+                                f"or inline configs with \"doc_type\" and \"config\" ({where})")
+        if test.fixtures and test.output:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a fixture test takes its expected documents from expect, not an inline output ({where})")
+        if test.expect is None and not test.output:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: expect has no \"documents\" and there's no <!-- inline output --> to take them from ({where})")
+    elif test.compare == "fingerprint":
+        if not test.config or test.output:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs one <!-- inline config --> and no inline output ({where})")
     else:
         missing = {"config", "output"} - seen
         if missing:
@@ -257,33 +303,60 @@ def parse_page(path):
     return page
 
 
+def _parse_block(test, role, text, line, shift, trailing_commas):
+    """Parse a config or output block, or raise DOCS_MALFORMED at the page line of the problem.
+    `shift` is the number of wrapper lines above the page's text (a wrapped fragment)."""
+    try:
+        return jsonish.parse_block(text, trailing_commas)
+    except jsonish.SyntaxIssue as e:
+        where = f"line {line + e.line - shift}" if e.line else f"{role} block at line {line}"
+        raise CodeTestError(DOCS_MALFORMED, f"{role} block: {e} ({test.file}, {where})")
+
+
 def check_syntax(test):
     """Return (config, documented output) parsed, or raise DOCS_MALFORMED with the doc line of the problem.
+    For a "documents" test: (None, expected documents). For a "fingerprint" test: (config, expect options).
 
     Configs may have comments and trailing commas (Sensible accepts them). Output blocks may have
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
+    where = f"{test.file}, line {test.line}"
     if test.compare == "documents":
+        for sample in test.inline_configs:
+            _parse_block(test, "config", sample["text"], sample["line"], sample["shift"], True)
         expect = test.expect
+        if expect is None:
+            # The page's documented response: its documents' configs and page ranges are the claim
+            output = _parse_block(test, "output", test.output, test.output_line, 0, False)
+            documents = output.get("documents") if isinstance(output, dict) else None
+            if not isinstance(documents, list) or not all(isinstance(d, dict) and {"configuration", "startPage", "endPage"} <= set(d) for d in documents):
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: the inline output needs a \"documents\" list whose items have configuration, startPage, and endPage ({where})")
+            expect = [[d["configuration"], d["startPage"] + 1, d["endPage"] + 1] for d in documents]
         if not isinstance(expect, list) or not all(
             isinstance(d, list) and len(d) == 3 and isinstance(d[0], str)
             and all(type(n) is int and n >= 1 for n in d[1:]) and d[1] <= d[2] for d in expect
         ):
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect's documents must be a list of [config, firstPage, lastPage] with 1-based pages, firstPage <= lastPage ({test.file}, line {test.line})")
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect's documents must be a list of [config, firstPage, lastPage] with 1-based pages, firstPage <= lastPage ({where})")
+        names = {sample["config"] for sample in test.inline_configs}
+        unknown = sorted({d[0] for d in expect} - names) if test.inline_configs else []
+        if unknown:
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: the expected documents name config {unknown[0]!r}, which no inline config has ({where})")
         for name in test.fixtures:
             fixture_files(name)  # raises DOCS_MALFORMED if the fixture is missing
             fixture_references(name)  # or has no reference document
         return None, expect
-    parsed = {}
-    for role, text, line, trailing_commas in (("config", test.config, test.config_line, True), ("output", test.output, test.output_line, False)):
-        try:
-            parsed[role] = jsonish.parse_block(text, trailing_commas)
-        except jsonish.SyntaxIssue as e:
-            # A wrapped field fragment has 2 lines of wrapper above the doc's text
-            shift = -2 if role == "config" and test.fragment else 0
-            where = f"line {line + e.line + shift}" if e.line else f"{role} block at line {line}"
-            raise CodeTestError(DOCS_MALFORMED, f"{role} block: {e} ({test.file}, {where})")
-    return parsed["config"], parsed["output"]
+    if test.compare == "fingerprint":
+        config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
+        tests = (config.get("fingerprint") or {}).get("tests") if isinstance(config, dict) else None
+        if not isinstance(tests, list) or not tests:
+            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: a \"fingerprint\" test's config needs fingerprint.tests ({where})")
+        for variant in test.expect["variants"]:
+            if max(variant["break"]) >= len(tests):
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: variant breaks test {max(variant['break'])}, but the fingerprint has {len(tests)} tests (0-based) ({where})")
+        return config, test.expect
+    config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
+    output = _parse_block(test, "output", test.output, test.output_line, 0, False)
+    return config, output
 
 
 def fixture_dir(name):

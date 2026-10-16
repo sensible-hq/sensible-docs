@@ -12,11 +12,20 @@ def summary(record):
     if seg:
         fmt = lambda docs: "; ".join(f"{c} pages {s}-{e}" for c, s, e in docs) or "no documents"
         lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)" + (f", table {seg.get('table')} row {seg['row']}" if seg.get("row") else ""))
-        lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
+        if seg.get("samples"):
+            lines.append(f"  Samples: {', '.join(x['config'] for x in seg['samples'])}  (extraction {seg['extraction_id']})")
+        else:
+            lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
         lines += [f"  Editor: {x['url']}" for x in seg.get("editors", [])]
         lines.append(f"  Page claims: {fmt(seg['expected'])}")
         lines.append(f"  Sensible:    {fmt(seg['actual'])}")
         lines += [f"  [fixture] WARNING: {w['text']}" for w in record["warnings"] if w["source"] == "fixture"]
+    fp = record.get("fingerprint")
+    if fp:
+        lines.append(f"{record['test_id']}: fingerprint in strict mode (compared exactly)")
+        for run in fp["runs"]:
+            which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken"
+            lines.append(f"  {which}: page claims {'passes' if run['expected'] else 'fails'}; Sensible {'passed' if run['actual'] else 'failed'}  (extraction {run['extraction_id']})")
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]

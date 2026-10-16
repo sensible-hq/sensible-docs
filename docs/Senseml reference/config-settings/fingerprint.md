@@ -43,6 +43,8 @@ The following table shows fingerprint syntax for standalone documents:
 
 The following example tests whether a standalone document is a Wells Fargo checking account statement, for a vendor-specific config in a bank statements document type.
 
+<!-- code test {"testId": "standalone_wells_fargo_fingerprint", "description": "In strict fingerprint mode, the example config runs on a Wells Fargo statement; it still runs with 1 of its 3 matches broken (2 of 3 found), and doesn't with 2 broken (1 of 3)"} -->
+<!-- inline config -->
 ```json
 /* Sensible uses JSON5 to support in-line comments */
 {
@@ -86,6 +88,13 @@ The following example tests whether a standalone document is a Wells Fargo check
 ```
 
 The config preferentially runs if the fingerprint passes.
+
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/wells_fargo_checking.pdf) |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+
+<!-- expect {"compare": "fingerprint", "passes": true, "variants": [{"break": [0], "passes": true}, {"break": [0, 1], "passes": false}]} -->
+<!-- code test end -->
 
 
 # Portfolios
@@ -199,8 +208,10 @@ A [chained match](doc:fingerprint#chained-matches) is stricter than separate mat
 
 ### Alternate wordings
 
-If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, a form has revisions 1 and 2 that have slightly different wordings on the last page. Specify one test with a `last` page type and a match that contains wording A and wording B as follows:
+If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, the last page of a 2020 tax return says `Form 1040 (2020)`, and the same page in the 2021 revision says `Form 1040 (2021)`. To match either revision, specify one test with a `last` page type and a match that contains both wordings as follows:
 
+<!-- code test {"testId": "alternate_wordings_any_match", "segment_documents_with": "fingerprints", "description": "The alternate wordings fingerprint finds the tax return in the example portfolio"} -->
+<!-- inline config {"fragment": "fingerprint", "doc_type": "tax_returns", "config": "form_1040"} -->
 ```json
 "fingerprint": {
   "tests": [
@@ -209,7 +220,7 @@ If you want to match alternate wordings on the same page, use an `any` [Boolean 
       "match": [
         {
           "type": "includes",
-          "text": "text that's always on the first page"
+          "text": "U.S. Individual Income Tax Return"
         }
       ]
     },
@@ -222,11 +233,11 @@ If you want to match alternate wordings on the same page, use an `any` [Boolean 
           "matches": [
             {
               "type": "includes",
-              "text": "wording A from revision 1"
+              "text": "Form 1040 (2020)"
             },
             {
               "type": "includes",
-              "text": "wording B from revision 2"
+              "text": "Form 1040 (2021)"
             }
           ]
         }
@@ -235,6 +246,15 @@ If you want to match alternate wordings on the same page, use an `any` [Boolean 
   ]
 }
 ```
+
+In the following example portfolio, the fingerprint classifies pages 1–2 as a tax return:
+
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+
+<!-- expect {"compare": "documents", "documents": [["form_1040", 1, 2]]} -->
+<!-- code test end -->
 
 ### Turn off preprocessors
 
@@ -254,8 +274,18 @@ The following tips apply to fingerprints for portfolio documents.
 
 **Prefer match arrays to single-match tests**
 
-Unless the document contains highly unusual, characteristic text, put related matches in one test, rather than writing a separate test for each match. A passing single-match test classifies the page even if another single-match test fails on that page, so separate tests are less strict. For example, don't write the following:
+Unless the document contains highly unusual, characteristic text, put related matches in one test, rather than writing a separate test for each match. A passing single-match test classifies the page even if another single-match test fails on that page, so separate tests are less strict.
 
+The following examples are fingerprints for the bank statement in this example portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8:
+
+<!-- code test {"testId": "prefer_match_arrays_avoid", "segment_documents_with": "fingerprints", "description": "The AVOID fingerprint also classifies page 2 of the tax return, which contains \"Page\""} -->
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
+
+For example, don't write the following:
+
+<!-- inline config {"fragment": "fingerprint", "doc_type": "bank_statements", "config": "avoid"} -->
 ```json
 /* AVOID THIS SYNTAX */
 "fingerprint": {
@@ -266,7 +296,7 @@ Unless the document contains highly unusual, characteristic text, put related ma
       "page": "every",
       "match": [
         {
-          "text": "NARS", /* distinctive phrase */
+          "text": "August 11, 2021", /* distinctive phrase: the statement date, on every page of the statement */
           "type": "includes",
           "isCaseSensitive": true
         }
@@ -276,7 +306,7 @@ Unless the document contains highly unusual, characteristic text, put related ma
       "page": "every",
       "match": [
         {
-          "text": "Name of Insured", /* generic phrase. On its own, it can match pages in unrelated documents */
+          "text": "Page", /* generic phrase. On its own, it can match pages in unrelated documents */
           "type": "includes",
           "isCaseSensitive": true
         }
@@ -286,8 +316,14 @@ Unless the document contains highly unusual, characteristic text, put related ma
 }
 ```
 
+<!-- expect {"compare": "documents", "documents": [["avoid", 2, 7]]} -->
+<!-- code test end -->
+
 Instead, use one of the following alternatives:
 
+<!-- code test {"testId": "prefer_match_arrays_alternative_one", "segment_documents_with": "fingerprints", "description": "Alternative one classifies only the statement's pages"} -->
+<!-- inline document {"from": "prefer_match_arrays_avoid"} -->
+<!-- inline config {"fragment": "fingerprint", "doc_type": "bank_statements", "config": "alternative_one"} -->
 ```json
 /* ALTERNATIVE ONE for portfolios: less strict */
 "fingerprint": {
@@ -298,12 +334,12 @@ Instead, use one of the following alternatives:
       "match": [
         /* flat array: In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order on the page, and more than one element can match the same line. They must all occur on the same page to classify the page type. If this fingerprint runs in a standalone-document extraction, Sensible scores each element as one match. For more information, see Fingerprint scoring */
           {
-            "text": "NARS",
+            "text": "August 11, 2021",
             "type": "includes",
             "isCaseSensitive": true
           },
           {
-            "text": "Name of Insured",
+            "text": "Page",
             "type": "includes",
             "isCaseSensitive": true
           }
@@ -313,8 +349,14 @@ Instead, use one of the following alternatives:
 }
 ```
 
+<!-- expect {"compare": "documents", "documents": [["alternative_one", 3, 7]]} -->
+<!-- code test end -->
+
 or, for stricter syntax:
 
+<!-- code test {"testId": "prefer_match_arrays_alternative_two", "segment_documents_with": "fingerprints", "description": "Alternative two classifies only the statement's pages"} -->
+<!-- inline document {"from": "prefer_match_arrays_avoid"} -->
+<!-- inline config {"fragment": "fingerprint", "doc_type": "bank_statements", "config": "alternative_two"} -->
 ```json
 /* ALTERNATIVE TWO for portfolios: stricter */
 "fingerprint": {
@@ -325,12 +367,12 @@ or, for stricter syntax:
       "match": [[
         /* In a test's match parameter, a nested array ("match": [[ ]]) is a chained match: each element matches a separate line, and Sensible must find the lines in the same order as in the array. Sensible scores the whole chained match as one match. */
           {
-            "text": "NARS",
+            "text": "August 11, 2021",
             "type": "includes",
             "isCaseSensitive": true
           },
           {
-            "text": "Name of Insured",
+            "text": "Page",
             "type": "includes",
             "isCaseSensitive": true
           }
@@ -339,3 +381,8 @@ or, for stricter syntax:
   ]
 }
 ```
+
+<!-- expect {"compare": "documents", "documents": [["alternative_two", 3, 7]]} -->
+<!-- code test end -->
+
+In the example portfolio, both alternatives classify pages 3–7 as the bank statement. The fingerprint to avoid classifies pages 2–7, because its generic single-match test passes on page 2 of the tax return, which contains `Page`.

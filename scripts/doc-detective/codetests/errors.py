@@ -20,6 +20,8 @@ JUDGE_ERROR = "JUDGE_ERROR"
 ENVELOPE_INVALID = "ENVELOPE_INVALID"
 # A portfolio extraction's documents (configs and page ranges) don't match the ones the page claims
 SEGMENTS_DRIFT = "SEGMENTS_DRIFT"
+# A fingerprint sample passed or failed when the page claims the opposite
+FINGERPRINT_DRIFT = "FINGERPRINT_DRIFT"
 # The test couldn't run: an unexpected error in the runner or its setup (for example a malformed key)
 RUNNER_ERROR = "RUNNER_ERROR"
 

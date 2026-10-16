@@ -80,6 +80,13 @@ class DecideTest(unittest.TestCase):
         self.before = self.git("rev-parse", "HEAD")
         self.assertEqual(self.decide({"other/x.md": "x", PAGE: "Intro 2.\n" + CODE_TEST_PAGE + TABLE})[0], False)
 
+    def test_prose_above_an_inline_sample_skips(self):
+        from tests.test_samples import PORTFOLIO
+        self.before = self.commit(self.page("Intro.\n" + PORTFOLIO))
+        self.assertEqual(self.decide(self.page("A longer intro.\n\nWith a new paragraph.\n" + PORTFOLIO))[0], False)
+        self.before = self.git("rev-parse", "HEAD")
+        self.assertTrue(self.decide(self.page("A longer intro.\n\nWith a new paragraph.\n" + PORTFOLIO.replace('"text": "anyco"', '"text": "anyco ltd"', 1)))[0])
+
     def test_broken_markup_runs(self):
         self.assertTrue(self.decide(self.page("Intro.\n" + CODE_TEST_PAGE.replace("<!-- code test end -->", "")))[0])
 

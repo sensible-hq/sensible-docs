@@ -20,7 +20,8 @@ import traceback
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
+    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
+    OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
 )
 
 
@@ -99,6 +100,8 @@ def _run_segments(rec, test, client):
     status = client.document_status(test.document_url)
     if status != 200:
         raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
+    if test.inline_configs:
+        return _run_samples(rec, test, client, expected)
     doc_types, editors = [], []
     for name in test.fixtures:
         refs = markup.fixture_references(name)
@@ -117,14 +120,93 @@ def _run_segments(rec, test, client):
         "expected": expected,
         "actual": actual,
     }
+    _compare_segments(expected, actual, extraction_id)
+
+
+def _compare_segments(expected, actual, extraction_id):
     if actual != sorted(expected, key=lambda d: (d[1], d[2])):
         fmt = lambda docs: "; ".join(f"{c} pages {a}-{b}" for c, a, b in docs) or "no documents"
         raise CodeTestError(SEGMENTS_DRIFT, f"the page claims {fmt(expected)}, but Sensible returned {fmt(actual)} (extraction {extraction_id})")
 
 
+def _run_samples(rec, test, client, expected):
+    """Portfolio claim from the page's own samples: each sample's config in a temporary doc type,
+    run together as a portfolio. Sensible validates each config on upload, so a sample with invalid
+    syntax fails. The temporary doc types are deleted afterwards."""
+    types, created = {}, []
+    try:
+        for sample in test.inline_configs:
+            name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}__{sample['doc_type']}"
+            if name not in types:
+                types[name] = client.create_temp_doc_type(name)
+                created.append(types[name])
+            client.publish_config(types[name], sample["config"], sample["text"])
+        extraction_id, documents = client.extract_portfolio(test.document_url, list(types), f"ci__{test.test_id}",
+                                                            environment=settings.ENVIRONMENT)
+    finally:
+        for type_id in created:
+            client.delete_temp_doc_type(type_id)
+    actual = sorted([[d.get("configuration"), d["startPage"] + 1, d["endPage"] + 1] for d in documents], key=lambda d: (d[1], d[2]))
+    rec["segments"] = {
+        "fixtures": [],
+        "samples": [{"doc_type": s["doc_type"], "config": s["config"]} for s in test.inline_configs],
+        "document_types": list(types),
+        "extraction_id": extraction_id,
+        "expected": expected,
+        "actual": actual,
+    }
+    _compare_segments(expected, actual, extraction_id)
+
+
+# Replaces a test to break it on purpose: no document has this line
+NO_MATCH = {"type": "includes", "text": "docs-ci: a line no document has"}
+
+
+def _run_fingerprint(rec, test, client):
+    """Standalone fingerprint claim: in strict fingerprint mode, Sensible runs a config only if its
+    fingerprint passes, so the extraction completes with the config, or FAILS. Runs the page's config
+    as written, then each variant with the listed tests replaced by a match no document has."""
+    import copy
+
+    config, expect = markup.check_syntax(test)
+    status = client.document_status(test.document_url)
+    if status != 200:
+        raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
+    runs, created = [], []
+    try:
+        for n, variant in enumerate([{"break": [], "passes": expect["passes"]}] + expect["variants"]):
+            text = test.config
+            if variant["break"]:
+                broken = copy.deepcopy(config)
+                for i in variant["break"]:
+                    broken["fingerprint"]["tests"][i] = NO_MATCH
+                text = json.dumps(broken, indent=2)
+            name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}" + (f"__v{n}" if n else "")
+            type_id = client.create_temp_doc_type(name, {"fingerprint_mode": "strict"})
+            created.append(type_id)
+            client.publish_config(type_id, test.test_id, text)
+            result = client.extract_standalone(test.document_url, name, f"ci__{test.test_id}" + (f"__v{n}" if n else ""))
+            if result.get("status") == "FAILED" and result.get("errors"):
+                # A failing fingerprint fails with no errors; anything else is a different problem
+                raise CodeTestError(EXTRACTION_ERROR, f"extraction {result.get('id')} failed: {json.dumps(result.get('errors'))[:300]}")
+            passed = result.get("status") == "COMPLETE" and result.get("configuration") == test.test_id
+            runs.append({"break": variant["break"], "expected": variant["passes"], "actual": passed, "extraction_id": result.get("id", "")})
+    finally:
+        for type_id in created:
+            client.delete_temp_doc_type(type_id)
+    rec["fingerprint"] = {"config": test.test_id, "runs": runs}
+    wrong = [r for r in runs if r["actual"] != r["expected"]]
+    if wrong:
+        say = lambda r: ("as written" if not r["break"] else f"with tests {', '.join(map(str, r['break']))} broken") + \
+            f": the page claims it {'passes' if r['expected'] else 'fails'}, but it {'passed' if r['actual'] else 'failed'} (extraction {r['extraction_id']})"
+        raise CodeTestError(FINGERPRINT_DRIFT, "; ".join(say(r) for r in wrong))
+
+
 def _run(rec, test, client, judge, judge_key, judge_model, fix):
     if test.compare == "documents":
         return _run_segments(rec, test, client)
+    if test.compare == "fingerprint":
+        return _run_fingerprint(rec, test, client)
     config, expected = markup.check_syntax(test)
     status = client.document_status(test.document_url)
     if status != 200:
