@@ -1,13 +1,16 @@
 ---
 title: Fingerprint
 excerpt: >-
-  Learn how fingerprints test documents for matching text, so you can choose the config for a standalone document or find each document's pages in a portfolio.
+  Learn how fingerprints test documents for matching text, so you can choose the
+  config for a standalone document or find each document's pages in a portfolio.
 deprecated: false
 hidden: false
 metadata:
   title: ''
   description: >-
-    Learn how fingerprints test documents for matching text, so you can choose the config for a standalone document or find each document's pages in a portfolio.
+    Learn how fingerprints test documents for matching text, so you can choose
+    the config for a standalone document or find each document's pages in a
+    portfolio.
   robots: index
 next:
   description: ''
@@ -128,7 +131,7 @@ Sensible scores each test on each page of the portfolio. A test classifies a pag
 
 For more information, see [Troubleshooting portfolio fingerprints](doc:fingerprint#troubleshooting-portfolio-fingerprints).
 
-### Chained matches
+## Chained matches
 
 A *chained match* is an array of Match objects that Sensible scores as one match, no matter how many Match objects it contains. A chained match succeeds only if Sensible finds all its Match objects in order, on separate lines. You write a chained match differently in standalone syntax and in portfolio syntax.
 
@@ -190,9 +193,9 @@ Use the following tips when you define fingerprints.
 
 A [chained match](doc:fingerprint#chained-matches) is stricter than separate matches, because Sensible must find all its lines in order. Use chained matches in the following situations:
 
-- **Portfolio `first` and `last` tests**: a chained match is less likely to classify a page in another document as the first or last page of this one.
+- **Portfolio&#x20;**`first`**&#x20;and&#x20;**`last`**&#x20;tests**: a chained match is less likely to classify a page in another document as the first or last page of this one.
 - **Document types with many similar configs**: for example, a document type with many configs for different layouts from the same vendor. A chain of 3–4 lines distinguishes configs whose individual phrases overlap.
-- **Strict [Fingerprint mode](doc:fingerprint-mode)**: if you use strict mode to avoid extracting documents you haven't written a config for, chained matches make each fingerprint less likely to pass for those documents.
+- **Strict&#x20;**[Fingerprint mode](doc:fingerprint-mode): if you use strict mode to avoid extracting documents you haven't written a config for, chained matches make each fingerprint less likely to pass for those documents.
 
 ### Alternate wordings
 
@@ -336,4 +339,3 @@ or, for stricter syntax:
   ]
 }
 ```
-
