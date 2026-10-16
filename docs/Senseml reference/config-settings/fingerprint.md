@@ -276,7 +276,7 @@ The following tips apply to fingerprints for portfolio documents.
 
 Unless the document contains highly unusual, characteristic text, put related matches in one test, rather than writing a separate test for each match. A passing single-match test classifies the page even if another single-match test fails on that page, so separate tests are less strict.
 
-The following examples are fingerprints for the bank statement in this example portfolio, which contains a tax return (pages 1–2), a bank statement (pages 3–7), and a pay stub (page 8):
+The following examples are fingerprints for the bank statement in this example portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8:
 
 <!-- code test {"testId": "prefer_match_arrays_avoid", "segment_documents_with": "fingerprints", "description": "The AVOID fingerprint also classifies page 2 of the tax return, which contains \"Page\""} -->
 <!-- inline document -->
@@ -385,4 +385,4 @@ or, for stricter syntax:
 <!-- expect {"compare": "documents", "documents": [["alternative_two", 3, 7]]} -->
 <!-- code test end -->
 
-In the example portfolio, both alternatives classify pages 3–7 as the bank statement. The fingerprint to avoid classifies pages 2–7, because its generic single-match test passes on page 2 of the tax return, which contains "Page".
+In the example portfolio, both alternatives classify pages 3–7 as the bank statement. The fingerprint to avoid classifies pages 2–7, because its generic single-match test passes on page 2 of the tax return, which contains `Page`.

@@ -17,10 +17,16 @@ Phrases checked against Sensible's lines (`POST /extract_text_from_golden`), the
 - Note: "Form 1040 (2020) Page 2" is not one line in Sensible's text ("Form 1040 (2020)" / "Page" / "2"), so fixture_fp_demo_any_alternate's second wording never matched.
 
 ## Work
-- [ ] Docs: rewrite the 4 placeholder samples; example document links; markers on all 5 fingerprint samples + portfolio.md's 2.
-- [ ] Markup: `inline config {"fragment": "fingerprint", "doc_type", "config"}`, several per test; `expect {"compare": "documents"}` from inline configs, expected documents from the inline output's `documents` when not given; `expect {"compare": "fingerprint", "passes", "variants": [{"break": [...], "passes"}]}`.
-- [ ] Runner: temporary doc types (`docs_ci_tmp_*`), development environment, deleted after; strict mode for fingerprint compare.
-- [ ] Records/schema, HTML/text/summary reports.
-- [ ] Workflow for portfolio.md (gate + summary), fingerprint gate already covers fingerprint.md.
-- [ ] Unit tests; live run of both pages.
+- [x] Docs: rewrite the 4 placeholder samples; example document links; markers on all 5 fingerprint samples + portfolio.md's 2.
+- [x] Markup: `inline config {"fragment": "fingerprint", "doc_type", "config"}`, several per test; `expect {"compare": "documents"}` from inline configs, expected documents from the inline output's `documents` when not given; `expect {"compare": "fingerprint", "passes", "variants": [{"break": [...], "passes"}]}`.
+- [x] Runner: temporary doc types (`docs_ci_tmp_*`), development environment, deleted after; strict mode for fingerprint compare.
+- [x] Records/schema, HTML/text/summary reports.
+- [x] Workflow for portfolio.md (gate + summary), fingerprint gate already covers fingerprint.md.
+- [x] Unit tests; live run of both pages.
 - [ ] Follow-up (not in scope): the fixture_fp_demo_any_alternate / fixture_fp_portfolio_* fixtures are no longer needed.
+
+## Results (2026-10-16)
+- Unit tests: 158 pass (new test_samples.py; gate test for prose above a sample).
+- Live: fingerprint.md 10/10 (the Wells Fargo PDF via the branch URL until merge), portfolio.md 1/1. No docs_ci_tmp_* doc types left behind.
+- Vale: no new alerts on changed lines (fixed one Quotes, one Parens).
+- [ ] After #756 and this merge: the first v0 runs of doc-tests-fingerprint (12 extractions) and doc-tests-portfolio (1) pass.
