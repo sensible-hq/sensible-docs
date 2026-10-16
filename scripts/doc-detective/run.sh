@@ -39,8 +39,13 @@ rm -rf "$output_dir"
 mkdir -p "$output_dir"
 status=0
 
-doc-detective -c .doc-detective.json "${dd_options[@]}" -i "$page" || status=1
-python3 "$here/report.py" verify-ui --page "$page" || status=1
+# Doc Detective runs only if the page has UI tests, so pages with only code tests don't need it installed
+if python3 "$here/code_tests.py" --file "$page" --list | grep -q '^UI test'; then
+  doc-detective -c .doc-detective.json "${dd_options[@]}" -i "$page" || status=1
+  python3 "$here/report.py" verify-ui --page "$page" || status=1
+else
+  echo "No UI tests in $page; skipping Doc Detective"
+fi
 python3 "$here/code_tests.py" --file "$page" || status=1
 python3 "$here/report.py" html --page "$page" || status=1
 

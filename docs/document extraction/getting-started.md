@@ -61,7 +61,7 @@ If you can write basic SQL queries, you can write SenseML queries. SenseML shiel
 
    1. Download the following example document, then select it in the dialog for upload:
 
-   <!-- example document -->
+   <!-- inline document -->
 
    | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf) |
    | ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
@@ -90,7 +90,7 @@ For this tutorial, you'll extract these fields:
 
 1. Paste this config into the left pane in the editor to extract the data:
 
-<!-- example config -->
+<!-- inline config -->
 ```json
 {
   "fields": [
@@ -170,7 +170,7 @@ The following image shows this example in the Sensible app:
 
 You should see the following extracted data in the right pane:
 
-<!-- example output -->
+<!-- inline output -->
 ```json
 {
   "bodily_injury_premium": {
@@ -246,9 +246,9 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
 
 
 <!-- code test {"testId": "extract_query_group_excerpt", "description": "Run the Query Group excerpt on the tutorial's example document and check the documented output"} -->
-<!-- example document {"from": "extract_auto_insurance_anyco"} -->
+<!-- inline document {"from": "extract_auto_insurance_anyco"} -->
 
-<!-- example config {"fragment": "field"} -->
+<!-- inline config {"fragment": "field"} -->
 ```json
  {
       "method": {
@@ -271,7 +271,7 @@ The config uses the [Query Group](doc:query-group) method to query for the  `bod
 
 This config returns:
 
-<!-- example output -->
+<!-- inline output -->
 ```json
 {
   "bodily_injury_premium": {

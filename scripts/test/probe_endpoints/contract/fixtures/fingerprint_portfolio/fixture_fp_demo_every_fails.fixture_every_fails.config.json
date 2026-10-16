@@ -1,0 +1,16 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          {
+            "type": "includes",
+            "text": "Transaction history"
+          }
+        ]
+      }
+    ]
+  },
+  "fields": []
+}

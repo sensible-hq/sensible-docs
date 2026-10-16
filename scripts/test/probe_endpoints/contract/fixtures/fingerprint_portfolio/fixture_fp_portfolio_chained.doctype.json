@@ -1,0 +1,6 @@
+{
+  "name": "fixture_fp_portfolio_chained",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

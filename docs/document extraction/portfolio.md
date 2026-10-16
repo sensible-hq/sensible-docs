@@ -37,7 +37,7 @@ To extract from a portfolio, take the following steps:
 1. Enable segmentation with one of the following alternatives:
 
 - **LLM mode**: In the document type's **Settings** tab, describe the document type in the **Description** field. For examples of descriptions, see [LLM example](doc:portfolio#llm-example) and [Document type descriptions](doc:descriptions).
-- **Fingerprint mode**: Specify [fingerprints](doc:fingerprint) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
+- **Fingerprint mode**: Specify [fingerprints](doc:fingerprint#portfolios) in each config relevant to the portfolio file. Fingerprints test for text matches on first pages, last pages, and other page types. For an example of fingerprints, see [Fingerprint example](doc:portfolio#fingerprint-example).
 
 2. Create an extraction request with one of the following alternatives:
 
@@ -222,24 +222,26 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 
 ```json
 "fingerprint": {
-    "tests": [
-      {
-        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array using the`any` match type. */
-        "page": "first",
-        "match": [         
-          {
-            "text": "outline",
-            "type": "startsWith"
-          },
-          {
-            "text": "anycocarinsurance.com",
-            "type": "startsWith"
-          }
-        ]
-      }
-    ]
-  },
+  "tests": [
+    {
+      /* in combination, these matches are unique to the first page */
+      "page": "first",
+      "match": [[
+        /* chained match: Sensible scores this array as one match, no matter how many Match objects it contains.
+           The chained match succeeds only if Sensible finds all its Match objects on the same page,
+           in order, on separate lines. Here, "anycocarinsurance.com" must occur before "outline of quoted" */
+        {
+          "text": "anycocarinsurance.com",
+          "type": "startsWith"
+        },
+        {
+          "text": "outline of quoted",
+          "type": "startsWith"
+        }
+      ]]
+    }
+  ]
+},
 ```
 
 **_Document type 2_**
@@ -254,20 +256,28 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
 
 ```json
 "fingerprint": {
-    "tests": [
-      {
-        /* all these matches are unique to the first page. If a first page sometimes omits a match, specify alternatives
-           in the match array using the`any` match type. */
-        "page": "first",
-        "match": [
-          {
-            "text": "any unprocessed claim",
-            "type": "startsWith"
-          }
-        ]
-      }
-    ]
-  },
+  "tests": [
+    {
+      /* in combination, these matches are unique to the first page */
+      "page": "first",
+      "match": [
+        /* flat array: Sensible searches for each Match object independently, and scores each one as a separate match.
+           All the Match objects must be on the same page, but they can be in any order
+           and don't need to be on separate lines */
+        {
+          "text": "within 90 days",
+          "type": "includes"
+        },
+        {
+          /* because this is a flat array, this match succeeds even though "unprocessed claim" occurs before
+             "within 90 days", on the same line: "Any unprocessed claim number must be processed within 90 days of receipt." */
+          "text": "unprocessed claim",
+          "type": "includes"
+        }
+      ]
+    }
+  ]
+},
 ```
 
 ### Example document

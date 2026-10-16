@@ -9,6 +9,7 @@ Usage:
   code_tests.py --file PAGE --check-syntax        check markup and code blocks only (no keys, no network)
   code_tests.py --file PAGE --build-envelope 10   build each code test's regression baseline from 10 runs
   code_tests.py --file PAGE --extend-envelope 10  add 10 runs to each saved baseline
+  code_tests.py --file PAGE --check-fixtures      report fixtures that differ from the test account (no changes)
 
 Needs SENSIBLE_TEST_API_KEY, and an Anthropic key to judge LLM values, in .env or the environment.
 """
@@ -21,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Local installs: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import envelope, judge, markup, record, runner, settings  # noqa: E402
+from codetests import envelope, judge, markup, record, runner, settings, usage  # noqa: E402
 from codetests.errors import CodeTestError  # noqa: E402
 from codetests.reports import text  # noqa: E402
 from codetests.sensible import SensibleClient  # noqa: E402
@@ -38,6 +39,7 @@ def main():
     parser.add_argument("--judge-model", help=f"Judge model ID (default: {settings.JUDGE_MODEL_VAR} or {judge.DEFAULT_MODEL})")
     parser.add_argument("--build-envelope", type=int, metavar="N", help="Extract each code test N times and save its LLM fields' baseline")
     parser.add_argument("--extend-envelope", type=int, metavar="N", help="Extract each code test N more times and add the runs to its saved baseline")
+    parser.add_argument("--check-fixtures", action="store_true", help="Compare the code tests' fixtures with the test account and report differences, without changing anything")
     parser.add_argument("--keep", action="store_true", help=f"Don't delete the {settings.DOC_TYPE} document type afterward (to inspect it in the app)")
     args = parser.parse_args()
     settings.load_dotenv()
@@ -79,6 +81,9 @@ def main():
         return 2
     client = SensibleClient(key)
 
+    if args.check_fixtures:
+        return check_fixtures(selected, client)
+
     if args.build_envelope or args.extend_envelope:
         return build_envelopes(args, selected, client)
 
@@ -91,19 +96,50 @@ def main():
             failed += rec["status"] == "fail"
     finally:
         cleanup(args, client)
+        usage.save_run(client.counts)
     return 1 if failed else 0
 
 
 def cleanup(args, client):
     """Delete the temporary document type. A failure here is reported but never hides a test's own
     result or error: records are already saved, and the next run reuses the document type."""
-    if args.keep:
+    # Only delete the temporary doc type if this run used it: another page's run may be using it now
+    if args.keep or not getattr(client, "used_temp_doc_type", True):
         return
     try:
         if client.delete_doc_type():
             print(f"Deleted document type {settings.DOC_TYPE}")
     except Exception as e:  # noqa: BLE001
         print(settings.redact(f"WARN couldn't delete document type {settings.DOC_TYPE}: {type(e).__name__}: {e}"), file=sys.stderr)
+
+
+def check_fixtures(selected, client):
+    """Report each fixture that differs from the test account, for example after an edit in the app.
+    Changes nothing; a normal run restores the committed version and warns."""
+    names = list(dict.fromkeys(name for test in selected for name in test.fixtures))
+    if not names:
+        print("No fixtures in the selected code tests")
+        return 0
+    drifted = 0
+    for name in names:
+        try:
+            refs = markup.fixture_references(name)
+            state = client.fixture_drift(*markup.fixture_files(name), refs)
+        except CodeTestError as e:
+            print(f"FAIL {name}  {e}")
+            drifted += 1
+            continue
+        note = "  (an unpublished edit in the app differs from the published config; tests use the published version)" if state["draft"] else ""
+        if state["drift"]:
+            drifted += 1
+            print(f"DRIFT {name}{note}")
+            print("\n".join(f"  {d}" for d in state["drift"]))
+        else:
+            print(f"OK    {name}{note}")
+        print(f"      editor: {markup.editor_url(state['name'], state['config_name'], refs[0]['name'])}")
+    if drifted:
+        print(f"{drifted} fixture(s) differ from the committed files. A normal run restores them and warns.")
+    return 1 if drifted else 0
 
 
 def build_envelopes(args, selected, client):

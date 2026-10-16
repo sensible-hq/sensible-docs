@@ -1,0 +1,132 @@
+# Runs the code tests in the Fingerprint page (fingerprint.md): each row of its portfolio
+# troubleshooting table, run as a fingerprint-segmented portfolio extraction of committed test
+# fixtures, checked against the page. Deterministic: no LLM judge. See scripts/doc-detective/README.md.
+#
+# Runs on pushes to v0 that change the page, its fixtures, or the test tooling, monthly, and on
+# demand; not on PRs.
+#
+# On failure: opens one issue labeled doc-tests-fingerprint, or comments on the open one.
+# Every run uploads the HTML report and records as an artifact.
+
+name: Doc tests (fingerprint)
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - "docs/Senseml reference/config-settings/fingerprint.md"
+      - "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**"
+      - "assets/pdfs/portfolio_bank_paystub_tax.pdf"
+      - "scripts/doc-detective/**"
+      - ".github/workflows/doc-tests-fingerprint.yml"
+  workflow_dispatch:
+  # Monthly, so product drift is caught even when nothing changes: the 1st at 15:30 UTC,
+  # after the getting started run.
+  schedule:
+    - cron: "30 15 1 * *"
+
+# Fixtures are shared, persistent doc types in the test account, so runs must not overlap.
+concurrency:
+  group: doc-tests-fingerprint
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # Actions are pinned to commit SHAs, since this job holds the test account's API key.
+      # The job never pushes, so the token isn't left on disk for later steps.
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install runner dependencies
+        run: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
+
+      # Offline: markup, comparison, and syntax checks. No secrets needed.
+      - name: Unit test the runner
+        run: python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective
+
+      # Every secret this workflow uses must be classified in config/secrets.txt. No secrets needed.
+      - name: Check every secret is classified
+        run: python3 scripts/doc-detective/check_secrets.py --coverage-only
+
+      # The page has no UI tests, so run.sh skips Doc Detective. Secrets come from env vars only.
+      # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
+      # DOC_TESTS_MONTHLY_BUDGET (repo variable, optional): the report shows usage against it.
+      # A step timeout fails this step, so the issue still opens; a job timeout would skip that.
+      # Keep it above 5 portfolio extractions x extract_portfolio's 240-second timeout.
+      - name: Run tests
+        id: tests
+        continue-on-error: true
+        timeout-minutes: 24
+        run: scripts/doc-detective/run.sh "docs/Senseml reference/config-settings/fingerprint.md"
+        env:
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+          DOC_TESTS_MONTHLY_BUDGET: ${{ vars.DOC_TESTS_MONTHLY_BUDGET }}
+
+      # run.sh scrubs and checks the reports too, but not if the run timed out mid-way
+      - name: Scrub reports
+        if: always()
+        run: scripts/doc-detective/scrub.sh
+        env:
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+
+      # Fail closed: nothing below publishes anything (issue, summary, artifact) unless this passes
+      - name: Check for leaked secrets
+        id: secretcheck
+        if: always()
+        run: python3 scripts/doc-detective/check_secrets.py
+        env:
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+
+      # Restored fixtures are warnings, not failures: list them on the run's summary page
+      - name: Summarize warnings
+        if: always() && steps.secretcheck.outcome == 'success'
+        run: |
+          warnings=$(jq -r '.warnings[]? | "- \(.source): \(.text)"' scripts/doc-detective/output/code-tests/*.json 2>/dev/null || true)
+          if [ -n "$warnings" ]; then
+            { echo "### Warnings"; echo; echo "$warnings"; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # Also when a step before the tests failed (dependencies, unit tests), so a scheduled run never fails silently
+      - name: Open or update failure issue
+        if: (failure() || steps.tests.outcome == 'failure') && steps.secretcheck.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" > "$RUNNER_TEMP/issue.md"
+          gh label create doc-tests-fingerprint --color D93F0B --description "Fingerprint page docs test failures" --force
+          issue=$(gh issue list --label doc-tests-fingerprint --state open --json number -q '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" --body-file "$RUNNER_TEMP/issue.md"
+          else
+            gh issue create --title "Doc tests: Fingerprint page tests are failing" --label doc-tests-fingerprint --body-file "$RUNNER_TEMP/issue.md"
+          fi
+
+      - name: Upload reports
+        if: always() && steps.secretcheck.outcome == 'success'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: doc-tests-fingerprint-reports
+          path: scripts/doc-detective/output/
+          include-hidden-files: true
+          if-no-files-found: warn
+
+      - name: Fail the job if tests failed
+        if: always() && steps.tests.outcome == 'failure'
+        run: exit 1

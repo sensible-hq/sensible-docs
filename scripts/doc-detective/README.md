@@ -41,6 +41,7 @@ Other commands:
 | --- | --- |
 | `code_tests.py --file PAGE --check-syntax` | Checks the markup and code blocks. No keys or network. |
 | `code_tests.py --file PAGE --list` | Lists the page's tests. |
+| `code_tests.py --file PAGE --check-fixtures` | Reports fixtures that differ from the test account, without changing anything. |
 | `code_tests.py --file PAGE --test ID` | Runs one code test. |
 | `code_tests.py --file PAGE --build-envelope 10` | Builds each code test's regression baseline from 10 runs. |
 | `code_tests.py --file PAGE --extend-envelope 10` | Adds 10 runs to each saved baseline. |
@@ -63,19 +64,21 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 
 ### Code tests
 
+Markers inside a code test say where each part comes from: **`inline`** parts are published on the page (what readers see and copy), a **`fixture`** is private and committed (a doc type, its SenseML config, and a reference document in the test account), and **`expect`** is an expectation written in the test itself, for claims the page makes in prose or a table. "Config" always means a SenseML config; a test's own JSON is its **options**.
+
 ````markdown
 <!-- code test {"testId": "extract_auto_insurance_anyco", "description": "Run the tutorial config against the example document and check the documented output"} -->
 
-   <!-- example document -->
+   <!-- inline document -->
 
    | Example document | [Download link](https://raw.githubusercontent.com/.../auto_insurance_anyco.pdf) |
 
-<!-- example config -->
+<!-- inline config -->
 ```json
 { "fields": [ ... ] }
 ```
 
-<!-- example output -->
+<!-- inline output -->
 ```json
 { "policy_number": { ... } }
 ```
@@ -84,16 +87,62 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 
 | Marker | Points at |
 | --- | --- |
-| `<!-- example document -->` | The first link on the next line: the page's own download link, so there's one copy of the URL. |
-| `<!-- example document {"from": "ID"} -->` | Another code test's document, for a section without its own link. |
-| `<!-- example config -->` | The next code block: the config, uploaded exactly as written, comments included. |
-| `<!-- example config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
-| `<!-- example output -->` | The next code block: the output the page claims. |
+| `<!-- inline document -->` | The first link on the next line: the page's own download link, so there's one copy of the URL. |
+| `<!-- inline document {"from": "ID"} -->` | Another code test's document, for a section without its own link. |
+| `<!-- inline config -->` | The next code block: the config, uploaded exactly as written, comments included. |
+| `<!-- inline config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
+| `<!-- inline output -->` | The next code block: the output the page claims. |
+
+### Fingerprint claims (portfolio segments)
+
+For a claim about how fingerprints segment a portfolio, a code test runs a private **fixture** instead of a code block on the page, and checks an **expect** written in the test, comparing the extraction's documents (configs and page ranges) instead of `parsed_document`:
+
+```markdown
+<!-- code test {"testId": "last_test_fails", "description": "...", "segment_documents_with": "fingerprints"} -->
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
+<!-- fixture {"name": "fixture_fp_demo_last_fails"} -->
+<!-- expect {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]} -->
+<!-- code test end -->
+```
+
+| Marker or option | Meaning |
+| --- | --- |
+| `code test {"segment_documents_with": "fingerprints"}` | A portfolio extraction, segmented with fingerprints. Named after the public API's parameter, which it sets. Without it, a code test runs a single-document extraction. |
+| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed under `scripts/test/probe_endpoints/contract/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, and a reference document in the folder's `manifest.json`). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `<!-- expect {"compare": "documents", "documents": [...]} -->` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
+
+These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
+
+**Tables of claims:** tag the table with one comment, and check it with one table test that has a row entry for each table row, in order (like a Doc Detective test and its steps). The table itself has no other markers, so readers see it unchanged:
+
+```markdown
+<!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints", "description": "..."} -->
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../portfolio_bank_paystub_tax.pdf) |
+
+<!-- table {"tableId": "portfolio_failures"} -->
+| document | failing test | ... | result |
+| -------- | ------------ | --- | ------ |
+| tax return, pages 1–2 | ... | ... | Sensible doesn't return a tax return. |
+| tax return, pages 1–2 | ... | ... | Sensible returns the tax return as pages 1–8, ... |
+
+<!-- row {"rowId": "first_test_fails", "fixture": {"name": "fixture_fp_demo_first_fails"}, "expect": {"compare": "documents", "documents": []}} -->
+<!-- row {"rowId": "last_test_fails", "fixture": {"name": "fixture_fp_demo_last_fails"}, "expect": {"compare": "documents", "documents": [["fixture_last_fails", 1, 8]]}} -->
+<!-- table test end -->
+```
+
+A row's keys are marker names with the same options (`fixture`, `expect`), so a row converts to a code test and back mechanically: `rowId` becomes `testId`, each key becomes its marker, and the table test's `inline document` and `segment_documents_with` move onto the code test. The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
+
+**Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
+
+**If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, checks the restore took (the test fails if it didn't), and the test passes **with a `[fixture]` warning** that names each difference. CI lists these warnings on the run's summary page, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 
 ### Rules
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
-- `example` markers go inside a `<!-- code test -->`, never a Doc Detective `<!-- test -->`.
+- `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `...`, but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
@@ -123,6 +172,7 @@ Doc Detective's own syntax. Each step is one action, with a `description` the re
 | `CONFIG_INVALID` | Sensible rejected the config. |
 | `EXTRACTION_ERROR` | The extraction didn't complete, or used the wrong config. |
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
+| `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
@@ -146,6 +196,12 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## Reports
 
+**Usage line:** each report's header shows the docs test account's Sensible usage, so testing costs stay visible:
+- **This run:** extractions, and API requests (a lower bound: the SDK's own polling isn't counted). `code_tests.py` writes these to `output/run.json`.
+- **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
+- **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run. What does stop a run is a hard cap of 20 extractions per run (`DOC_TESTS_MAX_EXTRACTIONS` overrides it): an extraction past the cap fails its test with `RUNNER_ERROR`, so a page that grows, or a bug, can't spend the test account's budget.
+
+
 - **`output/report.html`**: every test in page order, sections collapsed unless they need attention, judge verdicts with the full prompt and output, envelope results with the baseline. Test sections are labeled UI test or Code test.
 - **Text summary**: printed per code test; the failure issue quotes it.
 - **Failure issue** (CI): one standing issue labeled `doc-detective`, with failed UI steps, failed code tests, and a triage table pairing each judge failure with its envelope state.
@@ -164,6 +220,8 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 - **Coverage**, so a future secret can't be missed: the run fails if a `${{ secrets.X }}` in the workflow, a `$VAR` in a page's test markup, or a variable in `.env` is in neither `config/secrets.txt` nor `config/public-vars.txt`, or if the "Check for leaked secrets" step doesn't receive every secret the workflow uses. CI runs this first (`--coverage-only`, no secrets needed).
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
+
+`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change `fingerprint.md`, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
 
 ## Fixtures
 

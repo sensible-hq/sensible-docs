@@ -3,97 +3,345 @@
   "title": "Code test record",
   "description": "What one code test compared and decided. Written by code_tests.py to output/code-tests/<testId>.json; read by every report.",
   "type": "object",
-  "required": ["test_id", "description", "file", "document_url", "status"],
+  "required": [
+    "test_id",
+    "description",
+    "file",
+    "document_url",
+    "status"
+  ],
   "additionalProperties": false,
   "properties": {
-    "test_id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
-    "description": {"type": "string"},
-    "file": {"type": "string"},
-    "document_url": {"type": "string"},
-    "document_from": {"type": "string", "description": "Another code test whose document this one reuses"},
-    "config_fragment": {"type": "boolean", "description": "The config is a one-field excerpt, run wrapped"},
-    "status": {"enum": ["pass", "warn", "fail"]},
-    "category": {"type": "string", "description": "Failure category, from codetests/errors.py"},
-    "message": {"type": "string"},
-    "overall": {"type": "string", "description": "identical, matches, not identical (...), mismatch, or undecided: the judge errored"},
+    "test_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "description": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "document_from": {
+      "type": "string",
+      "description": "Another code test whose document this one reuses"
+    },
+    "config_fragment": {
+      "type": "boolean",
+      "description": "The config is a one-field excerpt, run wrapped"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "warn",
+        "fail"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Failure category, from codetests/errors.py"
+    },
+    "message": {
+      "type": "string"
+    },
+    "overall": {
+      "type": "string",
+      "description": "identical, matches, not identical (...), mismatch, or undecided: the judge errored"
+    },
     "layout": {
       "type": "object",
-      "required": ["fields", "mismatches"],
+      "required": [
+        "fields",
+        "mismatches"
+      ],
       "additionalProperties": false,
-      "properties": {"fields": {"type": "integer", "minimum": 0}, "mismatches": {"type": "array", "items": {"type": "string"}}}
+      "properties": {
+        "fields": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mismatches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
     },
     "llm_fields": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["field", "kind", "prompt", "type", "judged"],
+        "required": [
+          "field",
+          "kind",
+          "prompt",
+          "type",
+          "judged"
+        ],
         "additionalProperties": false,
         "properties": {
-          "field": {"type": "string"},
-          "kind": {"enum": ["llm", "fallback"]},
-          "prompt": {"type": "string"},
-          "type": {"type": "string"},
-          "judged": {"type": "array", "items": {"$ref": "#/$defs/judged"}}
+          "field": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "llm",
+              "fallback"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "judged": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/judged"
+            }
+          }
         }
       }
     },
-    "not_checked": {"type": "array", "items": {"type": "string"}},
+    "not_checked": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "left_out": {
       "type": "object",
-      "required": ["fields", "nested_keys"],
+      "required": [
+        "fields",
+        "nested_keys"
+      ],
       "additionalProperties": false,
-      "properties": {"fields": {"type": "array", "items": {"type": "string"}}, "nested_keys": {"type": "integer", "minimum": 0}}
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nested_keys": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
     },
     "judge": {
       "type": "object",
-      "required": ["model", "system_prompt", "user_prompt", "raw_output"],
+      "required": [
+        "model",
+        "system_prompt",
+        "user_prompt",
+        "raw_output"
+      ],
       "additionalProperties": false,
       "properties": {
-        "model": {"type": "string"},
-        "system_prompt": {"type": "string"},
-        "user_prompt": {"type": "string"},
-        "raw_output": {"type": "string"}
+        "model": {
+          "type": "string"
+        },
+        "system_prompt": {
+          "type": "string"
+        },
+        "user_prompt": {
+          "type": "string"
+        },
+        "raw_output": {
+          "type": "string"
+        }
       }
     },
     "envelope": {
       "type": "object",
-      "required": ["status"],
+      "required": [
+        "status"
+      ],
       "additionalProperties": false,
       "properties": {
-        "status": {"enum": ["within", "outside", "stale", "missing"]},
-        "runs": {"type": "integer"},
-        "built": {"type": "string"},
-        "breaches": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
-        "slots": {"type": "object"}
+        "status": {
+          "enum": [
+            "within",
+            "outside",
+            "stale",
+            "missing"
+          ]
+        },
+        "runs": {
+          "type": "integer"
+        },
+        "built": {
+          "type": "string"
+        },
+        "breaches": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "slots": {
+          "type": "object"
+        }
       }
     },
     "warnings": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["source", "text"],
+        "required": [
+          "source",
+          "text"
+        ],
         "additionalProperties": false,
-        "properties": {"source": {"enum": ["judge", "envelope"]}, "text": {"type": "string"}}
+        "properties": {
+          "source": {
+            "enum": [
+              "judge",
+              "envelope",
+              "fixture"
+            ]
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "segments": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages",
+      "required": [
+        "fixtures",
+        "document_types",
+        "extraction_id",
+        "expected",
+        "actual"
+      ],
+      "properties": {
+        "fixtures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "document_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "extraction_id": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "array",
+          "items": {
+            "type": "array"
+          }
+        },
+        "actual": {
+          "type": "array",
+          "items": {
+            "type": "array"
+          }
+        },
+        "editors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "fixture",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "fixture": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "row": {
+          "type": "string",
+          "description": "'<n>: <rowId>', the row of the tagged table this test checks"
+        },
+        "table": {
+          "type": "string",
+          "description": "tableId of the tagged table"
+        }
       }
     }
   },
   "$defs": {
     "judged": {
       "type": "object",
-      "required": ["field", "path", "type", "documented", "actual", "verdict", "match", "confidence", "reasoning"],
+      "required": [
+        "field",
+        "path",
+        "type",
+        "documented",
+        "actual",
+        "verdict",
+        "match",
+        "confidence",
+        "reasoning"
+      ],
       "additionalProperties": false,
       "properties": {
-        "field": {"type": "string"},
-        "path": {"type": "string"},
-        "type": {"type": "string"},
+        "field": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
         "documented": {},
         "actual": {},
-        "verdict": {"enum": ["pass", "warn", "fail", "error"], "description": "The runner's decision: pass, warn (partial or low confidence), fail, or error (the judge couldn't decide)"},
-        "match": {"enum": ["pass", "fail", "partial", "error"], "description": "The judge's own answer"},
-        "confidence": {"type": "number"},
-        "reasoning": {"type": "string"},
-        "judge_claim": {"type": "string"},
-        "judge_observed": {"type": "string"}
+        "verdict": {
+          "enum": [
+            "pass",
+            "warn",
+            "fail",
+            "error"
+          ],
+          "description": "The runner's decision: pass, warn (partial or low confidence), fail, or error (the judge couldn't decide)"
+        },
+        "match": {
+          "enum": [
+            "pass",
+            "fail",
+            "partial",
+            "error"
+          ],
+          "description": "The judge's own answer"
+        },
+        "confidence": {
+          "type": "number"
+        },
+        "reasoning": {
+          "type": "string"
+        },
+        "judge_claim": {
+          "type": "string"
+        },
+        "judge_observed": {
+          "type": "string"
+        }
       }
     }
   }

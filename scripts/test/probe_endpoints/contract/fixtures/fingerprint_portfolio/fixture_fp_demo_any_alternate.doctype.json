@@ -1,0 +1,6 @@
+{
+  "name": "fixture_fp_demo_any_alternate",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

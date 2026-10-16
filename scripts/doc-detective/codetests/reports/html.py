@@ -56,6 +56,8 @@ td, th { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--bord
 th { font-size: 12px; color: var(--muted); font-weight: 600; }
 code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
 code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+td code { overflow-wrap: anywhere; }
+td { overflow-wrap: anywhere; }
 pre { background: var(--code-bg); padding: 12px; border-radius: 8px; overflow-x: auto; white-space: pre-wrap; margin: 6px 0 0; }
 .verdict { border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin: 0 0 12px; }
 .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
@@ -191,7 +193,9 @@ def render_code_test(record):
     if record.get("overall"):
         out.append(f'<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: {e(record["overall"])}</p>')
     source = f' (the link in <a href="#{e(record["document_from"])}"><code>{e(record["document_from"])}</code></a>)' if record.get("document_from") else ""
-    out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
+    # Fingerprint tests link each fixture to the SenseML editor instead, which has the document
+    if not record.get("segments", {}).get("editors"):
+        out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
     if record.get("config_fragment"):
         out.append('<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>')
     if record["status"] == "fail":
@@ -201,6 +205,32 @@ def render_code_test(record):
             out.append('<table><tr><th>Field</th><th>Judge</th><th>Envelope</th><th>What it suggests</th></tr>')
             out += [f'<tr><td><code>{e(p)}</code></td><td>{JUDGE} <span class="chip fail">{e(v)}</span></td><td>{ENVELOPE} {e(s)}</td><td>{e(n)}</td></tr>' for p, v, s, n in rows]
             out.append("</table>")
+
+    seg = record.get("segments")
+    if seg:
+        def docs(items):
+            return "<br>".join(f"<code>{e(c)}</code> pages {s}–{n}" for c, s, n in items) or '<span class="muted">no documents</span>'
+        link = f"https://app.sensible.so/extraction/?e={seg['extraction_id']}"
+        out.append("<h3>Portfolio segments</h3>")
+        if seg.get("row"):
+            out.append(f'<p>Checks row <strong>{e(seg["row"])}</strong> of table <code>{e(seg.get("table", ""))}</code>.</p>')
+        out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
+        out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
+                   f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
+        editors = {x["fixture"]: x["url"] for x in seg.get("editors", [])}
+
+        def fixture(name):
+            editor = f' (<a href="{e(editors[name])}">open in the SenseML editor</a>)' if name in editors else ""
+            return f"<code>{e(name)}</code>{editor}"
+
+        out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
+                   f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+        restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
+        if restored:
+            out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
+                       'so the runner restored it before the run. Check whether someone edited it in the app:</p><ul>')
+            out += [f"<li><code>{e(r)}</code></li>" for r in restored]
+            out.append("</ul>")
 
     layout = record.get("layout")
     if layout:
@@ -275,7 +305,49 @@ def render_code_test(record):
     return "\n".join(out)
 
 
-def render(page_path, ui_results, records, out_path):
+def details_label(test, rec):
+    """Link text for a test's details, unique to the test: what it checked, not a generic word."""
+    seg = rec.get("segments")
+    if seg:
+        def pages(docs):
+            return ", ".join(f"pages {s}–{n}" for _, s, n in docs) or "no documents"
+        if seg.get("row"):
+            number, _, row_id = seg["row"].partition(": ")
+            where = f"Row {number} ({row_id})"
+        else:
+            where = test.test_id
+        return f"{where}: {pages(seg['expected'])}"
+    return f"{test.test_id}: output comparison"
+
+
+def render_usage(usage):
+    """The test account's Sensible usage: this run, and the month to date (from Sensible, after the run)."""
+    if not usage:
+        return ""
+    parts = []
+    run = usage.get("run")
+    if run:
+        calls = sorted((run.get("by_call") or {}).items(), key=lambda kv: -kv[1])
+        breakdown = ('<details style="margin:2px 0 0"><summary style="font-weight:normal">Requests by call</summary><ul>'
+                     + "".join(f"<li><code>{e(c)}</code>: {n}</li>" for c, n in calls) + "</ul></details>") if calls else ""
+        parts.append(f'<div>This run: {run["extractions"]} extraction(s), at least {run["requests"]} API request(s).{breakdown}</div>')
+    month, budget = usage.get("month"), usage.get("budget")
+    if month:
+        line = (f'<div>Test account since {e(month["since"])}: {month["extractions"]} extraction(s), {month["charged"]} charged '
+                f'({month["test_runs"]} from test runs, named <code>ci__…</code>; {month["other"]} other). '
+                '<span title="Sensible charges a single-document extraction once, and a portfolio extraction once per document it returns (at least once), so charged can exceed extractions.">Why charged ≥ extractions?</span>')
+        if budget:
+            state = "fail" if month["charged"] >= budget else "warn" if month["charged"] >= 0.8 * budget else "pass"
+            line += f' {chip(state, f"{month["charged"]} of {budget} monthly extraction budget")}'
+        parts.append(line + "</div>")
+    elif usage.get("error"):
+        parts.append(f'<div>Test account usage this month: unavailable ({e(usage["error"])}).</div>')
+    if not parts:
+        return ""
+    return '<div class="muted" style="margin:-16px 0 20px;display:grid;gap:4px">' + "".join(parts) + "</div>"
+
+
+def render(page_path, ui_results, records, out_path, usage=None):
     """Write report.html for one page."""
     page = markup.parse_page(page_path)
     by_id = {r["test_id"]: r for r in records}
@@ -290,6 +362,7 @@ def render(page_path, ui_results, records, out_path):
         f"<title>Doc Detective report</title><style>{CSS}</style></head><body><main>",
         f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(shown_path)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
+        render_usage(usage),
         f'<p class="disclaimer">{e(wording.judge_disclaimer()).replace("labeled judge", "labeled " + JUDGE)} '
         f'{ENVELOPE} {e(wording.envelope_sentence(records))}</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',
@@ -302,12 +375,12 @@ def render(page_path, ui_results, records, out_path):
             if result and len(result["steps"]) < test.steps:
                 status = "fail"
             failed = f', {result["failed"]} failed' if result and result["failed"] else ""
-            details = f'<a href="#{e(test.test_id)}">{len(result["steps"]) if result else 0} steps{failed}</a>'
+            details = f'<a href="#{e(test.test_id)}">{e(test.test_id)}: {len(result["steps"]) if result else 0} steps{failed}</a>'
             label = "UI test"
         else:
             rec = by_id.get(test.test_id)
             status = rec["status"] if rec else "not run"
-            details = (f'<a href="#{e(test.test_id)}">Comparison' + (" and judge reasoning</a> " + JUDGE if judged(rec) else "</a>")) if rec else "Not run"
+            details = (f'<a href="#{e(test.test_id)}">{e(details_label(test, rec))}' + (" and judge reasoning</a> " + JUDGE if judged(rec) else "</a>")) if rec else "Not run"
             label = "Code test"
         out.append(f'<tr><td><code>{e(test.test_id)}</code></td><td>{label}</td><td>{e(test.description)}</td><td>{chip(status)}</td><td>{details}</td></tr>')
     out.append("</table></section>")
@@ -321,7 +394,10 @@ def render(page_path, ui_results, records, out_path):
     out.append("<script>"
                "document.querySelectorAll('.toolbar button').forEach(function(b){b.addEventListener('click',function(){"
                "document.querySelectorAll('details.test').forEach(function(d){d.open=b.dataset.open==='1';});});});"
-               "function openTarget(){var d=document.getElementById(location.hash.slice(1));if(d&&d.tagName==='DETAILS')d.open=true;}"
+               # Following a details link opens only that section, so the eye can follow where the link went
+               "function openTarget(){var d=document.getElementById(location.hash.slice(1));if(!d||d.tagName!=='DETAILS')return;"
+               "document.querySelectorAll('details.test').forEach(function(x){x.open=(x===d);});d.scrollIntoView({block:'start'});}"
+               "document.querySelectorAll('a[href^=\"#\"]').forEach(function(a){a.addEventListener('click',function(){setTimeout(openTarget,0);});});"
                "window.addEventListener('hashchange',openTarget);openTarget();</script>")
     out.append("</main></body></html>")
     with open(out_path, "w", encoding="utf-8") as f:

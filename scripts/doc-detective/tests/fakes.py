@@ -82,15 +82,15 @@ def write_page(case, text):
 
 
 CODE_TEST_PAGE = """<!-- code test {"testId": "first", "description": "first test"} -->
-<!-- example document -->
+<!-- inline document -->
 
 | Example document | [Download link](https://example.test/a.pdf) |
 
-<!-- example config -->
+<!-- inline config -->
 ```json
 {"fields": []}
 ```
-<!-- example output -->
+<!-- inline output -->
 ```json
 {}
 ```

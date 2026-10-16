@@ -38,7 +38,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 SECRETS_FILE = os.path.join(HERE, "config", "secrets.txt")
 PUBLIC_FILE = os.path.join(HERE, "config", "public-vars.txt")
-WORKFLOW_GLOB = os.path.join(REPO_ROOT, ".github", "workflows", "doc-detective*.yml")
+# Every docs-test workflow: doc-detective-*.yml, and doc-tests-*.yml for pages without UI tests
+WORKFLOW_GLOBS = [os.path.join(REPO_ROOT, ".github", "workflows", g) for g in ("doc-detective*.yml", "doc-tests-*.yml")]
 DOCS_GLOB = os.path.join(REPO_ROOT, "docs", "**", "*.md")
 CHECK_STEP = "Check for leaked secrets"
 # A secret shorter than this would match too much by chance; it's reported as a coverage error
@@ -147,6 +148,11 @@ def page_env_refs(paths):
     return refs
 
 
+def workflow_files():
+    """The docs-test workflows coverage checks."""
+    return sorted(f for g in WORKFLOW_GLOBS for f in glob.glob(g))
+
+
 def coverage(secret_names, public_names, dotenv, workflows, pages):
     """Return problems: things that can carry a secret but aren't classified."""
     problems = []
@@ -190,7 +196,7 @@ def main():
 
     if not args.scan_only:
         problems = coverage(secret_names, public_names, dotenv,
-                            sorted(glob.glob(WORKFLOW_GLOB)), sorted(glob.glob(DOCS_GLOB, recursive=True)))
+                            workflow_files(), sorted(glob.glob(DOCS_GLOB, recursive=True)))
         for problem in problems:
             print(f"FAIL coverage: {problem}")
         failed |= bool(problems)
