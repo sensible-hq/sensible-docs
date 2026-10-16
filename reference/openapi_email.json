@@ -760,7 +760,8 @@
               "type": "string"
             }
           }
-        }
+        },
+        "x-internal-note": "List 404 only on operations whose handler returns NOT_FOUND for a missing resource. Don't add 404 for an unknown route or method: the router's NOT_FOUND for those isn't returned as a 404 response. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "415": {
         "description": "Unsupported Media Type",
@@ -771,7 +772,8 @@
               "type": "string"
             }
           }
-        }
+        },
+        "x-internal-note": "List 415 only on operations whose backend route declares `contentTypes`. The backend checks Content-Type only for those routes, so operations without a request body (all GET and DELETE operations) never return 415 from the backend. API Gateway can also return 415 for a request body sent with an unsupported Content-Encoding, which a request without a body can't trigger, so that case isn't listed either. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "500": {
         "description": "Internal Server Error",
