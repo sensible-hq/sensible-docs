@@ -148,6 +148,11 @@ def page_env_refs(paths):
     return refs
 
 
+def workflow_files():
+    """The docs-test workflows coverage checks."""
+    return sorted(f for g in WORKFLOW_GLOBS for f in glob.glob(g))
+
+
 def coverage(secret_names, public_names, dotenv, workflows, pages):
     """Return problems: things that can carry a secret but aren't classified."""
     problems = []
@@ -191,7 +196,7 @@ def main():
 
     if not args.scan_only:
         problems = coverage(secret_names, public_names, dotenv,
-                            sorted(f for g in WORKFLOW_GLOBS for f in glob.glob(g)), sorted(glob.glob(DOCS_GLOB, recursive=True)))
+                            workflow_files(), sorted(glob.glob(DOCS_GLOB, recursive=True)))
         for problem in problems:
             print(f"FAIL coverage: {problem}")
         failed |= bool(problems)

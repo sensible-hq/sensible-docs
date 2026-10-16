@@ -124,8 +124,13 @@ class RepoCoverageTest(unittest.TestCase):
     def test_this_repo_classifies_every_secret(self):
         """The real workflow and docs pages. .env is ignored: it's local."""
         problems = cs.coverage(cs.read_names(cs.SECRETS_FILE), cs.read_names(cs.PUBLIC_FILE), {},
-                               sorted(glob.glob(cs.WORKFLOW_GLOB)), sorted(glob.glob(cs.DOCS_GLOB, recursive=True)))
+                               cs.workflow_files(), sorted(glob.glob(cs.DOCS_GLOB, recursive=True)))
         self.assertEqual(problems, [])
+
+    def test_covers_every_docs_test_workflow(self):
+        names = [os.path.basename(f) for f in cs.workflow_files()]
+        self.assertIn("doc-detective-getting-started.yml", names)
+        self.assertIn("doc-tests-fingerprint.yml", names)
 
     def test_runner_key_variables_are_registered(self):
         from codetests import settings
