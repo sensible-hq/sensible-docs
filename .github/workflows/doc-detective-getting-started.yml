@@ -41,19 +41,23 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
 
     steps:
+      # Actions are pinned to commit SHAs, since this job holds the test account's secrets.
+      # The token isn't left on disk: only the step that pushes gets it.
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
 
       - name: Setup python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
 
@@ -68,12 +72,20 @@ jobs:
         run: python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective
 
       # Secrets come from env vars only. Don't write a .env here: its values would override these.
-      # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
+      # Every secret this workflow, the docs' test markup, or .env uses must be classified in
+      # config/secrets.txt (or config/public-vars.txt), so a new secret can't leak unnoticed. No secrets needed.
+      - name: Check every secret is classified
+        run: python3 scripts/doc-detective/check_secrets.py --coverage-only
+
+      # Keep this list, the Scrub reports step's, and the Check for leaked secrets step's, in step with scripts/doc-detective/config/secrets.txt (scrub.sh).
       # .doc-detective.json sets autoUpdate: false; --no-auto-update repeats it, so only the pinned version runs.
       # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
+      # A step timeout fails this step, so the scrub, issue, and fix PR steps still run; a job
+      # timeout would cancel the job instead.
       - name: Run tests
         id: tests
         continue-on-error: true
+        timeout-minutes: 18
         run: scripts/doc-detective/run.sh --no-auto-update "docs/document extraction/getting-started.md"
         env:
           SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
@@ -82,9 +94,35 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DOC_EXAMPLES_PROPOSE_FIXES: "1"
 
+      # run.sh scrubs the reports too, but not if the run was cancelled or timed out mid-way.
+      # Upload only after this step succeeds: Doc Detective writes the password in plain text.
+      - name: Scrub reports
+        id: scrub
+        if: always()
+        run: scripts/doc-detective/scrub.sh
+        env:
+          SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
+          SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      # Fail closed: nothing below publishes anything (fix PR, issues, artifact) unless this passes.
+      # It scans every output file for each secret (as written and JSON-, HTML-, URL-, and
+      # base64-encoded) and for unregistered credential shapes. It must receive every secret this
+      # workflow uses; check_secrets.py fails if it doesn't.
+      - name: Check for leaked secrets
+        id: secretcheck
+        if: always()
+        run: python3 scripts/doc-detective/check_secrets.py
+        env:
+          SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
+          SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
+          SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
       - name: Open or update proposed docs fix PR
         id: fix_pr
-        if: steps.tests.outcome == 'failure'
+        if: steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -96,6 +134,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git switch -c "$BRANCH"
           git add -- docs/
           git commit -m "Update getting started output to match Sensible" -m "Proposed by Doc Detective run $RUN_URL"
@@ -113,7 +152,7 @@ jobs:
           echo "url=$pr" >> "$GITHUB_OUTPUT"
 
       - name: Open or update failure issue
-        if: steps.tests.outcome == 'failure'
+        if: steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -131,7 +170,7 @@ jobs:
       # A separate standing issue for envelope warnings, so they don't dilute the failure issue.
       # Comments only when the breaches change; closes when a run is back within the envelope.
       - name: Open, update, or close envelope issue
-        if: always() && steps.tests.outcome != 'skipped'
+        if: always() && steps.tests.outcome != 'skipped' && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -148,7 +187,7 @@ jobs:
             if [ -z "$issue" ]; then
               gh issue create --title "Doc Detective: LLM output shifted from its regression envelope" --label "$LABEL" --body-file "$RUNNER_TEMP/envelope.md"
             else
-              last=$(gh issue view "$issue" --json body,comments -q '[.body] + [.comments[].body] | join("\n")' | grep -o 'envelope-fingerprint: [a-f0-9]*' | tail -1 | cut -d' ' -f2)
+              last=$(gh issue view "$issue" --json body,comments -q '[.body] + [.comments[] | select(.author.login == "github-actions" or .author.login == "app/github-actions") | .body] | join("\n")' | grep -o 'envelope-fingerprint: [a-f0-9]*' | tail -1 | cut -d' ' -f2)
               if [ "$last" != "$fingerprint" ]; then
                 gh issue comment "$issue" --body-file "$RUNNER_TEMP/envelope.md"
               else
@@ -159,10 +198,9 @@ jobs:
             gh issue close "$issue" --comment "$(cat "$RUNNER_TEMP/envelope.md")"
           fi
 
-      # run.sh scrubs secret values from these reports before upload.
       - name: Upload reports
-        if: always()
-        uses: actions/upload-artifact@v7
+        if: always() && steps.secretcheck.outcome == 'success'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: doc-detective-reports
           path: scripts/doc-detective/output/
@@ -170,5 +208,5 @@ jobs:
           if-no-files-found: warn
 
       - name: Fail the job if tests failed
-        if: steps.tests.outcome == 'failure'
+        if: always() && steps.tests.outcome == 'failure'
         run: exit 1

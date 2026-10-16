@@ -33,7 +33,7 @@ Both are written as HTML comments in the page, so readers never see them. Today 
    scripts/doc-detective/run.sh "docs/document extraction/getting-started.md"
    ```
 
-   It runs the UI tests, checks every UI test and step actually ran, runs the code tests, writes `scripts/doc-detective/output/report.html`, and scrubs secret values from every report file. It exits 1 if anything failed.
+   It runs the UI tests, checks every UI test and step actually ran, runs the code tests, writes `scripts/doc-detective/output/report.html`, scrubs secret values from every report file, then checks that none are left (`check_secrets.py`). It exits 1 if anything failed, including a leak.
 
 Other commands:
 
@@ -212,9 +212,16 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## CI
 
-`.github/workflows/doc-detective-getting-started.yml` runs on pushes to `v0` that change the page or this tooling, monthly (the 1st, 15:00 UTC), and on demand. Never on pull requests. It needs repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `run.sh` scrubs from reports.
+`.github/workflows/doc-detective-getting-started.yml` runs on pushes to `v0` that change the page or this tooling, monthly (the 1st, 15:00 UTC), and on demand. Never on pull requests. It needs repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` runs it last, and the workflow runs it again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password.
 
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change `fingerprint.md`, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
+**Secrets fail closed.** Doc Detective writes typed text, including the test account password, into its reports in plain text ([doc-detective#204](https://github.com/doc-detective/doc-detective/issues/204)), and a scrub alone fails open. So `check_secrets.py` runs after every scrub:
+
+- **Leak scan:** every file under `output/`, any type, is searched for each secret in `config/secrets.txt`, as written and JSON-, HTML-, URL-, and base64-encoded, and for credential-shaped strings nobody registered (Anthropic keys, bearer tokens, GitHub tokens, AWS keys). Any hit fails the run. In CI, nothing is published (docs-fix PR, issues, artifact) unless the "Check for leaked secrets" step passes. It never prints a value.
+- **Coverage**, so a future secret can't be missed: the run fails if a `${{ secrets.X }}` in the workflow, a `$VAR` in a page's test markup, or a variable in `.env` is in neither `config/secrets.txt` nor `config/public-vars.txt`, or if the "Check for leaked secrets" step doesn't receive every secret the workflow uses. CI runs this first (`--coverage-only`, no secrets needed).
+
+**To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
+
+`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change `fingerprint.md`, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
 
 ## Fixtures
 
