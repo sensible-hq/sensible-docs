@@ -6,6 +6,7 @@ document type removes its configs; extraction history stays in the app.
 """
 
 import json
+import time
 
 from . import settings
 from .errors import CONFIG_INVALID, EXTRACTION_ERROR, CodeTestError
@@ -77,12 +78,27 @@ class SensibleClient:
         from sensibleapi import SensibleSDK
 
         sdk = SensibleSDK(self.key)
-        result = sdk.wait_for(sdk.extract(
+        result = self._wait(sdk.extract(
             url=url, document_type=settings.DOC_TYPE, configuration_name=config_name,
             environment=settings.ENVIRONMENT, document_name=document_name,
-        ))
+        )["id"])
         if result.get("status") != "COMPLETE":
             raise CodeTestError(EXTRACTION_ERROR, f"status {result.get('status')}: {json.dumps(result.get('errors'))[:500]}")
         if result.get("configuration") != config_name:
             raise CodeTestError(EXTRACTION_ERROR, f"Sensible used configuration {result.get('configuration')!r}, not {config_name!r}")
         return result.get("parsed_document") or {}
+
+    def _wait(self, extraction_id, timeout=240):
+        """Poll an extraction until it's COMPLETE or FAILED, and return it. Unlike the SDK's wait_for,
+        this gives up after `timeout` seconds, so a stuck extraction fails its test instead of
+        running the job into its timeout (where the report and issue steps don't run)."""
+        deadline = time.time() + timeout
+        while True:
+            response = self._api("GET", f"/documents/{extraction_id}")
+            response.raise_for_status()
+            result = response.json()
+            if result.get("status") in ("COMPLETE", "FAILED"):
+                return result
+            if time.time() > deadline:
+                raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
+            time.sleep(5)
