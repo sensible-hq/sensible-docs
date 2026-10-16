@@ -23,6 +23,7 @@ Phrases checked against Sensible's lines (`POST /extract_text_from_golden`), the
 - [x] Records/schema, HTML/text/summary reports.
 - [x] Workflow for portfolio.md (gate + summary), fingerprint gate already covers fingerprint.md.
 - [x] Unit tests; live run of both pages.
+- [ ] Follow-up (Frances, 2026-10-16): evaluate using Jev for the envelope tests (cheaper).
 - [ ] Follow-up (not in scope): the fixture_fp_demo_any_alternate / fixture_fp_portfolio_* fixtures are no longer needed.
 
 ## Results (2026-10-16)
