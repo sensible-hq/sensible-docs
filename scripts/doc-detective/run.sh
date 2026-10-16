@@ -46,5 +46,7 @@ python3 "$here/report.py" html --page "$page" || status=1
 
 # Scrub secrets last, so it covers report.html and the code-test records too
 "$here/scrub.sh" "$output_dir" || status=1
+# Fail closed: exit 1 if any secret, or anything shaped like a credential, is still in the output
+python3 "$here/check_secrets.py" --output "$output_dir" || status=1
 
 exit $status

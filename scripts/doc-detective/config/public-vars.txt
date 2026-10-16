@@ -1,0 +1,4 @@
+# Environment variables that docs test markup or .env may use and that are NOT secrets, so
+# check_secrets.py doesn't scan reports for their values. Every other variable a page's test
+# markup, .env, or the workflow uses must be listed in secrets.txt, or the check fails.
+# Add a name here only if its value is safe to publish in a public issue.
