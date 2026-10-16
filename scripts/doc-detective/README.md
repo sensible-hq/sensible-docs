@@ -196,6 +196,8 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## Reports
 
+**In CI:** each run's page (Actions > the run) shows a summary: each test's result, what it checked, any warnings, and the details of any failure (`report.py summary`). It links to the full HTML report, which is uploaded unzipped, so it opens in the browser (you need to be signed in to GitHub). The failure issue links to it too. The zipped artifact still has the raw records and Doc Detective's results; `gh run download` can't fetch the unzipped report yet ([cli/cli#13012](https://github.com/cli/cli/issues/13012)), so download it from the run page.
+
 **Usage line:** each report's header shows the docs test account's Sensible usage, so testing costs stay visible:
 - **This run:** extractions, and API requests (a lower bound: the SDK's own polling isn't counted). `code_tests.py` writes these to `output/run.json`.
 - **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
@@ -221,7 +223,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
 
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change `fingerprint.md`, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
+`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
 
 ## Fixtures
 
@@ -231,7 +233,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 | Path | Contents |
 | --- | --- |
-| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, and `envelope-issue`. |
+| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push needs the fingerprint run. |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules. |
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |

@@ -120,6 +120,32 @@ jobs:
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
+      # The HTML report on its own, unzipped, so it opens in the browser from the run page
+      - name: Name the HTML report
+        id: htmlname
+        if: always() && steps.secretcheck.outcome == 'success'
+        run: |
+          if [ -f scripts/doc-detective/output/report.html ]; then
+            cp scripts/doc-detective/output/report.html "$RUNNER_TEMP/doc-detective-getting-started-report.html"
+            echo "path=$RUNNER_TEMP/doc-detective-getting-started-report.html" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload HTML report
+        id: htmlreport
+        if: always() && steps.htmlname.outputs.path != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.htmlname.outputs.path }}
+          archive: false
+
+      # Each test's result, what it checked, and a link to the HTML report, on the run's page
+      - name: Write run summary
+        if: always() && steps.secretcheck.outcome == 'success'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: python3 scripts/doc-detective/report.py summary --page "docs/document extraction/getting-started.md" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"
+
       - name: Open or update proposed docs fix PR
         id: fix_pr
         if: steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
@@ -156,9 +182,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
           PR_URL: ${{ steps.fix_pr.outputs.url }}
         run: |
-          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
+          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
           gh label create doc-detective --color D93F0B --description "Doc Detective docs test failures" --force
           issue=$(gh issue list --label doc-detective --state open --json number -q '.[0].number')
           if [ -n "$issue" ]; then

@@ -2,11 +2,13 @@
 # troubleshooting table, run as a fingerprint-segmented portfolio extraction of committed test
 # fixtures, checked against the page. Deterministic: no LLM judge. See scripts/doc-detective/README.md.
 #
-# Runs on pushes to v0 that change the page, its fixtures, or the test tooling, monthly, and on
-# demand; not on PRs.
+# Runs on pushes to v0 that change the page's tests, its fixtures, or the test tooling, monthly,
+# and on demand; not on PRs. A push that changes only the page's prose (for example, a ReadMe
+# save) skips the tests: should_run.py decides.
 #
 # On failure: opens one issue labeled doc-tests-fingerprint, or comments on the open one.
-# Every run uploads the HTML report and records as an artifact.
+# Every run shows a summary on its page, with a link to the HTML report (it opens in the browser),
+# and uploads the report and records as an artifact.
 
 name: Doc tests (fingerprint)
 
@@ -14,6 +16,7 @@ on:
   push:
     branches:
       - v0
+    # Keep in step with the --watch list in the changes job below
     paths:
       - "docs/Senseml reference/config-settings/fingerprint.md"
       - "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**"
@@ -36,7 +39,40 @@ permissions:
   issues: write
 
 jobs:
+  # Skips the test job when a push changed only the page's prose. No secrets.
+  changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Decide whether to run the tests
+        id: decide
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ "$EVENT" != "push" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch -q --depth=1 origin "$BEFORE" || true
+          python3 scripts/doc-detective/should_run.py --page "docs/Senseml reference/config-settings/fingerprint.md" \
+            --before "$BEFORE" --after "$GITHUB_SHA" \
+            --watch "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**" \
+              "assets/pdfs/portfolio_bank_paystub_tax.pdf" "scripts/doc-detective/**" ".github/workflows/doc-tests-fingerprint.yml" \
+            >> "$GITHUB_OUTPUT" 2> "$RUNNER_TEMP/reason.txt"
+          cat "$RUNNER_TEMP/reason.txt"
+          { echo "## Docs tests"; echo; cat "$RUNNER_TEMP/reason.txt"; } >> "$GITHUB_STEP_SUMMARY"
+
   test:
+    needs: changes
+    if: needs.changes.outputs.run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -93,14 +129,31 @@ jobs:
         env:
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
 
-      # Restored fixtures are warnings, not failures: list them on the run's summary page
-      - name: Summarize warnings
+      # The HTML report on its own, unzipped, so it opens in the browser from the run page
+      - name: Name the HTML report
+        id: htmlname
         if: always() && steps.secretcheck.outcome == 'success'
         run: |
-          warnings=$(jq -r '.warnings[]? | "- \(.source): \(.text)"' scripts/doc-detective/output/code-tests/*.json 2>/dev/null || true)
-          if [ -n "$warnings" ]; then
-            { echo "### Warnings"; echo; echo "$warnings"; } >> "$GITHUB_STEP_SUMMARY"
+          if [ -f scripts/doc-detective/output/report.html ]; then
+            cp scripts/doc-detective/output/report.html "$RUNNER_TEMP/doc-tests-fingerprint-report.html"
+            echo "path=$RUNNER_TEMP/doc-tests-fingerprint-report.html" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Upload HTML report
+        id: htmlreport
+        if: always() && steps.htmlname.outputs.path != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.htmlname.outputs.path }}
+          archive: false
+
+      # Each test's result, what it checked, and a link to the HTML report, on the run's page
+      - name: Write run summary
+        if: always() && steps.secretcheck.outcome == 'success'
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: python3 scripts/doc-detective/report.py summary --page "docs/Senseml reference/config-settings/fingerprint.md" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"
 
       # Also when a step before the tests failed (dependencies, unit tests), so a scheduled run never fails silently
       - name: Open or update failure issue
@@ -108,8 +161,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
         run: |
-          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" > "$RUNNER_TEMP/issue.md"
+          python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} > "$RUNNER_TEMP/issue.md"
           gh label create doc-tests-fingerprint --color D93F0B --description "Fingerprint page docs test failures" --force
           issue=$(gh issue list --label doc-tests-fingerprint --state open --json number -q '.[0].number')
           if [ -n "$issue" ]; then
