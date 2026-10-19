@@ -3,12 +3,14 @@
 from . import text, wording
 
 
-def body(ui_results, records, run_url=None, pr_url=None):
+def body(ui_results, records, run_url=None, pr_url=None, report_url=None):
     lines = [
         "Doc Detective tests failed on `v0`.",
         "",
         "> " + wording.judge_disclaimer("`[judge]`"),
     ]
+    if report_url:
+        lines.append(f"\n**[Open the full HTML report]({report_url})** (opens in the browser; you need to be signed in to GitHub)")
     if run_url:
         lines.append(f"\nWorkflow run: {run_url}")
     if pr_url:
