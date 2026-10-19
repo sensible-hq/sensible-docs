@@ -78,6 +78,7 @@ Added 2026-10-19 from competitor analysis
 - [ ] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
 - [ ] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
 - [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
+- [ ] 26. Integrating — `docs/welcome/integrate.md`
 
 ## ReadMe findings (2026-10-19)
 
