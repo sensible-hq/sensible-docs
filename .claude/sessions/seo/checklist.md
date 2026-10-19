@@ -79,7 +79,6 @@ Added 2026-10-19 from competitor analysis
 - [ ] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
 - [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
 - [ ] 26. Integrating — `docs/welcome/integrate.md`
-- [ ] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
 - [ ] 27. API Introduction — `reference/Introduction/choosing-an-endpoint.md`
       (live: https://docs.sensible.so/reference/choosing-an-endpoint). Found 2026-10-19:
       `metadata.description` is stale ("API introduction and endpoint overview") and does NOT match
@@ -91,6 +90,7 @@ Added 2026-10-19 from competitor analysis
       non-empty stale descriptions hurt: `choosing-an-endpoint.md` ("API introduction and endpoint
       overview") and `authentication.md` ("API authentication methods"), both live as-is. FIXED 2026-10-19 (manual sync to excerpt; reference/
       frontmatter is mostly OpenAPI-generated, so no script change). (`senseml-reference-link.md` has 'null'; check.)
+- [ ] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
 
 ## ReadMe findings (2026-10-19)
 
