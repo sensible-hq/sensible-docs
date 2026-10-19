@@ -29,8 +29,17 @@
 | 18 | Classifying documents by type<br>`document type classification/classify.md` | document classification *, document classifier *, classification API *, identify document type *, auto-classify *, document categorization *, document sorting * | document classification; classification API |
 | 19 | Multi-document extractions<br>`document extraction/portfolio.md` | split PDF *, PDF splitter *, document splitting *, document segmentation *, multiple documents in one PDF *, combined PDF *, bundled documents *, packet *, loan packet *, mortgage package * | split PDF; document segmentation; multiple documents in one PDF |
 | 20 | Validating extractions<br>`monitor and qa/validate-extractions.md` | data validation *, validation rules *, business rules *, data quality *, QA *, checksums *, flag for review * | data validation; validation rules; data quality |
+| 21 | Qualifying LLM accuracy<br>`document extraction/best-practices/confidence.md` | confidence scores *, LLM confidence *, extraction accuracy *, LLM accuracy *, uncertainty *, ambiguous answers *, hallucination * | confidence scores; extraction accuracy; LLM confidence |
+| 22 | Human review<br>`monitor and qa/human-review.md` | human-in-the-loop *, HITL *, manual review *, review queue *, review screen *, correct extracted data *, approve or reject | human-in-the-loop; HITL; manual review |
+| 23 | Preprocessors<br>`Senseml reference/preprocessors/index.md` | preprocessing options *, image pre-processing *, document cleanup *, rotate pages *, remove headers and footers *, multi-column layout *, deskew, page range | preprocessing options; image pre-processing; document cleanup |
+| 24 | Try a webhook<br>`api/api-tutorial/api-tutorial-webhook.md` | webhook URL *, callback URL *, webhook tutorial *, push notification *, webhook payload, asynchronous extraction, polling | webhook URL; callback URL; webhook payload |
+| 25 | Out-of-the-box extractions<br>`document extraction/library-quickstart.md` | prebuilt models *, pre-built templates *, document templates *, bank statement extraction *, pay stub extraction *, tax form extraction *, configuration library | prebuilt models; pre-built templates; bank statement extraction |
 
 ## Weak candidates (consider cutting)
 
 crosstab (Intersection), crop (Region), packet (Portfolio), QA and checksums (Validation),
-page classification (Fingerprint), document AI (also a Google product name).
+page classification (Fingerprint), document AI (also a Google product name),
+hallucination (Confidence; the page covers LLM-reported uncertainty, not hallucination detection).
+
+Rows 21–25 added from competitor analysis (`competitors/summary.md`). Deliberately avoided
+"pre-trained" for the library page: configs aren't trained models.
