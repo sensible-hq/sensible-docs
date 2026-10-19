@@ -98,9 +98,12 @@ Structure / classification / QA
 - [x] (see `research-keywords-evidence.md`) Investigate whether AI agents/crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot,
       Claude-User, PerplexityBot, Google-Extended / AI Overviews, Bing/Copilot) and agent fetch tools
       use `<meta name="keywords">` or ReadMe's `metadata.keywords`, with evidence and reasoning
-- [ ] Competitor top-20 analysis, one file per competitor in `competitors/` (Parseur, Docparser,
+- [x] (see `competitors/`, incl. `summary.md`) Competitor top-20 analysis, one file per competitor in `competitors/` (Parseur, Docparser,
       Nanonets, Docsumo, Ocrolus): title, meta description, meta keywords, target phrases,
       closest Sensible page, borrowable phrases
+- [ ] Decide whether to add confidence, human review, preprocessors, webhook tutorial, library
+      quickstart to the 20 pages (competitors target these topics)
+- [ ] Verify Sensible supports password-protected PDFs before using that phrase
 - [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
       (b) how do we enable `agentSearch` / `projectSearch`?
 - [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
