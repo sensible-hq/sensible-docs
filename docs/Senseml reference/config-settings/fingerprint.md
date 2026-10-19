@@ -208,7 +208,7 @@ A [chained match](doc:fingerprint#chained-matches) is stricter than separate mat
 
 ### Alternate wordings
 
-If you want to match alternate wordings on the same page, use an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, the last page of a 2020 tax return says `Form 1040 (2020)`, and the same page in the 2021 revision says `Form 1040 (2021)`. To match either revision, specify one test with a `last` page type and a match that contains both wordings as follows:
+If a phrase can vary slightly from document to document, for example because of OCR, match its alternate forms with an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, OCR can read the apostrophe on a tax return's last page as straight or curly, so the page can say `Preparer's name` or `Preparer’s name`. To match either form, specify one test with a `last` page type and a match that contains both forms as follows:
 
 <!-- code test {"testId": "alternate_wordings_any_match", "segment_documents_with": "fingerprints", "description": "The alternate wordings fingerprint finds the tax return in the example portfolio"} -->
 <!-- inline config {"fragment": "fingerprint", "doc_type": "tax_returns", "config": "form_1040"} -->
@@ -228,16 +228,18 @@ If you want to match alternate wordings on the same page, use an `any` [Boolean 
       "page": "last",
       "match": [
         {
-          /* the test passes on a page that contains either wording */
+          /* the test passes on a page that contains either form of the phrase */
           "type": "any",
           "matches": [
             {
+              /* straight apostrophe */
               "type": "includes",
-              "text": "Form 1040 (2020)"
+              "text": "Preparer's name"
             },
             {
+              /* curly apostrophe */
               "type": "includes",
-              "text": "Form 1040 (2021)"
+              "text": "Preparer’s name"
             }
           ]
         }
