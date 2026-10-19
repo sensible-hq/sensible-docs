@@ -72,6 +72,13 @@ Structure / classification / QA
 - [ ] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
 - [ ] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
 
+Added 2026-10-19 from competitor analysis
+- [ ] 21. Qualifying LLM accuracy — `docs/document extraction/best-practices/confidence.md`
+- [ ] 22. Human review — `docs/monitor and qa/human-review.md`
+- [ ] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
+- [ ] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
+- [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
+
 ## ReadMe findings (2026-10-19)
 
 - `metadata.keywords` is stored, not rendered: hidden page `draft-jsonlogic` carries
