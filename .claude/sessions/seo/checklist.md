@@ -79,6 +79,13 @@ Added 2026-10-19 from competitor analysis
 - [ ] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
 - [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
 - [ ] 26. Integrating — `docs/welcome/integrate.md`
+- [ ] 27. API Introduction — `reference/Introduction/choosing-an-endpoint.md`
+      (live: https://docs.sensible.so/reference/choosing-an-endpoint). Found 2026-10-19:
+      `metadata.description` is stale ("API introduction and endpoint overview") and does NOT match
+      the excerpt; that stale string is the live `<meta name="description">`. The excerpt→description
+      sync (PR #702) doesn't fix reference/ files. Also the first sentence is "Welcome to Sensible! If
+      you have any questions..." (weak first-150-words opening). Check other reference/ pages for
+      the same drift.
 
 ## ReadMe findings (2026-10-19)
 
