@@ -1,6 +1,6 @@
 # Runs the code tests in the Fingerprint page (fingerprint.md): each row of its portfolio
 # troubleshooting table, run as a fingerprint-segmented portfolio extraction of committed test
-# fixtures, and each fingerprint sample on the page, run as written in a temporary doc type, all
+# fixtures, and each fingerprint sample on the page, run as written in its own sample doc type, all
 # checked against the page. Deterministic: no LLM judge. See scripts/doc-detective/README.md.
 #
 # Runs on pushes to v0 that change the page's tests, its fixtures, or the test tooling, monthly,
