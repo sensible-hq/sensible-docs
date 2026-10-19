@@ -198,14 +198,6 @@ Tests for other document types in the portfolio can hide these errors. For examp
 
 Use the following tips when you define fingerprints.
 
-### When to use chained matches
-
-A [chained match](doc:fingerprint#chained-matches) is stricter than separate matches, because Sensible must find all its lines in order. Use chained matches in the following situations:
-
-- **Portfolio&#x20;**`first`**&#x20;and&#x20;**`last`**&#x20;tests**: a chained match is less likely to classify a page in another document as the first or last page of this one.
-- **Document types with many similar configs**: for example, a document type with many configs for different layouts from the same vendor. A chain of 3–4 lines distinguishes configs whose individual phrases overlap.
-- **Strict&#x20;**[Fingerprint mode](doc:fingerprint-mode): if you use strict mode to avoid extracting documents you haven't written a config for, chained matches make each fingerprint less likely to pass for those documents.
-
 ### Alternate wordings
 
 If a phrase varies slightly from document to document, match its alternate forms with an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, the following fingerprint's `last` test matches `Preparer's name` with either a straight or a curly apostrophe:
