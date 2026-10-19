@@ -129,27 +129,41 @@ def _compare_segments(expected, actual, extraction_id):
         raise CodeTestError(SEGMENTS_DRIFT, f"the page claims {fmt(expected)}, but Sensible returned {fmt(actual)} (extraction {extraction_id})")
 
 
+def _sample_doc_type(client, name, config, config_text, document_url, schema=None):
+    """Recreate a sample doc type, publish its first config, and add the example document as a reference
+    document linked to that config (Sensible needs the config to exist first). Returns (doc type ID,
+    reference name or None, when the example document isn't in this repo)."""
+    import os
+
+    type_id = client.create_sample_doc_type(name, schema)
+    client.publish_config(type_id, config, config_text)
+    pdf = markup.local_pdf(document_url)
+    reference = os.path.splitext(os.path.basename(pdf))[0] if pdf else None
+    if pdf:
+        client.add_reference(type_id, reference, config, pdf)
+    return type_id, reference
+
+
 def _run_samples(rec, test, client, expected):
-    """Portfolio claim from the page's own samples: each sample's config in a temporary doc type,
-    run together as a portfolio. Sensible validates each config on upload, so a sample with invalid
-    syntax fails. The temporary doc types are deleted afterwards."""
-    types, created = {}, []
-    try:
-        for sample in test.inline_configs:
-            name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}__{sample['doc_type']}"
-            if name not in types:
-                types[name] = client.create_temp_doc_type(name)
-                created.append(types[name])
-            client.publish_config(types[name], sample["config"], sample["text"])
-        extraction_id, documents = client.extract_portfolio(test.document_url, list(types), f"ci__{test.test_id}",
-                                                            environment=settings.ENVIRONMENT)
-    finally:
-        for type_id in created:
-            client.delete_temp_doc_type(type_id)
+    """Portfolio claim from the page's own samples: each sample's config in a sample doc type, run
+    together as a portfolio. Sensible validates each config on upload, so a sample with invalid
+    syntax fails. The doc types stay in the test account until the next run, so the report links
+    each config to the SenseML editor."""
+    types, editors = {}, {}
+    for sample in test.inline_configs:
+        name = f"{settings.SAMPLE_DOC_TYPE_PREFIX}{test.test_id}__{sample['doc_type']}"
+        if name not in types:
+            types[name] = _sample_doc_type(client, name, sample["config"], sample["text"], test.document_url)
+        else:
+            client.publish_config(types[name][0], sample["config"], sample["text"])
+        reference = types[name][1]
+        editors[sample["config"]] = markup.editor_url(name, sample["config"], reference)
+    extraction_id, documents = client.extract_portfolio(test.document_url, list(types), f"ci__{test.test_id}",
+                                                        environment=settings.ENVIRONMENT)
     actual = sorted([[d.get("configuration"), d["startPage"] + 1, d["endPage"] + 1] for d in documents], key=lambda d: (d[1], d[2]))
     rec["segments"] = {
         "fixtures": [],
-        "samples": [{"doc_type": s["doc_type"], "config": s["config"]} for s in test.inline_configs],
+        "samples": [{"doc_type": s["doc_type"], "config": s["config"], "editor": editors[s["config"]]} for s in test.inline_configs],
         "document_types": list(types),
         "extraction_id": extraction_id,
         "expected": expected,
@@ -172,28 +186,23 @@ def _run_fingerprint(rec, test, client):
     status = client.document_status(test.document_url)
     if status != 200:
         raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
-    runs, created = [], []
-    try:
-        for n, variant in enumerate([{"break": [], "passes": expect["passes"]}] + expect["variants"]):
-            text = test.config
-            if variant["break"]:
-                broken = copy.deepcopy(config)
-                for i in variant["break"]:
-                    broken["fingerprint"]["tests"][i] = NO_MATCH
-                text = json.dumps(broken, indent=2)
-            name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}" + (f"__v{n}" if n else "")
-            type_id = client.create_temp_doc_type(name, {"fingerprint_mode": "strict"})
-            created.append(type_id)
-            client.publish_config(type_id, test.test_id, text)
-            result = client.extract_standalone(test.document_url, name, f"ci__{test.test_id}" + (f"__v{n}" if n else ""))
-            if result.get("status") == "FAILED" and result.get("errors"):
-                # A failing fingerprint fails with no errors; anything else is a different problem
-                raise CodeTestError(EXTRACTION_ERROR, f"extraction {result.get('id')} failed: {json.dumps(result.get('errors'))[:300]}")
-            passed = result.get("status") == "COMPLETE" and result.get("configuration") == test.test_id
-            runs.append({"break": variant["break"], "expected": variant["passes"], "actual": passed, "extraction_id": result.get("id", "")})
-    finally:
-        for type_id in created:
-            client.delete_temp_doc_type(type_id)
+    runs = []
+    for n, variant in enumerate([{"break": [], "passes": expect["passes"]}] + expect["variants"]):
+        text = test.config
+        if variant["break"]:
+            broken = copy.deepcopy(config)
+            for i in variant["break"]:
+                broken["fingerprint"]["tests"][i] = NO_MATCH
+            text = json.dumps(broken, indent=2)
+        name = f"{settings.SAMPLE_DOC_TYPE_PREFIX}{test.test_id}" + (f"__v{n}" if n else "")
+        _, reference = _sample_doc_type(client, name, test.test_id, text, test.document_url, {"fingerprint_mode": "strict"})
+        result = client.extract_standalone(test.document_url, name, f"ci__{test.test_id}" + (f"__v{n}" if n else ""))
+        if result.get("status") == "FAILED" and result.get("errors"):
+            # A failing fingerprint fails with no errors; anything else is a different problem
+            raise CodeTestError(EXTRACTION_ERROR, f"extraction {result.get('id')} failed: {json.dumps(result.get('errors'))[:300]}")
+        passed = result.get("status") == "COMPLETE" and result.get("configuration") == test.test_id
+        runs.append({"break": variant["break"], "expected": variant["passes"], "actual": passed, "extraction_id": result.get("id", ""),
+                     "editor": markup.editor_url(name, test.test_id, reference)})
     rec["fingerprint"] = {"config": test.test_id, "runs": runs}
     wrong = [r for r in runs if r["actual"] != r["expected"]]
     if wrong:

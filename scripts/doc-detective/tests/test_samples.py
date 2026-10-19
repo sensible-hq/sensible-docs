@@ -1,4 +1,4 @@
-"""Inline fingerprint samples: the page's own configs, run in temporary doc types."""
+"""Inline fingerprint samples: the page's own configs, run in sample doc types that the report links to."""
 
 import json
 import unittest
@@ -100,19 +100,22 @@ class MarkupTest(unittest.TestCase):
 
 
 class SampleClient(FakeClient):
-    """Records temporary doc types; returns scripted portfolio documents and standalone results."""
+    """Records sample doc types and reference documents; returns scripted portfolio documents and standalone results."""
 
     def __init__(self, documents=(), standalone=()):
         super().__init__({})
         self.documents, self.standalone = list(documents), list(standalone)
-        self.types, self.deleted_types, self.published = {}, [], []
+        self.types, self.references, self.published = {}, [], []
 
-    def create_temp_doc_type(self, name, schema=None):
+    def create_sample_doc_type(self, name, schema=None):
         self.types[name] = schema
         return f"id-{name}"
 
-    def delete_temp_doc_type(self, type_id):
-        self.deleted_types.append(type_id)
+    def add_reference(self, type_id, name, config, pdf):
+        # Like Sensible: a reference document needs its config to exist
+        if (type_id, config) not in [(t, c) for t, c, _ in self.published]:
+            raise CodeTestError("CONFIG_INVALID", f"Configuration {config} not found")
+        self.references.append((type_id, name, config, pdf))
 
     def publish_config(self, type_id, name, text):
         self.published.append((type_id, name, text))
@@ -132,28 +135,37 @@ class RunnerTest(unittest.TestCase):
         record.validate(rec)
         return rec
 
-    def test_portfolio_samples_pass_and_clean_up(self):
+    def test_portfolio_samples_pass_with_editor_links(self):
         docs = [{"configuration": "anyco", "startPage": 0, "endPage": 0}, {"configuration": "acme", "startPage": 2, "endPage": 2}]
         client = SampleClient(documents=docs)
         rec = self.run_page(PORTFOLIO, "pf", client)
         self.assertEqual(rec["status"], "pass")
-        self.assertEqual(client.portfolio_types, [f"{settings.TEMP_DOC_TYPE_PREFIX}pf__quotes", f"{settings.TEMP_DOC_TYPE_PREFIX}pf__losses"])
+        quotes = f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__quotes"
+        self.assertEqual(client.portfolio_types, [quotes, f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__losses"])
         self.assertEqual(client.environment, settings.ENVIRONMENT)
-        self.assertEqual(sorted(client.deleted_types), sorted(f"id-{n}" for n in client.types))
         self.assertIn("/* a comment, as on the page */", client.published[0][2])  # uploaded as the page shows it
+        # The example document isn't from this repo, so there's no reference document; the link opens the config
+        self.assertEqual(client.references, [])
+        self.assertEqual(rec["segments"]["samples"][0]["editor"], markup.editor_url(quotes, "anyco"))
+
+    def test_repo_example_document_becomes_the_reference_document(self):
+        url = settings.DOCS_RAW_PREFIX + "assets/pdfs/portfolio.pdf"
+        docs = [{"configuration": "anyco", "startPage": 0, "endPage": 0}, {"configuration": "acme", "startPage": 2, "endPage": 2}]
+        client = SampleClient(documents=docs)
+        rec = self.run_page(PORTFOLIO.replace("https://example.test/p.pdf", url), "pf", client)
+        quotes = f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__quotes"
+        self.assertEqual(client.references[0], (f"id-{quotes}", "portfolio", "anyco", "assets/pdfs/portfolio.pdf"))
+        self.assertEqual(rec["segments"]["samples"][0]["editor"], markup.editor_url(quotes, "anyco", "portfolio"))
 
     def test_portfolio_samples_drift(self):
         rec = self.run_page(PORTFOLIO, "pf", SampleClient(documents=[{"configuration": "anyco", "startPage": 0, "endPage": 2}]))
         self.assertEqual((rec["status"], rec["category"]), ("fail", "SEGMENTS_DRIFT"))
 
-    def test_temp_doc_types_are_deleted_when_the_extraction_fails(self):
-        class Failing(SampleClient):
-            def extract_portfolio(self, *args, **kwargs):
-                raise CodeTestError("EXTRACTION_ERROR", "boom")
-        client = Failing()
-        rec = self.run_page(PORTFOLIO, "pf", client)
-        self.assertEqual(rec["category"], "EXTRACTION_ERROR")
-        self.assertEqual(len(client.deleted_types), 2)
+    def test_local_pdf_only_maps_repo_example_documents(self):
+        self.assertEqual(markup.local_pdf(settings.DOCS_RAW_PREFIX + "assets/pdfs/portfolio.pdf"), "assets/pdfs/portfolio.pdf")
+        for url in ("https://example.test/a.pdf", settings.DOCS_RAW_PREFIX + "assets/pdfs/../../README.md",
+                    settings.DOCS_RAW_PREFIX + "assets/pdfs/no_such_file.pdf"):
+            self.assertIsNone(markup.local_pdf(url), url)
 
     def standalone(self, *outcomes):
         return [{"id": f"e{i}", "status": "COMPLETE", "configuration": "sa"} if ok else {"id": f"e{i}", "status": "FAILED", "errors": []}
@@ -167,7 +179,8 @@ class RunnerTest(unittest.TestCase):
         self.assertTrue(all(schema == {"fingerprint_mode": "strict"} for schema in client.types.values()))
         broken = json.loads(client.published[2][2])["fingerprint"]["tests"]
         self.assertEqual(broken[:2], [runner.NO_MATCH, runner.NO_MATCH])
-        self.assertEqual(len(client.deleted_types), 3)
+        self.assertEqual(sorted(client.types), [f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa", f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v1", f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v2"])
+        self.assertEqual(rec["fingerprint"]["runs"][2]["editor"], markup.editor_url(f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v2", "sa"))
 
     def test_fingerprint_that_passes_when_the_page_says_it_fails(self):
         rec = self.run_page(STANDALONE, "sa", SampleClient(standalone=self.standalone(True, True, True)))
@@ -182,3 +195,16 @@ class RunnerTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReportTest(unittest.TestCase):
+    def test_restored_fixtures_and_editor_links_show_in_the_html_report(self):
+        from codetests.reports import html
+        rec = {"test_id": "t", "status": "warn", "document_url": "https://example.test/p.pdf",
+               "warnings": [{"source": "fixture", "text": "fixture_x: restored fixture from the committed files (config drifted)"}],
+               "segments": {"fixtures": [], "samples": [{"doc_type": "d", "config": "c", "editor": "https://app.sensible.so/editor/?d=x&c=c"}],
+                            "document_types": ["x"], "extraction_id": "e1", "expected": [], "actual": []}}
+        out = html.render_code_test(rec)
+        out = out if isinstance(out, str) else "".join(out)
+        self.assertIn("fixture restored", out)
+        self.assertIn('href="https://app.sensible.so/editor/?d=x&amp;c=c"', out)

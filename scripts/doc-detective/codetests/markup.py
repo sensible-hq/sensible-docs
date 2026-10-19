@@ -98,7 +98,7 @@ class CodeTest:
     document_from: str = ""  # another code test whose document this one reuses
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
     config_shift: int = 0  # lines the wrapper adds above the page's text, for syntax error line numbers
-    # Inline fingerprint samples, each run in its own temporary doc type: [{"doc_type", "config", "text", "line", "shift"}]
+    # Inline fingerprint samples, each run in its own sample doc type: [{"doc_type", "config", "text", "line", "shift"}]
     inline_configs: list = field(default_factory=list)
     segment_documents_with: str = ""  # set: a portfolio extraction, segmented this way (the API parameter)
     fixtures: list = field(default_factory=list)  # fixture names: doc type names in the test account
@@ -430,11 +430,25 @@ def fixture_references(name):
     return refs
 
 
-def editor_url(doctype, config, reference):
-    """The SenseML editor, opened on a fixture's config and reference document."""
+def editor_url(doctype, config, reference=None):
+    """The SenseML editor, opened on a config and (if there is one) a reference document."""
     from urllib.parse import urlencode
 
-    return "https://app.sensible.so/editor/?" + urlencode({"d": doctype, "c": config, "g": reference})
+    params = {"d": doctype, "c": config, **({"g": reference} if reference else {})}
+    return "https://app.sensible.so/editor/?" + urlencode(params)
+
+
+def local_pdf(url):
+    """The repo path of an example document linked from this repo's v0 branch, or None."""
+    import os
+
+    if not url.startswith(settings.DOCS_RAW_PREFIX):
+        return None
+    path = url[len(settings.DOCS_RAW_PREFIX):]
+    full = os.path.realpath(os.path.join(settings.REPO_ROOT, path))
+    if not full.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not os.path.isfile(full):
+        return None
+    return path
 
 
 TABLE_TAG_RE = re.compile(r"<!--\s*table\s+(\{.*?\})\s*-->", re.S)

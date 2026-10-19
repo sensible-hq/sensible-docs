@@ -224,33 +224,37 @@ def render_code_test(record):
             return f"<code>{e(name)}</code>{editor}"
 
         if seg.get("samples"):
-            what = ", ".join(f"<code>{e(x['config'])}</code> (doc type <code>{e(x['doc_type'])}</code>)" for x in seg["samples"])
-            out.append(f'<p class="muted">The page\'s own samples: {what}, each run in a temporary doc type. '
-                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+            def sample(x):
+                editor = f' (<a href="{e(x["editor"])}">open in the SenseML editor</a>)' if x.get("editor") else ""
+                return f"<code>{e(x['config'])}</code>{editor}"
+            out.append(f'<p class="muted">The page\'s own samples: {", ".join(sample(x) for x in seg["samples"])}, each in its own doc type '
+                       f'(kept in the test account until the next run). Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
         else:
             out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
                        f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
-
-    fp = record.get("fingerprint")
-    if fp:
-        out.append("<h3>Fingerprint, strict mode</h3>")
-        out.append('<p class="muted">In strict fingerprint mode, Sensible runs the config only if its fingerprint passes. '
-                   'Each row runs the page\'s config, as written or with tests replaced by a match no document has. No LLM, so no judge and no envelope.</p>')
-        out.append("<table><tr><th>Config</th><th>Page claims</th><th>Sensible</th><th>Extraction</th></tr>")
-        for run in fp["runs"]:
-            which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken (0-based)"
-            verdict = lambda passed: "passes" if passed else "fails"
-            ok = "pass" if run["actual"] == run["expected"] else "fail"
-            link = f"https://app.sensible.so/extraction/?e={run['extraction_id']}"
-            out.append(f'<tr><td>{e(which)}</td><td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
-                       f'<td><a href="{e(link)}">{e(run["extraction_id"][:8])}…</a></td></tr>')
-        out.append("</table>")
         restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
         if restored:
             out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
                        'so the runner restored it before the run. Check whether someone edited it in the app:</p><ul>')
             out += [f"<li><code>{e(r)}</code></li>" for r in restored]
             out.append("</ul>")
+
+    fp = record.get("fingerprint")
+    if fp:
+        out.append("<h3>Fingerprint, strict mode</h3>")
+        out.append('<p class="muted">In strict fingerprint mode, Sensible runs the config only if its fingerprint passes. '
+                   'Each row runs the page\'s config, as written or with tests replaced by a match no document has; '
+                   'the Config column opens each one in the SenseML editor. No LLM, so no judge and no envelope.</p>')
+        out.append("<table><tr><th>Config</th><th>Page claims</th><th>Sensible</th><th>Extraction</th></tr>")
+        for run in fp["runs"]:
+            which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken (0-based)"
+            verdict = lambda passed: "passes" if passed else "fails"
+            ok = "pass" if run["actual"] == run["expected"] else "fail"
+            link = f"https://app.sensible.so/extraction/?e={run['extraction_id']}"
+            config = f'<a href="{e(run["editor"])}">{e(which)}</a>' if run.get("editor") else e(which)
+            out.append(f'<tr><td>{config}</td><td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
+                       f'<td><a href="{e(link)}">{e(run["extraction_id"][:8])}…</a></td></tr>')
+        out.append("</table>")
 
     layout = record.get("layout")
     if layout:

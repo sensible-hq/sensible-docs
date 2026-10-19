@@ -116,7 +116,7 @@ These comparisons are exact: fingerprinting uses no LLM, so there's no judge and
 
 ### Fingerprint samples (the page's own code blocks)
 
-To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **temporary doc type** named `docs_ci_tmp_<testId>…`, published to development, and deletes the doc type after the test. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`.
+To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **sample doc type** named `docs_ci_sample_<testId>…`, published to development. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`. Each run deletes and recreates the sample doc types, so they always match the page, and they stay in the test account between runs, so the report links each config to the SenseML editor. If the example document is in this repo (a `raw.githubusercontent.com/.../v0/assets/pdfs/` link), the runner also uploads it as the doc type's reference document, so the editor opens on it.
 
 **Portfolio samples:** give each sample's `inline config` a `doc_type` and a `config` name. Samples with the same `doc_type` share a doc type. All the doc types run together as one fingerprint-segmented portfolio:
 

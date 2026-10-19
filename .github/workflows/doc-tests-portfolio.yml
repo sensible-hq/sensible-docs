@@ -1,5 +1,5 @@
 # Runs the code tests in the Portfolios page (portfolio.md): the fingerprint example's two samples,
-# each run as written in a temporary doc type, as a fingerprint-segmented portfolio extraction,
+# each run as written in its own sample doc type, as a fingerprint-segmented portfolio extraction,
 # checked against the documents in the page's example response. Deterministic: no LLM judge.
 # See scripts/doc-detective/README.md.
 #
@@ -29,7 +29,7 @@ on:
   schedule:
     - cron: "45 15 1 * *"
 
-# The tests' temporary doc types are named for them, so runs of this workflow must not overlap.
+# The tests' sample doc types are named for them, so runs of this workflow must not overlap.
 concurrency:
   group: doc-tests-portfolio
   cancel-in-progress: false

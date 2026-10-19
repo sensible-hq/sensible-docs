@@ -14,6 +14,7 @@ def summary(record):
         lines.append(f"{record['test_id']}: portfolio segments (fingerprints, compared exactly)" + (f", table {seg.get('table')} row {seg['row']}" if seg.get("row") else ""))
         if seg.get("samples"):
             lines.append(f"  Samples: {', '.join(x['config'] for x in seg['samples'])}  (extraction {seg['extraction_id']})")
+            lines += [f"  Editor: {x['editor']}" for x in seg["samples"] if x.get("editor")]
         else:
             lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
         lines += [f"  Editor: {x['url']}" for x in seg.get("editors", [])]
@@ -26,6 +27,8 @@ def summary(record):
         for run in fp["runs"]:
             which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken"
             lines.append(f"  {which}: page claims {'passes' if run['expected'] else 'fails'}; Sensible {'passed' if run['actual'] else 'failed'}  (extraction {run['extraction_id']})")
+            if run.get("editor"):
+                lines.append(f"    Editor: {run['editor']}")
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]
