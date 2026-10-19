@@ -111,6 +111,16 @@ Added 2026-10-19 from competitor analysis
 - [ ] Decide whether to add confidence, human review, preprocessors, webhook tutorial, library
       quickstart to the 20 pages (competitors target these topics)
 - [ ] Verify Sensible supports password-protected PDFs before using that phrase
+- [ ] Evaluate rewriting our most relevant topics for SEO/GEO in the first ~150 words and in
+      descriptions (excerpts, which feed `metadata.description` and `llms.txt`). Model to study
+      (NOT a competitor): https://docs.payabli.com/llms.txt. User's view: Payabli shows strong
+      discipline around (1) highly relevant first ~150 words on each page and (2) good per-page
+      descriptions in llms.txt. Observed 2026-10-19: llms.txt opens with a one-paragraph product
+      summary, a "Documentation sections" list, and a "Choose your path" section grouped by
+      audience, with short task-focused link descriptions (e.g. "Developer quickstart — Make your
+      first API call"); ~260 links. They also have a top-level "Cookbooks" section ("Short, focused
+      API recipes for common tasks"), which is relevant to the 'cookbook' keyword idea for the
+      config library page.
 - [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
       (b) how do we enable `agentSearch` / `projectSearch`?
 - [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
