@@ -1,11 +1,16 @@
 ---
 title: Table methods
-excerpt: Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and Text Table, including supported features like merged cells and checkboxes.
+excerpt: >-
+  Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and
+  Text Table, including supported features like merged cells and checkboxes.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and Text Table, including supported features like merged cells and checkboxes.
+  description: >-
+    Compare Sensible's three table extraction methods, NLP Table, Fixed Table,
+    and Text Table, including supported features like merged cells and
+    checkboxes.
   robots: index
 next:
   description: ''
@@ -14,11 +19,11 @@ You can choose from among the following options for extracting tables:
 
 ### Overview of table methods
 
-| method      | based on                     | description                                                | comments                                                   |
-| ----------- | ---------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| NLP Table   | large language models (LLM)s | Extracts a table based on your prompt to an LLM.           | Low code, doesn't require an anchor. Slowest table method. |
-| Fixed Table | layout                       | Extracts tables with a fixed number and layout of columns. | Faster than NLP Table method.                              |
-| Text Table  | layout                       | Extracts tables based on column coordinates in inches.     | Fastest table method.                                      |
+| method                         | based on                     | description                                                | comments                                                   |
+| ------------------------------ | ---------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| [NLP Table](doc:nlp-table)     | large language models (LLM)s | Extracts a table based on your prompt to an LLM.           | Low code, doesn't require an anchor. Slowest table method. |
+| [Fixed table](doc:fixed-table) | layout                       | Extracts tables with a fixed number and layout of columns. | Faster than NLP Table method.                              |
+| [Text table](doc:text-table)   | layout                       | Extracts tables based on column coordinates in inches.     | Fastest table method.                                      |
 
 ### Features supported
 
