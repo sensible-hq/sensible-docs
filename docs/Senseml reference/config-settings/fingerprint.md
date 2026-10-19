@@ -208,7 +208,7 @@ A [chained match](doc:fingerprint#chained-matches) is stricter than separate mat
 
 ### Alternate wordings
 
-If a phrase can vary slightly from document to document, for example because of OCR, match its alternate forms with an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, OCR can read the apostrophe on a tax return's last page as straight or curly, so the page can say `Preparer's name` or `Preparer’s name`. To match either form, specify one test with a `last` page type and a match that contains both forms as follows:
+If a phrase varies slightly from document to document, match its alternate forms with an `any` [Boolean match](doc:match#boolean-matches) in a single test. For example, the following fingerprint's `last` test matches `Preparer's name` with either a straight or a curly apostrophe:
 
 <!-- code test {"testId": "alternate_wordings_any_match", "segment_documents_with": "fingerprints", "description": "The alternate wordings fingerprint finds the tax return in the example portfolio"} -->
 <!-- inline config {"fragment": "fingerprint", "doc_type": "tax_returns", "config": "form_1040"} -->
@@ -248,6 +248,8 @@ If a phrase can vary slightly from document to document, for example because of 
   ]
 }
 ```
+
+**Note:** This example illustrates the syntax and isn't realistic. In production, don't fingerprint on text that OCR may read unreliably, such as apostrophes and other punctuation. Choose other text instead.
 
 In the following example portfolio, the fingerprint classifies pages 1–2 as a tax return:
 
