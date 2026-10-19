@@ -122,7 +122,7 @@ Added 2026-10-19 from competitor analysis
       closest Sensible page, borrowable phrases
 - [ ] Decide whether to add confidence, human review, preprocessors, webhook tutorial, library
       quickstart to the 20 pages (competitors target these topics)
-- [ ] Verify Sensible supports password-protected PDFs before using that phrase
+- [x] Password-protected PDFs: not supported per user (2026-10-19); phrase dropped
 - [ ] Evaluate rewriting our most relevant topics for SEO/GEO in the first ~150 words and in
       descriptions (excerpts, which feed `metadata.description` and `llms.txt`). Model to study
       (NOT a competitor): https://docs.payabli.com/llms.txt. User's view: Payabli shows strong
