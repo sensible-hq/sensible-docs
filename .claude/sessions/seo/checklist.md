@@ -134,6 +134,17 @@ Added 2026-10-19 from competitor analysis
       first API call"); ~260 links. They also have a top-level "Cookbooks" section ("Short, focused
       API recipes for common tasks"), which is relevant to the 'cookbook' keyword idea for the
       config library page.
+- [ ] Evaluate the `ui-docs` branch (PR #660, worktree `~/GitHub/sensible-docs-ui-docs`, last
+      commit 2026-08-12) for material to rework method docs, especially their first ~150 words.
+      Contents: `assets/ai/mini-pages/box.md` and `intersection.md` (short-form method pages:
+      plain-language description, annotated syntax example, link to full docs),
+      `assets/ai/senseml-descriptions.json` (task-focused one-liners per method and per parameter
+      for box, intersection, checkbox, nearestCheckbox), plus a session checklist and friction log
+      under `.claude/sessions/2026-08-10-ui-hover-descriptions/`. Promising: the Intersection
+      mini-page opens with "Finds and extracts the value at the point where a row and a column
+      cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
+      when a table has unpredictably empty cells", which already hits #10's target phrases (table
+      cell lookup, empty table cells) better than the live page's opening.
 - [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
       (b) how do we enable `agentSearch` / `projectSearch`?
 - [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
