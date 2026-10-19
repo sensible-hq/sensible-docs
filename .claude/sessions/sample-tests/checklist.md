@@ -12,7 +12,7 @@ Goal: test the inline fingerprint samples in fingerprint.md and portfolio.md, so
 ## Verified before writing (scratch doc types, deleted)
 Phrases checked against Sensible's lines (`POST /extract_text_from_golden`), then run:
 - Alternate wordings: first "U.S. Individual Income Tax Return"; last `any` of "Preparer's name" (straight apostrophe, as in the document) / "Preparer’s name" (curly, as OCR can read it) → pages 1–2 (portfolio_bank_paystub_tax.pdf). Rewritten 2026-10-19 (Frances): the first version used the form's revision years (2020 / 2021), but separate revisions belong in separate configs, so the sample is now one phrase in two OCR forms.
-- AVOID: separate every tests "August 11, 2021" + "Page" (case-sensitive) → pages 2–7 (pulls in tax return p2). ALT ONE (flat) and ALT TWO (chained) → pages 3–7.
+- AVOID / ALT ONE / ALT TWO (rewritten 2026-10-19, Frances: the date was a poor fingerprint; use phrases about the content). No phrase about the content is on every statement page (only the date and "Page N of 7"), so the samples use first + last tests instead of every: first "Wells Fargo" (distinctive) and "Account" (generic, case-sensitive: also on tax return p2, "Account number" in the refund section); last "Minimum daily balance" (statement p7 only). AVOID → [2,2] and [3,7] (tax return p2 becomes a separate bank statement); ALT ONE (flat) and ALT TWO (chained: "Account options" is 21 lines after "Wells Fargo" on p3) → [3,7].
 - Wells Fargo standalone (new `assets/pdfs/wells_fargo_checking.pdf` = portfolio pp. 3–7), strict mode: 3/3 runs; 2/3 runs; 1/3 → FAILED, errors [].
 - Note: "Form 1040 (2020) Page 2" is not one line in Sensible's text ("Form 1040 (2020)" / "Page" / "2"), so fixture_fp_demo_any_alternate's second wording never matched.
 

@@ -280,7 +280,7 @@ Unless the document contains highly unusual, characteristic text, put related ma
 
 The following examples are fingerprints for the bank statement in this example portfolio, which contains a tax return on pages 1–2, a bank statement on pages 3–7, and a pay stub on page 8:
 
-<!-- code test {"testId": "prefer_match_arrays_avoid", "segment_documents_with": "fingerprints", "description": "The AVOID fingerprint also classifies page 2 of the tax return, which contains \"Page\""} -->
+<!-- code test {"testId": "prefer_match_arrays_avoid", "segment_documents_with": "fingerprints", "description": "The AVOID fingerprint also classifies page 2 of the tax return, which contains \"Account\", as a bank statement"} -->
 <!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_bank_paystub_tax.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -292,23 +292,34 @@ For example, don't write the following:
 /* AVOID THIS SYNTAX */
 "fingerprint": {
   "tests": [
-    /* Each test contains a single match, so Sensible scores each
+    /* Each first-page test contains a single match, so Sensible scores each
        phrase independently instead of requiring the phrases together */
     {
-      "page": "every",
+      "page": "first",
       "match": [
         {
-          "text": "August 11, 2021", /* distinctive phrase: the statement date, on every page of the statement */
+          "text": "Wells Fargo", /* distinctive phrase */
           "type": "includes",
           "isCaseSensitive": true
         }
       ]
     },
     {
-      "page": "every",
+      "page": "first",
       "match": [
         {
-          "text": "Page", /* generic phrase. On its own, it can match pages in unrelated documents */
+          "text": "Account", /* generic phrase. On its own, it can match pages in unrelated documents */
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
+    },
+    {
+      /* the statement's last page */
+      "page": "last",
+      "match": [
+        {
+          "text": "Minimum daily balance",
           "type": "includes",
           "isCaseSensitive": true
         }
@@ -318,7 +329,7 @@ For example, don't write the following:
 }
 ```
 
-<!-- expect {"compare": "documents", "documents": [["avoid", 2, 7]]} -->
+<!-- expect {"compare": "documents", "documents": [["avoid", 2, 2], ["avoid", 3, 7]]} -->
 <!-- code test end -->
 
 Instead, use one of the following alternatives:
@@ -329,23 +340,34 @@ Instead, use one of the following alternatives:
 ```json
 /* ALTERNATIVE ONE for portfolios: less strict */
 "fingerprint": {
-       /* one test that contains an unordered match array, so the array succeeds if the matches are on the same page  */
   "tests": [
+    /* one first-page test that contains an unordered match array, so the array succeeds if the matches are on the same page */
     {
-      "page": "every",
+      "page": "first",
       "match": [
         /* flat array: In a flat array ("match": [ ]), Sensible searches for each element independently, so the lines can occur in any order on the page, and more than one element can match the same line. They must all occur on the same page to classify the page type. If this fingerprint runs in a standalone-document extraction, Sensible scores each element as one match. For more information, see Fingerprint scoring */
-          {
-            "text": "August 11, 2021",
-            "type": "includes",
-            "isCaseSensitive": true
-          },
-          {
-            "text": "Page",
-            "type": "includes",
-            "isCaseSensitive": true
-          }
-        ]   
+        {
+          "text": "Wells Fargo",
+          "type": "includes",
+          "isCaseSensitive": true
+        },
+        {
+          "text": "Account",
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
+    },
+    {
+      /* the statement's last page */
+      "page": "last",
+      "match": [
+        {
+          "text": "Minimum daily balance",
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
     }
   ]
 }
@@ -363,22 +385,33 @@ or, for stricter syntax:
 /* ALTERNATIVE TWO for portfolios: stricter */
 "fingerprint": {
   "tests": [
-    /* one test that contains a chained match array, so the array succeeds if the matches are on the same page, with additional criteria */
+    /* one first-page test that contains a chained match array, so the array succeeds if the matches are on the same page, with additional criteria */
     {
-      "page": "every",
+      "page": "first",
       "match": [[
         /* In a test's match parameter, a nested array ("match": [[ ]]) is a chained match: each element matches a separate line, and Sensible must find the lines in the same order as in the array. Sensible scores the whole chained match as one match. */
-          {
-            "text": "August 11, 2021",
-            "type": "includes",
-            "isCaseSensitive": true
-          },
-          {
-            "text": "Page",
-            "type": "includes",
-            "isCaseSensitive": true
-          }
-        ]]
+        {
+          "text": "Wells Fargo",
+          "type": "includes",
+          "isCaseSensitive": true
+        },
+        {
+          "text": "Account",
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]]
+    },
+    {
+      /* the statement's last page */
+      "page": "last",
+      "match": [
+        {
+          "text": "Minimum daily balance",
+          "type": "includes",
+          "isCaseSensitive": true
+        }
+      ]
     }
   ]
 }
@@ -387,4 +420,4 @@ or, for stricter syntax:
 <!-- expect {"compare": "documents", "documents": [["alternative_two", 3, 7]]} -->
 <!-- code test end -->
 
-In the example portfolio, both alternatives classify pages 3–7 as the bank statement. The fingerprint to avoid classifies pages 2–7, because its generic single-match test passes on page 2 of the tax return, which contains `Page`.
+In the example portfolio, both alternatives classify pages 3–7 as the bank statement. The fingerprint to avoid also classifies page 2 of the tax return as a separate bank statement, because its generic single-match test finds `Account` in the tax return's refund section.
