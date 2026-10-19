@@ -33,7 +33,7 @@
 | 22 | Human review<br>`monitor and qa/human-review.md` | human-in-the-loop *, HITL *, manual review *, review queue *, review screen *, correct extracted data *, approve or reject | human-in-the-loop; HITL; manual review |
 | 23 | Preprocessors<br>`Senseml reference/preprocessors/index.md` | preprocessing options *, image pre-processing *, document cleanup *, rotate pages *, remove headers and footers *, multi-column layout *, deskew, page range | preprocessing options; image pre-processing; document cleanup |
 | 24 | Try a webhook<br>`api/api-tutorial/api-tutorial-webhook.md` | webhook URL *, callback URL *, webhook tutorial *, push notification *, webhook payload, asynchronous extraction, polling | webhook URL; callback URL; webhook payload |
-| 25 | Out-of-the-box extractions<br>`document extraction/library-quickstart.md` | prebuilt models *, pre-built templates *, document templates *, bank statement extraction *, pay stub extraction *, tax form extraction *, configuration library | prebuilt models; pre-built templates; bank statement extraction |
+| 25 | Out-of-the-box extractions<br>`document extraction/library-quickstart.md` | prebuilt models *, pre-built templates *, document templates *, bank statement extraction *, pay stub extraction *, tax form extraction *, configuration library, cookbook * | prebuilt models; pre-built templates; bank statement extraction |
 
 ## Weak candidates (consider cutting)
 
