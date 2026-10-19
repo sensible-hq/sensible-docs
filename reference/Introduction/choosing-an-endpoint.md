@@ -14,8 +14,6 @@ metadata:
 next:
   description: ''
 ---
-Welcome to Sensible. If you have any questions, reach out by chat or [support@sensible.so](mailto:support@sensible.so) for help.
-
 To get started, see the following endpoints for extracting structured data from documents. Or, see other [integration](doc:integrate)  options including the Sensible [SDKs](doc:sdk-guides) .
 
 <Table align={["left","left","left"]}>
