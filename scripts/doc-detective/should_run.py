@@ -28,6 +28,12 @@ from codetests import markup  # noqa: E402
 IGNORED = {"file", "line", "config_line", "output_line", "output_span", "description"}
 
 
+def _code_spec(test):
+    out = {k: v for k, v in dataclasses.asdict(test).items() if k not in IGNORED}
+    out["inline_configs"] = [{k: v for k, v in c.items() if k != "line"} for c in test.inline_configs]
+    return out
+
+
 def spec(path):
     """What the page's tests run, in a comparable form."""
     page = markup.parse_page(path)
@@ -39,7 +45,7 @@ def spec(path):
     return {
         "ui": [(t.test_id, t.steps) for t in page.ui_tests],
         "ui_markup": [m.group(0) for m in markup.UI_TEST_RE.finditer(text)],
-        "code": [{k: v for k, v in dataclasses.asdict(t).items() if k not in IGNORED} for t in page.code_tests.values()],
+        "code": [_code_spec(t) for t in page.code_tests.values()],
         "tables": tables,
     }
 

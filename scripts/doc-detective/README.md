@@ -114,6 +114,45 @@ For a claim about how fingerprints segment a portfolio, a code test runs a priva
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
 
+### Fingerprint samples (the page's own code blocks)
+
+To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **temporary doc type** named `docs_ci_tmp_<testId>…`, published to development, and deletes the doc type after the test. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`.
+
+**Portfolio samples:** give each sample's `inline config` a `doc_type` and a `config` name. Samples with the same `doc_type` share a doc type. All the doc types run together as one fingerprint-segmented portfolio:
+
+````markdown
+<!-- code test {"testId": "fingerprint_example_portfolio", "segment_documents_with": "fingerprints"} -->
+<!-- inline config {"fragment": "fingerprint", "doc_type": "auto_insurance_quotes", "config": "anyco"} -->
+```json
+"fingerprint": { ... },
+```
+<!-- inline config {"fragment": "fingerprint", "doc_type": "loss_run_reports", "config": "acme"} -->
+...
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/.../portfolio.pdf) |
+<!-- inline output -->
+```json
+{ ..., "documents": [{"configuration": "anyco", "startPage": 0, "endPage": 0, ...}, ...] }
+```
+<!-- expect {"compare": "documents"} -->
+<!-- code test end -->
+````
+
+`expect`'s `documents` work as for fixtures, with the samples' `config` names. Leave `documents` out to check the documents in the page's example response instead (an `inline output` with a `documents` list: each item's `configuration`, `startPage`, and `endPage`, 0-based as the API returns them).
+
+**Standalone samples:** `expect {"compare": "fingerprint"}` runs one `inline config` (a whole config, or a `"fingerprint"` fragment) as a standalone extraction in a doc type with strict [fingerprint mode](https://docs.sensible.so/docs/fingerprint-mode), where Sensible runs a config only if its fingerprint passes. `passes` is the page's claim. Each of `variants` reruns the config with the listed tests (0-based indexes into `fingerprint.tests`) replaced by a match no document has, so you can test a scoring claim, such as "if 2 out of 3 pass, the config passes":
+
+```markdown
+<!-- expect {"compare": "fingerprint", "passes": true, "variants": [{"break": [0], "passes": true}, {"break": [0, 1], "passes": false}]} -->
+```
+
+The config as written and each variant is one extraction. A mismatch fails as `FINGERPRINT_DRIFT`.
+
+| Marker or option | Meaning |
+| --- | --- |
+| `<!-- inline config {"fragment": "fingerprint"} -->` | The next code block is a `"fingerprint": { ... },` excerpt. It runs wrapped in `{ "fingerprint": { ... }, "fields": [] }`. |
+| `<!-- inline config {..., "doc_type": "...", "config": "..."} -->` | One of a portfolio test's samples: the doc type and config name it runs as (lowercase letters, digits, underscores). Repeatable. |
+
 **Tables of claims:** tag the table with one comment, and check it with one table test that has a row entry for each table row, in order (like a Doc Detective test and its steps). The table itself has no other markers, so readers see it unchanged:
 
 ```markdown
@@ -173,6 +212,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 | `EXTRACTION_ERROR` | The extraction didn't complete, or used the wrong config. |
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
 | `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
+| `FINGERPRINT_DRIFT` | A standalone fingerprint sample passed when the page claims it fails, or the reverse. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
@@ -223,7 +263,9 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
 
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
+`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. It runs 12 extractions: 5 table rows, 4 portfolio samples, and 3 strict-mode runs of the standalone sample.
+
+`.github/workflows/doc-tests-portfolio.yml` runs the Portfolios page's fingerprint example the same way (1 portfolio extraction; monthly on the 1st, 15:45 UTC). Its failures go to a standing issue labeled `doc-tests-portfolio`. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
 
 ## Fixtures
 

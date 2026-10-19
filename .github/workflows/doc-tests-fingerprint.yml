@@ -1,6 +1,7 @@
 # Runs the code tests in the Fingerprint page (fingerprint.md): each row of its portfolio
 # troubleshooting table, run as a fingerprint-segmented portfolio extraction of committed test
-# fixtures, checked against the page. Deterministic: no LLM judge. See scripts/doc-detective/README.md.
+# fixtures, and each fingerprint sample on the page, run as written in a temporary doc type, all
+# checked against the page. Deterministic: no LLM judge. See scripts/doc-detective/README.md.
 #
 # Runs on pushes to v0 that change the page's tests, its fixtures, or the test tooling, monthly,
 # and on demand; not on PRs. A push that changes only the page's prose (for example, a ReadMe
@@ -21,6 +22,7 @@ on:
       - "docs/Senseml reference/config-settings/fingerprint.md"
       - "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**"
       - "assets/pdfs/portfolio_bank_paystub_tax.pdf"
+      - "assets/pdfs/wells_fargo_checking.pdf"
       - "scripts/doc-detective/**"
       - ".github/workflows/doc-tests-fingerprint.yml"
   workflow_dispatch:
@@ -65,7 +67,7 @@ jobs:
           python3 scripts/doc-detective/should_run.py --page "docs/Senseml reference/config-settings/fingerprint.md" \
             --before "$BEFORE" --after "$GITHUB_SHA" \
             --watch "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**" \
-              "assets/pdfs/portfolio_bank_paystub_tax.pdf" "scripts/doc-detective/**" ".github/workflows/doc-tests-fingerprint.yml" \
+              "assets/pdfs/portfolio_bank_paystub_tax.pdf" "assets/pdfs/wells_fargo_checking.pdf" "scripts/doc-detective/**" ".github/workflows/doc-tests-fingerprint.yml" \
             >> "$GITHUB_OUTPUT" 2> "$RUNNER_TEMP/reason.txt"
           cat "$RUNNER_TEMP/reason.txt"
           { echo "## Docs tests"; echo; cat "$RUNNER_TEMP/reason.txt"; } >> "$GITHUB_STEP_SUMMARY"
@@ -74,7 +76,7 @@ jobs:
     needs: changes
     if: needs.changes.outputs.run == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
 
     steps:
       # Actions are pinned to commit SHAs, since this job holds the test account's API key.
@@ -104,11 +106,11 @@ jobs:
       # Keep this list in step with scripts/doc-detective/config/secrets.txt, which run.sh scrubs.
       # DOC_TESTS_MONTHLY_BUDGET (repo variable, optional): the report shows usage against it.
       # A step timeout fails this step, so the issue still opens; a job timeout would skip that.
-      # Keep it above 5 portfolio extractions x extract_portfolio's 240-second timeout.
+      # 12 extractions (5 table rows, 4 portfolio samples, 3 strict-mode runs); each usually takes under a minute.
       - name: Run tests
         id: tests
         continue-on-error: true
-        timeout-minutes: 24
+        timeout-minutes: 30
         run: scripts/doc-detective/run.sh "docs/Senseml reference/config-settings/fingerprint.md"
         env:
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
