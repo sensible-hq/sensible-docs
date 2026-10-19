@@ -116,7 +116,13 @@ These comparisons are exact: fingerprinting uses no LLM, so there's no judge and
 
 ### Fingerprint samples (the page's own code blocks)
 
-To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **sample doc type** named `docs_ci_sample_<testId>…`, published to development. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`. Each run deletes and recreates the sample doc types, so they always match the page, and they stay in the test account between runs, so the report links each config to the SenseML editor. If the example document is in this repo (a `raw.githubusercontent.com/.../v0/assets/pdfs/` link), the runner also uploads it as the doc type's reference document, so the editor opens on it.
+To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **sample doc type** named `docs_ci_sample_<page>__<testId>…`, published to development. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`. If the example document is in this repo (a `raw.githubusercontent.com/.../v0/assets/pdfs/` link), the runner also uploads it as the doc type's reference document, so the editor opens on it.
+
+**Sample doc types are replaced, not kept:**
+
+- **Replaced on each run.** Every run of a test deletes its sample doc types and recreates them from the page's current samples, so they always match the page.
+- **Kept until then,** so the report can link each config to the SenseML editor. Because the names don't change between runs, an older report's editor links show the latest run's configs. For exactly what a run ran, use its extraction link (extraction history is permanent), or the page at the run's commit.
+- **Orphans are deleted.** After each page run, `code_tests.py` deletes that page's sample doc types that no test on the page uses any more, for example after you rename or remove a test. It only touches names with that page's prefix (`docs_ci_sample_<page>__`), and `--keep` skips it.
 
 **Portfolio samples:** give each sample's `inline config` a `doc_type` and a `config` name. Samples with the same `doc_type` share a doc type. All the doc types run together as one fingerprint-segmented portfolio:
 

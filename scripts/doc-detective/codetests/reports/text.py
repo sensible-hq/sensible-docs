@@ -15,6 +15,7 @@ def summary(record):
         if seg.get("samples"):
             lines.append(f"  Samples: {', '.join(x['config'] for x in seg['samples'])}  (extraction {seg['extraction_id']})")
             lines += [f"  Editor: {x['editor']}" for x in seg["samples"] if x.get("editor")]
+            lines.append("  (Editor links show the latest run's configs: each run deletes and recreates the sample doc types.)")
         else:
             lines.append(f"  Fixtures: {', '.join(seg['fixtures'])}  (extraction {seg['extraction_id']})")
         lines += [f"  Editor: {x['url']}" for x in seg.get("editors", [])]

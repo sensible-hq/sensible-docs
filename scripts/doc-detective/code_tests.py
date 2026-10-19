@@ -96,6 +96,7 @@ def main():
             failed += rec["status"] == "fail"
     finally:
         cleanup(args, client)
+        cleanup_samples(args, page, client)
         usage.save_run(client.counts)
     return 1 if failed else 0
 
@@ -111,6 +112,22 @@ def cleanup(args, client):
             print(f"Deleted document type {settings.DOC_TYPE}")
     except Exception as e:  # noqa: BLE001
         print(settings.redact(f"WARN couldn't delete document type {settings.DOC_TYPE}: {type(e).__name__}: {e}"), file=sys.stderr)
+
+
+def cleanup_samples(args, page, client):
+    """Delete this page's sample doc types that no test on the page uses any more (a test removed or
+    renamed). Uses every test on the page, not only the ones this run selected. Never fails the run."""
+    if args.keep:
+        return
+    prefix = runner.sample_prefix(page.path)
+    wanted = {name for test in page.code_tests.values() for name in runner.sample_doc_types(test)}
+    try:
+        for doc_type in list(client.document_types()):
+            if doc_type["name"].startswith(prefix) and doc_type["name"] not in wanted:
+                client.delete_sample_doc_type(doc_type["id"])
+                print(f"Deleted sample doc type {doc_type['name']}: no test on the page uses it")
+    except Exception as e:  # noqa: BLE001
+        print(settings.redact(f"WARN couldn't clean up sample doc types: {type(e).__name__}: {e}"), file=sys.stderr)
 
 
 def check_fixtures(selected, client):

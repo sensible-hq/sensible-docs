@@ -185,6 +185,10 @@ def needs_attention(record):
     return record.get("status") != "pass" or judged(record) or record.get("envelope", {}).get("status", "within") != "within"
 
 
+# Sample doc types keep their names from run to run, so an older report's editor links show newer configs
+SAMPLE_LINKS_NOTE = ("Each run deletes and recreates these doc types with the page's current samples, so the editor links show the latest run's configs. For exactly what this run ran, see its extraction.")
+
+
 def render_code_test(record):
     env_status = record.get("envelope", {}).get("status")
     badges = (JUDGE if judged(record) else "") + (f' {ENVELOPE} <span class="chip warn">{e(env_status)}</span>' if env_status and env_status != "within" else "")
@@ -227,8 +231,9 @@ def render_code_test(record):
             def sample(x):
                 editor = f' (<a href="{e(x["editor"])}">open in the SenseML editor</a>)' if x.get("editor") else ""
                 return f"<code>{e(x['config'])}</code>{editor}"
-            out.append(f'<p class="muted">The page\'s own samples: {", ".join(sample(x) for x in seg["samples"])}, each in its own doc type '
-                       f'(kept in the test account until the next run). Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+            out.append(f'<p class="muted">The page\'s own samples: {", ".join(sample(x) for x in seg["samples"])}, each in its own doc type. '
+                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+            out.append(f'<p class="muted">{e(SAMPLE_LINKS_NOTE)}</p>')
         else:
             out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
                        f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
@@ -245,6 +250,7 @@ def render_code_test(record):
         out.append('<p class="muted">In strict fingerprint mode, Sensible runs the config only if its fingerprint passes. '
                    'Each row runs the page\'s config, as written or with tests replaced by a match no document has; '
                    'the Config column opens each one in the SenseML editor. No LLM, so no judge and no envelope.</p>')
+        out.append(f'<p class="muted">{e(SAMPLE_LINKS_NOTE)}</p>')
         out.append("<table><tr><th>Config</th><th>Page claims</th><th>Sensible</th><th>Extraction</th></tr>")
         for run in fp["runs"]:
             which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken (0-based)"

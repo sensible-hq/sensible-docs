@@ -129,6 +129,29 @@ def _compare_segments(expected, actual, extraction_id):
         raise CodeTestError(SEGMENTS_DRIFT, f"the page claims {fmt(expected)}, but Sensible returned {fmt(actual)} (extraction {extraction_id})")
 
 
+def page_slug(path):
+    """A doc type name part for a page: its file name, lowercase, with other characters as underscores."""
+    import re
+
+    return re.sub(r"[^a-z0-9]+", "_", os.path.splitext(os.path.basename(path))[0].lower()).strip("_")
+
+
+def sample_prefix(path):
+    """The name prefix of a page's sample doc types, so cleanup only touches this page's."""
+    return f"{settings.SAMPLE_DOC_TYPE_PREFIX}{page_slug(path)}__"
+
+
+def sample_doc_types(test):
+    """The sample doc type names a test runs in, in order: one per portfolio sample doc type, or one
+    for a fingerprint test's config as written plus one per variant."""
+    base = f"{sample_prefix(test.file)}{test.test_id}"
+    if test.inline_configs:
+        return list(dict.fromkeys(f"{base}__{s['doc_type']}" for s in test.inline_configs))
+    if test.compare == "fingerprint":
+        return [base] + [f"{base}__v{n}" for n in range(1, len(test.expect["variants"]) + 1)]
+    return []
+
+
 def _sample_doc_type(client, name, config, config_text, document_url, schema=None):
     """Recreate a sample doc type, publish its first config, and add the example document as a reference
     document linked to that config (Sensible needs the config to exist first). Returns (doc type ID,
@@ -151,7 +174,7 @@ def _run_samples(rec, test, client, expected):
     each config to the SenseML editor."""
     types, editors = {}, {}
     for sample in test.inline_configs:
-        name = f"{settings.SAMPLE_DOC_TYPE_PREFIX}{test.test_id}__{sample['doc_type']}"
+        name = f"{sample_prefix(test.file)}{test.test_id}__{sample['doc_type']}"
         if name not in types:
             types[name] = _sample_doc_type(client, name, sample["config"], sample["text"], test.document_url)
         else:
@@ -187,6 +210,7 @@ def _run_fingerprint(rec, test, client):
     if status != 200:
         raise CodeTestError(DOCUMENT_UNREACHABLE, f"{test.document_url} returned {status}")
     runs = []
+    names = sample_doc_types(test)
     for n, variant in enumerate([{"break": [], "passes": expect["passes"]}] + expect["variants"]):
         text = test.config
         if variant["break"]:
@@ -194,7 +218,7 @@ def _run_fingerprint(rec, test, client):
             for i in variant["break"]:
                 broken["fingerprint"]["tests"][i] = NO_MATCH
             text = json.dumps(broken, indent=2)
-        name = f"{settings.SAMPLE_DOC_TYPE_PREFIX}{test.test_id}" + (f"__v{n}" if n else "")
+        name = names[n]
         _, reference = _sample_doc_type(client, name, test.test_id, text, test.document_url, {"fingerprint_mode": "strict"})
         result = client.extract_standalone(test.document_url, name, f"ci__{test.test_id}" + (f"__v{n}" if n else ""))
         if result.get("status") == "FAILED" and result.get("errors"):

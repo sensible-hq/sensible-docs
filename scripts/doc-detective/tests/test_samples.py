@@ -140,8 +140,9 @@ class RunnerTest(unittest.TestCase):
         client = SampleClient(documents=docs)
         rec = self.run_page(PORTFOLIO, "pf", client)
         self.assertEqual(rec["status"], "pass")
-        quotes = f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__quotes"
-        self.assertEqual(client.portfolio_types, [quotes, f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__losses"])
+        prefix = runner.sample_prefix(rec["file"])
+        quotes = f"{prefix}pf__quotes"
+        self.assertEqual(client.portfolio_types, [quotes, f"{prefix}pf__losses"])
         self.assertEqual(client.environment, settings.ENVIRONMENT)
         self.assertIn("/* a comment, as on the page */", client.published[0][2])  # uploaded as the page shows it
         # The example document isn't from this repo, so there's no reference document; the link opens the config
@@ -153,7 +154,7 @@ class RunnerTest(unittest.TestCase):
         docs = [{"configuration": "anyco", "startPage": 0, "endPage": 0}, {"configuration": "acme", "startPage": 2, "endPage": 2}]
         client = SampleClient(documents=docs)
         rec = self.run_page(PORTFOLIO.replace("https://example.test/p.pdf", url), "pf", client)
-        quotes = f"{settings.SAMPLE_DOC_TYPE_PREFIX}pf__quotes"
+        quotes = f"{runner.sample_prefix(rec['file'])}pf__quotes"
         self.assertEqual(client.references[0], (f"id-{quotes}", "portfolio", "anyco", "assets/pdfs/portfolio.pdf"))
         self.assertEqual(rec["segments"]["samples"][0]["editor"], markup.editor_url(quotes, "anyco", "portfolio"))
 
@@ -179,8 +180,9 @@ class RunnerTest(unittest.TestCase):
         self.assertTrue(all(schema == {"fingerprint_mode": "strict"} for schema in client.types.values()))
         broken = json.loads(client.published[2][2])["fingerprint"]["tests"]
         self.assertEqual(broken[:2], [runner.NO_MATCH, runner.NO_MATCH])
-        self.assertEqual(sorted(client.types), [f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa", f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v1", f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v2"])
-        self.assertEqual(rec["fingerprint"]["runs"][2]["editor"], markup.editor_url(f"{settings.SAMPLE_DOC_TYPE_PREFIX}sa__v2", "sa"))
+        prefix = runner.sample_prefix(rec["file"])
+        self.assertEqual(sorted(client.types), [f"{prefix}sa", f"{prefix}sa__v1", f"{prefix}sa__v2"])
+        self.assertEqual(rec["fingerprint"]["runs"][2]["editor"], markup.editor_url(f"{prefix}sa__v2", "sa"))
 
     def test_fingerprint_that_passes_when_the_page_says_it_fails(self):
         rec = self.run_page(STANDALONE, "sa", SampleClient(standalone=self.standalone(True, True, True)))
@@ -208,3 +210,39 @@ class ReportTest(unittest.TestCase):
         out = out if isinstance(out, str) else "".join(out)
         self.assertIn("fixture restored", out)
         self.assertIn('href="https://app.sensible.so/editor/?d=x&amp;c=c"', out)
+
+
+class CleanupTest(unittest.TestCase):
+    def test_page_slug_and_names(self):
+        self.assertEqual(runner.page_slug("docs/Senseml reference/config-settings/fingerprint.md"), "fingerprint")
+        page = markup.parse_page(write_page(self, PORTFOLIO + STANDALONE))
+        prefix = runner.sample_prefix(page.path)
+        self.assertEqual(runner.sample_doc_types(page.code_tests["pf"]), [f"{prefix}pf__quotes", f"{prefix}pf__losses"])
+        self.assertEqual(runner.sample_doc_types(page.code_tests["sa"]), [f"{prefix}sa", f"{prefix}sa__v1", f"{prefix}sa__v2"])
+
+    def test_cleanup_deletes_only_this_pages_orphans(self):
+        from unittest import mock
+
+        import code_tests
+        page = markup.parse_page(write_page(self, PORTFOLIO))
+        prefix = runner.sample_prefix(page.path)
+
+        class Client:
+            deleted = []
+
+            def document_types(self):
+                return [{"id": "keep", "name": f"{prefix}pf__quotes"},  # still on the page
+                        {"id": "orphan", "name": f"{prefix}removed_test__quotes"},  # test removed
+                        {"id": "other_page", "name": f"{settings.SAMPLE_DOC_TYPE_PREFIX}another_page__x"},
+                        {"id": "fixture", "name": "fixture_fp_demo_last_fails"}]
+
+            def delete_sample_doc_type(self, type_id):
+                self.deleted.append(type_id)
+
+        client = Client()
+        with mock.patch("builtins.print"):
+            code_tests.cleanup_samples(mock.Mock(keep=False), page, client)
+        self.assertEqual(client.deleted, ["orphan"])
+        client.deleted.clear()
+        code_tests.cleanup_samples(mock.Mock(keep=True), page, client)
+        self.assertEqual(client.deleted, [])
