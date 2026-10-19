@@ -72,10 +72,45 @@ Structure / classification / QA
 - [ ] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
 - [ ] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
 
+## ReadMe findings (2026-10-19)
+
+- `metadata.keywords` is stored, not rendered: hidden page `draft-jsonlogic` carries
+  `"keywords":"custom computation"` (comma-joined string, so phrases survive as entries) in ReadMe's
+  embedded page JSON, but the HTML has no `<meta name="keywords">`. `metadata.description` IS rendered
+  as `<meta name="description">` (checked on live Sections page). Caveat: that page is hidden/noindex;
+  confirm on a public page.
+- ReadMe's own docs: 0 of 150 pages render a keywords meta tag.
+- `agentSearch` (ReadMe's agent search endpoint, e.g.
+  `https://docs.readme.com/main/agentSearch?query=term1%20term2`) is not enabled for us:
+  `docs.sensible.so/agentSearch`, `/docs/agentSearch`, `/main/agentSearch` all 404. Our `.md` pages
+  expose only `agentTools.projectIndex`, no `projectSearch`.
+
 ## Next steps
 
 - [x] Draft synonym list for all 20 pages (`keywords-draft.md`)
+- [x] Add "best 2–3 phrases per page" column to draft (keywords column kept)
 - [ ] User reviews draft
+- [ ] Give user evidence and reasoning for the claim "Google has ignored the keywords meta tag for
+      ranking since 2009, and Bing gives it little or no weight": primary sources (Google Search
+      Central 2009 post / Matt Cutts video, Google's current meta-tags documentation, Bing statements
+      by Duane Forrester ~2014 re: keywords as spam signal, Bing Webmaster Guidelines), dates, and
+      what's still uncertain (e.g., current Bing behavior, LLM crawlers)
+- [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
+      (b) how do we enable `agentSearch` / `projectSearch`?
+- [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
+  - Pick 2 public pages. Page A gets a unique single-token keyword (e.g. `zqxsynonymtest`);
+    page B gets a unique two-word keyword phrase made of individually-unique tokens
+    (e.g. `zqxalpha zqxbeta`).
+  - Control: add a unique token to the *body* text of a third page (or page A) so you can tell
+    "keywords aren't indexed" apart from "index hasn't refreshed yet."
+  - Check: (1) does a `<meta name="keywords">` tag render on a public page? (2) ReadMe site search
+    box and `GET https://api.readme.com/v2/search` for each token, and for `zqxalpha zqxbeta`
+    vs. `zqxbeta zqxalpha` vs. `zqxalpha` alone (phrase vs. token matching), (3) docs MCP search
+    and `agentSearch` if enabled.
+  - If testing via MCP/agent search, wait for the index to update: re-query the body-text control
+    token until it's found before trusting a negative result for the keyword tokens. Record how
+    long the refresh took.
+  - Remove all test tokens afterward.
 - [ ] Decide which synonyms also go into excerpt/title/body (the part that affects Google/LLMs)
 - [ ] Apply `metadata.keywords` to frontmatter
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
