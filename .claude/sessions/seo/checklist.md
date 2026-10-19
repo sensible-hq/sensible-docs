@@ -74,7 +74,8 @@ Structure / classification / QA
 
 ## Next steps
 
-- [ ] Draft synonym list for all 20 pages; user reviews
+- [x] Draft synonym list for all 20 pages (`keywords-draft.md`)
+- [ ] User reviews draft
 - [ ] Decide which synonyms also go into excerpt/title/body (the part that affects Google/LLMs)
 - [ ] Apply `metadata.keywords` to frontmatter
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
