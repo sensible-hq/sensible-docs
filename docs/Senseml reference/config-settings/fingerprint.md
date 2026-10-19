@@ -228,7 +228,11 @@ If a phrase varies slightly from document to document, match its alternate forms
       "page": "last",
       "match": [
         {
-          /* the test passes on a page that contains either form of the phrase */
+          /*
+            The test passes on a page that contains either form of the phrase.
+            In practice, you'd fingerprint on text that OCR reads reliably.
+            This example uses an apostrophe for demonstration.
+          */
           "type": "any",
           "matches": [
             {
@@ -248,8 +252,6 @@ If a phrase varies slightly from document to document, match its alternate forms
   ]
 }
 ```
-
-**Note:** This example illustrates the syntax and isn't realistic. In production, don't fingerprint on text that OCR may read unreliably, such as punctuation. Choose other text instead.
 
 In the following example portfolio, the fingerprint classifies pages 1–2 as a tax return:
 
