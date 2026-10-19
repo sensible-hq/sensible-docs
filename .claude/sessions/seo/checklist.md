@@ -90,11 +90,14 @@ Structure / classification / QA
 - [x] Draft synonym list for all 20 pages (`keywords-draft.md`)
 - [x] Add "best 2–3 phrases per page" column to draft (keywords column kept)
 - [ ] User reviews draft
-- [ ] Give user evidence and reasoning for the claim "Google has ignored the keywords meta tag for
+- [x] (see `research-keywords-evidence.md`) Give user evidence and reasoning for the claim "Google has ignored the keywords meta tag for
       ranking since 2009, and Bing gives it little or no weight": primary sources (Google Search
       Central 2009 post / Matt Cutts video, Google's current meta-tags documentation, Bing statements
       by Duane Forrester ~2014 re: keywords as spam signal, Bing Webmaster Guidelines), dates, and
       what's still uncertain (e.g., current Bing behavior, LLM crawlers)
+- [x] (see `research-keywords-evidence.md`) Investigate whether AI agents/crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot,
+      Claude-User, PerplexityBot, Google-Extended / AI Overviews, Bing/Copilot) and agent fetch tools
+      use `<meta name="keywords">` or ReadMe's `metadata.keywords`, with evidence and reasoning
 - [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
       (b) how do we enable `agentSearch` / `projectSearch`?
 - [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
