@@ -85,7 +85,11 @@ Added 2026-10-19 from competitor analysis
       the excerpt; that stale string is the live `<meta name="description">`. The excerpt→description
       sync (PR #702) doesn't fix reference/ files. Also the first sentence is "Welcome to Sensible! If
       you have any questions..." (weak first-150-words opening). Check other reference/ pages for
-      the same drift.
+      the same drift. Checked: all 14 reference/ .md pages have description != excerpt, but when
+      description is empty ReadMe falls back to the excerpt (verified live on /reference/mcp). Only
+      non-empty stale descriptions hurt: `choosing-an-endpoint.md` ("API introduction and endpoint
+      overview") and `authentication.md` ("API authentication methods"), both live as-is. Fix: sync
+      or blank those two. (`senseml-reference-link.md` has 'null'; check.)
 
 ## ReadMe findings (2026-10-19)
 
