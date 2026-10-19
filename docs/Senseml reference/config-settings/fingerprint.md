@@ -249,7 +249,7 @@ If a phrase varies slightly from document to document, match its alternate forms
 }
 ```
 
-**Note:** This example illustrates the syntax and isn't realistic. In production, don't fingerprint on text that OCR may read unreliably, such as apostrophes and other punctuation. Choose other text instead.
+**Note:** This example illustrates the syntax and isn't realistic. In production, don't fingerprint on text that OCR may read unreliably, such as punctuation. Choose other text instead.
 
 In the following example portfolio, the fingerprint classifies pages 1–2 as a tax return:
 
