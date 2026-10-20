@@ -1,11 +1,11 @@
 ---
 title: Fingerprint mode
-excerpt: Controls extraction strictness for standalone files.
+excerpt: Control extraction strictness for standalone files.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Controls extraction strictness for standalone files.
+  description: Control extraction strictness for standalone files.
   robots: index
 next:
   description: ''

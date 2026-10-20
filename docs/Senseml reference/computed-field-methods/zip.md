@@ -1,11 +1,11 @@
 ---
 title: Zip
-excerpt: Combines tables, arrays, and sections into rows using source field IDs, with regex support.
+excerpt: Combine tables, arrays, and sections into rows using source field IDs, with regex support.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Combines tables, arrays, and sections into rows using source field IDs, with regex support.
+  description: Combine tables, arrays, and sections into rows using source field IDs, with regex support.
   robots: index
 next:
   description: ''

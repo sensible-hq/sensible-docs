@@ -1,11 +1,11 @@
 ---
 title: Checkbox
-excerpt: Extracts boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
+excerpt: Extract boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extracts boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
+  description: Extract boolean selection status from PDF checkboxes using form metadata or pixel recognition, with parameters for position and size.
   robots: index
 next:
   description: ''

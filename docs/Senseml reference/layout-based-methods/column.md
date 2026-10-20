@@ -1,11 +1,11 @@
 ---
 title: Column
-excerpt: Extracts lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
+excerpt: Extract lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extracts lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
+  description: Extract lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
   robots: index
 next:
   description: ''

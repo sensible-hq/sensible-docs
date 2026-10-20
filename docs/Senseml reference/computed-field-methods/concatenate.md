@@ -1,11 +1,11 @@
 ---
 title: Concatenate
-excerpt: Joins outputs of two or more fields into a single string or array.
+excerpt: Join outputs of two or more fields into a single string or array.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Joins outputs of two or more fields into a single string or array.
+  description: Join outputs of two or more fields into a single string or array.
   robots: index
 next:
   description: ''

@@ -1,11 +1,11 @@
 ---
 title: Remove footer
-excerpt: Strips repeating bottom-of-page elements automatically or via configurable text matching.
+excerpt: Strip repeating bottom-of-page elements automatically or via configurable text matching.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Strips repeating bottom-of-page elements automatically or via configurable text matching.
+  description: Strip repeating bottom-of-page elements automatically or via configurable text matching.
   robots: index
 next:
   description: ''

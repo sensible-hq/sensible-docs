@@ -16,4 +16,6 @@ the slug already does. Cut the superfluous wording only ("Learn how to use the R
 - [x] Edit 39 excerpts, plus matching `metadata.description` (text-level edit; no other frontmatter
       keys changed; verified with YAML round-trip and `sync_description.py --dry-run`)
 - [x] Open PR: #762
-- [ ] User review
+- [x] User review on #762: use imperative mood (the reader acts, not the method). Fixed the 4
+      commented excerpts plus 6 more with third-person openers (Zip, Checkbox, Column, Document range,
+      Paragraph, Method object).

@@ -1,11 +1,11 @@
 ---
 title: Linearize
-excerpt: Breaks multi-column or block-layout document pages into coordinate-based blocks.
+excerpt: Break multi-column or block-layout document pages into coordinate-based blocks.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Breaks multi-column or block-layout document pages into coordinate-based blocks.
+  description: Break multi-column or block-layout document pages into coordinate-based blocks.
   robots: index
 next:
   description: ''
