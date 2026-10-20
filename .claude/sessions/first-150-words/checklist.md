@@ -64,3 +64,41 @@ Fan-out / fan-in with subagents, one topic group per agent (10 groups, 3–7 pag
       check line endings and diff size (a one-sentence edit once converted a whole file's CRLF);
       run Vale; full style pass for one voice; present one consolidated summary
 - [ ] Pilot one batch first; user reviews; tune the prompt; then run the remaining batches
+
+## Carried over from PR #758 (2026-10-20)
+
+- [ ] Evaluate the `ui-docs` branch (PR #660, worktree `~/GitHub/sensible-docs-ui-docs`, last
+      commit 2026-08-12) for material to rework method docs, especially their first ~150 words.
+      Contents: `assets/ai/mini-pages/box.md` and `intersection.md` (short-form method pages:
+      plain-language description, annotated syntax example, link to full docs),
+      `assets/ai/senseml-descriptions.json` (task-focused one-liners per method and per parameter
+      for box, intersection, checkbox, nearestCheckbox), plus a session checklist and friction log
+      under `.claude/sessions/2026-08-10-ui-hover-descriptions/`. Promising: the Intersection
+      mini-page opens with "Finds and extracts the value at the point where a row and a column
+      cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
+      when a table has unpredictably empty cells", which already hits #10's target phrases (table
+      cell lookup, empty table cells) better than the live page's opening.
+- [ ] Ask ReadMe support how to enable `agentSearch` / `projectSearch`
+- [ ] #42 (spec-generated): find which OpenAPI field ReadMe uses for the meta description and
+      llms.txt description (the page has no excerpt; `summary` is also the page title, so the start
+      of `description` is likelier) before editing `reference/openapi_extraction.json`
+- [ ] Excerpts that run ahead of their page body (update the first ~150 words to match when
+      applying): #3 "template-based" (page never says "template"), #11 "variable positions",
+      "keyword", "landmark", #19 "split" (page says "segment"), #28 scanned/handwritten framing
+- [ ] Optional: before/after `mcp-search-eval` on a handful of pages
+
+### Tooling that writes excerpts
+
+- [ ] Update skills, templates, and scripts that write excerpts/descriptions so they follow the excerpt
+      rules (no self-naming: never name the page's own method/object/preprocessor/setting; imperative
+      mood; no "Learn how to" filler; <= 150 chars; "extract" not "parse"). Known places:
+  - `scripts/descriptions/generate_excerpts.py` `PROMPT` (CI generates missing excerpts with Claude)
+  - `.claude/skills/revise-doc-style/SKILL.md` "metadata.description" section (should say excerpt is
+    the source of truth)
+  - `.claude/style-guide/style-guide-overview.md` (still says `metadata.description` is a 4–7 word phrase)
+  - `.claude/skills/api-spec/SKILL.md` (copies spec `description` into `excerpt`; spec descriptions can
+    self-name)
+  - `.claude/style-guide/*-template.md` (`excerpt: ''` placeholders; add a one-line rule comment?)
+  - check `create-new-doc`, `create-concept-doc`, `update-docs-from-pr`, `update-existing-doc` for
+    excerpt guidance
+- (Decided above: first body sentences keep `revise-doc-style`'s third-person house rule.)
