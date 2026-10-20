@@ -1,7 +1,4 @@
-# SEO/GEO synonym keywords
-
-> **Decision 2026-10-20: `metadata.keywords` dropped.** ReadMe strips it from the rendered page, `.md`, and
-> `llms.txt`, so it isn't worth filling in. The work is now: best phrases into excerpts and first ~150 words.
+# SEO/GEO: search phrases in excerpts and first ~150 words
 
 Claude Code session name: seo
 Claude Code session ID: c14f96d2-faef-4dbe-8951-0d7f13df161c
@@ -10,72 +7,107 @@ Related issue: #722 (GEO/SEO for docs: options?)
 
 ## Goal
 
-Build a synonym list per page for `metadata.keywords` (ReadMe frontmatter), aimed at
-internal search, Google SEO, and GEO (LLM citation).
+Get docs pages found by Google search (SEO) and cited by AI search and agents (GEO) by working the
+search phrases people actually use into each important page's title, excerpt (source of truth for
+`metadata.description`, the meta description, and the `llms.txt` description; see PR #702), and
+first ~150 words. Draft per-page phrases: `keywords-draft.md`.
 
-Caveat to keep in mind: Google ignores `<meta name="keywords">` (since 2009), and LLM
-crawlers read page text. Synonyms only move external traffic when they also land in
-titles, excerpts (source of truth for SEO description, see PR #702), or body text.
-`metadata.keywords` alone mostly serves ReadMe internal search (unverified).
+## Decision: not using `metadata.keywords` (2026-10-20)
 
-Format (see `docs/Senseml reference/concepts/draft-jsonlogic.md`):
+ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in. Why:
 
-```yaml
-metadata:
-  title: ''
-  description: ...
-  keywords:
-    - custom computation
-  robots: index
-```
+- **ReadMe strips it.** On a page with keywords set (`draft-jsonlogic`), the keywords appear only in
+  ReadMe's embedded page JSON: no `<meta name="keywords">` in the HTML, and none in the page's `.md`
+  or in `llms.txt`. (`metadata.description`, by contrast, renders as the meta description.) ReadMe's
+  own docs: 0 of 150 pages render a keywords tag.
+- **Search engines ignore the tag anyway.** Google: "not used by Google Search, and it has no effect on
+  indexing and ranking at all" (current docs, updated 2025-12). Bing: at most a spam signal (2011),
+  "dead in terms of SEO value" (2014).
+- **AI crawlers and agents don't see it.** AI search features sit on search indexes; agent fetch tools
+  convert page bodies to Markdown and drop `<head>`; crawler docs mention only robots.txt.
+- **Competitors don't use it.** None of Parseur, Docparser, Nanonets, Docsumo, Ocrolus curate keywords
+  (Parseur's API docs have tool-generated ones plus one hand-set value).
+- Evidence and sources: `research-keywords-evidence.md`, `competitors/`.
 
-## Competitor research (2026-10-01)
+## Terminology decision (2026-10-20)
 
-Scanned every sitemap page of Parseur, Docparser, Nanonets, Docsumo, Ocrolus (~1,400 pages).
+- "Extract," not "parse," throughout the docs, for terminology rigor. Parse-words appear in body text
+  only as defined aliases, once each: Overview ("Sensible extracts structured data from documents
+  (also called document parsing)") and the email extraction page ("also called email parsing").
+- Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract" can
+  still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site search
+  / docs MCP search; unverified) may not, which the defined aliases partly cover.
 
-- None use curated meta keywords. Only developer.parseur.com (Apidog) emits them, auto-generated:
-  page title + fixed boilerplate. Docparser: 20/181 Zendesk articles have internal labels, no
-  label used more than twice.
-- Terms competitors put in titles/headings that Sensible docs barely use:
-  parse / parser / parsing (6 body mentions, 0 titles), data extraction / extract data (0 titles),
-  bank statement, purchase order, bill of lading, receipt, table extraction, line items,
-  export, FAQ, rate limits, SSO, user management, billing, post-processing.
-- Doc-type pages: Ocrolus ~540, Docsumo ~40. Sensible covers doc types on the marketing site
-  (8 /extract/* pages + ~20 how-to blog posts) — out of scope for docs.
-- Competitors document AI coding tools (Docsumo: Claude Code, Cursor, Windsurf, Gemini CLI,
-  VS Code Copilot, ChatGPT) around their MCP server.
+## Research
 
-## Pages (approved 2026-10-19)
+- [x] Competitor scan (2026-10-01): every sitemap page of Parseur, Docparser, Nanonets, Docsumo,
+      Ocrolus (~1,400 pages). Terms competitors put in titles/headings that Sensible docs barely use:
+      parse / parser / parsing, data extraction / extract data, bank statement, purchase order, bill
+      of lading, receipt, table extraction, line items, export, FAQ, rate limits, SSO, user
+      management, billing, post-processing. Doc-type pages: Ocrolus ~540, Docsumo ~40; Sensible
+      covers doc types on the marketing site (8 /extract/* pages + ~20 how-to blog posts), out of
+      scope for docs. Competitors document AI coding tools around their MCP servers.
+- [x] Competitor top-20 analysis, one file per competitor plus `competitors/summary.md`: title, meta
+      description, target phrases, closest Sensible page, borrowable phrases
+- [x] Evidence on search engines and AI agents vs. the keywords tag (`research-keywords-evidence.md`)
+- [x] Best-practice reference (not a competitor): Payabli top 10 pages, llms.txt descriptions, first
+      150 words (`best-practice/payabli.md`). Pattern: sentence 1 defines the thing with search terms;
+      sentence 2 says what problem it solves. llms.txt: one-paragraph product summary, audience-grouped
+      "Choose your path" with short task-focused link descriptions; top-level "Cookbooks" section
+      (relevant to the 'cookbook' idea for the config library page).
+- [x] Password-protected PDFs: not supported per user (2026-10-19); phrase dropped
+- [ ] Evaluate the `ui-docs` branch (PR #660, worktree `~/GitHub/sensible-docs-ui-docs`, last
+      commit 2026-08-12) for material to rework method docs, especially their first ~150 words.
+      Contents: `assets/ai/mini-pages/box.md` and `intersection.md` (short-form method pages:
+      plain-language description, annotated syntax example, link to full docs),
+      `assets/ai/senseml-descriptions.json` (task-focused one-liners per method and per parameter
+      for box, intersection, checkbox, nearestCheckbox), plus a session checklist and friction log
+      under `.claude/sessions/2026-08-10-ui-hover-descriptions/`. Promising: the Intersection
+      mini-page opens with "Finds and extracts the value at the point where a row and a column
+      cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
+      when a table has unpredictably empty cells", which already hits #10's target phrases (table
+      cell lookup, empty table cells) better than the live page's opening.
 
-Entry points / concepts
+## ReadMe findings
+
+- `agentSearch` (ReadMe's agent search endpoint, e.g.
+  `https://docs.readme.com/main/agentSearch?query=term1%20term2`) is not enabled for us:
+  `docs.sensible.so/agentSearch`, `/docs/agentSearch`, `/main/agentSearch` all 404. Our `.md` pages
+  expose only `agentTools.projectIndex`, no `projectSearch`.
+- [ ] Ask ReadMe support how to enable `agentSearch` / `projectSearch`
+- Stale reference descriptions: all 14 reference/ `.md` pages have description != excerpt, but when
+  description is empty ReadMe falls back to the excerpt (verified live on /reference/mcp). Only
+  non-empty stale descriptions hurt: `choosing-an-endpoint.md` and `authentication.md`. FIXED
+  2026-10-19 (manual sync to excerpt; reference/ frontmatter is mostly OpenAPI-generated, so no
+  script change). (`senseml-reference-link.md` has 'null'; check.)
+
+## Pages
+
+Grouping and per-page phrases: `keywords-draft.md`. Numbers are stable IDs.
+
+Original list (approved 2026-10-19)
 - [ ] 1. Overview — `docs/welcome/overview.md`
 - [ ] 2. Getting started — `docs/welcome/getting-started-ai.md`
 - [ ] 3. Getting started with layout-based extractions — `docs/document extraction/getting-started.md`
 - [ ] 4. Intelligent document processing — `docs/Senseml reference/concepts/idp.md` (116 words; thin)
 - [ ] 5. Supported file types — `docs/Senseml reference/concepts/file-types.md`
 - [ ] 6. OCR — `docs/Senseml reference/concepts/ocr.md`
-
-Layout-based methods
 - [ ] 7. Row — `docs/Senseml reference/layout-based-methods/row.md`
 - [ ] 8. Region — `docs/Senseml reference/layout-based-methods/region.md`
 - [ ] 9. Passthrough — `docs/Senseml reference/layout-based-methods/passthrough.md`
 - [ ] 10. Intersection — `docs/Senseml reference/layout-based-methods/intersection.md`
 - [ ] 11. Anchor object — `docs/Senseml reference/field-query-object/anchor.md`
 - [ ] 12. Table methods — `docs/Senseml reference/concepts/table-methods.md`
-
-LLM-based methods
 - [ ] 13. Query group — `docs/Senseml reference/llm-based-methods/query-group.md`
 - [ ] 14. List — `docs/Senseml reference/llm-based-methods/list.md`
 - [ ] 15. NLP table — `docs/Senseml reference/llm-based-methods/nlp-table.md`
-
-Structure / classification / QA
 - [ ] 16. Sections — `docs/Senseml reference/sections/index.md`
 - [ ] 17. Fingerprint — `docs/Senseml reference/config-settings/fingerprint.md`
 - [ ] 18. Classifying documents by type — `docs/document type classification/classify.md`
 - [ ] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
 - [ ] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
 
-Added 2026-10-19 from competitor analysis
+Added from competitor analysis and review (2026-10-19)
 - [ ] 21. Qualifying LLM accuracy — `docs/document extraction/best-practices/confidence.md`
 - [ ] 22. Human review — `docs/monitor and qa/human-review.md`
 - [ ] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
@@ -83,16 +115,8 @@ Added 2026-10-19 from competitor analysis
 - [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
 - [ ] 26. Integrating — `docs/welcome/integrate.md`
 - [ ] 27. API Introduction — `reference/Introduction/choosing-an-endpoint.md`
-      (live: https://docs.sensible.so/reference/choosing-an-endpoint). Found 2026-10-19:
-      `metadata.description` is stale ("API introduction and endpoint overview") and does NOT match
-      the excerpt; that stale string is the live `<meta name="description">`. The excerpt→description
-      sync (PR #702) doesn't fix reference/ files. Also the first sentence is "Welcome to Sensible! If
-      you have any questions..." (weak first-150-words opening). Check other reference/ pages for
-      the same drift. Checked: all 14 reference/ .md pages have description != excerpt, but when
-      description is empty ReadMe falls back to the excerpt (verified live on /reference/mcp). Only
-      non-empty stale descriptions hurt: `choosing-an-endpoint.md` ("API introduction and endpoint
-      overview") and `authentication.md` ("API authentication methods"), both live as-is. FIXED 2026-10-19 (manual sync to excerpt; reference/
-      frontmatter is mostly OpenAPI-generated, so no script change). (`senseml-reference-link.md` has 'null'; check.)
+      (live: https://docs.sensible.so/reference/choosing-an-endpoint). Stale description fixed and
+      "Welcome to Sensible!" opening cut 2026-10-19; first ~150 words still need a rewrite.
 - [ ] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
 
 High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in parentheses.
@@ -111,108 +135,27 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] 41. Custom computation group — `docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
 - [ ] 42. Extract data from a document (sync) — `reference/Extraction/document-1/extract-data-from-a-document.md`
       (pointer to `openapi_extraction.json`; description and body text live in the spec)
-- [x] Truncated dashboard slugs resolved by user (2026-10-20): added getting-started-email,
-      custom-computation, custom-computation-group, reference/extract-data-from-a-document.
-- [x] Keyword rows drafted for 29–42
 - Already in list and high-traffic: overview (1.3K), choosing-an-endpoint (997), sections (421),
   query-group (409), anchor (279), portfolio (278), library-quickstart (259), preprocessors (244).
 - Not in the top ~30 by views: Row, Region, Passthrough, Intersection (most-used methods by
   customers, but not most-viewed pages).
 
-## ReadMe findings (2026-10-19)
-
-- `metadata.keywords` is stored, not rendered: hidden page `draft-jsonlogic` carries
-  `"keywords":"custom computation"` (comma-joined string, so phrases survive as entries) in ReadMe's
-  embedded page JSON, but the HTML has no `<meta name="keywords">`. `metadata.description` IS rendered
-  as `<meta name="description">` (checked on live Sections page). Caveat: that page is hidden/noindex;
-  confirm on a public page.
-- ReadMe's own docs: 0 of 150 pages render a keywords meta tag.
-- `agentSearch` (ReadMe's agent search endpoint, e.g.
-  `https://docs.readme.com/main/agentSearch?query=term1%20term2`) is not enabled for us:
-  `docs.sensible.so/agentSearch`, `/docs/agentSearch`, `/main/agentSearch` all 404. Our `.md` pages
-  expose only `agentTools.projectIndex`, no `projectSearch`.
-
 ## Next steps
 
-- [x] Draft synonym list for all 20 pages (`keywords-draft.md`)
-- [x] Add "best 2–3 phrases per page" column to draft (keywords column kept)
+- [x] Draft per-page phrases for all 42 pages (`keywords-draft.md`), grouped by topic
+- [x] Apply first round of PR review comments (2026-10-20)
 - [ ] User reviews draft
-- [x] (see `research-keywords-evidence.md`) Give user evidence and reasoning for the claim "Google has ignored the keywords meta tag for
-      ranking since 2009, and Bing gives it little or no weight": primary sources (Google Search
-      Central 2009 post / Matt Cutts video, Google's current meta-tags documentation, Bing statements
-      by Duane Forrester ~2014 re: keywords as spam signal, Bing Webmaster Guidelines), dates, and
-      what's still uncertain (e.g., current Bing behavior, LLM crawlers)
-- [x] (see `research-keywords-evidence.md`) Investigate whether AI agents/crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot,
-      Claude-User, PerplexityBot, Google-Extended / AI Overviews, Bing/Copilot) and agent fetch tools
-      use `<meta name="keywords">` or ReadMe's `metadata.keywords`, with evidence and reasoning
-- [x] (see `competitors/`, incl. `summary.md`) Competitor top-20 analysis, one file per competitor in `competitors/` (Parseur, Docparser,
-      Nanonets, Docsumo, Ocrolus): title, meta description, meta keywords, target phrases,
-      closest Sensible page, borrowable phrases
-- [ ] Decide whether to add confidence, human review, preprocessors, webhook tutorial, library
-      quickstart to the 20 pages (competitors target these topics)
-- [x] Password-protected PDFs: not supported per user (2026-10-19); phrase dropped
-- [ ] Evaluate rewriting our most relevant topics for SEO/GEO in the first ~150 words and in
-      descriptions (excerpts, which feed `metadata.description` and `llms.txt`). Model to study
-      (NOT a competitor): https://docs.payabli.com/llms.txt. User's view: Payabli shows strong
-      discipline around (1) highly relevant first ~150 words on each page and (2) good per-page
-      descriptions in llms.txt. Observed 2026-10-19: llms.txt opens with a one-paragraph product
-      summary, a "Documentation sections" list, and a "Choose your path" section grouped by
-      audience, with short task-focused link descriptions (e.g. "Developer quickstart — Make your
-      first API call"); ~260 links. They also have a top-level "Cookbooks" section ("Short, focused
-      API recipes for common tasks"), which is relevant to the 'cookbook' keyword idea for the
-      config library page.
-- [ ] Evaluate the `ui-docs` branch (PR #660, worktree `~/GitHub/sensible-docs-ui-docs`, last
-      commit 2026-08-12) for material to rework method docs, especially their first ~150 words.
-      Contents: `assets/ai/mini-pages/box.md` and `intersection.md` (short-form method pages:
-      plain-language description, annotated syntax example, link to full docs),
-      `assets/ai/senseml-descriptions.json` (task-focused one-liners per method and per parameter
-      for box, intersection, checkbox, nearestCheckbox), plus a session checklist and friction log
-      under `.claude/sessions/2026-08-10-ui-hover-descriptions/`. Promising: the Intersection
-      mini-page opens with "Finds and extracts the value at the point where a row and a column
-      cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
-      when a table has unpredictably empty cells", which already hits #10's target phrases (table
-      cell lookup, empty table cells) better than the live page's opening.
-- [ ] Ask ReadMe support: (a) ~~does site search / agentSearch / docs MCP index `metadata.keywords`?~~ (moot: keywords dropped)
-      (b) how do we enable `agentSearch` / `projectSearch`?
-- [ ] ~~Keyword vs. keyphrase test on live docs~~ (DROPPED 2026-10-20 with `metadata.keywords`) (needs merge to v0 to publish):
-  - Pick 2 public pages. Page A gets a unique single-token keyword (e.g. `zqxsynonymtest`);
-    page B gets a unique two-word keyword phrase made of individually-unique tokens
-    (e.g. `zqxalpha zqxbeta`).
-  - Control: add a unique token to the *body* text of a third page (or page A) so you can tell
-    "keywords aren't indexed" apart from "index hasn't refreshed yet."
-  - Check: (1) does a `<meta name="keywords">` tag render on a public page? (2) ReadMe site search
-    box and `GET https://api.readme.com/v2/search` for each token, and for `zqxalpha zqxbeta`
-    vs. `zqxbeta zqxalpha` vs. `zqxalpha` alone (phrase vs. token matching), (3) docs MCP search
-    and `agentSearch` if enabled.
-  - If testing via MCP/agent search, wait for the index to update: re-query the body-text control
-    token until it's found before trusting a negative result for the keyword tokens. Record how
-    long the refresh took.
-  - Remove all test tokens afterward.
-- [ ] Decide which synonyms also go into excerpt/title/body (the part that affects Google/LLMs)
-- [ ] ~~Apply `metadata.keywords` to frontmatter~~ (DROPPED 2026-10-20)
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
-- [ ] PR referencing #722
-
-## Terminology decision (2026-10-20)
-
-- "Extract," not "parse," throughout the docs, for terminology rigor. "Parse" appears in body text
-  once: a defined alias on the Overview ("Sensible extracts structured data from documents (also
-  called document parsing)"), plus one exception (per review): the email extraction page may define
-  "email parsing" once as an alias. Parse-words aren't used anywhere else.
-- Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract"
-  can still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site
-  search / docs MCP search; unverified) may not, which the defined aliases
-  partly cover.
+- [ ] Execute per-page edits (plan below)
 
 ## Execution plan: per-page edits (agreed 2026-10-20)
 
-Fan-out / fan-in with subagents, ~5 pages each (~9 agents for 42 pages).
+Fan-out / fan-in with subagents, ~5 pages each.
 
 - [ ] Decide scope: excerpt + first ~150 words, or excerpt only (the first-150-words rewrites are where
       the SEO/GEO value is, but cost more review time per page)
-- [ ] Batch pages by topic, not row number (e.g. tables: Table methods, NLP table, Intersection,
-      List, Sections; API: API Introduction, API tutorial, API quickstart, webhook, sync extract), so
-      each agent sees related pages and keeps phrasing consistent
+- [ ] Batch pages by topic, using the draft's topic groups (10 groups, 3–7 pages each), so each agent
+      sees related pages and keeps phrasing consistent
 - [ ] Shared inputs for every agent:
   - phrase-ownership map (which page owns which best phrase; non-owners don't use it)
   - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
