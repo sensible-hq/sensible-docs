@@ -25,9 +25,9 @@ readers can tell whether the page is for them.
       `build_first_lines.py` (until then the draft shows pre-#758 excerpts and openings; #758 edited the
       openings of overview, getting-started-email, getting-started, library-quickstart, author,
       choosing-an-endpoint, ocr-level, so rewriting before the merge would conflict)
-- [ ] Decide the voice of the first body sentence: `revise-doc-style` currently requires third-person
-      present ("Removes…", not "Use this to remove…"); excerpts are imperative. Keep the house rule for
-      body openings, or change it?
+- [x] Voice of the first body sentence: keep the house rule for now (decided 2026-10-20; may revisit).
+      `revise-doc-style`: first sentence is third-person present ("Removes…", not "Use this to
+      remove…"). Excerpts stay imperative; these are different fields.
 - [ ] Propose rewrites (fan-out by topic group; pilot one group first; plan below)
 - [ ] User review; apply
 
@@ -42,6 +42,7 @@ Fan-out / fan-in with subagents, one topic group per agent (10 groups, 3–7 pag
   - terminology rules: "extract," not "parse"; "config," not "template" (defined aliases only where
     already added)
   - no self-naming filler; the page's opening should say what the reader gets and who it's for
+  - first body sentence: third-person present per `revise-doc-style` ("Extracts…"), unlike excerpts
   - style rules: all `.claude/style-guide/` files, you-centric prose, `/* */` comments only in code,
     don't mention Label method, keep existing fence languages
   - exact scope of allowed edits (first ~150 words only); nothing else touched
