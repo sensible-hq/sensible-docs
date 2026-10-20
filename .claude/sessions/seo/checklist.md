@@ -42,6 +42,10 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
   (also called a template)') and `docs/document extraction/library-quickstart.md` (#25: 'prebuilt
   configs (also called templates)', where the app's **Template library** tab appears). Low-traffic
   pages that already equate them: `config-settings/index.md`, `document-type-settings/index.md`.
+- "Probabilistic" as a descriptor (not an alias) for LLM-based methods, paired with "deterministic"
+  for layout-based. Added 2026-10-20 on `docs/welcome/author.md` only (Choosing an extraction
+  approach): intro sentence and the comparison table's Deterministic row ("No. LLM output is
+  probabilistic."). Not added to #34 LLM-based methods (messaging caution: can read as "unreliable").
 - [x] Aliases added 2026-10-20: `docs/welcome/overview.md` ("...structured data from documents (also
       called document parsing)"; also replaced an unrelated "parse extracted data types" with "filter and
       format" and cut "Welcome!") and `docs/integrations/getting-started-email.md` ("This is also called
