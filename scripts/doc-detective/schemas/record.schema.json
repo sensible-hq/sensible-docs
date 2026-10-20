@@ -219,7 +219,7 @@
     "segments": {
       "type": "object",
       "additionalProperties": false,
-      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages",
+      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in a temporary doc type).",
       "required": [
         "fixtures",
         "document_types",
@@ -281,6 +281,73 @@
         "table": {
           "type": "string",
           "description": "tableId of the tagged table"
+        },
+        "samples": {
+          "type": "array",
+          "description": "The page's inline fingerprint samples, each run in a temporary doc type",
+          "items": {
+            "type": "object",
+            "required": [
+              "doc_type",
+              "config"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "doc_type": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A standalone fingerprint claim: whether the page's config runs in strict fingerprint mode, as written and with tests broken on purpose",
+      "required": [
+        "config",
+        "runs"
+      ],
+      "properties": {
+        "config": {
+          "type": "string"
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "break",
+              "expected",
+              "actual",
+              "extraction_id"
+            ],
+            "properties": {
+              "break": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                },
+                "description": "0-based indexes of the tests replaced with a match no document has; empty for the config as written"
+              },
+              "expected": {
+                "type": "boolean",
+                "description": "Whether the page claims the fingerprint passes"
+              },
+              "actual": {
+                "type": "boolean",
+                "description": "Whether it passed: the extraction completed with this config"
+              },
+              "extraction_id": {
+                "type": "string"
+              }
+            }
+          }
         }
       }
     }

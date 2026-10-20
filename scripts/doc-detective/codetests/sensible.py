@@ -134,6 +134,43 @@ class SensibleClient:
                 raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
             time.sleep(5)
 
+    # -- Inline fingerprint samples: temporary doc types, deleted after each test --
+
+    def create_temp_doc_type(self, name, schema=None):
+        """Create temporary doc type `name`, replacing one left over from an earlier run. Returns its ID."""
+        if not name.startswith(settings.TEMP_DOC_TYPE_PREFIX):
+            raise CodeTestError(CONFIG_INVALID, f"refusing to create {name}: temporary doc types must start with {settings.TEMP_DOC_TYPE_PREFIX!r}")
+        left_over = next((d["id"] for d in self.document_types() if d["name"] == name), None)
+        if left_over:
+            self.delete_temp_doc_type(left_over)
+        response = self._api("POST", "/document_types", json={"name": name, "schema": schema or {}})
+        if not response.ok:
+            raise CodeTestError(CONFIG_INVALID, f"creating doc type {name} returned {response.status_code}: {response.text[:300]}")
+        return response.json()["id"]
+
+    def delete_temp_doc_type(self, type_id):
+        response = self._api("DELETE", f"/document_types/{type_id}")
+        if response.status_code not in (200, 204, 404):
+            response.raise_for_status()
+
+    def publish_config(self, type_id, name, config_text):
+        """Upload a config as the page shows it, published to settings.ENVIRONMENT. Sensible validates it,
+        so a sample with invalid syntax fails here."""
+        response = self._api("POST", f"/document_types/{type_id}/configurations",
+                             json={"name": name, "configuration": config_text, "publish_as": settings.ENVIRONMENT})
+        if not response.ok:
+            raise CodeTestError(CONFIG_INVALID, f"Sensible rejected config {name}: {response.status_code}: {response.text[:500]}")
+
+    def extract_standalone(self, url, doc_type, document_name):
+        """Extract a document with a doc type (Sensible picks the config) and wait. Returns the extraction,
+        COMPLETE or FAILED: in strict fingerprint mode, FAILED is how a failing fingerprint shows."""
+        self._charge()
+        response = self._api("POST", f"/extract_from_url/{doc_type}?environment={settings.ENVIRONMENT}&document_name={document_name}",
+                             json={"document_url": url})
+        if not response.ok:
+            raise CodeTestError(EXTRACTION_ERROR, f"extraction request returned {response.status_code}: {response.text[:300]}")
+        return self._wait(response.json()["id"])
+
     # -- Fixtures and portfolio extractions (fingerprint claims) --
 
     def fixture_drift(self, doctype_file, config_file, references=(), check_drafts=True):
@@ -275,7 +312,7 @@ class SensibleClient:
         except json.JSONDecodeError:
             return config  # a draft with comments or a syntax error still counts as different
 
-    def extract_portfolio(self, url, doc_types, document_name, timeout=240):
+    def extract_portfolio(self, url, doc_types, document_name, timeout=240, environment=settings.FIXTURE_ENVIRONMENT):
         """Run a fingerprint-segmented portfolio extraction and wait. Returns (extraction ID, documents).
 
         Keep timeout x the page's segment tests under the workflow's timeout-minutes."""
@@ -283,7 +320,7 @@ class SensibleClient:
 
         self._charge()
         response = self._api(
-            "POST", f"/extract_from_url?environment={settings.FIXTURE_ENVIRONMENT}&document_name={document_name}",
+            "POST", f"/extract_from_url?environment={environment}&document_name={document_name}",
             json={"document_url": url, "types": doc_types, "segment_documents_with": "fingerprints"},
         )
         if not response.ok:

@@ -223,8 +223,28 @@ def render_code_test(record):
             editor = f' (<a href="{e(editors[name])}">open in the SenseML editor</a>)' if name in editors else ""
             return f"<code>{e(name)}</code>{editor}"
 
-        out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
-                   f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+        if seg.get("samples"):
+            what = ", ".join(f"<code>{e(x['config'])}</code> (doc type <code>{e(x['doc_type'])}</code>)" for x in seg["samples"])
+            out.append(f'<p class="muted">The page\'s own samples: {what}, each run in a temporary doc type. '
+                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+        else:
+            out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
+                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
+
+    fp = record.get("fingerprint")
+    if fp:
+        out.append("<h3>Fingerprint, strict mode</h3>")
+        out.append('<p class="muted">In strict fingerprint mode, Sensible runs the config only if its fingerprint passes. '
+                   'Each row runs the page\'s config, as written or with tests replaced by a match no document has. No LLM, so no judge and no envelope.</p>')
+        out.append("<table><tr><th>Config</th><th>Page claims</th><th>Sensible</th><th>Extraction</th></tr>")
+        for run in fp["runs"]:
+            which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken (0-based)"
+            verdict = lambda passed: "passes" if passed else "fails"
+            ok = "pass" if run["actual"] == run["expected"] else "fail"
+            link = f"https://app.sensible.so/extraction/?e={run['extraction_id']}"
+            out.append(f'<tr><td>{e(which)}</td><td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
+                       f'<td><a href="{e(link)}">{e(run["extraction_id"][:8])}…</a></td></tr>')
+        out.append("</table>")
         restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
         if restored:
             out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
@@ -317,6 +337,10 @@ def details_label(test, rec):
         else:
             where = test.test_id
         return f"{where}: {pages(seg['expected'])}"
+    fp = rec.get("fingerprint")
+    if fp:
+        claims = ", ".join(("as written" if not r["break"] else f"{len(r['break'])} broken") + (" passes" if r["expected"] else " fails") for r in fp["runs"])
+        return f"{test.test_id}: fingerprint {claims}"
     return f"{test.test_id}: output comparison"
 
 
@@ -359,8 +383,8 @@ def render(page_path, ui_results, records, out_path, usage=None):
     out = [
         "<!doctype html><html lang=en><head><meta charset=utf-8>",
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
-        f"<title>Doc Detective report</title><style>{CSS}</style></head><body><main>",
-        f'<div class="row"><h1>Doc Detective report</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
+        f"<title>Docs tests: {e(os.path.basename(page_path))}</title><style>{CSS}</style></head><body><main>",
+        f'<div class="row"><h1>Docs tests: {e(os.path.basename(page_path))}</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
         f'<p class="sub">{e(shown_path)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
         render_usage(usage),
         f'<p class="disclaimer">{e(wording.judge_disclaimer()).replace("labeled judge", "labeled " + JUDGE)} '

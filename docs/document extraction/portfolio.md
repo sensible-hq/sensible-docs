@@ -206,6 +206,8 @@ You should see results like the following:
 
 The following example shows extracting three one-page documents from a portfolio using fingerprints to segment the documents. The portfolio contains two car insurance quotes and one loss run.
 
+<!-- code test {"testId": "fingerprint_example_portfolio", "segment_documents_with": "fingerprints", "description": "The two example fingerprints segment the portfolio into the documents the example response shows"} -->
+
 ### Config
 
 **_Document type 1_**
@@ -218,6 +220,7 @@ The following example shows extracting three one-page documents from a portfolio
 
 To the config in [Getting started with layout-based extractions](doc:getting-started), append the following fingerprint:
 
+<!-- inline config {"fragment": "fingerprint", "doc_type": "auto_insurance_quotes", "config": "anyco"} -->
 ```json
 "fingerprint": {
   "tests": [
@@ -250,6 +253,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 
 To the config in the [Example loss run](doc:sections-example-loss-run) topic, append the following fingerprint:
 
+<!-- inline config {"fragment": "fingerprint", "doc_type": "loss_run_reports", "config": "acme"} -->
 ```json
 "fingerprint": {
   "tests": [
@@ -276,6 +280,7 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
 
 ### Example document
 
+<!-- inline document -->
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------- |
 
@@ -301,6 +306,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 
 The response contains extractions from three documents:
 
+<!-- inline output -->
 ```json
 {
     "id": "56a27285-9465-4781-82d1-3010bd5c589f",
@@ -564,3 +570,6 @@ The response contains extractions from three documents:
     ]
 }
 ```
+
+<!-- expect {"compare": "documents"} -->
+<!-- code test end -->

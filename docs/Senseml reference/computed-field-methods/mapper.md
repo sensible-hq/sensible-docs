@@ -1,11 +1,11 @@
 ---
 title: Mapper
-excerpt: Use Sensible's Mapper method to standardize extracted field output using a case-sensitive lookup table for consistent data formatting across document configs.
+excerpt: Standardize extracted field output using a case-sensitive lookup table for consistent data formatting across document configs.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Use Sensible's Mapper method to standardize extracted field output using a case-sensitive lookup table for consistent data formatting across document configs.
+  description: Standardize extracted field output using a case-sensitive lookup table for consistent data formatting across document configs.
   robots: index
 next:
   description: ''

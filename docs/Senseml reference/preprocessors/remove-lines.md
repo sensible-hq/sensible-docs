@@ -1,13 +1,11 @@
 ---
 title: Remove lines
-excerpt: Learn how to use the removeLines preprocessor to delete matching text lines,
-  including watermarks and page numbers, from all pages before extraction.
+excerpt: Delete matching text lines, including watermarks and page numbers, from all pages before extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the removeLines preprocessor to delete matching text
-    lines, including watermarks and page numbers, from all pages before extraction.
+  description: Delete matching text lines, including watermarks and page numbers, from all pages before extraction.
   robots: index
 next:
   description: ''
