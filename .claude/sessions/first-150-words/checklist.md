@@ -2,7 +2,7 @@
 
 Claude Code session name: seo
 Claude Code session ID: c14f96d2-faef-4dbe-8951-0d7f13df161c
-Branch: first-150-words (worktree: ~/GitHub/sensible-docs-first-150-words)
+Branch: first-150-words (worktree: ~/GitHub/sensible-docs-first-150-words), draft PR #763
 Related: issue #722; follows PR #758 (seo-keywords: excerpts, phrase research) and PR #762 (merged)
 
 ## Goal
