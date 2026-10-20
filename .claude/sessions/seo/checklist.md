@@ -189,3 +189,26 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] Apply `metadata.keywords` to frontmatter
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] PR referencing #722
+
+## Execution plan: per-page edits (agreed 2026-10-20)
+
+Fan-out / fan-in with subagents, ~5 pages each (~9 agents for 42 pages).
+
+- [ ] Decide scope: keywords only, or keywords + excerpt + first ~150 words (the rewrites are where
+      the SEO/GEO value is, but cost more review time per page)
+- [ ] Batch pages by topic, not row number (e.g. tables: Table methods, NLP table, Intersection,
+      List, Sections; API: API Introduction, API tutorial, API quickstart, webhook, sync extract), so
+      each agent sees related pages and keeps phrasing consistent
+- [ ] Shared inputs for every agent:
+  - phrase-ownership map (which page owns which best phrase; non-owners get it as keyword only)
+  - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
+    problem it solves (`best-practice/payabli.md`)
+  - style rules: all `.claude/style-guide/` files, you-centric prose, `/* */` comments only in code,
+    don't mention Label method, keep existing fence languages
+  - exact scope of allowed edits; nothing else touched
+- [ ] Fan-out: each agent edits only its own pages and writes a per-page change rationale; no
+      agent edits shared files (checklist, draft)
+- [ ] Fan-in (main session): check best-phrase collisions across pages; check any new factual
+      claims; run Vale; full style pass across all edits for one voice; present one consolidated
+      summary or draft PR
+- [ ] Pilot one batch of ~5 pages first; user reviews; tune the prompt; then run the remaining batches
