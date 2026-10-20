@@ -1,11 +1,11 @@
 ---
 title: Method object
-excerpt: Method object in Sensible, including LLM-based and layout-based methods, global parameters like tiebreaker and lineFilters, and how to extract target data.
+excerpt: Includes LLM-based and layout-based methods, global parameters like tiebreaker and lineFilters, and how to extract target data.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Method object in Sensible, including LLM-based and layout-based methods, global parameters like tiebreaker and lineFilters, and how to extract target data.
+  description: Includes LLM-based and layout-based methods, global parameters like tiebreaker and lineFilters, and how to extract target data.
   robots: index
 next:
   description: ''

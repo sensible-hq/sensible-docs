@@ -1,11 +1,11 @@
 ---
 title: Document range
-excerpt: Document Range method extracts consecutive lines between upper and lower bounds.
+excerpt: Extracts consecutive lines between upper and lower bounds.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Document Range method extracts consecutive lines between upper and lower bounds.
+  description: Extracts consecutive lines between upper and lower bounds.
   robots: index
 next:
   description: ''

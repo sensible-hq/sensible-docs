@@ -1,15 +1,11 @@
 ---
 title: Column
-excerpt: >-
-  Learn how the Column method extracts lines above or below an anchor line based
-  on x extent alignment or 50% overlap, with parameters and examples.
+excerpt: Extracts lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Learn how the Column method extracts lines above or below an anchor line
-    based on x extent alignment or 50% overlap, with parameters and examples.
+  description: Extracts lines above or below an anchor line based on x extent alignment or 50% overlap, with parameters and examples.
   robots: index
 next:
   description: ''
