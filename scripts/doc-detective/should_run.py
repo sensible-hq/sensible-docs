@@ -66,7 +66,7 @@ def decide(page, before, after="HEAD", watch=()):
     if others:
         return True, f"the push changed {others[0]}" + (f" and {len(others) - 1} more file(s)" if len(others) > 1 else "")
     if page not in changed:
-        return True, "the push didn't change the page"
+        return False, "the push changed nothing this page's tests use"
     try:
         old_text = git("show", f"{before}:{page}")
     except subprocess.CalledProcessError:

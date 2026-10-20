@@ -260,18 +260,26 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## CI
 
-`.github/workflows/doc-detective-getting-started.yml` runs on pushes to `v0` that change the page or this tooling, monthly (the 1st, 15:00 UTC), and on demand. Never on pull requests. It needs repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` runs it last, and the workflow runs it again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password.
+One workflow, `.github/workflows/doc-tests-pages.yml`, runs the tests in every page registered in `config/pages.json`, with a job per page. Never on pull requests.
+
+**Which pages run.** A `plan` job (`plan_pages.py`, no secrets) decides, and lists each page's decision on the run page:
+
+- **Push to `v0`:** each page whose tests, or the files they use, changed. A page's files are its `watch` list in `pages.json`, plus this tooling and the workflow. A page with a gate (the default) skips a push that changed only its prose, such as a ReadMe save: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. `"gate": false` (getting started) runs on any change to the page.
+- **Monthly** (the 1st, 15:00 UTC): every page, so product drift is caught even when nothing changes.
+- **Manual** (Actions > Doc tests (pages) > Run workflow): the pages you name, as comma-separated slugs, or `all`.
+
+**To test a new page:** add an entry to `config/pages.json` (slug, title, page, the files its tests use, a timeout, and which secrets it needs), and add the page and its `watch` paths to the workflow's push paths. `tests/test_plan_pages.py` fails until the two match. Pages with UI tests get Doc Detective automatically. `propose_fixes` opens a draft PR (branch `doc-tests/<slug>-fixes`) that rewrites drifted output; `envelope_issue` keeps a standing issue for LLM envelope warnings (label `doc-tests-<slug>-envelope`).
+
+**Each page's job** runs the tests (`run.sh`), the secret steps below, writes the run summary and uploads the HTML report (`doc-tests-<slug>-report.html`) and the records (`doc-tests-<slug>-reports`), and on failure opens or comments on one issue labeled `doc-tests-<slug>`. A page gets only the secrets its `pages.json` entry lists (default `SENSIBLE_TEST_API_KEY`); getting started also gets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD` (its UI test signs in), and `ANTHROPIC_API_KEY` (the LLM judge). `scrub.sh` scrubs secret values from reports: `run.sh` runs it last, and the workflow runs it again as its own step before uploading, so a cancelled or timed-out run never uploads Doc Detective's plain-text password. Runs don't overlap (they share the test account), and an optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in each report.
+
+Extractions per run: getting started 2, fingerprint 12 (5 table rows, 4 portfolio samples, 3 strict-mode runs of the standalone sample), portfolio 1.
 
 **Secrets fail closed.** Doc Detective writes typed text, including the test account password, into its reports in plain text ([doc-detective#204](https://github.com/doc-detective/doc-detective/issues/204)), and a scrub alone fails open. So `check_secrets.py` runs after every scrub:
 
 - **Leak scan:** every file under `output/`, any type, is searched for each secret in `config/secrets.txt`, as written and JSON-, HTML-, URL-, and base64-encoded, and for credential-shaped strings nobody registered (Anthropic keys, bearer tokens, GitHub tokens, AWS keys). Any hit fails the run. In CI, nothing is published (docs-fix PR, issues, artifact) unless the "Check for leaked secrets" step passes. It never prints a value.
 - **Coverage**, so a future secret can't be missed: the run fails if a `${{ secrets.X }}` in the workflow, a `$VAR` in a page's test markup, or a variable in `.env` is in neither `config/secrets.txt` nor `config/public-vars.txt`, or if the "Check for leaked secrets" step doesn't receive every secret the workflow uses. CI runs this first (`--coverage-only`, no secrets needed).
 
-**To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
-
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. It runs 12 extractions: 5 table rows, 4 portfolio samples, and 3 strict-mode runs of the standalone sample.
-
-`.github/workflows/doc-tests-portfolio.yml` runs the Portfolios page's fingerprint example the same way (1 portfolio extraction; monthly on the 1st, 15:45 UTC). Its failures go to a standing issue labeled `doc-tests-portfolio`. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
+**To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. In `doc-tests-pages.yml`, each secret's value is conditional on the page's `secrets` list; the check reads those too. Add the secret to the page's `secrets` in `pages.json`. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
 
 ## Fixtures
 
@@ -281,7 +289,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 | Path | Contents |
 | --- | --- |
-| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push needs the fingerprint run. |
+| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `plan_pages.py` decides which registered pages (`config/pages.json`) a CI run tests, using `should_run.py` for each gated page. |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules. |
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |
