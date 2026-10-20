@@ -21,7 +21,8 @@ readers can tell whether the page is for them.
 
 ## Order of operations
 
-- [ ] Wait for PR #758 to merge, then merge `origin/v0` into this branch and rerun
+- [x] (2026-10-20: #758 merged as e305803; v0 merged in; draft rebuilt. First 150 words changed on
+      #1, #3, #25, #27 only; those 4 re-graded.) Wait for PR #758 to merge, then merge `origin/v0` into this branch and rerun
       `build_first_lines.py` (until then the draft shows pre-#758 excerpts and openings; #758 edited the
       openings of overview, getting-started-email, getting-started, library-quickstart, author,
       choosing-an-endpoint, ocr-level, so rewriting before the merge would conflict)
