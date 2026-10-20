@@ -37,6 +37,11 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
 - Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract" can
   still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site search
   / docs MCP search; unverified) may not, which the defined aliases partly cover.
+- "Config," not "template." "Template" appears only as a defined alias, on two pages (added
+  2026-10-20): `docs/document extraction/getting-started.md` (#3: 'save your descriptions as a "config"
+  (also called a template)') and `docs/document extraction/library-quickstart.md` (#25: 'prebuilt
+  configs (also called templates)', where the app's **Template library** tab appears). Low-traffic
+  pages that already equate them: `config-settings/index.md`, `document-type-settings/index.md`.
 - [x] Aliases added 2026-10-20: `docs/welcome/overview.md` ("...structured data from documents (also
       called document parsing)"; also replaced an unrelated "parse extracted data types" with "filter and
       format" and cut "Welcome!") and `docs/integrations/getting-started-email.md` ("This is also called
