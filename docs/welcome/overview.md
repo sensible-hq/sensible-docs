@@ -18,7 +18,7 @@ next:
 ---
 Sensible is a developer-first platform for extracting structured data from documents (also called document parsing), for example:
 
-* business forms in PDF format
+* business forms in PDF format or Microsoft Word
 * email bodies and attachments
 * spreadsheets
 * PNGs and JPEGS of documents
