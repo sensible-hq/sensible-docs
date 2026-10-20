@@ -1,18 +1,19 @@
-# Keywords draft (for review)
+# SEO/GEO phrases draft (for review)
 
-- **Keywords**: candidate `metadata.keywords` entries. `*` = phrase does not appear anywhere in the
-  page body today. Unmarked = already in the body.
-- **Best 2–3 phrases**: the strongest synonyms to work into the excerpt, title, or body text, which is
-  the only place search engines and LLM crawlers read them (ReadMe doesn't render
-  `metadata.keywords` as a `<meta>` tag; see checklist). Each phrase is assigned to one primary page
-  to avoid pages competing for the same term.
-- **Revisions from competitor research**: proposed changes to Keywords and Best phrases, based on
-  `competitors/*.md`. Notation: **+** add to keywords, **−** drop from keywords; **Best:** + / − = add to /
-  remove from the best-phrases column, or "keep current". Source competitor in parentheses (phrases are verbatim from their titles, descriptions, or
-  headings). "No change" = no competitor covers the concept.
-- **Terminology rule (2026-10-20): "extract," not "parse."** Docs use "extract" consistently. "Parse"/"parser"/"parsing" appear
-  in body text only once, as a defined alias on the Overview ("...extracts structured data from documents (also called
-  document parsing)"). Elsewhere, parse-words are allowed in Keywords only, never in Best phrases.
+- **Decision (2026-10-20): no `metadata.keywords`.** ReadMe stores the field but strips it from the rendered
+  page, `.md`, and `llms.txt`, so it isn't worth filling in. Phrases only count where people and crawlers
+  read them: title, excerpt (= meta description and llms.txt description), and body text.
+- **Candidate phrases**: the pool of synonyms and search phrases for the page. `*` = phrase does not
+  appear anywhere in the page body today. Candidates not promoted to Best phrases aren't used.
+- **Best phrases**: the 2–4 phrases to work into the excerpt and first ~150 words. Each phrase is assigned
+  to one primary page to avoid pages competing for the same term.
+- **Revisions from competitor research**: proposed changes based on `competitors/*.md` and review
+  comments. Notation: **+** add to candidates, **−** drop from candidates; **Best:** + / − = add to /
+  remove from Best phrases, or "keep current". Source competitor in parentheses (phrases are verbatim
+  from their titles, descriptions, or headings). "No change" = no competitor covers the concept.
+- **Terminology rule (2026-10-20): "extract," not "parse."** Docs use "extract" consistently. Parse-words
+  appear in body text only as defined aliases, once each, on two pages: Overview ("...extracts structured
+  data from documents (also called document parsing)") and email extraction ("also called email parsing").
 
 Pages are grouped by topic. Page numbers are stable IDs (other notes refer to them, e.g. "#27"), so they aren't sequential within groups.
 
@@ -20,16 +21,16 @@ Pages are grouped by topic. Page numbers are stable IDs (other notes refer to th
 
 ### 1. Overview
 File: `welcome/overview.md`
-#### Keywords
+#### Candidate phrases
 document parser *, PDF parser *, document parsing API *, document data extraction API *, PDF data extraction *, PDF to JSON *, structured data from PDFs *, unstructured to structured data *, document AI *
 #### Best phrases
 document parsing (as the one defined alias: "also called document parsing"); PDF data extraction; PDF to JSON
 #### Revisions from competitor research
-**Terminology rule:** Overview is the only page that uses "parse" in body text, once, as a defined alias. PDF parser, document parsing API stay in Keywords. **+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** keep current.
+**Terminology rule:** Overview is the only page that uses "parse" in body text, once, as a defined alias. PDF parser, document parsing API stay candidates only. **+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** + intelligent document processing (per review).
 
 ### 2. Getting started
 File: `welcome/getting-started-ai.md`
-#### Keywords
+#### Candidate phrases
 tutorial *, AI document extraction *, extract data from PDF with LLM *, LLM PDF parsing *, GPT document extraction *, prompt-based extraction *, no-code document extraction *
 #### Best phrases
 AI document extraction; extract data from PDF with LLM
@@ -38,16 +39,16 @@ AI document extraction; extract data from PDF with LLM
 
 ### 3. Getting started with layout-based extractions
 File: `document extraction/getting-started.md`
-#### Keywords
+#### Candidate phrases
 SenseML tutorial *, template-based extraction *, rule-based extraction *, deterministic extraction *, coordinate-based extraction *, zonal OCR *, extract data from forms *, PDF parsing tutorial *
 #### Best phrases
 deterministic extraction; template-based extraction; rule-based extraction; extract data from forms
 #### Revisions from competitor research
-**+** template parsing (Parseur, "AI vs Template Parsing"), parsing rules (Docparser). **Best:** keep current.
+**+** template parsing (Parseur, "AI vs Template Parsing"), parsing rules (Docparser); "parsing" not used per terminology rule. Per review: work "template" wording (template-based extraction) into the excerpt and first ~150 words. **Best:** keep current.
 
 ### 4. Intelligent document processing
 File: `Senseml reference/concepts/idp.md`
-#### Keywords
+#### Candidate phrases
 document processing automation *, document automation *, automated data extraction *, AI document processing *, document AI *
 #### Best phrases
 document automation; automated data extraction
@@ -56,7 +57,7 @@ document automation; automated data extraction
 
 ### 25. Out-of-the-box extractions
 File: `document extraction/library-quickstart.md`
-#### Keywords
+#### Candidate phrases
 prebuilt models *, pre-built templates *, document templates *, bank statement extraction *, pay stub extraction *, tax form extraction *, configuration library, cookbook *
 #### Best phrases
 prebuilt models; pre-built templates; bank statement extraction
@@ -67,16 +68,16 @@ prebuilt models; pre-built templates; bank statement extraction
 
 ### 5. Supported file types
 File: `Senseml reference/concepts/file-types.md`
-#### Keywords
+#### Candidate phrases
 supported formats *, file formats *, file size limits *, extract data from Excel *, extract data from Word *, scanned documents *, image to text *, email extraction *
 #### Best phrases
 extract data from Excel; extract data from Word; file size limits
 #### Revisions from competitor research
-**+** maximum document size (Parseur). (Password-protected PDFs dropped: not supported.) "File formats" is the competitors' term in 3 of 5 (we say "file types"). **Best:** + file formats; − extract data from Word.
+**+** maximum document size (Parseur). (Password-protected PDFs dropped: not supported.) "File formats" is the competitors' term in 3 of 5 (we say "file types"). **Best:** + file formats (keep Word and Excel, per review).
 
 ### 6. OCR
 File: `Senseml reference/concepts/ocr.md`
-#### Keywords
+#### Candidate phrases
 OCR API *, scanned PDF *, image to text *, text recognition *, Amazon Textract *, Google Document AI *, Microsoft Azure *
 #### Best phrases
 OCR API; scanned PDF; image to text
@@ -85,7 +86,7 @@ OCR API; scanned PDF; image to text
 
 ### 28. OCR preprocessor
 File: `Senseml reference/preprocessors/ocr-preprocessor.md`
-#### Keywords
+#### Candidate phrases
 force OCR *, garbled text *, OCR specific pages *, mixed scanned and digital PDF *, scanned pages *, embedded text, handwritten
 #### Best phrases
 force OCR; garbled text; OCR specific pages
@@ -94,7 +95,7 @@ Added from competitor research: "force OCR" is Parseur's term ("When to Use the 
 
 ### 23. Preprocessors
 File: `Senseml reference/preprocessors/index.md`
-#### Keywords
+#### Candidate phrases
 preprocessing options *, image pre-processing *, document cleanup *, rotate pages *, remove headers and footers *, multi-column layout *, deskew, page range
 #### Best phrases
 preprocessing options; image pre-processing; document cleanup
@@ -103,7 +104,7 @@ No change. Both best phrases confirmed (Docparser, Docsumo).
 
 ### 29. Merge lines
 File: `Senseml reference/preprocessors/merge-lines.md`
-#### Keywords
+#### Candidate phrases
 fix broken text lines *, oversplit lines, misaligned text *, poor quality scans *, handwriting OCR, jittery lines, line merging *, text line detection *
 #### Best phrases
 fix broken text lines; poor quality scans; handwriting OCR
@@ -114,16 +115,16 @@ No competitor equivalent. Closest: Docsumo "Image Pre-Processing" (owned by #23)
 
 ### 31. SenseML reference introduction
 File: `Senseml reference/senseml-reference-introduction.md`
-#### Keywords
+#### Candidate phrases
 document query language *, extraction configuration reference *, config reference *, JSON config *, extraction rules *, parsing rules *
 #### Best phrases
 document query language; extraction configuration reference
 #### Revisions from competitor research
-**+** parsing rules (Docparser; keywords only, also on #3). **Best:** keep current.
+**+** parsing rules (Docparser; candidate only, also on #3). **Best:** keep current.
 
 ### 33. Field query object
 File: `Senseml reference/field-query-object/index.md`
-#### Keywords
+#### Candidate phrases
 extraction field definition *, JSON output *, key-value output *, data field *, field ID *, output schema *
 #### Best phrases
 extraction field definition; JSON output
@@ -132,7 +133,7 @@ No competitor equivalent. **Best:** keep current.
 
 ### 11. Anchor object
 File: `Senseml reference/field-query-object/anchor.md`
-#### Keywords
+#### Candidate phrases
 keyword *, landmark *, search text *, text locator *, reference text *
 #### Best phrases
 keyword; landmark
@@ -141,7 +142,7 @@ keyword; landmark
 
 ### 37. Match object
 File: `Senseml reference/field-query-object/match.md`
-#### Keywords
+#### Candidate phrases
 text matching *, regex matching *, fuzzy match, approximate string matching *, case-insensitive match *, search criteria, boolean match
 #### Best phrases
 text matching; fuzzy match; regex matching
@@ -150,7 +151,7 @@ No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** keep cu
 
 ### 35. Types
 File: `Senseml reference/field-query-object/types.md`
-#### Keywords
+#### Candidate phrases
 normalize data *, field formats *, data types *, data normalization *, date format, currency parsing *, address parsing *, type validation *
 #### Best phrases
 normalize data; data types; date format
@@ -161,16 +162,16 @@ normalize data; data types; date format
 
 ### 32. Layout-based methods
 File: `Senseml reference/layout-based-methods/index.md`
-#### Keywords
+#### Candidate phrases
 positional extraction *, non-LLM extraction *, extraction methods *, PDF extraction methods *, layout extraction *, deterministic extraction *
 #### Best phrases
 positional extraction; non-LLM extraction; extraction methods
 #### Revisions from competitor research
-No change. "deterministic extraction" kept as keyword only; #3 owns it as a best phrase. **Best:** keep current.
+No change. "deterministic extraction" kept as candidate only; #3 owns it as a best phrase. **Best:** keep current.
 
 ### 7. Row
 File: `Senseml reference/layout-based-methods/row.md`
-#### Keywords
+#### Candidate phrases
 extract text next to label *, value to the right of a label *, extract field by label *, key-value pair extraction *, label value pairs *, same line *, horizontal alignment *
 #### Best phrases
 key-value pair extraction; extract text next to label
@@ -179,7 +180,7 @@ No change.
 
 ### 8. Region
 File: `Senseml reference/layout-based-methods/region.md`
-#### Keywords
+#### Candidate phrases
 zonal OCR *, bounding box *, coordinate-based extraction *, fixed position extraction *, extract area of PDF *, template zone *, crop *, PDF region to image *
 #### Best phrases
 zonal OCR; bounding box; coordinate-based extraction
@@ -188,7 +189,7 @@ zonal OCR; bounding box; coordinate-based extraction
 
 ### 9. Passthrough
 File: `Senseml reference/layout-based-methods/passthrough.md`
-#### Keywords
+#### Candidate phrases
 regex match *, regular expression extraction *, pattern matching *, extract matching text *, return anchor *
 #### Best phrases
 regex match; pattern matching
@@ -197,7 +198,7 @@ No change.
 
 ### 10. Intersection
 File: `Senseml reference/layout-based-methods/intersection.md`
-#### Keywords
+#### Candidate phrases
 table cell lookup *, extract cell by row and column *, row and column intersection *, grid lookup *, empty table cells *, crosstab *
 #### Best phrases
 table cell lookup; grid lookup; extract cell by row and column; empty table cells
@@ -208,7 +209,7 @@ No change.
 
 ### 34. LLM-based methods
 File: `Senseml reference/llm-based-methods/index.md`
-#### Keywords
+#### Candidate phrases
 unstructured text extraction *, AI extraction methods *, generative AI extraction *, free text extraction *, extract from contracts *, extract from legal documents *
 #### Best phrases
 unstructured text extraction; AI extraction methods; extract from contracts
@@ -217,16 +218,16 @@ No change. ("AI data extraction" is owned by #2.) **Best:** keep current.
 
 ### 13. Query group
 File: `Senseml reference/llm-based-methods/query-group.md`
-#### Keywords
+#### Candidate phrases
 LLM extraction *, AI field extraction *, extract facts *, question answering *, document Q&A *, GPT *, Claude *, Gemini *
 #### Best phrases
 LLM extraction; document Q&A
 #### Revisions from competitor research
-**+** key-value field extraction (Docsumo, "Key-Value Field Extraction Using LLM Prompts"; keywords only, since "key-value pair extraction" is Row's best phrase). **Best:** keep current.
+**+** key-value field extraction (Docsumo, "Key-Value Field Extraction Using LLM Prompts"; candidate only, since "key-value pair extraction" is Row's best phrase). **Best:** keep current.
 
 ### 14. List
 File: `Senseml reference/llm-based-methods/list.md`
-#### Keywords
+#### Candidate phrases
 invoice line items *, array extraction *, extract lists from PDF *, LLM list extraction *
 #### Best phrases
 invoice line items; extract lists from PDF
@@ -237,16 +238,16 @@ invoice line items; extract lists from PDF
 
 ### 12. Table methods
 File: `Senseml reference/concepts/table-methods.md`
-#### Keywords
+#### Candidate phrases
 PDF table extraction *, extract tables from PDF *, table parsing *, table OCR *, line items *, table to JSON *, table to CSV *
 #### Best phrases
 PDF table extraction; table parsing; table to CSV
 #### Revisions from competitor research
-**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + extract PDF tables, extract table rows; − table parsing, table to CSV. ("parse tables" is Keywords only, per the terminology rule.)
+**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + extract PDF tables, extract table rows; − table parsing, table to CSV. ("parse tables" is candidate only, per the terminology rule.)
 
 ### 15. NLP table
 File: `Senseml reference/llm-based-methods/nlp-table.md`
-#### Keywords
+#### Candidate phrases
 LLM table extraction *, AI table extraction *, extract tables with GPT *, natural language table *, table parsing *, line items *
 #### Best phrases
 LLM table extraction; AI table extraction
@@ -255,7 +256,7 @@ LLM table extraction; AI table extraction
 
 ### 16. Sections
 File: `Senseml reference/sections/index.md`
-#### Keywords
+#### Candidate phrases
 nested data *, array of objects *, nested tables *, sub-documents *, group fields *, loss runs *
 #### Best phrases
 nested data; array of objects; nested tables
@@ -266,16 +267,16 @@ nested data; array of objects; nested tables
 
 ### 30. JsonLogic extensions
 File: `Senseml reference/concepts/jsonlogic.md`
-#### Keywords
+#### Candidate phrases
 JSON rules engine *, transform extracted data *, custom operators *, JSON logic expressions *, conditional logic *, data transformation rules *, logic-based rules *
 #### Best phrases
 JSON rules engine; transform extracted data; custom operators
 #### Revisions from competitor research
-**+** logic-based rules (Ocrolus; keywords only, #20 owns validation phrases). **Best:** keep current.
+**+** logic-based rules (Ocrolus; candidate only, #20 owns validation phrases). **Best:** keep current.
 
 ### 40. Custom computation
 File: `Senseml reference/advanced-computed-field-methods/custom-computation.md`
-#### Keywords
+#### Candidate phrases
 post-processing *, calculated fields *, custom logic *, derived fields *, data transformation, sum fields *
 #### Best phrases
 post-processing; calculated fields; custom logic
@@ -284,27 +285,27 @@ post-processing; calculated fields; custom logic
 
 ### 41. Custom computation group
 File: `Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
-#### Keywords
+#### Candidate phrases
 multiple calculated fields *, data transformation *, transform extracted data *, post-processing *, custom logic *
 #### Best phrases
 multiple calculated fields; data transformation
 #### Revisions from competitor research
-"post-processing" kept as keyword only; #40 owns it. **Best:** keep current.
+"post-processing" kept as candidate only; #40 owns it. **Best:** keep current.
 
 ## Document types, classification, and multi-document files
 
 ### 17. Fingerprint
 File: `Senseml reference/config-settings/fingerprint.md`
-#### Keywords
+#### Candidate phrases
 template matching *, layout detection *, document variant *, form version *, config selection *, document identification *, page classification *
 #### Best phrases
 template matching; layout detection; form version
 #### Revisions from competitor research
-**+** multiple document layouts, layout variation (Docparser), picks a template / template selection (Parseur, "Understand How Parseur Picks a Template"). **Best:** + multiple document layouts; − form version.
+**+** multiple document layouts, layout variation (Docparser), picks a template / template selection (Parseur, "Understand How Parseur Picks a Template"). **Best:** + multiple document layouts; form version → form revision (per review; the page says "revision").
 
 ### 18. Classifying documents by type
 File: `document type classification/classify.md`
-#### Keywords
+#### Candidate phrases
 document classification *, document classifier *, classification API *, identify document type *, auto-classify *, document categorization *, document sorting *
 #### Best phrases
 document classification; classification API
@@ -313,18 +314,18 @@ document classification; classification API
 
 ### 19. Multi-document extractions
 File: `document extraction/portfolio.md`
-#### Keywords
+#### Candidate phrases
 split PDF *, PDF splitter *, document splitting *, document segmentation *, multiple documents in one PDF *, combined PDF *, bundled documents *, packet *, loan packet *, mortgage package *
 #### Best phrases
 split PDF; document segmentation; multiple documents in one PDF
 #### Revisions from competitor research
-**+** mixed PDF document, multi-page PDF (Ocrolus), automatically split (Docparser), combined document, PDF with multiple invoices (Docsumo), loan package (Ocrolus). **−** packet, loan packet (use Ocrolus's "loan package"). Splitting is the second most converged topic (4 of 5). **Best:** + document splitting; − document segmentation.
+**+** mixed PDF document, multi-page PDF (Ocrolus), automatically split (Docparser), combined document, PDF with multiple invoices (Docsumo), loan package (Ocrolus). **−** packet, loan packet (use Ocrolus's "loan package"). Splitting is the second most converged topic (4 of 5). **Best:** + document splitting, possibly loan package (per review); − document segmentation.
 
 ## Quality control
 
 ### 20. Validating extractions
 File: `monitor and qa/validate-extractions.md`
-#### Keywords
+#### Candidate phrases
 data validation *, validation rules *, business rules *, data quality *, QA *, checksums *, flag for review *
 #### Best phrases
 data validation; validation rules; data quality
@@ -333,7 +334,7 @@ data validation; validation rules; data quality
 
 ### 21. Qualifying LLM accuracy
 File: `document extraction/best-practices/confidence.md`
-#### Keywords
+#### Candidate phrases
 confidence scores *, LLM confidence *, extraction accuracy *, LLM accuracy *, uncertainty *, ambiguous answers *, hallucination *
 #### Best phrases
 confidence scores; extraction accuracy; LLM confidence
@@ -342,7 +343,7 @@ confidence scores; extraction accuracy; LLM confidence
 
 ### 22. Human review
 File: `monitor and qa/human-review.md`
-#### Keywords
+#### Candidate phrases
 human-in-the-loop *, HITL *, manual review *, review queue *, review screen *, correct extracted data *, approve or reject
 #### Best phrases
 human-in-the-loop; HITL; manual review
@@ -353,7 +354,7 @@ human-in-the-loop; HITL; manual review
 
 ### 27. API Introduction
 File: `reference/Introduction/choosing-an-endpoint.md`
-#### Keywords
+#### Candidate phrases
 document extraction API *, PDF extraction API *, REST API *, PDF to JSON API *, API getting started *, async vs. sync extraction, batch extraction *, polling *, webhooks
 #### Best phrases
 document extraction API; PDF extraction API; REST API
@@ -362,7 +363,7 @@ document extraction API; PDF extraction API; REST API
 
 ### 38. API quickstart
 File: `integrations/quickstart.md`
-#### Keywords
+#### Candidate phrases
 first API call *, hello world, API example *, curl example *, Postman *, quickstart
 #### Best phrases
 first API call; hello world
@@ -371,7 +372,7 @@ No competitor equivalent. Phrase "make your first API call" mirrors Payabli's ll
 
 ### 36. API tutorial
 File: `api/api-tutorial/index.md`
-#### Keywords
+#### Candidate phrases
 document extraction API tutorial *, step-by-step API guide *, REST API tutorial *, sync vs. async extraction *, extraction API examples *
 #### Best phrases
 document extraction API tutorial; step-by-step API guide
@@ -380,16 +381,16 @@ No competitor equivalent. **Best:** keep current.
 
 ### 42. Extract data from a document (sync)
 File: `reference/Extraction/document-1/extract-data-from-a-document.md`
-#### Keywords
+#### Candidate phrases
 synchronous extraction API *, sync extraction endpoint *, POST /extract *, upload PDF API *, extract endpoint *
 #### Best phrases
 synchronous extraction API; upload PDF API
 #### Revisions from competitor research
-No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extraction.json` (frontmatter = `api:` block only); keywords need a hand-added `metadata` block, and description/body text come from the OpenAPI operation. **Best:** keep current.
+No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extraction.json` (frontmatter = `api:` block only); description and body text come from the OpenAPI operation, so edits go in the spec, not the `.md`. **Best:** keep current.
 
 ### 24. Try a webhook
 File: `api/api-tutorial/api-tutorial-webhook.md`
-#### Keywords
+#### Candidate phrases
 webhook URL *, callback URL *, webhook tutorial *, push notification *, webhook payload, asynchronous extraction, polling
 #### Best phrases
 webhook URL; callback URL; webhook payload
@@ -398,7 +399,7 @@ webhook URL; callback URL; webhook payload
 
 ### 26. Integrating
 File: `welcome/integrate.md`
-#### Keywords
+#### Candidate phrases
 export extracted data *, send extracted data to apps *, document ingestion *, workflow automation *, no-code integration *, Python SDK *, Node.js SDK *, webhooks *, email parsing *, QuickBooks *, CSV export *, Google Sheets
 #### Best phrases
 export extracted data; workflow automation; Python SDK
@@ -407,12 +408,12 @@ export extracted data; workflow automation; Python SDK
 
 ### 39. Getting started with email extraction
 File: `integrations/getting-started-email.md`
-#### Keywords
+#### Candidate phrases
 email parsing *, email parser *, email body parsing *, extract data from email attachments *, email to JSON *, email import *, forward emails *, inbox automation *
 #### Best phrases
 email data extraction; extract data from email attachments; email to JSON
 #### Revisions from competitor research
-**Terminology rule:** email parsing, email parser moved to Keywords only (they're the dominant search terms for this topic, so this row loses the most from the rule). **+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (keyword only on #26). **Best:** keep current.
+**Terminology exception (per review):** this page may define "email parsing" once as an alias ("also called email parsing"); "email parser" stays a candidate only. **+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (candidate only on #26). **Best:** + email parsing (as the defined alias).
 
 Rows 29–42 added from ReadMe page-view data (past year; see checklist).
 

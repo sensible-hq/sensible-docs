@@ -1,5 +1,8 @@
 # SEO/GEO synonym keywords
 
+> **Decision 2026-10-20: `metadata.keywords` dropped.** ReadMe strips it from the rendered page, `.md`, and
+> `llms.txt`, so it isn't worth filling in. The work is now: best phrases into excerpts and first ~150 words.
+
 Claude Code session name: seo
 Claude Code session ID: c14f96d2-faef-4dbe-8951-0d7f13df161c
 Branch: seo-keywords (worktree: ~/GitHub/sensible-docs-seo-keywords)
@@ -107,7 +110,7 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] 40. Custom computation — `docs/Senseml reference/advanced-computed-field-methods/custom-computation.md`
 - [ ] 41. Custom computation group — `docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
 - [ ] 42. Extract data from a document (sync) — `reference/Extraction/document-1/extract-data-from-a-document.md`
-      (pointer to `openapi_extraction.json`; keywords need a hand-added `metadata` block)
+      (pointer to `openapi_extraction.json`; description and body text live in the spec)
 - [x] Truncated dashboard slugs resolved by user (2026-10-20): added getting-started-email,
       custom-computation, custom-computation-group, reference/extract-data-from-a-document.
 - [x] Keyword rows drafted for 29–42
@@ -169,9 +172,9 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
       cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
       when a table has unpredictably empty cells", which already hits #10's target phrases (table
       cell lookup, empty table cells) better than the live page's opening.
-- [ ] Ask ReadMe support: (a) does site search / agentSearch / docs MCP index `metadata.keywords`?
+- [ ] Ask ReadMe support: (a) ~~does site search / agentSearch / docs MCP index `metadata.keywords`?~~ (moot: keywords dropped)
       (b) how do we enable `agentSearch` / `projectSearch`?
-- [ ] Keyword vs. keyphrase test on live docs (needs merge to v0 to publish):
+- [ ] ~~Keyword vs. keyphrase test on live docs~~ (DROPPED 2026-10-20 with `metadata.keywords`) (needs merge to v0 to publish):
   - Pick 2 public pages. Page A gets a unique single-token keyword (e.g. `zqxsynonymtest`);
     page B gets a unique two-word keyword phrase made of individually-unique tokens
     (e.g. `zqxalpha zqxbeta`).
@@ -186,7 +189,7 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
     long the refresh took.
   - Remove all test tokens afterward.
 - [ ] Decide which synonyms also go into excerpt/title/body (the part that affects Google/LLMs)
-- [ ] Apply `metadata.keywords` to frontmatter
+- [ ] ~~Apply `metadata.keywords` to frontmatter~~ (DROPPED 2026-10-20)
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] PR referencing #722
 
@@ -194,23 +197,24 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 
 - "Extract," not "parse," throughout the docs, for terminology rigor. "Parse" appears in body text
   once: a defined alias on the Overview ("Sensible extracts structured data from documents (also
-  called document parsing)"). Parse-words otherwise go in `metadata.keywords` only.
+  called document parsing)"), plus one exception (per review): the email extraction page may define
+  "email parsing" once as an alias. Parse-words aren't used anywhere else.
 - Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract"
   can still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site
-  search / docs MCP search; unverified) may not, which the keywords field and the single defined
-  alias cover.
+  search / docs MCP search; unverified) may not, which the defined aliases
+  partly cover.
 
 ## Execution plan: per-page edits (agreed 2026-10-20)
 
 Fan-out / fan-in with subagents, ~5 pages each (~9 agents for 42 pages).
 
-- [ ] Decide scope: keywords only, or keywords + excerpt + first ~150 words (the rewrites are where
+- [ ] Decide scope: excerpt + first ~150 words, or excerpt only (the first-150-words rewrites are where
       the SEO/GEO value is, but cost more review time per page)
 - [ ] Batch pages by topic, not row number (e.g. tables: Table methods, NLP table, Intersection,
       List, Sections; API: API Introduction, API tutorial, API quickstart, webhook, sync extract), so
       each agent sees related pages and keeps phrasing consistent
 - [ ] Shared inputs for every agent:
-  - phrase-ownership map (which page owns which best phrase; non-owners get it as keyword only)
+  - phrase-ownership map (which page owns which best phrase; non-owners don't use it)
   - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
     problem it solves (`best-practice/payabli.md`)
   - terminology rule: "extract," not "parse" (see Terminology decision)
