@@ -28,6 +28,18 @@ readers can tell whether the page is for them.
 - [x] Voice of the first body sentence: keep the house rule for now (decided 2026-10-20; may revisit).
       `revise-doc-style`: first sentence is third-person present ("Removes…", not "Use this to
       remove…"). Excerpts stay imperative; these are different fields.
+- [x] Grade all 42 pages against the rubric (2026-10-20): `grades.md` (rendered by `render_grades.py`
+      from `grades.json`; 5 grading subagents). Averages: A (explicit first paragraph) 1.0, B (plain
+      title) 1.5, C (focus) 1.8, D (first 150 words) 1.4. Only #38 API quickstart scored 8/8; 37 of 42
+      pages score 1 on A: openings say what the thing does, not what the page covers or what you'll be
+      able to do. Lowest (4/8): #13 Query group, #17 Fingerprint, #31 SenseML reference intro,
+      #32 Layout-based methods, #35 Types.
+  - Fan-in notes: some suggested fixes conflict with decisions: #25 suggests a title with
+    "templates" (config, not template); retitles (#17, #21, #25, #26, #27, #35) are out of scope for
+    first-150-words unless the user wants them; #3 suggests splitting the tutorial (focus).
+  - Body bugs found while grading (fix separately): #40 custom-computation.md has two `# Examples`
+    H1s; #13 query-group.md has both `# Parameters` and `## Parameters`; #21 confidence.md says
+    "Sensible support confidence signals" (should be "supports").
 - [ ] Propose rewrites (fan-out by topic group; pilot one group first; plan below)
 - [ ] User review; apply
 
