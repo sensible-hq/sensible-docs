@@ -103,13 +103,14 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] 36. API tutorial — `docs/api/api-tutorial/index.md` (290)
 - [ ] 37. Match object — `docs/Senseml reference/field-query-object/match.md` (288)
 - [ ] 38. API quickstart — `docs/integrations/quickstart.md` (271)
-- [ ] Ambiguous truncated slugs in the dashboard screenshots; user to confirm:
-  - `/docs/getting-st…` (691 and 442): two of getting-started-ai (#2), getting-started (#3),
-    getting-started-email (not in list)
-  - `/reference/extrac…` (370 and 233): two of extract-data-from-a-document,
-    extract-data-from-a-document-with-config, extract-from-url, extract-all-text-from-reference-document.
-    These are OpenAPI-generated pages: frontmatter keywords may not be settable by hand.
-  - `/docs/custom-co…` (232): custom-computation or custom-computation-group
+- [ ] 39. Getting started with email extraction — `docs/integrations/getting-started-email.md`
+- [ ] 40. Custom computation — `docs/Senseml reference/advanced-computed-field-methods/custom-computation.md`
+- [ ] 41. Custom computation group — `docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
+- [ ] 42. Extract data from a document (sync) — `reference/Extraction/document-1/extract-data-from-a-document.md`
+      (pointer to `openapi_extraction.json`; keywords need a hand-added `metadata` block)
+- [x] Truncated dashboard slugs resolved by user (2026-10-20): added getting-started-email,
+      custom-computation, custom-computation-group, reference/extract-data-from-a-document.
+- [x] Keyword rows drafted for 29–42
 - Already in list and high-traffic: overview (1.3K), choosing-an-endpoint (997), sections (421),
   query-group (409), anchor (279), portfolio (278), library-quickstart (259), preprocessors (244).
 - Not in the top ~30 by views: Row, Region, Passthrough, Intersection (most-used methods by
