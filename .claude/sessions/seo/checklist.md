@@ -157,11 +157,11 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 
 - [x] Draft per-page phrases for all 42 pages (`keywords-draft.md`), grouped by topic
 - [x] Apply first round of PR review comments (2026-10-20)
-- [x] Add current description (excerpt, extracted deterministically from frontmatter; OpenAPI
-      summary for spec-generated #42) to each page in the draft, with character counts (2026-10-20)
+- [x] Add current excerpt (extracted deterministically from frontmatter; OpenAPI summary for
+      spec-generated #42) to each page in the draft, with character counts (2026-10-20)
 - [x] Apply Best-phrase +/- changes from competitor research and review (14 pages; marked
       "Applied 2026-10-20" in the draft)
-- [x] Propose a new description per page (fan-out by topic group, fan-in merge into draft). Done
+- [x] Propose a new excerpt per page (fan-out by topic group, fan-in merge into draft). Done
       2026-10-20: 5 subagents; fan-in checked lengths (all <= 150), parse-words, phrase collisions,
       and edited 12 for length/wording.
       Limit: target <= 150 chars, hard cap 160 (`MAX_LENGTH` in `scripts/descriptions/frontmatter.py`;
@@ -170,12 +170,16 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
       word phrase; that predates PR #702 (excerpt = source of truth) and should be updated.
 - [ ] User reviews draft
 - [ ] #42 (spec-generated): find which OpenAPI field ReadMe uses for the meta description and
-      llms.txt description (`summary` is also the page title; `description` start is likelier) before
+      llms.txt description (the page has no excerpt) (`summary` is also the page title; `description` start is likelier) before
       editing `reference/openapi_extraction.json`
-- [ ] Descriptions that run ahead of their page body (update the first ~150 words to match when
+- [ ] Excerpts that run ahead of their page body (update the first ~150 words to match when
       applying): #3 "template-based" (page never says "template"), #11 "variable positions",
       "keyword", "landmark", #19 "split" (page says "segment"), #28 scanned/handwritten framing
-- [ ] Apply approved descriptions to `excerpt` (then `sync_description.py` updates `metadata.description`)
+- [ ] Apply approved excerpts. Excerpt is the source of truth: edit `excerpt` and also run
+      `scripts/descriptions/sync_description.py` locally (or set `metadata.description` to match) so the
+      `generate-descriptions` workflow doesn't open a follow-up sync PR. `sync_description.py` covers
+      docs/ only: for reference/ #27 set both fields by hand; #42 lives in the OpenAPI spec.
+      `llms.txt` regenerates from `metadata.description` (`sync-llmstxt` workflow).
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] Execute per-page edits (plan below)
 

@@ -2,10 +2,13 @@
 
 - **Decision (2026-10-20): no `metadata.keywords`.** ReadMe stores the field but strips it from the rendered
   page, `.md`, and `llms.txt`, so it isn't worth filling in. Phrases only count where people and crawlers
-  read them: title, excerpt (= meta description and llms.txt description), and body text.
+  read them: title, excerpt (-> meta description and llms.txt description), and body text.
 - **Candidate phrases**: the pool of synonyms and search phrases for the page. `*` = phrase does not
   appear anywhere in the page body today. Candidates not promoted to Best phrases aren't used.
-- **Proposed description**: a new excerpt (target <= 150 chars, hard cap 160), drafted by subagents per topic
+- **Excerpt = source of truth.** You edit `excerpt`; `sync_description.py` (docs/ only, via the
+  `generate-descriptions` workflow) copies it to `metadata.description`, which renders as the meta
+  description and feeds `llms.txt` (`scripts/llms_txt/generate.py`). reference/ pages aren't auto-synced.
+- **Proposed excerpt**: a new excerpt (target <= 150 chars, hard cap 160), drafted by subagents per topic
   group and checked at fan-in for length, parse-words, and phrase collisions. *Why:* explains the change.
 - **Best phrases**: the 2–4 phrases to work into the excerpt and first ~150 words. Each phrase is assigned
   to one primary page to avoid pages competing for the same term.
@@ -23,9 +26,9 @@ Pages are grouped by topic. Page numbers are stable IDs (other notes refer to th
 
 ### 1. Overview
 File: `welcome/overview.md`
-#### Current description (146 chars; excerpt)
+#### Current excerpt (146 chars)
 Sensible is a developer-first document data extraction platform using SenseML to pull structured JSON from PDFs, emails, spreadsheets, and images.
-#### Proposed description (149 chars)
+#### Proposed excerpt (149 chars)
 Sensible is a developer-first platform for PDF data extraction and intelligent document processing. Get JSON from PDFs, emails, spreadsheets, images.
 *Why:* Current is accurate but leads with a generic category; puts two Best phrases in the first 100 chars and keeps the PDF-to-JSON outcome; drops 'SenseML' (not a search term). Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -37,9 +40,9 @@ document parsing (as the one defined alias: "also called document parsing"); int
 
 ### 2. Getting started
 File: `welcome/getting-started-ai.md`
-#### Current description (155 chars; excerpt)
+#### Current excerpt (155 chars)
 Learn how to extract document data using Sensible's LLM-powered tools, from setting up your account to authoring prompts and publishing extraction configs.
-#### Proposed description (150 chars)
+#### Proposed excerpt (150 chars)
 Extract data from PDFs with an LLM in minutes. Write natural-language prompts for AI data extraction, then publish and test them as a Sensible config.
 *Why:* Drops the 'Learn how to' opener and account-setup filler; leads with the LLM-extraction search phrase and adds 'AI data extraction'.
 #### Candidate phrases
@@ -51,9 +54,9 @@ AI data extraction; extract data from PDF with LLM
 
 ### 3. Getting started with layout-based extractions
 File: `document extraction/getting-started.md`
-#### Current description (150 chars; excerpt)
+#### Current excerpt (150 chars)
 Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
-#### Proposed description (128 chars)
+#### Proposed excerpt (128 chars)
 Write deterministic, template-based extraction rules in SenseML to extract data from forms by layout, using anchors and methods.
 *Why:* Current is a feature list; new version front-loads the deterministic/template-based terms reviewers asked for and keeps the tutorial's scope (anchors, methods, test, API). Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -65,9 +68,9 @@ deterministic extraction; template-based extraction; rule-based extraction; extr
 
 ### 4. Intelligent document processing
 File: `Senseml reference/concepts/idp.md`
-#### Current description (158 chars; excerpt)
+#### Current excerpt (158 chars)
 Learn how intelligent document processing automates structured data extraction from documents to handle variability across real-world business document types.
-#### Proposed description (145 chars)
+#### Proposed excerpt (145 chars)
 Intelligent document processing (IDP) automates data extraction. Use probabilistic or deterministic techniques depending on document variability.
 *Why:* Drops 'Learn how'; states the definition directly with 'automated data extraction'. 'document automation' and 'document data capture' left out to avoid stuffing. Edited at fan-in (length or wording). *Revised per PR review: your wording for sentence 2; trimmed sentence 1 to fit your sentence 2.*
 #### Candidate phrases
@@ -79,9 +82,9 @@ document automation; automated data extraction; document data capture
 
 ### 25. Out-of-the-box extractions
 File: `document extraction/library-quickstart.md`
-#### Current description (152 chars; excerpt)
+#### Current excerpt (152 chars)
 Use Sensible's pre-built configuration library to extract data from common business documents like bank statements, tax forms, and pay stubs in minutes.
-#### Proposed description (145 chars)
+#### Proposed excerpt (145 chars)
 Import pre-built templates from Sensible's configuration library to extract data from bank statements, tax forms, pay stubs, and more in minutes.
 *Why:* Light tweak: swaps 'pre-built configuration library' for 'pre-built templates' (matches the app's Template library tab); 'prebuilt models' omitted as inaccurate.
 #### Candidate phrases
@@ -95,9 +98,9 @@ prebuilt models; pre-built templates; bank statement extraction
 
 ### 5. Supported file types
 File: `Senseml reference/concepts/file-types.md`
-#### Current description (122 chars; excerpt)
+#### Current excerpt (122 chars)
 Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification. Support has nuances.
-#### Proposed description (117 chars)
+#### Proposed excerpt (117 chars)
 Extract data from PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files. Support for each file format varies by operation.
 *Why:* Replaces vague 'Support has nuances' with what the page actually contains (support tables, size limits, conversions) and adds 'file format' and 'file size limits'. *Revised per PR review: your wording for sentence 2.*
 #### Candidate phrases
@@ -109,9 +112,9 @@ file formats; extract data from Excel; extract data from Word; file size limits
 
 ### 6. OCR
 File: `Senseml reference/concepts/ocr.md`
-#### Current description (157 chars; excerpt)
+#### Current excerpt (157 chars)
 How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
-#### Proposed description (133 chars)
+#### Proposed excerpt (133 chars)
 Sensible OCRs scanned PDFs and images automatically. Configure OCR level, per-page OCR, and the engine: Amazon, Google, or Microsoft.
 *Why:* Drops 'How Sensible handles' opener; leads with scanned PDFs/images-to-text and names the three engines (searchable). 'OCR API' not used: page isn't about an API. Edited at fan-in (length or wording). *Revised per PR review: cut 'to text'.*
 #### Candidate phrases
@@ -123,9 +126,9 @@ OCR API; scanned PDF; image to text
 
 ### 28. OCR preprocessor
 File: `Senseml reference/preprocessors/ocr-preprocessor.md`
-#### Current description (148 chars; excerpt)
+#### Current excerpt (148 chars)
 Use Sensible's OCR preprocessor to selectively OCR specific pages in documents containing both embedded text and scanned or handwritten text images.
-#### Proposed description (136 chars)
+#### Proposed excerpt (136 chars)
 Force OCR on specific pages, such as scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count.
 *Why:* Leads with 'force OCR' (competitor term) and keeps the mixed scanned/embedded use case; adds how pages are selected. 'garbled text' omitted because the page body doesn't mention it yet. Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -137,9 +140,9 @@ Added from competitor research: "force OCR" is Parseur's term ("When to Use the 
 
 ### 23. Preprocessors
 File: `Senseml reference/preprocessors/index.md`
-#### Current description (148 chars; excerpt)
+#### Current excerpt (148 chars)
 Learn about document preprocessors that clean up and prepare files before data extraction, including deskew, OCR, page range, multicolumn, and more.
-#### Proposed description (145 chars)
+#### Proposed excerpt (145 chars)
 Clean up documents before extraction with preprocessing options: image pre-processing (deskew, rotate, scale), selective OCR, and header removal.
 *Why:* Drops 'Learn about'; adds the two competitor-confirmed phrases and replaces page range/multicolumn examples with image-cleanup ones searchers use. Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -151,9 +154,9 @@ No change. Both best phrases confirmed (Docparser, Docsumo).
 
 ### 29. Merge lines
 File: `Senseml reference/preprocessors/merge-lines.md`
-#### Current description (139 chars; excerpt)
+#### Current excerpt (139 chars)
 Merge Lines preprocessor documentation covering how to fix oversplit, overlapping, or misaligned lines from poor scans or handwritten text.
-#### Proposed description (147 chars)
+#### Proposed excerpt (147 chars)
 Fix broken text lines from poor quality scans and handwriting OCR. The Merge Lines preprocessor merges oversplit, overlapping, or misaligned lines.
 *Why:* Drops 'documentation covering' filler; leads with the problem phrase searchers use, then names the preprocessor and what it fixes.
 #### Candidate phrases
@@ -167,9 +170,9 @@ No competitor equivalent. Closest: Docsumo "Image Pre-Processing" (owned by #23)
 
 ### 31. SenseML reference introduction
 File: `Senseml reference/senseml-reference-introduction.md`
-#### Current description (133 chars; excerpt)
+#### Current excerpt (133 chars)
 SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
-#### Proposed description (134 chars)
+#### Proposed excerpt (134 chars)
 SenseML is Sensible's document query language. Use this reference to configure fields, methods, preprocessors, sections, and settings.
 *Why:* Leads with a one-line definition of SenseML and both Best phrases instead of a 'reference guide covering' list; trims the topic list. Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -181,9 +184,9 @@ document query language; extraction configuration reference
 
 ### 33. Field query object
 File: `Senseml reference/field-query-object/index.md`
-#### Current description (158 chars; excerpt)
+#### Current excerpt (158 chars)
 How the SenseML Field query object works, including parameters and examples for extracting structured data from PDFs using layout-based and LLM-based methods.
-#### Proposed description (131 chars)
+#### Proposed excerpt (131 chars)
 Define an extraction field with the SenseML Field query object. A field uses a layout- or LLM-based method and returns JSON output.
 *Why:* Replaces the 'How X works, including' opener with what a field does and what it outputs; drops the PDF-only framing.
 #### Candidate phrases
@@ -195,9 +198,9 @@ No competitor equivalent. **Best:** keep current.
 
 ### 11. Anchor object
 File: `Senseml reference/field-query-object/anchor.md`
-#### Current description (118 chars; excerpt)
+#### Current excerpt (118 chars)
 How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
-#### Proposed description (144 chars)
+#### Proposed excerpt (144 chars)
 Use a SenseML anchor to find data at variable positions by a nearby keyword or landmark. Covers anchor parameters and simple and complex syntax.
 *Why:* Replaces the 'How X works' opener with the problem anchors solve (data that moves), using the new Best phrase 'variable positions'.
 #### Candidate phrases
@@ -209,9 +212,9 @@ variable positions; keyword; landmark
 
 ### 37. Match object
 File: `Senseml reference/field-query-object/match.md`
-#### Current description (143 chars; excerpt)
+#### Current excerpt (143 chars)
 How Match objects define search criteria for locating text lines in documents, including string, regex, boolean, first, and repeat match types.
-#### Proposed description (139 chars)
+#### Proposed excerpt (139 chars)
 Define text matching criteria with the SenseML Match object: string, regex, fuzzy, boolean, first, and repeat matches for anchors and more.
 *Why:* Light tweak: verb-first, puts 'text matching' up front, and adds fuzzy matching, which the page covers but the current description omits.
 #### Candidate phrases
@@ -223,9 +226,9 @@ No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** keep cu
 
 ### 35. Types
 File: `Senseml reference/field-query-object/types.md`
-#### Current description (154 chars; excerpt)
+#### Current excerpt (154 chars)
 Learn how to filter and format extracted data using Sensible's Type parameter, including address, boolean, currency, date, and other built-in field types.
-#### Proposed description (146 chars)
+#### Proposed excerpt (146 chars)
 Normalize data with SenseML types. Filter and format extracted values by data type, such as date, currency, and address, with custom date formats.
 *Why:* Drops 'Learn how to', leads with 'normalize data', and names custom date formats, which the Date type supports.
 #### Candidate phrases
@@ -239,9 +242,9 @@ normalize data; data types; date format
 
 ### 32. Layout-based methods
 File: `Senseml reference/layout-based-methods/index.md`
-#### Current description (150 chars; excerpt)
+#### Current excerpt (150 chars)
 Layout-based extraction methods in Sensible, including Box, Table, Checkbox, Region, Regex, and more for deterministically extracting structured data.
-#### Proposed description (147 chars)
+#### Proposed excerpt (147 chars)
 Positional, deterministic extraction methods in SenseML, such as Box, Table, Checkbox, Row, and Region, that extract data from documents by layout.
 *Why:* Leads with 'positional, non-LLM extraction methods'; drops 'deterministically extracting' because #3 owns 'deterministic extraction'. *Revised per PR review: 'non-LLM' -> 'deterministic'.*
 #### Candidate phrases
@@ -253,9 +256,9 @@ No change. "deterministic extraction" kept as candidate only; #3 owns it as a be
 
 ### 7. Row
 File: `Senseml reference/layout-based-methods/row.md`
-#### Current description (71 chars; excerpt)
+#### Current excerpt (71 chars)
 Row method matches text lines horizontally aligned with an anchor line.
-#### Proposed description (122 chars)
+#### Proposed excerpt (122 chars)
 Extract text next to a label with the SenseML Row method. Returns lines to the left or right of an anchor on the same row.
 *Why:* Current is 71 chars and only defines alignment; new version says what you get (the value beside a label) and uses both Best phrases. *Revised per PR review: cut 'key-value pair extraction' (Row can return every cell in a row).*
 #### Candidate phrases
@@ -267,9 +270,9 @@ No change.
 
 ### 8. Region
 File: `Senseml reference/layout-based-methods/region.md`
-#### Current description (150 chars; excerpt)
+#### Current excerpt (150 chars)
 Extracts data from a rectangular region defined in inches using the Region SenseML method, with parameters for position, size, and overlap thresholds.
-#### Proposed description (147 chars)
+#### Proposed excerpt (147 chars)
 Use the SenseML Region method for fixed position extraction: extract text from a rectangle set in inches from an anchor, or capture it as an image.
 *Why:* Adds the search terms for this technique and mentions image output, which the page covers; drops the overlap-threshold detail. *Revised per PR review: not zonal OCR; reworded around text vs. image (asImage) output.*
 #### Candidate phrases
@@ -281,9 +284,9 @@ fixed position extraction; coordinate-based extraction  *(review: removed zonal 
 
 ### 9. Passthrough
 File: `Senseml reference/layout-based-methods/passthrough.md`
-#### Current description (160 chars; excerpt)
+#### Current excerpt (160 chars)
 Learn how to use the Passthrough method to return anchor matches directly without additional extraction steps, ideal for regex-based text matching in documents.
-#### Proposed description (141 chars)
+#### Proposed excerpt (141 chars)
 Return an anchor's regex match directly as output with the SenseML Passthrough method, for pattern matching with no further extraction steps.
 *Why:* Drops 'Learn how to use' and shortens from 160 chars; keeps the meaning and both Best phrases.
 #### Candidate phrases
@@ -295,9 +298,9 @@ No change.
 
 ### 10. Intersection
 File: `Senseml reference/layout-based-methods/intersection.md`
-#### Current description (135 chars; excerpt)
+#### Current excerpt (135 chars)
 Learn how the Intersection method extracts data at the cross-point of two anchored lines, ideal for tables with optionally empty cells.
-#### Proposed description (148 chars)
+#### Proposed excerpt (148 chars)
 Table cell lookup with the SenseML Intersection method: extract the value at the cross-point of a row and column, ideal for tables with empty cells.
 *Why:* Replaces the 'Learn how' opener and abstract 'cross-point of two anchored lines' with the cell-lookup wording readers search for; 'grid lookup' dropped for length. *Revised per PR review: your wording.*
 #### Candidate phrases
@@ -311,9 +314,9 @@ No change.
 
 ### 34. LLM-based methods
 File: `Senseml reference/llm-based-methods/index.md`
-#### Current description (111 chars; excerpt)
+#### Current excerpt (111 chars)
 Learn how to extract text from documents using LLM-based SenseML methods like List, Query Group, and NLP Table.
-#### Proposed description (145 chars)
+#### Proposed excerpt (145 chars)
 Compare Sensible's AI extraction methods for extracting lists, tables, and key-value pairs from unstructured documents like contracts and leases.
 *Why:* Replaces 'Learn how to extract text' opener with two Best phrases up front and the contracts use case the page opens with; keeps the three method names. *Revised per PR review: your wording.*
 #### Candidate phrases
@@ -325,9 +328,9 @@ No change. ("AI data extraction" is owned by #2.) **Best:** keep current.
 
 ### 13. Query group
 File: `Senseml reference/llm-based-methods/query-group.md`
-#### Current description (159 chars; excerpt)
+#### Current excerpt (159 chars)
 Query Group method extracts individual facts from documents or images using LLM prompts, with tips on grouping and phrasing queries for accurate, fast results.
-#### Proposed description (134 chars)
+#### Proposed excerpt (134 chars)
 Use LLM extraction to pull individual facts, such as an invoice date or policy limit, from documents and images. Includes prompt tips.
 *Why:* Moves 'LLM extraction' into the first 40 chars and adds concrete examples from the page's opening; drops 'accurate, fast results' filler. 'document Q&A' omitted as the page never frames itself that way. *Revised per PR review: active voice; dropped 'Query Group method:' prefix (slug already names it).*
 #### Candidate phrases
@@ -339,9 +342,9 @@ LLM extraction; document Q&A
 
 ### 14. List
 File: `Senseml reference/llm-based-methods/list.md`
-#### Current description (145 chars; excerpt)
+#### Current excerpt (145 chars)
 LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
-#### Proposed description (121 chars)
+#### Proposed excerpt (121 chars)
 Extract lists from PDFs with an LLM, such as invoice line items, resume work history, or vehicles on an insurance policy.
 *Why:* Current is decent; light rewrite to lead with the 'extract lists from PDF' Best phrase while keeping invoice line items and the page's own examples. *Revised per PR review: dropped 'List method:' prefix (applied 'same as query-group et al' here too).*
 #### Candidate phrases
@@ -355,9 +358,9 @@ invoice line items; extract lists from PDF
 
 ### 12. Table methods
 File: `Senseml reference/concepts/table-methods.md`
-#### Current description (153 chars; excerpt)
+#### Current excerpt (153 chars)
 Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and Text Table, including supported features like merged cells and checkboxes.
-#### Proposed description (146 chars)
+#### Proposed excerpt (146 chars)
 Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multipage support, merged cells, and checkboxes.
 *Why:* Leads with 'extract PDF tables' and adds speed and multipage support, both of which the comparison tables cover; keeps the three method names. *Revised per PR review: 'Compare methods' speed'; 'Sensible's' -> 'the' for length.*
 #### Candidate phrases
@@ -369,9 +372,9 @@ PDF table extraction; extract PDF tables; extract table rows
 
 ### 15. NLP table
 File: `Senseml reference/llm-based-methods/nlp-table.md`
-#### Current description (159 chars; excerpt)
+#### Current excerpt (159 chars)
 Extract tables from documents using natural language descriptions, with support for multi-page tables and column-level prompts via Sensible's NLP Table method.
-#### Proposed description (130 chars)
+#### Proposed excerpt (130 chars)
 Describe table columns in plain language for prompt-based table extraction with an LLM, including tables that span multiple pages.
 *Why:* Puts the method name and 'prompt-based table extraction' first; drops 'column-level prompts' jargon for plain wording; keeps multipage support. *Revised per PR review: active voice; dropped 'NLP Table method:' prefix.*
 #### Candidate phrases
@@ -383,9 +386,9 @@ LLM table extraction; prompt-based table extraction
 
 ### 16. Sections
 File: `Senseml reference/sections/index.md`
-#### Current description (149 chars; excerpt)
+#### Current excerpt (149 chars)
 Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
-#### Proposed description (148 chars)
+#### Proposed excerpt (148 chars)
 Extract nested data and nested tables, such as claims in a loss run, into an array of objects by defining repeating horizontal or vertical sections.
 *Why:* Swaps 'structured arrays' for the Best phrases 'nested data' and 'array of objects'; adds loss runs, which the page's linked example covers. 'nested tables' left out to avoid stuffing. *Revised per PR review: dropped 'Sections method:' prefix; added Best phrase 'nested tables'.*
 #### Candidate phrases
@@ -399,9 +402,9 @@ nested data; array of objects; nested tables
 
 ### 30. JsonLogic extensions
 File: `Senseml reference/concepts/jsonlogic.md`
-#### Current description (157 chars; excerpt)
+#### Current excerpt (157 chars)
 How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
-#### Proposed description (147 chars)
+#### Proposed excerpt (147 chars)
 Transform extracted data and validate it with JsonLogic, a JSON rules engine, using Sensible's custom operators. Includes syntax tips and examples.
 *Why:* Replaces 'How Sensible extends' opener with verb-first 'Transform extracted data' and names JsonLogic as a JSON rules engine for searchers who don't know the library.
 #### Candidate phrases
@@ -413,9 +416,9 @@ JSON rules engine; transform extracted data; custom operators
 
 ### 40. Custom computation
 File: `Senseml reference/advanced-computed-field-methods/custom-computation.md`
-#### Current description (147 chars; excerpt)
+#### Current excerpt (147 chars)
 Learn how to define custom computed fields using JsonLogic in Sensible, including summing fields, mapping arrays, and checking for non-null values.
-#### Proposed description (123 chars)
+#### Proposed excerpt (123 chars)
 Define calculated fields with JsonLogic for post-processing, such as summing fields, mapping arrays, or checking for nulls.
 *Why:* Drops 'Learn how to' opener, names the method, and swaps 'custom computed fields' for Best phrases 'calculated fields' and 'post-processing'; keeps the page's three examples. *Revised per PR review: dropped 'Custom Computation method:' prefix (applied 'same as query-group et al' here too).*
 #### Candidate phrases
@@ -427,9 +430,9 @@ post-processing; calculated fields; custom logic
 
 ### 41. Custom computation group
 File: `Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
-#### Current description (141 chars; excerpt)
+#### Current excerpt (141 chars)
 Learn how to use the Custom Computation Group method with JsonLogic to transform extracted document data and return multiple computed fields.
-#### Proposed description (107 chars)
+#### Proposed excerpt (107 chars)
 Use JsonLogic for data transformation that returns multiple calculated fields from extracted document data.
 *Why:* Drops 'Learn how to use' opener and works in both Best phrases verbatim; same claims as current. *Revised per PR review: active voice; dropped 'Custom Computation Group method:' prefix.*
 #### Candidate phrases
@@ -443,9 +446,9 @@ multiple calculated fields; data transformation
 
 ### 17. Fingerprint
 File: `Senseml reference/config-settings/fingerprint.md`
-#### Current description (157 chars; excerpt)
+#### Current excerpt (157 chars)
 Learn how fingerprints test documents for matching text, so you can choose the config for a standalone document or find each document's pages in a portfolio.
-#### Proposed description (141 chars)
+#### Proposed excerpt (141 chars)
 Handle multiple document layouts by matching text: choose a config per form revision or vendor, or find each document's pages in a portfolio.
 *Why:* Replaces the 'Learn how' opener and puts 'multiple document layouts' up front; keeps both use cases (standalone config selection, portfolio pages). Skipped 'template matching' because Sensible calls these configs, not templates. Edited at fan-in (length or wording). *Revised per PR review: added 'or vendor'; cut 'Use fingerprints to'; added Best phrase 'layout detection'; dropped 'layout detection' for length.*
 #### Candidate phrases
@@ -457,9 +460,9 @@ multiple document layouts; template matching; layout detection; form revision
 
 ### 18. Classifying documents by type
 File: `document type classification/classify.md`
-#### Current description (157 chars; excerpt)
+#### Current excerpt (157 chars)
 How Sensible classifies documents by type using classify-only APIs, single-doc extraction, and multi-doc requests including portfolios and email attachments.
-#### Proposed description (112 chars)
+#### Proposed excerpt (112 chars)
 Classify documents by type with Sensible's document classification API, or as you extract portfolios and emails.
 *Why:* Replaces the 'How Sensible classifies' opener with both Best phrases up front and says what you can do; covers the same three senses of classification. Edited at fan-in (length or wording). *Revised per PR review: cut 'automatically'.*
 #### Candidate phrases
@@ -471,9 +474,9 @@ document classification; classification API
 
 ### 19. Multi-document extractions
 File: `document extraction/portfolio.md`
-#### Current description (126 chars; excerpt)
+#### Current excerpt (126 chars)
 Learn how to extract data from multi-document portfolio files using LLM-based or fingerprint segmentation methods in Sensible.
-#### Proposed description (149 chars)
+#### Proposed excerpt (149 chars)
 Split a PDF containing multiple documents, such as a loan package, and extract each document's data separately using LLM or fingerprint segmentation.
 *Why:* Leads with the task people search for ('split a PDF') instead of 'Learn how' plus 'portfolio' jargon; 'loan package' is only an example, supported by the page's 1040/bank statement/pay stub example. *Revised per PR review: 'containing multiple documents'.*
 #### Candidate phrases
@@ -487,9 +490,9 @@ split PDF; document splitting; multiple documents in one PDF; loan package (poss
 
 ### 20. Validating extractions
 File: `monitor and qa/validate-extractions.md`
-#### Current description (142 chars; excerpt)
+#### Current excerpt (142 chars)
 Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
-#### Proposed description (149 chars)
+#### Proposed excerpt (149 chars)
 Write JsonLogic validation rules to check extracted data, including field-level validation of values and sums, and flag extractions for human review.
 *Why:* Light tweak of an already good description: swaps 'validations ... to quality-control' for the Best phrases 'validation rules' and 'field-level validation'.
 #### Candidate phrases
@@ -501,9 +504,9 @@ data validation; validation rules; field-level validation
 
 ### 21. Qualifying LLM accuracy
 File: `document extraction/best-practices/confidence.md`
-#### Current description (152 chars; excerpt)
+#### Current excerpt (152 chars)
 Learn how Sensible uses LLM confidence signals to qualify extraction accuracy, including signal types like ambiguous query and multiple possible answers
-#### Proposed description (134 chars)
+#### Proposed excerpt (134 chars)
 Qualify extraction accuracy with LLM confidence signals like 'ambiguous query', which are more nuanced than numeric confidence scores.
 *Why:* Drops 'Learn how'; adds 'confidence scores' accurately (the page contrasts signals with numeric scores) without implying Sensible returns numeric scores or detects hallucinations. Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -515,9 +518,9 @@ confidence scores; extraction accuracy; LLM confidence
 
 ### 22. Human review
 File: `monitor and qa/human-review.md`
-#### Current description (146 chars; excerpt)
+#### Current excerpt (146 chars)
 Learn how to use Sensible's Human Review tab to manually correct, approve, or reject flagged document extractions and resolve validation failures.
-#### Proposed description (146 chars)
+#### Proposed excerpt (146 chars)
 Use the Human Review tab for human-in-the-loop (HITL) manual review: correct flagged extractions, check failed validations, and approve or reject.
 *Why:* Drops 'Learn how'; leads with human-in-the-loop/HITL, which the current description lacks, and keeps the correct/approve/reject actions.
 #### Candidate phrases
@@ -531,9 +534,9 @@ human-in-the-loop; HITL; manual review
 
 ### 27. API Introduction
 File: `reference/Introduction/choosing-an-endpoint.md`
-#### Current description (185 chars; excerpt)
+#### Current excerpt (185 chars)
 Overview of Sensible's API endpoints for extracting structured data from documents, including async/sync extraction, Excel conversion, portfolio extraction, and document classification.
-#### Proposed description (137 chars)
+#### Proposed excerpt (137 chars)
 Choose a Sensible document data extraction API endpoint: async or sync extraction, PDF to Excel, portfolio extraction, or classification.
 *Why:* Cut from 185 to 146 chars by dropping the 'Overview of' opener; leads with the Best phrase 'document data extraction API' and keeps the full endpoint list. 'PDF extraction API' and 'REST API' left out to avoid stuffing; better placed in body text. Edited at fan-in (length or wording).
 #### Candidate phrases
@@ -545,9 +548,9 @@ document data extraction API; PDF extraction API; REST API
 
 ### 38. API quickstart
 File: `integrations/quickstart.md`
-#### Current description (130 chars; excerpt)
+#### Current excerpt (130 chars)
 Learn how to make your first Sensible API call using an example document and SenseML config to extract structured data in minutes.
-#### Proposed description (135 chars)
+#### Proposed excerpt (135 chars)
 Make your first Sensible API call: run one curl command on an example document and get a hello world JSON response with extracted data.
 *Why:* Light tweak: removes 'Learn how to', adds 'hello world' and curl, both of which the page actually uses.
 #### Candidate phrases
@@ -559,9 +562,9 @@ No competitor equivalent. Phrase "make your first API call" mirrors Payabli's ll
 
 ### 36. API tutorial
 File: `api/api-tutorial/index.md`
-#### Current description (157 chars; excerpt)
+#### Current excerpt (157 chars)
 Learn how to extract structured data from documents using the Sensible API with tutorials covering synchronous, asynchronous, and webhook extraction methods.
-#### Proposed description (147 chars)
+#### Proposed excerpt (147 chars)
 Document extraction API tutorials: step-by-step guides to extracting structured data with the Sensible API via sync, async, and webhook extraction.
 *Why:* Removes 'Learn how to' and leads with the Best phrase; same scope as current (sync, async, webhook tutorials).
 #### Candidate phrases
@@ -573,9 +576,9 @@ No competitor equivalent. **Best:** keep current.
 
 ### 42. Extract data from a document (sync)
 File: `reference/Extraction/document-1/extract-data-from-a-document.md`
-#### Current description (35 chars; OpenAPI summary (no excerpt; page is spec-generated))
+#### Current excerpt (35 chars; OpenAPI summary (no excerpt; page is spec-generated))
 Extract data from a document (sync)
-#### Proposed description (140 chars)
+#### Proposed excerpt (140 chars)
 Synchronous extraction API for testing: upload a PDF or image and get extracted data in the response. Use the async endpoints in production.
 *Why:* Current text is only the 35-char operation summary. Page is spec-generated, so this would go in reference/openapi_extraction.json for operationId extract-data-from-a-document; probably not 'summary' (it doubles as the page title) but the opening of 'description' or whatever field ReadMe uses for the meta description and llms.txt. Needs checking.
 #### Candidate phrases
@@ -587,9 +590,9 @@ No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extrac
 
 ### 24. Try a webhook
 File: `api/api-tutorial/api-tutorial-webhook.md`
-#### Current description (158 chars; excerpt)
+#### Current excerpt (158 chars)
 Learn how to use webhooks with Sensible's extraction API to receive push notifications when document extraction status changes, using a step-by-step tutorial.
-#### Proposed description (137 chars)
+#### Proposed excerpt (137 chars)
 Set a webhook URL on a Sensible extraction request and get the webhook payload pushed when extraction status changes, instead of polling.
 *Why:* Removes 'Learn how to'; uses 'webhook URL' and 'webhook payload' and adds 'polling', which the page contrasts webhooks with. 'Callback URL' not used: the page never says it. Drops 'step-by-step tutorial'; the title 'Try a webhook' already signals that.
 #### Candidate phrases
@@ -601,9 +604,9 @@ webhook URL; callback URL; webhook payload
 
 ### 26. Integrating
 File: `welcome/integrate.md`
-#### Current description (159 chars; excerpt)
+#### Current excerpt (159 chars)
 Learn how to integrate Sensible document extraction using SDKs, APIs, email, Zapier, MCP server, or quick extraction tools to automate document data workflows.
-#### Proposed description (137 chars)
+#### Proposed excerpt (137 chars)
 Export extracted data or send it to any application with Sensible's SDKs, API, email forwarding, Zapier, MCP server, or quick extraction.
 *Why:* Removes 'Learn how to integrate' and leads with two Best phrases (second paraphrased as 'send it to any application'); keeps the same six integration options listed on the page. 'Document ingestion' not used: no natural fit.
 #### Candidate phrases
@@ -615,9 +618,9 @@ export extracted data; send extracted data to any application; document ingestio
 
 ### 39. Getting started with email extraction
 File: `integrations/getting-started-email.md`
-#### Current description (154 chars; excerpt)
+#### Current excerpt (154 chars)
 Learn how to automatically extract structured data from email bodies and attachments by forwarding emails to Sensible using email processors and webhooks.
-#### Proposed description (145 chars)
+#### Proposed excerpt (145 chars)
 Email data extraction: forward emails to Sensible to extract structured data from email bodies and attachments, then get the results via webhook.
 *Why:* Removes 'Learn how to', leads with 'email data extraction', and paraphrases 'extract data from email attachments'; no parse-words per terminology rule. Drops 'email processors' for room; 'email to JSON' not used because the page never says JSON in prose.
 #### Candidate phrases
