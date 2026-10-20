@@ -1,0 +1,43 @@
+{
+  "description": "Docs pages whose tests .github/workflows/doc-tests-pages.yml runs. To test a new page, add it here and add its page and watch paths to the workflow's push paths (a unit test checks they match). slug names the page's issue label (doc-tests-<slug>), artifacts, and sample doc types; watch lists the other files its tests depend on; timeout_minutes bounds its test step; secrets lists the secrets its run gets (default: SENSIBLE_TEST_API_KEY only); gate: false runs it on any change to the page (default true: prose-only changes skip it); propose_fixes opens a draft PR that rewrites drifted output; envelope_issue keeps a standing issue for LLM envelope warnings. Pages with UI tests get Doc Detective automatically.",
+  "pages": [
+    {
+      "slug": "getting_started",
+      "title": "Getting started",
+      "page": "docs/document extraction/getting-started.md",
+      "watch": [
+        ".doc-detective.json"
+      ],
+      "timeout_minutes": 18,
+      "secrets": [
+        "SENSIBLE_TEST_EMAIL",
+        "SENSIBLE_TEST_PASSWORD",
+        "SENSIBLE_TEST_API_KEY",
+        "ANTHROPIC_API_KEY"
+      ],
+      "gate": false,
+      "propose_fixes": true,
+      "envelope_issue": true
+    },
+    {
+      "slug": "fingerprint",
+      "title": "Fingerprint",
+      "page": "docs/Senseml reference/config-settings/fingerprint.md",
+      "watch": [
+        "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**",
+        "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+        "assets/pdfs/wells_fargo_checking.pdf"
+      ],
+      "timeout_minutes": 30
+    },
+    {
+      "slug": "portfolio",
+      "title": "Portfolios",
+      "page": "docs/document extraction/portfolio.md",
+      "watch": [
+        "assets/pdfs/portfolio.pdf"
+      ],
+      "timeout_minutes": 10
+    }
+  ]
+}

@@ -130,7 +130,8 @@ def workflow_secret_env(path):
             step = re.match(r"\s*-\s*name:\s*(.+?)\s*$", line)
             if step:
                 current = step.group(1).strip("\"'")
-            env = re.match(r"\s*([A-Za-z_][A-Za-z0-9_]*):\s*\$\{\{\s*secrets\.[A-Za-z0-9_]+\s*\}\}", line)
+            # Also a conditional value, such as ${{ contains(matrix.secrets, 'X') && secrets.X || '' }}
+            env = re.match(r"\s*([A-Za-z_][A-Za-z0-9_]*):\s*\$\{\{[^}]*\bsecrets\.[A-Za-z0-9_]+[^}]*\}\}", line)
             if env:
                 steps.setdefault(current, set()).add(env.group(1))
     return steps

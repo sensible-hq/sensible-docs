@@ -129,8 +129,20 @@ class RepoCoverageTest(unittest.TestCase):
 
     def test_covers_every_docs_test_workflow(self):
         names = [os.path.basename(f) for f in cs.workflow_files()]
-        self.assertIn("doc-detective-getting-started.yml", names)
-        self.assertIn("doc-tests-fingerprint.yml", names)
+        self.assertIn("doc-tests-pages.yml", names)
+
+    def test_reads_conditional_secret_values(self):
+        import tempfile
+        with tempfile.NamedTemporaryFile("w", suffix=".yml", delete=False) as f:
+            f.write("""steps:
+      - name: Run tests
+        env:
+          PLAIN: ${{ secrets.PLAIN }}
+          CONDITIONAL: ${{ contains(matrix.secrets, 'CONDITIONAL') && secrets.CONDITIONAL || '' }}
+          NOT_A_SECRET: ${{ vars.SOMETHING }}
+""")
+        self.addCleanup(os.remove, f.name)
+        self.assertEqual(cs.workflow_secret_env(f.name), {"Run tests": {"PLAIN", "CONDITIONAL"}})
 
     def test_runner_key_variables_are_registered(self):
         from codetests import settings
