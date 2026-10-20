@@ -152,12 +152,21 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
       summary for spec-generated #42) to each page in the draft, with character counts (2026-10-20)
 - [x] Apply Best-phrase +/- changes from competitor research and review (14 pages; marked
       "Applied 2026-10-20" in the draft)
-- [ ] Propose a new description per page (fan-out by topic group, fan-in merge into draft).
+- [x] Propose a new description per page (fan-out by topic group, fan-in merge into draft). Done
+      2026-10-20: 5 subagents; fan-in checked lengths (all <= 150), parse-words, phrase collisions,
+      and edited 12 for length/wording.
       Limit: target <= 150 chars, hard cap 160 (`MAX_LENGTH` in `scripts/descriptions/frontmatter.py`;
       prompt in `generate_excerpts.py`). Note: #27's current excerpt is 185 chars (over the cap).
       Note: `.claude/style-guide/style-guide-overview.md` still says `metadata.description` is a 4–7
       word phrase; that predates PR #702 (excerpt = source of truth) and should be updated.
 - [ ] User reviews draft
+- [ ] #42 (spec-generated): find which OpenAPI field ReadMe uses for the meta description and
+      llms.txt description (`summary` is also the page title; `description` start is likelier) before
+      editing `reference/openapi_extraction.json`
+- [ ] Descriptions that run ahead of their page body (update the first ~150 words to match when
+      applying): #3 "template-based" (page never says "template"), #11 "variable positions",
+      "keyword", "landmark", #19 "split" (page says "segment"), #28 scanned/handwritten framing
+- [ ] Apply approved descriptions to `excerpt` (then `sync_description.py` updates `metadata.description`)
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] Execute per-page edits (plan below)
 
