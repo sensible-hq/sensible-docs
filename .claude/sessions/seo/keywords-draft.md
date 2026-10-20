@@ -270,7 +270,7 @@ fix broken text lines *, oversplit lines, misaligned text *, poor quality scans 
 #### Best phrases
 fix broken text lines; poor quality scans; handwriting OCR
 #### Revisions from competitor research
-No competitor equivalent. Closest: Docsumo "Image Pre-Processing" (owned by #23). **Best:** new row (added from site traffic).
+No competitor equivalent. Closest: Docsumo "Image Pre-Processing" (owned by #23). **Best:** keep current.
 
 ### 30. JsonLogic extensions
 File: `Senseml reference/concepts/jsonlogic.md`
@@ -279,7 +279,7 @@ JSON rules engine *, transform extracted data *, custom operators *, JSON logic 
 #### Best phrases
 JSON rules engine; transform extracted data; custom operators
 #### Revisions from competitor research
-**+** logic-based rules (Ocrolus; keywords only, #20 owns validation phrases). **Best:** new row (added from site traffic).
+**+** logic-based rules (Ocrolus; keywords only, #20 owns validation phrases). **Best:** keep current.
 
 ### 31. SenseML reference introduction
 File: `Senseml reference/senseml-reference-introduction.md`
@@ -288,7 +288,7 @@ document query language *, extraction configuration reference *, config referenc
 #### Best phrases
 document query language; extraction configuration reference
 #### Revisions from competitor research
-**+** parsing rules (Docparser; keywords only, also on #3). **Best:** new row (added from site traffic).
+**+** parsing rules (Docparser; keywords only, also on #3). **Best:** keep current.
 
 ### 32. Layout-based methods
 File: `Senseml reference/layout-based-methods/index.md`
@@ -297,7 +297,7 @@ positional extraction *, non-LLM extraction *, extraction methods *, PDF extract
 #### Best phrases
 positional extraction; non-LLM extraction; extraction methods
 #### Revisions from competitor research
-No change. "deterministic extraction" kept as keyword only; #3 owns it as a best phrase. **Best:** new row (added from site traffic).
+No change. "deterministic extraction" kept as keyword only; #3 owns it as a best phrase. **Best:** keep current.
 
 ### 33. Field query object
 File: `Senseml reference/field-query-object/index.md`
@@ -306,7 +306,7 @@ extraction field definition *, JSON output *, key-value output *, data field *, 
 #### Best phrases
 extraction field definition; JSON output
 #### Revisions from competitor research
-No competitor equivalent. **Best:** new row (added from site traffic).
+No competitor equivalent. **Best:** keep current.
 
 ### 34. LLM-based methods
 File: `Senseml reference/llm-based-methods/index.md`
@@ -315,7 +315,7 @@ unstructured text extraction *, AI extraction methods *, generative AI extractio
 #### Best phrases
 unstructured text extraction; AI extraction methods; extract from contracts
 #### Revisions from competitor research
-No change. ("AI data extraction" is owned by #2.) **Best:** new row (added from site traffic).
+No change. ("AI data extraction" is owned by #2.) **Best:** keep current.
 
 ### 35. Types
 File: `Senseml reference/field-query-object/types.md`
@@ -324,7 +324,7 @@ normalize data *, field formats *, data types *, data normalization *, date form
 #### Best phrases
 normalize data; data types; date format
 #### Revisions from competitor research
-**+** normalize data, field formats (Parseur, "Use Field Formats to Normalize Data"). **Best:** new row (added from site traffic).
+**+** normalize data, field formats (Parseur, "Use Field Formats to Normalize Data"). **Best:** keep current.
 
 ### 36. API tutorial
 File: `api/api-tutorial/index.md`
@@ -333,7 +333,7 @@ document extraction API tutorial *, step-by-step API guide *, REST API tutorial 
 #### Best phrases
 document extraction API tutorial; step-by-step API guide
 #### Revisions from competitor research
-No competitor equivalent. **Best:** new row (added from site traffic).
+No competitor equivalent. **Best:** keep current.
 
 ### 37. Match object
 File: `Senseml reference/field-query-object/match.md`
@@ -342,7 +342,7 @@ text matching *, regex matching *, fuzzy match, approximate string matching *, c
 #### Best phrases
 text matching; fuzzy match; regex matching
 #### Revisions from competitor research
-No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** new row (added from site traffic).
+No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** keep current.
 
 ### 38. API quickstart
 File: `integrations/quickstart.md`
@@ -351,7 +351,7 @@ first API call *, hello world, API example *, curl example *, Postman *, quickst
 #### Best phrases
 first API call; hello world
 #### Revisions from competitor research
-No competitor equivalent. Phrase "make your first API call" mirrors Payabli's llms.txt (not a competitor). **Best:** new row (added from site traffic).
+No competitor equivalent. Phrase "make your first API call" mirrors Payabli's llms.txt (not a competitor). **Best:** keep current.
 
 ### 39. Getting started with email extraction
 File: `integrations/getting-started-email.md`
@@ -360,7 +360,7 @@ email parsing *, email parser *, email body parsing *, extract data from email a
 #### Best phrases
 email parsing; email parser; extract data from email attachments
 #### Revisions from competitor research
-**+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (keyword only on #26). **Best:** new row (added from site traffic).
+**+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (keyword only on #26). **Best:** keep current.
 
 ### 40. Custom computation
 File: `Senseml reference/advanced-computed-field-methods/custom-computation.md`
@@ -369,7 +369,7 @@ post-processing *, calculated fields *, custom logic *, derived fields *, data t
 #### Best phrases
 post-processing; calculated fields; custom logic
 #### Revisions from competitor research
-**+** post-processing (Parseur, Nanonets, Docsumo "Post-Processing"; 3 of 5 competitors). **Best:** new row (added from site traffic).
+**+** post-processing (Parseur, Nanonets, Docsumo "Post-Processing"; 3 of 5 competitors). **Best:** keep current.
 
 ### 41. Custom computation group
 File: `Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
@@ -378,7 +378,7 @@ multiple calculated fields *, data transformation *, transform extracted data *,
 #### Best phrases
 multiple calculated fields; data transformation
 #### Revisions from competitor research
-"post-processing" kept as keyword only; #40 owns it. **Best:** new row (added from site traffic).
+"post-processing" kept as keyword only; #40 owns it. **Best:** keep current.
 
 ### 42. Extract data from a document (sync)
 File: `reference/Extraction/document-1/extract-data-from-a-document.md`
@@ -387,7 +387,7 @@ synchronous extraction API *, sync extraction endpoint *, POST /extract *, uploa
 #### Best phrases
 synchronous extraction API; upload PDF API
 #### Revisions from competitor research
-No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extraction.json` (frontmatter = `api:` block only); keywords need a hand-added `metadata` block, and description/body text come from the OpenAPI operation. **Best:** new row (added from site traffic).
+No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extraction.json` (frontmatter = `api:` block only); keywords need a hand-added `metadata` block, and description/body text come from the OpenAPI operation. **Best:** keep current.
 
 Rows 29–42 added from ReadMe page-view data (past year; see checklist).
 
