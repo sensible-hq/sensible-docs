@@ -92,6 +92,29 @@ Added 2026-10-19 from competitor analysis
       frontmatter is mostly OpenAPI-generated, so no script change). (`senseml-reference-link.md` has 'null'; check.)
 - [ ] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
 
+High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in parentheses.
+- [ ] 29. Merge lines — `docs/Senseml reference/preprocessors/merge-lines.md` (888)
+- [ ] 30. JsonLogic extensions — `docs/Senseml reference/concepts/jsonlogic.md` (792)
+- [ ] 31. SenseML reference introduction — `docs/Senseml reference/senseml-reference-introduction.md` (701)
+- [ ] 32. Layout-based methods — `docs/Senseml reference/layout-based-methods/index.md` (535)
+- [ ] 33. Field query object — `docs/Senseml reference/field-query-object/index.md` (450)
+- [ ] 34. LLM-based methods — `docs/Senseml reference/llm-based-methods/index.md` (397)
+- [ ] 35. Types — `docs/Senseml reference/field-query-object/types.md` (349)
+- [ ] 36. API tutorial — `docs/api/api-tutorial/index.md` (290)
+- [ ] 37. Match object — `docs/Senseml reference/field-query-object/match.md` (288)
+- [ ] 38. API quickstart — `docs/integrations/quickstart.md` (271)
+- [ ] Ambiguous truncated slugs in the dashboard screenshots; user to confirm:
+  - `/docs/getting-st…` (691 and 442): two of getting-started-ai (#2), getting-started (#3),
+    getting-started-email (not in list)
+  - `/reference/extrac…` (370 and 233): two of extract-data-from-a-document,
+    extract-data-from-a-document-with-config, extract-from-url, extract-all-text-from-reference-document.
+    These are OpenAPI-generated pages: frontmatter keywords may not be settable by hand.
+  - `/docs/custom-co…` (232): custom-computation or custom-computation-group
+- Already in list and high-traffic: overview (1.3K), choosing-an-endpoint (997), sections (421),
+  query-group (409), anchor (279), portfolio (278), library-quickstart (259), preprocessors (244).
+- Not in the top ~30 by views: Row, Region, Passthrough, Intersection (most-used methods by
+  customers, but not most-viewed pages).
+
 ## ReadMe findings (2026-10-19)
 
 - `metadata.keywords` is stored, not rendered: hidden page `draft-jsonlogic` carries
