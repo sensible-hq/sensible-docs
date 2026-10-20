@@ -5,6 +5,22 @@ Claude Code session ID: c14f96d2-faef-4dbe-8951-0d7f13df161c
 Branch: seo-keywords (worktree: ~/GitHub/sensible-docs-seo-keywords)
 Related issue: #722 (GEO/SEO for docs: options?)
 
+## Before merge: scrub research (user request, 2026-10-20)
+
+- [ ] Move competitor and best-practice research to a private Notion page, then remove it from this
+      branch before merge. The repo is PUBLIC.
+  - Move and delete: `competitors/` (all 6 files), `best-practice/payabli.md`,
+    `research-keywords-evidence.md`
+  - Scrub competitor/Payabli mentions from files that stay: `keywords-draft.md` ("Revisions from
+    competitor research" sections cite Parseur, Docparser, Nanonets, Docsumo, Ocrolus), `checklist.md`
+    (Competitor research section, decision rationale), and the PR #758 description
+  - Update PR #763 (`first-150-words`), whose checklist and planned agent inputs point at
+    `best-practice/payabli.md`, to point at the Notion page instead
+  - Squash-merge so `v0` never contains the files. Caveat: the content is already public in this PR's
+    commits and diffs, and GitHub keeps `refs/pull/758/head` even after the branch is deleted. Fully
+    removing it needs GitHub Support (or rewriting this branch's history before merge, which still
+    leaves the PR ref). Decide whether that matters.
+
 ## Goal
 
 Get docs pages found by Google search (SEO) and cited by AI search and agents (GEO) by working the
