@@ -1,0 +1,265 @@
+{
+ "source": "keywords-draft.md on branch seo-keywords (PR #758), 2026-10-20",
+ "groups": [
+  {
+   "title": "Overview and getting started",
+   "pages": [
+    {
+     "n": 1,
+     "title": "Overview",
+     "path": "docs/welcome/overview.md"
+    },
+    {
+     "n": 2,
+     "title": "Getting started",
+     "path": "docs/welcome/getting-started-ai.md"
+    },
+    {
+     "n": 3,
+     "title": "Getting started with layout-based extractions",
+     "path": "docs/document extraction/getting-started.md"
+    },
+    {
+     "n": 4,
+     "title": "Intelligent document processing",
+     "path": "docs/Senseml reference/concepts/idp.md"
+    },
+    {
+     "n": 25,
+     "title": "Out-of-the-box extractions",
+     "path": "docs/document extraction/library-quickstart.md"
+    }
+   ]
+  },
+  {
+   "title": "Files, OCR, and preprocessing",
+   "pages": [
+    {
+     "n": 5,
+     "title": "Supported file types",
+     "path": "docs/Senseml reference/concepts/file-types.md"
+    },
+    {
+     "n": 6,
+     "title": "OCR",
+     "path": "docs/Senseml reference/concepts/ocr.md"
+    },
+    {
+     "n": 28,
+     "title": "OCR preprocessor",
+     "path": "docs/Senseml reference/preprocessors/ocr-preprocessor.md"
+    },
+    {
+     "n": 23,
+     "title": "Preprocessors",
+     "path": "docs/Senseml reference/preprocessors/index.md"
+    },
+    {
+     "n": 29,
+     "title": "Merge lines",
+     "path": "docs/Senseml reference/preprocessors/merge-lines.md"
+    }
+   ]
+  },
+  {
+   "title": "SenseML fundamentals",
+   "pages": [
+    {
+     "n": 31,
+     "title": "SenseML reference introduction",
+     "path": "docs/Senseml reference/senseml-reference-introduction.md"
+    },
+    {
+     "n": 33,
+     "title": "Field query object",
+     "path": "docs/Senseml reference/field-query-object/index.md"
+    },
+    {
+     "n": 11,
+     "title": "Anchor object",
+     "path": "docs/Senseml reference/field-query-object/anchor.md"
+    },
+    {
+     "n": 37,
+     "title": "Match object",
+     "path": "docs/Senseml reference/field-query-object/match.md"
+    },
+    {
+     "n": 35,
+     "title": "Types",
+     "path": "docs/Senseml reference/field-query-object/types.md"
+    }
+   ]
+  },
+  {
+   "title": "Layout-based methods",
+   "pages": [
+    {
+     "n": 32,
+     "title": "Layout-based methods",
+     "path": "docs/Senseml reference/layout-based-methods/index.md"
+    },
+    {
+     "n": 7,
+     "title": "Row",
+     "path": "docs/Senseml reference/layout-based-methods/row.md"
+    },
+    {
+     "n": 8,
+     "title": "Region",
+     "path": "docs/Senseml reference/layout-based-methods/region.md"
+    },
+    {
+     "n": 9,
+     "title": "Passthrough",
+     "path": "docs/Senseml reference/layout-based-methods/passthrough.md"
+    },
+    {
+     "n": 10,
+     "title": "Intersection",
+     "path": "docs/Senseml reference/layout-based-methods/intersection.md"
+    }
+   ]
+  },
+  {
+   "title": "LLM-based methods",
+   "pages": [
+    {
+     "n": 34,
+     "title": "LLM-based methods",
+     "path": "docs/Senseml reference/llm-based-methods/index.md"
+    },
+    {
+     "n": 13,
+     "title": "Query group",
+     "path": "docs/Senseml reference/llm-based-methods/query-group.md"
+    },
+    {
+     "n": 14,
+     "title": "List",
+     "path": "docs/Senseml reference/llm-based-methods/list.md"
+    }
+   ]
+  },
+  {
+   "title": "Tables and repeating data",
+   "pages": [
+    {
+     "n": 12,
+     "title": "Table methods",
+     "path": "docs/Senseml reference/concepts/table-methods.md"
+    },
+    {
+     "n": 15,
+     "title": "NLP table",
+     "path": "docs/Senseml reference/llm-based-methods/nlp-table.md"
+    },
+    {
+     "n": 16,
+     "title": "Sections",
+     "path": "docs/Senseml reference/sections/index.md"
+    }
+   ]
+  },
+  {
+   "title": "Computed fields and data transformation",
+   "pages": [
+    {
+     "n": 30,
+     "title": "JsonLogic extensions",
+     "path": "docs/Senseml reference/concepts/jsonlogic.md"
+    },
+    {
+     "n": 40,
+     "title": "Custom computation",
+     "path": "docs/Senseml reference/advanced-computed-field-methods/custom-computation.md"
+    },
+    {
+     "n": 41,
+     "title": "Custom computation group",
+     "path": "docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md"
+    }
+   ]
+  },
+  {
+   "title": "Document types, classification, and multi-document files",
+   "pages": [
+    {
+     "n": 17,
+     "title": "Fingerprint",
+     "path": "docs/Senseml reference/config-settings/fingerprint.md"
+    },
+    {
+     "n": 18,
+     "title": "Classifying documents by type",
+     "path": "docs/document type classification/classify.md"
+    },
+    {
+     "n": 19,
+     "title": "Multi-document extractions",
+     "path": "docs/document extraction/portfolio.md"
+    }
+   ]
+  },
+  {
+   "title": "Quality control",
+   "pages": [
+    {
+     "n": 20,
+     "title": "Validating extractions",
+     "path": "docs/monitor and qa/validate-extractions.md"
+    },
+    {
+     "n": 21,
+     "title": "Qualifying LLM accuracy",
+     "path": "docs/document extraction/best-practices/confidence.md"
+    },
+    {
+     "n": 22,
+     "title": "Human review",
+     "path": "docs/monitor and qa/human-review.md"
+    }
+   ]
+  },
+  {
+   "title": "API and integrations",
+   "pages": [
+    {
+     "n": 27,
+     "title": "API Introduction",
+     "path": "reference/Introduction/choosing-an-endpoint.md"
+    },
+    {
+     "n": 38,
+     "title": "API quickstart",
+     "path": "docs/integrations/quickstart.md"
+    },
+    {
+     "n": 36,
+     "title": "API tutorial",
+     "path": "docs/api/api-tutorial/index.md"
+    },
+    {
+     "n": 42,
+     "title": "Extract data from a document (sync)",
+     "path": "reference/Extraction/document-1/extract-data-from-a-document.md"
+    },
+    {
+     "n": 24,
+     "title": "Try a webhook",
+     "path": "docs/api/api-tutorial/api-tutorial-webhook.md"
+    },
+    {
+     "n": 26,
+     "title": "Integrating",
+     "path": "docs/welcome/integrate.md"
+    },
+    {
+     "n": 39,
+     "title": "Getting started with email extraction",
+     "path": "docs/integrations/getting-started-email.md"
+    }
+   ]
+  }
+ ]
+}
