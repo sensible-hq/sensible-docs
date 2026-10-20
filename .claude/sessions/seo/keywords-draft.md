@@ -365,8 +365,8 @@ invoice line items; extract lists from PDF
 File: `Senseml reference/concepts/table-methods.md`
 #### Current excerpt (153 chars)
 Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and Text Table, including supported features like merged cells and checkboxes.
-#### Proposed excerpt (146 chars)
-Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multipage support, merged cells, and checkboxes.
+#### Proposed excerpt (147 chars)
+Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multi-page support, merged cells, and checkboxes.
 *Why:* Leads with 'extract PDF tables' and adds speed and multipage support, both of which the comparison tables cover; keeps the three method names. *Revised per PR review: 'Compare methods' speed'; 'Sensible's' -> 'the' for length.*
 #### Candidate phrases
 PDF table extraction *, extract tables from PDF *, table parsing *, table OCR *, line items *, table to JSON *, table to CSV *

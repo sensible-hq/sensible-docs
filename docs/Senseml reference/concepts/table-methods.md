@@ -1,11 +1,11 @@
 ---
 title: Table methods
-excerpt: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multipage support, merged cells, and checkboxes.
+excerpt: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multi-page support, merged cells, and checkboxes.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multipage support, merged cells, and checkboxes.
+  description: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multi-page support, merged cells, and checkboxes.
   robots: index
 next:
   description: ''
