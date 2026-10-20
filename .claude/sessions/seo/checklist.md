@@ -5,21 +5,11 @@ Claude Code session ID: c14f96d2-faef-4dbe-8951-0d7f13df161c
 Branch: seo-keywords (worktree: ~/GitHub/sensible-docs-seo-keywords)
 Related issue: #722 (GEO/SEO for docs: options?)
 
-## Before merge: scrub research (user request, 2026-10-20)
+## Research notes (2026-10-20)
 
-- [ ] Move competitor and best-practice research to a private Notion page, then remove it from this
-      branch before merge. The repo is PUBLIC.
-  - Move and delete: `competitors/` (all 6 files), `best-practice/payabli.md`,
-    `research-keywords-evidence.md`
-  - Scrub competitor/Payabli mentions from files that stay: `keywords-draft.md` ("Revisions from
-    competitor research" sections cite Parseur, Docparser, Nanonets, Docsumo, Ocrolus), `checklist.md`
-    (Competitor research section, decision rationale), and the PR #758 description
-  - Update PR #763 (`first-150-words`), whose checklist and planned agent inputs point at
-    `best-practice/payabli.md`, to point at the Notion page instead
-  - Squash-merge so `v0` never contains the files. Caveat: the content is already public in this PR's
-    commits and diffs, and GitHub keeps `refs/pull/758/head` even after the branch is deleted. Fully
-    removing it needs GitHub Support (or rewriting this branch's history before merge, which still
-    leaves the PR ref). Decide whether that matters.
+- [x] Background research (other docs sites' search phrasing, a best-practice reference for page
+      openings and llms.txt descriptions, and evidence on the keywords meta tag) was moved to a
+      private Notion page and removed from this branch before merge.
 
 ## Goal
 
@@ -41,9 +31,7 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
   "dead in terms of SEO value" (2014).
 - **AI crawlers and agents don't see it.** AI search features sit on search indexes; agent fetch tools
   convert page bodies to Markdown and drop `<head>`; crawler docs mention only robots.txt.
-- **Competitors don't use it.** None of Parseur, Docparser, Nanonets, Docsumo, Ocrolus curate keywords
-  (Parseur's API docs have tool-generated ones plus one hand-set value).
-- Evidence and sources: `research-keywords-evidence.md`, `competitors/`.
+- **Comparable docs sites don't use it either.** (Sources are in the private research notes.)
 
 ## Terminology decision (2026-10-20)
 
@@ -69,21 +57,11 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
 
 ## Research
 
-- [x] Competitor scan (2026-10-01): every sitemap page of Parseur, Docparser, Nanonets, Docsumo,
-      Ocrolus (~1,400 pages). Terms competitors put in titles/headings that Sensible docs barely use:
-      parse / parser / parsing, data extraction / extract data, bank statement, purchase order, bill
-      of lading, receipt, table extraction, line items, export, FAQ, rate limits, SSO, user
-      management, billing, post-processing. Doc-type pages: Ocrolus ~540, Docsumo ~40; Sensible
-      covers doc types on the marketing site (8 /extract/* pages + ~20 how-to blog posts), out of
-      scope for docs. Competitors document AI coding tools around their MCP servers.
-- [x] Competitor top-20 analysis, one file per competitor plus `competitors/summary.md`: title, meta
-      description, target phrases, closest Sensible page, borrowable phrases
-- [x] Evidence on search engines and AI agents vs. the keywords tag (`research-keywords-evidence.md`)
-- [x] Best-practice reference (not a competitor): Payabli top 10 pages, llms.txt descriptions, first
-      150 words (`best-practice/payabli.md`). Pattern: sentence 1 defines the thing with search terms;
-      sentence 2 says what problem it solves. llms.txt: one-paragraph product summary, audience-grouped
-      "Choose your path" with short task-focused link descriptions; top-level "Cookbooks" section
-      (relevant to the 'cookbook' idea for the config library page).
+- [x] Research (kept privately; see Research notes above): how comparable docs sites target search
+      phrases, a best-practice reference for page openings, and keywords-tag evidence. Takeaways used
+      here: openings should define the topic with search terms in sentence 1 and say what problem it
+      solves in sentence 2; descriptions should be task-focused; document-type pages are covered on
+      the marketing site (8 /extract/* pages + ~20 how-to blog posts), out of scope for docs.
 - [x] Password-protected PDFs: not supported per user (2026-10-19); phrase dropped
 
 ## ReadMe findings
@@ -126,7 +104,7 @@ Original list (approved 2026-10-19)
 - [x] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
 - [x] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
 
-Added from competitor analysis and review (2026-10-19)
+Added from research and review (2026-10-19)
 - [x] 21. Qualifying LLM accuracy — `docs/document extraction/best-practices/confidence.md`
 - [x] 22. Human review — `docs/monitor and qa/human-review.md`
 - [x] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
@@ -165,7 +143,7 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [x] Apply first round of PR review comments (2026-10-20)
 - [x] Add current excerpt (extracted deterministically from frontmatter; OpenAPI summary for
       spec-generated #42) to each page in the draft, with character counts (2026-10-20)
-- [x] Apply Best-phrase +/- changes from competitor research and review (14 pages; marked
+- [x] Apply Best-phrase +/- changes from research and review (14 pages; marked
       "Applied 2026-10-20" in the draft)
 - [x] Propose a new excerpt per page (fan-out by topic group, fan-in merge into draft). Done
       2026-10-20: 5 subagents; fan-in checked lengths (all <= 150), parse-words, phrase collisions,
