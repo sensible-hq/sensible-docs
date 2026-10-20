@@ -15,5 +15,5 @@ the slug already does. Cut the superfluous wording only ("Learn how to use the R
       self-naming), category index pages, Label (near-deprecated; doesn't self-name).
 - [x] Edit 39 excerpts, plus matching `metadata.description` (text-level edit; no other frontmatter
       keys changed; verified with YAML round-trip and `sync_description.py --dry-run`)
-- [ ] Open PR
+- [x] Open PR: #762
 - [ ] User review
