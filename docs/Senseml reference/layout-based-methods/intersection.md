@@ -1,13 +1,11 @@
 ---
 title: Intersection
-excerpt: Learn how the Intersection method extracts data at the cross-point of two
-  anchored lines, ideal for tables with optionally empty cells.
+excerpt: 'Table cell lookup: extract the value at the cross-point of a row and column, ideal for tables with empty cells or variable text positions.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how the Intersection method extracts data at the cross-point
-    of two anchored lines, ideal for tables with optionally empty cells.
+  description: 'Table cell lookup: extract the value at the cross-point of a row and column, ideal for tables with empty cells or variable text positions.'
   robots: index
 next:
   description: ''

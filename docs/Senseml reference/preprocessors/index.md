@@ -1,13 +1,11 @@
 ---
 title: Preprocessors
-excerpt: Learn about document preprocessors that clean up and prepare files before
-  data extraction, including deskew, OCR, page range, multicolumn, and more.
+excerpt: 'Clean up documents before extraction with preprocessing options: image pre-processing (deskew, rotate, scale), selective OCR, and header removal.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn about document preprocessors that clean up and prepare files
-    before data extraction, including deskew, OCR, page range, multicolumn, and more.
+  description: 'Clean up documents before extraction with preprocessing options: image pre-processing (deskew, rotate, scale), selective OCR, and header removal.'
   robots: index
 next:
   description: ''
