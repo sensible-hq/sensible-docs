@@ -21,24 +21,30 @@ Pages are grouped by topic. Page numbers are stable IDs (other notes refer to th
 
 ### 1. Overview
 File: `welcome/overview.md`
+#### Current description (146 chars; excerpt)
+Sensible is a developer-first document data extraction platform using SenseML to pull structured JSON from PDFs, emails, spreadsheets, and images.
 #### Candidate phrases
 document parser *, PDF parser *, document parsing API *, document data extraction API *, PDF data extraction *, PDF to JSON *, structured data from PDFs *, unstructured to structured data *, document AI *
 #### Best phrases
-document parsing (as the one defined alias: "also called document parsing"); PDF data extraction; PDF to JSON
+document parsing (as the one defined alias: "also called document parsing"); intelligent document processing; PDF data extraction; PDF to JSON
 #### Revisions from competitor research
-**Terminology rule:** Overview is the only page that uses "parse" in body text, once, as a defined alias. PDF parser, document parsing API stay candidates only. **+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** + intelligent document processing (per review).
+**Terminology rule:** Overview is the only page that uses "parse" in body text, once, as a defined alias. PDF parser, document parsing API stay candidates only. **+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** + intelligent document processing (per review). *(Applied 2026-10-20.)*
 
 ### 2. Getting started
 File: `welcome/getting-started-ai.md`
+#### Current description (155 chars; excerpt)
+Learn how to extract document data using Sensible's LLM-powered tools, from setting up your account to authoring prompts and publishing extraction configs.
 #### Candidate phrases
 tutorial *, AI document extraction *, extract data from PDF with LLM *, LLM PDF parsing *, GPT document extraction *, prompt-based extraction *, no-code document extraction *
 #### Best phrases
-AI document extraction; extract data from PDF with LLM
+AI data extraction; extract data from PDF with LLM
 #### Revisions from competitor research
-**+** AI data extraction (Parseur; zero hits in our docs), zero-shot (Nanonets; LLM extraction without training). **Best:** + AI data extraction; − AI document extraction.
+**+** AI data extraction (Parseur; zero hits in our docs), zero-shot (Nanonets; LLM extraction without training). **Best:** + AI data extraction; − AI document extraction. *(Applied 2026-10-20.)*
 
 ### 3. Getting started with layout-based extractions
 File: `document extraction/getting-started.md`
+#### Current description (150 chars; excerpt)
+Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
 #### Candidate phrases
 SenseML tutorial *, template-based extraction *, rule-based extraction *, deterministic extraction *, coordinate-based extraction *, zonal OCR *, extract data from forms *, PDF parsing tutorial *
 #### Best phrases
@@ -48,15 +54,19 @@ deterministic extraction; template-based extraction; rule-based extraction; extr
 
 ### 4. Intelligent document processing
 File: `Senseml reference/concepts/idp.md`
+#### Current description (158 chars; excerpt)
+Learn how intelligent document processing automates structured data extraction from documents to handle variability across real-world business document types.
 #### Candidate phrases
 document processing automation *, document automation *, automated data extraction *, AI document processing *, document AI *
 #### Best phrases
-document automation; automated data extraction
+document automation; automated data extraction; document data capture
 #### Revisions from competitor research
-**+** document data capture / automate data capture (Docsumo), unstructured data into structured data (Docsumo; owner page for this phrase rather than #1), manual data entry (Docsumo). "Document automation" confirmed (two Ocrolus titles). **Best:** + document data capture.
+**+** document data capture / automate data capture (Docsumo), unstructured data into structured data (Docsumo; owner page for this phrase rather than #1), manual data entry (Docsumo). "Document automation" confirmed (two Ocrolus titles). **Best:** + document data capture. *(Applied 2026-10-20.)*
 
 ### 25. Out-of-the-box extractions
 File: `document extraction/library-quickstart.md`
+#### Current description (152 chars; excerpt)
+Use Sensible's pre-built configuration library to extract data from common business documents like bank statements, tax forms, and pay stubs in minutes.
 #### Candidate phrases
 prebuilt models *, pre-built templates *, document templates *, bank statement extraction *, pay stub extraction *, tax form extraction *, configuration library, cookbook *
 #### Best phrases
@@ -68,15 +78,19 @@ prebuilt models; pre-built templates; bank statement extraction
 
 ### 5. Supported file types
 File: `Senseml reference/concepts/file-types.md`
+#### Current description (122 chars; excerpt)
+Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification. Support has nuances.
 #### Candidate phrases
 supported formats *, file formats *, file size limits *, extract data from Excel *, extract data from Word *, scanned documents *, image to text *, email extraction *
 #### Best phrases
-extract data from Excel; extract data from Word; file size limits
+file formats; extract data from Excel; extract data from Word; file size limits
 #### Revisions from competitor research
-**+** maximum document size (Parseur). (Password-protected PDFs dropped: not supported.) "File formats" is the competitors' term in 3 of 5 (we say "file types"). **Best:** + file formats (keep Word and Excel, per review).
+**+** maximum document size (Parseur). (Password-protected PDFs dropped: not supported.) "File formats" is the competitors' term in 3 of 5 (we say "file types"). **Best:** + file formats (keep Word and Excel, per review). *(Applied 2026-10-20.)*
 
 ### 6. OCR
 File: `Senseml reference/concepts/ocr.md`
+#### Current description (157 chars; excerpt)
+How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
 #### Candidate phrases
 OCR API *, scanned PDF *, image to text *, text recognition *, Amazon Textract *, Google Document AI *, Microsoft Azure *
 #### Best phrases
@@ -86,6 +100,8 @@ OCR API; scanned PDF; image to text
 
 ### 28. OCR preprocessor
 File: `Senseml reference/preprocessors/ocr-preprocessor.md`
+#### Current description (148 chars; excerpt)
+Use Sensible's OCR preprocessor to selectively OCR specific pages in documents containing both embedded text and scanned or handwritten text images.
 #### Candidate phrases
 force OCR *, garbled text *, OCR specific pages *, mixed scanned and digital PDF *, scanned pages *, embedded text, handwritten
 #### Best phrases
@@ -95,6 +111,8 @@ Added from competitor research: "force OCR" is Parseur's term ("When to Use the 
 
 ### 23. Preprocessors
 File: `Senseml reference/preprocessors/index.md`
+#### Current description (148 chars; excerpt)
+Learn about document preprocessors that clean up and prepare files before data extraction, including deskew, OCR, page range, multicolumn, and more.
 #### Candidate phrases
 preprocessing options *, image pre-processing *, document cleanup *, rotate pages *, remove headers and footers *, multi-column layout *, deskew, page range
 #### Best phrases
@@ -104,6 +122,8 @@ No change. Both best phrases confirmed (Docparser, Docsumo).
 
 ### 29. Merge lines
 File: `Senseml reference/preprocessors/merge-lines.md`
+#### Current description (139 chars; excerpt)
+Merge Lines preprocessor documentation covering how to fix oversplit, overlapping, or misaligned lines from poor scans or handwritten text.
 #### Candidate phrases
 fix broken text lines *, oversplit lines, misaligned text *, poor quality scans *, handwriting OCR, jittery lines, line merging *, text line detection *
 #### Best phrases
@@ -115,6 +135,8 @@ No competitor equivalent. Closest: Docsumo "Image Pre-Processing" (owned by #23)
 
 ### 31. SenseML reference introduction
 File: `Senseml reference/senseml-reference-introduction.md`
+#### Current description (133 chars; excerpt)
+SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
 #### Candidate phrases
 document query language *, extraction configuration reference *, config reference *, JSON config *, extraction rules *, parsing rules *
 #### Best phrases
@@ -124,6 +146,8 @@ document query language; extraction configuration reference
 
 ### 33. Field query object
 File: `Senseml reference/field-query-object/index.md`
+#### Current description (158 chars; excerpt)
+How the SenseML Field query object works, including parameters and examples for extracting structured data from PDFs using layout-based and LLM-based methods.
 #### Candidate phrases
 extraction field definition *, JSON output *, key-value output *, data field *, field ID *, output schema *
 #### Best phrases
@@ -133,15 +157,19 @@ No competitor equivalent. **Best:** keep current.
 
 ### 11. Anchor object
 File: `Senseml reference/field-query-object/anchor.md`
+#### Current description (118 chars; excerpt)
+How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
 #### Candidate phrases
 keyword *, landmark *, search text *, text locator *, reference text *
 #### Best phrases
-keyword; landmark
+variable positions; keyword; landmark
 #### Revisions from competitor research
-**+** variable positions (Docparser, "extract data from variable positions"), dynamically position fields (Parseur, "Use Labels to dynamically position fields"). **Best:** + variable positions.
+**+** variable positions (Docparser, "extract data from variable positions"), dynamically position fields (Parseur, "Use Labels to dynamically position fields"). **Best:** + variable positions. *(Applied 2026-10-20.)*
 
 ### 37. Match object
 File: `Senseml reference/field-query-object/match.md`
+#### Current description (143 chars; excerpt)
+How Match objects define search criteria for locating text lines in documents, including string, regex, boolean, first, and repeat match types.
 #### Candidate phrases
 text matching *, regex matching *, fuzzy match, approximate string matching *, case-insensitive match *, search criteria, boolean match
 #### Best phrases
@@ -151,6 +179,8 @@ No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** keep cu
 
 ### 35. Types
 File: `Senseml reference/field-query-object/types.md`
+#### Current description (154 chars; excerpt)
+Learn how to filter and format extracted data using Sensible's Type parameter, including address, boolean, currency, date, and other built-in field types.
 #### Candidate phrases
 normalize data *, field formats *, data types *, data normalization *, date format, currency parsing *, address parsing *, type validation *
 #### Best phrases
@@ -162,6 +192,8 @@ normalize data; data types; date format
 
 ### 32. Layout-based methods
 File: `Senseml reference/layout-based-methods/index.md`
+#### Current description (150 chars; excerpt)
+Layout-based extraction methods in Sensible, including Box, Table, Checkbox, Region, Regex, and more for deterministically extracting structured data.
 #### Candidate phrases
 positional extraction *, non-LLM extraction *, extraction methods *, PDF extraction methods *, layout extraction *, deterministic extraction *
 #### Best phrases
@@ -171,6 +203,8 @@ No change. "deterministic extraction" kept as candidate only; #3 owns it as a be
 
 ### 7. Row
 File: `Senseml reference/layout-based-methods/row.md`
+#### Current description (71 chars; excerpt)
+Row method matches text lines horizontally aligned with an anchor line.
 #### Candidate phrases
 extract text next to label *, value to the right of a label *, extract field by label *, key-value pair extraction *, label value pairs *, same line *, horizontal alignment *
 #### Best phrases
@@ -180,15 +214,19 @@ No change.
 
 ### 8. Region
 File: `Senseml reference/layout-based-methods/region.md`
+#### Current description (150 chars; excerpt)
+Extracts data from a rectangular region defined in inches using the Region SenseML method, with parameters for position, size, and overlap thresholds.
 #### Candidate phrases
 zonal OCR *, bounding box *, coordinate-based extraction *, fixed position extraction *, extract area of PDF *, template zone *, crop *, PDF region to image *
 #### Best phrases
-zonal OCR; bounding box; coordinate-based extraction
+zonal OCR; fixed position extraction; coordinate-based extraction
 #### Revisions from competitor research
-**+** extract text from a fixed position (Docparser title). **Best:** + fixed position extraction; − bounding box.
+**+** extract text from a fixed position (Docparser title). **Best:** + fixed position extraction; − bounding box. *(Applied 2026-10-20.)*
 
 ### 9. Passthrough
 File: `Senseml reference/layout-based-methods/passthrough.md`
+#### Current description (160 chars; excerpt)
+Learn how to use the Passthrough method to return anchor matches directly without additional extraction steps, ideal for regex-based text matching in documents.
 #### Candidate phrases
 regex match *, regular expression extraction *, pattern matching *, extract matching text *, return anchor *
 #### Best phrases
@@ -198,6 +236,8 @@ No change.
 
 ### 10. Intersection
 File: `Senseml reference/layout-based-methods/intersection.md`
+#### Current description (135 chars; excerpt)
+Learn how the Intersection method extracts data at the cross-point of two anchored lines, ideal for tables with optionally empty cells.
 #### Candidate phrases
 table cell lookup *, extract cell by row and column *, row and column intersection *, grid lookup *, empty table cells *, crosstab *
 #### Best phrases
@@ -209,6 +249,8 @@ No change.
 
 ### 34. LLM-based methods
 File: `Senseml reference/llm-based-methods/index.md`
+#### Current description (111 chars; excerpt)
+Learn how to extract text from documents using LLM-based SenseML methods like List, Query Group, and NLP Table.
 #### Candidate phrases
 unstructured text extraction *, AI extraction methods *, generative AI extraction *, free text extraction *, extract from contracts *, extract from legal documents *
 #### Best phrases
@@ -218,6 +260,8 @@ No change. ("AI data extraction" is owned by #2.) **Best:** keep current.
 
 ### 13. Query group
 File: `Senseml reference/llm-based-methods/query-group.md`
+#### Current description (159 chars; excerpt)
+Query Group method extracts individual facts from documents or images using LLM prompts, with tips on grouping and phrasing queries for accurate, fast results.
 #### Candidate phrases
 LLM extraction *, AI field extraction *, extract facts *, question answering *, document Q&A *, GPT *, Claude *, Gemini *
 #### Best phrases
@@ -227,6 +271,8 @@ LLM extraction; document Q&A
 
 ### 14. List
 File: `Senseml reference/llm-based-methods/list.md`
+#### Current description (145 chars; excerpt)
+LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
 #### Candidate phrases
 invoice line items *, array extraction *, extract lists from PDF *, LLM list extraction *
 #### Best phrases
@@ -238,24 +284,30 @@ invoice line items; extract lists from PDF
 
 ### 12. Table methods
 File: `Senseml reference/concepts/table-methods.md`
+#### Current description (153 chars; excerpt)
+Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and Text Table, including supported features like merged cells and checkboxes.
 #### Candidate phrases
 PDF table extraction *, extract tables from PDF *, table parsing *, table OCR *, line items *, table to JSON *, table to CSV *
 #### Best phrases
-PDF table extraction; table parsing; table to CSV
+PDF table extraction; extract PDF tables; extract table rows
 #### Revisions from competitor research
-**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + extract PDF tables, extract table rows; − table parsing, table to CSV. ("parse tables" is candidate only, per the terminology rule.)
+**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + extract PDF tables, extract table rows; − table parsing, table to CSV. ("parse tables" is candidate only, per the terminology rule.) *(Applied 2026-10-20.)*
 
 ### 15. NLP table
 File: `Senseml reference/llm-based-methods/nlp-table.md`
+#### Current description (159 chars; excerpt)
+Extract tables from documents using natural language descriptions, with support for multi-page tables and column-level prompts via Sensible's NLP Table method.
 #### Candidate phrases
 LLM table extraction *, AI table extraction *, extract tables with GPT *, natural language table *, table parsing *, line items *
 #### Best phrases
-LLM table extraction; AI table extraction
+LLM table extraction; prompt-based table extraction
 #### Revisions from competitor research
-**+** prompt-based table extraction (Docsumo title). **Best:** + prompt-based table extraction; − AI table extraction.
+**+** prompt-based table extraction (Docsumo title). **Best:** + prompt-based table extraction; − AI table extraction. *(Applied 2026-10-20.)*
 
 ### 16. Sections
 File: `Senseml reference/sections/index.md`
+#### Current description (149 chars; excerpt)
+Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
 #### Candidate phrases
 nested data *, array of objects *, nested tables *, sub-documents *, group fields *, loss runs *
 #### Best phrases
@@ -267,6 +319,8 @@ nested data; array of objects; nested tables
 
 ### 30. JsonLogic extensions
 File: `Senseml reference/concepts/jsonlogic.md`
+#### Current description (157 chars; excerpt)
+How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
 #### Candidate phrases
 JSON rules engine *, transform extracted data *, custom operators *, JSON logic expressions *, conditional logic *, data transformation rules *, logic-based rules *
 #### Best phrases
@@ -276,6 +330,8 @@ JSON rules engine; transform extracted data; custom operators
 
 ### 40. Custom computation
 File: `Senseml reference/advanced-computed-field-methods/custom-computation.md`
+#### Current description (147 chars; excerpt)
+Learn how to define custom computed fields using JsonLogic in Sensible, including summing fields, mapping arrays, and checking for non-null values.
 #### Candidate phrases
 post-processing *, calculated fields *, custom logic *, derived fields *, data transformation, sum fields *
 #### Best phrases
@@ -285,6 +341,8 @@ post-processing; calculated fields; custom logic
 
 ### 41. Custom computation group
 File: `Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
+#### Current description (141 chars; excerpt)
+Learn how to use the Custom Computation Group method with JsonLogic to transform extracted document data and return multiple computed fields.
 #### Candidate phrases
 multiple calculated fields *, data transformation *, transform extracted data *, post-processing *, custom logic *
 #### Best phrases
@@ -296,15 +354,19 @@ multiple calculated fields; data transformation
 
 ### 17. Fingerprint
 File: `Senseml reference/config-settings/fingerprint.md`
+#### Current description (157 chars; excerpt)
+Learn how fingerprints test documents for matching text, so you can choose the config for a standalone document or find each document's pages in a portfolio.
 #### Candidate phrases
 template matching *, layout detection *, document variant *, form version *, config selection *, document identification *, page classification *
 #### Best phrases
-template matching; layout detection; form version
+multiple document layouts; template matching; layout detection; form revision
 #### Revisions from competitor research
-**+** multiple document layouts, layout variation (Docparser), picks a template / template selection (Parseur, "Understand How Parseur Picks a Template"). **Best:** + multiple document layouts; form version → form revision (per review; the page says "revision").
+**+** multiple document layouts, layout variation (Docparser), picks a template / template selection (Parseur, "Understand How Parseur Picks a Template"). **Best:** + multiple document layouts; form version → form revision (per review; the page says "revision"). *(Applied 2026-10-20.)*
 
 ### 18. Classifying documents by type
 File: `document type classification/classify.md`
+#### Current description (157 chars; excerpt)
+How Sensible classifies documents by type using classify-only APIs, single-doc extraction, and multi-doc requests including portfolios and email attachments.
 #### Candidate phrases
 document classification *, document classifier *, classification API *, identify document type *, auto-classify *, document categorization *, document sorting *
 #### Best phrases
@@ -314,26 +376,32 @@ document classification; classification API
 
 ### 19. Multi-document extractions
 File: `document extraction/portfolio.md`
+#### Current description (126 chars; excerpt)
+Learn how to extract data from multi-document portfolio files using LLM-based or fingerprint segmentation methods in Sensible.
 #### Candidate phrases
 split PDF *, PDF splitter *, document splitting *, document segmentation *, multiple documents in one PDF *, combined PDF *, bundled documents *, packet *, loan packet *, mortgage package *
 #### Best phrases
-split PDF; document segmentation; multiple documents in one PDF
+split PDF; document splitting; multiple documents in one PDF; loan package (possible)
 #### Revisions from competitor research
-**+** mixed PDF document, multi-page PDF (Ocrolus), automatically split (Docparser), combined document, PDF with multiple invoices (Docsumo), loan package (Ocrolus). **−** packet, loan packet (use Ocrolus's "loan package"). Splitting is the second most converged topic (4 of 5). **Best:** + document splitting, possibly loan package (per review); − document segmentation.
+**+** mixed PDF document, multi-page PDF (Ocrolus), automatically split (Docparser), combined document, PDF with multiple invoices (Docsumo), loan package (Ocrolus). **−** packet, loan packet (use Ocrolus's "loan package"). Splitting is the second most converged topic (4 of 5). **Best:** + document splitting, possibly loan package (per review); − document segmentation. *(Applied 2026-10-20.)*
 
 ## Quality control
 
 ### 20. Validating extractions
 File: `monitor and qa/validate-extractions.md`
+#### Current description (142 chars; excerpt)
+Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
 #### Candidate phrases
 data validation *, validation rules *, business rules *, data quality *, QA *, checksums *, flag for review *
 #### Best phrases
-data validation; validation rules; data quality
+data validation; validation rules; field-level validation
 #### Revisions from competitor research
-**+** field-level validation (Docsumo), approval rules (Nanonets), logic-based rules (Ocrolus; plain-English for JsonLogic). "Business rules" confirmed (Nanonets). **Best:** + field-level validation; − data quality.
+**+** field-level validation (Docsumo), approval rules (Nanonets), logic-based rules (Ocrolus; plain-English for JsonLogic). "Business rules" confirmed (Nanonets). **Best:** + field-level validation; − data quality. *(Applied 2026-10-20.)*
 
 ### 21. Qualifying LLM accuracy
 File: `document extraction/best-practices/confidence.md`
+#### Current description (152 chars; excerpt)
+Learn how Sensible uses LLM confidence signals to qualify extraction accuracy, including signal types like ambiguous query and multiple possible answers
 #### Candidate phrases
 confidence scores *, LLM confidence *, extraction accuracy *, LLM accuracy *, uncertainty *, ambiguous answers *, hallucination *
 #### Best phrases
@@ -343,6 +411,8 @@ confidence scores; extraction accuracy; LLM confidence
 
 ### 22. Human review
 File: `monitor and qa/human-review.md`
+#### Current description (146 chars; excerpt)
+Learn how to use Sensible's Human Review tab to manually correct, approve, or reject flagged document extractions and resolve validation failures.
 #### Candidate phrases
 human-in-the-loop *, HITL *, manual review *, review queue *, review screen *, correct extracted data *, approve or reject
 #### Best phrases
@@ -354,15 +424,19 @@ human-in-the-loop; HITL; manual review
 
 ### 27. API Introduction
 File: `reference/Introduction/choosing-an-endpoint.md`
+#### Current description (185 chars; excerpt)
+Overview of Sensible's API endpoints for extracting structured data from documents, including async/sync extraction, Excel conversion, portfolio extraction, and document classification.
 #### Candidate phrases
 document extraction API *, PDF extraction API *, REST API *, PDF to JSON API *, API getting started *, async vs. sync extraction, batch extraction *, polling *, webhooks
 #### Best phrases
-document extraction API; PDF extraction API; REST API
+document data extraction API; PDF extraction API; REST API
 #### Revisions from competitor research
-**+** document data extraction API (moved from #1; Parseur's only hand-written meta keyword). **Best:** + document data extraction API; − document extraction API.
+**+** document data extraction API (moved from #1; Parseur's only hand-written meta keyword). **Best:** + document data extraction API; − document extraction API. *(Applied 2026-10-20.)*
 
 ### 38. API quickstart
 File: `integrations/quickstart.md`
+#### Current description (130 chars; excerpt)
+Learn how to make your first Sensible API call using an example document and SenseML config to extract structured data in minutes.
 #### Candidate phrases
 first API call *, hello world, API example *, curl example *, Postman *, quickstart
 #### Best phrases
@@ -372,6 +446,8 @@ No competitor equivalent. Phrase "make your first API call" mirrors Payabli's ll
 
 ### 36. API tutorial
 File: `api/api-tutorial/index.md`
+#### Current description (157 chars; excerpt)
+Learn how to extract structured data from documents using the Sensible API with tutorials covering synchronous, asynchronous, and webhook extraction methods.
 #### Candidate phrases
 document extraction API tutorial *, step-by-step API guide *, REST API tutorial *, sync vs. async extraction *, extraction API examples *
 #### Best phrases
@@ -381,6 +457,8 @@ No competitor equivalent. **Best:** keep current.
 
 ### 42. Extract data from a document (sync)
 File: `reference/Extraction/document-1/extract-data-from-a-document.md`
+#### Current description (35 chars; OpenAPI summary (no excerpt; page is spec-generated))
+Extract data from a document (sync)
 #### Candidate phrases
 synchronous extraction API *, sync extraction endpoint *, POST /extract *, upload PDF API *, extract endpoint *
 #### Best phrases
@@ -390,6 +468,8 @@ No competitor equivalent. Note: the page's `.md` is a pointer to `openapi_extrac
 
 ### 24. Try a webhook
 File: `api/api-tutorial/api-tutorial-webhook.md`
+#### Current description (158 chars; excerpt)
+Learn how to use webhooks with Sensible's extraction API to receive push notifications when document extraction status changes, using a step-by-step tutorial.
 #### Candidate phrases
 webhook URL *, callback URL *, webhook tutorial *, push notification *, webhook payload, asynchronous extraction, polling
 #### Best phrases
@@ -399,21 +479,25 @@ webhook URL; callback URL; webhook payload
 
 ### 26. Integrating
 File: `welcome/integrate.md`
+#### Current description (159 chars; excerpt)
+Learn how to integrate Sensible document extraction using SDKs, APIs, email, Zapier, MCP server, or quick extraction tools to automate document data workflows.
 #### Candidate phrases
 export extracted data *, send extracted data to apps *, document ingestion *, workflow automation *, no-code integration *, Python SDK *, Node.js SDK *, webhooks *, email parsing *, QuickBooks *, CSV export *, Google Sheets
 #### Best phrases
-export extracted data; workflow automation; Python SDK
+export extracted data; send extracted data to any application; document ingestion
 #### Revisions from competitor research
-**+** send extracted data to any application (Parseur title; replaces "send extracted data to apps"), email import (Nanonets). "Document ingestion" confirmed (Docsumo); Google Sheets appears in 4 of 5 competitors. **Best:** + send extracted data to any application, document ingestion; − workflow automation, Python SDK.
+**+** send extracted data to any application (Parseur title; replaces "send extracted data to apps"), email import (Nanonets). "Document ingestion" confirmed (Docsumo); Google Sheets appears in 4 of 5 competitors. **Best:** + send extracted data to any application, document ingestion; − workflow automation, Python SDK. *(Applied 2026-10-20.)*
 
 ### 39. Getting started with email extraction
 File: `integrations/getting-started-email.md`
+#### Current description (154 chars; excerpt)
+Learn how to automatically extract structured data from email bodies and attachments by forwarding emails to Sensible using email processors and webhooks.
 #### Candidate phrases
 email parsing *, email parser *, email body parsing *, extract data from email attachments *, email to JSON *, email import *, forward emails *, inbox automation *
 #### Best phrases
-email data extraction; extract data from email attachments; email to JSON
+email data extraction; email parsing (as the one defined alias: "This is also called email parsing."); extract data from email attachments; email to JSON
 #### Revisions from competitor research
-**Terminology exception (per review):** this page may define "email parsing" once as an alias ("also called email parsing"); "email parser" stays a candidate only. **+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (candidate only on #26). **Best:** + email parsing (as the defined alias).
+**Terminology exception (per review):** this page may define "email parsing" once as an alias ("also called email parsing"); "email parser" stays a candidate only. **+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (candidate only on #26). **Best:** + email parsing (as the defined alias). *(Applied 2026-10-20.)*
 
 Rows 29–42 added from ReadMe page-view data (past year; see checklist).
 
