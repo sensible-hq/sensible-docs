@@ -200,36 +200,7 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
   not "Use this to remove…"). That's the body, not the excerpt, but it matters for the first-150-words
   rewrite (excerpt = imperative; first body sentence = third-person, per current house style).
 
-## First 150 words (started 2026-10-20)
+## Moved: first 150 words and per-page edit plan
 
-Goal: the first 150 words of each page's content explain exactly what the page covers, so human and
-agent readers can tell whether the page is for them.
-
-- [x] Build `first-lines-draft.md` deterministically (`build_first_lines.py`): current excerpt, ui-docs
-      short description where it exists (only #10 Intersection), first 150 words of the current body
-- [ ] Propose rewrites (fan-out by topic group; pilot one group first)
-- [ ] User review; apply
-
-## Execution plan: per-page edits (agreed 2026-10-20)
-
-Fan-out / fan-in with subagents, ~5 pages each.
-
-- [ ] Decide scope: excerpt + first ~150 words, or excerpt only (the first-150-words rewrites are where
-      the SEO/GEO value is, but cost more review time per page)
-- [ ] Batch pages by topic, using the draft's topic groups (10 groups, 3–7 pages each), so each agent
-      sees related pages and keeps phrasing consistent
-- [ ] Shared inputs for every agent:
-  - phrase-ownership map (which page owns which best phrase; non-owners don't use it)
-  - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
-    problem it solves (`best-practice/payabli.md`)
-  - terminology rule: "extract," not "parse" (see Terminology decision)
-  - excerpt rule: never name the page's own method, object, or preprocessor (the slug does)
-  - style rules: all `.claude/style-guide/` files, you-centric prose, `/* */` comments only in code,
-    don't mention Label method, keep existing fence languages
-  - exact scope of allowed edits; nothing else touched
-- [ ] Fan-out: each agent edits only its own pages and writes a per-page change rationale; no
-      agent edits shared files (checklist, draft)
-- [ ] Fan-in (main session): check best-phrase collisions across pages; check any new factual
-      claims; run Vale; full style pass across all edits for one voice; present one consolidated
-      summary or draft PR
-- [ ] Pilot one batch of ~5 pages first; user reviews; tune the prompt; then run the remaining batches
+Moved 2026-10-20 to branch `first-150-words` (`.claude/sessions/first-150-words/`): the first-lines draft,
+its build script, and the per-page edit execution plan.
