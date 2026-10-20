@@ -18,7 +18,7 @@ import yaml
 
 REPO = Path(__file__).resolve().parents[3]
 DRAFT = Path(__file__).with_name("keywords-draft.md")
-MAX_LENGTH = 160
+MAX_LENGTH = 160  # hard cap (scripts/descriptions/frontmatter.py); target <= 150
 WRITE = "--write" in sys.argv
 
 

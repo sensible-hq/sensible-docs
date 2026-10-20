@@ -30,8 +30,8 @@ Pages are grouped by topic. Page numbers are stable IDs (other notes refer to th
 File: `welcome/overview.md`
 #### Current excerpt (146 chars)
 Sensible is a developer-first document data extraction platform using SenseML to pull structured JSON from PDFs, emails, spreadsheets, and images.
-#### Proposed excerpt (149 chars)
-Sensible is a developer-first platform for PDF data extraction and intelligent document processing. Get JSON from PDFs, emails, spreadsheets, images.
+#### Proposed excerpt (154 chars)
+Sensible: developer-first PDF data extraction and intelligent document processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and images.
 *Why:* Current is accurate but leads with a generic category; puts two Best phrases in the first 100 chars and keeps the PDF-to-JSON outcome; drops 'SenseML' (not a search term). Edited at fan-in (length or wording).
 #### Candidate phrases
 document parser *, PDF parser *, document parsing API *, document data extraction API *, PDF data extraction *, PDF to JSON *, structured data from PDFs *, unstructured to structured data *, document AI *
