@@ -10,6 +10,9 @@
   `competitors/*.md`. Notation: **+** add to keywords, **−** drop from keywords; **Best:** + / − = add to /
   remove from the best-phrases column, or "keep current". Source competitor in parentheses (phrases are verbatim from their titles, descriptions, or
   headings). "No change" = no competitor covers the concept.
+- **Terminology rule (2026-10-20): "extract," not "parse."** Docs use "extract" consistently. "Parse"/"parser"/"parsing" appear
+  in body text only once, as a defined alias on the Overview ("...extracts structured data from documents (also called
+  document parsing)"). Elsewhere, parse-words are allowed in Keywords only, never in Best phrases.
 
 Pages are grouped by topic. Page numbers are stable IDs (other notes refer to them, e.g. "#27"), so they aren't sequential within groups.
 
@@ -20,9 +23,9 @@ File: `welcome/overview.md`
 #### Keywords
 document parser *, PDF parser *, document parsing API *, document data extraction API *, PDF data extraction *, PDF to JSON *, structured data from PDFs *, unstructured to structured data *, document AI *
 #### Best phrases
-PDF parser; document parsing API; PDF to JSON
+document parsing (as the one defined alias: "also called document parsing"); PDF data extraction; PDF to JSON
 #### Revisions from competitor research
-**+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** keep current.
+**Terminology rule:** Overview is the only page that uses "parse" in body text, once, as a defined alias. PDF parser, document parsing API stay in Keywords. **+** intelligent document processing (Ocrolus; we use it on `idp.md` but not here), extract text from PDF (Parseur). **−** document data extraction API (move to #27). Parser vocabulary confirmed: two competitors are named for it. **Best:** keep current.
 
 ### 2. Getting started
 File: `welcome/getting-started-ai.md`
@@ -239,7 +242,7 @@ PDF table extraction *, extract tables from PDF *, table parsing *, table OCR *,
 #### Best phrases
 PDF table extraction; table parsing; table to CSV
 #### Revisions from competitor research
-**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + parse tables, extract table rows; − table parsing, table to CSV.
+**+** parse tables (Docparser), extract PDF tables (Parseur), extract table rows (Docparser), tables spanning several pages (Parseur). Tables is the topic where competitors converge most (4 of 5). **Best:** + extract PDF tables, extract table rows; − table parsing, table to CSV. ("parse tables" is Keywords only, per the terminology rule.)
 
 ### 15. NLP table
 File: `Senseml reference/llm-based-methods/nlp-table.md`
@@ -407,9 +410,9 @@ File: `integrations/getting-started-email.md`
 #### Keywords
 email parsing *, email parser *, email body parsing *, extract data from email attachments *, email to JSON *, email import *, forward emails *, inbox automation *
 #### Best phrases
-email parsing; email parser; extract data from email attachments
+email data extraction; extract data from email attachments; email to JSON
 #### Revisions from competitor research
-**+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (keyword only on #26). **Best:** keep current.
+**Terminology rule:** email parsing, email parser moved to Keywords only (they're the dominant search terms for this topic, so this row loses the most from the rule). **+** email body parsing (Docsumo title), email import (Nanonets). Parseur's core product is an email parser ("Create Your First Template to Extract Text From Emails"). Owner page for "email parsing" (keyword only on #26). **Best:** keep current.
 
 Rows 29–42 added from ReadMe page-view data (past year; see checklist).
 

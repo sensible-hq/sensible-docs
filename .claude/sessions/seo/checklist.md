@@ -190,6 +190,16 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] PR referencing #722
 
+## Terminology decision (2026-10-20)
+
+- "Extract," not "parse," throughout the docs, for terminology rigor. "Parse" appears in body text
+  once: a defined alias on the Overview ("Sensible extracts structured data from documents (also
+  called document parsing)"). Parse-words otherwise go in `metadata.keywords` only.
+- Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract"
+  can still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site
+  search / docs MCP search; unverified) may not, which the keywords field and the single defined
+  alias cover.
+
 ## Execution plan: per-page edits (agreed 2026-10-20)
 
 Fan-out / fan-in with subagents, ~5 pages each (~9 agents for 42 pages).
@@ -203,6 +213,7 @@ Fan-out / fan-in with subagents, ~5 pages each (~9 agents for 42 pages).
   - phrase-ownership map (which page owns which best phrase; non-owners get it as keyword only)
   - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
     problem it solves (`best-practice/payabli.md`)
+  - terminology rule: "extract," not "parse" (see Terminology decision)
   - style rules: all `.claude/style-guide/` files, you-centric prose, `/* */` comments only in code,
     don't mention Label method, keep existing fence languages
   - exact scope of allowed edits; nothing else touched
