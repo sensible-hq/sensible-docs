@@ -258,13 +258,13 @@ No change. "deterministic extraction" kept as candidate only; #3 owns it as a be
 File: `Senseml reference/layout-based-methods/row.md`
 #### Current excerpt (71 chars)
 Row method matches text lines horizontally aligned with an anchor line.
-#### Proposed excerpt (122 chars)
-Extract text next to a label with the SenseML Row method. Returns lines to the left or right of an anchor on the same row.
-*Why:* Current is 71 chars and only defines alignment; new version says what you get (the value beside a label) and uses both Best phrases. *Revised per PR review: cut 'key-value pair extraction' (Row can return every cell in a row).*
+#### Proposed excerpt (133 chars)
+Extract text next to a label, such as the value in a key-value pair, or every line to the left or right of an anchor on the same row.
+*Why:* Current is 71 chars and only defines alignment; new version says what you get (the value beside a label) and uses both Best phrases. *Revised per PR review: cut 'key-value pair extraction' (Row can return every cell in a row).* *Review round 3: cut method name; added key-value pair back, clarified that Row can return every line.*
 #### Candidate phrases
 extract text next to label *, value to the right of a label *, extract field by label *, key-value pair extraction *, label value pairs *, same line *, horizontal alignment *
 #### Best phrases
-extract text next to label  *(review: removed key-value pair extraction)*
+extract text next to label; key-value pair extraction  *(review round 3: key-value pair restored, with clarification)*
 #### Revisions from competitor research
 No change.
 
@@ -272,9 +272,9 @@ No change.
 File: `Senseml reference/layout-based-methods/region.md`
 #### Current excerpt (150 chars)
 Extracts data from a rectangular region defined in inches using the Region SenseML method, with parameters for position, size, and overlap thresholds.
-#### Proposed excerpt (147 chars)
-Use the SenseML Region method for fixed position extraction: extract text from a rectangle set in inches from an anchor, or capture it as an image.
-*Why:* Adds the search terms for this technique and mentions image output, which the page covers; drops the overlap-threshold detail. *Revised per PR review: not zonal OCR; reworded around text vs. image (asImage) output.*
+#### Proposed excerpt (145 chars)
+Extract text from a fixed position: a rectangle set in inches from an anchor, for coordinate-based extraction. Or capture the region as an image.
+*Why:* Adds the search terms for this technique and mentions image output, which the page covers; drops the overlap-threshold detail. *Revised per PR review: not zonal OCR; reworded around text vs. image (asImage) output.* *Review round 3: cut method name; added Best phrase 'coordinate-based extraction'.*
 #### Candidate phrases
 zonal OCR *, bounding box *, coordinate-based extraction *, fixed position extraction *, extract area of PDF *, template zone *, crop *, PDF region to image *
 #### Best phrases
@@ -330,9 +330,9 @@ No change. ("AI data extraction" is owned by #2.) **Best:** keep current.
 File: `Senseml reference/llm-based-methods/query-group.md`
 #### Current excerpt (159 chars)
 Query Group method extracts individual facts from documents or images using LLM prompts, with tips on grouping and phrasing queries for accurate, fast results.
-#### Proposed excerpt (134 chars)
-Use LLM extraction to pull individual facts, such as an invoice date or policy limit, from documents and images. Includes prompt tips.
-*Why:* Moves 'LLM extraction' into the first 40 chars and adds concrete examples from the page's opening; drops 'accurate, fast results' filler. 'document Q&A' omitted as the page never frames itself that way. *Revised per PR review: active voice; dropped 'Query Group method:' prefix (slug already names it).*
+#### Proposed excerpt (143 chars)
+Use LLM extraction to pull facts and key-value pairs, such as an invoice date or policy limit, from documents and images. Includes prompt tips.
+*Why:* Moves 'LLM extraction' into the first 40 chars and adds concrete examples from the page's opening; drops 'accurate, fast results' filler. 'document Q&A' omitted as the page never frames itself that way. *Revised per PR review: active voice; dropped 'Query Group method:' prefix (slug already names it).* *Review round 3: added key-value pairs ('individual' cut for length).*
 #### Candidate phrases
 LLM extraction *, AI field extraction *, extract facts *, question answering *, document Q&A *, GPT *, Claude *, Gemini *
 #### Best phrases
@@ -374,9 +374,9 @@ PDF table extraction; extract PDF tables; extract table rows
 File: `Senseml reference/llm-based-methods/nlp-table.md`
 #### Current excerpt (159 chars)
 Extract tables from documents using natural language descriptions, with support for multi-page tables and column-level prompts via Sensible's NLP Table method.
-#### Proposed excerpt (130 chars)
-Describe table columns in plain language for prompt-based table extraction with an LLM, including tables that span multiple pages.
-*Why:* Puts the method name and 'prompt-based table extraction' first; drops 'column-level prompts' jargon for plain wording; keeps multipage support. *Revised per PR review: active voice; dropped 'NLP Table method:' prefix.*
+#### Proposed excerpt (135 chars)
+Prompt-based LLM table extraction: describe each column in plain language to extract tables, including tables that span multiple pages.
+*Why:* Puts the method name and 'prompt-based table extraction' first; drops 'column-level prompts' jargon for plain wording; keeps multipage support. *Revised per PR review: active voice; dropped 'NLP Table method:' prefix.* *Review round 3: both Best phrases now in; 'each column' reflects column-level prompts.*
 #### Candidate phrases
 LLM table extraction *, AI table extraction *, extract tables with GPT *, natural language table *, table parsing *, line items *
 #### Best phrases
@@ -390,7 +390,7 @@ File: `Senseml reference/sections/index.md`
 Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
 #### Proposed excerpt (148 chars)
 Extract nested data and nested tables, such as claims in a loss run, into an array of objects by defining repeating horizontal or vertical sections.
-*Why:* Swaps 'structured arrays' for the Best phrases 'nested data' and 'array of objects'; adds loss runs, which the page's linked example covers. 'nested tables' left out to avoid stuffing. *Revised per PR review: dropped 'Sections method:' prefix; added Best phrase 'nested tables'.*
+*Why:* Swaps 'structured arrays' for the Best phrases 'nested data' and 'array of objects'; adds loss runs, which the page's linked example covers. 'nested tables' left out to avoid stuffing. *Revised per PR review: dropped 'Sections method:' prefix; added Best phrase 'nested tables'.* *Review round 3: comment landed on the Current excerpt; the proposal already starts with 'Extract' and includes nested data and nested tables, so no change.*
 #### Candidate phrases
 nested data *, array of objects *, nested tables *, sub-documents *, group fields *, loss runs *
 #### Best phrases
@@ -432,9 +432,9 @@ post-processing; calculated fields; custom logic
 File: `Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
 #### Current excerpt (141 chars)
 Learn how to use the Custom Computation Group method with JsonLogic to transform extracted document data and return multiple computed fields.
-#### Proposed excerpt (107 chars)
-Use JsonLogic for data transformation that returns multiple calculated fields from extracted document data.
-*Why:* Drops 'Learn how to use' opener and works in both Best phrases verbatim; same claims as current. *Revised per PR review: active voice; dropped 'Custom Computation Group method:' prefix.*
+#### Proposed excerpt (87 chars)
+Transform extracted document data with JsonLogic and return multiple calculated fields.
+*Why:* Drops 'Learn how to use' opener and works in both Best phrases verbatim; same claims as current. *Revised per PR review: active voice; dropped 'Custom Computation Group method:' prefix.* *Review round 3: your wording.*
 #### Candidate phrases
 multiple calculated fields *, data transformation *, transform extracted data *, post-processing *, custom logic *
 #### Best phrases
