@@ -182,6 +182,34 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] Execute per-page edits (plan below)
 
+## Follow-ups: tooling that writes excerpts
+
+- [ ] Update skills, templates, and scripts that write excerpts/descriptions so they follow the excerpt
+      rules (no self-naming: never name the page's own method/object/preprocessor/setting; imperative
+      mood; no "Learn how to" filler; <= 150 chars; "extract" not "parse"). Known places:
+  - `scripts/descriptions/generate_excerpts.py` `PROMPT` (CI generates missing excerpts with Claude)
+  - `.claude/skills/revise-doc-style/SKILL.md` "metadata.description" section (should say excerpt is
+    the source of truth)
+  - `.claude/style-guide/style-guide-overview.md` (still says `metadata.description` is a 4–7 word phrase)
+  - `.claude/skills/api-spec/SKILL.md` (copies spec `description` into `excerpt`; spec descriptions can
+    self-name)
+  - `.claude/style-guide/*-template.md` (`excerpt: ''` placeholders; add a one-line rule comment?)
+  - check `create-new-doc`, `create-concept-doc`, `update-docs-from-pr`, `update-existing-doc` for
+    excerpt guidance
+- Note: `revise-doc-style` says a page's *first body sentence* uses third-person present ("Removes…",
+  not "Use this to remove…"). That's the body, not the excerpt, but it matters for the first-150-words
+  rewrite (excerpt = imperative; first body sentence = third-person, per current house style).
+
+## First 150 words (started 2026-10-20)
+
+Goal: the first 150 words of each page's content explain exactly what the page covers, so human and
+agent readers can tell whether the page is for them.
+
+- [x] Build `first-lines-draft.md` deterministically (`build_first_lines.py`): current excerpt, ui-docs
+      short description where it exists (only #10 Intersection), first 150 words of the current body
+- [ ] Propose rewrites (fan-out by topic group; pilot one group first)
+- [ ] User review; apply
+
 ## Execution plan: per-page edits (agreed 2026-10-20)
 
 Fan-out / fan-in with subagents, ~5 pages each.
