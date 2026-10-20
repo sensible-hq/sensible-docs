@@ -1,11 +1,11 @@
 ---
 title: SenseML reference introduction
-excerpt: SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
+excerpt: SenseML is Sensible's document query language. Use this reference to configure fields, methods, preprocessors, sections, and settings.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: SenseML reference guide covering fields, preprocessors, LLM and layout-based methods, computed fields, sections, and config settings.
+  description: SenseML is Sensible's document query language. Use this reference to configure fields, methods, preprocessors, sections, and settings.
   robots: index
 next:
   description: ''

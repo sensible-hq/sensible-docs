@@ -1,4 +1,7 @@
-# SEO/GEO phrases draft (for review)
+# SEO/GEO phrases draft
+
+> **Status 2026-10-20:** Proposed excerpts for #1–41 are applied to the pages (`apply_excerpts.py`).
+> #42 is pending (OpenAPI spec). First-~150-words rewrites are still to do.
 
 - **Decision (2026-10-20): no `metadata.keywords`.** ReadMe stores the field but strips it from the rendered
   page, `.md`, and `llms.txt`, so it isn't worth filling in. Phrases only count where people and crawlers
@@ -390,9 +393,9 @@ LLM table extraction; prompt-based table extraction
 File: `Senseml reference/sections/index.md`
 #### Current excerpt (149 chars)
 Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
-#### Proposed excerpt (148 chars)
-Extract nested data and nested tables, such as claims in a loss run, into an array of objects by defining repeating horizontal or vertical sections.
-*Why:* Swaps 'structured arrays' for the Best phrases 'nested data' and 'array of objects'; adds loss runs, which the page's linked example covers. 'nested tables' left out to avoid stuffing. *Revised per PR review: dropped 'Sections method:' prefix; added Best phrase 'nested tables'.* *Review round 3: comment landed on the Current excerpt; the proposal already starts with 'Extract' and includes nested data and nested tables, so no change.*
+#### Proposed excerpt (138 chars)
+Extract nested or repeating data and nested tables, such as claims in a loss run, into an array of objects by defining repeating sections.
+*Why:* Swaps 'structured arrays' for the Best phrases 'nested data' and 'array of objects'; adds loss runs, which the page's linked example covers. 'nested tables' left out to avoid stuffing. *Revised per PR review: dropped 'Sections method:' prefix; added Best phrase 'nested tables'.* *Review round 3: comment landed on the Current excerpt; the proposal already starts with 'Extract' and includes nested data and nested tables, so no change.* *Review round 4: your wording.*
 #### Candidate phrases
 nested data *, array of objects *, nested tables *, sub-documents *, group fields *, loss runs *
 #### Best phrases

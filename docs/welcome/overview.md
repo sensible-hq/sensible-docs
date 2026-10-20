@@ -1,11 +1,11 @@
 ---
 title: Overview
-excerpt: Sensible is a developer-first document data extraction platform using SenseML to pull structured JSON from PDFs, emails, spreadsheets, and images.
+excerpt: Sensible is a developer-first platform for PDF data extraction and intelligent document processing. Get JSON from PDFs, emails, spreadsheets, images.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Sensible is a developer-first document data extraction platform using SenseML to pull structured JSON from PDFs, emails, spreadsheets, and images.
+  description: Sensible is a developer-first platform for PDF data extraction and intelligent document processing. Get JSON from PDFs, emails, spreadsheets, images.
   robots: index
 next:
   description: ''

@@ -1,15 +1,11 @@
 ---
 title: API Introduction
-excerpt: Overview of Sensible's API endpoints for extracting structured data from documents,
-  including async/sync extraction, Excel conversion, portfolio extraction, and document
-  classification.
+excerpt: 'Choose a Sensible document data extraction API endpoint: async or sync extraction, PDF to Excel, portfolio extraction, or classification.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Overview of Sensible's API endpoints for extracting structured data from documents,
-    including async/sync extraction, Excel conversion, portfolio extraction, and document
-    classification.
+  description: 'Choose a Sensible document data extraction API endpoint: async or sync extraction, PDF to Excel, portfolio extraction, or classification.'
   robots: index
 next:
   description: ''

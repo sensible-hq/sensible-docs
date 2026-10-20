@@ -1,13 +1,11 @@
 ---
 title: Qualifying LLM accuracy
-excerpt: Learn how Sensible uses LLM confidence signals to qualify extraction accuracy,
-  including signal types like ambiguous query and multiple possible answers
+excerpt: Qualify extraction accuracy with LLM confidence signals like 'ambiguous query', which are more nuanced than numeric confidence scores.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how Sensible uses LLM confidence signals to qualify extraction
-    accuracy, including signal types like ambiguous query and multiple possible answers
+  description: Qualify extraction accuracy with LLM confidence signals like 'ambiguous query', which are more nuanced than numeric confidence scores.
   robots: index
 next:
   description: ''

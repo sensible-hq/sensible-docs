@@ -1,13 +1,11 @@
 ---
 title: Getting started
-excerpt: Learn how to extract document data using Sensible's LLM-powered tools, from
-  setting up your account to authoring prompts and publishing extraction configs.
+excerpt: Extract data from PDFs with an LLM in minutes. Write natural-language prompts for AI data extraction, then publish and test them as a Sensible config.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to extract document data using Sensible's LLM-powered tools,
-    from setting up your account to authoring prompts and publishing extraction configs.
+  description: Extract data from PDFs with an LLM in minutes. Write natural-language prompts for AI data extraction, then publish and test them as a Sensible config.
   robots: index
 next:
   description: ''

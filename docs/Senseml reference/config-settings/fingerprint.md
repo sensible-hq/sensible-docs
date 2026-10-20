@@ -1,16 +1,11 @@
 ---
 title: Fingerprint
-excerpt: >-
-  Learn how fingerprints test documents for matching text, so you can choose the
-  config for a standalone document or find each document's pages in a portfolio.
+excerpt: 'Handle multiple document layouts by matching text: choose a config per form revision or vendor, or find each document''s pages in a portfolio.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Learn how fingerprints test documents for matching text, so you can choose
-    the config for a standalone document or find each document's pages in a
-    portfolio.
+  description: 'Handle multiple document layouts by matching text: choose a config per form revision or vendor, or find each document''s pages in a portfolio.'
   robots: index
 next:
   description: ''

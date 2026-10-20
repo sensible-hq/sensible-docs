@@ -168,18 +168,17 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
       prompt in `generate_excerpts.py`). Note: #27's current excerpt is 185 chars (over the cap).
       Note: `.claude/style-guide/style-guide-overview.md` still says `metadata.description` is a 4–7
       word phrase; that predates PR #702 (excerpt = source of truth) and should be updated.
-- [ ] User reviews draft
+- [x] User reviews draft (four review rounds, 2026-10-20)
 - [ ] #42 (spec-generated): find which OpenAPI field ReadMe uses for the meta description and
       llms.txt description (the page has no excerpt) (`summary` is also the page title; `description` start is likelier) before
       editing `reference/openapi_extraction.json`
 - [ ] Excerpts that run ahead of their page body (update the first ~150 words to match when
       applying): #3 "template-based" (page never says "template"), #11 "variable positions",
       "keyword", "landmark", #19 "split" (page says "segment"), #28 scanned/handwritten framing
-- [ ] Apply approved excerpts. Excerpt is the source of truth: edit `excerpt` and also run
-      `scripts/descriptions/sync_description.py` locally (or set `metadata.description` to match) so the
-      `generate-descriptions` workflow doesn't open a follow-up sync PR. `sync_description.py` covers
-      docs/ only: for reference/ #27 set both fields by hand; #42 lives in the OpenAPI spec.
-      `llms.txt` regenerates from `metadata.description` (`sync-llmstxt` workflow).
+- [x] Apply approved excerpts (2026-10-20): `.claude/sessions/seo/apply_excerpts.py --write` set `excerpt`
+      and `metadata.description` on 41 pages from the draft's Proposed excerpts (text-level edit, other
+      keys untouched; `sync_description.py --dry-run` and `check_excerpt.py` clean; rerun is a no-op).
+      #42 skipped: spec-generated, no excerpt (see the #42 item).
 - [ ] Optional: before/after `mcp-search-eval` on a handful of pages
 - [ ] Execute per-page edits (plan below)
 
