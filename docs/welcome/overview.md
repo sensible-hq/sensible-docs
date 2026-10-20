@@ -1,11 +1,17 @@
 ---
 title: Overview
-excerpt: 'Sensible: developer-first PDF data extraction and intelligent document processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and images.'
+excerpt: >-
+  Sensible is a developer-first platform for PDF data extraction and intelligent
+  document processing. Get JSON from PDFs, Office documents, emails,
+  spreadsheets, and images.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sensible: developer-first PDF data extraction and intelligent document processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and images.'
+  description: >-
+    Sensible: developer-first PDF data extraction and intelligent document
+    processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and
+    images.
   robots: index
 next:
   description: ''
