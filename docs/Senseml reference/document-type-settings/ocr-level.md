@@ -1,13 +1,11 @@
 ---
 title: OCR level
-excerpt: Configure OCR level settings in Sensible to control how and when OCR is applied
-  to PDF documents, from skipping OCR entirely to page-by-page detection.
+excerpt: Control how and when OCR is applied to PDF documents, from skipping OCR entirely to page-by-page detection.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Configure OCR level settings in Sensible to control how and when OCR
-    is applied to PDF documents, from skipping OCR entirely to page-by-page detection.
+  description: Control how and when OCR is applied to PDF documents, from skipping OCR entirely to page-by-page detection.
   robots: index
 next:
   description: ''
