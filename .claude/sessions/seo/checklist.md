@@ -196,6 +196,7 @@ Fan-out / fan-in with subagents, ~5 pages each.
   - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
     problem it solves (`best-practice/payabli.md`)
   - terminology rule: "extract," not "parse" (see Terminology decision)
+  - excerpt rule: never name the page's own method, object, or preprocessor (the slug does)
   - style rules: all `.claude/style-guide/` files, you-centric prose, `/* */` comments only in code,
     don't mention Label method, keep existing fence languages
   - exact scope of allowed edits; nothing else touched

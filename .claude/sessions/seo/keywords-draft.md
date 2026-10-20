@@ -16,6 +16,8 @@
   comments. Notation: **+** add to candidates, **−** drop from candidates; **Best:** + / − = add to /
   remove from Best phrases, or "keep current". Source competitor in parentheses (phrases are verbatim
   from their titles, descriptions, or headings). "No change" = no competitor covers the concept.
+- **Excerpt rule (2026-10-20): no self-naming.** An excerpt never names its own method, object, or
+  preprocessor (the slug already does). Overview pages that list several methods (#12, #32) may name them.
 - **Terminology rule (2026-10-20): "extract," not "parse."** Docs use "extract" consistently. Parse-words
   appear in body text only as defined aliases, once each, on two pages: Overview ("...extracts structured
   data from documents (also called document parsing)") and email extraction ("also called email parsing").
@@ -156,9 +158,9 @@ No change. Both best phrases confirmed (Docparser, Docsumo).
 File: `Senseml reference/preprocessors/merge-lines.md`
 #### Current excerpt (139 chars)
 Merge Lines preprocessor documentation covering how to fix oversplit, overlapping, or misaligned lines from poor scans or handwritten text.
-#### Proposed excerpt (147 chars)
-Fix broken text lines from poor quality scans and handwriting OCR. The Merge Lines preprocessor merges oversplit, overlapping, or misaligned lines.
-*Why:* Drops 'documentation covering' filler; leads with the problem phrase searchers use, then names the preprocessor and what it fixes.
+#### Proposed excerpt (121 chars)
+Fix broken text lines from poor quality scans and handwriting OCR by merging oversplit, overlapping, or misaligned lines.
+*Why:* Drops 'documentation covering' filler; leads with the problem phrase searchers use, then names the preprocessor and what it fixes. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 fix broken text lines *, oversplit lines, misaligned text *, poor quality scans *, handwriting OCR, jittery lines, line merging *, text line detection *
 #### Best phrases
@@ -186,9 +188,9 @@ document query language; extraction configuration reference
 File: `Senseml reference/field-query-object/index.md`
 #### Current excerpt (158 chars)
 How the SenseML Field query object works, including parameters and examples for extracting structured data from PDFs using layout-based and LLM-based methods.
-#### Proposed excerpt (131 chars)
-Define an extraction field with the SenseML Field query object. A field uses a layout- or LLM-based method and returns JSON output.
-*Why:* Replaces the 'How X works, including' opener with what a field does and what it outputs; drops the PDF-only framing.
+#### Proposed excerpt (137 chars)
+Define an extraction field, the basic SenseML query unit. A field uses a layout- or LLM-based method and returns its data as JSON output.
+*Why:* Replaces the 'How X works, including' opener with what a field does and what it outputs; drops the PDF-only framing. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 extraction field definition *, JSON output *, key-value output *, data field *, field ID *, output schema *
 #### Best phrases
@@ -200,9 +202,9 @@ No competitor equivalent. **Best:** keep current.
 File: `Senseml reference/field-query-object/anchor.md`
 #### Current excerpt (118 chars)
 How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
-#### Proposed excerpt (144 chars)
-Use a SenseML anchor to find data at variable positions by a nearby keyword or landmark. Covers anchor parameters and simple and complex syntax.
-*Why:* Replaces the 'How X works' opener with the problem anchors solve (data that moves), using the new Best phrase 'variable positions'.
+#### Proposed excerpt (140 chars)
+Find data at variable positions by searching for a nearby keyword or landmark. Covers simple and complex syntax and search range parameters.
+*Why:* Replaces the 'How X works' opener with the problem anchors solve (data that moves), using the new Best phrase 'variable positions'. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 keyword *, landmark *, search text *, text locator *, reference text *
 #### Best phrases
@@ -214,9 +216,9 @@ variable positions; keyword; landmark
 File: `Senseml reference/field-query-object/match.md`
 #### Current excerpt (143 chars)
 How Match objects define search criteria for locating text lines in documents, including string, regex, boolean, first, and repeat match types.
-#### Proposed excerpt (139 chars)
-Define text matching criteria with the SenseML Match object: string, regex, fuzzy, boolean, first, and repeat matches for anchors and more.
-*Why:* Light tweak: verb-first, puts 'text matching' up front, and adds fuzzy matching, which the page covers but the current description omits.
+#### Proposed excerpt (109 chars)
+Define text matching criteria for anchors and more: string, regex, fuzzy, boolean, first, and repeat matches.
+*Why:* Light tweak: verb-first, puts 'text matching' up front, and adds fuzzy matching, which the page covers but the current description omits. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 text matching *, regex matching *, fuzzy match, approximate string matching *, case-insensitive match *, search criteria, boolean match
 #### Best phrases
@@ -228,9 +230,9 @@ No competitor equivalent. ("pattern matching" is owned by #9.) **Best:** keep cu
 File: `Senseml reference/field-query-object/types.md`
 #### Current excerpt (154 chars)
 Learn how to filter and format extracted data using Sensible's Type parameter, including address, boolean, currency, date, and other built-in field types.
-#### Proposed excerpt (146 chars)
-Normalize data with SenseML types. Filter and format extracted values by data type, such as date, currency, and address, with custom date formats.
-*Why:* Drops 'Learn how to', leads with 'normalize data', and names custom date formats, which the Date type supports.
+#### Proposed excerpt (127 chars)
+Normalize data: filter and format extracted values by data type, such as date, currency, and address, with custom date formats.
+*Why:* Drops 'Learn how to', leads with 'normalize data', and names custom date formats, which the Date type supports. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 normalize data *, field formats *, data types *, data normalization *, date format, currency parsing *, address parsing *, type validation *
 #### Best phrases
@@ -286,9 +288,9 @@ fixed position extraction; coordinate-based extraction  *(review: removed zonal 
 File: `Senseml reference/layout-based-methods/passthrough.md`
 #### Current excerpt (160 chars)
 Learn how to use the Passthrough method to return anchor matches directly without additional extraction steps, ideal for regex-based text matching in documents.
-#### Proposed excerpt (141 chars)
-Return an anchor's regex match directly as output with the SenseML Passthrough method, for pattern matching with no further extraction steps.
-*Why:* Drops 'Learn how to use' and shortens from 160 chars; keeps the meaning and both Best phrases.
+#### Proposed excerpt (105 chars)
+Return an anchor's regex match directly as output, for pattern matching without further extraction steps.
+*Why:* Drops 'Learn how to use' and shortens from 160 chars; keeps the meaning and both Best phrases. *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 regex match *, regular expression extraction *, pattern matching *, extract matching text *, return anchor *
 #### Best phrases
@@ -300,9 +302,9 @@ No change.
 File: `Senseml reference/layout-based-methods/intersection.md`
 #### Current excerpt (135 chars)
 Learn how the Intersection method extracts data at the cross-point of two anchored lines, ideal for tables with optionally empty cells.
-#### Proposed excerpt (148 chars)
-Table cell lookup with the SenseML Intersection method: extract the value at the cross-point of a row and column, ideal for tables with empty cells.
-*Why:* Replaces the 'Learn how' opener and abstract 'cross-point of two anchored lines' with the cell-lookup wording readers search for; 'grid lookup' dropped for length. *Revised per PR review: your wording.*
+#### Proposed excerpt (138 chars)
+Table cell lookup: extract the value at the cross-point of a row and column, ideal for tables with empty cells or variable text positions.
+*Why:* Replaces the 'Learn how' opener and abstract 'cross-point of two anchored lines' with the cell-lookup wording readers search for; 'grid lookup' dropped for length. *Revised per PR review: your wording.* *Rule: no self-naming (the slug is the page's name); removed the method/object/preprocessor name.*
 #### Candidate phrases
 table cell lookup *, extract cell by row and column *, row and column intersection *, grid lookup *, empty table cells *, crosstab *
 #### Best phrases
