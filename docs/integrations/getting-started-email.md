@@ -12,7 +12,7 @@ next:
 ---
 ## Introduction
 
-You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible. This is also called email parsing.
+You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible.
 
 The following image shows an overview of  email extraction:
 

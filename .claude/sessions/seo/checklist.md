@@ -36,8 +36,9 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
 ## Terminology decision (2026-10-20)
 
 - "Extract," not "parse," throughout the docs, for terminology rigor. Parse-words appear in body text
-  only as defined aliases, once each: Overview ("Sensible extracts structured data from documents
-  (also called document parsing)") and the email extraction page ("also called email parsing").
+  only once: the defined alias on the Overview ("Sensible extracts structured data from documents
+  (also called document parsing)"). An email-page alias ("This is also called email parsing.") was
+  added, then removed per review (2026-10-20) as awkward.
 - Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract" can
   still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site search
   / docs MCP search; unverified) may not, which the defined aliases partly cover.
@@ -50,10 +51,9 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
   for layout-based. Added 2026-10-20 on `docs/welcome/author.md` only (Choosing an extraction
   approach): intro sentence and the comparison table's Deterministic row ("No. LLM output is
   probabilistic."). Not added to #34 LLM-based methods (messaging caution: can read as "unreliable").
-- [x] Aliases added 2026-10-20: `docs/welcome/overview.md` ("...structured data from documents (also
+- [x] Alias added 2026-10-20: `docs/welcome/overview.md` ("...structured data from documents (also
       called document parsing)"; also replaced an unrelated "parse extracted data types" with "filter and
-      format" and cut "Welcome!") and `docs/integrations/getting-started-email.md` ("This is also called
-      email parsing."). Note: the Vale config already has "parse" on its Avoid list.
+      format" and cut "Welcome!"). Note: the Vale config already has "parse" on its Avoid list.
 
 ## Research
 

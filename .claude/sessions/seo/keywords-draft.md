@@ -19,8 +19,8 @@
 - **Excerpt rule (2026-10-20): no self-naming.** An excerpt never names its own method, object, or
   preprocessor (the slug already does). Overview pages that list several methods (#12, #32) may name them.
 - **Terminology rule (2026-10-20): "extract," not "parse."** Docs use "extract" consistently. Parse-words
-  appear in body text only as defined aliases, once each, on two pages: Overview ("...extracts structured
-  data from documents (also called document parsing)") and email extraction ("also called email parsing").
+  appear in body text only once: the defined alias on the Overview ("...extracts structured data from
+  documents (also called document parsing)"). (An email-page alias was tried and removed per review.)
 
 Pages are grouped by topic. Page numbers are stable IDs (other notes refer to them, e.g. "#27"), so they aren't sequential within groups.
 
@@ -546,7 +546,7 @@ Email data extraction: forward emails to Sensible to extract structured data fro
 #### Candidate phrases
 email parsing *, email parser *, email body parsing *, extract data from email attachments *, email to JSON *, email import *, forward emails *, inbox automation *
 #### Best phrases
-email data extraction; email parsing (as the one defined alias: "This is also called email parsing."); extract data from email attachments; email to JSON
+email data extraction; extract data from email attachments; email to JSON
 
 Rows 29–42 added from ReadMe page-view data (past year; see checklist).
 
