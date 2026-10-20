@@ -37,6 +37,10 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
 - Reasoning: Google and LLM-based tools match synonyms semantically, so pages that say "extract" can
   still rank or be retrieved for "parse" queries; literal keyword search (possibly ReadMe site search
   / docs MCP search; unverified) may not, which the defined aliases partly cover.
+- [x] Aliases added 2026-10-20: `docs/welcome/overview.md` ("...structured data from documents (also
+      called document parsing)"; also replaced an unrelated "parse extracted data types" with "filter and
+      format" and cut "Welcome!") and `docs/integrations/getting-started-email.md` ("This is also called
+      email parsing."). Note: the Vale config already has "parse" on its Avoid list.
 
 ## Research
 
