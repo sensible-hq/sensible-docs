@@ -20,6 +20,7 @@ on:
   push:
     branches:
       - v0
+      - doc-tests-pages  # TEMPORARY: test this workflow before merge; removed in the next commit
     # Every registered page, the files its tests use (watch in pages.json), and the tooling.
     # tests/test_plan_pages.py checks this list against pages.json.
     paths:
