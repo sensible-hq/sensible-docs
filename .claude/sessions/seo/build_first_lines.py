@@ -107,6 +107,7 @@ def to_blocks(md):
 
 
 def clean(text):
+    text = re.sub(r"\[!\[[^\]]*\]\([^)]*\)\]\([^)]*\)", "[image]", text)  # linked image
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", "[image]", text)
     text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)  # links -> text
     text = re.sub(r"<[^>]+>", " ", text)
