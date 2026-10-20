@@ -1,11 +1,11 @@
 ---
 title: Field query object
-excerpt: How the SenseML Field query object works, including parameters and examples for extracting structured data from PDFs using layout-based and LLM-based methods.
+excerpt: Define an extraction field, the basic SenseML query unit. A field uses a layout- or LLM-based method and returns its data as JSON output.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How the SenseML Field query object works, including parameters and examples for extracting structured data from PDFs using layout-based and LLM-based methods.
+  description: Define an extraction field, the basic SenseML query unit. A field uses a layout- or LLM-based method and returns its data as JSON output.
   robots: index
 next:
   description: ''

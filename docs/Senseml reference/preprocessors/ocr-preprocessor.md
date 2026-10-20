@@ -1,11 +1,11 @@
 ---
 title: OCR preprocessor
-excerpt: Use Sensible's OCR preprocessor to selectively OCR specific pages in documents containing both embedded text and scanned or handwritten text images.
+excerpt: Force OCR on specific pages, such as scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Use Sensible's OCR preprocessor to selectively OCR specific pages in documents containing both embedded text and scanned or handwritten text images.
+  description: Force OCR on specific pages, such as scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count.
   robots: index
 next:
   description: ''

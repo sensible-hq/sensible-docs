@@ -1,13 +1,11 @@
 ---
 title: API quickstart
-excerpt: Learn how to make your first Sensible API call using an example document
-  and SenseML config to extract structured data in minutes.
+excerpt: 'Make your first Sensible API call: run one curl command on an example document and get a hello world JSON response with extracted data.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to make your first Sensible API call using an example document
-    and SenseML config to extract structured data in minutes.
+  description: 'Make your first Sensible API call: run one curl command on an example document and get a hello world JSON response with extracted data.'
   robots: index
 next:
   description: ''

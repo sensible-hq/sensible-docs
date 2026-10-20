@@ -1,15 +1,11 @@
 ---
 title: Multi-document extractions
-excerpt: >-
-  Learn how to extract data from multi-document portfolio files using LLM-based
-  or fingerprint segmentation methods in Sensible.
+excerpt: Split a PDF containing multiple documents, such as a loan package, and extract each document's data separately using LLM or fingerprint segmentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Learn how to extract data from multi-document portfolio files using
-    LLM-based or fingerprint segmentation methods in Sensible.
+  description: Split a PDF containing multiple documents, such as a loan package, and extract each document's data separately using LLM or fingerprint segmentation.
   robots: index
 next:
   description: ''

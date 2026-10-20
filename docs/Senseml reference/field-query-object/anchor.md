@@ -1,11 +1,11 @@
 ---
 title: Anchor object
-excerpt: How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
+excerpt: Find data at variable positions by searching for a nearby keyword or landmark. Covers simple and complex syntax and search range parameters.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How the Anchor object works in Sensible, including its parameters, simple and complex syntax, and how it locates data.
+  description: Find data at variable positions by searching for a nearby keyword or landmark. Covers simple and complex syntax and search range parameters.
   robots: index
 next:
   description: ''

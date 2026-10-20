@@ -1,14 +1,11 @@
 ---
 title: Try a webhook
-excerpt: Learn how to use webhooks with Sensible's extraction API to receive push
-  notifications when document extraction status changes, using a step-by-step tutorial.
+excerpt: Set a webhook URL on a Sensible extraction request and get the webhook payload pushed when extraction status changes, instead of polling.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use webhooks with Sensible's extraction API to receive
-    push notifications when document extraction status changes, using a step-by-step
-    tutorial.
+  description: Set a webhook URL on a Sensible extraction request and get the webhook payload pushed when extraction status changes, instead of polling.
   robots: index
 next:
   description: ''

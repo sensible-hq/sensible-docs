@@ -1,11 +1,11 @@
 ---
 title: Match object
-excerpt: How Match objects define search criteria for locating text lines in documents, including string, regex, boolean, first, and repeat match types.
+excerpt: 'Define text matching criteria for anchors and more: string, regex, fuzzy, boolean, first, and repeat matches.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How Match objects define search criteria for locating text lines in documents, including string, regex, boolean, first, and repeat match types.
+  description: 'Define text matching criteria for anchors and more: string, regex, fuzzy, boolean, first, and repeat matches.'
   robots: index
 next:
   description: ''

@@ -1,14 +1,11 @@
 ---
 title: API tutorial
-excerpt: Learn how to extract structured data from documents using the Sensible API
-  with tutorials covering synchronous, asynchronous, and webhook extraction methods.
+excerpt: 'Document extraction API tutorials: step-by-step guides to extracting structured data with the Sensible API via sync, async, and webhook extraction.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to extract structured data from documents using the Sensible
-    API with tutorials covering synchronous, asynchronous, and webhook extraction
-    methods.
+  description: 'Document extraction API tutorials: step-by-step guides to extracting structured data with the Sensible API via sync, async, and webhook extraction.'
   robots: index
 next:
   description: ''

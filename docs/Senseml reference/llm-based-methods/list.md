@@ -1,11 +1,11 @@
 ---
 title: List
-excerpt: LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
+excerpt: Extract lists from PDFs with an LLM, such as invoice line items, resume work history, or vehicles on an insurance policy.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: LLM-based List method extracts repeating data like resume work history, invoice line items, or insurance policy details from tables or free text.
+  description: Extract lists from PDFs with an LLM, such as invoice line items, resume work history, or vehicles on an insurance policy.
   robots: index
 next:
   description: ''
