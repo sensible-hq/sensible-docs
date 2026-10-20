@@ -85,17 +85,6 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
       "Choose your path" with short task-focused link descriptions; top-level "Cookbooks" section
       (relevant to the 'cookbook' idea for the config library page).
 - [x] Password-protected PDFs: not supported per user (2026-10-19); phrase dropped
-- [ ] Evaluate the `ui-docs` branch (PR #660, worktree `~/GitHub/sensible-docs-ui-docs`, last
-      commit 2026-08-12) for material to rework method docs, especially their first ~150 words.
-      Contents: `assets/ai/mini-pages/box.md` and `intersection.md` (short-form method pages:
-      plain-language description, annotated syntax example, link to full docs),
-      `assets/ai/senseml-descriptions.json` (task-focused one-liners per method and per parameter
-      for box, intersection, checkbox, nearestCheckbox), plus a session checklist and friction log
-      under `.claude/sessions/2026-08-10-ui-hover-descriptions/`. Promising: the Intersection
-      mini-page opens with "Finds and extracts the value at the point where a row and a column
-      cross in a table, like looking up a cell in a spreadsheet... More reliable than the Row method
-      when a table has unpredictably empty cells", which already hits #10's target phrases (table
-      cell lookup, empty table cells) better than the live page's opening.
 
 ## ReadMe findings
 
@@ -103,7 +92,6 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
   `https://docs.readme.com/main/agentSearch?query=term1%20term2`) is not enabled for us:
   `docs.sensible.so/agentSearch`, `/docs/agentSearch`, `/main/agentSearch` all 404. Our `.md` pages
   expose only `agentTools.projectIndex`, no `projectSearch`.
-- [ ] Ask ReadMe support how to enable `agentSearch` / `projectSearch`
 - Stale reference descriptions: all 14 reference/ `.md` pages have description != excerpt, but when
   description is empty ReadMe falls back to the excerpt (verified live on /reference/mcp). Only
   non-empty stale descriptions hurt: `choosing-an-endpoint.md` and `authentication.md`. FIXED
@@ -112,57 +100,59 @@ ReadMe's frontmatter allows a `metadata.keywords` list. We're not filling it in.
 
 ## Pages
 
+Excerpts applied for #1–41 (2026-10-20, `apply_excerpts.py`). Open items moved to PR #763's checklist.
+
 Grouping and per-page phrases: `keywords-draft.md`. Numbers are stable IDs.
 
 Original list (approved 2026-10-19)
-- [ ] 1. Overview — `docs/welcome/overview.md`
-- [ ] 2. Getting started — `docs/welcome/getting-started-ai.md`
-- [ ] 3. Getting started with layout-based extractions — `docs/document extraction/getting-started.md`
-- [ ] 4. Intelligent document processing — `docs/Senseml reference/concepts/idp.md` (116 words; thin)
-- [ ] 5. Supported file types — `docs/Senseml reference/concepts/file-types.md`
-- [ ] 6. OCR — `docs/Senseml reference/concepts/ocr.md`
-- [ ] 7. Row — `docs/Senseml reference/layout-based-methods/row.md`
-- [ ] 8. Region — `docs/Senseml reference/layout-based-methods/region.md`
-- [ ] 9. Passthrough — `docs/Senseml reference/layout-based-methods/passthrough.md`
-- [ ] 10. Intersection — `docs/Senseml reference/layout-based-methods/intersection.md`
-- [ ] 11. Anchor object — `docs/Senseml reference/field-query-object/anchor.md`
-- [ ] 12. Table methods — `docs/Senseml reference/concepts/table-methods.md`
-- [ ] 13. Query group — `docs/Senseml reference/llm-based-methods/query-group.md`
-- [ ] 14. List — `docs/Senseml reference/llm-based-methods/list.md`
-- [ ] 15. NLP table — `docs/Senseml reference/llm-based-methods/nlp-table.md`
-- [ ] 16. Sections — `docs/Senseml reference/sections/index.md`
-- [ ] 17. Fingerprint — `docs/Senseml reference/config-settings/fingerprint.md`
-- [ ] 18. Classifying documents by type — `docs/document type classification/classify.md`
-- [ ] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
-- [ ] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
+- [x] 1. Overview — `docs/welcome/overview.md`
+- [x] 2. Getting started — `docs/welcome/getting-started-ai.md`
+- [x] 3. Getting started with layout-based extractions — `docs/document extraction/getting-started.md`
+- [x] 4. Intelligent document processing — `docs/Senseml reference/concepts/idp.md` (116 words; thin)
+- [x] 5. Supported file types — `docs/Senseml reference/concepts/file-types.md`
+- [x] 6. OCR — `docs/Senseml reference/concepts/ocr.md`
+- [x] 7. Row — `docs/Senseml reference/layout-based-methods/row.md`
+- [x] 8. Region — `docs/Senseml reference/layout-based-methods/region.md`
+- [x] 9. Passthrough — `docs/Senseml reference/layout-based-methods/passthrough.md`
+- [x] 10. Intersection — `docs/Senseml reference/layout-based-methods/intersection.md`
+- [x] 11. Anchor object — `docs/Senseml reference/field-query-object/anchor.md`
+- [x] 12. Table methods — `docs/Senseml reference/concepts/table-methods.md`
+- [x] 13. Query group — `docs/Senseml reference/llm-based-methods/query-group.md`
+- [x] 14. List — `docs/Senseml reference/llm-based-methods/list.md`
+- [x] 15. NLP table — `docs/Senseml reference/llm-based-methods/nlp-table.md`
+- [x] 16. Sections — `docs/Senseml reference/sections/index.md`
+- [x] 17. Fingerprint — `docs/Senseml reference/config-settings/fingerprint.md`
+- [x] 18. Classifying documents by type — `docs/document type classification/classify.md`
+- [x] 19. Multi-document extractions — `docs/document extraction/portfolio.md`
+- [x] 20. Validating extractions — `docs/monitor and qa/validate-extractions.md`
 
 Added from competitor analysis and review (2026-10-19)
-- [ ] 21. Qualifying LLM accuracy — `docs/document extraction/best-practices/confidence.md`
-- [ ] 22. Human review — `docs/monitor and qa/human-review.md`
-- [ ] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
-- [ ] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
-- [ ] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
-- [ ] 26. Integrating — `docs/welcome/integrate.md`
-- [ ] 27. API Introduction — `reference/Introduction/choosing-an-endpoint.md`
+- [x] 21. Qualifying LLM accuracy — `docs/document extraction/best-practices/confidence.md`
+- [x] 22. Human review — `docs/monitor and qa/human-review.md`
+- [x] 23. Preprocessors — `docs/Senseml reference/preprocessors/index.md`
+- [x] 24. Try a webhook — `docs/api/api-tutorial/api-tutorial-webhook.md`
+- [x] 25. Out-of-the-box extractions — `docs/document extraction/library-quickstart.md`
+- [x] 26. Integrating — `docs/welcome/integrate.md`
+- [x] 27. API Introduction — `reference/Introduction/choosing-an-endpoint.md`
       (live: https://docs.sensible.so/reference/choosing-an-endpoint). Stale description fixed and
       "Welcome to Sensible!" opening cut 2026-10-19; first ~150 words still need a rewrite.
-- [ ] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
+- [x] 28. OCR preprocessor — `docs/Senseml reference/preprocessors/ocr-preprocessor.md` (target: force OCR)
 
 High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in parentheses.
-- [ ] 29. Merge lines — `docs/Senseml reference/preprocessors/merge-lines.md` (888)
-- [ ] 30. JsonLogic extensions — `docs/Senseml reference/concepts/jsonlogic.md` (792)
-- [ ] 31. SenseML reference introduction — `docs/Senseml reference/senseml-reference-introduction.md` (701)
-- [ ] 32. Layout-based methods — `docs/Senseml reference/layout-based-methods/index.md` (535)
-- [ ] 33. Field query object — `docs/Senseml reference/field-query-object/index.md` (450)
-- [ ] 34. LLM-based methods — `docs/Senseml reference/llm-based-methods/index.md` (397)
-- [ ] 35. Types — `docs/Senseml reference/field-query-object/types.md` (349)
-- [ ] 36. API tutorial — `docs/api/api-tutorial/index.md` (290)
-- [ ] 37. Match object — `docs/Senseml reference/field-query-object/match.md` (288)
-- [ ] 38. API quickstart — `docs/integrations/quickstart.md` (271)
-- [ ] 39. Getting started with email extraction — `docs/integrations/getting-started-email.md`
-- [ ] 40. Custom computation — `docs/Senseml reference/advanced-computed-field-methods/custom-computation.md`
-- [ ] 41. Custom computation group — `docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
-- [ ] 42. Extract data from a document (sync) — `reference/Extraction/document-1/extract-data-from-a-document.md`
+- [x] 29. Merge lines — `docs/Senseml reference/preprocessors/merge-lines.md` (888)
+- [x] 30. JsonLogic extensions — `docs/Senseml reference/concepts/jsonlogic.md` (792)
+- [x] 31. SenseML reference introduction — `docs/Senseml reference/senseml-reference-introduction.md` (701)
+- [x] 32. Layout-based methods — `docs/Senseml reference/layout-based-methods/index.md` (535)
+- [x] 33. Field query object — `docs/Senseml reference/field-query-object/index.md` (450)
+- [x] 34. LLM-based methods — `docs/Senseml reference/llm-based-methods/index.md` (397)
+- [x] 35. Types — `docs/Senseml reference/field-query-object/types.md` (349)
+- [x] 36. API tutorial — `docs/api/api-tutorial/index.md` (290)
+- [x] 37. Match object — `docs/Senseml reference/field-query-object/match.md` (288)
+- [x] 38. API quickstart — `docs/integrations/quickstart.md` (271)
+- [x] 39. Getting started with email extraction — `docs/integrations/getting-started-email.md`
+- [x] 40. Custom computation — `docs/Senseml reference/advanced-computed-field-methods/custom-computation.md`
+- [x] 41. Custom computation group — `docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md`
+- [ ] 42. Extract data from a document (sync) — `reference/Extraction/document-1/extract-data-from-a-document.md` (excerpt pending: spec-generated; tracked in PR #763)
       (pointer to `openapi_extraction.json`; description and body text live in the spec)
 - Already in list and high-traffic: overview (1.3K), choosing-an-endpoint (997), sections (421),
   query-group (409), anchor (279), portfolio (278), library-quickstart (259), preprocessors (244).
@@ -185,38 +175,17 @@ High-traffic pages (ReadMe dashboard, past year; added 2026-10-20). Views in par
       Note: `.claude/style-guide/style-guide-overview.md` still says `metadata.description` is a 4–7
       word phrase; that predates PR #702 (excerpt = source of truth) and should be updated.
 - [x] User reviews draft (four review rounds, 2026-10-20)
-- [ ] #42 (spec-generated): find which OpenAPI field ReadMe uses for the meta description and
-      llms.txt description (the page has no excerpt) (`summary` is also the page title; `description` start is likelier) before
-      editing `reference/openapi_extraction.json`
-- [ ] Excerpts that run ahead of their page body (update the first ~150 words to match when
-      applying): #3 "template-based" (page never says "template"), #11 "variable positions",
-      "keyword", "landmark", #19 "split" (page says "segment"), #28 scanned/handwritten framing
 - [x] Apply approved excerpts (2026-10-20): `.claude/sessions/seo/apply_excerpts.py --write` set `excerpt`
       and `metadata.description` on 41 pages from the draft's Proposed excerpts (text-level edit, other
       keys untouched; `sync_description.py --dry-run` and `check_excerpt.py` clean; rerun is a no-op).
       #42 skipped: spec-generated, no excerpt (see the #42 item).
-- [ ] Optional: before/after `mcp-search-eval` on a handful of pages
-- [ ] Execute per-page edits (plan below)
-
-## Follow-ups: tooling that writes excerpts
-
-- [ ] Update skills, templates, and scripts that write excerpts/descriptions so they follow the excerpt
-      rules (no self-naming: never name the page's own method/object/preprocessor/setting; imperative
-      mood; no "Learn how to" filler; <= 150 chars; "extract" not "parse"). Known places:
-  - `scripts/descriptions/generate_excerpts.py` `PROMPT` (CI generates missing excerpts with Claude)
-  - `.claude/skills/revise-doc-style/SKILL.md` "metadata.description" section (should say excerpt is
-    the source of truth)
-  - `.claude/style-guide/style-guide-overview.md` (still says `metadata.description` is a 4–7 word phrase)
-  - `.claude/skills/api-spec/SKILL.md` (copies spec `description` into `excerpt`; spec descriptions can
-    self-name)
-  - `.claude/style-guide/*-template.md` (`excerpt: ''` placeholders; add a one-line rule comment?)
-  - check `create-new-doc`, `create-concept-doc`, `update-docs-from-pr`, `update-existing-doc` for
-    excerpt guidance
-- Note: `revise-doc-style` says a page's *first body sentence* uses third-person present ("Removes…",
-  not "Use this to remove…"). That's the body, not the excerpt, but it matters for the first-150-words
-  rewrite (excerpt = imperative; first body sentence = third-person, per current house style).
+- [x] Per-page body edits: moved to PR #763 (`first-150-words`)
 
 ## Moved: first 150 words and per-page edit plan
 
 Moved 2026-10-20 to branch `first-150-words` (`.claude/sessions/first-150-words/`): the first-lines draft,
 its build script, and the per-page edit execution plan.
+
+## Moved to PR #763 (2026-10-20)
+
+Not merge blockers for this PR; carried over to `.claude/sessions/first-150-words/checklist.md` on branch `first-150-words`: ui-docs evaluation, ReadMe support question (agentSearch), #42 spec field, excerpts that run ahead of their page body, optional mcp-search-eval, and tooling that writes excerpts.
