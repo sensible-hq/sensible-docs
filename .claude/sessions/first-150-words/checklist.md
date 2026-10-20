@@ -16,8 +16,8 @@ readers can tell whether the page is for them.
   Intersection), and the current first 150 words. Built by `build_first_lines.py` from `pages.json`
   (page list snapshot of PR #758's `keywords-draft.md`). Rerun the script to refresh.
 - From PR #758 (`.claude/sessions/seo/` on branch seo-keywords; on v0 once merged): best phrases per page
-  (`keywords-draft.md`), competitor research (`competitors/`), Payabli best-practice reference
-  (`best-practice/payabli.md`), terminology decisions (checklist).
+  (`keywords-draft.md`) and terminology decisions (checklist). Background research (other docs
+  sites, a best-practice reference for openings) is kept in a private Notion page, not in this repo.
 
 ## Order of operations
 
@@ -49,8 +49,8 @@ Fan-out / fan-in with subagents, one topic group per agent (10 groups, 3–7 pag
 
 - [ ] Shared inputs for every agent:
   - phrase-ownership map (which page owns which best phrase; non-owners don't use it)
-  - Payabli opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
-    problem it solves (`best-practice/payabli.md`)
+  - opening pattern: sentence 1 defines the thing with search terms; sentence 2 says what
+    problem it solves
   - terminology rules: "extract," not "parse"; "config," not "template" (defined aliases only where
     already added)
   - no self-naming filler; the page's opening should say what the reader gets and who it's for
