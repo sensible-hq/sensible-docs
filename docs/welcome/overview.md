@@ -24,7 +24,7 @@ Sensible is a developer-first platform for extracting structured data from docum
 
 Use Sensible to build document-automation features into your vertical SaaS products. 
 
-With Sensible's SenseML language, you can write extraction queries for any type of document:
+With Sensible's SenseML language, you can write deterministic or LLM-based extraction queries for any type of document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intro_SDK_3.png)
 
