@@ -66,7 +66,7 @@ Configure your extractions using _SenseML_, Sensible's document-specific query l
 With SenseML, you can:
 
 * Preprocess documents deterministically by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors).
-* Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also filter and format extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Layout-based methods](doc:layout-based-methods).
+* Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also filter and format extracted data types like currencies, dates, addresses, or your custom types. You can mix and match LLM and deterministic methods in the same extraction config. For more information, see [Layout-based methods](doc:layout-based-methods).
 * [Handle document variations](doc:document-variations)  in a set of similar documents (a "document type") by conditionally executing SenseML methods based on the document's contents.
 * Post-process extracted document data. For example:
   * Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data.
