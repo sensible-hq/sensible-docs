@@ -1,11 +1,16 @@
 ---
 title: Getting started
-excerpt: Extract data from PDFs with an LLM in minutes. Write natural-language prompts for AI data extraction, then publish and test them as a Sensible config.
+excerpt: >-
+  Extract data from PDFs with an LLM in minutes. Write natural-language prompts
+  for AI data extraction, then publish and test them as a Sensible config.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract data from PDFs with an LLM in minutes. Write natural-language prompts for AI data extraction, then publish and test them as a Sensible config.
+  description: >-
+    Extract data from PDFs with an LLM in minutes. Write natural-language
+    prompts for AI data extraction, then publish and test them as a Sensible
+    config.
   robots: index
 next:
   description: ''
@@ -123,7 +128,7 @@ To extract similar data from other bank statements in production,  publish the "
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/quickstart_instruct_10.png)
 
-Now you've published your config to the endpoint `https://api.sensible.so/v0/extract/llm_basics` document type, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
+Now you've published your config to the document type's endpoint, `https://api.sensible.so/v0/extract/llm_basics`, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
 ## Test the prompt
 
