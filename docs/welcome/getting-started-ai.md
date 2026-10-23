@@ -130,7 +130,7 @@ To extract similar data from other bank statements in production,  publish the "
 
 Now you've published your config to the document type's endpoint, `https://api.sensible.so/v0/extract/llm_basics`, you can get document data at scale using Sensible's APIs, SDKs, or bulk-upload UI. Put the extracted data to work in Excel files, databases, and other destinations. For more information, see [Integrating](doc:integrate).
 
-## Test the prompt
+## Test the prompt with a second document
 
 Let's see if the config containing your prompt works with other bank statements. To test the prompt, take the following steps:
 
