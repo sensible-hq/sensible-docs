@@ -59,7 +59,7 @@ Sensible is highly configurable. You can extract data in minutes by leveraging l
 
 ## Configurable data extraction
 
-Configure your extractions using *SenseML*, Sensible's document-specific query language. SenseML combines the latest LLM techniques with visual layout-based rules to extract document primitives like rows, tables, checkboxes, sections, and more as JSON. 
+Configure your extractions using _SenseML_, Sensible's document-specific query language. SenseML extracts document primitives like rows, tables, checkboxes, sections, and more as JSON.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/platform_senseml.png)
 
