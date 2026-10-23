@@ -94,7 +94,7 @@ For more information about this diagram, see [DevOps platform](doc:devops-platfo
 To use the Sensible platform, you'll:
 
 * Learn  to extract data, or use out-of-the-box supported document types. See [Getting started](doc:getting-started-ai) and [Getting started with layout-based extractions](doc:getting-started).
-* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
-* [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format` 
-* [**Monitor**](doc:metrics) extraction metrics in production
-* [**Review**](doc:human-review) and correct extracted data at the field level using the review UI
+* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools.
+* [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format.`
+* [**Monitor**](doc:metrics) extraction metrics in production.
+* [**Review**](doc:human-review) and correct extracted data at the field level using the human-in-the-loop review UI.
