@@ -1,25 +1,30 @@
 ---
 title: Overview
-excerpt: 'Sensible: developer-first PDF data extraction and intelligent document processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and images.'
+excerpt: >-
+  Sensible is a developer-first platform for deterministic and LLM document data
+  extraction and IDP. Get JSON from PDFs, emails, spreadsheets, and more.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Sensible: developer-first PDF data extraction and intelligent document processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and images.'
+  description: >-
+    Sensible: developer-first PDF data extraction and intelligent document
+    processing. Get JSON from PDFs, Office documents, emails, spreadsheets, and
+    images.
   robots: index
 next:
   description: ''
 ---
 Sensible is a developer-first platform for extracting structured data from documents (also called document parsing), for example:
 
-* business forms in PDF format
+* business forms in PDF format or Microsoft Word
 * email bodies and attachments
 * spreadsheets
 * PNGs and JPEGS of documents
 
 Use Sensible to build document-automation features into your vertical SaaS products. 
 
-With Sensible's SenseML language, you can write extraction queries for any type of document:
+With Sensible's SenseML language, you can write deterministic or LLM-based extraction queries for any type of document:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intro_SDK_3.png)
 
@@ -48,25 +53,25 @@ And get back key facts as JSON:
 }
 ```
 
-Sensible is highly configurable. You can extract data in minutes by leveraging large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts :
+Sensible is highly configurable. You can extract data in minutes by leveraging large language models (LLMs), or you can get fine-grained control with Sensible's visual, layout-based rules. By combining layout- and LLM-based extraction methods, Sensible supports the entire document landscape, from consistently laid-out, highly structured business forms to free-form, variable legal contracts:
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/document_landscape.png)
 
 ## Configurable data extraction
 
-Configure your extractions using *SenseML*, Sensible's document-specific query language. SenseML combines the latest LLM techniques with visual layout-based rules to extract document primitives like rows, tables, checkboxes, sections, and more as JSON. 
+Configure your extractions using _SenseML_, Sensible's document-specific query language. SenseML extracts document primitives like rows, tables, checkboxes, sections, and more as JSON.
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/platform_senseml.png)
 
 With SenseML, you can:
 
-* Preprocess documents by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors). 
-* Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also filter and format extracted data types like currencies, dates, addresses, or your custom types. For more information, see [Layout-based methods](doc:layout-based-methods). 
+* Preprocess documents deterministically by correcting layout metadata problems, removing unwanted pages, and more, so that Sensible has a clean, standardized text representation of the document from which to extract structured data in a later step. For more information, see [Preprocessors](doc:preprocessors).
+* Use "methods" to extract document primitives, like rows, columns, tables, boxes, checkbox status, and more. You can also filter and format extracted data types like currencies, dates, addresses, or your custom types. You can mix and match LLM and deterministic methods in the same extraction config. For more information, see [Layout-based methods](doc:layout-based-methods).
 * [Handle document variations](doc:document-variations)  in a set of similar documents (a "document type") by conditionally executing SenseML methods based on the document's contents.
 * Post-process extracted document data. For example:
-  * Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data. 
-  * Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation). Or, completely transform Sensible's standardized `parsed_document` output into any schema to fit your data consumption needs using [postprocessors](doc:postprocessors). 
-  * Get measures of accuracy for LLMs with [confidence scores](doc:confidence), and get overall measures of extraction completeness with [extraction coverage scores](doc:metrics#extraction-coverage). 
+  * Write logical [validations](doc:validate-extractions)  like `customer ID is 9 digits` to throw custom errors and warnings about your extracted data.
+  * Manipulate the extracted data schema with [computed methods](doc:computed-field-methods)  like concat, split, and [custom logic](doc:custom-computation). Or, completely transform Sensible's standardized `parsed_document` output into any schema to fit your data consumption needs using [postprocessors](doc:postprocessors).
+  * Get measures of accuracy for LLMs with [confidence scores](doc:confidence), and get overall measures of extraction completeness with [extraction coverage scores](doc:metrics#extraction-coverage).
 
 A [field](doc:field-query-object) is the basic SenseML query unit for extracting a piece of document data. The output of a field is a JSON key-value pair that structures the extracted data. SenseML is the basis for Sensible's extraction workflow.
 
@@ -89,7 +94,7 @@ For more information about this diagram, see [DevOps platform](doc:devops-platfo
 To use the Sensible platform, you'll:
 
 * Learn  to extract data, or use out-of-the-box supported document types. See [Getting started](doc:getting-started-ai) and [Getting started with layout-based extractions](doc:getting-started).
-* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools
-* [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format` 
-* [**Monitor**](doc:metrics) extraction metrics in production
-* [**Review**](doc:human-review) and correct extracted data at the field level using the review UI
+* [**Integrate**](doc:integrate) using Sensible's API, SDKs, quick-extract UI, or other tools.
+* [**Validate**](doc:validate-extractions) extracted data by writing rules for custom errors like `extracted zip code is invalid format.`
+* [**Monitor**](doc:metrics) extraction metrics in production.
+* [**Review**](doc:human-review) and correct extracted data at the field level using the human-in-the-loop review UI.

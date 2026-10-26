@@ -1,11 +1,15 @@
 ---
 title: Remove lines
-excerpt: Delete matching text lines, including watermarks and page numbers, from all pages before extraction.
+excerpt: >-
+  Delete matching text lines, including watermarks and page numbers, from all
+  pages before extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Delete matching text lines, including watermarks and page numbers, from all pages before extraction.
+  description: >-
+    Delete matching text lines, including watermarks and page numbers, from all
+    pages before extraction.
   robots: index
 next:
   description: ''
@@ -23,7 +27,7 @@ Removes lines that match the specified text from all pages in the document. For 
 
 The following example shows using two `removeLines` preprocessors to clean up an academic transcript before extraction:
 
-- The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
+- The first preprocessor removes page number lines (for example, `page 1 of 2`) using a regex pattern. Without this, page number lines would appear inline in the extracted text.
 - The second preprocessor removes a rotated diagonal watermark using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets lines rotated between 30 and 60 degrees.
 
 **Config**
