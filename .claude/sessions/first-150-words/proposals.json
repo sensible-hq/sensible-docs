@@ -1,0 +1,773 @@
+[
+ {
+  "n": 1,
+  "file": "docs/welcome/overview.md",
+  "replaces": "Sensible is a developer-first platform for extracting structured data from documents (also called document parsing), for example:\n\n* business forms in PDF format or Microsoft Word\n* email bodies and attachments\n* spreadsheets\n* PNGs and JPEGS of documents\n\nUse Sensible to build document-automation features into your vertical SaaS products. ",
+  "proposed": "Sensible is a developer-first platform for PDF data extraction and intelligent document processing: it extracts structured data from documents (also called document parsing) and returns it as JSON. This overview introduces SenseML, Sensible's extraction query language, its JSON output, and Sensible's DevOps platform, so you can decide how to use Sensible to build document-automation features into your vertical SaaS products. Sensible extracts data from documents such as:\n\n* business forms in PDF format or Microsoft Word\n* email bodies and attachments\n* spreadsheets\n* PNGs and JPEGs of documents",
+  "best_phrases_used": [
+   "document parsing",
+   "PDF data extraction",
+   "intelligent document processing",
+   "PDF to JSON (paraphrased as 'returns it as JSON')"
+  ],
+  "rationale": "Adds a page-scope sentence (what the overview covers and where it leads) and the two top search phrases while keeping the document-parsing alias and the file-type list; fixes A's missing 'what this page is / what you can do'. Also fixes the 'JPEGS' typo in the list. Revised: moved the scope + outcome sentence into the first paragraph (before the list); dropped the 'LLM-based or deterministic extraction queries' phrase that the next existing sentence repeats; replaces confirmed body-only.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the frontmatter blocker is gone and the scope/outcome sentence is now in the first paragraph. Remaining: 'for PDF data extraction and intelligent document processing:' reads keyword-stuffed, 'its JSON output' has an ambiguous 'its', and 'Sensible extracts data from documents such as' repeats the first sentence's 'extracts structured data from documents'."
+  }
+ },
+ {
+  "n": 2,
+  "file": "docs/welcome/getting-started-ai.md",
+  "replaces": "## Introduction",
+  "proposed": "This tutorial shows how to extract data from a PDF with a large language model (LLM) by writing natural-language prompts in Sensible, using an example bank statement. After you finish, you can write prompts that extract facts and tables from your own documents and move on to integrating Sensible with your application.\n\n## Introduction",
+  "best_phrases_used": [
+   "extract data from PDF with LLM",
+   "AI data extraction"
+  ],
+  "rationale": "Inserts a scope paragraph before the generic lifecycle list so the first ~70 words state the tutorial's task (bank statement, prompts, publish, test) and outcome; fixes A=1 and D=1. Does not remove the lifecycle list (restructuring out of scope). Revised: removed the example prompt, publish, and test-second-statement details that the existing 'In this guide, you'll:' bullets repeat; kept topic + outcome.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the opening no longer copies the 'In this guide, you'll' bullets word for word. Still overlaps the existing 'Let's get started with ... an example bank statement. We'll author a prompt for a large language model (LLM)' paragraph, which repeats bank statement plus LLM prompt a third time."
+  }
+ },
+ {
+  "n": 3,
+  "file": "docs/document extraction/getting-started.md",
+  "replaces": "In this tutorial, you'll learn to extract data from a set of similar documents using Sensible's query language, SenseML. You'll write JSON-formatted SenseML to tell Sensible about which data to extract from an example document, using what you know about the layout of the document.\n\nYou can then save your descriptions as a \"config\" (also called a template). Publish your config to automate extracting from similar documents.   ",
+  "proposed": "This tutorial teaches deterministic, layout-based extraction with SenseML, Sensible's query language. You'll write JSON-formatted SenseML that uses what you know about a document's layout to extract data from an example document. After you finish, you can save your SenseML queries as a \"config\" (also called a template) and publish it to automate extracting from similar documents.",
+  "best_phrases_used": [
+   "deterministic extraction",
+   "rule-based extraction",
+   "extract data from forms"
+  ],
+  "rationale": "Light edit (already A=2): adds a third-person defining lead with the deterministic/rule-based search terms and names the example document and concepts; the following 'config (also called a template)' paragraph is unchanged. Revised: extended replaces over the adjacent 'You can then save your descriptions as a config (also called a template)...' paragraph (fixes the dangling 'descriptions') and folded it in as the explicit outcome, keeping the template alias; removed 'auto insurance quote' and 'lines, anchors, and methods', which the 'In this tutorial, you'll' list repeats.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 2,
+   "D_before": 2,
+   "note": "Fixed: the dangling 'descriptions' reference is gone and the after-reading outcome is explicit; 'config (also called a template)' is allowed. Minor: it says the tutorial 'teaches' layout-based extraction, then the next paragraph says layout-based methods are for advanced authoring, which slightly undercuts it."
+  }
+ },
+ {
+  "n": 4,
+  "file": "docs/Senseml reference/concepts/idp.md",
+  "replaces": "Intelligent document processing (IDP) automates extracting structured data from documents so that business systems can consume and act on it. The core challenge of IDP is document variability, which requires a mix of extraction techniques to handle the full range of documents that real organizations deal with.",
+  "proposed": "Intelligent document processing (IDP) is automated data extraction from documents: it turns documents into structured data that business systems can consume and act on. The core challenge of IDP is document variability, which requires a mix of extraction techniques to handle the full range of documents that real organizations deal with. This page gives you a short definition of IDP and its core challenge, and links to an in-depth article so you can learn more.",
+  "best_phrases_used": [
+   "automated data extraction",
+   "document automation"
+  ],
+  "rationale": "Keeps the definition, adds what the page covers and the takeaway, and works in two Best phrases; lifts A from 1 toward 2, though the page itself stays a thin definition. Revised: no longer promises to explain why IDP needs a mix of techniques; states it as the page does and describes what the page actually gives (a short definition plus a link); replaces confirmed body-only.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the frontmatter blocker and the overpromise are both gone, and the scope sentence is honest about a short page. Minor: '...links to an in-depth article so you can learn more' is immediately repeated by the existing 'For more information about IDP, see...' line."
+  }
+ },
+ {
+  "n": 5,
+  "file": "docs/Senseml reference/concepts/file-types.md",
+  "replaces": "## File types",
+  "proposed": "Sensible extracts data from PDF, Microsoft Word, spreadsheet (Excel and CSV), and image file formats, and classifies those files by document type. This page lists which file formats each operation and SenseML extraction method supports, the file size limits for synchronous and asynchronous API calls, and how Sensible converts Word documents, email bodies, and spreadsheets before extracting. Use it to check whether you can extract data from Excel, Word, or image files for your use case.\n\n## File types",
+  "best_phrases_used": [
+   "file formats",
+   "file size limits",
+   "extract data from Excel",
+   "extract data from Word"
+  ],
+  "rationale": "Adds an opening paragraph before the first heading naming all three things the page covers (format support by operation/method, size limits, conversions) and why you'd read it; fixes A=1 and D=1.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "All three parts, and the claims match the page (classification table, sync/async size table, Word/email/spreadsheet conversions). Minor: the opening sentence's format list is repeated by the '## File types' bullet list right after it."
+  }
+ },
+ {
+  "n": 6,
+  "file": "docs/Senseml reference/concepts/ocr.md",
+  "replaces": "When you [extract document data with Sensible](doc:getting-started-ai), Sensible automatically performs optical character recognition (OCR) on the document for you, except in advanced cases. If the document doesn't require OCR, Sensible automatically extracts embedded text directly from the document to optimize performance.\n\nFor advanced cases, you can configure how Sensible OCRs documents using the following parameters:",
+  "proposed": "Sensible automatically performs optical character recognition (OCR) to convert scanned PDFs and images to text when you [extract document data with Sensible](doc:getting-started-ai). This page explains how Sensible decides whether a document needs OCR, so you know when to keep the OCR defaults and when to tune them. To tune OCR for advanced cases, use the following options:",
+  "best_phrases_used": [
+   "scanned PDF",
+   "image to text (as 'convert scanned PDFs and images to text')"
+  ],
+  "rationale": "Adds what the page covers (the OCR decision steps and three configurable options) and the reader's takeaway to the existing automatic-OCR explanation; fixes A=1. Revised: extended replaces over the adjacent 'For advanced cases, you can configure ... following parameters:' lead-in and folded it in, so the option list isn't repeated before the table and the OCR preprocessor isn't called a parameter ('options' matches the table header); dropped the embedded-text sentence that step 2 repeats.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the opening no longer mentions embedded text, so it doesn't duplicate step 2, and 'options' correctly covers the preprocessor. Clean."
+  }
+ },
+ {
+  "n": 7,
+  "file": "docs/Senseml reference/layout-based-methods/row.md",
+  "replaces": "Matches all lines to the left or right of the anchor line. ",
+  "proposed": "Extracts text on the same horizontal row as anchor text, such as the value next to a field name in a key-value pair, by matching all lines to the left or right of the anchor line. This page covers the Row method's parameters, examples, and notes, so you can extract row data and decide when to use the [Intersection method](doc:intersection) or another method instead, for example, for rows with empty cells.",
+  "best_phrases_used": [
+   "extract text next to label",
+   "key-value pair extraction"
+  ],
+  "rationale": "Leads with the use case (text next to a label in a row) and adds what the page covers and when to choose a sibling method, fixing A and D before the tolerance detail. Revised: added an explicit 'so you can' outcome; replaced 'label' with 'anchor text'/'field name'; dropped 'tolerance for row alignment', which the next paragraph details; 'tables with empty cells' corrected to 'rows with empty cells' per the Notes.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the outcome is explicit and the Label-adjacent wording is gone (it says 'anchor text', 'field name'). The Intersection/empty-cells claim matches Notes. The subjectless 'Extracts...' follows method-page convention; the following 'A \"row\" is...' paragraph re-explains row alignment, which is fine."
+  }
+ },
+ {
+  "n": 8,
+  "file": "docs/Senseml reference/layout-based-methods/region.md",
+  "replaces": "Extracts data in a rectangular region, defined in inches. The region extracts lines contained inside the region (for the definition of \"contained,\" see the Parameters section). ",
+  "proposed": "Extracts data from a fixed position: a rectangular region that you define in inches relative to an anchor or to the top-left corner of the page. This page covers the parameters that set the region's position and size and that define which lines the region contains, so that you can use coordinate-based extraction for data that's always in the same place relative to an anchor, such as the social security number on a W-9 form. You can also return the region as an image.",
+  "best_phrases_used": [
+   "fixed position extraction",
+   "coordinate-based extraction"
+  ],
+  "rationale": "Adds 'relative to an anchor', a concrete use case, and a statement of what the page covers, fixing A; D was already 2.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Accurate (isAbsoluteOffset gives top-left of page; the W-9 SSN example exists). One long sentence carries scope and outcome. 'You can also return the region as an image' is tacked on after the outcome and would fit better earlier or later."
+  }
+ },
+ {
+  "n": 9,
+  "file": "docs/Senseml reference/layout-based-methods/passthrough.md",
+  "replaces": "Use the Passthrough method to match text using an anchor, and return the anchor match or matches directly. For example, this can be useful when you want to match using regular expressions, and you don\u2019t want to take more extraction steps after finding the matches. ",
+  "proposed": "Returns an anchor's match directly as the extracted data, without further extraction steps. You use the Passthrough method when the anchor match is the data you want, for example, when a regex match finds form numbers such as \"Form 1099\" in a document. This page covers the method's parameter, an example of pattern matching with regular expressions, and when to use the [Regex method](doc:regex) instead to return only part of a matched line.",
+  "best_phrases_used": [
+   "regex match",
+   "pattern matching"
+  ],
+  "rationale": "Puts a third-person definition first, then the use case, what the page covers, and when to choose the Regex method instead, fixing A.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Accurate; the Notes section does explain using Regex instead because anchors lack capture groups. 'covers the method's parameter' (singular) reads oddly but is correct. Concise, with no padding before the parameters."
+  }
+ },
+ {
+  "n": 10,
+  "file": "docs/Senseml reference/layout-based-methods/intersection.md",
+  "replaces": "Extracts a target line at the intersection of a line defined by an anchor, and a second line defined by a second anchor:\n\n![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_1.png)\n\nFor example, the Intersection method is an alternative to the Row method when a table contains optionally empty cells. A row's tiebreaker can return lines from unintended columns if cells are unpredictably populated.",
+  "proposed": "Extracts the value where a row and a column cross, like looking up a cell in a spreadsheet by naming both its row and column. You specify two anchors, one that defines a horizontal line and one that defines a vertical line, and Sensible extracts the text at their intersection. Use this method instead of the [Row method](doc:row) for tables with empty cells. This page covers the method's parameters and examples for empty table cells, variable text positions, and multiple cells in a row.\n\n![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/intersection_1.png)",
+  "best_phrases_used": [
+   "table cell lookup",
+   "empty table cells",
+   "extract cell by row and column"
+  ],
+  "rationale": "Replaces the abstract line-intersection definition with the spreadsheet-cell framing, the empty-cells use case, and what the page covers, and moves the image below the paragraph, fixing A and D. (Fan-in: removed 'or for any grid-like layout'; the page doesn't cover grids.)",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Good plain-language analogy, and the three examples it names match the page's headings. 'You specify two anchors ... one that defines a horizontal line' is still slightly abstract but is clarified by the image."
+  }
+ },
+ {
+  "n": 11,
+  "file": "docs/Senseml reference/field-query-object/anchor.md",
+  "replaces": "An *anchor* is a string, [Match](doc:match) object, or array of Match objects. ",
+  "proposed": "An *anchor* is a keyword or landmark that Sensible searches for to locate the data you want to extract, so that you can find data at variable positions in a document. You define an anchor as a string, [Match](doc:match) object, or array of Match objects. This page covers simple and complex anchor syntax, the parameters that limit where Sensible searches, such as Start and End, and how an anchor's role differs for layout-based and LLM-based methods.",
+  "best_phrases_used": [
+   "keyword",
+   "landmark",
+   "variable positions"
+  ],
+  "rationale": "Replaces the bare type definition with what an anchor is for, then states what the page covers, fixing A and D.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixes the missing plain-language definition, and the claims are accurate (simple/complex syntax, Start/End, the layout vs LLM table). The 'able to do' part is weakest: it's attached to what an anchor does, not to what reading the page enables. The last clause previews the table that follows, which is mild repetition."
+  }
+ },
+ {
+  "n": 12,
+  "file": "docs/Senseml reference/concepts/table-methods.md",
+  "replaces": "You can choose from among the following options for extracting tables:",
+  "proposed": "This page compares the SenseML methods for extracting tables: the LLM-based NLP Table method and the layout-based Fixed Table and Text Table methods. Use the following tables to compare the methods' speed and supported features, such as multiple pages, merged cells, and checkboxes, so you can choose how to extract tables from your documents.",
+  "best_phrases_used": [
+   "PDF table extraction",
+   "extract table rows"
+  ],
+  "rationale": "Replaces a one-line lead-in with a paragraph that names each table method, says what each suits, and says the page helps you choose (fixes A and D). Revised: subject is now 'This page compares'; no longer restates the overview table row by row (method descriptions, anchors, fastest/slowest); dropped PDF-only 'PDF table extraction'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: it no longer restates the overview table, and 'PDF table extraction' and the subjectless fragment are gone. Feature examples (multiple pages, merged cells, checkboxes) match the table columns. Clean."
+  }
+ },
+ {
+  "n": 13,
+  "file": "docs/Senseml reference/llm-based-methods/query-group.md",
+  "replaces": "Extracts individual facts in a document, such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery.\n\n- When you configure the Multimodal Engine parameter, you can extract from non-text data such as photographs, charts, or illustrations. For an example, see [Example: Extract from images](doc:query-group#example-extract-from-images).\n- When you configure the Source Fields parameter, you can chain LLM prompts together. In other words, you can extract data with one prompt, then apply further prompts to the extracted data.",
+  "proposed": "Extracts individual facts from a document using a large language model (LLM), such as the date of an invoice, the liability limit of an insurance policy, or the destination address of a shipping container delivery. This page covers prompt tips, parameters, and examples, including extracting from [images](doc:query-group#example-extract-from-images) with the Multimodal Engine parameter and chaining prompts with the Source Fields parameter, so you can write prompts that extract the facts you need. For repeating data, use the [List](doc:list) or [NLP Table](doc:nlp-table) method instead.",
+  "best_phrases_used": [
+   "LLM extraction",
+   "document Q&A"
+  ],
+  "rationale": "Folds the Multimodal Engine and Source Fields bullets into one paragraph, adds when to choose Query Group over List or NLP Table, and states the page's scope (fixes A and D). Revised: added explicit 'so you can' outcome; replaced the parenthetical '(see [Example...])' aside with an inline link on 'images' (link kept); trimmed 'document Q&A' sentence.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the outcome is explicit ('so you can write prompts that extract the facts you need'), and Multimodal Engine/Source Fields are accurate. It is still a dense ~90-word paragraph with an inline link and two parameter names; acceptable."
+  }
+ },
+ {
+  "n": 14,
+  "file": "docs/Senseml reference/llm-based-methods/list.md",
+  "replaces": "This LLM-based method extracts repeating data in a document based on your description of the list\u2019s overall contents and items. This method is suited to extracting data such as the work history on a resume, the vehicles on an auto insurance policy, or the line items on an invoice.",
+  "proposed": "Extracts lists of repeating data from a document using a large language model (LLM), based on your description of the list's overall contents and items. For example, extract the line items on an invoice, the work history on a resume, or the vehicles on an auto insurance policy. This page covers when to use the List method, its limitations, prompt tips, parameters, and examples, so you can describe a list and extract its items as structured data.",
+  "best_phrases_used": [
+   "invoice line items",
+   "extract lists"
+  ],
+  "rationale": "Leads with the searchable task and examples, and adds the page's scope and the method-choice outcome (fixes A). Revised: dropped the List/NLP Table/Sections choice, which the existing 'alternative to the NLP Table method' line and the Limitations Sections bullet already cover.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the opening no longer names NLP Table/Sections, so the existing 'alternative to the NLP Table method' line no longer repeats it. Coverage list matches the page (when to use, limitations, prompt tips)."
+  }
+ },
+ {
+  "n": 15,
+  "file": "docs/Senseml reference/llm-based-methods/nlp-table.md",
+  "replaces": "Extracts a table based on your natural-language description of the data you want to extract. This method can extract tables that span multiple pages. This method is suited to tables that have a header row, where each row is a data element. Not suited to tables where the header is in the first column and the columns are data elements, or to other complex table layouts. For alternatives to this method, see [Table methods](doc:table-methods). ",
+  "proposed": "Extracts a table, including a table that spans multiple pages, based on your natural-language descriptions of the table and its columns. This method suits tables that have a header row, where each row is a data element. It isn't suited to tables where the header is in the first column and the columns are data elements, or to other complex table layouts. This page covers prompt tips, parameters, examples, and how the method works, so you can write column descriptions that extract the data you want. For alternatives to this method, see [Table methods](doc:table-methods).",
+  "best_phrases_used": [
+   "prompt-based table extraction"
+  ],
+  "rationale": "Moves multi-page support into the first sentence, keeps the fit/non-fit caveats after it, and adds page scope and outcome (fixes A). Revised: removed keyword-stuffed 'This prompt-based table extraction method'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Accurate, all three parts present; 'prompt-based table extraction' stuffing removed. Minor: at ~85 words with suitability caveats it is heavy, but it stays on topic."
+  }
+ },
+ {
+  "n": 16,
+  "file": "docs/Senseml reference/sections/index.md",
+  "replaces": "Extracts data from a document that contains complex or repeated elements (\"sections\"). In effect, a \"section\" defines a repeating document inside a document, with its own fields.",
+  "proposed": "Extracts repeating groups of fields, such as each claim in an insurance claims document, into an array of objects. In effect, a \"section\" defines a repeating document inside a document, with its own fields, so you can also extract nested data and nested tables. This page covers horizontal and vertical sections, the parameters that define a section's range, and links to examples, so you can define sections that match your document's repeating layout. For highly complex repeating layouts, use sections instead of the [List](doc:list) method.",
+  "best_phrases_used": [
+   "array of objects",
+   "nested data",
+   "nested tables"
+  ],
+  "rationale": "States the output (array of objects) and claims example in sentence 1, adds page scope, and says when to choose sections over List (fixes A). Revised: added explicit 'so you can define sections' outcome; removed both 'loss run' mentions (the image caption and example link right after already cover claims/loss runs).",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: 'loss run' repetition gone and an outcome added. Minor: the List-vs-sections guidance is tacked on after the outcome; it would read better before 'This page covers'."
+  }
+ },
+ {
+  "n": 17,
+  "file": "docs/Senseml reference/config-settings/fingerprint.md",
+  "replaces": "With fingerprints, you test for matching text in a document to determine:\n\n1. the document's subtype, or \"config\", for standalone files\n2. the document's page range in multi-document files, or \"portfolios.\"",
+  "proposed": "A fingerprint tests a document for matching text so that Sensible can handle multiple document layouts. You use fingerprints to:\n\n1. choose the document's subtype, or \"config\", for standalone files, for example, a config per form revision or per vendor, such as different banks' statements\n2. find each document's page range in multi-document files, or \"portfolios.\"\n\nThis page gives the fingerprint syntax for each use case, with examples, scoring, and authoring tips, so you can write fingerprints that select the right config or split a portfolio.",
+  "best_phrases_used": [
+   "multiple document layouts",
+   "form revision"
+  ],
+  "rationale": "Adds a defining first sentence and a page-scope sentence (syntax for both use cases, examples, scoring, tips) plus the outcome, fixing A and D; keeps the two-use-case list.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Purpose, two use cases, coverage, and a 'so you can' outcome all present; claims (scoring, tips) match sections. The intro now spans a sentence, a list, and another paragraph before the table, which is long but stays on topic."
+  }
+ },
+ {
+  "n": 18,
+  "file": "docs/document type classification/classify.md",
+  "replaces": "Sensible \"classifies\" documents in the following senses:",
+  "proposed": "Document classification identifies which of the document types you define in your Sensible account a document matches. This page summarizes the ways Sensible classifies documents, both through the classification API and automatically as you extract single documents, portfolios, and emails, and documents the classify endpoints. After reading it, you can choose the right classification approach for your workflow.\n\nSensible \"classifies\" documents in the following senses:",
+  "best_phrases_used": [
+   "document classification",
+   "classification API"
+  ],
+  "rationale": "Leads with what the page actually answers (classify via API without extracting) before the three-senses list, fixing A and D without restructuring. Revised: removed the 1040s/pay_stubs example and 'without extracting its data', which item 1 of the following list repeats almost verbatim.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the 1040s/pay_stubs duplication with item 1 is gone. Awkward: 'classifies documents ... and documents the classify endpoints' uses 'documents' as noun and verb in one sentence, and the first sentence ('identifies which of the document types you define ... a document matches') is clunky."
+  }
+ },
+ {
+  "n": 19,
+  "file": "docs/document extraction/portfolio.md",
+  "replaces": "Sensible supports extracting multiple documents from a single file (a \"portfolio\"). For example, for a portfolio file containing two invoices, a 1040 tax document, and a contract, Sensible can segment each document by its page range in the file, and return its extracted data separately.",
+  "proposed": "Multi-document extraction splits a file that contains multiple documents, such as a loan package PDF, and returns each document's extracted data separately. Sensible calls this kind of file a \"portfolio.\" For example, for a portfolio containing two invoices, a 1040 tax document, and a contract, Sensible segments each document by its page range in the file. This page compares LLM-based and fingerprint-based document splitting and shows you how to configure each, with an example and output for both.",
+  "best_phrases_used": [
+   "document splitting",
+   "loan package",
+   "multiple documents in one PDF (paraphrased: \"file that contains multiple documents\")"
+  ],
+  "rationale": "Adds what the page covers (LLM vs fingerprint segmentation, setup, example and output for each), the gap A flagged; keeps the existing example.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Clear definition with 'portfolio' introduced properly and accurate coverage (LLM and fingerprint examples with output exist). No issues beyond 'shows you how to configure each' being a bit generic."
+  }
+ },
+ {
+  "n": 20,
+  "file": "docs/monitor and qa/validate-extractions.md",
+  "replaces": "Quality control the data extractions in a document type by writing validations. For example, use validations to:",
+  "proposed": "Validations are rules that quality control the data Sensible extracts for a document type. This page shows you how to create validations and covers their parameters, examples, and output, so you can write field-level rules that check the quality of your extractions. You can use validations to:",
+  "best_phrases_used": [
+   "validation rules",
+   "field-level validation"
+  ],
+  "rationale": "Moves the definition of a validation to sentence 1 and states the page scope (create, parameters, examples, output) and outcome, fixing A. Revised: removed the JsonLogic/pass-fail definition that the paragraph after the bullets restates; lead-in changed from 'For example, use validations to:' to 'You can use validations to:' so examples don't stack.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: no more stacked 'For example' lead-in. Remaining: the existing 'A validation is a condition ... written in JsonLogic' paragraph re-defines validations after the bullets (mild repetition), and 'rules that quality control the data' uses jargon verb phrasing."
+  }
+ },
+ {
+  "n": 21,
+  "file": "docs/document extraction/best-practices/confidence.md",
+  "replaces": "For data extracted by large language models (LLMs), Sensible asks the LLMs to report any uncertainties about the accuracy of the extracted data. For example, an LLM can report \"multiple possible answers\" or \"ambiguous query\".  These confidence *signals* offer more nuanced troubleshooting than numeric confidence *scores*.\n\nNote that LLMs can inaccurately report confidence signals.  For more information about confidence signals, see the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf). \n\nSensible support confidence signals for the Query Group method.\n\nFor more information about troubleshooting confidence signals, see the following table.",
+  "proposed": "LLM confidence signals are messages that a large language model (LLM) returns when it's uncertain about the accuracy of the data it extracted, for example, \"multiple possible answers\" or \"ambiguous query.\" These confidence *signals* offer more nuanced troubleshooting than numeric confidence *scores*. Sensible supports confidence signals for the [Query Group](doc:query-group) method. This page lists each signal with its JSON output and tips, so you can spot uncertain extractions and troubleshoot them to improve extraction accuracy.\n\nNote that LLMs can inaccurately report confidence signals. For more information about confidence signals, see the research paper [Teaching models to express their uncertainties in words](https://arxiv.org/pdf/2205.14334.pdf).",
+  "best_phrases_used": [
+   "LLM confidence",
+   "confidence scores",
+   "extraction accuracy"
+  ],
+  "rationale": "Defines confidence signals in sentence 1, moves Query Group scope up, says what you can do (spot and troubleshoot uncertain extractions), fixes the \"support\" slip, and drops the redundant \"see the following table\" line; fixes A.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Accurate (only Query Group supported, per the page) and all three parts present. 'troubleshoot them to improve extraction accuracy' is slight padding."
+  }
+ },
+ {
+  "n": 22,
+  "file": "docs/monitor and qa/human-review.md",
+  "replaces": "As a reviewer, you can use the Sensible app's **Human review** tab to manually correct extracted document data that's been automatically flagged for review, then approve or reject the extraction. Once you approve or reject, you can't change the status again.",
+  "proposed": "The Sensible app's **Human review** tab supports human-in-the-loop (HITL) manual review of extractions that are flagged for review, for example, because they fail [validations](doc:validate-extractions). This page shows you, as a reviewer, how to find flagged extractions, check failed validations, correct extracted field values, and approve or reject each extraction. Once you approve or reject, you can't change the status again. To set up review criteria and integrate review into your application, see [Human review implementation](doc:human-review-implementation).",
+  "best_phrases_used": [
+   "human-in-the-loop",
+   "HITL",
+   "manual review"
+  ],
+  "rationale": "Already A=2; light edit adds how extractions get flagged (failed validations) and a pointer to setup, the D gap, and works in HITL terms.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 2,
+   "D_before": 1,
+   "note": "Clear audience, coverage, and steps, plus a pointer to the implementation page, which removes the earlier D problem. 'human-in-the-loop (HITL)' is keyword insertion but reads acceptably."
+  }
+ },
+ {
+  "n": 23,
+  "file": "docs/Senseml reference/preprocessors/index.md",
+  "replaces": "Use the following preprocessors to clean up your documents before extracting structured data. Preprocessors execute in the order you define them in an array.",
+  "proposed": "A preprocessor cleans up a document before Sensible extracts structured data from it, for example, with image pre-processing like deskewing, rotating, or scaling pages, or by selectively OCRing pages, merging or splitting lines, or removing headers, footers, and watermarks. This page lists the preprocessing options SenseML supports, so you can pick the one that fixes your document cleanup problem, such as a skewed scan or a multicolumn layout. You add preprocessors to a config's `preprocessors` array, and they execute in the order you define them.",
+  "best_phrases_used": [
+   "preprocessing options",
+   "image pre-processing",
+   "document cleanup"
+  ],
+  "rationale": "Defines a preprocessor, gives symptoms that call for one, says what the table lets you choose, and how you add them; fixes A=1 and D=1 on a page that had 24 words of prose.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Big improvement: it explains the problem preprocessing solves and how to choose. The examples are accurate (Remove Lines covers watermarks; Rotate and Scale exist). The sentence is long and list-heavy ('deskewing, rotating, or scaling ... OCRing ... merging or splitting ... removing'). 'image pre-processing' vs 'preprocessor' spelling is inconsistent."
+  }
+ },
+ {
+  "n": 24,
+  "file": "docs/api/api-tutorial/api-tutorial-webhook.md",
+  "replaces": "For asynchronous extractions, you can retrieve extraction results using either API endpoints or a webhook. A webhook allows you to receive the extraction as a push when its status changes, rather than polling the `/documents/{id}` API endpoint for extraction status. For example, if you set a webhook, you get a push when the extraction status changes to `COMPLETE`  or when the [review](doc:human-review) status changes to `APPROVED`.\n\nFor this tutorial, let's try a webhook in combination with the `/extract_from_url` endpoint. Note you can also use a webhook with any other extraction endpoint.",
+  "proposed": "A Sensible webhook pushes asynchronous extraction results to a URL you specify when an extraction's status changes, so you don't have to poll the `/documents/{id}` API endpoint. For example, you get a push when the extraction status changes to `COMPLETE` or when the [review](doc:human-review) status changes to `APPROVED`. In this tutorial, you add a webhook to an `/extract_from_url` request for an example tax form, then inspect the pushed payload at a test URL. You can use the same approach with any other extraction endpoint.",
+  "best_phrases_used": [
+   "webhook URL",
+   "webhook payload"
+  ],
+  "rationale": "Opens with a definition, then states in the first paragraph that this is a tutorial and what you'll do and see (set a webhook, check the payload), fixing A; removes 'let's'. Revised: cut 'webhook' from 4 uses to 2.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: 'webhook' density is down, and the claims are supported by the replaced text (COMPLETE/APPROVED, any extraction endpoint). The outcome is weakest: 'You can use the same approach with any other extraction endpoint' stands in for 'after reading you can'."
+  }
+ },
+ {
+  "n": 25,
+  "file": "docs/document extraction/library-quickstart.md",
+  "replaces": "If you want to extract from any of the following document types, you can get started in minutes using prebuilt configs (also called templates) from the [Sensible configuration library](https://www.sensible.so/configuration-library). The library provides out-of-the-box support for common business forms:",
+  "proposed": "The [Sensible configuration library](https://www.sensible.so/configuration-library) provides prebuilt configs (also called templates) for common business forms. This guide shows how you clone a document type from the library into your Sensible account and test it with your sample documents. Afterward, you can extract data from document types like bank statements, tax forms, and pay stubs in minutes, without writing your own config. The library provides out-of-the-box support for the following document types:",
+  "best_phrases_used": [
+   "pre-built templates (as 'prebuilt configs (also called templates)')",
+   "bank statements (not the exact phrase 'bank statement extraction')"
+  ],
+  "rationale": "States that the page is a how-to for cloning library configs into your account and what you can do afterward, before the 18-item list; fixes A=1 and moves the task into the first ~75 words for D.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Good: names the library, the task (clone and test), and the outcome; 'configs (also called templates)' is allowed. The 18-item list still fills the rest of the 150 words, but the question is answered first now. 'in minutes' leans a little marketing-y."
+  }
+ },
+ {
+  "n": 26,
+  "file": "docs/welcome/integrate.md",
+  "replaces": "Put your extracted document data to work with integrations. Sensible offers the following integration options for automating extractions:",
+  "proposed": "Sensible integrations automate document data extraction and send extracted data to your applications, or export it as JSON or Excel files. Use the following table to compare integration options, choose the one that fits how you receive documents and use the data, and find its getting-started guide:",
+  "best_phrases_used": [
+   "send extracted data to any application",
+   "export extracted data"
+  ],
+  "rationale": "Names all six integration options in prose and states the decision the page supports (choose an integration and find its guide), fixing A and D. Revised: 'any application' -> 'your applications'; removed the parenthetical option list that the table repeats.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: 'any application' overclaim and the duplicate parenthetical list are gone; JSON/Excel export is supported by the Quick extraction row. 'What this page is' is only implied by 'Use the following table'."
+  }
+ },
+ {
+  "n": 27,
+  "file": "reference/Introduction/choosing-an-endpoint.md",
+  "replaces": "To get started, see the following endpoints for extracting structured data from documents. Or, see other [integration](doc:integrate)  options including the Sensible [SDKs](doc:sdk-guides) .",
+  "proposed": "The Sensible API is a REST API that extracts structured data from PDFs and other documents. Use the following table to compare its endpoints for asynchronous and synchronous extraction, PDF to Excel conversion, portfolio extraction, and document classification, so you can choose the right endpoint for testing or production. Or, see other [integration](doc:integrate) options, including the Sensible [SDKs](doc:sdk-guides).",
+  "best_phrases_used": [
+   "document data extraction API",
+   "REST API"
+  ],
+  "rationale": "Replaces a vague 'to get started' pointer with a definition of the API plus a you-centric sentence naming every endpoint category in the table and the decision it supports (which endpoint, testing vs. production), fixing A and D. Revised: replaced keyword-stacked 'Sensible document data extraction API' with 'Sensible API'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: plain 'The Sensible API is a REST API' replaces the keyword-stacked phrase. The endpoint categories listed match the table. Clean."
+  }
+ },
+ {
+  "n": 28,
+  "file": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
+  "replaces": "When you [extract document data with Sensible](doc:getting-started-ai), Sensible automatically OCRs the document for you, except in advanced cases. This topic covers advanced cases. \n\n For information about additional OCR options, see [OCR](doc:ocr).\n\nUse the OCR preprocessor to selectively OCR pages in a document. This preprocessor is useful when a document contains both embedded text and text images. Selectively OCRing the pages containing text images, rather than the entire document, improves extraction performance. Examples of text images include handwriting and scanned text.",
+  "proposed": "Forces OCR on specific pages of a document that mixes embedded text with text images, such as scanned or handwritten pages in an otherwise digital PDF. Use the OCR preprocessor to OCR specific pages, selected by matched text or by a low count of embedded text lines, rather than the entire document, which improves extraction performance. This page lists the preprocessor's parameters and shows an example config.\n\nWhen you [extract document data with Sensible](doc:getting-started-ai), Sensible automatically OCRs the document for you, so you need this preprocessor only in advanced cases. For information about additional OCR options, see [OCR](doc:ocr).",
+  "best_phrases_used": [
+   "force OCR",
+   "OCR specific pages"
+  ],
+  "rationale": "Leads with what the preprocessor does and when to use it, then moves the automatic-OCR boilerplate after it; fixes A=1 per the grade's biggest fix.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Accurate (match and pageLinesLimit selection; the performance claim comes from the original). The second paragraph's 'Sensible automatically OCRs ... only in advanced cases' and the third paragraph's whole-document note partly repeat the opening; consider merging them."
+  }
+ },
+ {
+  "n": 29,
+  "file": "docs/Senseml reference/preprocessors/merge-lines.md",
+  "replaces": "Merges lines distributed along a horizontal axis more aggressively than the built-in line merger. This preprocessor solves line-recognition problems caused by poor-quality document scans, handwritten text, and other formatting issues. For example, this preprocessor solves:",
+  "proposed": "Merges lines distributed along a horizontal axis more aggressively than Sensible's built-in line merger. Use the Merge Lines preprocessor to fix broken text lines caused by poor quality scans, handwritten text, and other formatting issues. This page covers its parameters and shows examples for OCRed handwriting and for jittery lines, so you can fix line-recognition problems such as:",
+  "best_phrases_used": [
+   "fix broken text lines",
+   "poor quality scans",
+   "handwriting OCR"
+  ],
+  "rationale": "Keeps the reference-style verb lead, names the preprocessor, and states what the page covers (parameters, handwriting and jittery-line examples); fixes A=1 without retitling. Revised: lead-in no longer reads as examples of the page: the scope sentence now ends with an outcome that introduces the bullet list ('so you can fix line-recognition problems such as:').",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the scope sentence now leads into the bullet list naturally. Minor: 'fix broken text lines' and 'fix line-recognition problems' say 'fix' twice in back-to-back sentences, and the limitations/LLM-alternative padding still follows."
+  }
+ },
+ {
+  "n": 30,
+  "file": "docs/Senseml reference/concepts/jsonlogic.md",
+  "replaces": "JsonLogic is a library for processing rules written in JSON. A JsonLogic rule is structured as follows: `{ \"operator\" : [\"values\" ... ] }`.  For example, `{ \"cat\" : [\"I love\", \"pie\"] }` results in `\"I love pie\"`.\n\nSensible supports both built-in and extended JsonLogic operators so that you can transform and validate extracted document data.",
+  "proposed": "JsonLogic is a JSON rules engine: a library for processing rules structured as `{ \"operator\" : [\"values\" ... ] }`. For example, `{ \"cat\" : [\"I love\", \"pie\"] }` results in `\"I love pie\"`. This page is the reference for Sensible's custom JsonLogic operators, such as Date Shift, Match, and Pick Fields, with syntax tips and examples, so you can write rules that transform and validate extracted data in validations, Custom Computation methods, or postprocessors. Sensible also supports the built-in and extended JsonLogic operators described in the following documentation.",
+  "best_phrases_used": [
+   "JSON rules engine",
+   "transform extracted data",
+   "custom operators"
+  ],
+  "rationale": "Keeps the JsonLogic definition but adds that the page is the reference for Sensible's custom operators and where they apply (fixes A and D); the external-docs link list stays in place because restructuring is out of scope. Revised: merged into one paragraph with an explicit reader outcome ('so you can write rules that ...'); fixed the clumsy three-way operator list.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the outcome is now reader-facing, and Date Shift/Match/Pick Fields plus the validations/Custom Computation/postprocessor uses are all supported. Minor: 'This page is the reference for Sensible's custom operators' undersells that the page also covers syntax tips and links to base/extended operators."
+  }
+ },
+ {
+  "n": 31,
+  "file": "docs/Senseml reference/senseml-reference-introduction.md",
+  "replaces": "Use the SenseML query language to extract structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents. For a brief overview of SenseML, see [Overview](doc:overview#configurable-data-extraction).\n\nSee the following topics for reference documentation for the SenseML query language:",
+  "proposed": "SenseML is Sensible's document query language for extracting structured data from documents, for example, auto insurance quotes, home inspection reports, or your custom documents. This reference documents each element of SenseML, including fields, methods, preprocessors, sections, and postprocessors, so you can find the syntax and parameters for anything you add to an extraction configuration. For a brief overview of SenseML, see [Overview](doc:overview#configurable-data-extraction). See the following topics:",
+  "best_phrases_used": [
+   "document query language",
+   "extraction configuration reference"
+  ],
+  "rationale": "Adds a defining first sentence and says the page is the index to the config reference and what you can look up from it, fixing A (what the page is and the outcome) and D before the link list. Revised: extended replaces over the adjacent 'See the following topics for reference documentation...' lead-in so there's one lead-in, not two; avoids using 'config' before the page defines it.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the back-to-back duplicate lead-ins are merged into one 'See the following topics:'. Clean; 'extraction configuration' before 'config' is defined is acceptable."
+  }
+ },
+ {
+  "n": 32,
+  "file": "docs/Senseml reference/layout-based-methods/index.md",
+  "replaces": "Use the following  [methods](doc:method) to extract structured data from documents. ",
+  "proposed": "Layout-based [methods](doc:method) extract data from documents based on where the data sits relative to anchor text and layout features such as boxes, rows, columns, and tables. This positional extraction is deterministic and doesn't use a large language model (LLM). This page lists each layout-based method with an image and a short description, so you can choose a method that fits where your target data appears on the page. For help choosing between layout-based and LLM-based methods, see [Choosing an extraction approach](doc:author).",
+  "best_phrases_used": [
+   "positional extraction",
+   "extraction methods"
+  ],
+  "rationale": "Replaces a 12-word lead-in with a definition of layout-based methods, what the table covers, and how to use it to pick a method, fixing A and D (both 0). Revised: fixed 'by its position' grammar ('based on where the data sits'); 'so that' -> 'so'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 0,
+   "D_before": 0,
+   "note": "Fixed: the 'by its position' grammar is gone and 'positional extraction is deterministic' reads well. Clean."
+  }
+ },
+ {
+  "n": 33,
+  "file": "docs/Senseml reference/field-query-object/index.md",
+  "replaces": "A field is the basic _SenseML_ query unit for extracting a piece of document data. SenseML is a query language that lets you extract structured data from documents, for example, from PDFs.  The output of a field is a JSON key-value pair that structures the extracted data.\n\nA field uses a _method_ to extract data.  SenseML contains _layout-based_ and _large language model (LLM)-based_ methods.",
+  "proposed": "A field is the basic _SenseML_ query unit for extracting one piece of document data. A field uses a _method_, either _layout-based_ or _large language model (LLM)-based_, to extract data, and returns the data as a JSON key-value pair. This page describes the Field object's top-level parameters, such as Anchor, Method, and Type, and shows example fields, so you can define fields in your config.",
+  "best_phrases_used": [
+   "extraction field definition",
+   "JSON output"
+  ],
+  "rationale": "Keeps the definition and adds a sentence on what the page covers (top-level parameters, examples) and what you can do after reading, fixing A; D was already 2, so this is a light edit. Revised: merged into one paragraph so definition, scope, and outcome are all in the first paragraph; cut the filler SenseML definition. (Unaddressed, outside replaces: the existing 'The following example shows the syntax for all the top-level parameters' line has no example after it.)",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: scope and outcome are merged into the first paragraph and the SenseML filler is gone. Outside the proposal: the existing 'The following example shows the syntax for all the top-level parameters' line still has no example after it."
+  }
+ },
+ {
+  "n": 34,
+  "file": "docs/Senseml reference/llm-based-methods/index.md",
+  "replaces": "Extract free text from unstructured documents using large language model (LLM)-based SenseML methods. For example, extract information from legal paragraphs in contracts and leases, or results from research papers.\n\nThe following LLM-based methods are alternatives to [layout-based methods](doc:layout-based-methods). ",
+  "proposed": "LLM-based SenseML methods extract data from unstructured text, such as legal paragraphs in contracts and leases or results in research papers, by prompting a large language model (LLM). This page compares Sensible's AI extraction methods so you can choose one: use [Query Group](doc:query-group) for single facts, [List](doc:list) for repeating data in any layout, and [NLP Table](doc:nlp-table) for repeating data you know is in a table. These methods are alternatives to [layout-based methods](doc:layout-based-methods).",
+  "best_phrases_used": [
+   "AI extraction methods",
+   "extract from contracts (as 'contracts and leases')"
+  ],
+  "rationale": "Names the three methods and when to use each in prose before the table, and states the page is a comparison for choosing a method (fixes A and D).",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Names all three methods and when to use each, which fixes the old gap. 'extract data from unstructured text' slightly misframes NLP Table and List, which also handle tables. The method guidance then repeats the table's Notes column almost verbatim."
+  }
+ },
+ {
+  "n": 35,
+  "file": "docs/Senseml reference/field-query-object/types.md",
+  "replaces": "Filter and format extracted data using the Type parameter in a [Field object](doc:field-query-object). ",
+  "proposed": "Types filter and format extracted data by data type, such as date, currency, address, or phone number, so your output contains only valid, consistently formatted values. You set a type using the Type parameter in a [Field object](doc:field-query-object). This page lists each available type with its syntax and example output, including advanced types such as Compose and Custom, to help you choose the type that normalizes your field's data, for example, with a custom date format.",
+  "best_phrases_used": [
+   "normalize data",
+   "data types",
+   "date format"
+  ],
+  "rationale": "Adds that the page catalogs every type and what you can decide after reading (which type to use), fixing A and D without retitling. Revised: removed the second 'so that' (now 'to help you choose').",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the double 'so that' is gone. Minor: 'to help you choose the type that normalizes your field's data, for example, with a custom date format' tacks an example onto the outcome. The bare type list still fills the rest of the window, and the existing example right after uses the Label method (outside the proposal, but worth flagging)."
+  }
+ },
+ {
+  "n": 36,
+  "file": "docs/api/api-tutorial/index.md",
+  "replaces": "Get started with extracting structured data from documents using the Sensible API. Try out the extraction endpoints with the following tutorials:",
+  "proposed": "These step-by-step tutorials show you how to extract structured data from documents with the Sensible API. Each tutorial demonstrates a different way to call the extraction endpoints and get results: synchronous extraction returns data in the API response, asynchronous extraction lets you retrieve results when they're ready, and a webhook pushes results to a URL you specify. After you try them, you can choose the approach that fits your application:",
+  "best_phrases_used": [
+   "document extraction API tutorial",
+   "step-by-step API guide"
+  ],
+  "rationale": "Says the page is a tutorial index, explains what each of the three tutorials teaches (sync vs. async vs. webhook), and states the outcome (choose an approach), fixing A and D. Revised: rewrote keyword-stuffed first sentence plainly.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: the keyword-stuffed first sentence is rewritten plainly, and the three approaches are explained before the links. Clean."
+  }
+ },
+ {
+  "n": 37,
+  "file": "docs/Senseml reference/field-query-object/match.md",
+  "replaces": "Matches are search criteria for matching lines of text in a document. They're valid elements in anchors and other objects.",
+  "proposed": "A Match object defines search criteria for finding lines of text in a document, for example, in an anchor. Matches support string matching, including fuzzy matches, regex matching, first matches, Boolean matches, and repeat matches. This page describes each match type and its parameters, so that you can choose text matching criteria that reliably find your target lines and combine them in match arrays.",
+  "best_phrases_used": [
+   "text matching",
+   "fuzzy match",
+   "regex matching"
+  ],
+  "rationale": "Expands the two-sentence definition to name each match type and the outcome of reading (choosing and combining match criteria), fixing A and D before the link list.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Accurate (fuzzy matching via editDistance). The 'so that you can choose text matching criteria' outcome is explicit. The link list and global-parameters table still follow, but the question is answered first. 'string matching, including fuzzy matches' then lists 'first/Boolean/repeat matches' as peers, which is a slightly mixed taxonomy."
+  }
+ },
+ {
+  "n": 38,
+  "file": "docs/integrations/quickstart.md",
+  "replaces": "In this quickstart, use an example SenseML configuration and example document to get a quick \"hello world\" API response.",
+  "proposed": "This quickstart makes your first Sensible API call with a single command. You use an example SenseML configuration and example document to extract structured data and get a quick \"hello world\" API response.",
+  "best_phrases_used": [
+   "first API call",
+   "hello world"
+  ],
+  "rationale": "Light edit only (page already 8/8): names Sensible, the action (extract structured data), and the curl method in sentence 1, per the grade's biggest_fix; the NOTE move is a restructure and out of scope. Revised: 'a single curl command' -> 'a single command' (the sample chains two curl calls with &&).",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 2,
+   "D_before": 2,
+   "note": "Fixed: 'single curl command' is now 'single command'. Weak spots: 'This quickstart makes your first Sensible API call' credits the page, not you, as the actor, and the outcome is just the activity (a hello world response) rather than what you can do next."
+  }
+ },
+ {
+  "n": 39,
+  "file": "docs/integrations/getting-started-email.md",
+  "replaces": "You can automatically extract structured data from email bodies and attachments by forwarding them to Sensible.",
+  "proposed": "Sensible email data extraction automatically classifies and extracts structured data from email bodies and attachments that you forward to a Sensible email address. This guide gives an overview of the email extraction workflow and walks you through implementing it, so that when you finish, you can forward emails to Sensible and get their extracted data, for example, through a webhook.",
+  "best_phrases_used": [
+   "email data extraction",
+   "extract data from email attachments"
+  ],
+  "rationale": "Adds that the page is a setup guide, lists the steps it covers, and states the end result (forwarded emails extracted to JSON at your webhook), fixing A. Revised: removed the step preview that the Implementation overview repeats and the redundant 'extract data from email attachments'; webhook framed as an example since the page marks the data destination optional.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 2,
+   "note": "Fixed: the redundant 'forward emails, extract data from email attachments' clause is gone. Clean; the workflow/implementation preview matches the sections that follow."
+  }
+ },
+ {
+  "n": 40,
+  "file": "docs/Senseml reference/advanced-computed-field-methods/custom-computation.md",
+  "replaces": "Define your own [computed field method](doc:computed-field-methods) using [JsonLogic](doc:jsonlogic). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null.",
+  "proposed": "Computes a new field from extracted data using a [JsonLogic](doc:jsonlogic) rule that you write, in effect defining your own [computed field method](doc:computed-field-methods). For example, return the sum of two fields, map arrays, or return a boolean indicating if a field's output is non-null. This page covers the method's parameters and examples, such as counting claims and summing their costs in a loss run, so you can write a rule that outputs a single calculated field. To return multiple fields from one rule, use the [Custom Computation Group](doc:custom-computation-group) method.",
+  "best_phrases_used": [
+   "post-processing",
+   "calculated field"
+  ],
+  "rationale": "Leads with the task (compute a field from extracted data), adds page scope, and distinguishes it from Custom Computation Group (fixes A and D); Input/Output bullets stay. Revised: added explicit 'so you can write a rule' outcome; trimmed 'for post-processing'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: a reader outcome is now present ('so you can write a rule that outputs a single calculated field'). Still wordy: 'in effect defining your own computed field method'; 'boolean' should be 'Boolean' per the page's own usage elsewhere."
+  }
+ },
+ {
+  "n": 41,
+  "file": "docs/Senseml reference/advanced-computed-field-methods/custom-computation-group.md",
+  "replaces": "Define your own [computed field method](doc:computed-field-methods) to transform extracted document data using [JsonLogic](doc:jsonlogic). Can return multiple fields.",
+  "proposed": "Computes multiple fields from extracted document data using one [JsonLogic](doc:jsonlogic) rule, in effect defining your own [computed field method](doc:computed-field-methods). This page covers the method's parameters and an example that copies fields from the parent `fields` object into each section of a claims document, so you can write one rule that returns several calculated fields. To output a single field, use the [Custom Computation](doc:custom-computation) method instead.",
+  "best_phrases_used": [
+   "multiple calculated fields",
+   "data transformation"
+  ],
+  "rationale": "Expands a fragment into a paragraph that says when to choose this method over Custom Computation and what the page's example shows (fixes A and D). Revised: added explicit 'so you can' outcome; removed SEO tag 'for data transformation'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 1,
+   "D_before": 1,
+   "note": "Fixed: outcome added and 'for data transformation' padding removed; the example claim (copy parent fields into sections) matches. It reuses the same 'in effect defining your own computed field method' phrase as page 40."
+  }
+ },
+ {
+  "n": 42,
+  "file": "reference/openapi_extraction.json",
+  "replaces": "**Note:** Use this endpoint for testing. Use the asynchronous extraction endpoints when in production.\\n\\nExtract data from a local document synchronously.",
+  "proposed": "Synchronously extracts structured data from a local document, such as a PDF or image, that you post in the request body, and returns the extracted data in the API response. Use this endpoint for testing; in production, use the asynchronous extraction endpoints. This reference shows you the two options for uploading the document bytes, so you can post a document and get extracted data back in one call.",
+  "best_phrases_used": [
+   "synchronous extraction API",
+   "upload PDF API"
+  ],
+  "rationale": "Leads with a full third-person definition instead of a note, folds the testing-vs-production guidance into the opener, and says what the reference covers (the two body-format options), fixing A=0 and D. Revised: removed SEO phrasing 'this synchronous extraction API' and 'upload a PDF to the API'.",
+  "grade": {
+   "A": 2,
+   "D": 2,
+   "A_before": 0,
+   "D_before": 1,
+   "note": "Accurate (two upload options, sync for testing/async for production), and the replaced Note is folded into prose. `replaces` is stored JSON-escaped (literal \\n), so it matches the raw file but not the decoded description; make sure the apply step handles that."
+  }
+ }
+]
