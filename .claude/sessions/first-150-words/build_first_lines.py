@@ -19,6 +19,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
 SOURCE = HERE / "pages.json"  # page list snapshot from PR #758's keywords-draft.md
 OUT = HERE / "first-lines-draft.md"
+PROPOSALS = HERE / "proposals.json"  # optional: proposed openings, keyed by page number
 WORDS = 150
 
 # ui-docs branch (PR #660): method id -> draft page number, for methods that are in the draft
@@ -167,6 +168,9 @@ def ui_docs():
 def main():
     groups, pages = parse_source()
     ui = ui_docs()
+    proposals = {}
+    if PROPOSALS.exists():
+        proposals = {p["n"]: p for p in json.loads(PROPOSALS.read_text(encoding="utf-8"))}
     out = [
         "# First 150 words draft",
         "",
@@ -179,6 +183,8 @@ def main():
         "- **First 150 words (current)**: the page body as plain text. Code blocks, images, tables, diagrams, and",
         "  HTML/JSX blocks appear as markers like `[table]` and don't count as words; link URLs are dropped;",
         "  headings keep their `#`s. `…` marks the 150-word cutoff. \"(entire page)\" means the page is shorter.",
+        "- **Proposed opening**: a rewrite of the opening paragraph (from `proposals.json`), with the exact current",
+        "  text it replaces, a rationale, and an independent rubric grade (criteria A and D; see `grades.md`).",
         "",
     ]
     for title, ns in groups:
@@ -198,6 +204,15 @@ def main():
             note = f"{count} words" + ("" if truncated else ", entire page") + ("" if source == "page body" else f"; from {source}")
             out.append(f"#### First 150 words (current; {note})")
             out.extend(lines)
+            prop = proposals.get(n)
+            if prop:
+                out.append(f"#### Proposed opening ({len(prop['proposed'].split())} words)")
+                out.append(prop["proposed"])
+                out.append(f"*Replaces:* \"{prop['replaces'][:200]}{'…' if len(prop['replaces']) > 200 else ''}\"")
+                out.append(f"*Why:* {prop['rationale']}")
+                if prop.get("grade"):
+                    g = prop["grade"]
+                    out.append(f"*Grade of proposed opening:* A {g['A']}, D {g['D']} (current: A {g['A_before']}, D {g['D_before']}). {g['note']}")
             out.append("")
     OUT.write_text("\n".join(out), encoding="utf-8")
     print(f"wrote {OUT.relative_to(REPO)}: {sum(len(ns) for _, ns in groups)} pages; ui-docs entries for {sorted(ui)}")
