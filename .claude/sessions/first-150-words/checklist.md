@@ -41,7 +41,9 @@ readers can tell whether the page is for them.
   - Body bugs found while grading (fix separately): #40 custom-computation.md has two `# Examples`
     H1s; #13 query-group.md has both `# Parameters` and `## Parameters`; #21 confidence.md says
     "Sensible support confidence signals" (should be "supports").
-- [ ] Propose rewrites (fan-out by topic group; pilot one group first; plan below)
+- [ ] Propose rewrites for all 42 openings (2026-10-26: user asked for proposals for every page;
+      5 writer agents by topic batch, then an independent rubric grader; stored in `proposals.json`,
+      rendered into `first-lines-draft.md` by `build_first_lines.py`)
 - [ ] User review; apply
 
 ## Execution plan: per-page edits (agreed 2026-10-20)
