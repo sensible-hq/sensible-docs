@@ -41,6 +41,10 @@ readers can tell whether the page is for them.
   - Body bugs found while grading (fix separately): #40 custom-computation.md has two `# Examples`
     H1s; #13 query-group.md has both `# Parameters` and `## Parameters`; #21 confidence.md says
     "Sensible support confidence signals" (should be "supports").
+  - More found while drafting proposals (2026-10-26): #41 custom-computation-group.md example text says
+    "Pick Values" but the config uses `pick_fields` (JsonLogic page calls it "Pick Fields");
+    #38 quickstart excerpt (merged in #758) says "run one curl command", but the sample chains two
+    curl calls with `&&`.
 - [ ] Propose rewrites for all 42 openings (2026-10-26: user asked for proposals for every page;
       5 writer agents by topic batch, then an independent rubric grader; stored in `proposals.json`,
       rendered into `first-lines-draft.md` by `build_first_lines.py`)
