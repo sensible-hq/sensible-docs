@@ -87,7 +87,7 @@ class RecordContentTest(RunnerTestCase):
     def test_left_out_and_abbreviated(self):
         rec, _ = self.run_test({"vehicles": [{"make": "A"}, "..."], "policy_number": {"value": "1"}},
                                {"vehicles": [{"make": "A"}, {"make": "B"}, {"make": "C"}], "policy_number": {"value": "1", "type": "string"}, "phone": None})
-        self.assertEqual(rec["overall"], "matches, not identical (docs leave out 1 field and 1 nested key; 1 part marked ... not checked)")
+        self.assertEqual(rec["overall"], "matches, not identical (docs leave out 1 field and 1 nested key; 1 part abridged, not checked)")
         self.assertEqual(rec["not_checked"], ["$.vehicles: docs show 1 of 3 items"])
         self.assertEqual(rec["left_out"], {"fields": ["phone"], "nested_keys": 1})
 
@@ -141,6 +141,18 @@ class ProposeFixTest(RunnerTestCase):
         self.assertIn("Proposed fix written to", rec["message"])
         self.assertIn('"source": "$150"', open(path).read())
         self.assertTrue(open(path).read().endswith("```\nafter\n"))
+
+    def test_leaves_an_abridged_output_alone(self):
+        # A fix would replace "[...]" with the full value and undo the abridgement
+        documented = {"premium": {"source": "$1[...]", "value": 100}}
+        page = "before\n```json\n" + json.dumps(documented, indent=2) + "\n```\nafter\n"
+        path = write_page(self, page)
+        test = code_test(documented, file=path)
+        test.output_span = (page.index("{"), page.rindex("}") + 1)
+        rec = runner.run_code_test(test, FakeClient({"premium": {"source": "$150", "value": 150}}), judge=FakeJudge(), judge_key="k", fix=True)
+        self.assertNotIn("Proposed fix written to", rec["message"])
+        with open(path) as f:
+            self.assertEqual(f.read(), page)
 
 
 if __name__ == "__main__":

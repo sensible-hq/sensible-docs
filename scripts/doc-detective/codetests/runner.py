@@ -63,8 +63,8 @@ def check_envelope(rec, test, actual, index):
 
 def propose_fix(test, fixed_output):
     """Rewrite the test's output block in its page with `fixed_output`. Returns whether it did."""
-    if "/*" in test.output or "//" in test.output or jsonish.has_bare_ellipsis(test.output):
-        print("  Not proposing a fix: the output block has comments or a bare ...", file=sys.stderr)
+    if "/*" in test.output or "//" in test.output or jsonish.MARK in test.output or jsonish.has_bare_ellipsis(test.output):
+        print("  Not proposing a fix: the output block has comments or is abridged ([...] or ...)", file=sys.stderr)
         return False
     with open(test.file, encoding="utf-8") as f:
         text = f.read()
