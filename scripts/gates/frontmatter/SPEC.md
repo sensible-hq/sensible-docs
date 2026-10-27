@@ -62,9 +62,9 @@ Each problem has a **rule ID**, a **severity** (`error` or `warning`), the **pat
 | `missing-docops` | **warning** (error with `--require`) | — | No `docops` key |
 | `docops-not-mapping` | error | — | `docops` is present but isn't a mapping (a null `docops:` counts as not a mapping) |
 | `unknown-key` | error | the key | A key under `docops:` other than `page_type` or `related` |
-| `missing-page-type` | error | — | `page_type` is absent or null |
+| `missing-page-type` | error | — | `page_type` is not set (absent, null, or empty) |
 | `bad-page-type` | error | the value | `page_type` isn't one of the four types |
-| `related-not-list` | error | — | `related` is set but isn't a list |
+| `related-not-list` | error | — | `related` is set (not absent, null, or empty) but isn't a list |
 | `related-not-string` | error | the value | An entry isn't a string (quote it) |
 | `related-too-many` | error | — | `related` has more than 5 entries, counting every entry as written |
 | `related-not-slug` | error | the entry | A string entry is empty, or contains `:`, `#`, `/`, or any Unicode whitespace |
