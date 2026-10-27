@@ -1,5 +1,7 @@
 # Style guide / Vale drift check
 
+**To review the rule mapping, read [REVIEW.md](REVIEW.md)**, a generated table of every style-guide rule and how it's enforced. Edit `registry.yaml`, then run `python scripts/style_sync/review_table.py`.
+
 A weekly check that the style guide (`.claude/style-guide/`) and the Vale rules (`.github/styles/`) still agree. It runs from `.github/workflows/style_drift.yml` every Monday and on demand (**Actions > Style drift check > Run workflow**).
 
 It is not a PR check and never blocks docs work. When it finds drift, it opens one issue labeled `style-drift`, or updates the open one. When a later run is clean, it closes the issue.

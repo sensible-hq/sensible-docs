@@ -298,3 +298,8 @@ def test_real_registry_is_well_formed():
     problems, stats = check_drift.check(REAL_ROOT, VALE)
     assert [p for p in problems if p.startswith(("SCHEMA", "MISSING-VALE-RULE", "ORPHAN"))] == []
     assert stats["entries"] > 0
+
+
+def test_review_table_is_current():
+    import review_table
+    assert review_table.main(["review_table.py", "--check"]) == 0, "run scripts/style_sync/review_table.py"
