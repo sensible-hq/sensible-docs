@@ -153,10 +153,11 @@ class Gate:
             by_slug.setdefault(slug, []).append((rel, related))
 
         for rel, slug, related in pages:
-            if related is None:
-                continue
+            # duplicate-slug depends only on the path, so broken pages get it too.
             if len(by_slug[slug]) > 1:
                 self.report(rel, "duplicate-slug", slug)
+            if related is None:
+                continue
             seen = set()
             for entry in related:
                 if entry in seen:
