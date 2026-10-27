@@ -146,22 +146,66 @@ def label_of(block, kinds, visible):
     return False
 
 
+NOT_SELECTOR = object()  # selector value of a key comment on an ordinary key
+
+
+class _Key:
+    """A key seen in a JSON block, and (for selector keys) its value."""
+
+    def __init__(self, line, name, selector):
+        self.line = line
+        self.name = name
+        self.selector = selector
+        self.value = None  # set once the value is read, for selector keys
+
+
 def scan_json(block, lines):
     """Tokenize a JSON block.
 
     Returns (line_comments, block_comments, key_comments):
       line_comments  0-based line indexes with a // comment
       block_comments list of (line, text)
-      key_comments   list of (line, key, text)
+      key_comments   list of (line, key, text, selector), where selector is
+                     NOT_SELECTOR for an ordinary key, or the selector key's value
+
+    Selector keys (SPEC.md, json5-comment-repeated): `id` directly inside a
+    `method` object, and `type` directly inside an entry of a `preprocessors` array.
     """
-    body = block["body"]
     line_comments = []
     block_comments = []
     key_comments = []
-    last_key = None  # (line, key)
+    stack = []  # containers: (kind '{' or '[', name of the key whose value it is, or None)
+    last_key = None  # the last _Key seen
     pending_string = None  # (line, content) of the last string, to see if it's a key
+    value_for = None  # the _Key whose value comes next (after its ':')
+    tentative = None  # the _Key that took the last string as its value
+    raw_value = None  # chars of a non-string scalar value being read
     in_block = None  # (start line, list of chars)
-    for li in body:
+
+    def is_selector(name):
+        if not stack or stack[-1][0] != "{":
+            return False
+        if name == "id" and stack[-1][1] == "method":
+            return True
+        if name == "type" and len(stack) >= 2 and stack[-2] == ("[", "preprocessors"):
+            return True
+        return False
+
+    def end_raw():
+        nonlocal raw_value, value_for
+        if raw_value is not None:
+            if value_for is not None:
+                value_for.value = ("raw", "".join(raw_value).strip())
+            raw_value = None
+            value_for = None
+
+    def close_comment(start_line, parts):
+        text = WS.sub(" ", "".join(parts)).strip()
+        block_comments.append((start_line, text))
+        if last_key is not None and last_key.line == start_line:
+            key_comments.append((start_line, last_key, text))
+
+    for li in block["body"]:
         line = lines[li]
         pos = 0
         n = len(line)
@@ -174,15 +218,12 @@ def scan_json(block, lines):
                 else:
                     in_block[1].append(line[pos:end])
                     pos = end + 2
-                    start_line, parts = in_block
-                    text = WS.sub(" ", "".join(parts)).strip()
-                    block_comments.append((start_line, text))
-                    if last_key is not None and last_key[0] == start_line:
-                        key_comments.append((start_line, last_key[1], text))
+                    close_comment(*in_block)
                     in_block = None
                 continue
             c = line[pos]
             if c in "\"'":
+                end_raw()
                 j = pos + 1
                 content = []
                 while j < n:
@@ -194,34 +235,69 @@ def scan_json(block, lines):
                         break
                     content.append(line[j])
                     j += 1
-                pending_string = (li, "".join(content))
+                text = "".join(content)
+                # A string is a key if ':' follows; otherwise it's the pending key's value.
+                tentative = value_for
+                if value_for is not None:
+                    value_for.value = ("str", text)
+                    value_for = None
+                pending_string = (li, text)
                 pos = j + 1
                 continue
             if line.startswith("/*", pos):
+                end_raw()
                 in_block = (li, [])
                 pos += 2
                 pending_string = None
                 continue
             if line.startswith("//", pos):
+                end_raw()
                 line_comments.append(li)
                 pos = n
                 pending_string = None
                 continue
             if c == ":" and pending_string is not None:
-                last_key = pending_string
+                end_raw()
+                k_line, name = pending_string
+                if tentative is not None:  # it was a key, not the previous key's value
+                    tentative.value = None
+                last_key = _Key(k_line, name, is_selector(name))
+                value_for = last_key
                 pending_string = None
-            elif not c.isspace():
+            elif c in "{[":
+                end_raw()
+                parent = value_for.name if value_for is not None else None
+                value_for = None
+                stack.append((c, parent))
                 pending_string = None
+            elif c in "}]":
+                end_raw()
+                if stack:
+                    stack.pop()
+                pending_string = None
+            elif c == ",":
+                end_raw()
+                value_for = None
+                pending_string = None
+            elif c.isspace():
+                if raw_value is not None:
+                    raw_value.append(c)
+            else:
+                pending_string = None
+                if value_for is not None:
+                    if raw_value is None:
+                        raw_value = []
+                    raw_value.append(c)
             pos += 1
         if in_block is not None:
             in_block[1].append("\n")
+    end_raw()
     if in_block is not None:  # never closes: runs to the end of the block
-        start_line, parts = in_block
-        text = WS.sub(" ", "".join(parts)).strip()
-        block_comments.append((start_line, text))
-        if last_key is not None and last_key[0] == start_line:
-            key_comments.append((start_line, last_key[1], text))
-    return line_comments, block_comments, key_comments
+        close_comment(*in_block)
+    out = []
+    for li, key, text in key_comments:
+        out.append((li, key.name, text, key.value if key.selector else NOT_SELECTOR))
+    return line_comments, block_comments, out
 
 
 def check_page(root, relpath, problems):
@@ -252,7 +328,7 @@ def check_page(root, relpath, problems):
 
     header_seen = False
     first_commented_done = False
-    earlier_keys = set()  # (key, text) from earlier config blocks
+    earlier_keys = set()  # (key, text, selector) from earlier config blocks
     for b in blocks:
         if b["lang"] not in LANGUAGES:
             add(b["open"], "fence-language", b["lang"])
@@ -279,10 +355,11 @@ def check_page(root, relpath, problems):
             elif len(headers) > 1:
                 add(headers[1], "json5-header-repeated")
             header_seen = True
-        for li, key, t in key_comments:
-            if (key, t) in earlier_keys:
+        # A comment on a selector key repeats only for the same selector value.
+        for li, key, t, sel in key_comments:
+            if (key, t, sel) in earlier_keys:
                 add(li, "json5-comment-repeated", key)
-        earlier_keys.update((key, t) for _, key, t in key_comments)
+        earlier_keys.update((key, t, sel) for _, key, t, sel in key_comments)
 
 
 # --- _order.yaml ------------------------------------------------------------
