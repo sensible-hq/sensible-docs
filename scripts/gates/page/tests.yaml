@@ -257,6 +257,20 @@ cases:
   exit: 0
   expect: [a json5-comment-repeated id]
 
+- name: a comment between a key and its value doesn't make the next key its value
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "find": /* the text to find */ "x", "replace": "y" /* the replacement */ }
+      ```
+
+      ```json
+      { "find": "a", "replace": "b" /* the replacement */ }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated replace]
+
 - name: a field's own id is not a selector key
   pages:
     a: |
