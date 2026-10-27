@@ -1,0 +1,16 @@
+# Folders whose _order.yaml lists pages in title order (A to Z, ignoring case).
+# The page gate reads this file; see SPEC.md "_order.yaml". Every other folder's
+# order is deliberate, and the gate doesn't check it. Paths are relative to the
+# repository root.
+
+- docs/Senseml reference/concepts
+- docs/Senseml reference/preprocessors
+- docs/Senseml reference/layout-based-methods
+- docs/Senseml reference/advanced-computed-field-methods
+- docs/Senseml reference/computed-field-methods
+- docs/Senseml reference/field-query-object
+- docs/Senseml reference/llm-based-methods
+- docs/Senseml reference/postprocessors
+- docs/Senseml reference/config-settings
+- docs/Senseml reference/document-type-settings
+- docs/document extraction/best-practices
