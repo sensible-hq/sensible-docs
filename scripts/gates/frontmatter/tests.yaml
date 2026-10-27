@@ -1,7 +1,7 @@
 # Acceptance tests for SPEC.md. Every implementation must pass every case.
 # See SPEC.md "Testing" for how to run a case.
 
-version: 0.2.0
+version: 0.3.0
 cases:
 - name: valid pair of related pages
   files:
@@ -1261,3 +1261,27 @@ cases:
   stdout: |
     docs/s/b.md: error: no-frontmatter
     frontmatter gate: 1 error(s), 0 warning(s), 2 page(s)
+- name: empty-string related means no related pages
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: ''
+      ---
+  exit: 0
+  problems: []
+- name: empty-string page_type is missing
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: ''
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: missing-page-type
+    severity: error

@@ -1,4 +1,4 @@
-# Frontmatter gate: specification v0.2.0
+# Frontmatter gate: specification v0.3.0
 
 ## Overview
 
@@ -23,7 +23,7 @@ docops:
 | `page_type` | Yes, when `docops:` is present | One of `tutorial`, `how-to`, `reference`, `explanation` ([Diátaxis](https://diataxis.fr/)) |
 | `related` | No | A list of 1 to 5 page slugs (see [Slugs](#slugs)). Pages whose subjects affect each other: they overlap, one is an alternative to the other, or one changes how the other behaves. |
 
-**Absent, null, and empty mean the same thing.** A key that's missing, a key with no value (`related:`, which YAML reads as null), and an empty list (`related: []`) are all "not set". So `related: null` means no related pages, and `page_type: null` is reported as `missing-page-type`.
+**Absent, null, and empty mean the same thing.** A key that's missing, a key with no value (`related:`, which YAML reads as null), an empty string (`''`), and an empty list (`[]`) are all "not set". So `related: null` and `related: ''` mean no related pages, and `page_type: null` or `page_type: ''` is reported as `missing-page-type`. This applies to `page_type` and `related` only, not to `docops` itself.
 
 No other keys are allowed under `docops:`. Keys outside `docops:` (ReadMe's `title`, `excerpt`, `hidden`, `metadata`, `next`, and so on) are never checked.
 
@@ -115,6 +115,8 @@ frontmatter gate: <E> error(s), <W> warning(s), <N> page(s)
 
 **Order:** problems sorted by path, then rule ID, then subject (no subject sorts first), comparing strings by Unicode code point. The same tree always gives the same bytes.
 
+**Anything this spec doesn't cover is implementation-defined.** That includes inputs that can't occur in the docs repo today, such as symlinked folders, control characters, and numbers in non-decimal notation. `tests.yaml` pins the behavior that matters; to pin more, add a case here first.
+
 ## Testing
 
 `tests.yaml` has one entry per case:
@@ -138,7 +140,7 @@ frontmatter gate: <E> error(s), <W> warning(s), <N> page(s)
 
 Run each case in a fresh temporary directory containing exactly its `files`. Without `stdout`, run with `--json`, and compare the problems to `problems` as lists after sorting both by path, rule, and subject. Duplicates count, so a problem reported twice fails. With `stdout`, run with exactly the case's `args` (so `--json` only if listed) and compare stdout exactly. A missing `subject` means `null`. When `exit` is 2, compare only the exit code.
 
-## Out of scope (v0.2)
+## Out of scope (v0.3)
 
 - Pages under `reference/`, and links between `docs/` and `reference/`.
 - Checking that `page_type` matches the page's content. That's a judgment, not a gate.
