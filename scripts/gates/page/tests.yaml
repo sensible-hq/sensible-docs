@@ -237,6 +237,40 @@ cases:
   exit: 0
   expect: [a json5-comment-repeated id]
 
+- name: a selector key repeats its comment only for the same method or preprocessor
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "fields": [{ "id": "total", "method": { "id": "label" /* the method */ } }],
+        "preprocessors": [{ "type": "removeLines" /* the preprocessor */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "date", "method": { "id": "row" /* the method */ } }],
+        "preprocessors": [{ "type": "pageRange" /* the preprocessor */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "name", "method": { "id": "label" /* the method */ } }] }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated id]
+
+- name: a field's own id is not a selector key
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "fields": [{ "id": "total" /* user-friendly ID for extracted target data */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "date" /* user-friendly ID for extracted target data */ }] }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated id]
+
 - name: a new comment for the same parameter, a repeat in the same config, or a repeated comment that isn't on a key, is fine
   pages:
     a: |

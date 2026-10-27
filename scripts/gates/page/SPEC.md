@@ -53,7 +53,7 @@ Reported on the page, at the line where the problem is.
 | `output-comment` | warning (error with `--strict`) | — | An output block contains a block comment. Real output has no comments. Reported once per block, at its first comment. |
 | `json5-header-missing` | warning (error with `--strict`) | — | The page's first commented config block doesn't contain the header. Reported at its opening fence. |
 | `json5-header-repeated` | warning (error with `--strict`) | — | A config block contains the header, and an earlier config block (or the same one) already did. The header goes once per page. |
-| `json5-comment-repeated` | warning | the key | A key comment in a config block has the same key and the same text as a key comment in an earlier config block on the page. Later examples don't repeat earlier comments, unless the example shows a notably different configuration or behavior, which takes judgment; so this is never an error. Repeats within one block, and comments that aren't on a key, aren't checked. |
+| `json5-comment-repeated` | warning | the key | A key comment in a config block has the same key and the same text as a key comment in an earlier config block on the page. Later examples don't repeat earlier comments, unless the example shows a notably different configuration or behavior, which takes judgment; so this is never an error. Repeats within one block, and comments that aren't on a key, aren't checked. **Selector keys:** `id` directly inside a `method` object, and `type` directly inside an entry of a `preprocessors` array, name *which* method or preprocessor runs. A comment on a selector key is a repeat only if the selector's value is also the same (Frances, 2026-10-27). A field's own `id` isn't a selector key. |
 
 ### `_order.yaml` rules
 
