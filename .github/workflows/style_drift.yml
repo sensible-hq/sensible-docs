@@ -1,0 +1,87 @@
+name: Style drift check
+
+# Weekly, non-blocking check that the style guide (.claude/style-guide/) and the
+# Vale rules (.github/styles/) still agree. See scripts/style_sync/README.md.
+# Not a PR check: it never blocks docs work. On drift it opens (or updates) one
+# issue labeled `style-drift`; when a run comes back clean it closes that issue.
+# The job stays green when drift is found; it only fails if the check can't run.
+
+on:
+  schedule:
+    - cron: '17 6 * * 1' # Mondays 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: style-drift
+  cancel-in-progress: false
+
+jobs:
+  drift:
+    if: github.repository == 'sensible-hq/sensible-docs'
+    runs-on: ubuntu-latest
+    env:
+      VALE_VERSION: '3.14.1'
+      LABEL: style-drift
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Install Vale
+        run: |
+          curl -sSfL -o "$RUNNER_TEMP/vale.tar.gz" \
+            "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz"
+          mkdir -p "$HOME/.local/bin"
+          tar -xzf "$RUNNER_TEMP/vale.tar.gz" -C "$HOME/.local/bin" vale
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Sync Vale packages
+        run: vale sync
+
+      - name: Check for drift
+        id: check
+        run: |
+          set +e
+          python scripts/style_sync/check_drift.py \
+            --report-md "$RUNNER_TEMP/style-drift.md" --run-url "$RUN_URL" --commit "$GITHUB_SHA"
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          # 0 = clean, 1 = drift (reported through the issue). Anything else
+          # means the check itself broke, so fail the job.
+          if [ "$code" -gt 1 ]; then exit "$code"; fi
+
+      - name: Open, update, or close the drift issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CODE: ${{ steps.check.outputs.code }}
+        run: |
+          gh label create "$LABEL" --color D93F0B \
+            --description "Style guide and Vale rules disagree (scheduled check)" 2>/dev/null || true
+          existing=$(gh issue list --label "$LABEL" --state open --limit 1 \
+            --json number --jq '.[0].number // empty')
+
+          if [ "$CODE" = "1" ]; then
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --body-file "$RUNNER_TEMP/style-drift.md"
+              gh issue comment "$existing" --body "Report updated by $RUN_URL"
+            else
+              gh issue create --label "$LABEL" \
+                --title "Style guide and Vale rules have drifted" --body-file "$RUNNER_TEMP/style-drift.md"
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "No drift found by $RUN_URL. Closing."
+            gh issue close "$existing"
+          fi
