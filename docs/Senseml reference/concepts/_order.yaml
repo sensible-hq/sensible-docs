@@ -6,10 +6,10 @@
 - environments
 - coverage
 - fallbacks
+- images
 - field-order
 - jsonlogic
 - jsonlogic-draft
-- images
 - ligatures
 - lines
 - llm-features
