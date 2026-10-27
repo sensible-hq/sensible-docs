@@ -159,6 +159,18 @@ cases:
   - docs/s/unreadable.md unreadable
   - docs/s/no-frontmatter.md no-frontmatter
 
+- name: duplicate slugs are reported even on pages without docops
+  pages: {dup-1: null, dup-2: null}
+  paths:
+    dup-1: docs/x/dup.md
+    dup-2: docs/y/dup.md
+  exit: 1
+  expect:
+  - dup-1 missing-docops
+  - dup-2 missing-docops
+  - dup-1 duplicate-slug dup
+  - dup-2 duplicate-slug dup
+
 # --- Output -----------------------------------------------------------------
 
 - name: text output is sorted, with a summary

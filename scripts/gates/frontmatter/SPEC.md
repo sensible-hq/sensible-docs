@@ -69,7 +69,8 @@ Each problem has a **rule ID**, a **severity** (`error` or `warning`), the **pat
 Each problem is reported once: problems with the same path, rule, and subject are one problem.
 
 **What a broken page still gets checked for:**
-- `unreadable`, `no-frontmatter`, `bad-yaml`, `missing-docops`, or `docops-not-mapping`: nothing else, and other pages treat it as having no `related` list.
+- `unreadable`, `no-frontmatter`, `bad-yaml`, `missing-docops`, or `docops-not-mapping`: nothing else except `duplicate-slug`, and other pages treat it as having no `related` list.
+- `duplicate-slug` depends only on the file's path, so it applies to **every** page, broken or not. ReadMe requires unique slugs whether or not a page has a `docops:` block.
 - `unknown-key`, `missing-page-type`, or `bad-page-type`: `related` is still checked in full.
 - `related-not-list`: the page's `related` is ignored for every later check.
 - An entry that fails `related-not-string` or `related-not-slug` is checked for nothing else.
