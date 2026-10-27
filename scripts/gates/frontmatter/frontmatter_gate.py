@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Frontmatter gate: checks the `docops:` block in docs pages' frontmatter.
 
-Behavior is defined by SPEC.md (v0.2.0) and tests.yaml in this folder.
+Behavior is defined by SPEC.md (v0.3.0) and tests.yaml in this folder.
 """
 
 import argparse
@@ -158,7 +158,8 @@ def find_pages(root):
 
 
 def is_unset(value):
-    return value is None or (isinstance(value, list) and len(value) == 0)
+    """Absent, null, empty string, and empty list all mean "not set"."""
+    return value is None or (isinstance(value, (str, list)) and len(value) == 0)
 
 
 def check_page(page, require, report):
