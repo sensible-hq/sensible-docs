@@ -1,14 +1,16 @@
 """Compare a documented output with Sensible's parsed_document.
 
-Every key and value the docs show must agree; keys the docs leave out are ignored. `...` marks
-what not to check: a value, an object member, or the rest of an array ([a, b, ...] or
-[a, ..., z]). An array without `...` must match in full.
+Every key and value the docs show must agree; keys the docs leave out are ignored. `[...]` (or the
+older `...`) marks what not to check: a value, an object member, or the rest of an array
+([a, b, [...]] or [a, [...], z]). Inside a string, `[...]` stands for any run of text, so
+"Fictional University [...] 3 C" checks the start and the end. An array without a mark must match
+in full.
 """
 
 import json
 from typing import NamedTuple
 
-from .jsonish import is_ellipsis
+from .jsonish import abridged_matches, is_abridged_string, is_ellipsis
 
 # A key the docs show that parsed_document doesn't have
 MISSING = object()
@@ -24,6 +26,8 @@ def diffs(expected, actual, path=()):
     """Every place where what the docs show disagrees with `actual`."""
     if is_ellipsis(expected):
         return []
+    if is_abridged_string(expected):
+        return [] if abridged_matches(expected, actual) else [Diff(path, expected, actual)]
     if isinstance(expected, dict):
         if not isinstance(actual, dict):
             return [Diff(path, expected, actual)]
@@ -63,15 +67,17 @@ def diffs(expected, actual, path=()):
 
 
 def coverage(expected, actual, path=(), notes=None):
-    """What the comparison didn't check: `...` markers, shortened arrays, and keys the docs leave out.
+    """What the comparison didn't check: `[...]` marks, shortened arrays, and keys the docs leave out.
 
-    Returns {"skipped": [paths], "abbreviated": [(path, shown, total)], "extra_top_level": [keys],
-    "extra_nested": count}.
+    Returns {"skipped": [paths], "abbreviated": [(path, shown, total)], "abridged_strings": [paths],
+    "extra_top_level": [keys], "extra_nested": count}.
     """
     if notes is None:
-        notes = {"skipped": [], "abbreviated": [], "extra_top_level": [], "extra_nested": 0}
+        notes = {"skipped": [], "abbreviated": [], "abridged_strings": [], "extra_top_level": [], "extra_nested": 0}
     if is_ellipsis(expected):
         notes["skipped"].append(path)
+    elif is_abridged_string(expected):
+        notes["abridged_strings"].append(path)
     elif isinstance(expected, dict) and isinstance(actual, dict):
         extra = [k for k in actual if k not in expected]
         if path:

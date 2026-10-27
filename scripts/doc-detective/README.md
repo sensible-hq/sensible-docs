@@ -183,7 +183,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
 - A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
-- Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `...`, but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
+- Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
 ## What a code test checks
 
@@ -192,7 +192,9 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 3. **Extraction.** The config is uploaded to a temporary document type (`docs_ci_examples`) in the docs test account, published to development, and extracted. Only one config is in the document type at a time, and the runner checks Sensible used it: in development, Sensible runs every config in a document type and picks the best fit.
 4. **Comparison** with Sensible's `parsed_document`:
    - Every key and value the page shows must match. Keys the page leaves out are ignored.
-   - `...` means "don't check": a value (`"created": "..."`), an object member, or the rest of an array (`[a, b, ...]`, `[a, ..., z]`). An array without `...` must match in full.
+   - `[...]` marks what the page abridges, and it isn't checked: a value (`"created": "[...]"`), an object member, or the rest of an array (`[a, b, [...]]`, `[a, [...], z]`). An array without a mark must match in full. After a colon, `"rows": [...]` means an array whose items aren't checked.
+   - Inside a string, `[...]` stands for any run of text: `"Fictional University [...] College Algebra 3 C"` checks that the value starts and ends that way. A string can have several. Plain `...` inside a string is literal text, so dot leaders like `"Total ........ 3"` compare exactly.
+   - The older `...` and `…` still work as a value, member, or array item. New pages use `[...]`.
    - Values are compared exactly: `true` doesn't match `1`; `1` matches `1.0`.
 5. **The LLM judge**, for values that differ and that an LLM method produced (Query Group, List, NLP Table, at any depth in the config, including sections, conditionals, and fallback chains). The judge sees each value, the field's declared type with that type's example from `types.md`, and the whole field. It answers pass, partial, or fail with a confidence. Layout values are never sent to the judge.
 6. **The regression envelope**, for every LLM field, whatever happened above.
@@ -248,7 +250,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 - **Text summary**: printed per code test; the failure issue quotes it.
 - **Failure issue** (CI): one standing issue labeled `doc-detective`, with failed UI steps, failed code tests, and a triage table pairing each judge failure with its envelope state.
 - **Envelope issue** (CI): one standing issue labeled `doc-detective-envelope`. It comments only when the breaches change, and closes when a run is back within the envelope.
-- **Proposed fix** (CI): for a documented-output mismatch, a draft PR from `doc-detective/getting-started-fixes` that rewrites the mismatched values. Review it: the difference can be a product regression, which the fix would codify.
+- **Proposed fix** (CI): for a documented-output mismatch, a draft PR from `doc-detective/getting-started-fixes` that rewrites the mismatched values. It isn't proposed for an output block with comments or abridgement (`[...]` or `...`): rewriting it would undo the abridgement. Review it: the difference can be a product regression, which the fix would codify.
 
 `sample-reports/` has two example reports from the fixtures.
 
@@ -277,7 +279,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 | --- | --- |
 | `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push needs the fingerprint run. |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules. |
-| `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `...`. |
+| `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `[...]` and `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |
 | `codetests/fields.py` | Which output keys LLM methods produce, and their declared types. |
 | `codetests/judge.py` | The LLM judge. Prompts and model: `config/judge/`. |

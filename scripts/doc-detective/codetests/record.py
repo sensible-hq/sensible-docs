@@ -53,9 +53,9 @@ def summarize(record, expected, actual, index, exact, judged):
         left_out.append(count(notes["extra_nested"], "nested key"))
     if left_out:
         details.append("docs leave out " + " and ".join(left_out))
-    marked = len(notes["skipped"]) + len(notes["abbreviated"])
+    marked = len(notes["skipped"]) + len(notes["abbreviated"]) + len(notes["abridged_strings"])
     if marked:
-        details.append(count(marked, "part") + " marked ... not checked")
+        details.append(count(marked, "part") + " abridged, not checked")
     if judged:
         details.append(count(len(judged), "LLM value") + (" differs" if len(judged) == 1 else " differ") + ", decided by the judge")
     if any(j["verdict"] == "error" for j in judged):
@@ -81,7 +81,7 @@ def summarize(record, expected, actual, index, exact, judged):
     record["layout"] = {"fields": len(layout_fields), "mismatches": [compare.describe(d) for d in exact]}
     record["not_checked"] = [compare.format_path(p) for p in notes["skipped"]] + [
         f"{compare.format_path(p)}: docs show {shown} of {total} items" for p, shown, total in notes["abbreviated"]
-    ]
+    ] + [f"{compare.format_path(p)}: docs abridge part of the text with [...]" for p in notes["abridged_strings"]]
     record["left_out"] = {"fields": notes["extra_top_level"], "nested_keys": notes["extra_nested"]}
 
 
