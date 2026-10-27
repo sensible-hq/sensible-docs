@@ -1,0 +1,783 @@
+# Acceptance tests for SPEC.md. Every implementation must pass every case.
+# Build each case's `files` in an empty temp dir; run with --json (or plain, when `stdout` is given).
+# `problems` is an unordered set; a missing `subject` means null. With exit 2, only the exit code is compared.
+
+version: 0.1.0
+cases:
+- name: valid pair of related pages
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops:
+        page_type: how-to
+        related: [a]
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: all four page types are valid
+  files:
+    docs/t/t1.md: |
+      ---
+      title: T
+      docops: {page_type: tutorial}
+      ---
+
+      Body.
+    docs/t/t2.md: |
+      ---
+      title: T
+      docops: {page_type: how-to}
+      ---
+
+      Body.
+    docs/t/t3.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+    docs/t/t4.md: |
+      ---
+      title: T
+      docops: {page_type: explanation}
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: empty related list is the same as none
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: []
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: keys outside docops are never checked
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      excerpt: 42
+      hidden: maybe
+      next: {pages: nope}
+      docops: {page_type: reference}
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: files outside docs/ and non-.md files are ignored
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+    README.md: |
+      # no frontmatter
+    reference/x/getting-started.md: |
+      no frontmatter
+    docs/s/notes.txt: |
+      no frontmatter
+  exit: 0
+  problems: []
+- name: index.md takes its folder's name as slug
+  files:
+    docs/s/preprocessors/index.md: |
+      ---
+      title: T
+      docops:
+        page_type: explanation
+        related: [a]
+      ---
+
+      Body.
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [preprocessors]
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: missing docops is a warning by default
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      ---
+
+      Body.
+  exit: 0
+  problems:
+  - path: docs/s/a.md
+    rule: missing-docops
+    severity: warning
+- name: --require makes missing docops an error
+  args:
+  - --require
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: missing-docops
+    severity: error
+- name: no frontmatter
+  files:
+    docs/s/a.md: |
+      # Title
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: no-frontmatter
+    severity: error
+- name: unclosed frontmatter
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: no-frontmatter
+    severity: error
+- name: frontmatter not at line 1
+  files:
+    docs/s/a.md: |2
+
+      ---
+      title: T
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: no-frontmatter
+    severity: error
+- name: invalid YAML
+  files:
+    docs/s/a.md: |
+      ---
+      title: [unclosed
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: bad-yaml
+    severity: error
+- name: frontmatter is a list, not a mapping
+  files:
+    docs/s/a.md: |
+      ---
+      - a
+      - b
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: bad-yaml
+    severity: error
+- name: docops is a string
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: reference
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: docops-not-mapping
+    severity: error
+- name: docops is empty (null)
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: docops-not-mapping
+    severity: error
+- name: unknown key under docops
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: reference, risk: high}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: unknown-key
+    severity: error
+    subject: risk
+- name: missing page_type
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        related: []
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: missing-page-type
+    severity: error
+- name: page_type not in the list
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: guide}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: bad-page-type
+    severity: error
+    subject: guide
+- name: page_type is case-sensitive
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: Reference}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: bad-page-type
+    severity: error
+    subject: Reference
+- name: page_type that isn't a string is reported as a string
+  files:
+    docs/s/a.md: |
+      ---
+      docops:
+        page_type: 3
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: bad-page-type
+    severity: error
+    subject: '3'
+- name: related is a string, not a list
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: reference, related: b}
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-not-list
+    severity: error
+  - path: docs/s/b.md
+    rule: related-asymmetric
+    severity: error
+    subject: a
+- name: related entry isn't a string
+  files:
+    docs/s/a.md: |
+      ---
+      docops:
+        page_type: reference
+        related: [1]
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-not-list
+    severity: error
+- name: more than 5 related entries; each entry is still checked
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b, c, d, e, f, g]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+    docs/s/c.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+    docs/s/d.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+    docs/s/e.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+    docs/s/f.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+    docs/s/g.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-too-many
+    severity: error
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: g
+- name: entries that aren't bare slugs
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: ['doc:b', b#anchor, s/b, two words, '']
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-not-slug
+    severity: error
+    subject: doc:b
+  - path: docs/s/a.md
+    rule: related-not-slug
+    severity: error
+    subject: b#anchor
+  - path: docs/s/a.md
+    rule: related-not-slug
+    severity: error
+    subject: s/b
+  - path: docs/s/a.md
+    rule: related-not-slug
+    severity: error
+    subject: two words
+  - path: docs/s/a.md
+    rule: related-not-slug
+    severity: error
+    subject: ''
+- name: duplicate entry reported once
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b, b, b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-duplicate
+    severity: error
+    subject: b
+- name: page lists itself
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [a]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-self
+    severity: error
+    subject: a
+- name: related slug doesn't exist
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [nope]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-unresolved
+    severity: error
+    subject: nope
+- name: reference/ pages can't be related
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [getting-started]
+      ---
+
+      Body.
+    reference/ReadMeConfig/getting-started.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-unresolved
+    severity: error
+    subject: getting-started
+- name: 'one-sided: B has related without A'
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [c]
+      ---
+
+      Body.
+    docs/s/c.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: b
+- name: 'one-sided: B has no related key'
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: b
+- name: 'one-sided: B has no docops block'
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: b
+  - path: docs/s/b.md
+    rule: missing-docops
+    severity: warning
+- name: 'one-sided: B''s frontmatter is broken'
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: [unclosed
+      ---
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: b
+  - path: docs/s/b.md
+    rule: bad-yaml
+    severity: error
+- name: 'one-sided: B''s related is malformed'
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [b]
+      ---
+
+      Body.
+    docs/s/b.md: |
+      ---
+      title: T
+      docops: {page_type: reference, related: a}
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/s/a.md
+    rule: related-asymmetric
+    severity: error
+    subject: b
+  - path: docs/s/b.md
+    rule: related-not-list
+    severity: error
+- name: 'duplicate slugs: every page reported, and a related entry naming it is unresolved'
+  files:
+    docs/x/same.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+    docs/y/same.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [same]
+      ---
+
+      Body.
+  exit: 1
+  problems:
+  - path: docs/x/same.md
+    rule: duplicate-slug
+    severity: error
+    subject: same
+  - path: docs/y/same.md
+    rule: duplicate-slug
+    severity: error
+    subject: same
+  - path: docs/s/a.md
+    rule: related-unresolved
+    severity: error
+    subject: same
+- name: folders with spaces, as in the real repo
+  files:
+    docs/Senseml reference/preprocessors/remove-lines.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [rotate-page]
+      ---
+
+      Body.
+    docs/Senseml reference/preprocessors/rotate-page.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [remove-lines]
+      ---
+
+      Body.
+  exit: 0
+  problems: []
+- name: 'text output: sorted, with summary'
+  files:
+    docs/s/b.md: |
+      ---
+      title: T
+      ---
+
+      Body.
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: guide}
+      ---
+
+      Body.
+    docs/s/c.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+        related: [nope, a]
+      ---
+
+      Body.
+  exit: 1
+  stdout: |
+    docs/s/a.md: error: bad-page-type: guide
+    docs/s/b.md: warning: missing-docops
+    docs/s/c.md: error: related-asymmetric: a
+    docs/s/c.md: error: related-unresolved: nope
+    frontmatter gate: 3 error(s), 1 warning(s), 3 page(s)
+- name: clean text output is just the summary
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops: {page_type: reference}
+      ---
+
+      Body.
+  exit: 0
+  stdout: |
+    frontmatter gate: 0 error(s), 0 warning(s), 1 page(s)
+- name: 'no docs/ folder: can''t run'
+  files:
+    README.md: |
+      # hi
+  exit: 2
