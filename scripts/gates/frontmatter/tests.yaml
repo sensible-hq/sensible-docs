@@ -1,0 +1,188 @@
+# Acceptance tests for SPEC.md. Every implementation must pass every case.
+# SPEC.md "Testing" defines the case format and how to run a case. In short:
+#   pages:  slug -> docops block, built as docs/s/<slug>.md. page_type defaults
+#           to reference; null means a page with no docops block.
+#   expect: one "<page> <rule> [<subject>]" per problem.
+
+version: 0.4.0
+cases:
+
+# --- Pages that pass, and where slugs come from -----------------------------
+
+- name: valid related pair
+  pages: {a: {related: [b]}, b: {page_type: how-to, related: [a]}}
+  exit: 0
+  expect: []
+
+- name: index.md takes its folder's name
+  pages: {preprocessors: {related: [remove-lines]}, remove-lines: {related: [preprocessors]}}
+  paths:
+    preprocessors: docs/s/preprocessors/index.md
+    remove-lines: docs/s/preprocessors/remove-lines.md
+  exit: 0
+  expect: []
+
+- name: folders with spaces
+  pages: {remove-lines: {related: [rotate-page]}, rotate-page: {}}
+  paths:
+    remove-lines: docs/Senseml reference/preprocessors/remove-lines.md
+    rotate-page: docs/Senseml reference/preprocessors/rotate-page.md
+  exit: 1
+  expect: [remove-lines related-asymmetric rotate-page]
+
+# --- Missing docops ---------------------------------------------------------
+
+- name: missing docops is a warning
+  pages: {a: null}
+  exit: 0
+  expect: [a missing-docops]
+
+- name: missing docops is an error with --require
+  args: [--require]
+  pages: {a: null}
+  exit: 1
+  expect: [a missing-docops]
+
+# --- Mistakes in one page ---------------------------------------------------
+
+- name: broken YAML indentation
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        page_type: reference
+         related: [b]
+      ---
+
+      Body.
+  exit: 1
+  expect: [docs/s/a.md bad-yaml]
+
+- name: typo'd page_type
+  pages: {a: {page_type: refrence}}
+  exit: 1
+  expect: [a bad-page-type refrence]
+
+- name: missing page_type (related is still checked)
+  pages: {b: {related: [a]}}
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
+        related: [b]
+      ---
+
+      Body.
+  exit: 1
+  expect: [docs/s/a.md missing-page-type]
+
+- name: leftover unknown key
+  pages: {a: {risk: high}}
+  exit: 1
+  expect: [a unknown-key risk]
+
+- name: doc link pasted as an entry
+  pages: {a: {related: ["doc:remove-lines"]}, remove-lines: {}}
+  exit: 1
+  expect: [a related-not-slug doc:remove-lines]
+
+- name: more than 5 related
+  pages:
+    a: {related: [b, c, d, e, f, g]}
+    b: {related: [a]}
+    c: {related: [a]}
+    d: {related: [a]}
+    e: {related: [a]}
+    f: {related: [a]}
+    g: {related: [a]}
+  exit: 1
+  expect: [a related-too-many]
+
+- name: page lists itself
+  pages: {a: {related: [a]}}
+  exit: 1
+  expect: [a related-self a]
+
+# --- Mistakes between pages -------------------------------------------------
+
+- name: one-sided related
+  pages: {a: {related: [b]}, b: {}}
+  exit: 1
+  expect: [a related-asymmetric b]
+
+- name: stale slug after a rename
+  pages: {a: {related: [old-name]}, new-name: {related: [a]}}
+  exit: 1
+  expect:
+  - a related-unresolved old-name
+  - new-name related-asymmetric a
+
+# --- Every other rule, one page each ----------------------------------------
+
+- name: null and empty string mean not set
+  pages:
+    related-null: {related: null}
+    related-empty: {related: ''}
+    type-null: {page_type: null}
+    type-empty: {page_type: ''}
+  exit: 1
+  expect:
+  - type-null missing-page-type
+  - type-empty missing-page-type
+
+- name: remaining rules
+  pages:
+    not-string: {related: [2024]}
+    twice: {related: [partner, partner]}
+    partner: {related: [twice]}
+    not-list: {related: partner}
+    not-mapping: reference
+    dup-1: {}
+    dup-2: {}
+  paths:
+    dup-1: docs/x/dup.md
+    dup-2: docs/y/dup.md
+  files:
+    docs/s/unreadable.md: {base64: /w==}
+    docs/s/no-frontmatter.md: |
+      # Just a heading
+  exit: 1
+  expect:
+  - not-string related-not-string 2024
+  - twice related-duplicate partner
+  - not-list related-not-list
+  - not-mapping docops-not-mapping
+  - dup-1 duplicate-slug dup
+  - dup-2 duplicate-slug dup
+  - docs/s/unreadable.md unreadable
+  - docs/s/no-frontmatter.md no-frontmatter
+
+- name: duplicate slugs are reported even on pages without docops
+  pages: {dup-1: null, dup-2: null}
+  paths:
+    dup-1: docs/x/dup.md
+    dup-2: docs/y/dup.md
+  exit: 1
+  expect:
+  - dup-1 missing-docops
+  - dup-2 missing-docops
+  - dup-1 duplicate-slug dup
+  - dup-2 duplicate-slug dup
+
+# --- Output -----------------------------------------------------------------
+
+- name: text output is sorted, with a summary
+  pages: {b: null, a: {page_type: guide}, c: {related: [nope, a]}}
+  exit: 1
+  stdout: |
+    docs/s/a.md: error: bad-page-type: guide
+    docs/s/b.md: warning: missing-docops
+    docs/s/c.md: error: related-asymmetric: a
+    docs/s/c.md: error: related-unresolved: nope
+    frontmatter gate: 3 error(s), 1 warning(s), 3 page(s)
+
+- name: no docs/ folder, can't run
+  files: {README.md: "# hi\n"}
+  exit: 2
