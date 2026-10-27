@@ -19,15 +19,16 @@ Identify every fenced code block in the target file (` ```json `, ` ```json5 `, 
 
 ## Step 3 — Enrich each block
 
-For each code block, apply these rules in order:
+Work through the code blocks in page order, and keep track of which parameters have already been commented on this page. For each code block, apply these rules in order:
 
-**3a. Add the JSON5 header comment** if the block doesn't already have it as its first line:
+**3a. Add the JSON5 header comment** to the first SenseML block on the page only, if it doesn't already have it as its first line. Don't repeat it in later blocks:
 ```
 /* Sensible uses JSON5 to support in-line comments*/
 ```
 
-**3b. For each parameter key in the block**, look it up in the reference file. If a canonical comment exists for that key:
+**3b. For each parameter key in the block**, look it up in the reference file. If a canonical comment exists for that key **and the key hasn't been commented earlier on this page**:
 - Add it inline at the end of that line, as `/* comment text */`
+- If the key was already commented in an earlier block, don't comment it again, unless this block shows a notably different configuration or behavior of the key. In that case, flag it in the report rather than inventing a comment
 - Preserve any existing comment — if a comment is already present, skip that line (don't replace it)
 - Only use comments verbatim from the reference. Do not invent or paraphrase.
 
