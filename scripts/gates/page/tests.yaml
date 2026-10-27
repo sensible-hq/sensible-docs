@@ -1,0 +1,434 @@
+# Acceptance tests for SPEC.md. Every implementation must pass every case.
+# SPEC.md "Testing" defines the case format and how to run a case. In short:
+#   pages:  slug -> page body (or {title, body}), built as docs/s/<slug>.md.
+#           Every folder gets a complete _order.yaml unless `orders` says otherwise.
+#   expect: one "<page> <rule> [<subject>]" per problem; line numbers aren't compared.
+
+version: 0.1.0
+cases:
+
+# --- Visible TODOs -----------------------------------------------------------
+
+- name: TODO left in an example's output block
+  pages:
+    a: |
+      **Output**
+
+      ```json
+      {
+        "total": 10 /* TODO: verify against a real run */
+      }
+      ```
+  exit: 1
+  expect: [a todo TODO, a output-comment]
+
+- name: TODO inside an HTML comment is hidden, so it's fine
+  pages:
+    a: |
+      <!-- TODO: add a screenshot -->
+      Some text. <!-- FIXME
+      TBD: spans lines -->
+      Add it to your todo list.
+  exit: 0
+  expect: []
+
+- name: an HTML comment inside a code block renders, so its TODO counts
+  pages:
+    a: |
+      ```xml
+      <!-- TODO: real output -->
+      <total>10</total>
+      ```
+  exit: 1
+  expect: [a todo TODO]
+
+- name: TBD and FIXME count too
+  pages:
+    a: |
+      The default is TBD.
+      FIXME link to the API reference.
+  exit: 1
+  expect: [a todo TBD, a todo FIXME]
+
+# --- Draft pages -------------------------------------------------------------
+
+- name: link to a draft page, and draft pages aren't checked
+  pages:
+    a: |
+      See [file types](doc:draft-file-types).
+      <!-- Later: [models](doc:draft-llm-models) -->
+    draft-file-types: |
+      TODO: write this page. See [models](doc:draft-llm-models).
+  exit: 1
+  expect: [a draft-link draft-file-types]
+
+# --- // comments in JSON -----------------------------------------------------
+
+- name: // comment in a config
+  pages:
+    a: |
+      ```json
+      {
+        "id": "row", // target is on the anchor's line
+        "position": "right"
+      }
+      ```
+  exit: 0
+  expect: [a json-line-comment]
+
+- name: // in strings, block comments, and non-JSON blocks isn't a comment
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      {
+        "url": "https://example.com/a.pdf", /* see https://example.com */
+        "pattern": 'a//b'
+      }
+      ```
+
+      ```txt
+      // not JSON, not checked
+      ```
+  exit: 0
+  expect: []
+
+# --- Code fence languages ----------------------------------------------------
+
+- name: junk after the fence, and an unknown language
+  pages:
+    a: |
+      **Output**
+
+      ```"computed_fields": [
+      {}
+      ```
+
+      ```JSON
+      {}
+      ```
+  exit: 1
+  expect: ['a fence-language "computed_fields":', a fence-language JSON]
+
+- name: allowed languages, plain fences, and fences indented in a list
+  pages:
+    a: |
+      ```json
+      {}
+      ```
+
+      ```bash
+      curl https://api.sensible.so/v0/extract
+      ```
+
+      ```
+      plain text
+      ```
+
+      1. Run:
+         ```python
+         print("hi")
+         ```
+  exit: 0
+  expect: []
+
+- name: unclosed fence
+  pages:
+    a: |
+      ```json
+      {
+        "fields": []
+      }
+  exit: 1
+  expect: [a fence-unclosed]
+
+# --- Output blocks -----------------------------------------------------------
+
+- name: output blocks aren't commented, whatever the label style
+  pages:
+    a: |
+      **Output**
+
+      ```json
+      /* POSTPROCESSED OUTPUT */
+      {}
+      ```
+
+      _Example output:_
+      <!-- inline output -->
+      ```json
+      { "a": 1 /* explained */ }
+      ```
+  exit: 0
+  expect: [a output-comment, a output-comment]
+
+# --- The JSON5 header --------------------------------------------------------
+
+- name: header missing from the first commented config
+  pages:
+    a: |
+      ```json
+      { "fields": [] }
+      ```
+
+      **Config**
+
+      ```json
+      {
+        "id": "row" /* target is on the anchor's line */
+      }
+      ```
+  exit: 0
+  expect: [a json5-header-missing]
+
+- name: header repeated in a later config
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "id": "row" /* target is on the anchor's line */ }
+      ```
+
+      ```json
+      /* Sensible uses JSON5 to support in-line comments */
+      { "id": "box" /* extracts all lines inside a box */ }
+      ```
+  exit: 0
+  expect: [a json5-header-repeated]
+
+- name: header once, in the first commented config
+  pages:
+    a: |
+      **Config**
+
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "id": "row" /* target is on the anchor's line */ }
+      ```
+
+      **Output**
+
+      ```json
+      { "total": 10 }
+      ```
+
+      ```json
+      { "id": "box" /* extracts all lines inside a box */ }
+      ```
+  exit: 0
+  expect: []
+
+# --- Repeated parameter comments ---------------------------------------------
+
+- name: a later config repeats a parameter's comment
+  args: [--strict]
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "id": "price", /* user-friendly ID for extracted target data */
+        "type": "currency" }
+      ```
+
+      ```json
+      { "id": "price",   /* user-friendly  ID for extracted target data */
+        "type": "currency" /* returns null if it isn't a currency */ }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated id]
+
+- name: a selector key repeats its comment only for the same method or preprocessor
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "fields": [{ "id": "total", "method": { "id": "label" /* the method */ } }],
+        "preprocessors": [{ "type": "removeLines" /* the preprocessor */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "date", "method": { "id": "row" /* the method */ } }],
+        "preprocessors": [{ "type": "pageRange" /* the preprocessor */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "name", "method": { "id": "label" /* the method */ } }] }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated id]
+
+- name: a comment between a key and its value doesn't make the next key its value
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "find": /* the text to find */ "x", "replace": "y" /* the replacement */ }
+      ```
+
+      ```json
+      { "find": "a", "replace": "b" /* the replacement */ }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated replace]
+
+- name: a field's own id is not a selector key
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      { "fields": [{ "id": "total" /* user-friendly ID for extracted target data */ }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "date" /* user-friendly ID for extracted target data */ }] }
+      ```
+  exit: 0
+  expect: [a json5-comment-repeated id]
+
+- name: a new comment for the same parameter, a repeat in the same config, or a repeated comment that isn't on a key, is fine
+  pages:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments*/
+      [{ "type": "string" /* returns the text as is */ },
+       { "type": "string" /* returns the text as is */ }]
+      ```
+
+      ```json
+      /* abridged */
+      { "type": "string" /* now with a regex filter */ }
+      ```
+
+      ```json
+      /* abridged */
+      { "id": "row" }
+      ```
+  exit: 0
+  expect: []
+
+# --- _order.yaml -------------------------------------------------------------
+
+- name: new page not listed
+  pages: {deskew: '', remove-lines: ''}
+  orders: {docs/s: [deskew]}
+  exit: 0
+  expect: [docs/s/_order.yaml order-unlisted remove-lines]
+
+- name: stale entry after a rename, with --strict
+  args: [--strict]
+  pages: {jsonlogic: ''}
+  orders: {docs/s: [jsonlogic, jsonlogic-draft]}
+  exit: 1
+  expect: [docs/s/_order.yaml order-stale jsonlogic-draft]
+
+- name: a new subfolder is listed in its parent's _order.yaml
+  pages: {deskew: '', remove-lines: ''}
+  paths: {remove-lines: docs/s/remove-lines/index.md}
+  orders: {docs/s: [deskew]}
+  exit: 0
+  expect: [docs/s/_order.yaml order-unlisted remove-lines]
+
+- name: draft pages can be listed or not
+  pages: {a: '', draft-b: ''}
+  orders: {docs/s: [draft-c, a]}
+  exit: 0
+  expect: []
+
+- name: alphabetical folder out of title order
+  pages:
+    fallbacks: {title: Fallback fields}
+    images: {title: Image processing}
+    field-order: {title: Field extraction order}
+  orders: {docs/s: [fallbacks, images, field-order]}
+  alphabetical: [docs/s]
+  exit: 0
+  expect: [docs/s/_order.yaml order-unsorted images]
+
+- name: other folders keep their own order
+  pages:
+    fallbacks: {title: Fallback fields}
+    images: {title: Image processing}
+    field-order: {title: Field extraction order}
+  orders: {docs/s: [fallbacks, images, field-order]}
+  exit: 0
+  expect: []
+
+- name: sort by title, ignoring case; a subfolder sorts by its index.md
+  pages:
+    zz: {title: Anchor variables}
+    llm-features: {title: LLM features overview}
+    ligatures: {title: Ligatures}
+    ocr: {title: OCR}
+    draft-x: {title: Aaa draft}
+  paths: {zz: docs/s/zz/index.md}
+  orders: {docs/s: [zz, ligatures, draft-x, llm-features, ocr]}
+  alphabetical: [docs/s]
+  exit: 0
+  expect: []
+
+- name: remaining order rules
+  pages: {a: '', b: '', c: ''}
+  paths: {a: docs/m/a.md, b: docs/b/b.md, c: docs/d/c.md}
+  orders: {docs/m: null, docs/b: "not: a list\n", docs/d: [c, c]}
+  exit: 1
+  expect:
+  - docs/m/_order.yaml order-missing
+  - docs/b/_order.yaml order-bad-yaml
+  - docs/d/_order.yaml order-duplicate c
+
+# --- Checking only some pages ------------------------------------------------
+
+- name: with paths, check those pages and their folders only
+  args: [docs/s/b.md]
+  pages: {a: 'TODO', b: 'TODO', c: '', d: ''}
+  paths: {d: docs/t/d.md}
+  orders: {docs/s: [a, b], docs/t: [d, gone]}
+  exit: 1
+  expect: [b todo TODO, docs/s/_order.yaml order-unlisted c]
+
+- name: index.md checks its parent's folder too; a deleted page's folder is still checked
+  args: [docs/s/zz/index.md, docs/t/gone.md, README.md]
+  pages: {a: 'TODO', zz: '', b: ''}
+  paths: {zz: docs/s/zz/index.md, b: docs/t/b.md}
+  orders: {docs/s: [a], docs/t: [b, gone]}
+  exit: 0
+  expect:
+  - docs/s/_order.yaml order-unlisted zz
+  - docs/t/_order.yaml order-stale gone
+
+# --- The file itself, and output ---------------------------------------------
+
+- name: unreadable page
+  files:
+    docs/s/bad.md: {base64: /w==}
+  exit: 1
+  expect: [docs/s/bad.md unreadable]
+
+- name: text output is sorted, with line numbers and a summary
+  files:
+    docs/s/a.md: |
+      ---
+      title: A
+      ---
+      TODO
+      ```json
+      { "a": 1 } // why
+      ```
+    docs/s/b.md: |
+      ---
+      title: B
+      ---
+      [x](doc:draft-x)
+  orders: {docs/s: [a, old]}
+  exit: 1
+  stdout: |
+    docs/s/_order.yaml: warning: order-stale: old
+    docs/s/_order.yaml: warning: order-unlisted: b
+    docs/s/a.md:4: error: todo: TODO
+    docs/s/a.md:6: warning: json-line-comment
+    docs/s/b.md:4: error: draft-link: draft-x
+    page gate: 2 error(s), 3 warning(s), 2 page(s), 2 folder(s)
+
+- name: no docs/ folder, can't run
+  files: {README.md: "# hi\n"}
+  exit: 2
