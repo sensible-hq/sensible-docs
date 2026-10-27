@@ -7,6 +7,13 @@ on:
       - v0
     paths:
       - 'assets/images/screenshots/**'
+  # Run on demand against the current v0, e.g. to republish after a failed run
+  workflow_dispatch:
+
+# Styling takes ~12 minutes. Queue overlapping runs instead of letting them race each other.
+concurrency:
+  group: style-images
+  cancel-in-progress: false
 
 jobs:
   images:
@@ -16,6 +23,9 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
+        with:
+          ref: v0
+          fetch-depth: 0
       - name: update packages
         run: sudo apt update
       - name: Install ghostscript for ImageMagick
@@ -28,6 +38,16 @@ jobs:
         run: convert --version
       - name: run ImageMagick
         run: bash ./scripts/style_images.sh
+      # v0 can move while images are styled (e.g. a ReadMe sync), which made the push below fail as
+      # non-fast-forward. Move the styled images onto the latest v0 first. If v0 changed the same
+      # image files, the stash pop conflicts and the run fails loudly instead of overwriting them.
+      - name: rebase onto latest v0
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked --quiet || true
+          git pull --rebase origin v0
+          if git stash list | grep -q .; then git stash pop; fi
       - name: auto commit changes from this workflow
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
