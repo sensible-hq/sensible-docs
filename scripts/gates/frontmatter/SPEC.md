@@ -1,4 +1,4 @@
-# Frontmatter gate: specification v0.3.0
+# Frontmatter gate: specification v0.4.0
 
 ## Overview
 
@@ -27,13 +27,11 @@ docops:
 
 No other keys are allowed under `docops:`. Keys outside `docops:` (ReadMe's `title`, `excerpt`, `hidden`, `metadata`, `next`, and so on) are never checked.
 
-## Pages
+## Pages and slugs
 
-A **page** is a regular file whose path matches `docs/**/*.md` under the repository root, with `.md` lowercase. Hidden files and folders count. Symbolic links are not followed. Nothing outside `docs/` is checked or resolved; in particular, `reference/` (API reference, linked as `ref:`) is a separate namespace and its pages can't appear in `related`.
+A **page** is a file matching `docs/**/*.md` under the repository root. Nothing outside `docs/` is checked or resolved; `reference/` (API reference, linked as `ref:`) is a separate namespace and its pages can't appear in `related`.
 
-### Slugs
-
-A page's slug is its filename without `.md`, except that a file named exactly `index.md` takes the name of the folder it's in (`docs/index.md` has slug `docs`). These are the slugs ReadMe uses in `(doc:<slug>)` links.
+A page's **slug** is its filename without `.md`, except that `index.md` takes the name of the folder it's in. These are the slugs ReadMe uses in `(doc:<slug>)` links.
 
 | Path | Slug |
 | --- | --- |
@@ -42,13 +40,7 @@ A page's slug is its filename without `.md`, except that a file named exactly `i
 
 Slugs compare exactly (case-sensitive). A `related` entry is a bare slug: no `doc:` prefix, no `#anchor`, no `/`, no whitespace.
 
-## Parsing conventions
-
-- **Encoding:** files are UTF-8. A leading byte-order mark is ignored. A file that isn't valid UTF-8, or can't be read, gets `unreadable` and nothing else.
-- **Lines:** `\n`, `\r\n`, and `\r` all end a line.
-- **Frontmatter** is the text between a first line that is exactly `---` and the next line that is exactly `---`. "Exactly" means nothing else on the line, not even trailing spaces.
-- **YAML** is parsed as YAML 1.1 safe-load, so unquoted `yes`, `no`, `on`, `off`, `true`, `false`, `null`, numbers, and dates are not strings. A slug like that must be quoted (`related: ["2024"]`). Frontmatter that parses to anything but a mapping, including empty frontmatter, is `bad-yaml`. When a key repeats, the last value wins.
-- **Subjects** are always strings. A non-string value is rendered as: `null`, `true` / `false`, decimal numbers as YAML wrote them (`3`, `2.5`), dates as `YYYY-MM-DD`, and anything else as compact JSON with sorted keys.
+**Frontmatter** is the text between a first line `---` and the next `---` line, parsed as YAML (safe-load). Frontmatter that isn't valid YAML or isn't a mapping is `bad-yaml`. A subject that isn't a string is reported as YAML wrote it (`2024`).
 
 ## Rules
 
@@ -64,33 +56,23 @@ Each problem has a **rule ID**, a **severity** (`error` or `warning`), the **pat
 | `unknown-key` | error | the key | A key under `docops:` other than `page_type` or `related` |
 | `missing-page-type` | error | — | `page_type` is not set (absent, null, or empty) |
 | `bad-page-type` | error | the value | `page_type` isn't one of the four types |
-| `related-not-list` | error | — | `related` is set (not absent, null, or empty) but isn't a list |
+| `related-not-list` | error | — | `related` is set but isn't a list |
 | `related-not-string` | error | the value | An entry isn't a string (quote it) |
-| `related-too-many` | error | — | `related` has more than 5 entries, counting every entry as written |
-| `related-not-slug` | error | the entry | A string entry is empty, or contains `:`, `#`, `/`, or any Unicode whitespace |
-| `related-duplicate` | error | the slug | The same valid slug appears more than once |
+| `related-too-many` | error | — | `related` has more than 5 entries |
+| `related-not-slug` | error | the entry | A string entry is empty, or contains `:`, `#`, `/`, or whitespace |
+| `related-duplicate` | error | the slug | The same slug appears more than once |
 | `related-self` | error | the slug | An entry is the page's own slug |
-| `duplicate-slug` | error | the slug | Two or more pages have the same slug; reported on **every** one of them |
+| `duplicate-slug` | error | the slug | Two or more pages have the same slug; reported on every one of them |
 | `related-unresolved` | error | the slug | No page has that slug, or more than one does |
-| `related-asymmetric` | error | the slug | Page A lists B, but B doesn't list A (see [Symmetry](#symmetry)) |
+| `related-asymmetric` | error | the slug | Page A lists B, but B doesn't list A |
 
-**Each problem is reported once.** Problems with the same path, rule, and subject are one problem, however many times the cause appears.
+Each problem is reported once: problems with the same path, rule, and subject are one problem.
 
 **What a broken page still gets checked for:**
-- `unreadable`, `no-frontmatter`, or `bad-yaml`: nothing else, and other pages treat it as having no `related` list.
-- `missing-docops` or `docops-not-mapping`: nothing else.
+- `unreadable`, `no-frontmatter`, `bad-yaml`, `missing-docops`, or `docops-not-mapping`: nothing else, and other pages treat it as having no `related` list.
 - `unknown-key`, `missing-page-type`, or `bad-page-type`: `related` is still checked in full.
-- `related-not-list`: the page's `related` is ignored for every later check, including symmetry.
-- An entry that fails `related-not-string` or `related-not-slug` is checked for nothing else. `related-too-many` stops nothing: every entry is still checked.
-
-### Symmetry
-
-Symmetry is checked only between pages whose slugs are unique. For each page A, each entry B that's a valid, distinct, non-self slug resolving to exactly one page:
-
-- B **lists A** if B's `related` (when checked at all, per the list above) has an entry equal to A's slug.
-- If it doesn't, A gets `related-asymmetric` with subject B.
-
-An entry naming a slug that more than one page has is `related-unresolved` and is never checked for symmetry. And if A's own slug is shared, nobody's entry can resolve to A, so the pages that list it get `related-unresolved` instead.
+- `related-not-list`: the page's `related` is ignored for every later check.
+- An entry that fails `related-not-string` or `related-not-slug` is checked for nothing else.
 
 ## Command line
 
@@ -98,49 +80,48 @@ An entry naming a slug that more than one page has is `related-unresolved` and i
 frontmatter_gate.py [--root DIR] [--require] [--json]
 ```
 
-- `--root`: the repository root; default `.`. If `DIR/docs` doesn't exist or isn't a folder, write a one-line error to stderr, write nothing to stdout, and exit 2.
+- `--root`: the repository root; default `.`. If `DIR/docs` isn't a folder, write a one-line error to stderr and exit 2.
 - `--require`: `missing-docops` becomes an error. Use once every page has a `docops:` block.
-- `--json`: print the problems as one JSON array instead of text.
+- `--json`: print the problems as a JSON array of objects with keys `path`, `rule`, `severity`, `subject` (`null` for rules without one), instead of text.
 
 **Exit code:** 0 if there are no errors (warnings allowed), 1 if there's at least one error, 2 if the check couldn't run.
 
-**Text output:** one line per problem, then a summary line, always. `<N>` counts every page, broken ones included. Paths use `/` and are relative to the root.
+**Text output:** one line per problem, sorted by path, then rule, then subject, then a summary line, always. Paths use `/` and are relative to the root. `<N>` counts every page.
 
 ```
 <path>: <severity>: <rule>[: <subject>]
 frontmatter gate: <E> error(s), <W> warning(s), <N> page(s)
 ```
 
-**JSON output:** an array of objects with keys in the order `path`, `rule`, `severity`, `subject` (`null` for rules without one), indented 2 spaces, non-ASCII characters written as-is, ending with a newline. No summary line.
-
-**Order:** problems sorted by path, then rule ID, then subject (no subject sorts first), comparing strings by Unicode code point. The same tree always gives the same bytes.
-
-**Anything this spec doesn't cover is implementation-defined.** That includes inputs that can't occur in the docs repo today, such as symlinked folders, control characters, and numbers in non-decimal notation. `tests.yaml` pins the behavior that matters; to pin more, add a case here first.
+**Anything this spec doesn't cover is implementation-defined.** That includes inputs that can't occur in the docs repo today: line endings, byte-order marks, spaces around `---`, repeated YAML keys, `Index.md` or `.MD`, symlinks, which characters count as whitespace, unquoted YAML numbers and booleans as slugs, how symmetry works for slugs that more than one page has, and the exact byte layout of the JSON output. `tests.yaml` pins the behavior that matters; to pin more, add a case there first.
 
 ## Testing
 
-`tests.yaml` has one entry per case:
+`tests.yaml` has a `cases` list. Each case has a `name`, optional `args` (default `[]`), `exit`, and either `expect` or `stdout`. Its files come from `pages`, `files`, or both. Build them in a fresh, empty temporary directory, which is the repository root.
 
-```yaml
-- name: short description
-  args: [--require]            # optional; default []
-  files:                       # repo-relative path → content; build these in an empty temp dir
-    docs/a/remove-lines.md: |  # a string is written as UTF-8
-      ---
-      docops:
-        page_type: reference
-      ---
-    docs/a/bad.md:
-      base64: /w==             # raw bytes, for files that aren't valid UTF-8
-  exit: 0
-  problems: []                 # {path, rule, severity, subject?}
-  stdout: |                    # optional; when present, compare the text output exactly
-    ...
+**`pages`** maps a key to a `docops:` value, written to `docs/s/<key>.md` (or to `paths[<key>]`, when the case has `paths`) as:
+
+```
+---
+title: T
+docops: <value as one-line JSON>
+---
+
+Body.
 ```
 
-Run each case in a fresh temporary directory containing exactly its `files`. Without `stdout`, run with `--json`, and compare the problems to `problems` as lists after sorting both by path, rule, and subject. Duplicates count, so a problem reported twice fails. With `stdout`, run with exactly the case's `args` (so `--json` only if listed) and compare stdout exactly. A missing `subject` means `null`. When `exit` is 2, compare only the exit code.
+A mapping without `page_type` gets `page_type: reference` first, so `{related: [b]}` becomes `docops: {"page_type": "reference", "related": ["b"]}`. A null value leaves out the `docops:` line. The key is the page's slug unless `paths` puts it somewhere else, such as an `index.md`.
 
-## Out of scope (v0.3)
+**`files`** maps a repo-relative path to a string (written as UTF-8) or `{base64: ...}` (written as the decoded bytes), for cases about the file itself.
+
+**`expect`** lists every problem as `<page> <rule>` or `<page> <rule> <subject>`, separated by single spaces; the subject is the rest of the line. `<page>` is a key from `pages` or a path from `files` (which therefore can't contain spaces). Severity is `warning` for `missing-docops` without `--require` in `args`, and `error` otherwise.
+
+**Checking a case:**
+- `exit` is 2: run with `args` and compare only the exit code.
+- `stdout` given: run with exactly `args`; compare stdout and the exit code exactly.
+- Otherwise: run with `args` plus `--json`, sort the problems and `expect` by path, rule, and subject, and compare them as lists (so a problem reported twice fails). Then compare the exit code.
+
+## Out of scope (v0.4)
 
 - Pages under `reference/`, and links between `docs/` and `reference/`.
 - Checking that `page_type` matches the page's content. That's a judgment, not a gate.

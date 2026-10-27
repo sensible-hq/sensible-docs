@@ -1,762 +1,168 @@
 # Acceptance tests for SPEC.md. Every implementation must pass every case.
-# See SPEC.md "Testing" for how to run a case.
+# SPEC.md "Testing" defines the case format and how to run a case. In short:
+#   pages:  slug -> docops block, built as docs/s/<slug>.md. page_type defaults
+#           to reference; null means a page with no docops block.
+#   expect: one "<page> <rule> [<subject>]" per problem.
 
-version: 0.3.0
+version: 0.4.0
 cases:
-- name: valid pair of related pages
+
+# --- Pages that pass, and where slugs come from -----------------------------
+
+- name: valid related pair
+  pages: {a: {related: [b]}, b: {page_type: how-to, related: [a]}}
+  exit: 0
+  expect: []
+
+- name: index.md takes its folder's name
+  pages: {preprocessors: {related: [remove-lines]}, remove-lines: {related: [preprocessors]}}
+  paths:
+    preprocessors: docs/s/preprocessors/index.md
+    remove-lines: docs/s/preprocessors/remove-lines.md
+  exit: 0
+  expect: []
+
+- name: folders with spaces
+  pages: {remove-lines: {related: [rotate-page]}, rotate-page: {}}
+  paths:
+    remove-lines: docs/Senseml reference/preprocessors/remove-lines.md
+    rotate-page: docs/Senseml reference/preprocessors/rotate-page.md
+  exit: 1
+  expect: [remove-lines related-asymmetric rotate-page]
+
+# --- Missing docops ---------------------------------------------------------
+
+- name: missing docops is a warning
+  pages: {a: null}
+  exit: 0
+  expect: [a missing-docops]
+
+- name: missing docops is an error with --require
+  args: [--require]
+  pages: {a: null}
+  exit: 1
+  expect: [a missing-docops]
+
+# --- Mistakes in one page ---------------------------------------------------
+
+- name: broken YAML indentation
   files:
     docs/s/a.md: |
       ---
       title: T
       docops:
         page_type: reference
+         related: [b]
+      ---
+
+      Body.
+  exit: 1
+  expect: [docs/s/a.md bad-yaml]
+
+- name: typo'd page_type
+  pages: {a: {page_type: refrence}}
+  exit: 1
+  expect: [a bad-page-type refrence]
+
+- name: missing page_type (related is still checked)
+  pages: {b: {related: [a]}}
+  files:
+    docs/s/a.md: |
+      ---
+      title: T
+      docops:
         related: [b]
       ---
 
       Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: how-to
-        related: [a]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: all four page types are valid
-  files:
-    docs/t/t1.md: |
-      ---
-      title: T
-      docops: {page_type: tutorial}
-      ---
-
-      Body.
-    docs/t/t2.md: |
-      ---
-      title: T
-      docops: {page_type: how-to}
-      ---
-
-      Body.
-    docs/t/t3.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
-    docs/t/t4.md: |
-      ---
-      title: T
-      docops: {page_type: explanation}
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: empty related list is the same as none
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: []
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: keys outside docops are never checked
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      excerpt: 42
-      hidden: maybe
-      next: {pages: nope}
-      docops: {page_type: reference}
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: files outside docs/ and non-.md files are ignored
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
-    README.md: |
-      # no frontmatter
-    reference/x/getting-started.md: |
-      no frontmatter
-    docs/s/notes.txt: |
-      no frontmatter
-  exit: 0
-  problems: []
-- name: index.md takes its folder's name as slug
-  files:
-    docs/s/preprocessors/index.md: |
-      ---
-      title: T
-      docops:
-        page_type: explanation
-        related: [a]
-      ---
-
-      Body.
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [preprocessors]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: missing docops is a warning by default
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      ---
-
-      Body.
-  exit: 0
-  problems:
-  - path: docs/s/a.md
-    rule: missing-docops
-    severity: warning
-- name: --require makes missing docops an error
-  args:
-  - --require
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      ---
-
-      Body.
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: missing-docops
-    severity: error
-- name: no frontmatter
-  files:
-    docs/s/a.md: |
-      # Title
+  expect: [docs/s/a.md missing-page-type]
 
-      Body.
+- name: leftover unknown key
+  pages: {a: {risk: high}}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: no-frontmatter
-    severity: error
-- name: unclosed frontmatter
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
+  expect: [a unknown-key risk]
+
+- name: doc link pasted as an entry
+  pages: {a: {related: ["doc:remove-lines"]}, remove-lines: {}}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: no-frontmatter
-    severity: error
-- name: frontmatter not at line 1
-  files:
-    docs/s/a.md: |2
+  expect: [a related-not-slug doc:remove-lines]
 
-      ---
-      title: T
-      ---
+- name: more than 5 related
+  pages:
+    a: {related: [b, c, d, e, f, g]}
+    b: {related: [a]}
+    c: {related: [a]}
+    d: {related: [a]}
+    e: {related: [a]}
+    f: {related: [a]}
+    g: {related: [a]}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: no-frontmatter
-    severity: error
-- name: invalid YAML
-  files:
-    docs/s/a.md: |
-      ---
-      title: [unclosed
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-yaml
-    severity: error
-- name: frontmatter is a list, not a mapping
-  files:
-    docs/s/a.md: |
-      ---
-      - a
-      - b
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-yaml
-    severity: error
-- name: docops is a string
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: reference
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: docops-not-mapping
-    severity: error
-- name: docops is empty (null)
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: docops-not-mapping
-    severity: error
-- name: unknown key under docops
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: reference, risk: high}
-      ---
+  expect: [a related-too-many]
 
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: unknown-key
-    severity: error
-    subject: risk
-- name: missing page_type
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        related: []
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: missing-page-type
-    severity: error
-- name: page_type not in the list
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: guide}
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-page-type
-    severity: error
-    subject: guide
-- name: page_type is case-sensitive
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: Reference}
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-page-type
-    severity: error
-    subject: Reference
-- name: page_type that isn't a string is reported as a string
-  files:
-    docs/s/a.md: |
-      ---
-      docops:
-        page_type: 3
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-page-type
-    severity: error
-    subject: '3'
-- name: related is a string, not a list
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: reference, related: b}
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-list
-    severity: error
-  - path: docs/s/b.md
-    rule: related-asymmetric
-    severity: error
-    subject: a
-- name: related entry isn't a string
-  files:
-    docs/s/a.md: |
-      ---
-      docops:
-        page_type: reference
-        related: [1]
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-string
-    severity: error
-    subject: '1'
-- name: more than 5 related entries; each entry is still checked
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b, c, d, e, f, g]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/c.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/d.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/e.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/f.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/g.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-too-many
-    severity: error
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: g
-- name: entries that aren't bare slugs
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: ['doc:b', b#anchor, s/b, two words, '']
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: doc:b
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: b#anchor
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: s/b
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: two words
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: ''
-- name: duplicate entry reported once
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b, b, b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-duplicate
-    severity: error
-    subject: b
 - name: page lists itself
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
+  pages: {a: {related: [a]}}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-self
-    severity: error
-    subject: a
-- name: related slug doesn't exist
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [nope]
-      ---
+  expect: [a related-self a]
 
-      Body.
+# --- Mistakes between pages -------------------------------------------------
+
+- name: one-sided related
+  pages: {a: {related: [b]}, b: {}}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-unresolved
-    severity: error
-    subject: nope
-- name: reference/ pages can't be related
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [getting-started]
-      ---
+  expect: [a related-asymmetric b]
 
-      Body.
-    reference/ReadMeConfig/getting-started.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
+- name: stale slug after a rename
+  pages: {a: {related: [old-name]}, new-name: {related: [a]}}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-unresolved
-    severity: error
-    subject: getting-started
-- name: 'one-sided: B has related without A'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
+  expect:
+  - a related-unresolved old-name
+  - new-name related-asymmetric a
 
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [c]
-      ---
+# --- Every other rule, one page each ----------------------------------------
 
-      Body.
-    docs/s/c.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
+- name: null and empty string mean not set
+  pages:
+    related-null: {related: null}
+    related-empty: {related: ''}
+    type-null: {page_type: null}
+    type-empty: {page_type: ''}
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-- name: 'one-sided: B has no related key'
+  expect:
+  - type-null missing-page-type
+  - type-empty missing-page-type
+
+- name: remaining rules
+  pages:
+    not-string: {related: [2024]}
+    twice: {related: [partner, partner]}
+    partner: {related: [twice]}
+    not-list: {related: partner}
+    not-mapping: reference
+    dup-1: {}
+    dup-2: {}
+  paths:
+    dup-1: docs/x/dup.md
+    dup-2: docs/y/dup.md
   files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
+    docs/s/unreadable.md: {base64: /w==}
+    docs/s/no-frontmatter.md: |
+      # Just a heading
   exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-- name: 'one-sided: B has no docops block'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
+  expect:
+  - not-string related-not-string 2024
+  - twice related-duplicate partner
+  - not-list related-not-list
+  - not-mapping docops-not-mapping
+  - dup-1 duplicate-slug dup
+  - dup-2 duplicate-slug dup
+  - docs/s/unreadable.md unreadable
+  - docs/s/no-frontmatter.md no-frontmatter
 
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      ---
+# --- Output -----------------------------------------------------------------
 
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-  - path: docs/s/b.md
-    rule: missing-docops
-    severity: warning
-- name: 'one-sided: B''s frontmatter is broken'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: [unclosed
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-  - path: docs/s/b.md
-    rule: bad-yaml
-    severity: error
-- name: 'one-sided: B''s related is malformed'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops: {page_type: reference, related: a}
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-  - path: docs/s/b.md
-    rule: related-not-list
-    severity: error
-- name: 'duplicate slugs: every page reported, and a related entry naming it is unresolved'
-  files:
-    docs/x/same.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
-    docs/y/same.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
-
-      Body.
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [same]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/x/same.md
-    rule: duplicate-slug
-    severity: error
-    subject: same
-  - path: docs/y/same.md
-    rule: duplicate-slug
-    severity: error
-    subject: same
-  - path: docs/s/a.md
-    rule: related-unresolved
-    severity: error
-    subject: same
-- name: folders with spaces, as in the real repo
-  files:
-    docs/Senseml reference/preprocessors/remove-lines.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [rotate-page]
-      ---
-
-      Body.
-    docs/Senseml reference/preprocessors/rotate-page.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [remove-lines]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: 'text output: sorted, with summary'
-  files:
-    docs/s/b.md: |
-      ---
-      title: T
-      ---
-
-      Body.
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: guide}
-      ---
-
-      Body.
-    docs/s/c.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [nope, a]
-      ---
-
-      Body.
+- name: text output is sorted, with a summary
+  pages: {b: null, a: {page_type: guide}, c: {related: [nope, a]}}
   exit: 1
   stdout: |
     docs/s/a.md: error: bad-page-type: guide
@@ -764,524 +170,7 @@ cases:
     docs/s/c.md: error: related-asymmetric: a
     docs/s/c.md: error: related-unresolved: nope
     frontmatter gate: 3 error(s), 1 warning(s), 3 page(s)
-- name: clean text output is just the summary
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops: {page_type: reference}
-      ---
 
-      Body.
-  exit: 0
-  stdout: |
-    frontmatter gate: 0 error(s), 0 warning(s), 1 page(s)
-- name: 'no docs/ folder: can''t run'
-  files:
-    README.md: |
-      # hi
+- name: no docs/ folder, can't run
+  files: {README.md: "# hi\n"}
   exit: 2
-- name: 'related: null means no related pages'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related:
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: 'page_type: null is missing'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type:
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: missing-page-type
-    severity: error
-- name: unquoted entries YAML reads as non-strings
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [2024, on, null, 2.5]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-string
-    severity: error
-    subject: '2024'
-  - path: docs/s/a.md
-    rule: related-not-string
-    severity: error
-    subject: 'true'
-  - path: docs/s/a.md
-    rule: related-not-string
-    severity: error
-    subject: 'null'
-  - path: docs/s/a.md
-    rule: related-not-string
-    severity: error
-    subject: '2.5'
-- name: a quoted numeric slug works
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: ["2024"]
-      ---
-
-      Body.
-    docs/s/2024.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: the same bad entry twice is reported once
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [doc:b, doc:b]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: doc:b
-- name: 'listing itself twice: duplicate and self, once each'
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a, a]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-duplicate
-    severity: error
-    subject: a
-  - path: docs/s/a.md
-    rule: related-self
-    severity: error
-    subject: a
-- name: too many counts every entry as written
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b, b, b, b, b, b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-too-many
-    severity: error
-  - path: docs/s/a.md
-    rule: related-duplicate
-    severity: error
-    subject: b
-- name: a page with a shared slug isn't checked for symmetry, and can't be resolved
-  files:
-    docs/x/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
-    docs/y/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/x/a.md
-    rule: duplicate-slug
-    severity: error
-    subject: a
-  - path: docs/y/a.md
-    rule: duplicate-slug
-    severity: error
-    subject: a
-  - path: docs/s/b.md
-    rule: related-unresolved
-    severity: error
-    subject: a
-- name: unreadable file
-  files:
-    docs/s/a.md:
-      base64: LS0tCnRpdGxlOiD//gotLS0K
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: unreadable
-    severity: error
-- name: unknown key doesn't stop the related checks
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        risk: high
-        related: [nope]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: unknown-key
-    severity: error
-    subject: risk
-  - path: docs/s/a.md
-    rule: related-unresolved
-    severity: error
-    subject: nope
-- name: bad page_type doesn't stop the related checks
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: guide
-        related: [b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-page-type
-    severity: error
-    subject: guide
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-- name: a page whose docops isn't a mapping lists nobody back
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [b]
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      docops: reference
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-asymmetric
-    severity: error
-    subject: b
-  - path: docs/s/b.md
-    rule: docops-not-mapping
-    severity: error
-- name: Unicode whitespace in an entry
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: ["a\u00a0b"]
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: related-not-slug
-    severity: error
-    subject: a b
-- name: CRLF line endings
-  files:
-    docs/s/a.md: "---\r\ntitle: T\r\ndocops:\r\n  page_type: reference\r\n---\r\n\r\nBody.\r\n"
-  exit: 0
-  problems: []
-- name: byte-order mark is ignored
-  files:
-    docs/s/a.md: "\uFEFF---\ntitle: T\ndocops:\n  page_type: reference\n---\n\nBody.\n"
-  exit: 0
-  problems: []
-- name: trailing space on a delimiter line
-  files:
-    docs/s/a.md: "--- \ntitle: T\n---\n"
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: no-frontmatter
-    severity: error
-- name: empty frontmatter
-  files:
-    docs/s/a.md: |
-      ---
-      ---
-
-      Body.
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: bad-yaml
-    severity: error
-- name: 'repeated key: the last value wins'
-  files:
-    docs/s/a.md: |
-      ---
-      docops:
-        page_type: bogus
-      docops:
-        page_type: reference
-      ---
-  exit: 0
-  problems: []
-- name: docs/index.md has slug docs
-  files:
-    docs/index.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [docs]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: index.md matches exactly; Index.md is an ordinary page
-  files:
-    docs/s/Index.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [a]
-      ---
-
-      Body.
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: [Index]
-      ---
-
-      Body.
-  exit: 0
-  problems: []
-- name: upper-case .MD isn't a page
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-      ---
-
-      Body.
-    docs/s/b.MD: |
-      no frontmatter
-  exit: 0
-  problems: []
-- name: 'sort is by code point: upper case before lower'
-  files:
-    docs/B.md: |
-      ---
-      title: T
-      ---
-
-      Body.
-    docs/a.md: |
-      ---
-      title: T
-      ---
-
-      Body.
-  exit: 0
-  stdout: |
-    docs/B.md: warning: missing-docops
-    docs/a.md: warning: missing-docops
-    frontmatter gate: 0 error(s), 2 warning(s), 2 page(s)
-- name: exact JSON output
-  args:
-  - --json
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: guide
-      ---
-
-      Body.
-    docs/s/b.md: |
-      ---
-      title: T
-      ---
-
-      Body.
-  exit: 1
-  stdout: |
-    [
-      {
-        "path": "docs/s/a.md",
-        "rule": "bad-page-type",
-        "severity": "error",
-        "subject": "guide"
-      },
-      {
-        "path": "docs/s/b.md",
-        "rule": "missing-docops",
-        "severity": "warning",
-        "subject": null
-      }
-    ]
-- name: clean JSON output is an empty array
-  args:
-  - --json
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-      ---
-
-      Body.
-  exit: 0
-  stdout: |
-    []
-- name: 'docs is a file, not a folder: can''t run'
-  files:
-    docs: |
-      not a folder
-  exit: 2
-- name: the page count includes broken pages
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-      ---
-
-      Body.
-    docs/s/b.md: |
-      no frontmatter
-  exit: 1
-  stdout: |
-    docs/s/b.md: error: no-frontmatter
-    frontmatter gate: 1 error(s), 0 warning(s), 2 page(s)
-- name: empty-string related means no related pages
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: reference
-        related: ''
-      ---
-  exit: 0
-  problems: []
-- name: empty-string page_type is missing
-  files:
-    docs/s/a.md: |
-      ---
-      title: T
-      docops:
-        page_type: ''
-      ---
-  exit: 1
-  problems:
-  - path: docs/s/a.md
-    rule: missing-page-type
-    severity: error
