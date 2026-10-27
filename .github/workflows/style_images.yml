@@ -36,8 +36,10 @@ jobs:
         run: whereis convert
       - name: troubleshoot - Verify ImageMagick installation
         run: convert --version
+      # Restyles only screenshots that changed (by content hash, tracked in assets/images/final/.sources.json),
+      # and deletes styled copies of removed screenshots.
       - name: run ImageMagick
-        run: bash ./scripts/style_images.sh
+        run: python3 scripts/style_images/style_images.py
       # v0 can move while images are styled (e.g. a ReadMe sync), which made the push below fail as
       # non-fast-forward. Move the styled images onto the latest v0 first. If v0 changed the same
       # image files, the stash pop conflicts and the run fails loudly instead of overwriting them.
