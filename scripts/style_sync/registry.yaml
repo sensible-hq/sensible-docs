@@ -86,6 +86,14 @@ google:
     Google.Colons: "NO"
     Google.EmDash: "NO"
 
+# Rules that check only lines an agent added (Frances, 2026-10-28: ban AI-written
+# em dashes, allow human ones). Each is turned off in .vale.ini, so normal Vale
+# runs and CI lint skip it; scripts/style_sync/agent_lines.py runs it on added
+# lines. check_drift.py still runs its tests, and reports AGENT-ONLY-ENABLED if
+# .vale.ini turns it on. See README.md "Agent-only rules".
+agent_only_rules:
+  - Sensible.EmDash
+
 not_rules:
   - at: writing-rules.md#terminology
     reason: pointer to glossary.md; the glossary rows are the rules
@@ -132,6 +140,8 @@ rules:
       Sensible.EmDash replaces Google.EmDash (turned off in .vale.ini), which
       flagged only spaced dashes and whose fix produced "a—b". Vale can't tell
       whether a dash joins two clauses, so it flags every em dash between words.
+      Agent-only: it checks only lines an agent added (agent_only_rules), so a
+      person's em dash is never flagged.
 
   - id: wr-explicit-subjects
     at: writing-rules.md#explicit-subjects--avoid-passive-voice

@@ -255,6 +255,35 @@ def test_disabled_target(repo):
 
 
 @needs_vale
+def test_agent_only_rule_is_off_in_vale_ini_and_still_tested(repo):
+    reg = load_registry(repo)
+    reg["agent_only_rules"] = ["Sensible.NoFoobar"]
+    save_registry(repo, reg)
+    write(repo / ".vale.ini", VALE_INI + "Sensible.NoFoobar = NO\n")
+    assert run(repo) == []
+    # its fixtures still run, with the rule enabled explicitly
+    write(repo / check_drift.FIXTURES_REL / "NoFoobar/pass.md", "Call foobar now.\n")
+    assert codes(run(repo)) == ["TEST-FAIL"]
+
+
+@needs_vale
+def test_agent_only_rule_enabled_in_vale_ini(repo):
+    reg = load_registry(repo)
+    reg["agent_only_rules"] = ["Sensible.NoFoobar"]
+    save_registry(repo, reg)
+    assert codes(run(repo)) == ["AGENT-ONLY-ENABLED"]
+
+
+@needs_vale
+def test_agent_only_rule_missing(repo):
+    reg = load_registry(repo)
+    reg["agent_only_rules"] = ["Sensible.Nope"]
+    save_registry(repo, reg)
+    write(repo / ".vale.ini", VALE_INI + "Sensible.NoFoobar = NO\n")
+    assert any(p.startswith("MISSING-VALE-RULE: agent_only_rules") for p in run(repo))
+
+
+@needs_vale
 def test_entry_needs_exactly_one_enforcement(repo):
     reg = load_registry(repo)
     reg["rules"][1]["none-yet"] = ""

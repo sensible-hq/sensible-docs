@@ -7,6 +7,9 @@ on:
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - 'scripts/style_sync/**'
+      # style_sync's agent_lines tests run the edit hook and the real .vale.ini
+      - '.claude/hooks/vale-check.sh'
+      - '.vale.ini'
       - '.github/workflows/test-scripts.yml'
   push:
     branches:
@@ -16,6 +19,9 @@ on:
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - 'scripts/style_sync/**'
+      # style_sync's agent_lines tests run the edit hook and the real .vale.ini
+      - '.claude/hooks/vale-check.sh'
+      - '.vale.ini'
       - '.github/workflows/test-scripts.yml'
 
 jobs:

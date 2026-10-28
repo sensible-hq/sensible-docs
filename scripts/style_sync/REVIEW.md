@@ -12,7 +12,7 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 
 | Status | Rule | Enforced by | Note | ID |
 | --- | --- | --- | --- | --- |
-| ⚠️ draft | [em dashes](../../.claude/style-guide/writing-rules.md#em-dashes) | Vale: `Sensible.EmDash` | Sensible.EmDash replaces Google.EmDash (turned off in .vale.ini), which flagged only spaced dashes and whose fix produced "a—b". Vale can't tell whether a dash joins two clauses, so it flags every em dash between words. | `wr-em-dashes` |
+| ⚠️ draft | [em dashes](../../.claude/style-guide/writing-rules.md#em-dashes) | Vale: `Sensible.EmDash` (agent-added lines only) | Sensible.EmDash replaces Google.EmDash (turned off in .vale.ini), which flagged only spaced dashes and whose fix produced "a—b". Vale can't tell whether a dash joins two clauses, so it flags every em dash between words. Agent-only: it checks only lines an agent added (agent_only_rules), so a person's em dash is never flagged. | `wr-em-dashes` |
 | ⚠️ draft | [explicit subjects avoid passive voice](../../.claude/style-guide/writing-rules.md#explicit-subjects--avoid-passive-voice) | Vale: `Google.Passive` | Google.Passive covers the passive-voice half; the "use Sensible/you as subject" half is not checked. | `wr-explicit-subjects` |
 | mechanical | [extraction and classification phrasing](../../.claude/style-guide/writing-rules.md#extraction-and-classification-phrasing) | Vale: `Sensible.AgainstPhrasing` |  | `wr-against-phrasing` |
 | ⚠️ draft | [gerunds over nominalizations](../../.claude/style-guide/writing-rules.md#gerunds-over-nominalizations) | **Not enforced yet**: "the <noun>tion of" patterns are detectable but noisy |  | `wr-gerunds` |
@@ -73,7 +73,7 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 | ⚠️ draft | [Parameter descriptions](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Human: choice of person depends on meaning |  | `sgo-parameter-descriptions` |
 | ⚠️ draft | [Examples](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Human: applies only to example introductions |  | `sgo-example-intros` |
 | ⚠️ draft | [Tone](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Sensible.Filler` | Partial; see wr-tone. | `sgo-tone` |
-| ⚠️ draft | [Em dashes](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Sensible.EmDash` | See wr-em-dashes. | `sgo-em-dashes` |
+| ⚠️ draft | [Em dashes](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Sensible.EmDash` (agent-added lines only) | See wr-em-dashes. | `sgo-em-dashes` |
 | ⚠️ draft | [standard table most pages](../../.claude/style-guide/style-guide-overview.md#standard-table-most-pages) | Human: table header format; Vale has no table-header scope |  | `sgo-standard-table` |
 | ⚠️ draft | [four column table with interactions complex llm methods](../../.claude/style-guide/style-guide-overview.md#four-column-table-with-interactions-complex-llm-methods) | Human: when to use the format is a judgment call |  | `sgo-four-column-table` |
 | ⚠️ draft | [section separator rows in parameter tables](../../.claude/style-guide/style-guide-overview.md#section-separator-rows-in-parameter-tables) | Human: when to use separator rows is a judgment call |  | `sgo-separator-rows` |
