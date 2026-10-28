@@ -1,0 +1,582 @@
+# Acceptance tests for SPEC.md. Every implementation must pass every case.
+# SPEC.md "Testing" defines the case format and how to run a case. In short:
+#   base, head: slug -> exact page text, written to base/docs/s/<slug>.md and head/docs/s/<slug>.md
+#               (or a path containing "/"). No frontmatter.
+#   expect:     one "<page> <rule> [<subject>]" per problem; line numbers aren't compared.
+#   tests:      one "<page> <testId>" per covering test (--print-tests); default [].
+
+version: 0.1.0
+cases:
+
+# --- Changed examples need a code test ---------------------------------------
+
+- name: a new example with no code test, config and output both flagged
+  head:
+    a: |
+      **Config**
+
+      ```json
+      { "fields": [{ "id": "total", "anchor": "total", "method": { "id": "row" } }] }
+      ```
+
+      **Output**
+
+      ```json
+      { "total": { "value": 10, "type": "number" } }
+      ```
+  exit: 1
+  expect: [a config-untested, a output-untested]
+
+- name: the same example inside a code test passes, and its test is listed
+  head:
+    a: |
+      <!-- code test {"testId": "extract_total", "description": "Run the row example"} -->
+
+      <!-- inline document -->
+      | Example document | [Download link](https://example.com/row.pdf) |
+
+      **Config**
+
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "total", "anchor": "total", "method": { "id": "row" } }] }
+      ```
+
+      **Output**
+
+      <!-- inline output -->
+      ```json
+      { "total": { "value": 10, "type": "number" } }
+      ```
+      <!-- code test end -->
+  exit: 0
+  expect: []
+  tests: [a extract_total]
+
+- name: unchanged examples aren't checked, even untested or under broken markup
+  base:
+    a: &untested |
+      <!-- code test {"testId": "extract_old"} -->
+      **Config**
+
+      ```json
+      { "fields": [{ "id": "total", "method": { "id": "row" } }] }
+      ```
+    b: |
+      Old intro.
+
+      ```json
+      { "fields": [{ "id": "date", "method": { "id": "label" } }] }
+      ```
+  head:
+    a: *untested
+    b: |
+      New intro, with a [link](doc:row).
+
+      ```json
+      { "fields": [{ "id": "date", "method": { "id": "label" } }] }
+      ```
+  exit: 0
+  expect: []
+
+- name: an edited value is a change, even whitespace inside a string
+  base:
+    a: |
+      ```json
+      { "fields": [{ "id": "total", "anchor": "total", "method": { "id": "row" } }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "name", "anchor": "full name", "method": { "id": "label" } }] }
+      ```
+
+      **Output**
+
+      ```json
+      { "total": { "value": 10, "type": "number" } }
+      ```
+  head:
+    a: |
+      ```json
+      { "fields": [{ "id": "total", "anchor": "subtotal", "method": { "id": "row" } }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "name", "anchor": "full  name", "method": { "id": "label" } }] }
+      ```
+
+      **Output**
+
+      ```json
+      { "total": { "value": 10, "type": "number" } }
+      ```
+  exit: 1
+  expect: [a config-untested, a config-untested]
+
+- name: reformatting and comment edits aren't changes
+  base:
+    a: |
+      ```json
+      { "fields": [{ "id": "total", "anchor": "total", "method": { "id": "row" /* old comment */ } }] }
+      ```
+  head:
+    a: |
+      ```json
+      /* Sensible uses JSON5 to support in-line comments */
+      {
+        "fields": [
+          {
+            "id": "total", /* user-friendly ID for extracted target data */
+            "anchor": "total",
+            "method": {
+              "id": "row" // new comment
+            }
+          }
+        ]
+      }
+      ```
+  exit: 0
+  expect: []
+
+- name: moving a block within a page isn't a change, but an extra copy is
+  base:
+    a: |
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+  head:
+    a: |
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  expect: [a config-untested]
+
+- name: a block moved to another page is new there
+  base:
+    a: |
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  head:
+    a: |
+      Moved to [b](doc:b).
+    b: |
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  expect: [b config-untested]
+
+- name: drafts aren't checked; a draft renamed to drop draft- is all new
+  base:
+    draft-c: &config |
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  head:
+    c: *config
+    draft-d: |
+      ```json
+      { "fields": [{ "id": "d", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  expect: [c config-untested]
+
+# --- Which JSON blocks are examples ------------------------------------------
+
+- name: output blocks use the page gate's label rule; other labels make plain JSON
+  head:
+    a: |
+      _Example output:_
+
+      ```json
+      { "total": { "value": 10, "type": "number" } }
+      ```
+
+      ## Output
+
+      ```json
+      { "date": { "value": "2024-01-01T00:00:00.000Z", "type": "date" } }
+      ```
+
+      The preceding config returns:
+
+      ```json
+      { "name": { "value": "Jo Smith", "type": "string" } }
+      ```
+  exit: 1
+  expect: [a output-untested, a output-untested]
+
+- name: API bodies, curl, JsonLogic, and type fragments are plain JSON
+  head:
+    a: |
+      The response contains the `parsed_document`:
+
+      ```json
+      {
+        "id": "ef23d619-9955-473e-b00f-df18377c222b",
+        "status": "COMPLETE",
+        "parsed_document": { "total": { "value": 10, "type": "number" } },
+        "validation_summary": { "fields": 1, "fields_present": 1 }
+      }
+      ```
+
+      ```json
+      curl --request POST 'https://api.sensible.so/v0/extract_from_url/tax_forms' \
+      --data-raw '{ "document_url": "https://example.com/a.pdf" }'
+      ```
+
+      * Set the **Condition** to:
+
+      ```json
+      { "<": [{ "var": "premium.value" }, { "var": "total.value" }] }
+      ```
+
+      **Example syntax**
+
+      ```json
+      "type": { "id": "date", "format": "%m/%d/%Y" }
+      ```
+  exit: 0
+  expect: []
+
+- name: excerpts with a SenseML key are config blocks
+  head:
+    a: |
+      The config uses the Label method:
+
+      ```json
+      {
+        "id": "policy_period",
+        "anchor": "policy period:",
+        "method": { "id": "label", "position": "right" }
+      },
+      ```
+
+      Add a fingerprint:
+
+      ```json
+      "fingerprint": { "tests": ["anyco auto insurance"] }
+      ```
+
+      ```json
+      "preprocessors": [{ "type": "removeLines", "startPage": 0 }]
+      ```
+  exit: 1
+  expect: [a config-untested, a config-untested, a config-untested]
+
+- name: test markers decide the kind, whatever the label and keys say
+  head:
+    a: |
+      <!-- code test {"testId": "extract_field_excerpt"} -->
+      <!-- inline document -->
+      | Example document | [Download link](https://example.com/a.pdf) |
+
+      A field with only an anchor:
+
+      <!-- inline config {"fragment": "field"} -->
+      ```json
+      { "id": "total", "anchor": "total", "type": "currency" },
+      ```
+
+      This returns:
+
+      <!-- inline output -->
+      ```json
+      { "total": { "value": 10, "unit": "$", "type": "currency" } }
+      ```
+      <!-- code test end -->
+  exit: 0
+  expect: []
+  tests: [a extract_field_excerpt]
+
+# --- Exemptions --------------------------------------------------------------
+
+- name: an exemption with a reason is a warning, with the reason
+  head:
+    a: |
+      **Config**
+
+      <!-- no code test: needs a scanned
+           document with handwriting -->
+      ```json
+      { "fields": [{ "id": "signature", "method": { "id": "signature" } }] }
+      ```
+
+      **Output**
+
+      <!-- no code test: output of the preceding config -->
+      ```json
+      { "signature": { "value": true, "type": "boolean" } }
+      ```
+  exit: 0
+  expect:
+  - a exempt needs a scanned document with handwriting
+  - a exempt output of the preceding config
+
+- name: an exemption needs a reason, and must be directly above its block
+  head:
+    a: |
+      <!-- no code test -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+
+      <!-- no code test:   -->
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+
+      <!-- no code test: pseudo-config -->
+      **Config**
+
+      ```json
+      { "fields": [{ "id": "c", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  expect: [a exempt-no-reason, a exempt-no-reason, a config-untested]
+
+- name: an exemption on an unchanged block or on plain JSON is ignored
+  base:
+    a: |
+      <!-- no code test: pseudo-config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  head:
+    a: |
+      <!-- no code test: pseudo-config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+
+      <!-- no code test: an API response -->
+      ```json
+      { "id": "ef23d619", "status": "COMPLETE" }
+      ```
+  exit: 0
+  expect: []
+
+# --- Code test markup --------------------------------------------------------
+
+- name: a marker outside a code test covers nothing
+  head:
+    a: |
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  expect: [a test-markup marker-outside-test, a config-untested]
+
+- name: a marker with prose between it and its block covers nothing
+  head:
+    a: |
+      <!-- code test {"testId": "extract_a"} -->
+      <!-- inline document -->
+      | Example document | [Download link](https://example.com/a.pdf) |
+
+      <!-- inline config -->
+      **Config**
+
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+
+      <!-- inline output -->
+      ```json
+      { "a": { "value": 1, "type": "number" } }
+      ```
+      <!-- code test end -->
+  exit: 1
+  expect: [a test-markup marker-without-block, a config-untested]
+  tests: [a extract_a]
+
+- name: a code test with a bad header, or never closed, covers nothing
+  head:
+    a: |
+      <!-- code test {"testId": "Extract-A"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_b"} -->
+      <!-- inline output -->
+      ```json
+      { "b": { "value": 1, "type": "number" } }
+      ```
+  exit: 1
+  expect: [a test-markup header, a config-untested, a test-markup unclosed, a output-untested]
+
+- name: a duplicated test ID is an error, but still covers its blocks
+  head:
+    a: |
+      <!-- code test {"testId": "extract_a"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_a"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+  exit: 1
+  expect: [a test-markup duplicate-id]
+  tests: [a extract_a]
+
+# --- Covering tests ----------------------------------------------------------
+
+- name: covering tests are those on changed blocks, plus new and edited tests
+  base:
+    a: |
+      <!-- code test {"testId": "extract_same"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_output_edited"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+      <!-- inline output -->
+      ```json
+      { "b": { "value": 1, "type": "number" } }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_description_edited", "description": "Old"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "c", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+    b: |
+      <!-- code test {"testId": "extract_other_page"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "d", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+  head:
+    a: |
+      <!-- code test {"testId": "extract_same"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_output_edited"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+      <!-- inline output -->
+      ```json
+      { "b": { "value": 2, "type": "number" } }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_description_edited", "description": "New"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "c", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+
+      <!-- code test {"testId": "extract_new"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "e", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+    b: |
+      <!-- code test {"testId": "extract_other_page"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "d", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+  exit: 0
+  expect: []
+  tests: [a extract_description_edited, a extract_new, a extract_output_edited]
+
+# --- Files and output --------------------------------------------------------
+
+- name: an unreadable head page
+  head:
+    docs/s/bad.md: {base64: /w==}
+  exit: 1
+  expect: [docs/s/bad.md unreadable]
+
+- name: text output is sorted, with line numbers and a summary
+  head:
+    b: |
+      **Output**
+
+      ```json
+      { "total": 10 }
+      ```
+    a: |
+      **Config**
+
+      ```json
+      { "fields": [{ "id": "total", "method": { "id": "row" } }] }
+      ```
+
+      <!-- no code test: needs a scanned document -->
+      ```json
+      { "fields": [{ "id": "date", "method": { "id": "row" } }] }
+      ```
+  exit: 1
+  stdout: |
+    docs/s/a.md:3: error: config-untested
+    docs/s/a.md:8: warning: exempt: needs a scanned document
+    docs/s/b.md:3: error: output-untested
+    example coverage: 2 error(s), 1 warning(s), 3 changed block(s), 0 test(s)
+
+- name: --print-tests prints path, a tab, and test ID
+  args: [--print-tests]
+  head:
+    a: |
+      <!-- code test {"testId": "extract_b"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "b", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+      <!-- code test {"testId": "extract_a"} -->
+      <!-- inline config -->
+      ```json
+      { "fields": [{ "id": "a", "method": { "id": "row" } }] }
+      ```
+      <!-- code test end -->
+  exit: 0
+  stdout: "docs/s/a.md\textract_a\ndocs/s/a.md\textract_b\n"
+
+- name: no docs/ folder in the head, can't run
+  head:
+    notes/README.md: "# hi\n"
+  exit: 2
