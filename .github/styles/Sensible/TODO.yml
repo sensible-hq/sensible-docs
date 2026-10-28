@@ -1,0 +1,10 @@
+# draft: drafted from .claude/skills/revise-doc-style/SKILL.md ("Leave TODOs in place
+# and report them"), needs Frances's review
+# A warning, not an error: a TODO is fine in a draft, but it must be resolved
+# before the page publishes. scope: raw, so TODOs in comments and code blocks count.
+extends: existence
+message: "Unresolved TODO. Leave it in place for the author while drafting, and resolve it before publishing."
+level: warning
+scope: raw
+tokens:
+  - '\bTODO\b'

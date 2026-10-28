@@ -13,6 +13,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: vale-cli/vale-action@v2.1.1
         with:
+          # Pinned to match local installs and style_drift.yml. Unpinned, the
+          # action installs the latest Vale, so CI and local runs can disagree.
+          version: 3.14.1
           files: '["docs", "reference"]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

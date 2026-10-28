@@ -22,10 +22,11 @@ def cell(text):
     return " ".join(str(text).split()).replace("|", "\\|")
 
 
-def enforcement(rule):
+def enforcement(rule, agent_only=()):
     if "vale" in rule:
         checks = rule["vale"] if isinstance(rule["vale"], list) else [rule["vale"]]
-        return "Vale: " + ", ".join(f"`{c}`" for c in checks)
+        return "Vale: " + ", ".join(
+            f"`{c}`" + (" (agent-added lines only)" if c in agent_only else "") for c in checks)
     if "human" in rule:
         return "Human: " + cell(rule["human"])
     if "none-yet" in rule:
@@ -43,6 +44,7 @@ def location(rule):
 
 def render(registry):
     rules = registry.get("rules") or []
+    agent_only = set(registry.get("agent_only_rules") or [])
     status = Counter(r.get("status", "reviewed") for r in rules)
     kinds = Counter(("vale" if "vale" in r else "human" if "human" in r else "none-yet") for r in rules)
     lines = [
@@ -66,7 +68,7 @@ def render(registry):
         lines += [f"## {name}", "", "| Status | Rule | Enforced by | Note | ID |", "| --- | --- | --- | --- | --- |"]
         for r in members:
             st = r.get("status", "reviewed")
-            lines.append(f"| {'⚠️ ' if st == 'draft' else ''}{st} | {location(r)} | {enforcement(r)} | "
+            lines.append(f"| {'⚠️ ' if st == 'draft' else ''}{st} | {location(r)} | {enforcement(r, agent_only)} | "
                          f"{cell(r.get('note', ''))} | `{r['id']}` |")
         lines.append("")
     return "\n".join(lines)

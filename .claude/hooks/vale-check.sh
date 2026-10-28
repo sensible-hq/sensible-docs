@@ -31,6 +31,20 @@ fi
 # Run from the file's directory so Vale finds the .vale.ini of the checkout
 # the file is in, which matters in worktrees
 out="$(cd "$(dirname "$file")" && "$vale" --no-exit --no-wrap --output=line --minAlertLevel=warning "$file" 2>&1)"
+
+# Agent-only rules (such as Sensible.EmDash) are off in .vale.ini so they never
+# flag a person's writing. Run them on the lines changed since HEAD: in a Claude
+# session, uncommitted lines are Claude's. An untracked file is all new lines.
+# If the check can't run, say so on stderr but keep the exit code Vale's.
+agent_lines="$root/scripts/style_sync/agent_lines.py"
+if [ -f "$agent_lines" ]; then
+  agent_out="$(cd "$(dirname "$file")" && python3 "$agent_lines" --base HEAD --vale "$vale" "$file" 2>&1)"
+  case $? in
+    1) out="$(printf '%s\n%s\n' "$out" "$agent_out" | grep .)" ;;
+    0) ;;
+    *) echo "vale-check: agent-only rules not checked: $agent_out" >&2 ;;
+  esac
+fi
 [ -n "$out" ] || exit 0
 
 {

@@ -1,3 +1,3 @@
 <!-- status: draft. Agent-written fixture; a human has not reviewed it. -->
 
-In order to extract data, send an e-mail.
+Copy the url of the document, then sign in with your Google account.

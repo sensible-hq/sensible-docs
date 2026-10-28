@@ -1,0 +1,12 @@
+# draft: drafted from writing-rules.md#em-dashes, needs Frances's review
+# Replaces Google.EmDash (turned off in .vale.ini). Google.EmDash only flags a
+# spaced dash, and its fix ("remove the spaces") produces "a—b", which still
+# joins two clauses with an em dash.
+extends: existence
+message: "Do not use em dashes to join compound clauses. Split into two sentences instead."
+level: warning
+nonword: true
+tokens:
+  - '\s—\s'
+  - '\w—\w'
+  - '\s--\s'

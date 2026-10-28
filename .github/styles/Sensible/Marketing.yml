@@ -1,0 +1,11 @@
+# draft: drafted from changelog-style-guide.md#voice-and-tone and the blog-short
+# template ("the future of document AI is here"), needs Frances's review
+extends: existence
+message: "No marketing fluff: cut '%s'. Just what it does and why it's useful."
+level: warning
+ignorecase: true
+tokens:
+  - 'excited to announce'
+  - 'powerful new'
+  - 'seamless(?:ly)?'
+  - 'the future of'

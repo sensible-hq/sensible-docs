@@ -1,0 +1,9 @@
+# draft: drafted from writing-rules.md#tone, needs Frances's review
+extends: existence
+message: "Terse and precise. No filler phrases: cut '%s' and state the fact directly."
+level: warning
+ignorecase: true
+tokens:
+  - 'please note that'
+  - 'it(?:''s|’s| is) important to (?:remember|note)'
+  - 'it(?:''s|’s| is) worth (?:mentioning|noting)'

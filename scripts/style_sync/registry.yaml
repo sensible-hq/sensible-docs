@@ -84,6 +84,15 @@ google:
   overrides:
     Google.WordList: "NO"
     Google.Colons: "NO"
+    Google.EmDash: "NO"
+
+# Rules that check only lines an agent added (Frances, 2026-10-28: ban AI-written
+# em dashes, allow human ones). Each is turned off in .vale.ini, so normal Vale
+# runs and CI lint skip it; scripts/style_sync/agent_lines.py runs it on added
+# lines. check_drift.py still runs its tests, and reports AGENT-ONLY-ENABLED if
+# .vale.ini turns it on. See README.md "Agent-only rules".
+agent_only_rules:
+  - Sensible.EmDash
 
 not_rules:
   - at: writing-rules.md#terminology
@@ -125,11 +134,14 @@ rules:
   # ---------------------------------------------------------------- writing-rules.md
   - id: wr-em-dashes
     at: writing-rules.md#em-dashes
-    vale: Google.EmDash
+    vale: Sensible.EmDash
     status: draft
     note: >-
-      Partial. Google.EmDash flags spaces around an em dash, not em dashes
-      joining clauses, so "a—b" passes Vale but breaks the guide rule.
+      Sensible.EmDash replaces Google.EmDash (turned off in .vale.ini), which
+      flagged only spaced dashes and whose fix produced "a—b". Vale can't tell
+      whether a dash joins two clauses, so it flags every em dash between words.
+      Agent-only: it checks only lines an agent added (agent_only_rules), so a
+      person's em dash is never flagged.
 
   - id: wr-explicit-subjects
     at: writing-rules.md#explicit-subjects--avoid-passive-voice
@@ -149,8 +161,9 @@ rules:
 
   - id: wr-tone
     at: writing-rules.md#tone
-    none-yet: the listed filler phrases could be a Vale existence rule
+    vale: Sensible.Filler
     status: draft
+    note: Partial. Covers the listed filler phrases; "terse and precise" stays human.
 
   # ---------------------------------------------------------- sentence-word-guidance.md
   - id: swg-key-column
@@ -248,8 +261,12 @@ rules:
 
   - id: swg-numbers
     at: sentence-word-guidance.md#numbers-and-measurements
-    none-yet: '"N percent" and spelled-out fractions are detectable with an existence rule'
+    vale: Sensible.Percent
     status: draft
+    note: >-
+      Partial. Covers the percentages bullet only. Spelled-out fractions and
+      inch measurements are detectable but had no hits; zero-based indexes on
+      first use stay human.
 
   - id: swg-code-comments
     at: sentence-word-guidance.md#code-examples-inline-comments
@@ -280,20 +297,33 @@ rules:
   - id: gl-sensible-product
     at: glossary.md#universal-terms
     row: The Sensible product
-    none-yet: lowercase "sensible" could be a Vale.Terms entry; "the tool"/"the engine" need a rule
+    vale: Sensible.Glossary
+    known_gaps: ["sensible", "the engine"]
     status: draft
+    note: >-
+      Partial. Sensible.Glossary swaps "the tool". known_gaps (agent-proposed):
+      "the engine" is how the docs name the OCR and LLM engines; lowercase
+      "sensible" could be a Vale.Terms entry instead.
 
   - id: gl-output
     at: glossary.md#universal-terms
     row: The result Sensible returns
-    none-yet: '"response" is legitimate for the API envelope, so a rule needs exceptions'
+    vale: Sensible.Glossary
+    known_gaps: ["response"]
     status: draft
+    note: >-
+      Partial. Sensible.Glossary swaps "result object". known_gaps (agent-proposed):
+      "response" is legitimate for the API envelope.
 
   - id: gl-sections
     at: glossary.md#universal-terms
     row: Repeated document structures
-    none-yet: ""
+    vale: Sensible.Glossary
+    known_gaps: ["loops"]
     status: draft
+    note: >-
+      Partial. Sensible.Glossary swaps "repeating groups". known_gaps (agent-proposed):
+      "loop" has legitimate uses ("human-in-the-loop").
 
   - id: gl-null
     at: glossary.md#universal-terms
@@ -304,14 +334,22 @@ rules:
   - id: gl-anchor
     at: glossary.md#senseml-specific-terms
     row: The text Sensible matches to find a location
-    none-yet: ""
+    vale: Sensible.Glossary
+    known_gaps: ["marker"]
     status: draft
+    note: >-
+      Partial. Sensible.Glossary swaps "reference text". known_gaps (agent-proposed):
+      "marker" has legitimate uses.
 
   - id: gl-context
     at: glossary.md#senseml-specific-terms
     row: The document text sent to an LLM
-    none-yet: ""
+    vale: Sensible.Glossary
+    known_gaps: ["input"]
     status: draft
+    note: >-
+      Partial. Sensible.Glossary swaps "prompt context". known_gaps (agent-proposed):
+      "input" has legitimate uses.
 
   - id: gl-chunk
     at: glossary.md#senseml-specific-terms
@@ -334,14 +372,18 @@ rules:
   - id: gl-dot-notation
     at: glossary.md#senseml-specific-terms
     row: JSON path into extracted output
-    none-yet: ""
+    vale: Sensible.Glossary
     status: draft
+    note: >-
+      Sensible.Glossary swaps "object path" and "key path".
 
   - id: gl-free-form-attributive
     at: glossary.md#senseml-specific-terms
     row: Unstructured/variable documents — adjective before noun
-    none-yet: '"free form <noun>" is detectable with an existence rule'
+    vale: Sensible.Glossary
     status: draft
+    note: >-
+      Sensible.Glossary swaps "free form" before documents, contracts, layouts, or text.
 
   - id: gl-free-form-predicate
     at: glossary.md#senseml-specific-terms
@@ -391,15 +433,16 @@ rules:
   - id: sgo-tone
     at: style-guide-overview.md#voice-and-tone
     item: Tone
-    none-yet: same filler phrases as wr-tone
+    vale: Sensible.Filler
     status: draft
+    note: Partial; see wr-tone.
 
   - id: sgo-em-dashes
     at: style-guide-overview.md#voice-and-tone
     item: Em dashes
-    vale: Google.EmDash
+    vale: Sensible.EmDash
     status: draft
-    note: Partial; see wr-em-dashes.
+    note: See wr-em-dashes.
 
   - id: sgo-standard-table
     at: style-guide-overview.md#standard-table-most-pages
@@ -433,14 +476,23 @@ rules:
 
   - id: sgo-method-names
     at: style-guide-overview.md#method-and-feature-names-in-prose
-    human: requires knowing which words are method and feature names
+    vale: Sensible.MethodNameCase
     status: draft
+    note: >-
+      Partial. Flags a known method or preprocessor name before "method" or
+      "preprocessor" when it isn't Title Case. The name list comes from the
+      method and preprocessor pages and needs updating when one is added.
+      Feature names ("Sections") stay human.
 
   - id: sgo-no-camelcase-method-names
     at: style-guide-overview.md#method-and-feature-names-in-prose
     item: Never use camelCase with backticks for method or preprocessor names in running prose
-    none-yet: '"the `camelCase` method|preprocessor|parameter" is detectable with an existence rule'
+    vale: Sensible.BacktickedNames
     status: draft
+    note: >-
+      Also covers "the `stop` parameter" from backtick-quoting ("Parameter
+      names: do NOT backtick in prose"). Doesn't flag "the `var` operator":
+      JsonLogic operators are IDs, which the guide says to backtick.
 
   - id: sgo-inline-method-links
     at: style-guide-overview.md#inline-links-for-method-and-preprocessor-names
@@ -489,11 +541,13 @@ rules:
   # ----------------------------------------------------------- changelog-style-guide.md
   - id: cl-voice-and-tone
     at: changelog-style-guide.md#voice-and-tone
-    none-yet: >-
-      Google.We flags "we" everywhere, which covers part of the intro rule;
-      marketing phrases ("excited to announce", "seamlessly") are detectable
-      with an existence rule
+    vale: [Google.We, Sensible.Marketing]
     status: draft
+    note: >-
+      Partial. Google.We flags "we released"; Sensible.Marketing flags the
+      listed marketing phrases plus "the future of" (blog-short template).
+      Person and tense per paragraph stay human. Changelogs aren't in CI, so
+      this runs only through the skill and the editor hook.
 
   - id: cl-title
     at: changelog-style-guide.md#title
@@ -544,6 +598,25 @@ rules:
     status: draft
 
   # ------------------------------------------- Vale rules with no style-guide rule
+  - id: vale-computed-fields
+    vale: Sensible.ComputedFields
+    basis: >-
+      reference-topic-template.md, "Computed field method": "Config examples put
+      computed field methods in the `"fields": [...]` array, not
+      `"computed_fields": [...]`". The template isn't scanned, and that heading
+      sits inside the template's code block, so it can't be an `at:` location.
+      About 20 legacy examples still use "computed_fields"; CI reports only
+      added lines, but a whole-file Vale run shows them all.
+    status: draft
+
+  - id: vale-todo
+    vale: Sensible.TODO
+    basis: >-
+      revise-doc-style (.claude/skills/revise-doc-style/SKILL.md) says to leave
+      TODOs in place for the author and report them. A TODO is fine in a draft
+      but must not reach a published page, so this warns rather than errors.
+    status: draft
+
   - id: vale-no-draft-links
     vale: Sensible.NoDraftLinks
     basis: >-
@@ -555,6 +628,8 @@ rules:
   - id: vale-wordlist
     vale: Sensible.WordList
     basis: >-
-      Case-sensitive copy of the Google developer style word list, kept because
-      .vale.ini sets Google.WordList = NO. No guide file references it.
+      Case-sensitive half of the Google developer style word list, kept because
+      .vale.ini sets Google.WordList = NO. Entries that Google.WordListCase
+      (enabled) also covers were removed, so a match no longer alerts twice.
+      No guide file references it.
     status: draft

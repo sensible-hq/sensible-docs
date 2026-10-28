@@ -1,0 +1,16 @@
+# draft: drafted from style-guide-overview.md#method-and-feature-names-in-prose, needs Frances's review
+# Flags a known method or preprocessor name that isn't Title Case before
+# "method" or "preprocessor": "the query group method", "the Merge lines
+# preprocessor". Names are the titles of the pages under
+# docs/Senseml reference/ (methods and preprocessors), in Title Case. Left out:
+# Copy From Sections and Copy To Section, where the casing of "from" and "to"
+# isn't decided. Feature names ("Sections") aren't covered. Update the list when
+# a method or preprocessor page is added.
+# vocab: false, because accept.txt lists "[Pp]reprocessor[s]?" and Vale otherwise
+# drops any match that contains an accepted term.
+extends: existence
+message: "Capitalize method names: use Title Case for '%s', as in 'the Label method' or 'the Merge Lines preprocessor'."
+level: warning
+vocab: false
+tokens:
+  - '[Tt]he (?!(?:Custom Computation Group|Add Computed Fields|Custom Computation|Get File Metadata|Nearest Checkbox|Suppress Output|Document Range|Remove Footer|Remove Header|Intersection|Remove Lines|Query Group|Fixed Table|Passthrough|Concatenate|Pick Values|Conditional|Merge Lines|Multicolumn|Remove Page|Rotate Page|Split Lines|Text Table|Extra Data|Page Range|NLP Table|Paragraph|Signature|Linearize|Checkbox|Constant|Ligature|Column|Region|Mapper|Deskew|Label|Regex|Split|Scale|List|Box|Row|Zip|NLP|OCR) (?:method|preprocessor))(?i:Custom Computation Group|Add Computed Fields|Custom Computation|Get File Metadata|Nearest Checkbox|Suppress Output|Document Range|Remove Footer|Remove Header|Intersection|Remove Lines|Query Group|Fixed Table|Passthrough|Concatenate|Pick Values|Conditional|Merge Lines|Multicolumn|Remove Page|Rotate Page|Split Lines|Text Table|Extra Data|Page Range|NLP Table|Paragraph|Signature|Linearize|Checkbox|Constant|Ligature|Column|Region|Mapper|Deskew|Label|Regex|Split|Scale|List|Box|Row|Zip|NLP|OCR) (?:method|preprocessor)s?'

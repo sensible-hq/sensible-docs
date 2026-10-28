@@ -5,7 +5,8 @@ Reads scripts/style_sync/registry.yaml, which links each style-guide rule
 (in .claude/style-guide/) to its enforcement, and checks that:
 
   * every custom Vale rule (.github/styles/Sensible/*.yml) is referenced by the
-    registry, and every Vale target the registry names exists and is enabled;
+    registry, and every Vale target the registry names exists and is enabled
+    (agent-only rules must instead be off: agent_lines.py runs them);
   * every guide location in the registry still resolves, and every guide rule
     found by the registry's convention has an entry;
   * every custom Vale rule has at least one failing and one passing test case,
@@ -468,6 +469,20 @@ def check(root: Path, vale: str | None, registry_path: Path | None = None) -> tu
     tmp_examples = Path(tempfile.mkdtemp(prefix="style_sync_"))
     example_count = 0
 
+    # Agent-only rules are off in .vale.ini on purpose; agent_lines.py runs them.
+    agent_only = reg.get("agent_only_rules") or []
+    if not isinstance(agent_only, list) or not all(isinstance(r, str) for r in agent_only):
+        problems.append("SCHEMA: agent_only_rules must be a list of rule names")
+        agent_only = []
+    for r in agent_only:
+        if not target_exists(root, r):
+            problems.append(f"MISSING-VALE-RULE: agent_only_rules: target {r!r} does not exist")
+        elif target_enabled(cp, r):
+            problems.append(
+                f"AGENT-ONLY-ENABLED: {r} is agent-only but enabled for *.md in .vale.ini, "
+                "so it flags human-written lines too"
+            )
+
     try:
         for i, entry in enumerate(reg.get("rules") or []):
             stats["entries"] += 1
@@ -511,7 +526,7 @@ def check(root: Path, vale: str | None, registry_path: Path | None = None) -> tu
                 if not isinstance(t, str) or not target_exists(root, t):
                     problems.append(f"MISSING-VALE-RULE: {where}: target {t!r} does not exist")
                     continue
-                if not target_enabled(cp, t):
+                if t not in agent_only and not target_enabled(cp, t):
                     problems.append(f"DISABLED-VALE-RULE: {where}: target {t!r} is not enabled for *.md in .vale.ini")
                 if t.startswith(f"{CUSTOM_STYLE}."):
                     custom_targets.add(t)

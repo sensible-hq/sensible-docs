@@ -1,0 +1,12 @@
+# draft: drafted from style-guide-overview.md#method-and-feature-names-in-prose
+# and style-guide-overview.md#backtick-quoting, needs Frances's review
+# scope: raw, because Vale hides inline code from prose rules.
+# vocab: false, because accept.txt lists "[Pp]reprocessor[s]?" and Vale otherwise
+# drops any match that contains an accepted term.
+extends: existence
+message: "Never use camelCase with backticks for method, preprocessor, or parameter names in running prose. Convert to spaced Title Case: 'the Query Group method', not 'the `queryGroup` method'."
+level: warning
+vocab: false
+scope: raw
+tokens:
+  - '[Tt]he `[A-Za-z]+` (?:method|preprocessor|parameter)s?\b'
