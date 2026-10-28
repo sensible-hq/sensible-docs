@@ -172,7 +172,7 @@ Use H2 subheadings within Notes for multiple topics. -->
 - Opening: "Define...", "Maps...", "Concatenates...", "Returns..."
 - Uses the computed field global method note (not layout-based note)
 - Identifying param key is `id`
-- Config examples use `"computed_fields": [...]` array, not `"fields": [...]`
+- Config examples put computed field methods in the `"fields": [...]` array, not `"computed_fields": [...]`
 - Commonly accesses `parsed_document` in examples
 
 ### Preprocessor

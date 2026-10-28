@@ -93,7 +93,7 @@ git worktree add ../sensible-docs-<short-description> -b fe_<short_description>_
 
 Then add the worktree path to `permissions.additionalDirectories` in `.claude/settings.json`, and do all remaining work in the worktree.
 
-Make all file edits and creations. Be thorough — cover all parameters and include at least one example per new feature.
+Make all file edits and creations. Be thorough — cover all parameters. For examples, extend the existing example where possible. Add a new example only to show a contrasting point or a complex feature.
 
 ## Step 5 — Style check before committing
 
