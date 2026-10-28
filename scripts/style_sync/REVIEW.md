@@ -6,17 +6,17 @@ Each row is one style-guide rule and how it's enforced. To review a row, check t
 enforcement is right, then delete its `status: draft` line in `registry.yaml` (or fix the
 entry) and re-run `python scripts/style_sync/review_table.py`.
 
-**75 rules:** 9 enforced by Vale, 40 human-only, 26 not enforced yet. **Status:** 73 draft, 2 mechanical.
+**77 rules:** 24 enforced by Vale, 39 human-only, 14 not enforced yet. **Status:** 75 draft, 2 mechanical.
 
 ## writing-rules.md
 
 | Status | Rule | Enforced by | Note | ID |
 | --- | --- | --- | --- | --- |
-| ⚠️ draft | [em dashes](../../.claude/style-guide/writing-rules.md#em-dashes) | Vale: `Google.EmDash` | Partial. Google.EmDash flags spaces around an em dash, not em dashes joining clauses, so "a—b" passes Vale but breaks the guide rule. | `wr-em-dashes` |
+| ⚠️ draft | [em dashes](../../.claude/style-guide/writing-rules.md#em-dashes) | Vale: `Sensible.EmDash` | Sensible.EmDash replaces Google.EmDash (turned off in .vale.ini), which flagged only spaced dashes and whose fix produced "a—b". Vale can't tell whether a dash joins two clauses, so it flags every em dash between words. | `wr-em-dashes` |
 | ⚠️ draft | [explicit subjects avoid passive voice](../../.claude/style-guide/writing-rules.md#explicit-subjects--avoid-passive-voice) | Vale: `Google.Passive` | Google.Passive covers the passive-voice half; the "use Sensible/you as subject" half is not checked. | `wr-explicit-subjects` |
 | mechanical | [extraction and classification phrasing](../../.claude/style-guide/writing-rules.md#extraction-and-classification-phrasing) | Vale: `Sensible.AgainstPhrasing` |  | `wr-against-phrasing` |
 | ⚠️ draft | [gerunds over nominalizations](../../.claude/style-guide/writing-rules.md#gerunds-over-nominalizations) | **Not enforced yet**: "the <noun>tion of" patterns are detectable but noisy |  | `wr-gerunds` |
-| ⚠️ draft | [tone](../../.claude/style-guide/writing-rules.md#tone) | **Not enforced yet**: the listed filler phrases could be a Vale existence rule |  | `wr-tone` |
+| ⚠️ draft | [tone](../../.claude/style-guide/writing-rules.md#tone) | Vale: `Sensible.Filler` | Partial. Covers the listed filler phrases; "terse and precise" stays human. | `wr-tone` |
 
 ## sentence-word-guidance.md
 
@@ -38,7 +38,7 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 | ⚠️ draft | [describing what a method returns when no match is found](../../.claude/style-guide/sentence-word-guidance.md#describing-what-a-method-returns-when-no-match-is-found) | Human: requires knowing when null behavior is non-obvious |  | `swg-null-behavior` |
 | ⚠️ draft | [notes and callouts](../../.claude/style-guide/sentence-word-guidance.md#notes-and-callouts) | **Not enforced yet**: "> " blockquote callouts could be flagged with a raw-scope rule |  | `swg-notes-callouts` |
 | ⚠️ draft | [describing interactions between parameters](../../.claude/style-guide/sentence-word-guidance.md#describing-interactions-between-parameters) | Human: requires knowing which parameter is subordinate |  | `swg-parameter-interactions` |
-| ⚠️ draft | [numbers and measurements](../../.claude/style-guide/sentence-word-guidance.md#numbers-and-measurements) | **Not enforced yet**: "N percent" and spelled-out fractions are detectable with an existence rule |  | `swg-numbers` |
+| ⚠️ draft | [numbers and measurements](../../.claude/style-guide/sentence-word-guidance.md#numbers-and-measurements) | Vale: `Sensible.Percent` | Partial. Covers the percentages bullet only. Spelled-out fractions and inch measurements are detectable but had no hits; zero-based indexes on first use stay human. | `swg-numbers` |
 | ⚠️ draft | [code examples inline comments](../../.claude/style-guide/sentence-word-guidance.md#code-examples-inline-comments) | **Not enforced yet**: "//" in json code blocks is detectable with a raw-scope rule (Vale skips code blocks by default); "comment non-obvious choices" stays human |  | `swg-code-comments` |
 | ⚠️ draft | [describing the id parameter for methods](../../.claude/style-guide/sentence-word-guidance.md#describing-the-id-parameter-for-methods) | Human: content judgment about the id row |  | `swg-id-parameter` |
 
@@ -48,17 +48,17 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 | --- | --- | --- | --- | --- |
 | ⚠️ draft | [The JSON extraction configuration](../../.claude/style-guide/glossary.md#universal-terms) | **Not enforced yet**: "template" and "schema" have legitimate uses, so a rule needs exceptions |  | `gl-config` |
 | mechanical | [The Sensible web interface](../../.claude/style-guide/glossary.md#universal-terms) | Vale: `Sensible.Terminology`, `vocab:Sensible/reject` | Sensible.Terminology swaps "the UI"; reject.txt lists "dashboard". | `gl-sensible-app` |
-| ⚠️ draft | [The Sensible product](../../.claude/style-guide/glossary.md#universal-terms) | **Not enforced yet**: lowercase "sensible" could be a Vale.Terms entry; "the tool"/"the engine" need a rule |  | `gl-sensible-product` |
-| ⚠️ draft | [The result Sensible returns](../../.claude/style-guide/glossary.md#universal-terms) | **Not enforced yet**: "response" is legitimate for the API envelope, so a rule needs exceptions |  | `gl-output` |
-| ⚠️ draft | [Repeated document structures](../../.claude/style-guide/glossary.md#universal-terms) | **Not enforced yet** |  | `gl-sections` |
+| ⚠️ draft | [The Sensible product](../../.claude/style-guide/glossary.md#universal-terms) | Vale: `Sensible.Glossary` | Partial. Sensible.Glossary swaps "the tool". known_gaps (agent-proposed): "the engine" is how the docs name the OCR and LLM engines; lowercase "sensible" could be a Vale.Terms entry instead. | `gl-sensible-product` |
+| ⚠️ draft | [The result Sensible returns](../../.claude/style-guide/glossary.md#universal-terms) | Vale: `Sensible.Glossary` | Partial. Sensible.Glossary swaps "result object". known_gaps (agent-proposed): "response" is legitimate for the API envelope. | `gl-output` |
+| ⚠️ draft | [Repeated document structures](../../.claude/style-guide/glossary.md#universal-terms) | Vale: `Sensible.Glossary` | Partial. Sensible.Glossary swaps "repeating groups". known_gaps (agent-proposed): "loop" has legitimate uses ("human-in-the-loop"). | `gl-sections` |
 | ⚠️ draft | [An extraction that returned nothing](../../.claude/style-guide/glossary.md#universal-terms) | **Not enforced yet**: "empty" and "no value" have legitimate uses, so a rule needs exceptions |  | `gl-null` |
-| ⚠️ draft | [The text Sensible matches to find a location](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet** |  | `gl-anchor` |
-| ⚠️ draft | [The document text sent to an LLM](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet** |  | `gl-context` |
+| ⚠️ draft | [The text Sensible matches to find a location](../../.claude/style-guide/glossary.md#senseml-specific-terms) | Vale: `Sensible.Glossary` | Partial. Sensible.Glossary swaps "reference text". known_gaps (agent-proposed): "marker" has legitimate uses. | `gl-anchor` |
+| ⚠️ draft | [The document text sent to an LLM](../../.claude/style-guide/glossary.md#senseml-specific-terms) | Vale: `Sensible.Glossary` | Partial. Sensible.Glossary swaps "prompt context". known_gaps (agent-proposed): "input" has legitimate uses. | `gl-context` |
 | ⚠️ draft | [A scored portion of the document for LLM use](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet**: "section" is also a SenseML term, so a rule needs context |  | `gl-chunk` |
 | ⚠️ draft | [The SenseML data output type](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet** |  | `gl-type` |
 | ⚠️ draft | [A defined extraction unit](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet**: "extraction" and "key" have legitimate uses, so a rule needs exceptions |  | `gl-field` |
-| ⚠️ draft | [JSON path into extracted output](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet** |  | `gl-dot-notation` |
-| ⚠️ draft | [Unstructured/variable documents — adjective before noun](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet**: "free form <noun>" is detectable with an existence rule |  | `gl-free-form-attributive` |
+| ⚠️ draft | [JSON path into extracted output](../../.claude/style-guide/glossary.md#senseml-specific-terms) | Vale: `Sensible.Glossary` | Sensible.Glossary swaps "object path" and "key path". | `gl-dot-notation` |
+| ⚠️ draft | [Unstructured/variable documents — adjective before noun](../../.claude/style-guide/glossary.md#senseml-specific-terms) | Vale: `Sensible.Glossary` | Sensible.Glossary swaps "free form" before documents, contracts, layouts, or text. | `gl-free-form-attributive` |
 | ⚠️ draft | [Unstructured/variable documents — predicate adjective](../../.claude/style-guide/glossary.md#senseml-specific-terms) | **Not enforced yet**: "is free-form" at end of clause is detectable with an existence rule |  | `gl-free-form-predicate` |
 
 ## style-guide-overview.md
@@ -72,16 +72,16 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 | ⚠️ draft | [Opening paragraph](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Human: applies only to the first paragraph, with judgment-based exceptions |  | `sgo-opening-paragraph` |
 | ⚠️ draft | [Parameter descriptions](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Human: choice of person depends on meaning |  | `sgo-parameter-descriptions` |
 | ⚠️ draft | [Examples](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Human: applies only to example introductions |  | `sgo-example-intros` |
-| ⚠️ draft | [Tone](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | **Not enforced yet**: same filler phrases as wr-tone |  | `sgo-tone` |
-| ⚠️ draft | [Em dashes](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Google.EmDash` | Partial; see wr-em-dashes. | `sgo-em-dashes` |
+| ⚠️ draft | [Tone](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Sensible.Filler` | Partial; see wr-tone. | `sgo-tone` |
+| ⚠️ draft | [Em dashes](../../.claude/style-guide/style-guide-overview.md#voice-and-tone) | Vale: `Sensible.EmDash` | See wr-em-dashes. | `sgo-em-dashes` |
 | ⚠️ draft | [standard table most pages](../../.claude/style-guide/style-guide-overview.md#standard-table-most-pages) | Human: table header format; Vale has no table-header scope |  | `sgo-standard-table` |
 | ⚠️ draft | [four column table with interactions complex llm methods](../../.claude/style-guide/style-guide-overview.md#four-column-table-with-interactions-complex-llm-methods) | Human: when to use the format is a judgment call |  | `sgo-four-column-table` |
 | ⚠️ draft | [section separator rows in parameter tables](../../.claude/style-guide/style-guide-overview.md#section-separator-rows-in-parameter-tables) | Human: when to use separator rows is a judgment call |  | `sgo-separator-rows` |
 | ⚠️ draft | [referencing global parameters in a row](../../.claude/style-guide/style-guide-overview.md#referencing-global-parameters-in-a-row) | Human: requires knowing which parameters are global |  | `sgo-global-param-rows` |
 | ⚠️ draft | [backtick quoting](../../.claude/style-guide/style-guide-overview.md#backtick-quoting) | Human: requires knowing which words are JSON keys, enum values, or parameter names |  | `sgo-backticks` |
 | ⚠️ draft | [parameter name capitalization in prose](../../.claude/style-guide/style-guide-overview.md#parameter-name-capitalization-in-prose) | Human: requires knowing which words are parameter names |  | `sgo-parameter-capitalization` |
-| ⚠️ draft | [method and feature names in prose](../../.claude/style-guide/style-guide-overview.md#method-and-feature-names-in-prose) | Human: requires knowing which words are method and feature names |  | `sgo-method-names` |
-| ⚠️ draft | [Never use camelCase with backticks for method or preprocessor names in running prose](../../.claude/style-guide/style-guide-overview.md#method-and-feature-names-in-prose) | **Not enforced yet**: "the `camelCase` method\|preprocessor\|parameter" is detectable with an existence rule |  | `sgo-no-camelcase-method-names` |
+| ⚠️ draft | [method and feature names in prose](../../.claude/style-guide/style-guide-overview.md#method-and-feature-names-in-prose) | Vale: `Sensible.MethodNameCase` | Partial. Flags a known method or preprocessor name before "method" or "preprocessor" when it isn't Title Case. The name list comes from the method and preprocessor pages and needs updating when one is added. Feature names ("Sections") stay human. | `sgo-method-names` |
+| ⚠️ draft | [Never use camelCase with backticks for method or preprocessor names in running prose](../../.claude/style-guide/style-guide-overview.md#method-and-feature-names-in-prose) | Vale: `Sensible.BacktickedNames` | Also covers "the `stop` parameter" from backtick-quoting ("Parameter names: do NOT backtick in prose"). Doesn't flag "the `var` operator": JsonLogic operators are IDs, which the guide says to backtick. | `sgo-no-camelcase-method-names` |
 | ⚠️ draft | [inline links for method and preprocessor names](../../.claude/style-guide/style-guide-overview.md#inline-links-for-method-and-preprocessor-names) | Human: first-mention linking depends on page context |  | `sgo-inline-method-links` |
 | ⚠️ draft | [image format](../../.claude/style-guide/style-guide-overview.md#image-format) | **Not enforced yet**: <Image> JSX and non-standard alt text are detectable with a raw-scope rule | Conflicts with changelog-style-guide.md#images, which requires <Image> JSX in changelogs. | `sgo-image-format` |
 | ⚠️ draft | [example document download table](../../.claude/style-guide/style-guide-overview.md#example-document-download-table) | Human: table placement relative to the example image |  | `sgo-download-table` |
@@ -95,7 +95,7 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 
 | Status | Rule | Enforced by | Note | ID |
 | --- | --- | --- | --- | --- |
-| ⚠️ draft | [voice and tone](../../.claude/style-guide/changelog-style-guide.md#voice-and-tone) | **Not enforced yet**: Google.We flags "we" everywhere, which covers part of the intro rule; marketing phrases ("excited to announce", "seamlessly") are detectable with an existence rule |  | `cl-voice-and-tone` |
+| ⚠️ draft | [voice and tone](../../.claude/style-guide/changelog-style-guide.md#voice-and-tone) | Vale: `Google.We`, `Sensible.Marketing` | Partial. Google.We flags "we released"; Sensible.Marketing flags the listed marketing phrases plus "the future of" (blog-short template). Person and tense per paragraph stay human. Changelogs aren't in CI, so this runs only through the skill and the editor hook. | `cl-voice-and-tone` |
 | ⚠️ draft | [title](../../.claude/style-guide/changelog-style-guide.md#title) | Human: page title format |  | `cl-title` |
 | ⚠️ draft | [intro paragraph no heading](../../.claude/style-guide/changelog-style-guide.md#intro-paragraph-no-heading) | Human: paragraph pattern and content |  | `cl-intro` |
 | ⚠️ draft | [sections](../../.claude/style-guide/changelog-style-guide.md#sections) | Human: section grouping is a judgment call |  | `cl-sections` |
@@ -110,5 +110,7 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 
 | Status | Rule | Enforced by | Note | ID |
 | --- | --- | --- | --- | --- |
+| ⚠️ draft | *(no guide rule)* reference-topic-template.md, "Computed field method": "Config examples put computed field methods in the `"fields": [...]` array, not `"computed_fields": [...]`". The template isn't scanned, and that heading sits inside the template's code block, so it can't be an `at:` location. About 20 legacy examples still use "computed_fields"; CI reports only added lines, but a whole-file Vale run shows them all. | Vale: `Sensible.ComputedFields` |  | `vale-computed-fields` |
+| ⚠️ draft | *(no guide rule)* revise-doc-style (.claude/skills/revise-doc-style/SKILL.md) says to leave TODOs in place for the author and report them. A TODO is fine in a draft but must not reach a published page, so this warns rather than errors. | Vale: `Sensible.TODO` |  | `vale-todo` |
 | ⚠️ draft | *(no guide rule)* Draft pages use a draft- slug prefix (integration-guide-template.md, "File naming and visibility"); published pages must not link to them. No scanned guide file states this as a prose rule. | Vale: `Sensible.NoDraftLinks` |  | `vale-no-draft-links` |
 | ⚠️ draft | *(no guide rule)* Case-sensitive half of the Google developer style word list, kept because .vale.ini sets Google.WordList = NO. Entries that Google.WordListCase (enabled) also covers were removed, so a match no longer alerts twice. No guide file references it. | Vale: `Sensible.WordList` |  | `vale-wordlist` |

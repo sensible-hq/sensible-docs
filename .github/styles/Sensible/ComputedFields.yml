@@ -1,0 +1,10 @@
+# draft: drafted from reference-topic-template.md#computed-field-method, needs Frances's review
+# scope: raw, because the key appears in code blocks, which Vale skips otherwise.
+# Legacy pages still use "computed_fields"; CI reports only added lines.
+extends: existence
+message: "Config examples put computed field methods in the \"fields\" array, not \"computed_fields\"."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '"computed_fields"'

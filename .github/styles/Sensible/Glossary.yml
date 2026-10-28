@@ -1,0 +1,22 @@
+# draft: drafted from glossary.md#universal-terms, glossary.md#senseml-specific-terms,
+# and editorial-preferences.md ("Use the correct tab name"), needs Frances's review
+# Only the glossary's unambiguous Avoid terms. Terms with legitimate uses
+# ("template", "schema", "response", "empty", "loops", "marker", "input",
+# "segment", "data type", "extraction", "key") stay a human check. So does
+# "the engine": the docs use it for the OCR and LLM engines ("Configure ... the
+# engine: Amazon, Google, or Microsoft").
+extends: substitution
+message: "Glossary: use '%s' instead of '%s'."
+level: warning
+ignorecase: true
+action:
+  name: replace
+swap:
+  'the tool': Sensible
+  'result objects?': output
+  'repeating groups?': sections
+  'reference text': anchor
+  'prompt context': context
+  '(?:object|key) paths?': dot notation
+  'free form (documents?|contracts?|layouts?|text)': free-form $1
+  'Extractions (?:history|tab)': Extraction history

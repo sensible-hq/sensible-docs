@@ -1,0 +1,8 @@
+# draft: drafted from sentence-word-guidance.md#numbers-and-measurements, needs Frances's review
+extends: substitution
+message: "Percentages: '90%%' not '90 percent'. Use '%s' instead of '%s'."
+level: warning
+action:
+  name: replace
+swap:
+  '(\d+(?:\.\d+)?) percent': $1%
