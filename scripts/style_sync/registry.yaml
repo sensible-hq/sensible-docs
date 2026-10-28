@@ -555,6 +555,8 @@ rules:
   - id: vale-wordlist
     vale: Sensible.WordList
     basis: >-
-      Case-sensitive copy of the Google developer style word list, kept because
-      .vale.ini sets Google.WordList = NO. No guide file references it.
+      Case-sensitive half of the Google developer style word list, kept because
+      .vale.ini sets Google.WordList = NO. Entries that Google.WordListCase
+      (enabled) also covers were removed, so a match no longer alerts twice.
+      No guide file references it.
     status: draft

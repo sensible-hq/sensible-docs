@@ -111,4 +111,4 @@ entry) and re-run `python scripts/style_sync/review_table.py`.
 | Status | Rule | Enforced by | Note | ID |
 | --- | --- | --- | --- | --- |
 | ⚠️ draft | *(no guide rule)* Draft pages use a draft- slug prefix (integration-guide-template.md, "File naming and visibility"); published pages must not link to them. No scanned guide file states this as a prose rule. | Vale: `Sensible.NoDraftLinks` |  | `vale-no-draft-links` |
-| ⚠️ draft | *(no guide rule)* Case-sensitive copy of the Google developer style word list, kept because .vale.ini sets Google.WordList = NO. No guide file references it. | Vale: `Sensible.WordList` |  | `vale-wordlist` |
+| ⚠️ draft | *(no guide rule)* Case-sensitive half of the Google developer style word list, kept because .vale.ini sets Google.WordList = NO. Entries that Google.WordListCase (enabled) also covers were removed, so a match no longer alerts twice. No guide file references it. | Vale: `Sensible.WordList` |  | `vale-wordlist` |
