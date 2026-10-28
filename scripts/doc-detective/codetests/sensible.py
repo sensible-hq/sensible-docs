@@ -35,7 +35,7 @@ class SensibleClient:
         self.counts["by_call"][call] = self.counts["by_call"].get(call, 0) + 1
         if method != "GET" and path.startswith("/document_types") and path.count("/") == (1 if method == "POST" else 2):
             self._doc_types = None  # a doc type was created or deleted
-        return requests.request(method, f"{settings.API}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
+        return requests.request(method, f"{settings.api()}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
 
     def _charge(self):
         """Count an extraction, refusing it if the run already made settings.max_extractions()."""

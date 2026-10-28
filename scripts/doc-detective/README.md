@@ -25,7 +25,10 @@ Both are written as HTML comments in the page, so readers never see them. Today 
    SENSIBLE_TEST_PASSWORD=...
    SENSIBLE_TEST_API_KEY=...     # the docs test account's API key
    ANTHROPIC_API_KEY=...         # for the LLM judge; ANTHROPIC_KEY also works
+   SENSIBLE_DEV_API_KEY=...      # optional: the dev account's key, for features not in production yet
    ```
+
+   **Code tests against dev.** `DOC_TESTS_ENV=dev` runs code tests on Sensible's dev API (`https://api.sensible.so/dev`) with `SENSIBLE_DEV_API_KEY`, for features that aren't in production yet. It never falls back to the production key. The default, `prod`, uses `https://api.sensible.so/v0` and `SENSIBLE_TEST_API_KEY`. Fixtures live per account: create them in dev for pre-release tests, then re-create them in production when the docs publish.
 
 3. Run a page:
 
