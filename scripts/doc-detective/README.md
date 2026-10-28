@@ -177,10 +177,109 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, checks the restore took (the test fails if it didn't), and the test passes **with a `[fixture]` warning** that names each difference. CI lists these warnings on the run's summary page, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 
+### Field claims (parameter tables and prose)
+
+Most claims in a parameter table or in prose are about a few fields, not a whole documented output: "default: `true`", "doesn't support Match arrays". An expect with `"compare": "fields"` checks the fields it lists, from one single-document extraction, and ignores every other field:
+
+```markdown
+<!-- expect {"compare": "fields", "fields": {"<field ID>": <expected output>}, "absent": ["<field ID>"]} -->
+```
+
+| Option | Meaning |
+| --- | --- |
+| `fields` | Top-level field IDs of `parsed_document`, each with the output the page claims, written like an inline output (below). |
+| `absent` | Optional. Field IDs the output must not have at all. `fields` or `absent` must name at least one field, and a field can't be in both. |
+
+It works in a code test and in a table row (`"expect": {"compare": "fields", ...}`). The test needs exactly one config, from one of:
+
+| Config | Use it for |
+| --- | --- |
+| `<!-- inline config -->` | A claim about the page's own example config. Code tests only. Runs like any code test's config. |
+| `<!-- fixture {"config": {...}} -->`, or a row's `"fixture": {"config": {...}}` | A small config written in the comment, so readers don't see it. The runner uploads it to a temporary doc type, `docs_ci_tmp_<testId>`, published to development, extracts the test's inline document, and deletes the doc type. Nothing is stored in the test account, so a parameter claim doesn't need a fixture created in each account (dev for a pre-release run, prod later). It's strict JSON: no comments, trailing commas, or `-->`. |
+| `<!-- fixture {"name": "..."} -->`, or a row's `"fixture": {"name": "..."}` | A committed fixture, as for fingerprint claims. For a config too big for a comment. |
+
+A fixture takes `name` or `config`, not both. A fixture's `config` works only with `"compare": "fields"`. A field expect takes no `inline output` (the expect is the claim) and no `segment_documents_with` (it's a single-document extraction).
+
+**How fields compare.** Each listed field's expected output is compared with the field's output exactly as an inline output is (`codetests/compare.py`):
+
+- **Keys left out aren't checked.** `{"value": 5}` checks the value only. Add `"type"` or `"source"` to check them too.
+- **`null`** means the field came back `null`, which is how Sensible returns a field it didn't find. A field that isn't in the output at all fails as missing, even against `null`. To claim a field isn't in the output, list it in `absent`. A field that's there, even as `null`, fails an `absent` claim.
+- **Nested values:** list the top-level field, such as a sections group's ID, and nest the claim in its output. An array must match in full unless it's abridged.
+- **Abridgement:** comment JSON is strict, so mark what you don't claim with the string `"[...]"`: a whole value (`"stop_match": "[...]"` claims only that the field is in the output, whatever its value, `null` included), an array item (`["[...]", {...}]`), or a run of text inside a string (`"1 3 2 4 5 [...]"`).
+- **Numbers and text:** `5` matches `5.0`. `true` doesn't match `1`, and `"5"` doesn't match `5`. Strings are exact, including whitespace and case. Use `[...]` for text the claim doesn't cover.
+- **Exact only, no judge or envelope.** A field expect can't name a field an LLM method produces (Query Group, List, NLP Table, at any depth, or in a fallback chain with one), in `fields` or `absent`. Parameter claims are about deterministic behavior, and a judged verdict would make a table's claims nondeterministic. Claim an LLM field's output in an inline output, where the judge checks it.
+
+`--check-syntax` checks all of this before any network call, as `DOCS_MALFORMED`: `fields` must be an object of field IDs, and each expected output an object (`{"value": ...}`), a list, `null`, or `"[...]"` (a bare value such as `"5"` never matches a field's output). Each field ID in `fields` and `absent` must be defined in the config (an inline config, a fixture's `config`, or a named fixture's committed config), so a typo can't pass an `absent` claim. LLM fields are rejected, naming the field.
+
+A mismatch fails as `FIELDS_DRIFT`, with the extraction ID and one line per difference, in the same form as `OUTPUT_DRIFT`:
+
+```
+FIELDS_DRIFT: fields don't match the extraction (extraction <id>):
+  $.stop_match.value: expected "1 3 2 4 5", got "1 3 2 4 5 For up-to-date rankings, see the current TIOBE index."
+  $.default: missing from actual output
+  $.excluded: expected absent, got null
+```
+
+The record's `fields` has `extraction_id` and `mismatches`, each `{"field", "path", "expected", "actual"}`. A side that isn't in the output is left out (no `"actual"` for a missing field, no `"expected"` for an `absent` claim), so it can't be confused with `null`.
+
+**Untested rows.** A tagged table needs one row entry per table row, and a parameter table has rows with nothing to check, such as `id`. `<!-- row {"rowId": "id", "untested": "<why>"} -->` keeps the count and runs nothing. The reason is required, and an untested row takes no `fixture` or `expect`. `--list` and the report show untested rows with their reasons, so the gaps stay visible.
+
+**Example: Column's `stop` (one row, three claims).** The row claims Stop takes a Match object, and that it doesn't support a Match array or a string. One config has a field per claim, so one extraction checks all three. The table test sits at the Examples' download link, which is its inline document:
+
+```markdown
+<!-- table {"tableId": "column_parameters"} -->
+| key               | value                                                                                                                   | description |
+| :---------------- | :---------------------------------------------------------------------------------------------------------------------- | :---------- |
+| id (**required**) | `column`                                                                                                                |             |
+| tiebreaker        | tiebreaker                                                                                                              | ...         |
+| includeAnchor     | `true`, `false`. default: false                                                                                         | ...         |
+| position          | `below`, `above`. default: `below`                                                                                      | ...         |
+| stop              | limited support for [Match](doc:match) object (doesn't support Match arrays or strings as values).<br />default: `none` | ...         |
+
+...
+
+<!-- table test {"testId": "column_parameters_tests", "table": "column_parameters", "description": "Column parameter claims"} -->
+<!-- inline document -->
+| Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/row_column.pdf) |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+<!-- row {"rowId": "id", "untested": "the method's ID"} -->
+<!-- row {"rowId": "tiebreaker", "untested": "a global parameter; its claims are on the Method page"} -->
+<!-- row {"rowId": "include_anchor", "untested": "no test yet"} -->
+<!-- row {"rowId": "position", "untested": "no test yet"} -->
+<!-- row {"rowId": "stop",
+  "fixture": {"config": {"fields": [
+    {"id": "stop_match", "anchor": "may 2020", "method": {"id": "column", "stop": {"type": "startsWith", "text": "for up"}}},
+    {"id": "stop_match_array", "anchor": "may 2020", "method": {"id": "column", "stop": [{"type": "startsWith", "text": "for up"}]}},
+    {"id": "stop_string", "anchor": "may 2020", "method": {"id": "column", "stop": "for up"}}]}},
+  "expect": {"compare": "fields", "fields": {
+    "stop_match": {"value": "1 3 2 4 5"},
+    "stop_match_array": {"value": "1 3 2 4 5 [...]"},
+    "stop_string": {"value": "1 3 2 4 5 [...]"}}}} -->
+<!-- table test end -->
+```
+
+`"1 3 2 4 5 [...]"` claims the unsupported forms are ignored, so the column runs on past the note to the end of the page; the space before `[...]` means something must follow. If Sensible instead rejects those configs, the row fails as `CONFIG_INVALID`, and the claim needs a different test.
+
+**Example: Region's `includeAnchor` default.** The row claims the default is `true` (unlike Column, Box, and Row): with the parameter left out, the output includes the anchor line; with `false`, it doesn't. The other ten row entries are left out here:
+
+```markdown
+<!-- row {"rowId": "include_anchor",
+  "fixture": {"config": {"fields": [
+    {"id": "default", "anchor": {"match": {"type": "equals", "text": "Social security number", "isCaseSensitive": true}},
+     "method": {"id": "region", "start": "below", "width": 2.55, "height": 0.6, "offsetX": -0.65, "offsetY": -0.15, "sortLines": "readingOrderLeftToRight"}},
+    {"id": "excluded", "anchor": {"match": {"type": "equals", "text": "Social security number", "isCaseSensitive": true}},
+     "method": {"id": "region", "start": "below", "width": 2.55, "height": 0.6, "offsetX": -0.65, "offsetY": -0.15, "sortLines": "readingOrderLeftToRight", "includeAnchor": false}}]}},
+  "expect": {"compare": "fields", "fields": {
+    "default": {"value": "[...]Social security number[...]"},
+    "excluded": {"value": "111 – 22 – 3333"}}}} -->
+```
+
+The expected values in both examples are illustrative until the rows run against Sensible: confirm them with a run before committing a row.
+
 ### Rules
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
-- `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
+- `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`, or `untested`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one. An expect with `"compare": "fields"` needs exactly one config: an `inline config` or one `fixture`.
 - A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
@@ -215,6 +314,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
 | `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
 | `FINGERPRINT_DRIFT` | A standalone fingerprint sample passed when the page claims it fails, or the reverse. |
+| `FIELDS_DRIFT` | A field the page claims (`"compare": "fields"`) doesn't match, is missing, or is there when the page claims it's absent. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
