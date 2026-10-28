@@ -75,10 +75,16 @@ def main():
                 failed += 1
         return 1 if failed else 0
 
-    key = settings.key(settings.SENSIBLE_KEY_VAR)
-    if not key:
-        print(f"{settings.SENSIBLE_KEY_VAR} isn't set in .env or the environment", file=sys.stderr)
+    try:
+        key_var = settings.sensible_key_var()
+    except ValueError as e:
+        print(e, file=sys.stderr)
         return 2
+    key = settings.key(key_var)
+    if not key:
+        print(f"{key_var} isn't set in .env or the environment ({settings.ENV_VAR}={settings.env()})", file=sys.stderr)
+        return 2
+    print(f"Sensible environment: {settings.env()} ({settings.api()})")
     client = SensibleClient(key)
 
     if args.check_fixtures:

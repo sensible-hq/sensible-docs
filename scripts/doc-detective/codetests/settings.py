@@ -13,8 +13,33 @@ OUTPUT_DIR = os.path.join(HERE, "output")
 RECORDS_DIR = os.path.join(OUTPUT_DIR, "code-tests")
 DEPS_DIR = os.path.join(HERE, ".deps")
 
-# The Sensible API and the temporary document type that code tests run in
-API = "https://api.sensible.so/v0"
+# The Sensible API and the temporary document type that code tests run in.
+# DOC_TESTS_ENV picks the Sensible environment: "prod" (default) or "dev", for features that aren't
+# in production yet. Each has its own account key, so a dev run can't touch production.
+ENV_VAR = "DOC_TESTS_ENV"
+ENVS = {
+    "prod": {"api": "https://api.sensible.so/v0", "key_var": "SENSIBLE_TEST_API_KEY"},
+    "dev": {"api": "https://api.sensible.so/dev", "key_var": "SENSIBLE_DEV_API_KEY"},
+}
+
+
+def env():
+    """The selected environment name. An unknown value is an error, never a silent fallback."""
+    name = (os.environ.get(ENV_VAR) or "prod").strip().lower()
+    if name not in ENVS:
+        raise ValueError(f"{ENV_VAR}={name!r} isn't one of {', '.join(sorted(ENVS))}")
+    return name
+
+
+def api():
+    return ENVS[env()]["api"]
+
+
+def sensible_key_var():
+    return ENVS[env()]["key_var"]
+
+
+API = ENVS["prod"]["api"]  # production; code calls api() so DOC_TESTS_ENV applies
 DOC_TYPE = "docs_ci_examples"
 ENVIRONMENT = "development"
 # Test-account fixtures (doc types and configs) that code tests can run instead of a page's code block.
@@ -32,9 +57,10 @@ FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
 MAX_EXTRACTIONS_VAR = "DOC_TESTS_MAX_EXTRACTIONS"
 MAX_EXTRACTIONS_DEFAULT = 20
 
-# Keys. The Sensible key is the docs test account's; there's deliberately no fallback to
-# SENSIBLE_API_KEY, so a missing key can't run tests against another account.
-SENSIBLE_KEY_VAR = "SENSIBLE_TEST_API_KEY"
+# Keys. The Sensible key is the docs test account's (sensible_key_var() picks it per environment);
+# there's deliberately no fallback to SENSIBLE_API_KEY, so a missing key can't run tests against
+# another account.
+SENSIBLE_KEY_VAR = "SENSIBLE_TEST_API_KEY"  # production's; prefer sensible_key_var()
 JUDGE_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_KEY")  # ANTHROPIC_KEY: a name some local shells use
 JUDGE_MODEL_VAR = "DOC_EXAMPLES_JUDGE_MODEL"
 PROPOSE_FIXES_VAR = "DOC_EXAMPLES_PROPOSE_FIXES"

@@ -24,7 +24,7 @@ def month_to_date(key, now=None):
     params = {"start_date": since.strftime("%Y-%m-%dT%H:%M:%SZ"), "end_date": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "limit": 100}
     items = []
     for _ in range(200):  # at most 20,000 extractions; stop instead of looping forever on a bad token
-        response = requests.get(f"{settings.API}/extractions", params=params, headers={"Authorization": f"Bearer {key}"}, timeout=60)
+        response = requests.get(f"{settings.api()}/extractions", params=params, headers={"Authorization": f"Bearer {key}"}, timeout=60)
         response.raise_for_status()
         body = response.json()
         items += body.get("extractions", [])
