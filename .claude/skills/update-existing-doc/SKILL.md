@@ -2,7 +2,6 @@
 name: update-existing-doc
 description: Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
-disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 

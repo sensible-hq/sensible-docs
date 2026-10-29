@@ -2,7 +2,6 @@
 name: create-docs-example
 description: Given an extractor directory path from the sensible engine repo, create or update a full-fledged documentation example — copying the golden PDF, generating a screenshot, assessing and redacting PII, and writing the example section with JSON5 comments.
 argument-hint: <path/to/extractor/dir> [doc-page-path]
-disable-model-invocation: true
 allowed-tools: Bash(pdftotext:*), Bash(pdftoppm:*), Bash(python3:*), Bash(cp:*), Bash(curl:*), Read, Glob, Edit, Write
 ---
 

@@ -2,7 +2,6 @@
 name: create-new-doc
 description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about what's being added or related PRs]
-disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 
