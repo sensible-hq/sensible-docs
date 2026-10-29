@@ -1,0 +1,213 @@
+# Acceptance tests for SPEC.md. Every implementation must pass every case.
+# SPEC.md "Testing" defines the case format. In short:
+#   base:     files committed on branch `base`
+#   head:     files written over base, committed on branch `head` (with `delete` removed)
+#   denylist: text of the denylist file passed with --denylist (default empty)
+#   expect:   one "<path> -> <pattern>" per forbidden path, in output order
+
+version: 0.1.0
+cases:
+
+# --- Changes that pass --------------------------------------------------------
+
+- name: a docs-only change passes
+  base: {docs/a.md: "a\n"}
+  head: {docs/a.md: "a2\n", docs/b.md: "b\n", assets/x.png: "png"}
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 3 changed path(s)\n"
+
+- name: no change at all
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 0 changed path(s)\n"
+
+- name: deleting a forbidden file is allowed
+  base: {runs/old.jsonl: "{}\n", docs/a.md: "a\n"}
+  delete: [runs/old.jsonl]
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 0 changed path(s)\n"
+
+- name: a forbidden file already in base and untouched passes
+  base: {specs/old.md: "s\n"}
+  head: {docs/a.md: "a\n"}
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 1 changed path(s)\n"
+
+- name: names that only look like the patterns pass
+  head:
+    docs/runs.md: "a\n"
+    docs/myruns/a.md: "a\n"
+    docs/specs-overview.md: "a\n"
+    docs/x.json: "{}\n"
+    docs/x.jsonl.md: "a\n"
+    design/other/a.md: "a\n"
+    docs/docops/a.md: "a\n"
+    judges/a/b/labels/x.json: "{}\n"
+    judges/labels/x.json: "{}\n"
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 9 changed path(s)\n"
+
+- name: matching is case-sensitive
+  head: {Runs/a.md: "a\n", docs/Specs/a.md: "a\n", log.JSONL: "x\n"}
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 3 changed path(s)\n"
+
+- name: a folder pattern needs something inside the folder
+  head: {runs: "a file named runs\n"}
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 1 changed path(s)\n"
+
+# --- Built-in patterns ------------------------------------------------------
+
+- name: each built-in pattern, at the root
+  head:
+    runs/r1/report.txt: "r\n"
+    specs/feature/SPEC.md: "s\n"
+    design/docops/concept.md: "c\n"
+    judges/j1/labels/1.json: "{}\n"
+    log.jsonl: "{}\n"
+  exit: 1
+  stdout: |
+    design/docops/concept.md: error: forbidden-path: **/design/docops/
+    judges/j1/labels/1.json: error: forbidden-path: **/judges/*/labels/
+    log.jsonl: error: forbidden-path: *.jsonl
+    runs/r1/report.txt: error: forbidden-path: **/runs/
+    specs/feature/SPEC.md: error: forbidden-path: **/specs/
+    public diff paths: 5 error(s), 5 changed path(s)
+
+- name: each built-in pattern, nested
+  head:
+    tools/x/runs/a.txt: "r\n"
+    docs/specs/a.md: "s\n"
+    a/b/design/docops/samples/x.md: "c\n"
+    plugins/p/judges/j/labels/sub/1.json: "{}\n"
+    docs/data/events.jsonl: "{}\n"
+    docs/ok.md: "fine\n"
+  exit: 1
+  expect:
+    - a/b/design/docops/samples/x.md -> **/design/docops/
+    - docs/data/events.jsonl -> *.jsonl
+    - docs/specs/a.md -> **/specs/
+    - plugins/p/judges/j/labels/sub/1.json -> **/judges/*/labels/
+    - tools/x/runs/a.txt -> **/runs/
+
+- name: changing a forbidden file that base already has fails
+  base: {specs/old.md: "s\n"}
+  head: {specs/old.md: "s2\n"}
+  exit: 1
+  expect:
+    - specs/old.md -> **/specs/
+
+- name: a rename into a forbidden folder is an add there
+  base: {docs/a.md: "some text that stays the same\n"}
+  head: {runs/a.md: "some text that stays the same\n"}
+  delete: [docs/a.md]
+  exit: 1
+  stdout: |
+    runs/a.md: error: forbidden-path: **/runs/
+    public diff paths: 1 error(s), 1 changed path(s)
+
+- name: a path matching two patterns is reported once, with the first
+  head: {runs/log.jsonl: "{}\n"}
+  exit: 1
+  expect:
+    - runs/log.jsonl -> **/runs/
+
+- name: paths with spaces and non-ASCII characters
+  head: {"docs/Senseml reference/runs/a b.md": "a\n", "docs/café/x.jsonl": "{}\n"}
+  exit: 1
+  expect:
+    - docs/Senseml reference/runs/a b.md -> **/runs/
+    - docs/café/x.jsonl -> *.jsonl
+
+- name: only what head adds since the merge base counts
+  # base gains a forbidden file after head branches; three dots ignore it
+  base: {docs/a.md: "a\n"}
+  head: {docs/b.md: "b\n"}
+  base_after: {specs/later.md: "s\n"}
+  exit: 0
+  stdout: "public diff paths: 0 error(s), 1 changed path(s)\n"
+
+# --- The denylist file --------------------------------------------------------
+
+- name: denylist patterns add to the built-ins
+  # internal/ is anchored at the root; scratch.txt has no slash, so it matches at any depth
+  denylist: |
+    # extra patterns
+    internal/
+
+    **/*.secret-notes.md
+    scratch.txt
+  head:
+    internal/a.md: "a\n"
+    docs/x/y.secret-notes.md: "a\n"
+    scratch.txt: "a\n"
+    docs/scratch.txt: "a\n"
+    docs/internal/a.md: "a\n"
+    runs/a.md: "a\n"
+  exit: 1
+  expect:
+    - docs/scratch.txt -> scratch.txt
+    - docs/x/y.secret-notes.md -> **/*.secret-notes.md
+    - internal/a.md -> internal/
+    - runs/a.md -> **/runs/
+    - scratch.txt -> scratch.txt
+
+- name: a denylist pattern without a slash matches the file name at any depth
+  denylist: "*.log\n"
+  head: {a.log: "x\n", docs/b/c.log: "x\n"}
+  exit: 1
+  expect:
+    - a.log -> *.log
+    - docs/b/c.log -> *.log
+
+- name: denylist whitespace is stripped
+  denylist: "   notes/   \n"
+  head: {notes/a.md: "a\n"}
+  exit: 1
+  expect:
+    - notes/a.md -> notes/
+
+- name: question mark and character set
+  denylist: "tmp?/\nbuild-[0-9]/\n"
+  head: {tmp1/a: "a\n", tmp/a: "a\n", build-7/a: "a\n", build-x/a: "a\n"}
+  exit: 1
+  expect:
+    - build-7/a -> build-[0-9]/
+    - tmp1/a -> tmp?/
+
+- name: the shipped default denylist runs
+  args: [--base, base, --head, head]
+  head: {docs/a.md: "a\n", runs/a.md: "a\n"}
+  exit: 1
+  expect:
+    - runs/a.md -> **/runs/
+
+# --- It couldn't run --------------------------------------------------------
+
+- name: missing --head
+  args: [--base, base]
+  exit: 2
+
+- name: a ref that isn't a commit
+  args: [--base, base, --head, no-such-branch, --denylist, $TMP/denylist.txt]
+  exit: 2
+
+- name: not a git checkout
+  args: [--repo, $TMP, --base, base, --head, head, --denylist, $TMP/denylist.txt]
+  exit: 2
+
+- name: a denylist file that doesn't exist
+  args: [--base, base, --head, head, --denylist, $TMP/nope.txt]
+  exit: 2
+
+- name: a denylist pattern starting with a slash
+  denylist: "/runs/\n"
+  exit: 2
+
+- name: a denylist pattern with a dot-dot component
+  denylist: "docs/../x/\n"
+  exit: 2
+
+- name: a denylist pattern that is only slashes
+  denylist: "/\n"
+  exit: 2

@@ -1,0 +1,3 @@
+# Extra patterns for public_diff_paths.py, one per line (syntax: SPEC.md, "Patterns").
+# The built-in patterns (runs, specs, design/docops, judge labels, *.jsonl) always apply;
+# add a line here to keep out another kind of path.
