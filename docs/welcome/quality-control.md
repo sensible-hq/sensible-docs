@@ -12,10 +12,10 @@ metadata:
 next:
   description: ''
 ---
-You have the following quality-control options for your extracted document data:
+Sensible provides the following quality-control options for extracted fields:
 
-|                              |                                                    | notes                                                                                                                                                                                                                                                                                  |
-| ---------------------------- | -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Custom validation logic      | [Validating extractions](doc:validate-extractions) | Throw extraction errors and warnings based on your custom rules. For example, use a regex expression to throw a`zip code is invalid` error  for a field `customer_zip_code`.                                                                                                           |
-| Monitor in real time         | [Monitoring extraction metrics](doc:metrics)       | Real-time dashboard in the Sensible app. Track your document extraction metrics in one place, in real time. Aggregate performance summaries, monitor configuration success, track usage at the document type level, and view historic performance data for all production deployments. |
-| Manual review and correction | [Human review](doc:human-review)                   | Set criteria based on metrics and validations for flagging extractions for review. A reviewer can then use the Sensible app to manually correct errors in flagged extractions and approve or reject extractions.                                                                       |
+| Option                       | Topic                                              | Notes |
+| ---------------------------- | -------------------------------------------------- | ----- |
+| Custom validation logic      | [Validating extractions](doc:validate-extractions) | Throw errors and warnings for fields based on your custom rules. For example, use a regular expression to throw a `zip code is invalid` error for the field `customer_zip_code`. |
+| Monitor in real time         | [Monitoring extraction metrics](doc:metrics)       | In the Sensible app, view aggregate performance summaries, config success, usage per document type, and historic performance for all production deployments. |
+| Manual review and correction | [Human review](doc:human-review)                   | Human review lets you set criteria, based on metrics and validations, for flagging extractions. Reviewers correct, approve, or reject flagged extractions in the Sensible app. |
