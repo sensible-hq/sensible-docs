@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'scripts/descriptions/**'
+      - 'scripts/docs_triage/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - '.github/workflows/test-scripts.yml'
@@ -12,6 +13,7 @@ on:
       - v0
     paths:
       - 'scripts/descriptions/**'
+      - 'scripts/docs_triage/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - '.github/workflows/test-scripts.yml'
@@ -24,6 +26,7 @@ jobs:
       matrix:
         suite:
           - scripts/descriptions/test/tests
+          - scripts/docs_triage/test/tests
           - scripts/llms_txt/test/tests
           - scripts/style_images/test/tests
 
