@@ -1,3 +1,4 @@
+"""Pytest setup: put scripts/docs_triage on sys.path so tests can `import triage`."""
 import sys
 from pathlib import Path
 
