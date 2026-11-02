@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Flag merged sensible-hq/sensible PRs that may need docs, by adding the docs_triage_ai label.
+"""Label merged sensible-hq/sensible PRs that need docs (docs_needed_ai) or may need them (docs_triage_ai).
 
 Jev (TypeSafe's judge model) answers each question in criteria.md as a yes/no score (noul)
-about one PR: its title, description, changed files, and a diff excerpt. A PR gets the label
-when any T-* trigger scores at or above the threshold and neither X-* exclusion does.
+about one PR: its title, description, changed files, and a diff excerpt. `decide` turns the
+scores into one of the two labels, or none; criteria.md describes the rule.
 
   python3 scripts/docs_triage/triage.py --dry-run              # score PRs merged in the last 4 days
   python3 scripts/docs_triage/triage.py --dry-run --pr 3474    # score specific PRs
-  python3 scripts/docs_triage/triage.py                        # also apply the label
+  python3 scripts/docs_triage/triage.py                        # also apply the labels
 
 Needs GH_TOKEN (or a logged-in gh) with read access to sensible's contents and write access to
 its pull requests, and TYPESAFE_API_KEY.
@@ -28,14 +28,24 @@ import urllib.request
 from pathlib import Path
 
 REPO = "sensible-hq/sensible"
-LABEL = "docs_triage_ai"
-# A PR that already carries any of these has had a human docs decision.
-DOCS_LABELS = {LABEL, "doc_changes_needed", "docs_done", "docs_dont_publicly_doc", "docs_future_not_yet_blocked"}
+NEEDED = "docs_needed_ai"
+TRIAGE = "docs_triage_ai"
+AI_LABELS = {NEEDED, TRIAGE}
+# A PR that already carries any of these has been labeled, by a human or by this script.
+DOCS_LABELS = AI_LABELS | {"doc_changes_needed", "docs_done", "docs_dont_publicly_doc", "docs_future_not_yet_blocked"}
 BOT_AUTHORS = {"dependabot", "dependabot[bot]", "github-actions", "github-actions[bot]", "app/dependabot"}
 
 JEV_API = "https://api.typesafe.ai/v1/systemone"
 JEV_MODEL = "jev-latest"
-THRESHOLD = 0.70
+
+TRIAGE_THRESHOLD = 0.70  # any trigger at or above this: the PR gets at least docs_triage_ai
+NEEDED_THRESHOLD = 0.90  # a confident trigger at or above this can earn docs_needed_ai
+CLEAR = 0.30             # docs_needed_ai also needs every exclusion below this
+# Triggers precise enough for docs_needed_ai. T-api, T-behavior, and T-output catch real docs
+# work too, but they're where most false positives come from, so alone they only earn triage.
+CONFIDENT_TRIGGERS = ("T-config", "T-inputs", "T-models")
+# Exclusions that rule a PR out. The other X-* questions only keep it out of docs_needed_ai.
+HARD_EXCLUSIONS = ("X-internal",)
 
 HERE = Path(__file__).resolve().parent
 DOCS_ROOT = HERE.parent.parent
@@ -46,32 +56,70 @@ SKIP_FILE = re.compile(r"^(extraction-cache/|extractors/.*/goldens/|test-cache/|
 # Diff excerpts lead with the files that most often mean docs: the config schema, then the API.
 PRIORITY = ["src/engine/__generated__/", "src/engine/types.ts", "src/api/", "src/engine/"]
 # PR descriptions sometimes name the label outright; Jev must not see the answer.
-LABEL_MENTION = re.compile(r"doc_changes_needed|docs_done|docs_dont_publicly_doc|docs_future_not_yet_blocked|docs_triage_ai|docs?[_ -]needed", re.I)
+LABEL_MENTION = re.compile(r"doc_changes_needed|docs_done|docs_dont_publicly_doc|docs_future_not_yet_blocked|docs_triage_ai|docs_needed_ai|docs?[_ -]needed", re.I)
 
 IN_CI = bool(os.environ.get("GITHUB_ACTIONS"))
 
 
 class JevUnavailable(RuntimeError):
-    pass
+    """Jev couldn't score a PR (no key, network or HTTP error, or a missing answer).
+
+    The script fails closed on this: the PR gets no label and the run exits nonzero.
+    """
 
 
 # ── criteria and decision ────────────────────────────────────────────────────
 
 def load_criteria(path: Path = HERE / "criteria.md") -> dict:
-    """{id: question} from lines like `- [T-config] The PR adds ...`."""
+    """Read the Jev questions from a criteria file.
+
+    Args:
+        path: a Markdown file with one question per line, like `- [T-config] The PR adds ...`.
+            Lines that don't match are ignored.
+
+    Returns:
+        {criterion id: question text}, in file order.
+    """
     return {m.group(1): m.group(2) for line in path.read_text().splitlines() if (m := CRITERION.match(line))}
 
 
-def needs_triage(scores: dict, threshold: float = THRESHOLD) -> bool:
-    triggered = any(v >= threshold for k, v in scores.items() if k.startswith("T-"))
-    excluded = any(v >= threshold for k, v in scores.items() if k.startswith("X-"))
-    return triggered and not excluded
+def decide(scores: dict, triage_threshold: float = TRIAGE_THRESHOLD) -> str | None:
+    """Turn Jev's scores for one PR into a label.
+
+    Args:
+        scores: {criterion id: noul score from 0 to 1}, for every T-* and X-* question.
+        triage_threshold: the score a trigger needs for docs_triage_ai.
+
+    Returns:
+        NEEDED when a confident trigger is at or above NEEDED_THRESHOLD and every exclusion is
+        below CLEAR; TRIAGE when any trigger is at or above triage_threshold and no hard
+        exclusion is; otherwise None.
+    """
+    triggers = {k: v for k, v in scores.items() if k.startswith("T-")}
+    exclusions = {k: v for k, v in scores.items() if k.startswith("X-")}
+    if max(triggers.values(), default=0) < triage_threshold:
+        return None
+    if any(exclusions.get(k, 0) >= triage_threshold for k in HARD_EXCLUSIONS):
+        return None
+    confident = any(triggers.get(k, 0) >= NEEDED_THRESHOLD for k in CONFIDENT_TRIGGERS)
+    if confident and all(v < CLEAR for v in exclusions.values()):
+        return NEEDED
+    return TRIAGE
 
 
 # ── what Jev sees ────────────────────────────────────────────────────────────
 
 def public_endpoints(root: Path = DOCS_ROOT) -> list:
-    """`METHOD /path` for every operation in the published OpenAPI specs."""
+    """List the operations in the published OpenAPI specs.
+
+    Jev uses this list to tell public endpoints from ones only the Sensible app calls.
+
+    Args:
+        root: the sensible-docs checkout; specs are read from reference/openapi_*.json.
+
+    Returns:
+        Sorted strings like `POST /extract/{document_type}`.
+    """
     out = set()
     for spec in sorted((root / "reference").glob("openapi_*.json")):
         for path, ops in json.loads(spec.read_text()).get("paths", {}).items():
@@ -80,10 +128,27 @@ def public_endpoints(root: Path = DOCS_ROOT) -> list:
 
 
 def redact(text: str) -> str:
+    """Drop every line that names a docs label, so Jev doesn't see the answer.
+
+    Args:
+        text: a PR description.
+
+    Returns:
+        The description without those lines.
+    """
     return "\n".join(line for line in text.splitlines() if not LABEL_MENTION.search(line))
 
 
 def _rank(path: str) -> int:
+    """Sort key for diff excerpts: lower ranks are shown first.
+
+    Args:
+        path: a changed file's path in sensible.
+
+    Returns:
+        The index of the first PRIORITY prefix the path starts with; otherwise one past the
+        end, plus one more for test files.
+    """
     for i, prefix in enumerate(PRIORITY):
         if path.startswith(prefix):
             return i
@@ -91,7 +156,19 @@ def _rank(path: str) -> int:
 
 
 def build_state(pr: dict, files: list, endpoints: list, budget: int = 14000, per_file: int = 4000) -> str:
-    """The text Jev judges. `files` is the GitHub pulls/files list (filename, patch)."""
+    """Build the text Jev judges for one PR.
+
+    Args:
+        pr: the GitHub pull request object (number, title, body).
+        files: the GitHub pulls/files list for the PR (filename and patch for each file).
+        endpoints: public API operations, from `public_endpoints`.
+        budget: the most characters of diff to include, across all files.
+        per_file: the most characters of diff to include from one file.
+
+    Returns:
+        The title, the redacted description, the changed files (goldens, caches, and lockfiles
+        omitted), the public endpoints, and a diff excerpt that starts with the schema and API.
+    """
     shown = [f for f in files if not SKIP_FILE.match(f["filename"])]
     out = [f"PR #{pr['number']}: {pr['title']}", "", "Description:",
            redact((pr.get("body") or "(none)").strip())[:3000], "",
@@ -112,11 +189,31 @@ def build_state(pr: dict, files: list, endpoints: list, budget: int = 14000, per
 # ── Jev ──────────────────────────────────────────────────────────────────────
 
 def _key(cid: str) -> str:
-    return re.sub(r"[^A-Za-z0-9_]", "_", cid)  # Jev question ids must be plain keys
+    """Map a criterion id to a Jev question key, which allows only letters, digits, and `_`.
+
+    Args:
+        cid: a criterion id such as `T-config`.
+
+    Returns:
+        The id with every other character replaced by `_`, such as `T_config`.
+    """
+    return re.sub(r"[^A-Za-z0-9_]", "_", cid)
 
 
 def ask_jev(state: str, criteria: dict) -> dict:
-    """{criterion id: noul score}. Raises JevUnavailable; never guesses a pass or fail."""
+    """Ask Jev every question about one PR.
+
+    Args:
+        state: the PR text, from `build_state`.
+        criteria: {criterion id: question}, from `load_criteria`.
+
+    Returns:
+        {criterion id: noul score from 0 to 1}.
+
+    Raises:
+        JevUnavailable: no TYPESAFE_API_KEY, a network or HTTP error, or an unanswered question.
+            The message never includes the response body.
+    """
     key = os.environ.get("TYPESAFE_API_KEY")
     if not key:
         raise JevUnavailable("TYPESAFE_API_KEY is not set")
@@ -141,16 +238,37 @@ def ask_jev(state: str, criteria: dict) -> dict:
 # ── GitHub ───────────────────────────────────────────────────────────────────
 
 def gh(path: str, method: str = "GET", fields: dict | None = None):
+    """Call the GitHub REST API through `gh api`.
+
+    Args:
+        path: the API path, such as `repos/sensible-hq/sensible/pulls/1`.
+        method: the HTTP method.
+        fields: form fields, sent with `-f`.
+
+    Returns:
+        The parsed JSON response, or None for an empty one.
+
+    Raises:
+        RuntimeError: the call failed. gh's stderr is dropped because it can quote private data.
+    """
     cmd = ["gh", "api", "-X", method, path]
     for k, v in (fields or {}).items():
         cmd += ["-f", f"{k}={v}"]
     res = subprocess.run(cmd, capture_output=True, text=True)
     if res.returncode:
-        raise RuntimeError(f"gh api {method} {path} failed")  # stderr can quote private data; drop it
+        raise RuntimeError(f"gh api {method} {path} failed")
     return json.loads(res.stdout) if res.stdout.strip() else None
 
 
 def merged_since(since: dt.datetime) -> list:
+    """Find the sensible PRs merged at or after a time.
+
+    Args:
+        since: a UTC datetime.
+
+    Returns:
+        GitHub search results (issue objects with number, labels, and user), every page.
+    """
     q = f"repo:{REPO} is:pr is:merged merged:>={since.strftime('%Y-%m-%dT%H:%M:%SZ')}"
     items, page = [], 1
     while True:
@@ -162,8 +280,18 @@ def merged_since(since: dt.datetime) -> list:
 
 
 def pr_files(number: int) -> list:
+    """List a PR's changed files with their patches.
+
+    GitHub leaves out the patch for binary and very large files, and returns at most 3000 files.
+
+    Args:
+        number: the sensible PR number.
+
+    Returns:
+        GitHub pulls/files objects (filename, patch, and so on).
+    """
     files, page = [], 1
-    while page <= 30:  # GitHub returns at most 3000 files
+    while page <= 30:
         batch = gh(f"repos/{REPO}/pulls/{number}/files?per_page=100&page={page}")
         files += batch
         if len(batch) < 100:
@@ -173,11 +301,18 @@ def pr_files(number: int) -> list:
 
 
 def label_was_removed(number: int) -> bool:
-    """A human took docs_triage_ai off this PR before; don't put it back."""
+    """Check whether a human has taken an AI label off this PR, so the script doesn't put it back.
+
+    Args:
+        number: the sensible PR number.
+
+    Returns:
+        True if the PR's events include removing docs_needed_ai or docs_triage_ai.
+    """
     page = 1
     while True:
         events = gh(f"repos/{REPO}/issues/{number}/events?per_page=100&page={page}")
-        if any(e.get("event") == "unlabeled" and (e.get("label") or {}).get("name") == LABEL for e in events):
+        if any(e.get("event") == "unlabeled" and (e.get("label") or {}).get("name") in AI_LABELS for e in events):
             return True
         if len(events) < 100:
             return False
@@ -185,6 +320,14 @@ def label_was_removed(number: int) -> bool:
 
 
 def candidate(issue: dict) -> bool:
+    """Decide whether a merged PR should be scored at all.
+
+    Args:
+        issue: a GitHub issue object for the PR (labels, user).
+
+    Returns:
+        False if the PR already has a docs label or a bot opened it; otherwise True.
+    """
     labels = {lbl["name"] for lbl in issue.get("labels", [])}
     return not labels & DOCS_LABELS and (issue.get("user") or {}).get("login") not in BOT_AUTHORS
 
@@ -192,12 +335,20 @@ def candidate(issue: dict) -> bool:
 # ── main ─────────────────────────────────────────────────────────────────────
 
 def main(argv=None) -> int:
+    """Score PRs, label them, and print a summary.
+
+    Args:
+        argv: command-line arguments; None reads sys.argv.
+
+    Returns:
+        The exit code: 0, or 1 if any PR couldn't be scored.
+    """
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--since-days", type=float, default=4,
                     help="look back this many days (default 4: the gap between the Monday and Thursday runs)")
     ap.add_argument("--pr", type=int, action="append", help="score these PRs instead of searching")
     ap.add_argument("--dry-run", action="store_true", help="score and report, but don't label")
-    ap.add_argument("--threshold", type=float, default=THRESHOLD)
+    ap.add_argument("--threshold", type=float, default=TRIAGE_THRESHOLD, help="trigger score for docs_triage_ai")
     args = ap.parse_args(argv)
 
     criteria, endpoints = load_criteria(), public_endpoints()
@@ -207,7 +358,8 @@ def main(argv=None) -> int:
         since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=args.since_days)
         issues = [i for i in merged_since(since) if candidate(i)]
 
-    flagged, passed, skipped, failed = [], [], [], []
+    labeled = {NEEDED: [], TRIAGE: []}
+    passed, skipped, failed = [], [], []
     for issue in issues:
         n = issue["number"]
         try:
@@ -220,20 +372,21 @@ def main(argv=None) -> int:
             failed.append(n)
             print(f"#{n}: not scored" + ("" if IN_CI else f" ({e})"))
             continue
-        hit = needs_triage(scores, args.threshold)
+        label = decide(scores, args.threshold)
         if not IN_CI:
             top = ", ".join(f"{k}={v:.2f}" for k, v in sorted(scores.items(), key=lambda kv: -kv[1])[:3])
-            print(f"#{n} {'FLAG' if hit else 'pass'}  {pr['title'][:70]}  [{top}]")
-        if hit:
+            print(f"#{n} {label or 'none':15s} {pr['title'][:70]}  [{top}]")
+        if label:
             if not args.dry_run:
-                gh(f"repos/{REPO}/issues/{n}/labels", "POST", {"labels[]": LABEL})
-            flagged.append(n)
+                gh(f"repos/{REPO}/issues/{n}/labels", "POST", {"labels[]": label})
+            labeled[label].append(n)
         else:
             passed.append(n)
 
     verb = "would label" if args.dry_run else "labeled"
-    print(f"\n{len(issues)} PRs considered: {verb} {len(flagged)} {flagged}, {len(passed)} not flagged, "
-          f"{len(skipped)} skipped (label removed by a human), {len(failed)} not scored {failed}")
+    print(f"\n{len(issues)} PRs considered: {verb} {NEEDED} {labeled[NEEDED]} and {TRIAGE} {labeled[TRIAGE]}; "
+          f"{len(passed)} not labeled, {len(skipped)} skipped (AI label removed by a human), "
+          f"{len(failed)} not scored {failed}")
     return 1 if failed else 0
 
 
