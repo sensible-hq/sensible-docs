@@ -50,6 +50,26 @@ Known weak spots:
 - Endpoint reimplementations (such as the SST migration) get triaged unless the description
   says customers see no change.
 
+## Until the GitHub App exists: issues instead of labels
+
+The workflow needs the App's token to read sensible, so until then, run the script locally
+with `--issues`. It uses your own `gh` login and labels nothing in sensible. Instead it opens,
+in sensible-docs:
+
+- one **`Docs needed (AI): sensible#N`** issue per `docs_needed_ai` PR
+- one **`Docs triage (AI)`** issue per run, with a checkbox for each `docs_triage_ai` PR
+
+```bash
+python3 scripts/docs_triage/triage.py --issues --dry-run   # print the issues it would open
+python3 scripts/docs_triage/triage.py --issues             # open them
+```
+
+sensible-docs is public, so the issues contain only PR numbers, links, and the id of the
+question that flagged each PR (such as `T-config`): no titles, descriptions, or scores. PRs
+already mentioned in any sensible-docs issue, open or closed, are skipped, so running twice
+doesn't open duplicates. Run it Mondays and Thursdays, as the workflow will; with
+`--since-days 4`, the default, consecutive runs overlap rather than leave gaps.
+
 ## Running it locally
 
 ```bash
