@@ -2,41 +2,52 @@
 
 Every Monday and Thursday, `.github/workflows/docs-triage.yml` runs `triage.py` over the
 sensible-hq/sensible PRs merged in the last 4 days. Jev, TypeSafe's judge model, answers the
-yes/no questions in `criteria.md` about each PR. A PR that may need docs gets the
-`docs_triage_ai` label, and a human decides what happens next.
+yes/no questions in `criteria.md` about each PR, and the script adds one of two labels:
 
-`docs_triage_ai` is kept separate from `doc_changes_needed` and `docs_done` on purpose: the
-human labels are the ground truth for measuring this classifier, so the bot never writes them.
+- **`docs_needed_ai`:** confident that the PR needs docs, such as a new SenseML parameter, a new
+  input format, or an LLM model change, with nothing suggesting a bug fix, unfinished work, a
+  hidden feature, or a one-customer change.
+- **`docs_triage_ai`:** the PR may need docs; a human decides. This includes confident PRs that
+  might be hidden, unfinished, or customer-specific, following the changelog skill's
+  `investigate` rule: don't drop them, check them.
+
+The AI labels are kept separate from `doc_changes_needed` and `docs_done` on purpose: the human
+labels are the ground truth for measuring this classifier, so the bot never writes them.
 
 ## What gets scored
 
-A merged PR is skipped when it already has a docs label (`doc_changes_needed`, `docs_done`,
-`docs_dont_publicly_doc`, `docs_future_not_yet_blocked`, or `docs_triage_ai`), when a bot
-opened it, or when a human has removed `docs_triage_ai` from it before.
+A merged PR is skipped when it already has a docs label (human or AI), when a bot opened it, or
+when a human has removed an AI label from it before.
 
 Jev sees the PR's title, its description with any label names removed, the changed files, a
 diff excerpt that starts with the config schema and API files, and the public endpoints from
 `reference/openapi_*.json`. Extractor goldens, OCR caches, and lockfiles are left out.
-
-A PR is labeled when any `T-*` question scores 0.70 or higher and neither `X-*` question does.
+`criteria.md` gives the decision rule.
 
 ## Calibration (November 2026)
 
-Against existing labels, treating any docs label as "needs a docs decision":
+353 PRs, scored through this script: a tuning sample, a holdout, and 113 PRs the changelog
+skill categorized as not documented. "Docs" means `docs_done` or `doc_changes_needed`;
+"hidden" means `docs_dont_publicly_doc` or `docs_future_not_yet_blocked`.
 
-| Set | PRs | Recall | False-positive rate |
+| Human label | `docs_needed_ai` | `docs_triage_ai` | No label |
 |---|---|---|---|
-| Tuning sample | 65 labeled, 57 not | 0.91 | 7% |
-| Holdout | 45 labeled, 95 not | 0.89 | 7% |
+| Docs (99) | 56 | 36 | 7 |
+| Hidden (15) | 4 | 10 | 1 |
+| None (239) | 1 | 23 | 215 |
+
+- `docs_needed_ai`: 56 of 61 were docs work. 4 of the other 5 were features chosen not to be
+  documented publicly (fullDocument mode, classifyAndQuery, the sort preprocessor), which the
+  PR text doesn't reveal.
+- `docs_triage_ai`: about half are docs work, and another seventh are hidden features.
+- Misses: 7 docs PRs got no label, mostly small behavior changes that Jev read as bug fixes.
 
 Treat these as optimistic. The misses that Jev also missed were never reviewed, and the label
 fixes made during calibration came from Jev's own flags. The real measure is new PRs: compare
-`docs_triage_ai` with the labels humans apply. Scoring costs about $0.0002 per PR.
+the AI labels with the labels humans apply. Scoring costs about $0.0002 per PR.
 
 Known weak spots:
-- Jev can't tell a feature that shouldn't be documented publicly from one that should.
-  Those PRs get flagged, and a human applies `docs_dont_publicly_doc`.
-- Endpoint reimplementations (such as the SST migration) get flagged unless the description
+- Endpoint reimplementations (such as the SST migration) get triaged unless the description
   says customers see no change.
 
 ## Running it locally

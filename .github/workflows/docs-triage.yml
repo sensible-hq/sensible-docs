@@ -1,7 +1,7 @@
 name: Docs triage for sensible PRs
 
-# Twice a week, ask Jev which recently merged sensible-hq/sensible PRs may need docs, and add
-# the docs_triage_ai label to them. See scripts/docs_triage/README.md.
+# Twice a week, ask Jev which recently merged sensible-hq/sensible PRs need docs, and add
+# docs_needed_ai or docs_triage_ai to them. See scripts/docs_triage/README.md.
 #
 # This repo is public and sensible is private: anyone can read this workflow's logs, so the
 # script prints only counts and PR numbers. Don't add steps that print PR content, upload
@@ -53,7 +53,7 @@ jobs:
           owner: sensible-hq
           repositories: sensible
 
-      - name: Label PRs that may need docs
+      - name: Label PRs that need docs
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
