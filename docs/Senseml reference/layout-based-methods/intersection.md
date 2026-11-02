@@ -1,11 +1,15 @@
 ---
 title: Intersection
-excerpt: 'Table cell lookup: extract the value at the cross-point of a row and column, ideal for tables with empty cells or variable text positions.'
+excerpt: >-
+  Table cell lookup: extract the value at the cross-point of a row and column,
+  ideal for tables with empty cells or variable text positions.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Table cell lookup: extract the value at the cross-point of a row and column, ideal for tables with empty cells or variable text positions.'
+  description: >-
+    Table cell lookup: extract the value at the cross-point of a row and column,
+    ideal for tables with empty cells or variable text positions.
   robots: index
 next:
   description: ''
@@ -134,7 +138,7 @@ The following example shows extracting variably positioned lines by relaxing the
            To extract variably positioned lines,
            this config specifies 0 to accept any overlap */
         "percentOverlapX": 0,
-        "percentOverlapX": 0
+        "percentOverlapY": 0
       }
     }
   ]
@@ -188,7 +192,7 @@ The following example shows using a horizontal anchor to extract multiple cells 
         "width": 1.5,
         "height": 0.5,
         "percentOverlapX": 0,
-        "percentOverlapX": 0
+        "percentOverlapY": 0
       }
     }
   ]
