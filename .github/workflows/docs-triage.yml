@@ -29,7 +29,9 @@ concurrency:
 
 jobs:
   triage:
-    if: github.repository == 'sensible-hq/sensible-docs'
+    # Skipped until the GitHub App is set up (see scripts/docs_triage/README.md, Setup); until then,
+    # run the script locally with --issues.
+    if: github.repository == 'sensible-hq/sensible-docs' && vars.DOCS_TRIAGE_APP_ID != ''
     runs-on: ubuntu-latest
     # The environment holds the secrets; restrict it to the v0 branch in repo settings.
     environment: docs-triage
