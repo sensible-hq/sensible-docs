@@ -8,6 +8,12 @@ scores into one of the two labels, or none; criteria.md describes the rule.
   python3 scripts/docs_triage/triage.py --dry-run              # score PRs merged in the last 4 days
   python3 scripts/docs_triage/triage.py --dry-run --pr 3474    # score specific PRs
   python3 scripts/docs_triage/triage.py                        # also apply the labels
+  python3 scripts/docs_triage/triage.py --issues               # open sensible-docs issues instead
+
+--issues opens one sensible-docs issue per docs_needed_ai PR and one issue for the run's
+docs_triage_ai PRs, and labels nothing. It's for running locally with your own gh login, until
+the workflow has a token that can read sensible. sensible-docs is public, so the issues name
+only PR numbers and the question that flagged each one: never titles or descriptions.
 
 Needs GH_TOKEN (or a logged-in gh) with read access to sensible's contents and write access to
 its pull requests, and TYPESAFE_API_KEY.
@@ -28,6 +34,7 @@ import urllib.request
 from pathlib import Path
 
 REPO = "sensible-hq/sensible"
+DOCS_REPO = "sensible-hq/sensible-docs"
 NEEDED = "docs_needed_ai"
 TRIAGE = "docs_triage_ai"
 AI_LABELS = {NEEDED, TRIAGE}
@@ -332,6 +339,90 @@ def candidate(issue: dict) -> bool:
     return not labels & DOCS_LABELS and (issue.get("user") or {}).get("login") not in BOT_AUTHORS
 
 
+# ── sensible-docs issues (--issues) ──────────────────────────────────────────
+
+def top_trigger(scores: dict) -> str:
+    """Name the trigger that scored highest, for an issue to say why a PR was flagged.
+
+    Args:
+        scores: {criterion id: noul score} for one PR.
+
+    Returns:
+        A trigger id such as `T-config`. Ids are safe to publish; scores and PR text aren't.
+    """
+    return max((k for k in scores if k.startswith("T-")), key=lambda k: scores[k])
+
+
+def has_docs_issue(number: int) -> bool:
+    """Check whether any sensible-docs issue, open or closed, already mentions this PR.
+
+    That covers the issues this script opens, earlier triage issues, and the issues the
+    close-docs-pr skill opens, which all write the PR as `sensible-hq/sensible#N` or `sensible#N`.
+
+    Args:
+        number: the sensible PR number.
+
+    Returns:
+        True if an issue mentions it.
+    """
+    for ref in (f"sensible#{number}", f"{REPO}#{number}"):
+        q = f'repo:{DOCS_REPO} is:issue "{ref}"'
+        if gh(f"search/issues?q={urllib.parse.quote(q)}&per_page=1")["total_count"] > 0:
+            return True
+    return False
+
+
+def needed_issue(number: int, scores: dict) -> tuple:
+    """Write the issue for one docs_needed_ai PR.
+
+    Args:
+        number: the sensible PR number.
+        scores: Jev's scores for it.
+
+    Returns:
+        (title, body). Neither includes the PR's title or description, because the issue is public.
+    """
+    title = f"Docs needed (AI): sensible#{number}"
+    body = (f"Jev is confident that {REPO}#{number} needs docs (strongest signal: `{top_trigger(scores)}`, "
+            f"see `scripts/docs_triage/criteria.md`).\n\n"
+            f"Opened by `scripts/docs_triage/triage.py --issues`. If no docs are needed, label the PR "
+            f"`docs_dont_publicly_doc` or close this as not planned.")
+    return title, body
+
+
+def triage_issue(flagged: dict, since: str, until: str) -> tuple:
+    """Write the one issue that lists a run's docs_triage_ai PRs.
+
+    Args:
+        flagged: {PR number: Jev's scores} for every PR the run triaged.
+        since: the start of the run's merge window, as YYYY-MM-DD.
+        until: the end of the window, as YYYY-MM-DD.
+
+    Returns:
+        (title, body), with a checkbox per PR. Neither includes PR titles or descriptions.
+    """
+    title = f"Docs triage (AI): {len(flagged)} sensible PRs merged {since} to {until}"
+    lines = [f"- [ ] {REPO}#{n} (`{top_trigger(s)}`)" for n, s in sorted(flagged.items())]
+    body = ("Jev thinks these PRs may need docs, but isn't confident. For each, decide and label the PR "
+            "(`doc_changes_needed`, `docs_dont_publicly_doc`, or nothing), then tick it.\n\n"
+            + "\n".join(lines)
+            + "\n\nOpened by `scripts/docs_triage/triage.py --issues`; see `scripts/docs_triage/criteria.md`.")
+    return title, body
+
+
+def open_issue(title: str, body: str) -> str:
+    """Open a sensible-docs issue.
+
+    Args:
+        title: the issue title.
+        body: the issue body, in Markdown.
+
+    Returns:
+        The new issue's URL.
+    """
+    return gh(f"repos/{DOCS_REPO}/issues", "POST", {"title": title, "body": body})["html_url"]
+
+
 # ── main ─────────────────────────────────────────────────────────────────────
 
 def main(argv=None) -> int:
@@ -349,21 +440,25 @@ def main(argv=None) -> int:
     ap.add_argument("--pr", type=int, action="append", help="score these PRs instead of searching")
     ap.add_argument("--dry-run", action="store_true", help="score and report, but don't label")
     ap.add_argument("--threshold", type=float, default=TRIAGE_THRESHOLD, help="trigger score for docs_triage_ai")
+    ap.add_argument("--issues", action="store_true",
+                    help="open sensible-docs issues instead of labeling sensible PRs (with --dry-run, print them)")
     args = ap.parse_args(argv)
+    now = dt.datetime.now(dt.timezone.utc)
+    since = now - dt.timedelta(days=args.since_days)
 
     criteria, endpoints = load_criteria(), public_endpoints()
     if args.pr:
         issues = [gh(f"repos/{REPO}/issues/{n}") for n in args.pr]
     else:
-        since = dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=args.since_days)
         issues = [i for i in merged_since(since) if candidate(i)]
 
     labeled = {NEEDED: [], TRIAGE: []}
+    all_scores = {}
     passed, skipped, failed = [], [], []
     for issue in issues:
         n = issue["number"]
         try:
-            if not args.pr and label_was_removed(n):
+            if not args.pr and (label_was_removed(n) or (args.issues and has_docs_issue(n))):
                 skipped.append(n)
                 continue
             pr = gh(f"repos/{REPO}/pulls/{n}")
@@ -377,15 +472,25 @@ def main(argv=None) -> int:
             top = ", ".join(f"{k}={v:.2f}" for k, v in sorted(scores.items(), key=lambda kv: -kv[1])[:3])
             print(f"#{n} {label or 'none':15s} {pr['title'][:70]}  [{top}]")
         if label:
-            if not args.dry_run:
+            if not args.dry_run and not args.issues:
                 gh(f"repos/{REPO}/issues/{n}/labels", "POST", {"labels[]": label})
             labeled[label].append(n)
+            all_scores[n] = scores
         else:
             passed.append(n)
 
-    verb = "would label" if args.dry_run else "labeled"
+    if args.issues:
+        drafts = [needed_issue(n, all_scores[n]) for n in labeled[NEEDED]]
+        if labeled[TRIAGE]:
+            drafts.append(triage_issue({n: all_scores[n] for n in labeled[TRIAGE]},
+                                       since.strftime("%Y-%m-%d"), now.strftime("%Y-%m-%d")))
+        for title, body in drafts:
+            print(f"\nwould open: {title}\n{body}" if args.dry_run else f"opened: {open_issue(title, body)}")
+
+    verb = ("would open issues for" if args.issues else "would label") if args.dry_run else \
+           ("opened issues for" if args.issues else "labeled")
     print(f"\n{len(issues)} PRs considered: {verb} {NEEDED} {labeled[NEEDED]} and {TRIAGE} {labeled[TRIAGE]}; "
-          f"{len(passed)} not labeled, {len(skipped)} skipped (AI label removed by a human), "
+          f"{len(passed)} not flagged, {len(skipped)} skipped (AI label removed, or already in an issue), "
           f"{len(failed)} not scored {failed}")
     return 1 if failed else 0
 

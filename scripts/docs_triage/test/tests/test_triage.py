@@ -145,6 +145,35 @@ class TestCandidate:
         assert triage.candidate({"labels": [{"name": "bug"}], "user": {"login": "someone"}})
 
 
+class TestIssues:
+    """The sensible-docs issues that --issues opens. sensible-docs is public, so these check
+    that nothing but PR numbers and criterion ids gets into them."""
+
+    def test_top_trigger_ignores_exclusions(self):
+        """The reason given is the strongest trigger, even if an exclusion scored higher."""
+        assert triage.top_trigger(scores(T_api=0.8, X_hidden=0.95)) == "T-api"
+
+    def test_needed_issue_names_the_pr_and_reason(self):
+        """One issue per confident PR, titled with the PR number, naming the trigger."""
+        title, body = triage.needed_issue(3474, scores(T_inputs=0.95))
+        assert title == "Docs needed (AI): sensible#3474"
+        assert "sensible-hq/sensible#3474" in body and "`T-inputs`" in body
+
+    def test_triage_issue_lists_every_pr_in_order(self):
+        """One checkbox per triaged PR, sorted by number, with the window in the title."""
+        title, body = triage.triage_issue({3349: scores(T_api=0.9), 3002: scores(T_output=0.8)},
+                                          "2026-11-01", "2026-11-05")
+        assert title == "Docs triage (AI): 2 sensible PRs merged 2026-11-01 to 2026-11-05"
+        assert body.index("sensible#3002") < body.index("sensible#3349")
+        assert "- [ ] sensible-hq/sensible#3349 (`T-api`)" in body
+
+    def test_issue_text_has_no_scores(self):
+        """Scores stay out of public issues, along with everything else Jev saw."""
+        _, body = triage.needed_issue(1, scores(T_config=0.9512))
+        _, tbody = triage.triage_issue({1: scores(T_api=0.8123)}, "a", "b")
+        assert "0.95" not in body and "0.81" not in tbody
+
+
 class TestJev:
     """ask_jev's failure handling."""
 
