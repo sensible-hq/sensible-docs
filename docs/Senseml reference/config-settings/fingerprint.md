@@ -1,11 +1,15 @@
 ---
 title: Fingerprint
-excerpt: 'Handle multiple document layouts by matching text: choose a config per form revision or vendor, or find each document''s pages in a portfolio.'
+excerpt: >-
+  Handle multiple document layouts by matching text: choose a config per form
+  revision or vendor, or find each document's pages in a portfolio.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Handle multiple document layouts by matching text: choose a config per form revision or vendor, or find each document''s pages in a portfolio.'
+  description: >-
+    Handle multiple document layouts by matching text: choose a config per form
+    revision or vendor, or find each document's pages in a portfolio.
   robots: index
 next:
   description: ''
@@ -112,7 +116,7 @@ For an example of using fingerprints to extract multiple documents from a portfo
 
 ## Fingerprint syntax conversion
 
-If you use a config in both standalone and portfolio extraction requests, write its fingerprint in the stricter portfolio syntax. Sensible automatically converts between the two syntaxes as follows:
+It's an edge case to use a config in both standalone and portfolio extraction requests. In this case, write the config's fingerprint in the stricter portfolio syntax. Sensible automatically converts between the two syntaxes as follows:
 
 - To convert to portfolio syntax, Sensible expands standalone syntax into a test with `"page": "any"`.
 - To convert to standalone syntax, Sensible keeps the value of each test's Match parameter and ignores the Page and Offset parameters.
