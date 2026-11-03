@@ -262,7 +262,8 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
         "match": [
              /* unordered array in match: succeeds if Sensible finds all its Match objects
              on the same page, in any order, on any lines (including the same line).
-             Here, the two matches are specified out of order and occur in one line that characteristically ends the document
+             Here, the two matches are specified out of order and occur on
+              one line that characteristically ends the document
               */
            
                        
