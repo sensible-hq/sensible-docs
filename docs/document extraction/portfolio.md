@@ -282,6 +282,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
       }
     ]
   },
+}
 ```
 
 **_Document type 2_**
