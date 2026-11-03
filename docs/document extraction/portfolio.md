@@ -1,11 +1,16 @@
 ---
 title: Multi-document extractions
-excerpt: Split a PDF containing multiple documents, such as a loan package, and extract each document's data separately using LLM or fingerprint segmentation.
+excerpt: >-
+  Split a PDF containing multiple documents, such as a loan package, and extract
+  each document's data separately using LLM or fingerprint segmentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Split a PDF containing multiple documents, such as a loan package, and extract each document's data separately using LLM or fingerprint segmentation.
+  description: >-
+    Split a PDF containing multiple documents, such as a loan package, and
+    extract each document's data separately using LLM or fingerprint
+    segmentation.
   robots: index
 next:
   description: ''
@@ -221,26 +226,62 @@ The following example shows extracting three one-page documents from a portfolio
 To the config in [Getting started with layout-based extractions](doc:getting-started), append the following fingerprint:
 
 <!-- inline config {"fragment": "fingerprint", "doc_type": "auto_insurance_quotes", "config": "anyco"} -->
+
 ```json
-"fingerprint": {
-  "tests": [
-    {
-      /* in combination, these matches are unique to the first page */
-      "page": "first",
-      "match": [[
-        /* chained match: succeeds only if Sensible finds all its Match objects on the same page, in order, on separate lines. Here, "anycocarinsurance.com" must occur before "outline of quoted" */
-        {
-          "text": "anycocarinsurance.com",
-          "type": "startsWith"
-        },
-        {
-          "text": "outline of quoted",
-          "type": "startsWith"
-        }
-      ]]
-    }
-  ]
-},
+{
+  "fingerprint": {
+    "tests": [
+
+
+      {
+        /* in combination, these matches are unique to the first page */
+        "page": "first",
+        "match": [[
+          
+            /* chained match: succeeds only if Sensible finds all its Match objects
+             on the same page, in order, on separate lines.
+             Here, "anycocarinsurance.com" must occur before "outline of quoted" */
+
+            {
+              "text": "outline of quoted",
+              "type": "startsWith"
+            },
+                     
+                                 {
+              "text": "deductible",
+              "type": "includes"
+            },
+          
+        ]]
+      },
+      {
+        /* in combination, these matches are unique to the last page. the example
+         is a one-page document, so `first` and `last` are the same page  */
+        
+        "page": "last",
+        "match": [
+             /* unordered array in match: succeeds if Sensible finds all its Match objects
+             on the same page, in any order, on any lines (including the same line).
+             Here, the two matches are specified out of order and occur in one line that characteristically ends the document
+              */
+           
+                       
+            {
+              "text": "for a full explanation of coverages",
+              "type": "includes"
+            },
+                        {
+              "text": "please be sure to review your contract ",
+              "type": "includes"
+            }
+            
+                     
+                                
+          
+        ]
+      }
+    ]
+  },
 ```
 
 **_Document type 2_**
