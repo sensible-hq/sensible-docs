@@ -228,7 +228,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 <!-- inline config {"fragment": "fingerprint", "doc_type": "auto_insurance_quotes", "config": "anyco"} -->
 
 ```json
-{
+
   "fingerprint": {
     "tests": [
 
@@ -282,7 +282,6 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
       }
     ]
   },
-}
 ```
 
 **_Document type 2_**
