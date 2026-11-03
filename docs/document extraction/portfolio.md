@@ -296,6 +296,7 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 To the config in the [Example loss run](doc:sections-example-loss-run) topic, append the following fingerprint:
 
 <!-- inline config {"fragment": "fingerprint", "doc_type": "loss_run_reports", "config": "acme"} -->
+
 ```json
 "fingerprint": {
   "tests": [
@@ -312,6 +313,20 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
           /* because this is a flat array, this match succeeds even though "unprocessed claim" occurs before
              "within 90 days", and both matchs occur on the same line: "Any unprocessed claim number must be processed within 90 days of receipt." */
           "text": "unprocessed claim",
+          "type": "includes"
+        }
+      ]
+    },
+    {
+      /* this match is unique to the last page. the example
+         is a one-page document, so `first` and `last` are the same page
+      */
+      "page": "last",
+      "match": [
+
+        {
+    
+          "text": "total claims",
           "type": "includes"
         }
       ]
