@@ -308,7 +308,7 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ad
           "type": "includes"
         },
         {
-          /* because this is a flat array, this match succeeds even though the matches are out of order," */
+          /* because this is a flat array, this match succeeds even though the matches are out of order. matches are on separate lines in this example, but in flat arrays can succeed on the same line. */
           "text": "within 90 days",
           "type": "includes"
         }
