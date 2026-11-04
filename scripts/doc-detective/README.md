@@ -96,7 +96,7 @@ Markers inside a code test say where each part comes from: **`inline`** parts ar
 | No `<!-- inline document -->` | The example doesn't read a document, for example a constant field and JsonLogic on it, so the page shows none. The test runs on a blank one-page PDF, `assets/pdfs/blank_page.pdf` (`BLANK_DOCUMENT_URL` in `codetests/settings.py`, its raw URL on `v0`), and the report says so. Only a test that compares an inline output can leave the document out: fixture, portfolio, and fingerprint tests need one, and another test can't reuse the blank page with `"from"`. |
 | `<!-- inline config -->` | The next code block: the config, uploaded exactly as written, comments included. |
 | `<!-- inline config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
-| `<!-- inline output -->` | The next code block: the output the page claims. |
+| `<!-- inline output -->` | The next code block: the output the page claims. For a config with a postprocessor, it can show the postprocessor's output as a top-level `"postprocessorOutput"` key (see [What a code test checks](#what-a-code-test-checks)). |
 
 ### Fingerprint claims (portfolio segments)
 
@@ -195,13 +195,13 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 1. **Syntax**, before any network call. Errors name the line in the page.
 2. **The example document link resolves.**
 3. **Extraction.** The config is uploaded to a temporary document type (`docs_ci_examples`) in the docs test account, published to development, and extracted. Only one config is in the document type at a time, and the runner checks Sensible used it: in development, Sensible runs every config in a document type and picks the best fit.
-4. **Comparison** with Sensible's `parsed_document`:
+4. **Comparison** with the extraction's output: Sensible's `parsed_document`, plus, when the config has a [postprocessor](https://docs.sensible.so/docs/postprocessors), a top-level `"postprocessorOutput"` key holding the response's `postprocessorOutput`. That's how pages document postprocessor output, for example `{"postprocessorOutput": {"custom_object": {...}}}` or, for the XML postprocessor, a string. An output block without `"postprocessorOutput"` compares with `parsed_document` alone, as before; the record lists an undocumented `postprocessorOutput` as a left-out field. A config whose own field ID is `postprocessorOutput` and that has a postprocessor fails with `CONFIG_INVALID`, since the two can't be told apart. Envelope builds and `--probe-blank` use the same output.
    - Every key and value the page shows must match. Keys the page leaves out are ignored.
    - `[...]` marks what the page abridges, and it isn't checked: a value (`"created": "[...]"`), an object member, or the rest of an array (`[a, b, [...]]`, `[a, [...], z]`). An array without a mark must match in full. After a colon, `"rows": [...]` means an array whose items aren't checked.
    - Inside a string, `[...]` stands for any run of text: `"Fictional University [...] College Algebra 3 C"` checks that the value starts and ends that way. A string can have several. Plain `...` inside a string is literal text, so dot leaders like `"Total ........ 3"` compare exactly.
    - The older `...` and `…` still work as a value, member, or array item. New pages use `[...]`.
    - Values are compared exactly: `true` doesn't match `1`; `1` matches `1.0`.
-5. **The LLM judge**, for values that differ and that an LLM method produced (Query Group, List, NLP Table, at any depth in the config, including sections, conditionals, and fallback chains). The judge sees each value, the field's declared type with that type's example from `types.md`, and the whole field. It answers pass, partial, or fail with a confidence. Layout values are never sent to the judge.
+5. **The LLM judge**, for values that differ and that an LLM method produced (Query Group, List, NLP Table, at any depth in the config, including sections, conditionals, and fallback chains). A value counts as LLM-produced when a key on its path is an LLM field's ID. Under `postprocessorOutput` that's the same rule, so `"postprocessorOutput": {"phone": {...}}` goes to the judge when `phone` is a Query Group query, but a value the postprocessor renamed, combined, or returned as a bare string is compared exactly: the runner can't tell which fields fed it. The judge sees each value, the field's declared type with that type's example from `types.md`, and the whole field. It answers pass, partial, or fail with a confidence. Layout values are never sent to the judge.
 6. **The regression envelope**, for every LLM field, whatever happened above.
 7. **The record**: everything above, saved as `output/code-tests/<testId>.json` (shape: `schemas/record.schema.json`). Every report reads records.
 

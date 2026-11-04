@@ -3,7 +3,8 @@
 For each code test:
   1. Check syntax, before any network call (markup.check_syntax)
   2. Check the example document link resolves, upload the config as written, and extract
-  3. Compare the documented output with parsed_document (compare.py). Values that LLM methods
+  3. Compare the documented output with parsed_document, plus a top-level "postprocessorOutput" when
+     the config has a postprocessor (sensible.actual_output, compare.py). Values that LLM methods
      produced and that differ go to the judge (judge.py); everything else must match exactly
   4. Check the LLM fields against the regression envelope (envelope.py), whatever the outcome above
   5. Record what happened (record.py)

@@ -12,6 +12,27 @@ import time
 from . import settings
 from .errors import CONFIG_INVALID, EXTRACTION_ERROR, RUNNER_ERROR, CodeTestError
 
+# The response key for a postprocessor's output. Docs pages show it as a top-level key in the output.
+POSTPROCESSOR_OUTPUT = "postprocessorOutput"
+
+
+def actual_output(result):
+    """The output a code test compares with its documented output: the extraction's parsed_document,
+    plus, when the config has a postprocessor, a top-level "postprocessorOutput" key holding the
+    response's postprocessorOutput. Docs pages document postprocessor output that way.
+
+    A null postprocessorOutput counts as none, so a config without a postprocessor gets exactly
+    parsed_document. If parsed_document itself has a "postprocessorOutput" field, the two can't
+    be told apart, so that's an error rather than a silent overwrite."""
+    output = dict(result.get("parsed_document") or {})
+    postprocessed = result.get(POSTPROCESSOR_OUTPUT)
+    if postprocessed is not None:
+        if POSTPROCESSOR_OUTPUT in output:
+            raise CodeTestError(CONFIG_INVALID, f"parsed_document has a field named {POSTPROCESSOR_OUTPUT!r} and the config has a postprocessor; "
+                                                "rename the field so the two outputs can be compared separately")
+        output[POSTPROCESSOR_OUTPUT] = postprocessed
+    return output
+
 
 class SensibleClient:
     def __init__(self, key):
@@ -100,7 +121,8 @@ class SensibleClient:
             response.raise_for_status()
 
     def extract(self, url, config_name, document_name):
-        """Extract from a document URL with a configuration and wait. Returns parsed_document.
+        """Extract from a document URL with a configuration and wait. Returns actual_output(): parsed_document,
+        plus postprocessorOutput when the config has a postprocessor.
 
         In the development environment Sensible runs every config in the document type and picks
         the best fit, so this checks the extraction used `config_name`."""
@@ -117,7 +139,7 @@ class SensibleClient:
             raise CodeTestError(EXTRACTION_ERROR, f"status {result.get('status')}: {json.dumps(result.get('errors'))[:500]}")
         if result.get("configuration") != config_name:
             raise CodeTestError(EXTRACTION_ERROR, f"Sensible used configuration {result.get('configuration')!r}, not {config_name!r}")
-        return result.get("parsed_document") or {}
+        return actual_output(result)
 
     def _wait(self, extraction_id, timeout=240):
         """Poll an extraction until it's COMPLETE or FAILED, and return it. Unlike the SDK's wait_for,
