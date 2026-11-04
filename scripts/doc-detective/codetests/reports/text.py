@@ -26,6 +26,8 @@ def summary(record):
         for run in fp["runs"]:
             which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken"
             lines.append(f"  {which}: page claims {'passes' if run['expected'] else 'fails'}; Sensible {'passed' if run['actual'] else 'failed'}  (extraction {run['extraction_id']})")
+    if record.get("blank_document"):
+        lines.append(f"{record['test_id']}: names no document, so it ran on a blank page")
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]

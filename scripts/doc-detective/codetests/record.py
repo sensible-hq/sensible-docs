@@ -27,6 +27,8 @@ def new(test):
     }
     if test.document_from:
         record["document_from"] = test.document_from
+    if test.blank_document:
+        record["blank_document"] = True
     return record
 
 
