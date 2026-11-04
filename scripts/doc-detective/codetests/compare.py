@@ -1,4 +1,5 @@
-"""Compare a documented output with Sensible's parsed_document.
+"""Compare a documented output with Sensible's parsed_document (plus a top-level "postprocessorOutput"
+when the config has a postprocessor; see sensible.actual_output).
 
 Every key and value the docs show must agree; keys the docs leave out are ignored. `[...]` (or the
 older `...`) marks what not to check: a value, an object member, or the rest of an array
