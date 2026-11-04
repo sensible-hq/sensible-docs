@@ -46,6 +46,7 @@ Other commands:
 | `code_tests.py --file PAGE --list` | Lists the page's tests. |
 | `code_tests.py --file PAGE --check-fixtures` | Reports fixtures that differ from the test account, without changing anything. |
 | `code_tests.py --file PAGE --test ID` | Runs one code test. |
+| `code_tests.py --file PAGE --probe-blank [--test ID]` | Finds examples that don't read their document. Runs each code test that names a document on a blank page instead (one extraction each), compares the output with the inline output, and prints JSON to stdout: `[{"testId": ..., "unchanged": true or false, "detail": "..."}]`. `unchanged: true` means the blank page gave the documented output, so the example can drop its document. A test the probe couldn't run reports `unchanged: false` and an `error` with its failure category. LLM values are compared exactly, without the judge. Skips fixture, portfolio, and fingerprint tests. Exits 0 when it ran, whatever the results, and 2 when it can't run (no key, or the blank page doesn't resolve). |
 | `code_tests.py --file PAGE --build-envelope 10` | Builds each code test's regression baseline from 10 runs. |
 | `code_tests.py --file PAGE --extend-envelope 10` | Adds 10 runs to each saved baseline. |
 | `python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective` | Runs the offline tests of this tooling. No keys or network. |
@@ -92,6 +93,7 @@ Markers inside a code test say where each part comes from: **`inline`** parts ar
 | --- | --- |
 | `<!-- inline document -->` | The first link on the next line: the page's own download link, so there's one copy of the URL. |
 | `<!-- inline document {"from": "ID"} -->` | Another code test's document, for a section without its own link. |
+| No `<!-- inline document -->` | The example doesn't read a document, for example a constant field and JsonLogic on it, so the page shows none. The test runs on a blank one-page PDF, `assets/pdfs/blank_page.pdf` (`BLANK_DOCUMENT_URL` in `codetests/settings.py`, its raw URL on `v0`), and the report says so. Only a test that compares an inline output can leave the document out: fixture, portfolio, and fingerprint tests need one, and another test can't reuse the blank page with `"from"`. |
 | `<!-- inline config -->` | The next code block: the config, uploaded exactly as written, comments included. |
 | `<!-- inline config {"fragment": "field"} -->` | The next code block is a one-field excerpt (`{ ... },`). It runs wrapped in `{"fields": [ ... ]}`. |
 | `<!-- inline output -->` | The next code block: the output the page claims. |
@@ -212,7 +214,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 | Failure category | Meaning |
 | --- | --- |
 | `DOCS_MALFORMED` | The markup or a code block is broken. |
-| `DOCUMENT_UNREACHABLE` | The example document link doesn't resolve. |
+| `DOCUMENT_UNREACHABLE` | The example document link (or the blank page) doesn't resolve. |
 | `CONFIG_INVALID` | Sensible rejected the config. |
 | `EXTRACTION_ERROR` | The extraction didn't complete, or used the wrong config. |
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |

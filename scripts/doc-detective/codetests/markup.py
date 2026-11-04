@@ -18,6 +18,10 @@ committed, and `expect` is written in the test itself.
     <!-- inline output -->                         the next code block is the documented output
     <!-- code test end -->
 
+A code test without <!-- inline document --> runs on a blank page (settings.BLANK_DOCUMENT_URL), for
+an example that doesn't read its document, such as a constant field and JsonLogic on it. Fixture,
+portfolio, and fingerprint tests still need a document.
+
 For claims the page makes in prose or in a table (for example, how fingerprints segment a
 portfolio), a code test runs a private fixture and checks an expectation written in the test:
 
@@ -96,6 +100,7 @@ class CodeTest:
     output_span: tuple = (0, 0)  # character offsets of the output block's text in the page
     document_url: str = ""
     document_from: str = ""  # another code test whose document this one reuses
+    blank_document: bool = False  # names no document, so it runs on settings.BLANK_DOCUMENT_URL
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
     config_shift: int = 0  # lines the wrapper adds above the page's text, for syntax error line numbers
     # Inline fingerprint samples, each run in its own temporary doc type: [{"doc_type", "config", "text", "line", "shift"}]
@@ -237,7 +242,11 @@ def _code_test(text, match, path):
             test.output_span = (start, offset + fence.end(1))
     where = f"{path}, line {line}"
     if "document" not in seen:
-        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where})")
+        if test.segment_documents_with or test.fixtures or test.inline_configs or test.compare:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where}). Only a test that compares an "
+                                f"inline output can leave it out and run on a blank page")
+        # An example that doesn't read its document: run it on a blank page
+        test.document_url, test.blank_document = settings.BLANK_DOCUMENT_URL, True
     if (test.segment_documents_with or test.fixtures or test.inline_configs) and test.compare != "documents":
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\", <!-- fixture -->, and portfolio inline configs need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
     if test.compare == "documents":
@@ -297,7 +306,7 @@ def parse_page(path):
     for test in page.code_tests.values():
         if test.document_from:
             source = page.code_tests.get(test.document_from)
-            if not source or not source.document_url:
+            if not source or not source.document_url or source.blank_document:
                 raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: <!-- inline document {{\"from\": \"{test.document_from}\"}} --> names no code test with its own document link")
             test.document_url = source.document_url
     return page

@@ -10,11 +10,14 @@ Usage:
   code_tests.py --file PAGE --build-envelope 10   build each code test's regression baseline from 10 runs
   code_tests.py --file PAGE --extend-envelope 10  add 10 runs to each saved baseline
   code_tests.py --file PAGE --check-fixtures      report fixtures that differ from the test account (no changes)
+  code_tests.py --file PAGE --probe-blank         rerun each test that names a document on a blank page instead,
+                                                  and print JSON: does the output come back the same?
 
 Needs SENSIBLE_TEST_API_KEY, and an Anthropic key to judge LLM values, in .env or the environment.
 """
 
 import argparse
+import json
 import os
 import sys
 
@@ -40,28 +43,39 @@ def main():
     parser.add_argument("--build-envelope", type=int, metavar="N", help="Extract each code test N times and save its LLM fields' baseline")
     parser.add_argument("--extend-envelope", type=int, metavar="N", help="Extract each code test N more times and add the runs to its saved baseline")
     parser.add_argument("--check-fixtures", action="store_true", help="Compare the code tests' fixtures with the test account and report differences, without changing anything")
+    parser.add_argument("--probe-blank", action="store_true",
+                        help="Run each code test that names a document on a blank page instead, compare with the inline output, "
+                             "and print JSON: [{testId, unchanged, detail}]. Unchanged means the example doesn't read its document")
     parser.add_argument("--keep", action="store_true", help=f"Don't delete the {settings.DOC_TYPE} document type afterward (to inspect it in the app)")
     args = parser.parse_args()
+    if args.probe_blank and (args.list or args.check_syntax or args.check_fixtures or args.build_envelope or args.extend_envelope):
+        parser.error("--probe-blank can't be combined with --list, --check-syntax, --check-fixtures, or the envelope options")
     settings.load_dotenv()
+    # A probe prints only its JSON to stdout; everything else goes to stderr, and anything that stops it exits 2
+    log = sys.stderr if args.probe_blank else sys.stdout
+    cant_run = 2 if args.probe_blank else 1
 
     try:
         page = markup.parse_page(args.file)
     except CodeTestError as e:
-        print(f"FAIL {args.file}  {e}")
-        return 1
+        print(f"FAIL {args.file}  {e}", file=log)
+        return cant_run
     if args.list:
         for t in sorted(page.ui_tests + list(page.code_tests.values()), key=lambda t: t.line):
             kind = "UI test  " if isinstance(t, markup.UiTest) else "code test"
-            print(f"{kind}  {t.test_id}  (line {t.line})" + (f"  {t.document_url}" if kind == "code test" else ""))
+            document = "  (no document: runs on a blank page)" if getattr(t, "blank_document", False) else f"  {getattr(t, 'document_url', '')}"
+            print(f"{kind}  {t.test_id}  (line {t.line})" + (document if kind == "code test" else ""))
         return 0
 
     unknown = [t for t in args.test or [] if t not in page.code_tests]
     if unknown:
-        print(f"FAIL  no code test {', '.join(unknown)} in {args.file}")
-        return 1
+        print(f"FAIL  no code test {', '.join(unknown)} in {args.file}", file=log)
+        return cant_run
     selected = [page.code_tests[t] for t in (args.test or page.code_tests)]
     if not selected:
-        print(f"No code tests in {args.file}")
+        print(f"No code tests in {args.file}", file=log)
+        if args.probe_blank:
+            print("[]")
         return 0
 
     if args.check_syntax:
@@ -84,8 +98,11 @@ def main():
     if not key:
         print(f"{key_var} isn't set in .env or the environment ({settings.ENV_VAR}={settings.env()})", file=sys.stderr)
         return 2
-    print(f"Sensible environment: {settings.env()} ({settings.api()})")
+    print(f"Sensible environment: {settings.env()} ({settings.api()})", file=log)
     client = SensibleClient(key)
+
+    if args.probe_blank:
+        return probe_blank(args, selected, client)
 
     if args.check_fixtures:
         return check_fixtures(selected, client)
@@ -106,7 +123,34 @@ def main():
     return 1 if failed else 0
 
 
-def cleanup(args, client):
+def probe_blank(args, selected, client):
+    """Rerun each selected test that names a document on the blank page, and print the results as JSON."""
+    probed = [t for t in selected if runner.probeable(t)]
+    for test in selected:
+        if test not in probed:
+            why = "names no document" if test.blank_document else "is a fixture, portfolio, or fingerprint test, which needs its document"
+            print(f"SKIP {test.test_id}: {why}", file=sys.stderr)
+    if not probed:
+        print("[]")
+        return 0
+    try:
+        status = client.document_status(settings.BLANK_DOCUMENT_URL)
+    except Exception as e:  # noqa: BLE001 -- no network, for example: the probe can't run
+        print(settings.redact(f"Couldn't reach the blank page {settings.BLANK_DOCUMENT_URL}: {type(e).__name__}: {e}"), file=sys.stderr)
+        return 2
+    if status != 200:
+        print(f"The blank page {settings.BLANK_DOCUMENT_URL} returned {status}. It resolves once assets/pdfs/blank_page.pdf is on v0.", file=sys.stderr)
+        return 2
+    try:
+        results = [runner.probe_blank(test, client) for test in probed]
+    finally:
+        cleanup(args, client, out=sys.stderr)
+        print(f"Sensible usage: {client.counts['extractions']} extraction(s), {client.counts['requests']} API request(s)", file=sys.stderr)
+    print(json.dumps(results, indent=2, ensure_ascii=False))
+    return 0
+
+
+def cleanup(args, client, out=None):
     """Delete the temporary document type. A failure here is reported but never hides a test's own
     result or error: records are already saved, and the next run reuses the document type."""
     # Only delete the temporary doc type if this run used it: another page's run may be using it now
@@ -114,7 +158,7 @@ def cleanup(args, client):
         return
     try:
         if client.delete_doc_type():
-            print(f"Deleted document type {settings.DOC_TYPE}")
+            print(f"Deleted document type {settings.DOC_TYPE}", file=out or sys.stdout)
     except Exception as e:  # noqa: BLE001
         print(settings.redact(f"WARN couldn't delete document type {settings.DOC_TYPE}: {type(e).__name__}: {e}"), file=sys.stderr)
 

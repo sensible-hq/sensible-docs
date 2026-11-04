@@ -29,6 +29,10 @@
       "type": "string",
       "description": "Another code test whose document this one reuses"
     },
+    "blank_document": {
+      "const": true,
+      "description": "The test names no document, so it ran on a blank page (document_url is the blank page's)"
+    },
     "config_fragment": {
       "type": "boolean",
       "description": "The config is a one-field excerpt, run wrapped"
