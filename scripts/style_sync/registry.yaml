@@ -1,0 +1,560 @@
+# Style guide <-> Vale rule registry
+#
+# Read by scripts/style_sync/check_drift.py (weekly, non-blocking; see README.md).
+# It links every style-guide rule to how it is enforced, and every custom Vale
+# rule to the guide rule it enforces.
+#
+# HOW A STYLE-GUIDE RULE IS IDENTIFIED
+#   Only the files listed under `scan:` are searched. In those files, a rule is:
+#     1. an H2 (##) or H3 (###) heading, located as  at: <file>#<github-anchor>
+#     2. a "bold lead" paragraph: a line that starts in column 0 with **Text:**,
+#        **Text.**, or **Text**: (not in a list, quote, or code block), located
+#        as  at: <file>#<anchor of the heading above it>  plus  item: Text
+#        (the bold text without its trailing colon or period)
+#     3. a data row of a table under a heading listed in `tables:`, located as
+#        at: <file>#<anchor>  plus  row: <first cell, verbatim>
+#   Headings listed in `tables:` are containers, not rules themselves.
+#   Anything the convention finds that is NOT a rule (a container heading, a
+#   pointer to another file, an "Examples:" label) goes in `not_rules:` with
+#   a reason. Every unit the convention finds must be in `rules:` or
+#   `not_rules:`; otherwise the check reports UNMAPPED-GUIDE-RULE.
+#   Anchors are the ones GitHub generates: lowercase, punctuation removed,
+#   spaces become hyphens ("Explicit subjects — avoid passive voice" ->
+#   "explicit-subjects--avoid-passive-voice"). Renaming a heading changes its
+#   anchor; the check then reports DANGLING until the entry is updated.
+#
+# ENTRY FIELDS (rules:)
+#   id:       stable ID. Never reuse or renumber; it outlives heading renames.
+#   at/item/row: guide location (see above). Omit only for a Vale rule with no
+#             guide rule, and then give `basis:` instead.
+#   Exactly one enforcement:
+#     vale:     a Vale check, or a list of them when the guide rule is split
+#               across several: Sensible.<Rule>, Google.<Rule>, or
+#               vocab:<Vocab>/accept | vocab:<Vocab>/reject (Vale.Terms /
+#               Vale.Avoid from .github/styles/config/vocabularies/<Vocab>/).
+#     human:    short reason Vale can't reasonably check it.
+#     none-yet: could be automated, but no rule exists. Value is a note or "".
+#   status:   draft = an agent proposed this mapping and a human has not
+#             reviewed it. Delete the field (or set `reviewed`) once checked.
+#             `mechanical` = the Vale rule's own message or swap restates the
+#             guide text, so the link is not a judgment call.
+#   known_gaps: (vale entries only) Avoid examples from the guide that the Vale
+#             rule is known NOT to catch. A human adds these after deciding the
+#             gap is acceptable; the check then stops reporting them.
+#   note:     free text for humans.
+#
+# TEST CASES FROM THE GUIDE
+#   For every `vale:` entry, the check extracts examples from the guide text the
+#   entry points at and runs them through Vale:
+#     - prose units: lines like `- Avoid: "x", "y"` / `- Prefer: "z"` (marker
+#       words in `example_markers:`). Each double-quoted string is one example;
+#       with no quotes, the rest of the line is the example.
+#     - table rows: quoted strings in the columns named in `tables:`.
+#   Avoid examples must trigger at least one of the entry's Vale checks; Prefer
+#   examples must trigger none of them. Fixtures under fixtures/<Rule>/ add
+#   more cases for custom Sensible rules (see README.md).
+
+guide_dir: .claude/style-guide
+
+# Files that state prose rules. Not scanned: page templates
+# (blog-post-, concept-topic-, integration-guide-, reference-topic-template.md),
+# json5-comments-reference.md, config-library-supported-document-types.md, and
+# friction-log.md. They describe page structure or are logs, not prose rules.
+scan:
+  - writing-rules.md
+  - sentence-word-guidance.md
+  - glossary.md
+  - style-guide-overview.md
+  - changelog-style-guide.md
+
+example_markers:
+  fail: [Avoid]
+  pass: [Prefer]
+
+# Table headings whose data rows are rules. Columns are zero-based.
+tables:
+  glossary.md#universal-terms: {pass: [1], fail: [2]}
+  glossary.md#senseml-specific-terms: {pass: [1], fail: [2]}
+
+# The Google package is inherited as a group (BasedOnStyles = ... Google ...),
+# not mapped rule by rule. The check verifies these overrides match .vale.ini.
+google:
+  package: Google
+  inherited: true
+  overrides:
+    Google.WordList: "NO"
+    Google.Colons: "NO"
+
+not_rules:
+  - at: writing-rules.md#terminology
+    reason: pointer to glossary.md; the glossary rows are the rules
+  - at: sentence-word-guidance.md#terminology
+    reason: pointer to glossary.md; the glossary rows are the rules
+  - at: sentence-word-guidance.md#parameter-table-how-to-write-each-column
+    reason: container for the key/value/description column sections
+  - at: sentence-word-guidance.md#description-column
+    reason: container; its bold-lead items are the rules
+  - at: sentence-word-guidance.md#sentence-construction
+    reason: container; its bold-lead items are the rules
+  - at: sentence-word-guidance.md#describing-required-vs-optional-clearly
+    reason: container; its bold-lead items are the rules
+  - at: style-guide-overview.md#voice-and-tone
+    reason: container; its bold-lead items are the rules
+  - at: style-guide-overview.md#parameter-table-formats
+    reason: container for the table-format subsections
+  - at: style-guide-overview.md#formatting-conventions
+    reason: container for the formatting subsections
+  - at: style-guide-overview.md#example-section-structure
+    reason: container for the example-structure subsections
+  - at: changelog-style-guide.md#structure
+    reason: container for the title/intro/sections subsections
+  - at: changelog-style-guide.md#intro-paragraph-no-heading
+    item: Examples
+    reason: label for example intro paragraphs, not a rule
+  - at: changelog-style-guide.md#section-body
+    item: Short improvement
+    reason: label for an example, not a rule
+  - at: changelog-style-guide.md#section-body
+    item: Improvement with inline code
+    reason: label for an example, not a rule
+  - at: changelog-style-guide.md#section-body
+    item: Feature with bulleted sub-items
+    reason: label for an example, not a rule
+
+rules:
+  # ---------------------------------------------------------------- writing-rules.md
+  - id: wr-em-dashes
+    at: writing-rules.md#em-dashes
+    vale: Google.EmDash
+    status: draft
+    note: >-
+      Partial. Google.EmDash flags spaces around an em dash, not em dashes
+      joining clauses, so "a—b" passes Vale but breaks the guide rule.
+
+  - id: wr-explicit-subjects
+    at: writing-rules.md#explicit-subjects--avoid-passive-voice
+    vale: Google.Passive
+    status: draft
+    note: Google.Passive covers the passive-voice half; the "use Sensible/you as subject" half is not checked.
+
+  - id: wr-against-phrasing
+    at: writing-rules.md#extraction-and-classification-phrasing
+    vale: Sensible.AgainstPhrasing
+    status: mechanical
+
+  - id: wr-gerunds
+    at: writing-rules.md#gerunds-over-nominalizations
+    none-yet: '"the <noun>tion of" patterns are detectable but noisy'
+    status: draft
+
+  - id: wr-tone
+    at: writing-rules.md#tone
+    none-yet: the listed filler phrases could be a Vale existence rule
+    status: draft
+
+  # ---------------------------------------------------------- sentence-word-guidance.md
+  - id: swg-key-column
+    at: sentence-word-guidance.md#key-column
+    human: parameter-table cell format; Vale has no table-column scope
+    status: draft
+
+  - id: swg-value-column
+    at: sentence-word-guidance.md#value-column
+    human: parameter-table cell format; Vale has no table-column scope
+    status: draft
+
+  - id: swg-description-lead
+    at: sentence-word-guidance.md#description-column
+    item: Lead with what it does
+    human: depends on table-cell position and sentence meaning
+    status: draft
+
+  - id: swg-description-enum
+    at: sentence-word-guidance.md#description-column
+    item: For enum values
+    human: content of a table cell; needs to know the parameter is an enum
+    status: draft
+
+  - id: swg-description-boolean
+    at: sentence-word-guidance.md#description-column
+    item: For boolean flags
+    human: content of a table cell; needs to know the parameter is boolean
+    status: draft
+
+  - id: swg-description-interactions
+    at: sentence-word-guidance.md#description-column
+    item: For interactions and incompatibilities
+    human: requires knowing which parameters interact
+    status: draft
+
+  - id: swg-description-global-param
+    at: sentence-word-guidance.md#description-column
+    item: Referencing a global param without duplicating it
+    human: requires knowing which parameters are global
+    status: draft
+
+  - id: swg-description-cross-references
+    at: sentence-word-guidance.md#description-column
+    item: Cross-references
+    human: requires knowing which named concepts have pages
+    status: draft
+
+  - id: swg-gerunds
+    at: sentence-word-guidance.md#sentence-construction
+    item: Prefer gerunds over nominalizations
+    none-yet: same rule as wr-gerunds
+    status: draft
+
+  - id: swg-numbered-step-subjects
+    at: sentence-word-guidance.md#sentence-construction
+    item: Use explicit subjects in numbered steps
+    none-yet: >-
+      Google.Passive catches the passive half anywhere, but nothing flags
+      imperative numbered steps, which is the core of this rule
+    status: draft
+
+  - id: swg-required
+    at: sentence-word-guidance.md#describing-required-vs-optional-clearly
+    item: Required
+    human: phrasing pattern depends on meaning
+    status: draft
+
+  - id: swg-optional
+    at: sentence-word-guidance.md#describing-required-vs-optional-clearly
+    item: Optional
+    human: phrasing pattern depends on meaning
+    status: draft
+
+  - id: swg-conditional
+    at: sentence-word-guidance.md#describing-required-vs-optional-clearly
+    item: Conditional
+    human: phrasing pattern depends on meaning
+    status: draft
+
+  - id: swg-null-behavior
+    at: sentence-word-guidance.md#describing-what-a-method-returns-when-no-match-is-found
+    human: requires knowing when null behavior is non-obvious
+    status: draft
+
+  - id: swg-notes-callouts
+    at: sentence-word-guidance.md#notes-and-callouts
+    none-yet: '"> " blockquote callouts could be flagged with a raw-scope rule'
+    status: draft
+
+  - id: swg-parameter-interactions
+    at: sentence-word-guidance.md#describing-interactions-between-parameters
+    human: requires knowing which parameter is subordinate
+    status: draft
+
+  - id: swg-numbers
+    at: sentence-word-guidance.md#numbers-and-measurements
+    none-yet: '"N percent" and spelled-out fractions are detectable with an existence rule'
+    status: draft
+
+  - id: swg-code-comments
+    at: sentence-word-guidance.md#code-examples-inline-comments
+    none-yet: >-
+      "//" in json code blocks is detectable with a raw-scope rule (Vale skips
+      code blocks by default); "comment non-obvious choices" stays human
+    status: draft
+
+  - id: swg-id-parameter
+    at: sentence-word-guidance.md#describing-the-id-parameter-for-methods
+    human: content judgment about the id row
+    status: draft
+
+  # --------------------------------------------------------------------- glossary.md
+  - id: gl-config
+    at: glossary.md#universal-terms
+    row: The JSON extraction configuration
+    none-yet: '"template" and "schema" have legitimate uses, so a rule needs exceptions'
+    status: draft
+
+  - id: gl-sensible-app
+    at: glossary.md#universal-terms
+    row: The Sensible web interface
+    vale: [Sensible.Terminology, vocab:Sensible/reject]
+    status: mechanical
+    note: Sensible.Terminology swaps "the UI"; reject.txt lists "dashboard".
+
+  - id: gl-sensible-product
+    at: glossary.md#universal-terms
+    row: The Sensible product
+    none-yet: lowercase "sensible" could be a Vale.Terms entry; "the tool"/"the engine" need a rule
+    status: draft
+
+  - id: gl-output
+    at: glossary.md#universal-terms
+    row: The result Sensible returns
+    none-yet: '"response" is legitimate for the API envelope, so a rule needs exceptions'
+    status: draft
+
+  - id: gl-sections
+    at: glossary.md#universal-terms
+    row: Repeated document structures
+    none-yet: ""
+    status: draft
+
+  - id: gl-null
+    at: glossary.md#universal-terms
+    row: An extraction that returned nothing
+    none-yet: '"empty" and "no value" have legitimate uses, so a rule needs exceptions'
+    status: draft
+
+  - id: gl-anchor
+    at: glossary.md#senseml-specific-terms
+    row: The text Sensible matches to find a location
+    none-yet: ""
+    status: draft
+
+  - id: gl-context
+    at: glossary.md#senseml-specific-terms
+    row: The document text sent to an LLM
+    none-yet: ""
+    status: draft
+
+  - id: gl-chunk
+    at: glossary.md#senseml-specific-terms
+    row: A scored portion of the document for LLM use
+    none-yet: '"section" is also a SenseML term, so a rule needs context'
+    status: draft
+
+  - id: gl-type
+    at: glossary.md#senseml-specific-terms
+    row: The SenseML data output type
+    none-yet: ""
+    status: draft
+
+  - id: gl-field
+    at: glossary.md#senseml-specific-terms
+    row: A defined extraction unit
+    none-yet: '"extraction" and "key" have legitimate uses, so a rule needs exceptions'
+    status: draft
+
+  - id: gl-dot-notation
+    at: glossary.md#senseml-specific-terms
+    row: JSON path into extracted output
+    none-yet: ""
+    status: draft
+
+  - id: gl-free-form-attributive
+    at: glossary.md#senseml-specific-terms
+    row: Unstructured/variable documents — adjective before noun
+    none-yet: '"free form <noun>" is detectable with an existence rule'
+    status: draft
+
+  - id: gl-free-form-predicate
+    at: glossary.md#senseml-specific-terms
+    row: Unstructured/variable documents — predicate adjective
+    none-yet: '"is free-form" at end of clause is detectable with an existence rule'
+    status: draft
+
+  # ----------------------------------------------------------- style-guide-overview.md
+  - id: sgo-page-structure
+    at: style-guide-overview.md#page-structure
+    human: page section order; Vale lints prose, not document structure
+    status: draft
+
+  - id: sgo-parameters-heading-level
+    at: style-guide-overview.md#parameters-heading-level
+    human: depends on the page type
+    status: draft
+
+  - id: sgo-jump-links
+    at: style-guide-overview.md#when-to-add-jump-links
+    human: depends on which sections the page has
+    status: draft
+
+  - id: sgo-frontmatter
+    at: style-guide-overview.md#frontmatter
+    human: frontmatter structure; Vale does not lint frontmatter
+    status: draft
+
+  - id: sgo-opening-paragraph
+    at: style-guide-overview.md#voice-and-tone
+    item: Opening paragraph
+    human: applies only to the first paragraph, with judgment-based exceptions
+    status: draft
+
+  - id: sgo-parameter-descriptions
+    at: style-guide-overview.md#voice-and-tone
+    item: Parameter descriptions
+    human: choice of person depends on meaning
+    status: draft
+
+  - id: sgo-example-intros
+    at: style-guide-overview.md#voice-and-tone
+    item: Examples
+    human: applies only to example introductions
+    status: draft
+
+  - id: sgo-tone
+    at: style-guide-overview.md#voice-and-tone
+    item: Tone
+    none-yet: same filler phrases as wr-tone
+    status: draft
+
+  - id: sgo-em-dashes
+    at: style-guide-overview.md#voice-and-tone
+    item: Em dashes
+    vale: Google.EmDash
+    status: draft
+    note: Partial; see wr-em-dashes.
+
+  - id: sgo-standard-table
+    at: style-guide-overview.md#standard-table-most-pages
+    human: table header format; Vale has no table-header scope
+    status: draft
+
+  - id: sgo-four-column-table
+    at: style-guide-overview.md#four-column-table-with-interactions-complex-llm-methods
+    human: when to use the format is a judgment call
+    status: draft
+
+  - id: sgo-separator-rows
+    at: style-guide-overview.md#section-separator-rows-in-parameter-tables
+    human: when to use separator rows is a judgment call
+    status: draft
+
+  - id: sgo-global-param-rows
+    at: style-guide-overview.md#referencing-global-parameters-in-a-row
+    human: requires knowing which parameters are global
+    status: draft
+
+  - id: sgo-backticks
+    at: style-guide-overview.md#backtick-quoting
+    human: requires knowing which words are JSON keys, enum values, or parameter names
+    status: draft
+
+  - id: sgo-parameter-capitalization
+    at: style-guide-overview.md#parameter-name-capitalization-in-prose
+    human: requires knowing which words are parameter names
+    status: draft
+
+  - id: sgo-method-names
+    at: style-guide-overview.md#method-and-feature-names-in-prose
+    human: requires knowing which words are method and feature names
+    status: draft
+
+  - id: sgo-no-camelcase-method-names
+    at: style-guide-overview.md#method-and-feature-names-in-prose
+    item: Never use camelCase with backticks for method or preprocessor names in running prose
+    none-yet: '"the `camelCase` method|preprocessor|parameter" is detectable with an existence rule'
+    status: draft
+
+  - id: sgo-inline-method-links
+    at: style-guide-overview.md#inline-links-for-method-and-preprocessor-names
+    human: first-mention linking depends on page context
+    status: draft
+
+  - id: sgo-image-format
+    at: style-guide-overview.md#image-format
+    none-yet: <Image> JSX and non-standard alt text are detectable with a raw-scope rule
+    status: draft
+    note: Conflicts with changelog-style-guide.md#images, which requires <Image> JSX in changelogs.
+
+  - id: sgo-download-table
+    at: style-guide-overview.md#example-document-download-table
+    human: table placement relative to the example image
+    status: draft
+
+  - id: sgo-standard-example
+    at: style-guide-overview.md#standard-example
+    human: example section structure
+    status: draft
+
+  - id: sgo-troubleshooting-example
+    at: style-guide-overview.md#troubleshooting-example-problemsolution-pattern
+    human: when to use the pattern is a judgment call
+    status: draft
+
+  - id: sgo-multiple-examples
+    at: style-guide-overview.md#multiple-examples
+    human: heading naming is a judgment call
+    status: draft
+
+  - id: sgo-cross-references
+    at: style-guide-overview.md#cross-references
+    vale: Sensible.DocLinks
+    status: draft
+    note: >-
+      Partial. DocLinks flags a bare doc:/reference: slug outside link syntax;
+      it does not flag full docs.sensible.so URLs used instead of slugs.
+
+  - id: sgo-code-blocks
+    at: style-guide-overview.md#code-blocks-in-examples
+    none-yet: same "//" check as swg-code-comments
+    status: draft
+
+  # ----------------------------------------------------------- changelog-style-guide.md
+  - id: cl-voice-and-tone
+    at: changelog-style-guide.md#voice-and-tone
+    none-yet: >-
+      Google.We flags "we" everywhere, which covers part of the intro rule;
+      marketing phrases ("excited to announce", "seamlessly") are detectable
+      with an existence rule
+    status: draft
+
+  - id: cl-title
+    at: changelog-style-guide.md#title
+    human: page title format
+    status: draft
+
+  - id: cl-intro
+    at: changelog-style-guide.md#intro-paragraph-no-heading
+    human: paragraph pattern and content
+    status: draft
+
+  - id: cl-sections
+    at: changelog-style-guide.md#sections
+    human: section grouping is a judgment call
+    status: draft
+
+  - id: cl-ordering
+    at: changelog-style-guide.md#sections
+    item: Ordering
+    human: significance is a judgment call
+    status: draft
+
+  - id: cl-section-heading-types
+    at: changelog-style-guide.md#section-heading-types
+    none-yet: '"Update:" headings are detectable with a heading-scope existence rule'
+    status: draft
+
+  - id: cl-section-body
+    at: changelog-style-guide.md#section-body
+    human: section length and content
+    status: draft
+
+  - id: cl-doc-links
+    at: changelog-style-guide.md#doc-links
+    vale: Sensible.DocLinks
+    status: draft
+    note: Partial; see sgo-cross-references.
+
+  - id: cl-images
+    at: changelog-style-guide.md#images
+    human: depends on whether image URLs were provided
+    status: draft
+    note: Conflicts with style-guide-overview.md#image-format (markdown images for reference pages).
+
+  - id: cl-length
+    at: changelog-style-guide.md#length-calibration
+    human: length calibration is a judgment call
+    status: draft
+
+  # ------------------------------------------- Vale rules with no style-guide rule
+  - id: vale-no-draft-links
+    vale: Sensible.NoDraftLinks
+    basis: >-
+      Draft pages use a draft- slug prefix (integration-guide-template.md,
+      "File naming and visibility"); published pages must not link to them.
+      No scanned guide file states this as a prose rule.
+    status: draft
+
+  - id: vale-wordlist
+    vale: Sensible.WordList
+    basis: >-
+      Case-sensitive copy of the Google developer style word list, kept because
+      .vale.ini sets Google.WordList = NO. No guide file references it.
+    status: draft

@@ -6,6 +6,7 @@ on:
       - 'scripts/descriptions/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
+      - 'scripts/style_sync/**'
       - '.github/workflows/test-scripts.yml'
   push:
     branches:
@@ -14,6 +15,7 @@ on:
       - 'scripts/descriptions/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
+      - 'scripts/style_sync/**'
       - '.github/workflows/test-scripts.yml'
 
 jobs:
@@ -26,6 +28,7 @@ jobs:
           - scripts/descriptions/test/tests
           - scripts/llms_txt/test/tests
           - scripts/style_images/test/tests
+          - scripts/style_sync/test/tests
 
     steps:
       - name: Checkout repository
@@ -38,6 +41,17 @@ jobs:
 
       - name: Install dependencies
         run: pip install pyyaml pytest
+
+      - name: Install Vale
+        if: matrix.suite == 'scripts/style_sync/test/tests'
+        env:
+          VALE_VERSION: '3.14.1'
+        run: |
+          curl -sSfL -o /tmp/vale.tar.gz \
+            "https://github.com/errata-ai/vale/releases/download/v${VALE_VERSION}/vale_${VALE_VERSION}_Linux_64-bit.tar.gz"
+          mkdir -p "$HOME/.local/bin"
+          tar -xzf /tmp/vale.tar.gz -C "$HOME/.local/bin" vale
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Run tests
         working-directory: ${{ matrix.suite }}
