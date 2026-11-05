@@ -104,7 +104,7 @@ The following examples show the preceding parameters documented with in-line com
         "requireStop": false, /* default: false. if true, sections end at the stop match, even if an anchor match precedes the stop match. Configure this to avoid prematurely ending each section if multiple anchor matches occur in a section */
         "offsetY": 0, /* default: 0. shift each section's top boundary in inches from anchor match. positive: down, negative: up */
         "stopOffsetY": 0, /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
-        "tolerance": 0.08, /* default: 0.08. gap between sections' boundaries in inches; adjust for unusual font sizes */
+        "tolerance": 0.08, /* default: 0.08. inches to move each section's top boundary up and its Stop boundary down; adjust for unusual font sizes */
         "externalRange": { /* advanced. horizontal sections only. makes text outside the section group accessible as anchors for Intersection method fields */
           "anchor": "claim contents", /* text marking the start of the external range */
           "stop": "unprocessed claims", /* text marking the end of the external range */

@@ -63,7 +63,7 @@ Add this line as a block comment before the opening `{` of the **first** comment
 }
 ```
 
-Match object comments:
+## Match object comments:
 ```json5
 "text": "some string",     /* string to match */
 "type": "includes",        /* match anywhere in line. */
@@ -77,10 +77,10 @@ Match object comments:
 
 Compound match types:
 ```json5
-"type": "all",             /* boolean and: all sub-match conditions must pass */
-"type": "any",             /* boolean or: any sub-match condition must pass */
-"type": "not",             /* boolean not: finds a line that doesn't meet the sub-match condition */
-"matches": [               /* array of sub-match objects; use with type any or all. Supports nesting */
+"type": "all",             /* boolean and: all matches in the matches array must pass */
+"type": "any",             /* boolean or: any match in the matches array must pass */
+"type": "not",             /* boolean not: finds a line that doesn't meet the condition in the match parameter */
+"matches": [               /* supports nesting matches */
 ```
 
 Array of match objects:
@@ -156,7 +156,7 @@ Array of match objects:
     "direction": "right",   /* direction in which to search for the offset box. enums: above | below | right | left */
     "number": 1             /* number of boxes to offset by */
   },
-  "darknessThreshold": 0.9, /* default: 0.9. brightness threshold below which a pixel is considered a box border. white is 1.0 */
+  "darknessThreshold": 0.9, /* default: 0.9 for white backgrounds, otherwise automatic. brightness threshold below which a pixel is considered a box border. white is 1.0 */
   "includeAnchor": false    /* default: false. if true, includes anchor lines inside box borders in the output */
 }
 ```
@@ -194,7 +194,7 @@ Array of match objects:
     "requireStop": false,   /* default: false. if true, sections end at the stop match, even if an anchor match precedes the stop match. Configure this to avoid prematurely ending each section if multiple anchor matches occur in a section */
     "offsetY": 0,           /* default: 0. shift each section's top boundary in inches from anchor match. positive: down, negative: up */
     "stopOffsetY": 0,       /* default: 0. shift each section's bottom boundary in inches from stop line. positive: down, negative: up */
-    "tolerance": 0.08       /* default: 0.08. gap between sections' boundaries in inches; adjust for unusual font sizes */
+    "tolerance": 0.08       /* default: 0.08. inches to move each section's top boundary up and its Stop boundary down; adjust for unusual font sizes */
   },
   "fields": [               /* array of fields to extract from each section. can include computed fields */
   ],
@@ -214,7 +214,7 @@ Array of match objects:
   "offsetY": 0,                 /* default: 0. vertical offset in inches from the anchor */
   "width": 0,                   /* for large or borderless checkboxes: width in inches of the selection mark region */
   "height": 0,                  /* for large or borderless checkboxes: height in inches of the selection mark region */
-  "darknessThreshold": 0.9,     /* default: auto. brightness below which a pixel is considered selected; white is 1.0. configure for dark or scanned backgrounds */
+  "darknessThreshold": 0.9,     /* default: 0.9 for white backgrounds, otherwise automatic. The brightness threshold below which to consider a pixel a box boundary. White is 1.0. Configure this parameter for checkboxes with dark backgrounds relative to the surrounding background. */
   "ignoreFormData": false        /* default: false. set to true to bypass PDF form metadata and use pixel recognition instead */
 }
 ```
