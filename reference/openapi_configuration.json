@@ -41,12 +41,10 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "sensible-docs#748 removed the 415 response from the 18 GET and DELETE operations listed at the end of this note, in this file and in openapi_extraction.json. Each one's handler is declared as `{ func }` with no content types, so it can't return 415. Backend: the API returns 415 only when a handler declares accepted content types. That's been true since sensible-hq/sensible#373 (2021-03-08), and the check took its current form in sensible-hq/sensible#2002 (2023-10-02, \"error on missing content-type header\"). Current code: sensible-hq/sensible@181758ce5: the check is gated on `if (validationConfig.contentTypes)` (src/api/validation/index.ts:782-794), the router passes `contentTypes: handler.contentTypes` (src/api/router.ts:487). Other layers checked: API Gateway is a REST API with Lambda proxy integration (packages/infra-stage-ephemeral/infra/gatewayV1.ts:142-146). It can return 415 on its own only for a request payload with an unsupported Content-Encoding (AWS: \"If the specified coding isn't supported or the supplied payload isn't compressed with specified coding, API Gateway returns the 415 Unsupported Media Type error response\", https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-make-request-with-compressed-payload.html), which a GET or DELETE without a body doesn't send. The router middleware and translateError don't produce 415 either (translateError's content-type errors are 400). The only 415 outside tests in src/ is validation/index.ts:788. Live check: not covered by scripts/test/probe_endpoints/contract (error codes are out of scope there). Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked. Operations: GET /documents/{id} (openapi_extraction.json; handler src/api/extractions/handler.ts:280); GET /extractions (openapi_extraction.json; handler src/api/extractions/handler.ts:289); GET /extractions/statistics (openapi_extraction.json; handler src/api/extractions/handler.ts:297); GET /generate_excel/{ids} (openapi_extraction.json; handler src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes); GET /generate_csv/{ids} (openapi_extraction.json; handler src/api/generate-file/makeFileRoutes.ts:205, shared by the Excel and CSV routes); GET /document_types (openapi_configuration.json; handler src/api/doc-type/doc-type-handlers.ts:522); GET /document_types/{type-id} (openapi_configuration.json; handler src/api/doc-type/doc-type-handlers.ts:556); DELETE /document_types/{type-id} (openapi_configuration.json; handler src/api/doc-type/doc-type-handlers.ts:562); GET /document_types/{type-id}/configurations (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:640); GET /document_types/{type-id}/configurations/{config-name} (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:646); DELETE /document_types/{type-id}/configurations/{config-name} (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:652); GET /document_types/{type-id}/configurations/{config-name}/versions (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:658); GET /document_types/{type-id}/configurations/{config-name}/{version} (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:664); DELETE /document_types/{type-id}/configurations/{config-name}/{version} (openapi_configuration.json; handler src/api/doc-type/configuration-handlers.ts:670); GET /document_types/{type-id}/goldens (openapi_configuration.json; handler src/api/doc-type/golden-handlers.ts:333); GET /document_types/{type-id}/goldens/{document-name} (openapi_configuration.json; handler src/api/doc-type/golden-handlers.ts:372); DELETE /document_types/{type-id}/goldens/{document-name} (openapi_configuration.json; handler src/api/doc-type/golden-handlers.ts:373); DELETE /document_types/{type-id}/goldens/{document-name}/configuration (openapi_configuration.json; handler src/api/doc-type/golden-handlers.ts:384)."
         }
       },
       "post": {
@@ -124,9 +122,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -219,9 +214,6 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -260,9 +252,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -327,7 +316,7 @@
       "get": {
         "operationId": "get-configuration",
         "summary": "Get configuration",
-        "description": "Get a configuration as stringified JSON.",
+        "description": "Get a configuration as stringified JSON. Sensible returns the configuration's current draft, or its latest version if it has no draft. That isn't necessarily the version published to an environment. To get the version published to an environment, find the version in the `versions` array whose `environments` lists that environment, then use [Get configuration by version](ref:get-configuration-by-version).",
         "tags": [
           "Configuration"
         ],
@@ -351,13 +340,11 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
-        }
+        },
+        "x-review-note": "Added which version this returns. Backend: getOneConfiguration returns versions[0] (src/api/doc-type/configuration-handlers.ts:288-294, comment: \"either we load the draft version explicitly or fall back to the latest version\"), and versionSort puts the draft first, then the rest newest first (lines 595-603). Current code: sensible-hq/sensible@181758ce5. Live check 2026-10-13 on the test account: this endpoint returned an 18:59 draft while a newer version, published to production at 19:05, existed. Described on this operation rather than on the shared ConfigurationResponse schema, because Get configuration by version also uses that schema and returns the requested version. version_id isn't mentioned because it's deliberately undocumented (see its x-internal-note). Live check: test_get_configuration_returns_draft in scripts/test/probe_endpoints/contract/test_pr748_doc_text_claims.py (added in sensible-docs#744) covers the draft case. The no-draft fallback is verified in source only; the backend comment at configuration-handlers.ts:289-292 notes that versions created in the same second can sort in arbitrary order."
       },
       "put": {
         "operationId": "update-configuration",
@@ -424,9 +411,6 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -468,9 +452,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -516,9 +497,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -607,9 +585,6 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -648,9 +623,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -739,9 +711,6 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -812,9 +781,6 @@
           "404": {
             "$ref": "#/components/responses/404"
           },
-          "415": {
-            "$ref": "#/components/responses/415"
-          },
           "500": {
             "$ref": "#/components/responses/500"
           }
@@ -849,9 +815,6 @@
           },
           "404": {
             "$ref": "#/components/responses/404"
-          },
-          "415": {
-            "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -908,15 +871,14 @@
           "401": {
             "$ref": "#/components/responses/401"
           },
-          "404": {
-            "$ref": "#/components/responses/404"
-          },
           "415": {
             "$ref": "#/components/responses/415"
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
+          },
+          "x-review-note": "Removed 404. Backend: this route has returned 400 for an unknown document type or golden since it was added (commit f93336b1e, 2021-09-29, \"Separate out the standardizedText from extraction\"); sensible-hq/sensible#2254 (2024-02-26, \"WIP: Async extract text from golden\") moved the lookup into getDocTypeAndGoldenAndPdf without changing the status codes. An unknown document type throws INVALID_DOCUMENT_TYPE_RESPONSE, and an unknown golden throws INVALID_GOLDEN_NAME_RESPONSE (\"Specified golden does not exist\"). Both are 400, and no path in this handler returns 404. Current code: sensible-hq/sensible@181758ce5: route at src/api/extract-from-golden/handler.ts:767, lookup at lines 823-844, constants at src/api/common.ts:424 and 502. Other layers checked: API Gateway returns 403, not 404, for unmatched routes. The router's NOT_FOUND (src/api/router.ts:218-220) is thrown before its try/translateError block and enterRequestContext has no catch (src/context/index.ts:176-190), so it doesn't produce a 404 response; it also only fires for a route with no handler, and this route has a POST handler. translateError has no 404 mapping, and nothing in src/engine or src/services returns 404. getGoldenPdf can also return 400 when the golden's PDF was never uploaded, and the handler returns 500 if the PDF is missing from storage. Unverified layer: CloudFront sits in front of api.sensible.so (live responses carry `Via: ... cloudfront.net` and `X-Cache` headers), but its configuration isn't in the backend repo, so responses CloudFront itself might generate (for example, custom error pages) weren't checked. Live check: none; this removal is verified in backend source only.",
+          "x-internal-note": "No 404 here: an unknown document type or golden returns a plain-text 400 (\"Specified document type does not exist\" or \"Specified golden does not exist\"). See .claude/skills/api-spec/error-response-source-of-truth.md."
         }
       }
     }
@@ -1662,7 +1624,8 @@
               "type": "string"
             }
           }
-        }
+        },
+        "x-internal-note": "List 404 only on operations whose handler returns NOT_FOUND for a missing resource. Don't add 404 for an unknown route or method: the router's NOT_FOUND for those isn't returned as a 404 response. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "415": {
         "description": "Unsupported Media Type",
@@ -1674,7 +1637,8 @@
               "example": "Messages related to the file format of the document to extract data from."
             }
           }
-        }
+        },
+        "x-internal-note": "List 415 only on operations whose backend route declares `contentTypes`. The backend checks Content-Type only for those routes, so operations without a request body (all GET and DELETE operations) never return 415 from the backend. API Gateway can also return 415 for a request body sent with an unsupported Content-Encoding, which a request without a body can't trigger, so that case isn't listed either. See .claude/skills/api-spec/error-response-source-of-truth.md."
       },
       "500": {
         "description": "Internal Server Error",
