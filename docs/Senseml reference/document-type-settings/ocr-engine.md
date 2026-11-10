@@ -1,11 +1,11 @@
 ---
 title: OCR engine
-excerpt: 'Choose an engine for OCRing images of text: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
+excerpt: 'Choose an OCR engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Choose an engine for OCRing images of text: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
+  description: 'Choose an OCR engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
   robots: index
 next:
   description: ''
