@@ -21,7 +21,7 @@ The following table shows the enums available for the OCR Engine parameter.
 | Amazon    | Default engine for the OCR preprocessor. |
 | Microsoft | Default engine for document types.<br/>Suited to typewritten documents and large documents up to 50 MB in size. |
 | Google    | Faster than Microsoft and suited to handwriting and documents that are 5 pages or fewer. The Google engine doesn't merge words into lines automatically. Use the Merge Lines preprocessor in your configurations to do so. |
-| **(Deprecated)** Lazarus | Lazarus no longer provides OCR services. For backward compatibility, Sensible routes `lazarus` to the Microsoft engine. For backward compatibility, document types and OCR preprocessors that specify `lazarus` extract text with Microsoft instead. For new configurations, specify Microsoft. |
+| **(Deprecated)** Lazarus | Lazarus no longer provides OCR services. For backward compatibility, document types and OCR preprocessors that specify `lazarus` extract text with Microsoft instead. For new configurations, specify Microsoft. |
 
 **Note:** When Sensible extracts from [portfolios](doc:portfolio), it uses Microsoft OCR, and ignores any OCR settings in the portfolio's document types.
 
