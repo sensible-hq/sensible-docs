@@ -6,11 +6,14 @@ Source PR: sensible-hq/sensible#3474 (Accept xlsb workbooks as a spreadsheet inp
 Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
 Docs PR: sensible-hq/sensible-docs#741, ready for review (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
 
+Decisions and progress log: `.claude/sessions/xlsb/decisions.md`
+
 ## Status (2026-11-10)
 
-Engineering decided to keep the failing cases as known limitations (comment on #741). Docs,
-specs, and the smoke test now describe them. Ready for Frances's review; then mark #741 ready
-and merge.
+#741 is ready for review. Engineering decided to keep the failing API cases as known limitations
+(comment on #741), and the docs, specs, smoke test, and embedded tests now describe them.
+Classification turned out to be a workaround, not a limitation, for XLS, XLSM, and XLSB; only CSV
+can't be classified.
 
 History: on 2026-10-12, production testing found that sync API requests with raw XLS, XLSM, and
 XLSB bodies fail (gateway `binaryMediaTypes`), `/classify` rejects CSV, and content types are
@@ -44,8 +47,8 @@ case-sensitive. Reported on sensible#3474.
 
 - [x] Bugs reported on sensible#3474 (2026-10-12); engineering: keep as known limitations
 - [x] Merge v0 into the branch (kept this branch's session pointer files)
-- [x] file-types.md: footnote 1 (XLS/XLSM/XLSB extraction: async endpoints or base64 JSON for sync; lowercase content types), footnote 3 (classification: XLSX only); renumbered existing footnotes 1–3 to 2, 4, 5 without changing their text
-- [x] Specs: removed XLS/XLSM/XLSB from extraction `SupportedFileTypes`, and those plus CSV from classification `SupportedFileTypes`; added a sentence to the sync extract and both classify descriptions; kept `ContentTypeParameter` and `PostGolden`
+- [x] file-types.md: footnote 1 (XLS/XLSM/XLSB extraction: async endpoints or base64 JSON for sync; lowercase content types), footnote 3 (classification: XLSX only; superseded below); renumbered existing footnotes 1–3 to 2, 4, 5 without changing their text
+- [x] Specs: removed XLS/XLSM/XLSB from extraction `SupportedFileTypes`, and those plus CSV from classification `SupportedFileTypes`; added a sentence to the sync extract and both classify descriptions (classify sentence superseded below); kept `ContentTypeParameter` and `PostGolden`
 - [x] Style pass: writing-rules, glossary, friction log, style overview, sentence guidance, concept template, editorial preferences, revise-doc-style (skipped blog, changelog, integration, config-library templates and JSON5 reference: not applicable)
 - [x] Smoke test: SENSIBLE_TEST_API_KEY (was SENSIBLE_API_KEY), test account doc types (layout_basics, 1040s, auto_insurance_quotes), limitation framing; run on the test account: 6 pass, 7 fail, 0 changed
 - [x] Bug report: resolution section
@@ -57,7 +60,7 @@ case-sensitive. Reported on sensible#3474.
 - [x] Footnote 3 rewritten (Frances chose "CSV only + workaround"); classify descriptions updated
 - [x] `x-internal-note` on `ContentTypeParameter`: without a content type, Sensible detects XLSB as XLSX
 - [x] Embedded tests under footnote 3: `classify_excel_formats_as_xlsx` (7 requests), `classify_csv_not_supported` (2); both pass on the test account
-- [x] Runner extension: `expect {"compare": "classification"}`, `CLASSIFICATION_DRIFT`, record schema, HTML/text/summary reports, 10 unit tests (209 total pass), README
+- [x] Runner extension: `expect {"compare": "classification"}`, `CLASSIFICATION_DRIFT`, record schema, HTML/text/summary reports, unit tests (214 total pass), README
 - [x] `run.sh` saves the scrubbed report with `DOC_TESTS_SAVE_REPORT=1`: `scripts/doc-detective/reports/docs-senseml-reference-concepts-file-types.html`
 - [x] Test samples in `scripts/test/assets/`: `xls_sample.xls`, `xlsm_sample.xlsm` (engine test data, metadata name shortened to "Ben K"), `csv_sample.csv`
 - [x] `add-doc-tests` skill written on #749 (depends on this PR's markup)
