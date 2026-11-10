@@ -2665,7 +2665,8 @@
           "text/csv",
           "application/json"
         ],
-        "description": "Content type of the document being presented for extraction. Required for the CSV file type."
+        "description": "Content type of the document being presented for extraction. Required for the CSV file type.",
+        "x-internal-note": "XLSB is a ZIP (OPC) container, like XLSX. If the request omits content_type (allowed for every type except CSV), Sensible detects an XLSB file as XLSX: the extraction's content_type reports XLSX, and the output is the same because one Excel reader handles both. Sensible treats a file as XLSB only when the request declares the XLSB content type. Verified 2026-11-10 with extract_from_url on the docs test account; see sensible-hq/sensible#3474. Deliberately not documented publicly: nothing a reader does depends on it."
       },
       "BinaryDocument": {
         "type": "string",
