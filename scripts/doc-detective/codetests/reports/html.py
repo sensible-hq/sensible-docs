@@ -196,6 +196,8 @@ def render_code_test(record):
     # Fingerprint tests link each fixture to the SenseML editor instead, which has the document
     if record.get("blank_document"):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: none, so it ran on <a href="{e(record["document_url"])}">a blank page</a></p>')
+    elif record.get("classification"):
+        pass  # the files it sends are in the table below
     elif not record.get("segments", {}).get("editors"):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
     if record.get("config_fragment"):
@@ -322,6 +324,22 @@ def render_code_test(record):
             f'<span class="label" style="margin-top:10px">User</span><pre>{e(judge["user_prompt"])}</pre></details>'
             f'<details><summary>Full judge output (JSON)</summary><pre>{e(raw)}</pre></details>'
         )
+    cl = record.get("classification")
+    if cl:
+        out.append("<h3>Classification</h3>")
+        out.append(f'<p class="muted">Each row sends a file to the classify endpoint with a content type, against a temporary doc type '
+                   f'(<code>{e(cl["doc_type"])}</code>, deleted after the test) described as: <em>{e(cl["doc_type_description"])}</em> '
+                   'Compared exactly: Sensible\'s answer is the claim, so no judge and no envelope.</p>')
+        out.append("<table><tr><th>File</th><th>Sent as</th><th>Page claims</th><th>Sensible</th><th>Response</th></tr>")
+        for run in cl["runs"]:
+            verdict = lambda yes: "classified" if yes else "not classified"
+            ok = "pass" if run["actual"] == run["expected"] else "fail"
+            label = f'<br><span class="muted">{e(run["label"])}</span>' if run["label"] else ""
+            out.append(f'<tr><td><code>{e(os.path.basename(run["file"]))}</code>{label}</td><td><code>{e(run["content_type"])}</code></td>'
+                       f'<td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
+                       f'<td><span class="muted">HTTP {run["http_status"]}</span><br><code>{e(run["response"][:160])}</code></td></tr>')
+        out.append("</table>")
+
     out.append(render_envelope(record.get("envelope"), record))
     out.append("</details>")
     return "\n".join(out)
@@ -343,6 +361,10 @@ def details_label(test, rec):
     if fp:
         claims = ", ".join(("as written" if not r["break"] else f"{len(r['break'])} broken") + (" passes" if r["expected"] else " fails") for r in fp["runs"])
         return f"{test.test_id}: fingerprint {claims}"
+    cl = rec.get("classification")
+    if cl:
+        yes = sum(r["expected"] for r in cl["runs"])
+        return f"{test.test_id}: classification, {yes} classified and {len(cl['runs']) - yes} not"
     return f"{test.test_id}: output comparison"
 
 

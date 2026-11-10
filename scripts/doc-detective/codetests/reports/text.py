@@ -26,6 +26,13 @@ def summary(record):
         for run in fp["runs"]:
             which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken"
             lines.append(f"  {which}: page claims {'passes' if run['expected'] else 'fails'}; Sensible {'passed' if run['actual'] else 'failed'}  (extraction {run['extraction_id']})")
+    cl = record.get("classification")
+    if cl:
+        lines.append(f"{record['test_id']}: classification (compared exactly), temporary doc type {cl['doc_type']}")
+        for run in cl["runs"]:
+            label = f" ({run['label']})" if run["label"] else ""
+            lines.append(f"  {run['file']} as {run['content_type']}{label}: page claims {'classified' if run['expected'] else 'not classified'}; "
+                         f"Sensible {'classified' if run['actual'] else 'not classified'}  (HTTP {run['http_status']})")
     if record.get("blank_document"):
         lines.append(f"{record['test_id']}: names no document, so it ran on a blank page")
     if "overall" in record:

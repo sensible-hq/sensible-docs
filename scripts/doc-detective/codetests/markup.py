@@ -47,6 +47,18 @@ row's keys are marker names with the same options, so a row converts to a code t
     <!-- row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} -->
     <!-- table test end -->
 
+For a claim about which files Sensible classifies, a code test sends files from the repo to the
+classify endpoint, each with a content type, against a temporary doc type described in the test.
+It needs no inline document, config, or output:
+
+    <!-- code test {"testId": "classify_...", "description": "..."} -->
+    <!-- expect {"compare": "classification", "doc_type_description": "...", "requests": [
+        {"file": "<repo-relative path>", "content_type": "...", "classified": true or false, "label": "..."}, ...]} -->
+    <!-- code test end -->
+
+`classified` is the page's claim: whether Sensible classifies the file as that doc type when it's
+sent with that content type. `label` (optional) names the request in reports, for example "Python SDK".
+
 The tag and the test must name each other, and the test needs one row entry per table row, in the
 table's order: adding or deleting a row without updating the test fails the run. Row content isn't
 compared; the tag is the hint that the table and the test change together.
@@ -69,7 +81,7 @@ MARKER_RE = re.compile(r"<!--\s*(inline\s+config|inline\s+document|inline\s+outp
 # Markers renamed from #737's first version: fail loudly rather than silently not running
 OLD_MARKER_RE = re.compile(r"<!--\s*example\s+(config|document|output)\b")
 ROLES = {"inline config": "config", "inline document": "document", "inline output": "output", "fixture": "fixture", "expect": "expect"}
-COMPARES = ("documents", "fingerprint")
+COMPARES = ("documents", "fingerprint", "classification")
 # A name for an inline sample's doc type or config: what the expected documents refer to
 NAME_RE = re.compile(r"[a-z0-9_]+")
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
@@ -176,6 +188,17 @@ def _expect(options, test_id, where):
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs \"passes\": true or false, and optional \"variants\": "
                                 f"[{{\"break\": [<test index>, ...], \"passes\": true or false}}] ({where})")
         return compare, {"passes": options["passes"], "variants": variants}
+    if compare == "classification":
+        requests = options.get("requests")
+        description = options.get("doc_type_description")
+        if not isinstance(description, str) or not description.strip() or not isinstance(requests, list) or not requests or not all(
+            isinstance(r, dict) and isinstance(r.get("file"), str) and r["file"] and isinstance(r.get("content_type"), str) and r["content_type"]
+            and isinstance(r.get("classified"), bool) and isinstance(r.get("label", ""), str) and set(r) <= {"file", "content_type", "classified", "label"}
+            for r in requests
+        ):
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect needs \"doc_type_description\" and \"requests\": "
+                                f"[{{\"file\": \"<repo-relative path>\", \"content_type\": \"...\", \"classified\": true or false, \"label\": \"...\"}}] ({where})")
+        return compare, {"doc_type_description": description, "requests": requests}
     return compare, options.get("documents")
 
 
@@ -241,6 +264,11 @@ def _code_test(text, match, path):
             test.output_line = text.count("\n", 0, start)
             test.output_span = (start, offset + fence.end(1))
     where = f"{path}, line {line}"
+    if test.compare == "classification":
+        if seen - {"expect"} or test.segment_documents_with:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect sends the files in its requests, so the test takes no "
+                                f"inline document, config, output, fixture, or segment_documents_with ({where})")
+        return test
     if "document" not in seen:
         if test.segment_documents_with or test.fixtures or test.inline_configs or test.compare:
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where}). Only a test that compares an "
@@ -330,6 +358,14 @@ def check_syntax(test):
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
     where = f"{test.file}, line {test.line}"
+    if test.compare == "classification":
+        import os
+
+        for request in test.expect["requests"]:
+            path = os.path.normpath(os.path.join(settings.REPO_ROOT, request["file"]))
+            if os.path.isabs(request["file"]) or not path.startswith(settings.REPO_ROOT + os.sep) or not os.path.isfile(path):
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: request file {request['file']!r} isn't a file in the repo (paths are relative to the repo root) ({where})")
+        return None, test.expect
     if test.compare == "documents":
         for sample in test.inline_configs:
             _parse_block(test, "config", sample["text"], sample["line"], sample["shift"], True)

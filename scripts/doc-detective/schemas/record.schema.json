@@ -354,6 +354,70 @@
           }
         }
       }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as a temporary doc type with the test's description",
+      "required": [
+        "doc_type",
+        "doc_type_description",
+        "runs"
+      ],
+      "properties": {
+        "doc_type": {
+          "type": "string",
+          "description": "The temporary doc type, deleted after the test"
+        },
+        "doc_type_description": {
+          "type": "string"
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "content_type",
+              "label",
+              "expected",
+              "actual",
+              "http_status",
+              "response"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "Repo-relative path of the file sent"
+              },
+              "content_type": {
+                "type": "string",
+                "description": "The Content-Type header sent"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional name for the request in reports"
+              },
+              "expected": {
+                "type": "boolean",
+                "description": "Whether the page claims Sensible classifies it"
+              },
+              "actual": {
+                "type": "boolean",
+                "description": "Whether Sensible classified it as the temporary doc type"
+              },
+              "http_status": {
+                "type": "integer"
+              },
+              "response": {
+                "type": "string",
+                "description": "The start of the response body, keys redacted"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

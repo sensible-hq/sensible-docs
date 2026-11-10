@@ -21,7 +21,7 @@ import traceback
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
+    CLASSIFICATION_DRIFT, DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
     OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
 )
 
@@ -203,7 +203,37 @@ def _run_fingerprint(rec, test, client):
         raise CodeTestError(FINGERPRINT_DRIFT, "; ".join(say(r) for r in wrong))
 
 
+def _run_classification(rec, test, client):
+    """Classification claim: send each file to the classify endpoint with its content type, against a
+    temporary doc type with the test's description, and check whether Sensible classified it as that
+    doc type. No extraction, no LLM judge (classification is the product's own LLM call; its answer is
+    the claim), no envelope. The temporary doc type is deleted afterwards."""
+    _, expect = markup.check_syntax(test)
+    name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}"
+    type_id = client.create_temp_doc_type(name, {"description": expect["doc_type_description"]})
+    runs = []
+    try:
+        for request in expect["requests"]:
+            status, text, got = client.classify(os.path.join(settings.REPO_ROOT, request["file"]), request["content_type"], name)
+            runs.append({
+                "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
+                "expected": request["classified"], "actual": got == name, "http_status": status,
+                "response": settings.redact(" ".join(text.split()))[:300],
+            })
+    finally:
+        client.delete_temp_doc_type(type_id)
+    rec["classification"] = {"doc_type": name, "doc_type_description": expect["doc_type_description"], "runs": runs}
+    wrong = [r for r in runs if r["actual"] != r["expected"]]
+    if wrong:
+        say = lambda r: (f"{r['file']} sent as {r['content_type']}: the page claims Sensible "
+                         f"{'classifies' if r['expected'] else 'does not classify'} it, but it "
+                         f"{'did' if r['actual'] else 'did not'} (HTTP {r['http_status']}: {r['response'][:120]})")
+        raise CodeTestError(CLASSIFICATION_DRIFT, "; ".join(say(r) for r in wrong))
+
+
 def _run(rec, test, client, judge, judge_key, judge_model, fix):
+    if test.compare == "classification":
+        return _run_classification(rec, test, client)
     if test.compare == "documents":
         return _run_segments(rec, test, client)
     if test.compare == "fingerprint":
