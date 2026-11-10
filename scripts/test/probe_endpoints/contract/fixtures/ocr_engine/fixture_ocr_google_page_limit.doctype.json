@@ -1,0 +1,7 @@
+{
+  "name": "fixture_ocr_google_page_limit",
+  "schema": {
+    "ocr_engine": "google",
+    "prevent_default_merge_lines": true
+  }
+}

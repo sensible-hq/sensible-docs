@@ -1,0 +1,23 @@
+{
+  "description": "Test-account fixture for the ocr-engine.md Google row: Google OCR has no page limit. The reference document is the 72-page Beazley cyber quote (assets/pdfs/blog/beazley-cyber-quote-sample.pdf) rasterized at 150 DPI into an image-only PDF, so every page needs OCR. Each field matches text from a single page; the field ID is the page number, and p72 checks the last page. The doc type sets prevent_default_merge_lines: true, so Google OCR returns single words; with the config's Merge Lines preprocessor removed, every field returns one word, which confirms the text came from Google (Amazon and Microsoft return whole lines even with this setting). The Merge Lines preprocessor merges the words back into lines so the multi-word anchors match. Same layout as fingerprint_portfolio/manifest.json. Paths are relative to this file, except `pdf`, which is relative to the repo root. Fixture doc types, configs, and reference documents are prefixed `fixture_` so nobody deletes them in the app by accident.",
+  "document_types": [
+    {
+      "doctype": "fixture_ocr_google_page_limit.doctype.json",
+      "source": "docs/Senseml reference/document-type-settings/ocr-engine.md (Google row)",
+      "configs": [
+        {
+          "name": "fixture_page_markers",
+          "file": "fixture_ocr_google_page_limit.fixture_page_markers.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_beazley_scanned_72_pages",
+          "pdf": "assets/pdfs/beazley_scanned_72_pages.pdf",
+          "configuration": "fixture_page_markers"
+        }
+      ]
+    }
+  ]
+}

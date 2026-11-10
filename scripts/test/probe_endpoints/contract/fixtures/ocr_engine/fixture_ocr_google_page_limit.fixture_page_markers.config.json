@@ -1,0 +1,61 @@
+{
+  "preprocessors": [
+    {
+      "type": "mergeLines",
+      "directlyAdjacentThreshold": 0.15,
+      "adjacentThreshold": 0.8,
+      "yOverlapThreshold": 0.8,
+      "minXGapThreshold": 0.1
+    }
+  ],
+  "fields": [
+    {
+      "id": "p01",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "Parkway"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "p10",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "in partnership with Navigant"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "p26",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "inapplicability"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "p72",
+      "anchor": {
+        "match": {
+          "type": "includes",
+          "text": "page 22 of 22"
+        }
+      },
+      "method": {
+        "id": "passthrough"
+      }
+    }
+  ]
+}
