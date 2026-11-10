@@ -27,24 +27,26 @@ For more information, see the following tables.
 | | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
   | --- | --- | --- | --- | --- | --- |
   | **Sensible app's Extract tab** | ✅ | ✅ | ✅ | ✅ | ❌ |
-  | **Single-file extraction with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
-  | **Portfolio extraction** | ✅ | ✅ | ❌ | ✅<sup>1</sup> | ❌ |
+  | **Single-file extraction with SDKs or API** | ✅ | ✅ | ✅<sup>1</sup> | ✅ | ✅ |
+  | **Portfolio extraction** | ✅ | ✅ | ❌ | ✅<sup>2</sup> | ❌ |
   | **Email bodies** | ✅ | ✅ | ✅ | ✅ | n/a |
   | **Email attachments** | ✅ | ✅ | ✅ | ✅ | ✅ |
-  | **Classification by type with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | **Classification by type with SDKs or API** | ✅ | ✅ | ✅<sup>3</sup> | ✅ | ✅ |
 
 **SenseML extraction method**
 
 | | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
   | --- | --- | --- | --- | --- | --- |
-  | **Methods that render non-text pixels<sup>2</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
-  | **NLP Table method,<br/>Fixed Table method<sup>3</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
+  | **Methods that render non-text pixels<sup>4</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
+  | **NLP Table method,<br/>Fixed Table method<sup>5</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
   | **Extraction of text that requires OCR** | ✅ | ✅ | ❌ | ✅ | ✅ |
 
 
-1. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
-2. Methods that render non-text image pixels include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
-3. As alternatives to these Table methods, use the Fixed Table method or the List method.
+1. For XLS, XLSM, and XLSB files, use an asynchronous extraction endpoint, such as [Extract from URL](ref:extract-from-url) or [Generate an upload URL](ref:generate-an-upload-url). If you use the synchronous [Extract data from a document](ref:extract-data-from-a-document) endpoint, base64-encode the file in the request body's `document` field instead of sending the file bytes as the request body. Specify spreadsheet content types in lowercase, for example, `application/vnd.ms-excel.sheet.binary.macroenabled.12`.
+2. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
+3. Sensible classifies XLSX files. Sensible doesn't classify XLS, XLSM, XLSB, or CSV files.
+4. Methods that render non-text image pixels include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+5. As alternatives to these Table methods, use the Fixed Table method or the List method.
 
 ## File sizes
 

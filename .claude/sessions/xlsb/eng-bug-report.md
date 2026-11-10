@@ -7,6 +7,21 @@ and XLSM support shipped. The fix is to add three content types to that list. Se
 `/classify` rejects CSV because its handler reads only binary bodies, and content type checks
 are case-sensitive, so `macroEnabled` (the casing Python sends) gets a 415.
 
+**Resolution:** reported on sensible-hq/sensible#3474 on 2026-10-12. Engineering's reply, relayed
+on sensible-docs#741: "not sure if it's worth to fix it. Let's keep it as a known limitation, and
+we can enable it when/if needed." All three are now documented as known limitations:
+
+- Supported file types: footnote 1 (XLS, XLSM, XLSB extraction needs an async endpoint or base64
+  JSON for sync; content types must be lowercase) and footnote 3 (classification supports XLSX
+  only, not XLS, XLSM, XLSB, or CSV).
+- API reference: XLS, XLSM, and XLSB removed from the raw request body types for sync extraction;
+  those three plus CSV removed from classification. The endpoint descriptions say why.
+  `ContentTypeParameter` (base64 JSON, upload URLs) and `PostGolden` still list them.
+- The smoke test now treats these failures as expected and flags CHANGED if engineering enables
+  any of them, which means the docs need updating.
+
+The rest of this report is the original investigation, kept for reference.
+
 Tested against production (`https://api.sensible.so/v0`) on 2026-10-12 by the docs team.
 Repro: `bash scripts/test/file_types/smoke_test_xlsb.sh` in sensible-hq/sensible-docs
 (branch `fe_xlsb_docs`, PR sensible-docs#741). Sample: `tests/data/test.xlsb` from #3474.

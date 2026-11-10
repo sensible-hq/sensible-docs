@@ -4,13 +4,17 @@ Claude Code session name: xlsb
 Claude Code session ID: 1e71441a-3c84-48a0-baa5-c36aac379bbb
 Source PR: sensible-hq/sensible#3474 (Accept xlsb workbooks as a spreadsheet input)
 Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
-Docs PR: sensible-hq/sensible-docs#741, draft until the #741 decision (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
+Docs PR: sensible-hq/sensible-docs#741, draft (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
 
-## Status (2026-10-12)
+## Status (2026-11-10)
 
-Docs changes are done. On hold: production testing found that sync API requests with raw XLS,
-XLSM, and XLSB bodies fail (gateway bug), so the API reference now claims XLSB works on routes
-where it doesn't. Waiting on a decision about whether to hold #741 until engineering fixes it.
+Engineering decided to keep the failing cases as known limitations (comment on #741). Docs,
+specs, and the smoke test now describe them. Ready for Frances's review; then mark #741 ready
+and merge.
+
+History: on 2026-10-12, production testing found that sync API requests with raw XLS, XLSM, and
+XLSB bodies fail (gateway `binaryMediaTypes`), `/classify` rejects CSV, and content types are
+case-sensitive. Reported on sensible#3474.
 
 ## Docs changes
 
@@ -36,15 +40,20 @@ where it doesn't. Waiting on a decision about whether to hold #741 until enginee
 - [x] Checked specs, docs, and engine PR history for known limitations: none; all three bugs look like oversights
 - [x] Bug report with TL;DR and results table: `.claude/sessions/xlsb/eng-bug-report.md`
 
+## Known limitations (2026-11-10)
+
+- [x] Bugs reported on sensible#3474 (2026-10-12); engineering: keep as known limitations
+- [x] Merge v0 into the branch (kept this branch's session pointer files)
+- [x] file-types.md: footnote 1 (XLS/XLSM/XLSB extraction: async endpoints or base64 JSON for sync; lowercase content types), footnote 3 (classification: XLSX only); renumbered existing footnotes 1–3 to 2, 4, 5 without changing their text
+- [x] Specs: removed XLS/XLSM/XLSB from extraction `SupportedFileTypes`, and those plus CSV from classification `SupportedFileTypes`; added a sentence to the sync extract and both classify descriptions; kept `ContentTypeParameter` and `PostGolden`
+- [x] Style pass: writing-rules, glossary, friction log, style overview, sentence guidance, concept template, editorial preferences, revise-doc-style (skipped blog, changelog, integration, config-library templates and JSON5 reference: not applicable)
+- [x] Smoke test: SENSIBLE_TEST_API_KEY (was SENSIBLE_API_KEY), test account doc types (layout_basics, 1040s, auto_insurance_quotes), limitation framing; run on the test account: 6 pass, 7 fail, 0 changed
+- [x] Bug report: resolution section
+- Not documented: the unverified `.xls` → XLSX mapping for email attachments (never tested)
+
 ## Next steps
 
-- [ ] Frances: file the bugs with engineering (bug report TL;DR works as the summary)
-  - Bug 1 (high): gateway `binaryMediaTypes` omits XLS, XLSM, XLSB → sync /extract, /classify, /classify/async drop the body
-  - Bug 2 (medium): /classify rejects CSV (handler reads only binary bodies)
-  - Bug 3 (low–medium): content type check is case-sensitive (`macroEnabled` → 415)
-  - Unverified: `.xls` maps to the XLSX content type in `DOCUMENT_CONTENT_TYPE_FOR_EXTENSIONS`
-- [ ] Frances: decide on #741
-  - Option A: hold until Bug 1 is fixed, re-run the smoke test, then merge
-  - Option B: merge now with a known-issue note on file-types.md (extraction: use upload URLs or base64 JSON; classification of XLS/XLSM/XLSB/CSV not available)
-- [ ] After a fix ships: re-run the smoke test; expect checks 1, 2, 3, 6, 8 to flip to PASS (marked CHANGED)
+- [ ] Frances: review the docs and spec diff on #741
+- [ ] Mark #741 ready and merge
 - [ ] After merge: run close-docs-pr (swaps labels on sensible#3474 and sensible-app#1882, removes the worktree)
+- [ ] If engineering enables any of these later: the smoke test shows CHANGED rows; update file-types.md and the specs
