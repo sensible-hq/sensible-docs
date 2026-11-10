@@ -61,6 +61,7 @@ case-sensitive. Reported on sensible#3474.
 - [x] `run.sh` saves the scrubbed report with `DOC_TESTS_SAVE_REPORT=1`: `scripts/doc-detective/reports/docs-senseml-reference-concepts-file-types.html`
 - [x] Test samples in `scripts/test/assets/`: `xls_sample.xls`, `xlsm_sample.xlsm` (engine test data, metadata name shortened to "Ben K"), `csv_sample.csv`
 - [x] `add-doc-tests` skill written on #749 (depends on this PR's markup)
+- [x] Report: classification runs against a persistent fixture, `fixture_spreadsheet_classify` (linked to the SenseML editor, with the XLSB as its reference document); each request shows its curl command; files link relative to the report. Fixture reference documents can be spreadsheets now
 - Not run in CI: no workflow covers file-types.md yet
 
 ## Next steps
