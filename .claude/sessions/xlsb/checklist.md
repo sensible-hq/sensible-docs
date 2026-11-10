@@ -4,7 +4,7 @@ Claude Code session name: xlsb
 Claude Code session ID: 1e71441a-3c84-48a0-baa5-c36aac379bbb
 Source PR: sensible-hq/sensible#3474 (Accept xlsb workbooks as a spreadsheet input)
 Frontend PR: sensible-hq/sensible-app#1882 (Frontend side of xlsb support)
-Docs PR: sensible-hq/sensible-docs#741, draft (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
+Docs PR: sensible-hq/sensible-docs#741, ready for review (branch `fe_xlsb_docs`, worktree `~/GitHub/sensible-docs-xlsb`)
 
 ## Status (2026-11-10)
 
@@ -51,9 +51,21 @@ case-sensitive. Reported on sensible#3474.
 - [x] Bug report: resolution section
 - Not documented: the unverified `.xls` → XLSX mapping for email attachments (never tested)
 
+## Classification is a workaround, not a limitation (2026-11-10)
+
+- [x] Positive-control tests (temporary doc type with a matching description): XLS, XLSM, XLSB classify when sent as XLSX or as `application/pdf` (what the Python SDK sends); they fail only with their own content types. CSV never classifies. Footnote 3 and the classify descriptions had overstated it
+- [x] Footnote 3 rewritten (Frances chose "CSV only + workaround"); classify descriptions updated
+- [x] `x-internal-note` on `ContentTypeParameter`: without a content type, Sensible detects XLSB as XLSX
+- [x] Embedded tests under footnote 3: `classify_excel_formats_as_xlsx` (7 requests), `classify_csv_not_supported` (2); both pass on the test account
+- [x] Runner extension: `expect {"compare": "classification"}`, `CLASSIFICATION_DRIFT`, record schema, HTML/text/summary reports, 10 unit tests (209 total pass), README
+- [x] `run.sh` saves the scrubbed report with `DOC_TESTS_SAVE_REPORT=1`: `scripts/doc-detective/reports/docs-senseml-reference-concepts-file-types.html`
+- [x] Test samples in `scripts/test/assets/`: `xls_sample.xls`, `xlsm_sample.xlsm` (engine test data, metadata name shortened to "Ben K"), `csv_sample.csv`
+- [x] `add-doc-tests` skill written on #749 (depends on this PR's markup)
+- Not run in CI: no workflow covers file-types.md yet
+
 ## Next steps
 
-- [ ] Frances: review the docs and spec diff on #741
-- [ ] Mark #741 ready and merge
+- [ ] Frances: review the docs, spec, and tooling diff on #741, and the saved report
+- [ ] Merge #741
 - [ ] After merge: run close-docs-pr (swaps labels on sensible#3474 and sensible-app#1882, removes the worktree)
 - [ ] If engineering enables any of these later: the smoke test shows CHANGED rows; update file-types.md and the specs
