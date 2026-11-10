@@ -1069,9 +1069,9 @@
             "enum": [
               "microsoft",
               "amazon",
-              "google",
-              "lazarus"
+              "google"
             ],
+            "x-internal-note": "The backend still accepts \"lazarus\" (src/engine/standardized-text/readers/schemas.ts) but omitted here because it's deprecated: Lazarus no longer provides OCR services, so since sensible-hq/sensible#3468 the engine routes \"lazarus\" to the same Microsoft Document Intelligence reader as \"microsoft\". Existing doc types that specify it keep working. Documented as deprecated on the ocr-engine page.",
             "type": "string",
             "description": "For information about each OCR engine, see [OCR engine](doc:ocr-engine).\n"
           },

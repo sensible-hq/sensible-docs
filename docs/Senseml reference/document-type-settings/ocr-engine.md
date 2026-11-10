@@ -1,11 +1,11 @@
 ---
 title: OCR engine
-excerpt: Options for extracting text from images, including Amazon, Microsoft, Lazarus, and Google engines with their use cases and limitations.
+excerpt: 'Choose an engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Options for extracting text from images, including Amazon, Microsoft, Lazarus, and Google engines with their use cases and limitations.
+  description: 'Choose an engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'
   robots: index
 next:
   description: ''
@@ -20,8 +20,8 @@ The following table shows the enums available for the OCR Engine parameter.
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Amazon    | Default engine for the OCR preprocessor.<br/>Default engine for document types.                                                                                                                                            |
 | Microsoft | Suited to typewritten documents and large documents up to 50 MB in size.                                                                                                                                                   |
-| Lazarus   | Faster than Microsoft and produces similar output.                                                                                                                                                                         |
 | Google    | Faster than Microsoft and suited to handwriting and documents that are 5 pages or fewer. The Google engine doesn't merge words into lines automatically. Use the Merge Lines preprocessor in your configurations to do so. |
+| **(Deprecated)** Lazarus | Lazarus no longer provides OCR services. For backward compatibility, Sensible routes `lazarus` to the Microsoft engine. Document types and OCR preprocessors that specify `lazarus` extract text with Microsoft instead. For new configurations, specify Microsoft. |
 
 **Note:** When Sensible extracts from [portfolios](doc:portfolio), it uses Microsoft OCR, and ignores any OCR settings in the portfolio's document types.
 
