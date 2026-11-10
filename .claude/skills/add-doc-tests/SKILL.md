@@ -48,7 +48,7 @@ Match the claim to the markup the README defines. Don't invent a new format; if 
 | How fingerprints segment a portfolio, claimed in prose | Code test with `segment_documents_with`, `fixture`, and `expect {"compare": "documents"}` |
 | The page's own fingerprint samples | `inline config {"fragment": "fingerprint", ...}` with `expect {"compare": "documents"}` or `{"compare": "fingerprint"}` |
 | A table where each row is a claim | `<!-- table {"tableId"} -->` tag and a `<!-- table test -->` with one `row` per table row |
-| Which files Sensible classifies, with which content type | Code test with `expect {"compare": "classification"}` and test files in `scripts/test/assets/` |
+| Which files Sensible classifies, with which content type | Code test with one `fixture` (the doc type to classify as; its description is what Sensible classifies by) and `expect {"compare": "classification"}`, with test files in `scripts/test/assets/`. The report shows each request's curl command |
 | A parameter table's names, required flags, types, values | No markup: `scripts/param-tables/check_param_tables.py` reads the table (prototype) |
 | An API spec claim (`reference/*.json`) | Not page markup: a contract test in the API contract suite (PR #744), per CONCEPT.md "API changes" |
 
