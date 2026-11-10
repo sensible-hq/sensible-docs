@@ -1,0 +1,6 @@
+{
+  "name": "fixture_fp_pmd_loss",
+  "schema": {
+    "ocr_engine": "amazon"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "every",
+        "match": [
+          {
+            "type": "includes",
+            "text": "August 11, 2021"
+          }
+        ]
+      },
+      {
+        "page": "every",
+        "match": [
+          {
+            "type": "includes",
+            "text": "Transaction history"
+          }
+        ]
+      }
+    ]
+  },
+  "fields": []
+}

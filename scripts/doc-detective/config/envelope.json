@@ -1,0 +1,9 @@
+{
+  "_comment": "Tuning for regression envelopes (codetests/envelope.py). Changing these changes how strict the envelope check is; rebuild baselines only if a change affects what's recorded.",
+  "default_runs": 10,
+  "free_text_words": 3,
+  "free_text_length": 40,
+  "max_shapes": 20,
+  "length_slack": 0.25,
+  "length_min_slack": 2
+}

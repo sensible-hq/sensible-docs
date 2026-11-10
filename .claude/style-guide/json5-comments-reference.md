@@ -2,9 +2,11 @@
 
 Canonical inline comments for SenseML code examples. Source: docs/Senseml reference/ (PR #587; match.md and intersection.md for regex/boolean match params and horizontalAnchor/wordFilters).
 
-When writing or enriching a JSON5 code block, copy the comment for every parameter present in the block — not just the non-obvious ones. Comments go on the same line as the parameter, in `/* */` style.
+When writing or enriching JSON5 code blocks, comment each parameter **the first time it appears in a sample on the page**. After that, don't comment it again, unless a later sample shows a notably different configuration or behavior of that parameter. Later samples don't repeat earlier comments. Commenting every parameter in every sample is overcommenting.
 
-Add this line as a block comment before the opening `{` of every example:
+Comments go on the same line as the parameter, in `/* */` style.
+
+Add this line as a block comment before the opening `{` of the **first** commented example on the page (once per page):
 
 ```
 /* Sensible uses JSON5 to support in-line comments*/
@@ -16,7 +18,7 @@ Add this line as a block comment before the opening `{` of every example:
 
 ```json5
 "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
-  "tests": [           /* array of match tests; by default all tests must pass for the config to run */
+  "tests": [           /* array of tests; for standalone documents, the config passes if Sensible finds 50% or more of the matches */
     {
       "type": "startsWith", /* match types: startsWith | endsWith | includes | equals | regex */
       "text": "anyco",      /* string to match */
@@ -28,7 +30,7 @@ Add this line as a block comment before the opening `{` of every example:
 
 ---
 
-## Field-level (applies to every field in every example)
+## Field-level (applies to every field, on its first appearance on the page)
 
 ```json5
 "id": "field_name",        /* user-friendly ID for extracted target data */

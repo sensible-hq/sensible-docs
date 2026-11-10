@@ -1,11 +1,11 @@
 ---
 title: OCR
-excerpt: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
+excerpt: 'Sensible OCRs scanned PDFs and images automatically. Configure OCR level, per-page OCR, and the engine: Amazon, Google, or Microsoft.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
+  description: 'Sensible OCRs scanned PDFs and images automatically. Configure OCR level, per-page OCR, and the engine: Amazon, Google, or Microsoft.'
   robots: index
 next:
   description: ''

@@ -284,4 +284,4 @@ Use `ref:` slugs for API reference links. Use full `https://` URLs only for exte
 
 ## Code blocks in examples
 
-Always use fenced ` ```json ` blocks. Inline comments in JSON configs (using `//` or `/* */`) are acceptable and encouraged for complex configs — they help readers understand non-obvious choices. The Sensible engine accepts relaxed JSON.
+Always use fenced ` ```json ` blocks. Inline comments in JSON configs (using `/* */`, never `//`) are acceptable and encouraged for complex configs — they help readers understand non-obvious choices. The Sensible engine accepts relaxed JSON.

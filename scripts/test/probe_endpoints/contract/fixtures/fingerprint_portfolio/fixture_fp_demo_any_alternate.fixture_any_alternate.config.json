@@ -1,0 +1,35 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          {
+            "type": "regex",
+            "pattern": "u.s.\\s+individual\\s+income\\s+tax\\s+return",
+            "flags": "i"
+          }
+        ]
+      },
+      {
+        "page": "last",
+        "match": [
+          {
+            "type": "any",
+            "matches": [
+              {
+                "type": "includes",
+                "text": "Preparer's name"
+              },
+              {
+                "type": "includes",
+                "text": "Form 1040 (2020) Page 2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "fields": []
+}

@@ -1,13 +1,11 @@
 ---
 title: Copy to section
-excerpt: Learn how to use the Copy to Section method to duplicate field output into
-  each section of a section group, including parameters and configuration examples.
+excerpt: Duplicate field output into each section of a section group, including parameters and configuration examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Copy to Section method to duplicate field output
-    into each section of a section group, including parameters and configuration examples.
+  description: Duplicate field output into each section of a section group, including parameters and configuration examples.
   robots: index
 next:
   description: ''

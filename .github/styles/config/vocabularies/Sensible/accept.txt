@@ -2,6 +2,8 @@
 [cC]onfigs?
 [Ss]temmer
 [Rr]egexes?
+[Aa]sync
+[Oo]versplit
 [Vv]alidate
 [Aa]pplication
 [Bb]ooleans?

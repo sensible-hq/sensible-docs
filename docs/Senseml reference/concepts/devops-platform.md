@@ -34,7 +34,7 @@ As the preceding image shows, Sensible's workflow contains the following steps:
 
    * **Structured data** - Sensible returns extracted data as key-value pairs, including complex data like [tables](doc:nlp-table)  or [sections](doc:repeat-layouts). 
 
-   * **Traceability for source text** - Use visual overlays in the Sensible app and metadata in the returned JSON to trace extracted data to its source location (or "bounding box coordinates") in the document. For more information, see [Color coding](doc:color) and [Verbosity](doc:verbosity).
+   * **Traceability for source text** - Use visual overlays in the Sensible app and metadata in the returned JSON to trace extracted data to its source location (or "bounding box coordinates") in the document. For more information, see [Visual troubleshooting in the SenseML editor](doc:color) and [Verbosity](doc:verbosity).
 
    * **Validations** - Quality control the data extractions in a document type by writing validations. For example, configure Sensible to throw an error if an extracted zip code is the wrong number of digits. For more information, see [Validating extractions](doc:validate-extractions).
 

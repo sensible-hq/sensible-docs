@@ -2,7 +2,8 @@ name: Style linting
 on:
   pull_request:
     paths:
-      - 'readme-sync/v0/**.md'
+      - 'docs/**.md'
+      - 'reference/**.md'
 
 jobs:
   vale:
@@ -11,5 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: vale-cli/vale-action@v2.1.1
+        with:
+          files: '["docs", "reference"]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

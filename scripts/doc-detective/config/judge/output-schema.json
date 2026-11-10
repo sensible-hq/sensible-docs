@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "claim": {
+            "type": "string"
+          },
+          "observed": {
+            "type": "string"
+          },
+          "match": {
+            "type": "string",
+            "enum": [
+              "pass",
+              "fail",
+              "partial"
+            ]
+          },
+          "confidence": {
+            "type": "number"
+          },
+          "reasoning": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "path",
+          "claim",
+          "observed",
+          "match",
+          "confidence",
+          "reasoning"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "results"
+  ],
+  "additionalProperties": false
+}

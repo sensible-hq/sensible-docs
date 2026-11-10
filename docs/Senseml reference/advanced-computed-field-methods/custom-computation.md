@@ -1,13 +1,11 @@
 ---
 title: Custom computation
-excerpt: Learn how to define custom computed fields using JsonLogic in Sensible, including
-  summing fields, mapping arrays, and checking for non-null values.
+excerpt: Define calculated fields with JsonLogic for post-processing, such as summing fields, mapping arrays, or checking for nulls.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to define custom computed fields using JsonLogic in Sensible,
-    including summing fields, mapping arrays, and checking for non-null values.
+  description: Define calculated fields with JsonLogic for post-processing, such as summing fields, mapping arrays, or checking for nulls.
   robots: index
 next:
   description: ''
