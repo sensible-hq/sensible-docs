@@ -53,6 +53,22 @@ FIXTURE_PREFIX = "fixture_"
 TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
 # Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
 FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# A fixture's reference document can be any of these (the manifest's "pdf" key, named before
+# spreadsheets were allowed), uploaded with the matching content type
+REFERENCE_CONTENT_TYPES = {
+    ".pdf": "application/pdf",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".xls": "application/vnd.ms-excel",
+    ".xlsm": "application/vnd.ms-excel.sheet.macroenabled.12",
+    ".xlsb": "application/vnd.ms-excel.sheet.binary.macroenabled.12",
+    ".csv": "text/csv",
+}
+
+
+def fixture_document_dirs():
+    """Folders a fixture's reference documents may come from: published example documents, and test-only
+    documents such as spreadsheet samples. Read at call time, so tests can repoint REPO_ROOT."""
+    return (FIXTURE_PDFS_DIR, os.path.join(REPO_ROOT, "scripts", "test", "assets"))
 # The document a code test runs on when it names none (no <!-- inline document -->): a blank page, for
 # examples that don't read their document, such as a constant field and JsonLogic on it. Like the
 # pages' example document links, it's the file's raw URL on v0, so it resolves only once it's merged there.

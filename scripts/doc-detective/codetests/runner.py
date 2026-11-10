@@ -203,26 +203,38 @@ def _run_fingerprint(rec, test, client):
         raise CodeTestError(FINGERPRINT_DRIFT, "; ".join(say(r) for r in wrong))
 
 
+def curl_command(path, doc_type, content_type, file):
+    """The request a classification run sends, as a curl command to run from the repo root."""
+    return (f'curl -s -w "\\nHTTP %{{http_code}}\\n" -X POST "{settings.api()}{path}?document_types={doc_type}" '
+            f'-H "Authorization: Bearer ${settings.sensible_key_var()}" -H "Content-Type: {content_type}" --data-binary @{file}')
+
+
 def _run_classification(rec, test, client):
-    """Classification claim: send each file to the classify endpoint with its content type, against a
-    temporary doc type with the test's description, and check whether Sensible classified it as that
-    doc type. No extraction, no LLM judge (classification is the product's own LLM call; its answer is
-    the claim), no envelope. The temporary doc type is deleted afterwards."""
+    """Classification claim: send each file to the classify endpoint with its content type, restricted
+    to the test's fixture doc type, and check whether Sensible classified it as that doc type. The
+    fixture's description is what Sensible classifies by. No extraction, no LLM judge (classification
+    is the product's own LLM call; its answer is the claim), no envelope."""
     _, expect = markup.check_syntax(test)
-    name = f"{settings.TEMP_DOC_TYPE_PREFIX}{test.test_id}"
-    type_id = client.create_temp_doc_type(name, {"description": expect["doc_type_description"]})
+    name = test.fixtures[0]
+    refs = markup.fixture_references(name)
+    doctype_file, config_file = markup.fixture_files(name)
+    doc_type, config_name, restored = client.ensure_fixture(doctype_file, config_file, refs)
+    rec["warnings"] += [{"source": "fixture", "text": f"{name}: {w}"} for w in restored]
+    with open(doctype_file, encoding="utf-8") as f:
+        description = (json.load(f).get("schema") or {}).get("description", "")
     runs = []
-    try:
-        for request in expect["requests"]:
-            status, text, got = client.classify(os.path.join(settings.REPO_ROOT, request["file"]), request["content_type"], name)
-            runs.append({
-                "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
-                "expected": request["classified"], "actual": got == name, "http_status": status,
-                "response": settings.redact(" ".join(text.split()))[:300],
-            })
-    finally:
-        client.delete_temp_doc_type(type_id)
-    rec["classification"] = {"doc_type": name, "doc_type_description": expect["doc_type_description"], "runs": runs}
+    for request in expect["requests"]:
+        status, text, got = client.classify(os.path.join(settings.REPO_ROOT, request["file"]), request["content_type"], doc_type)
+        runs.append({
+            "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
+            "expected": request["classified"], "actual": got == doc_type, "http_status": status,
+            "response": settings.redact(" ".join(text.split()))[:300],
+            "curl": curl_command("/classify", doc_type, request["content_type"], request["file"]),
+        })
+    rec["classification"] = {
+        "fixture": name, "editor": markup.editor_url(doc_type, config_name, refs[0]["name"]),
+        "doc_type_description": description, "runs": runs,
+    }
     wrong = [r for r in runs if r["actual"] != r["expected"]]
     if wrong:
         say = lambda r: (f"{r['file']} sent as {r['content_type']}: the page claims Sensible "

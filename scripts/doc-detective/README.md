@@ -182,20 +182,21 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 
 ### Classification claims
 
-For a claim about which files Sensible classifies, a code test sends files from the repo to the classify endpoint (`POST /classify`), each with a content type, and checks the page's claim for each. It needs no inline document, config, or output: the files and the claims are in its `expect`.
+For a claim about which files Sensible classifies, a code test sends files from the repo to the classify endpoint (`POST /classify`), each with a content type, restricted to one **fixture** doc type, and checks the page's claim for each. Sensible classifies by the fixture's description, so describe the test files in its `.doctype.json`. The test needs no inline document, config, or output.
 
 ```markdown
 <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
-<!-- expect {"compare": "classification", "doc_type_description": "A small test spreadsheet whose cells say hello ...", "requests": [{"file": "scripts/test/assets/csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "scripts/test/assets/csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
 <!-- code test end -->
 ```
 
-| Option | Meaning |
+| Marker or option | Meaning |
 | --- | --- |
-| `doc_type_description` | The description of a temporary doc type, `docs_ci_tmp_<testId>`, that the files are classified against. Describe the test files, so a file that Sensible reads gets classified as it. The runner deletes the doc type after the test. |
-| `requests` | Each request: `file` (a path relative to the repo root), `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the temporary doc type), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
+| `<!-- fixture {"name": ...} -->` | Exactly one: the doc type to classify as. Persistent in the test account, kept in step with the committed files like any fixture. The report links it to the SenseML editor. |
+| `requests` | Each request: `file` (a path relative to the repo root), `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
 
-Classification is compared exactly: Sensible's answer is the claim, so there's no judge and no envelope. A mismatch fails as `CLASSIFICATION_DRIFT`. Each request is one API call, not an extraction. `docs/Senseml reference/concepts/file-types.md` uses this for its classification footnote, with test files in `scripts/test/assets/`.
+The report shows each request's `curl` command (run it from the repo root; the key stays an environment variable) and links each file relative to the report, so the links open from a local checkout. Classification is compared exactly: Sensible's answer is the claim, so there's no judge and no envelope. A mismatch fails as `CLASSIFICATION_DRIFT`. Each request is one API call, not an extraction. `docs/Senseml reference/concepts/file-types.md` uses this for its classification footnote, with the fixture in `fixtures/spreadsheet_classification/` and test files in `scripts/test/assets/`.
 
 **Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
 
@@ -205,7 +206,7 @@ Classification is compared exactly: Sensible's answer is the claim, so there's n
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
-- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference documents must be under `assets/pdfs/` or `scripts/test/assets/`: PDFs, or spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), uploaded with the matching content type. The manifest's key for the file is `pdf` either way.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 

@@ -358,19 +358,25 @@
     "classification": {
       "type": "object",
       "additionalProperties": false,
-      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as a temporary doc type with the test's description",
+      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as the test's fixture doc type",
       "required": [
-        "doc_type",
+        "fixture",
+        "editor",
         "doc_type_description",
         "runs"
       ],
       "properties": {
-        "doc_type": {
+        "fixture": {
           "type": "string",
-          "description": "The temporary doc type, deleted after the test"
+          "description": "The fixture doc type the files are classified as (persistent in the test account)"
+        },
+        "editor": {
+          "type": "string",
+          "description": "The SenseML editor, opened on the fixture"
         },
         "doc_type_description": {
-          "type": "string"
+          "type": "string",
+          "description": "The fixture's description, which Sensible classifies by"
         },
         "runs": {
           "type": "array",
@@ -384,7 +390,8 @@
               "expected",
               "actual",
               "http_status",
-              "response"
+              "response",
+              "curl"
             ],
             "properties": {
               "file": {
@@ -413,6 +420,10 @@
               "response": {
                 "type": "string",
                 "description": "The start of the response body, keys redacted"
+              },
+              "curl": {
+                "type": "string",
+                "description": "The request as a curl command, run from the repo root, with the key as an environment variable"
               }
             }
           }

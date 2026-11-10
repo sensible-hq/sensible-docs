@@ -305,13 +305,15 @@ class SensibleClient:
 
         import requests
 
+        # markup.fixture_references allows only known extensions; anything else uploads as a PDF, as before
+        content_type = settings.REFERENCE_CONTENT_TYPES.get(os.path.splitext(ref["pdf"])[1], "application/pdf")
         response = self._api("POST", f"/document_types/{type_id}/goldens",
-                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": "application/pdf"})
+                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": content_type})
         if not response.ok:
             raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
         try:
             with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
-                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
+                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": content_type}, timeout=120)
             problem = None if put.status_code == 200 else f"returned {put.status_code}"
         except requests.RequestException as e:
             # Only the exception type: its message includes the presigned upload URL
