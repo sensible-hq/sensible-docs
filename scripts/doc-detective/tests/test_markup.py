@@ -204,6 +204,8 @@ class SegmentTest(unittest.TestCase):
         os.makedirs(os.path.join(root, "fx", "d"))
         os.makedirs(os.path.join(root, "assets", "pdfs"))
         open(os.path.join(root, "assets", "pdfs", "a.pdf"), "w").close()
+        os.makedirs(os.path.join(root, "scripts", "test", "assets"))
+        open(os.path.join(root, "scripts", "test", "assets", "b.pdf"), "w").close()
         open(os.path.join(root, "secret.pdf"), "w").close()
         with open(os.path.join(root, "fx", "d", "fixture_x.doctype.json"), "w") as f:
             json.dump({"name": doctype_name, "schema": {}}, f)
@@ -216,12 +218,14 @@ class SegmentTest(unittest.TestCase):
     def with_root(self, root, fn):
         import os
         from codetests import settings
-        saved = settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR
-        settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = os.path.join(root, "fx"), root, os.path.join(root, "assets", "pdfs")
+        saved = settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR, settings.FIXTURE_PDF_DIRS
+        pdfs = os.path.join(root, "assets", "pdfs")
+        settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = os.path.join(root, "fx"), root, pdfs
+        settings.FIXTURE_PDF_DIRS = (pdfs, os.path.join(root, "scripts", "test", "assets"))
         try:
             return fn()
         finally:
-            settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = saved
+            settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR, settings.FIXTURE_PDF_DIRS = saved
 
     def test_doctype_name_must_match_its_file_name(self):
         import tempfile
@@ -231,17 +235,18 @@ class SegmentTest(unittest.TestCase):
                 self.with_root(root, lambda: markup.fixture_files("fixture_x"))
         self.assertIn("it must match the file name", str(caught.exception))
 
-    def test_reference_pdf_must_be_under_assets_pdfs(self):
+    def test_reference_pdf_must_be_under_a_fixture_pdf_folder(self):
         import tempfile
-        for pdf in ("secret.pdf", "assets/pdfs/../../secret.pdf", "/etc/hostname"):
+        for pdf in ("secret.pdf", "assets/pdfs/../../secret.pdf", "scripts/test/assets/../../../secret.pdf", "/etc/hostname"):
             with tempfile.TemporaryDirectory() as root:
                 self.fixture_root(root, pdf=pdf)
                 with self.assertRaises(CodeTestError, msg=pdf) as caught:
                     self.with_root(root, lambda: markup.fixture_references("fixture_x"))
             self.assertIn("must be a .pdf under", str(caught.exception))
-        with tempfile.TemporaryDirectory() as root:
-            self.fixture_root(root)
-            self.assertEqual(self.with_root(root, lambda: markup.fixture_references("fixture_x"))[0]["name"], "fixture_ref")
+        for pdf in ("assets/pdfs/a.pdf", "scripts/test/assets/b.pdf"):
+            with tempfile.TemporaryDirectory() as root:
+                self.fixture_root(root, pdf=pdf)
+                self.assertEqual(self.with_root(root, lambda: markup.fixture_references("fixture_x"))[0]["name"], "fixture_ref", msg=pdf)
 
     def test_expect_pages_must_be_ordered_integers(self):
         for documents in ('[["fixture_last_fails", 8, 1]]', '[["fixture_last_fails", true, 8]]'):

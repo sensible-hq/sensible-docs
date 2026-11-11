@@ -23,3 +23,6 @@ Claude Code session ID: bc2d327b-1002-40d8-9161-f39ecf5a8273. Newest entries las
 - Renamed in place: doc type `fixture_ocr_google_page_limit`, config `fixture_page_markers`, reference `fixture_beazley_scanned_72_pages`. Published comment-free config to production. Rerun: 4/4 fields, p72 = "Page 22 of 22".
 - Docs PR #801: Google row fix, fixture files under `scripts/test/probe_endpoints/contract/fixtures/ocr_engine/`, PDF. Runner `fixture_drift`: no drift.
 - App PR #1906 (stacked on #1905): Google help text fix in both components.
+
+## 2026-11-11
+- Moved the fixture PDF from `assets/pdfs/` to `scripts/test/assets/` (Frances: `assets/pdfs/` is only for docs PDFs). Runner now accepts fixture PDFs from either folder (`FIXTURE_PDF_DIRS`); updated `test_markup.py` and the README. `tests.test_markup` passes; fixture drift check still clean. 6 unrelated test failures also happen without this change (missing `anthropic` and `sensibleapi` modules locally).

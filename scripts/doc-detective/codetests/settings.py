@@ -51,8 +51,11 @@ FIXTURE_ENVIRONMENT = "production"
 FIXTURE_PREFIX = "fixture_"
 # Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
 TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
-# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
+# Docs PDFs. Holds the blank page below, and fixtures can reuse a PDF that a docs page links to
 FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# Fixture reference documents are PDFs from these folders, so a manifest can't upload other repo files.
+# assets/pdfs is only for PDFs that appear in the docs; a test-only PDF goes in scripts/test/assets
+FIXTURE_PDF_DIRS = (FIXTURE_PDFS_DIR, os.path.join(REPO_ROOT, "scripts", "test", "assets"))
 # The document a code test runs on when it names none (no <!-- inline document -->): a blank page, for
 # examples that don't read their document, such as a constant field and JsonLogic on it. Like the
 # pages' example document links, it's the file's raw URL on v0, so it resolves only once it's merged there.

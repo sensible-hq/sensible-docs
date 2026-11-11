@@ -31,7 +31,7 @@ See [progress.md](progress.md) for what happened and [decisions.md](decisions.md
 - [x] Find the June 2022 origin of "25 pages" (Slack #engineering thread, sensible-app#541)
 - [x] Test: 72-page image-only PDF with Google OCR, plus `prevent_default_merge_lines` and Amazon control
 - [x] Turn the test into fixture `fixture_ocr_google_page_limit` (renamed in place in the test account)
-- [x] Commit fixture files and `assets/pdfs/beazley_scanned_72_pages.pdf`; runner `fixture_drift` reports no drift
+- [x] Commit fixture files and `scripts/test/assets/beazley_scanned_72_pages.pdf`; runner `fixture_drift` reports no drift
 - [x] OCR engine page: Google row drops the 5-page limit and the "doesn't merge words" claim
 - [x] App PR #1906: drop 25 pages, rewrite merge-lines sentence, drop contradictory "Amazon is an alternative"
 - [x] Vale on ocr-engine.md: 0 errors, 0 warnings

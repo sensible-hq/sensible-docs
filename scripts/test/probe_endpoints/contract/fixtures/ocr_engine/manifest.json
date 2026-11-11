@@ -14,7 +14,7 @@
       "references": [
         {
           "name": "fixture_beazley_scanned_72_pages",
-          "pdf": "assets/pdfs/beazley_scanned_72_pages.pdf",
+          "pdf": "scripts/test/assets/beazley_scanned_72_pages.pdf",
           "configuration": "fixture_page_markers"
         }
       ]

@@ -430,8 +430,9 @@ def fixture_references(name):
         if not REF_NAME_RE.fullmatch(ref.get("name", "")):
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r} and use only letters, digits, _ . -")
         pdf = os.path.realpath(os.path.join(settings.REPO_ROOT, ref.get("pdf", "")))
-        if not pdf.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not pdf.endswith(".pdf"):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} must be a .pdf under {os.path.relpath(settings.FIXTURE_PDFS_DIR, settings.REPO_ROOT)}")
+        if not any(pdf.startswith(os.path.realpath(d) + os.sep) for d in settings.FIXTURE_PDF_DIRS) or not pdf.endswith(".pdf"):
+            dirs = " or ".join(os.path.relpath(d, settings.REPO_ROOT) for d in settings.FIXTURE_PDF_DIRS)
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} must be a .pdf under {dirs}")
         if ref.get("configuration") != config:
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
         if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
