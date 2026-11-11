@@ -192,12 +192,14 @@ def _expect(options, test_id, where):
     if compare == "classification":
         requests = options.get("requests")
         if set(options) - {"compare", "requests"} or not isinstance(requests, list) or not requests or not all(
-            isinstance(r, dict) and isinstance(r.get("file"), str) and r["file"] and isinstance(r.get("content_type"), str) and r["content_type"]
-            and isinstance(r.get("classified"), bool) and isinstance(r.get("label", ""), str) and set(r) <= {"file", "content_type", "classified", "label"}
+            isinstance(r, dict) and sum(k in r for k in DOCUMENT_KEYS) == 1 and isinstance(r.get("content_type"), str) and r["content_type"]
+            and isinstance(r.get("classified"), bool) and isinstance(r.get("label", ""), str)
+            and set(r) <= {*DOCUMENT_KEYS, "content_type", "classified", "label"}
             for r in requests
         ):
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect needs only \"requests\": "
-                                f"[{{\"file\": \"<repo-relative path>\", \"content_type\": \"...\", \"classified\": true or false, \"label\": \"...\"}}] ({where})")
+                                f"[{{\"file\": \"<file in the fixture's folder>\" or \"docs_pdf\": \"<file name in assets/pdfs>\", "
+                                f"\"content_type\": \"...\", \"classified\": true or false, \"label\": \"...\"}}] ({where})")
         return compare, {"requests": requests}
     return compare, options.get("documents")
 
@@ -359,12 +361,13 @@ def check_syntax(test):
     """
     where = f"{test.file}, line {test.line}"
     if test.compare == "classification":
+        folder = fixture_dir(test.fixtures[0])  # raises DOCS_MALFORMED if the fixture is missing
         for request in test.expect["requests"]:
             try:
-                request_path(request["file"])
+                document_path(request, folder)
             except ValueError as e:
-                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: {e} ({where})")
-        fixture_files(test.fixtures[0])  # raises DOCS_MALFORMED if the fixture is missing
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: request {e} ({where})")
+        fixture_files(test.fixtures[0])
         fixture_references(test.fixtures[0])  # or has no reference document
         return None, test.expect
     if test.compare == "documents":
@@ -405,17 +408,27 @@ def check_syntax(test):
     return config, output
 
 
-def request_path(file):
-    """The resolved path of a file a test sends to Sensible: under fixture_document_dirs(), the same
-    rule as fixture reference documents, so a page can't send other repo files (such as .env or
-    unscrubbed output). Symlinks are resolved before the check. Raises ValueError otherwise."""
+DOCUMENT_KEYS = ("file", "docs_pdf")
+
+
+def document_path(entry, folder):
+    """The resolved path of a file a test sends to Sensible (a reference document or a classification
+    request). `entry` names it with exactly one of "file", a path inside the fixture's `folder`, or
+    "docs_pdf", a file name in assets/pdfs/, used in place. Symlinks are resolved before checking that
+    it stays in its folder, so a page or manifest can't send other repo files (such as .env or
+    unscrubbed output). Raises ValueError otherwise."""
     import os
 
-    path = os.path.realpath(os.path.join(settings.REPO_ROOT, file))
-    folders = settings.fixture_document_dirs()
-    if os.path.isabs(file) or not any(path.startswith(os.path.realpath(d) + os.sep) for d in folders) or not os.path.isfile(path):
-        raise ValueError(f"request file {file!r} must be a file under "
-                         f"{' or '.join(os.path.relpath(d, settings.REPO_ROOT) for d in folders)} (paths are relative to the repo root)")
+    if "pdf" in entry:
+        raise ValueError(f'"pdf" was replaced: use "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/)')
+    keys = [k for k in DOCUMENT_KEYS if k in entry]
+    if len(keys) != 1 or not isinstance(entry[keys[0]], str) or not entry[keys[0]]:
+        raise ValueError(f'needs exactly one of "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/), got {entry!r}')
+    base = folder if keys[0] == "file" else settings.DOCS_PDFS_DIR
+    name = entry[keys[0]]
+    path = os.path.realpath(os.path.join(base, name))
+    if os.path.isabs(name) or not path.startswith(os.path.realpath(base) + os.sep) or not os.path.isfile(path):
+        raise ValueError(f"{keys[0]} {name!r} must be a file in {os.path.relpath(base, settings.REPO_ROOT)}")
     return path
 
 
@@ -461,7 +474,8 @@ def fixture_references(name):
     """The reference documents of fixture `name`, from the manifest.json in its folder.
 
     Every fixture doc type needs at least one, so it can be opened in the SenseML editor. Each is
-    {"name", "pdf" (repo-relative), "configuration"}, in the contract-test manifest's shape."""
+    {"name", "configuration", and "file" or "docs_pdf" (see document_path)}; the returned entries also
+    have "path", the resolved file."""
     import os
 
     doctype = name
@@ -480,16 +494,15 @@ def fixture_references(name):
     for ref in refs:
         if not REF_NAME_RE.fullmatch(ref.get("name", "")):
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r} and use only letters, digits, _ . -")
-        pdf = os.path.realpath(os.path.join(settings.REPO_ROOT, ref.get("pdf", "")))
-        folders = settings.fixture_document_dirs()
-        if not any(pdf.startswith(os.path.realpath(d) + os.sep) for d in folders) or os.path.splitext(pdf)[1] not in settings.REFERENCE_CONTENT_TYPES:
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('pdf')!r} must be a {', '.join(settings.REFERENCE_CONTENT_TYPES)} file "
-                                f"under {' or '.join(os.path.relpath(d, settings.REPO_ROOT) for d in folders)}")
+        try:
+            path = document_path(ref, fixture_dir(name))
+        except ValueError as e:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r}: {e} ({os.path.relpath(manifest_file, settings.REPO_ROOT)})")
+        if os.path.splitext(path)[1] not in settings.REFERENCE_CONTENT_TYPES:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must be one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
         if ref.get("configuration") != config:
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
-        if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} doesn't exist")
-    return refs
+    return [{**ref, "path": document_path(ref, fixture_dir(name))} for ref in refs]
 
 
 def editor_url(doctype, config, reference):

@@ -55,10 +55,9 @@ Keep what can't be rebuilt from the repo, and delete what can.
 
 | Thing | Where | Lifetime |
 | --- | --- | --- |
-| Fixture doc types and configs (`fixture_*`) | Docs test account, with committed copies under `scripts/test/probe_endpoints/contract/fixtures/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
+| Fixture doc types and configs (`fixture_*`) | Docs test account, with the committed files in `scripts/doc-detective/fixtures/<group>/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
 | Temporary doc types (`docs_ci_*`) | Docs test account | Rebuilt from the page on every run, then deleted. |
-| Test files (spreadsheets, PDFs) | `assets/pdfs/` (published examples) or `scripts/test/assets/` (test only) | Committed. |
-| Fixture copies of docs PDFs | `scripts/test/fixture_pdfs/`, a copy with the same file name as the docs PDF | Committed. `assets/pdfs/` is the source of truth: when a push to `v0` changes a docs PDF, `.github/workflows/sync-fixture-pdfs.yml` runs `sync_fixture_pdfs.py`, which copies it over its namesake, and opens or updates a PR on `auto/sync-fixture-pdfs`. `sync_fixture_pdfs.py --check` reports drift without changing anything. |
+| Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
 
@@ -68,6 +67,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | --- | --- | --- |
 | A test to a tested page | The page's markup | Regenerate `TEST-MATRIX.md`. |
 | A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
+| A fixture | A folder under `fixtures/` with its doc type, config, `manifest.json`, and files | Pages refer to it by doc type name; the folder's location is free. |
 | A kind of claim (for example, an API status code) | `markup.py` (parse and check), `runner.py` (run), `sensible.py` (the API call), the record schema, the three reports, `test_matrix.KINDS`, and unit tests | About a dozen places today. The classification claim is the most recent example to follow. |
 | A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code and its own reporting | Its results don't reach the HTML report, the matrix, or CI issues yet. |
 
@@ -188,7 +188,7 @@ For a claim about how fingerprints segment a portfolio, a code test runs a priva
 | Marker or option | Meaning |
 | --- | --- |
 | `code test {"segment_documents_with": "fingerprints"}` | A portfolio extraction, segmented with fingerprints. Named after the public API's parameter, which it sets. Without it, a code test runs a single-document extraction. |
-| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed under `scripts/test/probe_endpoints/contract/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, and a reference document in the folder's `manifest.json`). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed in a folder under `scripts/doc-detective/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, a `manifest.json` listing its reference documents, and the fixture's own files). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
 | `<!-- expect {"compare": "documents", "documents": [...]} -->` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
@@ -259,14 +259,14 @@ For a claim about which files Sensible classifies, a code test sends files from 
 ```markdown
 <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
 <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
-<!-- expect {"compare": "classification", "requests": [{"file": "scripts/test/assets/csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
 <!-- code test end -->
 ```
 
 | Marker or option | Meaning |
 | --- | --- |
 | `<!-- fixture {"name": ...} -->` | Exactly one: the doc type to classify as. Persistent in the test account, kept in step with the committed files like any fixture. The report links it to the SenseML editor. |
-| `requests` | Each request: `file` (a path relative to the repo root, under `assets/pdfs/` or `scripts/test/assets/`, the same folders as fixture reference documents; symlinks are resolved first), `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
+| `requests` | Each request names the file it sends with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`), the same rule as reference documents; symlinks are resolved first, so a request can't send other repo files. Each request also has `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
 
 **What counts as "not classified":** a 400 or 415, which is how `/classify` rejects a file (for example "Missing request body", "Could not determine the content type of the document", or "No match found for document"). Any other response says nothing about the file, so the test fails as `RUNNER_ERROR` instead of passing a "not classified" claim: a 401, 429, or 5xx, or a 200 that doesn't name the fixture (each request allows only the fixture's doc type).
 
@@ -280,7 +280,7 @@ The report shows each request's `curl` command, with every value from the page s
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests, `classify_...` for classification claims.
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
-- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference documents must be under `assets/pdfs/` or `scripts/test/assets/`: PDFs, or spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), uploaded with the matching content type. The manifest's key for the file is `pdf` either way.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Each reference document in its `manifest.json` names its file with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`, used in place, never copied). Files can be PDFs or spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), uploaded with the matching content type. A fixture's folder holds everything it needs except docs PDFs.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
@@ -376,9 +376,9 @@ Pages run one at a time (they share doc types in the test account), each as its 
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
 
-## Fixtures
+## Self-test pages
 
-`fixtures/` has copies of the getting started page whose example document link points at an altered PDF: one with a wrong premium (fails), one with a reformatted phone number (passes, envelope warning). `fixtures/build_fixtures.py` regenerates the copies from the real page. Their links point at this branch's raw URLs; repoint `BRANCH` after it merges.
+`tests/pages/` has copies of the getting started page whose example document link points at an altered PDF: one with a wrong premium (fails), one with a reformatted phone number (passes, envelope warning). Run one with `run.sh` to see a failure and an envelope warning in the report. `tests/pages/build_fixtures.py` regenerates the copies from the real page. Their links point at this branch's raw URLs; repoint `BRANCH` after it merges.
 
 ## Code layout
 
@@ -395,7 +395,8 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/record.py` | The record each code test produces. |
 | `codetests/runner.py` | Runs a code test, builds envelopes. |
 | `codetests/reports/` | Text summary, failure issue, envelope issue, report.html, and their shared wording. |
-| `sync_fixture_pdfs.py` | Keeps fixture copies of docs PDFs identical to `assets/pdfs/`. |
+| `fixtures/<group>/` | Test-account fixtures: doc type and config files, a `manifest.json` of reference documents, and the fixture's own files. A push that changes a fixture's folder reruns only the pages whose tests use it. |
+| `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
 | `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record and envelope schemas. |

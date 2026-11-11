@@ -26,17 +26,17 @@ on:
   push:
     branches:
       - v0
-    # Broad on purpose: the plan job decides which pages a push affects (test-pages.json "watch")
+    # Broad on purpose: the plan job decides which pages a push affects (each page's fixtures and
+    # test-pages.json "watch"). Fixtures and their files live under scripts/doc-detective/fixtures/.
     paths:
       - "docs/**"
       - "assets/pdfs/**"
-      - "scripts/test/assets/**"
-      - "scripts/test/probe_endpoints/contract/fixtures/**"
       - "scripts/doc-detective/**"
       - ".doc-detective.json"
       - ".github/workflows/doc-tests.yml"
       # The tooling's own docs and saved evidence change nothing a test runs (NOT_TOOLING in plan_runs.py)
       - "!scripts/doc-detective/reports/**"
+      - "!scripts/doc-detective/tests/pages/**"
       - "!scripts/doc-detective/sample-reports/**"
       - "!scripts/doc-detective/README.md"
       - "!scripts/doc-detective/TEST-MATRIX.md"

@@ -1,5 +1,5 @@
 {
-  "description": "Every docs page with test markup, and how often CI runs it. Priority 1: weekly. Priority 2: monthly. Priority 3: on demand only. Pushes to v0 also run priority 1 and 2 pages whose tests, watched files, or the test tooling changed (never priority 3). .github/workflows/doc-tests.yml reads this file through plan_runs.py, which also fails if a page has test markup but isn't listed. Fields: page; priority; name (artifact and report names); title (the page's name in issue and fix PR titles, for example \"Getting started\"); issue_label (one standing failure issue per page); watch (other files whose change should rerun the page on push, as globs); timeout_minutes (the test step); ui (the page has Doc Detective UI tests, so CI installs Doc Detective); propose_fixes (on drift, open a draft PR that rewrites the documented output; fix_branch names it); envelope_issue (the page's LLM fields have regression envelopes, tracked in one standing issue labeled <issue_label>-envelope).",
+  "description": "Every docs page with test markup, and how often CI runs it. Priority 1: weekly. Priority 2: monthly. Priority 3: on demand only. Pushes to v0 also run priority 1 and 2 pages whose tests, watched files, or the test tooling changed (never priority 3). .github/workflows/doc-tests.yml reads this file through plan_runs.py, which also fails if a page has test markup but isn't listed. Fields: page; priority; name (artifact and report names); title (the page's name in issue and fix PR titles, for example \"Getting started\"); issue_label (one standing failure issue per page); watch (other files whose change should rerun the page on push, as globs, such as its example documents in assets/pdfs; the folders of the fixtures its tests use are watched automatically); timeout_minutes (the test step); ui (the page has Doc Detective UI tests, so CI installs Doc Detective); propose_fixes (on drift, open a draft PR that rewrites the documented output; fix_branch names it); envelope_issue (the page's LLM fields have regression envelopes, tracked in one standing issue labeled <issue_label>-envelope).",
   "pages": [
     {
       "page": "docs/document extraction/getting-started.md",
@@ -23,7 +23,6 @@
       "title": "Fingerprint",
       "issue_label": "doc-tests-fingerprint",
       "watch": [
-        "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**",
         "assets/pdfs/portfolio_bank_paystub_tax.pdf",
         "assets/pdfs/wells_fargo_checking.pdf"
       ],

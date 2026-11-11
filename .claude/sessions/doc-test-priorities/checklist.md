@@ -39,7 +39,19 @@ Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741)
 - [x] `sync_fixture_pdfs.py`: copies each `assets/pdfs/` file over its namesake in `scripts/test/fixture_pdfs/` when the bytes differ; `--check` reports only. No-op until the folder exists
 - [x] `.github/workflows/sync-fixture-pdfs.yml`: on pushes to v0 that change `assets/pdfs/**`, syncs and opens or updates a PR on `auto/sync-fixture-pdfs` (same pattern as sync-llmstxt.yml); no secrets
 - [x] Checked against #801's folder: `portfolio.pdf` and `portfolio_bank_paystub_tax.pdf` match `assets/pdfs/` today; `beazley_scanned_72_pages.pdf` has no namesake (fixture only)
-- [ ] Conflict with #801 (`fe_google_ocr_page_limit_docs`, another session): both edit `settings.py` (FIXTURE_PDFS_DIR comment and value) and `markup.fixture_references`. Whichever merges second: set FIXTURE_PDFS_DIR to `scripts/test/fixture_pdfs`, keep #803's `fixture_document_dirs()` (fixture_pdfs + scripts/test/assets) and extension check, keep #801's "copy a docs PDF there" hint
+- [x] ~~Conflict with #801 over FIXTURE_PDFS_DIR~~ superseded by the fixture move below
+
+## Fixtures move under scripts/doc-detective (2026-11-11, Frances: Option A)
+
+- [x] Test-account fixtures: `scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/` → `scripts/doc-detective/fixtures/fingerprint_portfolio/` (#744's contract-test fixtures stay where they are)
+- [x] Self-test pages: `scripts/doc-detective/fixtures/` → `scripts/doc-detective/tests/pages/`; regenerated with build_fixtures.py
+- [x] Manifest references: `file` (in the fixture's folder) or `docs_pdf` (a file name in assets/pdfs, used in place); the old `pdf` key fails with a message naming the new keys. Classification requests use the same keys
+- [x] Removed the fixture-PDF sync (script, workflow, tests): nothing is copied, so nothing can drift
+- [x] Each page watches its own fixtures' folders automatically (from its markup); a fixture change no longer reruns every page
+- [x] `--check-fixtures` on fingerprint.md against the test account: all fixtures OK in the new location; 257 unit tests pass
+- [ ] #741 after this merges: move `scripts/test/probe_endpoints/contract/fixtures/spreadsheet_classification/` and the test spreadsheets (`scripts/test/assets/{xls,xlsm,xlsb}_sample.*`, `csv_sample.csv`) into `scripts/doc-detective/fixtures/spreadsheet_classification/`; manifest `"pdf"` → `"file"`; requests' `file` → bare file names; add the `test-pages.json` entry; regenerate TEST-MATRIX.md and the saved report
+- [ ] #801 after this merges: move its `ocr_engine` fixture folder to `scripts/doc-detective/fixtures/ocr_engine/` with `beazley_scanned_72_pages.pdf` inside it (`"file"`); reference `portfolio.pdf` and `portfolio_bank_paystub_tax.pdf` with `"docs_pdf"` instead of copies; drop `scripts/test/fixture_pdfs/` and #801's FIXTURE_PDFS_DIR change (this PR replaces it with DOCS_PDFS_DIR)
+- The superseded #801 conflict note above no longer applies: after this PR, #801 drops its settings change instead of merging it
 
 ## Next steps
 

@@ -196,7 +196,7 @@ def build_envelopes(args, selected, client):
     if args.build_envelope and args.extend_envelope:
         print("Use --build-envelope or --extend-envelope, not both", file=sys.stderr)
         return 2
-    if os.path.abspath(args.file).startswith(settings.FIXTURES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
+    if os.path.abspath(args.file).startswith(settings.SELF_TEST_PAGES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
         print("Refusing to build envelopes from a fixture: it would overwrite the real baselines in envelopes/. "
               f"Set {settings.ENVELOPES_DIR_VAR} to a scratch folder to build fixture baselines.", file=sys.stderr)
         return 2

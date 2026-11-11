@@ -40,10 +40,13 @@ TOOLING = ["scripts/doc-detective/**", ".github/workflows/doc-tests.yml"]
 # Keep in step with the "!" paths in .github/workflows/doc-tests.yml.
 NOT_TOOLING = [
     "scripts/doc-detective/reports/**",
+    "scripts/doc-detective/tests/pages/**",
     "scripts/doc-detective/sample-reports/**",
     "scripts/doc-detective/README.md",
     "scripts/doc-detective/TEST-MATRIX.md",
 ]
+# Fixtures live under the tooling, but a fixture change reruns only the pages whose tests use it
+FIXTURES = "scripts/doc-detective/fixtures/**"
 # The test job's timeout in doc-tests.yml is 45 minutes; a page's step timeout must end first, so the
 # scrub, issue, and fix PR steps still run
 MAX_TIMEOUT_MINUTES = 40
@@ -102,7 +105,20 @@ def changed_files(before, after):
     return [f for f in out.stdout.splitlines() if f and not ignored(f)]
 
 
-def plan_push(entries, before, after, changed=None, decide=None):
+def fixture_globs(page):
+    """Globs for the folders of the fixtures a page's tests use, read from its markup. Empty if the
+    markup doesn't parse: the page's own run reports that."""
+    from codetests import markup
+
+    try:
+        tests = markup.parse_page(os.path.join(REPO_ROOT, page)).code_tests.values()
+        folders = {markup.fixture_dir(name) for test in tests for name in test.fixtures}
+    except Exception:  # noqa: BLE001 -- planning shouldn't fail on a page's markup; its test run reports the problem
+        return []
+    return sorted(os.path.relpath(folder, REPO_ROOT) + "/**" for folder in folders)
+
+
+def plan_push(entries, before, after, changed=None, decide=None, fixtures_of=fixture_globs):
     """[(entry, reason)] for pages a push should run; skipped pages are logged on stderr."""
     if decide is None:
         import should_run
@@ -123,11 +139,14 @@ def plan_push(entries, before, after, changed=None, decide=None):
         if changed is None:
             runs.append((entry, "can't tell what the push changed"))
             continue
-        watched = [entry["page"], *entry["watch"], *TOOLING, os.path.relpath(PAGES_FILE, REPO_ROOT)]
-        if not any(fnmatch.fnmatch(f, g) for f in changed if not ignored(f) for g in watched):
-            log(entry, False, "the push didn't change the page, its watched files, or the test tooling")
+        own = fixtures_of(entry["page"])
+        # Other pages' fixtures aren't this page's tooling
+        page_changed = [f for f in changed if not (fnmatch.fnmatch(f, FIXTURES) and not any(fnmatch.fnmatch(f, g) for g in own))]
+        watched = [entry["page"], *entry["watch"], *own, *TOOLING, os.path.relpath(PAGES_FILE, REPO_ROOT)]
+        if not any(fnmatch.fnmatch(f, g) for f in page_changed if not ignored(f) for g in watched):
+            log(entry, False, "the push didn't change the page, its fixtures or watched files, or the test tooling")
             continue
-        run, reason = decide(entry["page"], before, after, [g for g in watched if g != entry["page"]], NOT_TOOLING)
+        run, reason = decide(entry["page"], before, after, [g for g in watched if g != entry["page"]], NOT_TOOLING, changed=page_changed)
         if run:
             runs.append((entry, reason))
         else:

@@ -10,9 +10,11 @@ from codetests.reports import html, text
 
 from tests.fakes import write_page
 
-# Repo-relative paths in a temporary repo (setUpModule), so the tests don't depend on real fixtures or files
-XLSB = "scripts/test/assets/xlsb_sample.xlsb"
-CSV = "scripts/test/assets/csv_sample.csv"
+# A temporary repo (setUpModule), so the tests don't depend on real fixtures or files. The test files
+# are in the fixture's folder, fx/spreadsheets; requests name them relative to it
+XLSB = "xlsb_sample.xlsb"
+CSV = "csv_sample.csv"
+FOLDER = "fx/spreadsheets"
 FIXTURE = "fixture_spreadsheet_classify"
 _ROOT = None
 _SAVED = None
@@ -26,26 +28,27 @@ def setUpModule():
     global _ROOT, _SAVED
     _ROOT = tempfile.TemporaryDirectory()
     root = _ROOT.name
-    os.makedirs(os.path.join(root, "scripts", "test", "assets"))
     os.makedirs(os.path.join(root, "assets", "pdfs"))
-    for name in (XLSB, CSV):
-        with open(os.path.join(root, name), "wb") as f:
-            f.write(b"test file")
-    folder = os.path.join(root, "fx", "spreadsheets")
+    with open(os.path.join(root, "assets", "pdfs", "docs.pdf"), "wb") as f:
+        f.write(b"docs pdf")
+    folder = os.path.join(root, FOLDER)
     os.makedirs(folder)
+    for name in (XLSB, CSV):
+        with open(os.path.join(folder, name), "wb") as f:
+            f.write(b"test file")
     with open(os.path.join(folder, f"{FIXTURE}.doctype.json"), "w") as f:
         json.dump({"name": FIXTURE, "schema": {"description": "A small test spreadsheet whose cells say hello"}}, f)
     with open(os.path.join(folder, f"{FIXTURE}.fixture_spreadsheet_sample.config.json"), "w") as f:
         json.dump({"fields": []}, f)
     with open(os.path.join(folder, "manifest.json"), "w") as f:
         json.dump({"document_types": [{"doctype": f"{FIXTURE}.doctype.json", "references": [
-            {"name": "fixture_xlsb_sample", "pdf": XLSB, "configuration": "fixture_spreadsheet_sample"}]}]}, f)
-    _SAVED = settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR
-    settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = os.path.join(root, "fx"), root, os.path.join(root, "assets", "pdfs")
+            {"name": "fixture_xlsb_sample", "file": XLSB, "configuration": "fixture_spreadsheet_sample"}]}]}, f)
+    _SAVED = settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.DOCS_PDFS_DIR
+    settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.DOCS_PDFS_DIR = os.path.join(root, "fx"), root, os.path.join(root, "assets", "pdfs")
 
 
 def tearDownModule():
-    settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = _SAVED
+    settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.DOCS_PDFS_DIR = _SAVED
     _ROOT.cleanup()
 
 FIXTURE_MARKER = f'<!-- fixture {{"name": "{FIXTURE}"}} -->\n'
@@ -116,27 +119,36 @@ class MarkupTest(unittest.TestCase):
     def test_fixture_must_exist(self):
         self.malformed(page(REQUESTS, extra='<!-- fixture {"name": "fixture_no_such_type"} -->\n'), "no fixture_no_such_type.doctype.json")
 
-    def test_file_must_exist_in_the_repo(self):
-        self.malformed(page([{"file": "scripts/test/assets/missing.xlsb", "content_type": "text/csv", "classified": False}]), "must be a file under")
+    def test_file_must_exist_in_the_fixture_folder(self):
+        self.malformed(page([{"file": "missing.xlsb", "content_type": "text/csv", "classified": False}]), f"must be a file in {FOLDER}")
 
-    def test_file_cant_leave_the_repo(self):
-        self.malformed(page([{"file": "../outside.csv", "content_type": "text/csv", "classified": False}]), "must be a file under")
-
-    def test_file_must_be_in_a_test_folder(self):
+    def test_file_cant_leave_the_fixture_folder(self):
         import os
         with open(os.path.join(settings.REPO_ROOT, ".env"), "w") as f:
             f.write("SECRET=x")
-        self.malformed(page([{"file": ".env", "content_type": "text/plain", "classified": False}]), "must be a file under")
+        for name in ("../../.env", "/etc/hostname"):
+            self.malformed(page([{"file": name, "content_type": "text/plain", "classified": False}]), f"must be a file in {FOLDER}")
+        self.malformed(page([{"docs_pdf": "../../.env", "content_type": "text/plain", "classified": False}]), "must be a file in assets/pdfs")
 
-    def test_symlink_out_of_the_test_folders_is_rejected(self):
+    def test_symlink_out_of_the_fixture_folder_is_rejected(self):
         import os
         outside = os.path.join(settings.REPO_ROOT, "outside.csv")
         with open(outside, "w") as f:
             f.write("a,b")
-        link = os.path.join(settings.REPO_ROOT, "scripts", "test", "assets", "link.csv")
+        link = os.path.join(settings.REPO_ROOT, FOLDER, "link.csv")
         os.symlink(outside, link)
         self.addCleanup(os.remove, link)
-        self.malformed(page([{"file": "scripts/test/assets/link.csv", "content_type": "text/csv", "classified": False}]), "must be a file under")
+        self.malformed(page([{"file": "link.csv", "content_type": "text/csv", "classified": False}]), f"must be a file in {FOLDER}")
+
+    def test_request_names_exactly_one_file(self):
+        self.malformed(page([{"file": XLSB, "docs_pdf": "docs.pdf", "content_type": "text/csv", "classified": False}]), "needs only \"requests\"")
+        self.malformed(page([{"content_type": "text/csv", "classified": False}]), "needs only \"requests\"")
+
+    def test_docs_pdf_request(self):
+        test = markup.parse_page(write_page(self, page([{"docs_pdf": "docs.pdf", "content_type": "application/pdf", "classified": True}]))).code_tests["classify_formats"]
+        rec = runner.run_code_test(test, FakeClassifyClient({"application/pdf"}))
+        self.assertEqual(rec["status"], "pass", rec.get("message"))
+        self.assertEqual(rec["classification"]["runs"][0]["file"], "assets/pdfs/docs.pdf")
 
     def test_takes_no_inline_document(self):
         doc = "<!-- inline document -->\n| Example document | [Download link](https://example.test/a.pdf) |\n"
@@ -163,7 +175,7 @@ class RunnerTest(unittest.TestCase):
         self.assertEqual(cl["runs"][1]["label"], "CSV")
         curl = cl["runs"][1]["curl"]
         self.assertIn(f"/classify?document_types={FIXTURE}", curl)
-        self.assertIn("-H 'Content-Type: text/csv' --data-binary @scripts/test/assets/csv_sample.csv", curl)
+        self.assertIn(f"-H 'Content-Type: text/csv' --data-binary @{FOLDER}/csv_sample.csv", curl)
         self.assertIn('"Authorization: Bearer $SENSIBLE_TEST_API_KEY"', curl)
 
     def test_drift_fails(self):
@@ -190,7 +202,7 @@ class RunnerTest(unittest.TestCase):
         self.assertEqual(html.details_label(test, rec), "classify_formats: classification, 1 classified and 1 not")
         self.assertIn("<h3>Classification</h3>", rendered)
         self.assertNotIn("Example document:", rendered)
-        self.assertIn('href="../../../scripts/test/assets/csv_sample.csv"', rendered)
+        self.assertIn(f'href="../../../{FOLDER}/csv_sample.csv"', rendered)
         self.assertIn("open in the SenseML editor", rendered)
         self.assertIn("curl -s", rendered)
 
@@ -202,7 +214,8 @@ if __name__ == "__main__":
 class SpreadsheetReferenceTest(unittest.TestCase):
     def test_fixture_references_can_be_spreadsheets(self):
         refs = markup.fixture_references(FIXTURE)
-        self.assertEqual(refs[0]["pdf"], XLSB)
+        import os
+        self.assertEqual(refs[0]["path"], os.path.realpath(os.path.join(settings.REPO_ROOT, FOLDER, XLSB)))
 
     def test_spreadsheet_content_types(self):
         self.assertEqual(settings.REFERENCE_CONTENT_TYPES[".xlsb"], "application/vnd.ms-excel.sheet.binary.macroenabled.12")
@@ -212,10 +225,10 @@ class SpreadsheetReferenceTest(unittest.TestCase):
 class CurlCommandTest(unittest.TestCase):
     def test_values_from_the_page_are_shell_quoted(self):
         import shlex
-        curl = runner.curl_command("/classify", "fixture_x", 'text/csv"; rm -rf ~ #', "scripts/test/assets/types test.csv")
+        curl = runner.curl_command("/classify", "fixture_x", 'text/csv"; rm -rf ~ #', "scripts/doc-detective/fixtures/spreadsheets/types test.csv")
         words = shlex.split(curl)
         self.assertIn('Content-Type: text/csv"; rm -rf ~ #', words)
-        self.assertIn("@scripts/test/assets/types test.csv", words)
+        self.assertIn("@scripts/doc-detective/fixtures/spreadsheets/types test.csv", words)
         self.assertNotIn("rm", words)
 
 
@@ -240,7 +253,7 @@ class ClassifyResponseTest(unittest.TestCase):
     def classify(self, status, body):
         import os
         client = self.client(status, body)
-        return client.classify(os.path.join(settings.REPO_ROOT, CSV), "text/csv", FIXTURE), client
+        return client.classify(os.path.join(settings.REPO_ROOT, FOLDER, CSV), "text/csv", FIXTURE), client
 
     def test_classified(self):
         (status, _, name), client = self.classify(200, {"document_type": {"name": FIXTURE}})

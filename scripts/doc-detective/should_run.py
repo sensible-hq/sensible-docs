@@ -54,14 +54,17 @@ def git(*args):
     return subprocess.run(["git", *args], check=True, capture_output=True, text=True).stdout
 
 
-def decide(page, before, after="HEAD", watch=(), ignore=()):
-    """(run, reason). Files matching `ignore` (globs) don't count as changes, even if `watch` matches them."""
+def decide(page, before, after="HEAD", watch=(), ignore=(), changed=None):
+    """(run, reason). Files matching `ignore` (globs) don't count as changes, even if `watch` matches them.
+    `changed` is the push's changed files, if the caller already has them (or has narrowed them for this page)."""
     if not before or set(before) == {"0"}:
         return True, "no previous commit to compare with"
-    try:
-        changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f and not any(fnmatch.fnmatch(f, g) for g in ignore)]
-    except subprocess.CalledProcessError:
-        return True, f"can't diff {before[:9]}..{after}"
+    if changed is None:
+        try:
+            changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f]
+        except subprocess.CalledProcessError:
+            return True, f"can't diff {before[:9]}..{after}"
+    changed = [f for f in changed if not any(fnmatch.fnmatch(f, g) for g in ignore)]
     others = [f for f in changed if f != page and any(fnmatch.fnmatch(f, g) for g in watch)]
     if others:
         return True, f"the push changed {others[0]}" + (f" and {len(others) - 1} more file(s)" if len(others) > 1 else "")

@@ -22,11 +22,11 @@ ENTRIES = [
 ]
 
 
-def always(page, before, after, watch, ignore=()):
+def always(page, before, after, watch, ignore=(), changed=None):
     return True, "the page's tests changed"
 
 
-def never(page, before, after, watch, ignore=()):
+def never(page, before, after, watch, ignore=(), changed=None):
     return False, "only the page's prose changed"
 
 
@@ -124,7 +124,7 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(self.push(["scripts/doc-detective/test-pages.json"]), ["a", "b"])
 
     def test_push_ignores_saved_reports_and_tooling_docs(self):
-        for path in ("scripts/doc-detective/reports/docs-a.html", "scripts/doc-detective/reports/docs-a.json",
+        for path in ("scripts/doc-detective/reports/docs-a.html", "scripts/doc-detective/reports/docs-a.json", "scripts/doc-detective/tests/pages/x.md",
                      "scripts/doc-detective/README.md", "scripts/doc-detective/TEST-MATRIX.md"):
             self.assertEqual(self.push([path]), [], path)
         self.assertEqual(self.push(["scripts/doc-detective/reports/x.html", "docs/a.md"]), ["a"])
@@ -133,6 +133,19 @@ class PlanTest(unittest.TestCase):
         with open(os.path.join(plan_runs.REPO_ROOT, ".github", "workflows", "doc-tests.yml"), encoding="utf-8") as f:
             negated = set(re.findall(r'-\s*"!([^"]+)"', f.read()))
         self.assertEqual(negated, set(plan_runs.NOT_TOOLING))
+
+    def test_a_fixture_change_reruns_only_pages_that_use_it(self):
+        fixtures = {"docs/a.md": ["scripts/doc-detective/fixtures/group_a/**"], "docs/b.md": []}
+        push = lambda changed: [e["name"] for e, _ in plan_runs.plan_push(copy.deepcopy(ENTRIES), "a" * 40, "b" * 40, changed=changed,
+                                                                          decide=always, fixtures_of=lambda page: fixtures.get(page, []))]
+        self.assertEqual(push(["scripts/doc-detective/fixtures/group_a/fixture_x.doctype.json"]), ["a"])
+        self.assertEqual(push(["scripts/doc-detective/fixtures/group_b/fixture_y.doctype.json"]), [])
+        self.assertEqual(push(["scripts/doc-detective/fixtures/group_b/x.json", "scripts/doc-detective/runner.py"]), ["a", "b"])
+
+    def test_real_pages_watch_their_fixture_folders(self):
+        self.assertEqual(plan_runs.fixture_globs("docs/Senseml reference/config-settings/fingerprint.md"),
+                         ["scripts/doc-detective/fixtures/fingerprint_portfolio/**"])
+        self.assertEqual(plan_runs.fixture_globs("docs/document extraction/getting-started.md"), [])
 
     def test_push_skips_unrelated_changes_and_prose_only_edits(self):
         self.assertEqual(self.push(["docs/other.md"]), [])

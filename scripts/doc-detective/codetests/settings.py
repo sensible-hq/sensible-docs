@@ -7,7 +7,8 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # scripts/do
 REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
 CONFIG_DIR = os.path.join(HERE, "config")
 SCHEMAS_DIR = os.path.join(HERE, "schemas")
-FIXTURES_DIR = os.path.join(HERE, "fixtures")
+# The tooling's self-test pages: altered copies of real pages (tests/pages/build_fixtures.py)
+SELF_TEST_PAGES_DIR = os.path.join(HERE, "tests", "pages")
 OUTPUT_DIR = os.path.join(HERE, "output")
 # One JSON record per code test, read by the reports
 RECORDS_DIR = os.path.join(OUTPUT_DIR, "code-tests")
@@ -43,19 +44,20 @@ API = ENVS["prod"]["api"]  # production; code calls api() so DOC_TESTS_ENV appli
 DOC_TYPE = "docs_ci_examples"
 ENVIRONMENT = "development"
 # Test-account fixtures (doc types and configs) that code tests can run instead of a page's code block.
-# Same layout as the contract-test fixtures: <dir>/<doctype>.doctype.json and <dir>/<doctype>.<config>.config.json
-TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints", "contract", "fixtures")
+# One folder per group: <group>/<doctype>.doctype.json, <group>/<doctype>.<config>.config.json, a
+# manifest.json listing reference documents, and the fixture's own files (test documents)
+TEST_FIXTURES_DIR = os.path.join(HERE, "fixtures")
 # Fixture configs are published to this environment, and fixture extractions run in it
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
 FIXTURE_PREFIX = "fixture_"
 # Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
 TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
-# Published example documents. Files a test sends to Sensible (fixture reference documents, classification
-# requests) must come from fixture_document_dirs(), so a page or manifest can't upload other repo files.
-FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
-# A fixture's reference document (the manifest's "pdf" key, whatever its type) has one of these
-# extensions, and uploads with the matching content type
+# The docs' published example documents. A file a test sends to Sensible (a fixture reference document,
+# a classification request) is either in its fixture's folder ("file") or here ("docs_pdf"), used in
+# place, so a page or manifest can't send other repo files
+DOCS_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# A fixture's reference document has one of these extensions, and uploads with the matching content type
 REFERENCE_CONTENT_TYPES = {
     ".pdf": "application/pdf",
     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -65,15 +67,10 @@ REFERENCE_CONTENT_TYPES = {
     ".csv": "text/csv",
 }
 
-
-def fixture_document_dirs():
-    """Folders a fixture's reference documents may come from: published example documents, and test-only
-    documents such as spreadsheet samples. Read at call time, so tests can repoint REPO_ROOT."""
-    return (FIXTURE_PDFS_DIR, os.path.join(REPO_ROOT, "scripts", "test", "assets"))
 # The document a code test runs on when it names none (no <!-- inline document -->): a blank page, for
 # examples that don't read their document, such as a constant field and JsonLogic on it. Like the
 # pages' example document links, it's the file's raw URL on v0, so it resolves only once it's merged there.
-BLANK_DOCUMENT_PDF = os.path.join(FIXTURE_PDFS_DIR, "blank_page.pdf")
+BLANK_DOCUMENT_PDF = os.path.join(DOCS_PDFS_DIR, "blank_page.pdf")
 BLANK_DOCUMENT_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/blank_page.pdf"
 # A hard cap on extractions per run, so a page that grows or a bug can't spend the test account's budget
 MAX_EXTRACTIONS_VAR = "DOC_TESTS_MAX_EXTRACTIONS"

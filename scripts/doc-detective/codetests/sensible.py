@@ -321,16 +321,17 @@ class SensibleClient:
 
         import requests
 
-        extension = os.path.splitext(ref["pdf"])[1]
+        shown = os.path.relpath(ref["path"], settings.REPO_ROOT)
+        extension = os.path.splitext(ref["path"])[1]
         if extension not in settings.REFERENCE_CONTENT_TYPES:
-            raise CodeTestError(CONFIG_INVALID, f"reference document {ref['name']} ({ref['pdf']}): {extension!r} isn't one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
+            raise CodeTestError(CONFIG_INVALID, f"reference document {ref['name']} ({shown}): {extension!r} isn't one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
         content_type = settings.REFERENCE_CONTENT_TYPES[extension]
         response = self._api("POST", f"/document_types/{type_id}/goldens",
                              json={"name": ref["name"], "configuration": ref["configuration"], "content_type": content_type})
         if not response.ok:
             raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
         try:
-            with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
+            with open(ref["path"], "rb") as f:
                 put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": content_type}, timeout=120)
             problem = None if put.status_code == 200 else f"returned {put.status_code}"
         except requests.RequestException as e:
@@ -339,7 +340,7 @@ class SensibleClient:
         if problem:
             # Delete the empty reference document, so the next run sees it's missing and uploads it again
             self._api("DELETE", f"/document_types/{type_id}/goldens/{ref['name']}")
-            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) {problem}")
+            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({shown}) {problem}")
 
     def _published_config(self, type_id, config_name, check_drafts=True):
         """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""

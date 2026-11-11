@@ -15,6 +15,7 @@ TESTED_PATHS = ["scripts/doc-detective", "scripts/test"]
 # (keep in step with NOT_TOOLING in plan_runs.py; a unit test checks it)
 NOT_TESTED = [
     "scripts/doc-detective/reports",
+    "scripts/doc-detective/tests/pages",
     "scripts/doc-detective/sample-reports",
     "scripts/doc-detective/README.md",
     "scripts/doc-detective/TEST-MATRIX.md",

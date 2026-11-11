@@ -229,13 +229,16 @@ def _run_classification(rec, test, client):
     with open(doctype_file, encoding="utf-8") as f:
         description = (json.load(f).get("schema") or {}).get("description", "")
     runs = []
+    folder = markup.fixture_dir(name)
     for request in expect["requests"]:
-        status, text, got = client.classify(markup.request_path(request["file"]), request["content_type"], doc_type)
+        path = markup.document_path(request, folder)
+        file = os.path.relpath(path, settings.REPO_ROOT)  # repo-relative, for the record, the curl, and report links
+        status, text, got = client.classify(path, request["content_type"], doc_type)
         runs.append({
-            "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
+            "file": file, "content_type": request["content_type"], "label": request.get("label", ""),
             "expected": request["classified"], "actual": got == doc_type, "http_status": status,
             "response": settings.redact(" ".join(text.split()))[:300],
-            "curl": curl_command("/classify", doc_type, request["content_type"], request["file"]),
+            "curl": curl_command("/classify", doc_type, request["content_type"], file),
         })
     rec["classification"] = {
         "fixture": name, "editor": markup.editor_url(doc_type, config_name, refs[0]["name"]),
