@@ -36,7 +36,17 @@ MONTHLY_CRON = "30 15 1 * *"  # the 1st, 15:30 UTC
 SCHEDULES = {WEEKLY_CRON: 1, MONTHLY_CRON: 2}
 # A change to any of these reruns every priority 1 and 2 page on push
 TOOLING = ["scripts/doc-detective/**", ".github/workflows/doc-tests.yml"]
-DOCS_GLOB = os.path.join(REPO_ROOT, "docs", "**", "*.md")
+# Except these: the tooling's own docs and its saved evidence, which change nothing a test runs.
+# Keep in step with the "!" paths in .github/workflows/doc-tests.yml.
+NOT_TOOLING = [
+    "scripts/doc-detective/reports/**",
+    "scripts/doc-detective/sample-reports/**",
+    "scripts/doc-detective/README.md",
+    "scripts/doc-detective/TEST-MATRIX.md",
+]
+# The test job's timeout in doc-tests.yml is 45 minutes; a page's step timeout must end first, so the
+# scrub, issue, and fix PR steps still run
+MAX_TIMEOUT_MINUTES = 40
 # Any test markup: a UI test, code test, or table test
 MARKUP_RE = re.compile(r"<!--\s*(?:test|code test|table test)\s+\{")
 NAME_RE = re.compile(r"[a-z0-9][a-z0-9-]*")
@@ -58,6 +68,8 @@ def problems(entries, repo_root=REPO_ROOT, docs_glob=None):
         for key, kind in REQUIRED.items():
             if not isinstance(entry.get(key), kind) or (kind is int and isinstance(entry.get(key), bool)):
                 found.append(f"{where}: needs \"{key}\" ({kind.__name__})")
+        if isinstance(entry.get("timeout_minutes"), int) and not 1 <= entry["timeout_minutes"] <= MAX_TIMEOUT_MINUTES:
+            found.append(f"{where}: timeout_minutes must be 1 to {MAX_TIMEOUT_MINUTES}, so the job's own timeout never cuts off the scrub and issue steps")
         if entry.get("priority") not in (1, 2, 3):
             found.append(f"{where}: priority must be 1, 2, or 3")
         if isinstance(entry.get("name"), str) and not NAME_RE.fullmatch(entry["name"]):
@@ -81,9 +93,13 @@ def problems(entries, repo_root=REPO_ROOT, docs_glob=None):
     return found
 
 
+def ignored(path):
+    return any(fnmatch.fnmatch(path, g) for g in NOT_TOOLING)
+
+
 def changed_files(before, after):
     out = subprocess.run(["git", "diff", "--name-only", before, after], check=True, capture_output=True, text=True, cwd=REPO_ROOT)
-    return [f for f in out.stdout.splitlines() if f]
+    return [f for f in out.stdout.splitlines() if f and not ignored(f)]
 
 
 def plan_push(entries, before, after, changed=None, decide=None):
@@ -108,10 +124,10 @@ def plan_push(entries, before, after, changed=None, decide=None):
             runs.append((entry, "can't tell what the push changed"))
             continue
         watched = [entry["page"], *entry["watch"], *TOOLING, os.path.relpath(PAGES_FILE, REPO_ROOT)]
-        if not any(fnmatch.fnmatch(f, g) for f in changed for g in watched):
+        if not any(fnmatch.fnmatch(f, g) for f in changed if not ignored(f) for g in watched):
             log(entry, False, "the push didn't change the page, its watched files, or the test tooling")
             continue
-        run, reason = decide(entry["page"], before, after, [g for g in watched if g != entry["page"]])
+        run, reason = decide(entry["page"], before, after, [g for g in watched if g != entry["page"]], NOT_TOOLING)
         if run:
             runs.append((entry, reason))
         else:
@@ -127,6 +143,9 @@ def plan(entries, event, before="", after="HEAD", schedule="", priority="", page
         if level is None:
             raise SystemExit(f"Unknown schedule {schedule!r}; expected one of {sorted(SCHEDULES)}")
         runs = [(e, f"scheduled run for priority {level}") for e in entries if e["priority"] == level]
+        if not runs:
+            # A schedule that tests nothing would pass every week while testing nothing
+            raise SystemExit(f"No pages have priority {level}, so the {schedule!r} schedule would test nothing. Give a page priority {level}, or remove the schedule")
     elif event == "workflow_dispatch":
         if page:
             runs = [(e, "run on demand") for e in entries if e["page"] == page]

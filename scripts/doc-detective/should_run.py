@@ -54,12 +54,12 @@ def git(*args):
     return subprocess.run(["git", *args], check=True, capture_output=True, text=True).stdout
 
 
-def decide(page, before, after="HEAD", watch=()):
-    """(run, reason)."""
+def decide(page, before, after="HEAD", watch=(), ignore=()):
+    """(run, reason). Files matching `ignore` (globs) don't count as changes, even if `watch` matches them."""
     if not before or set(before) == {"0"}:
         return True, "no previous commit to compare with"
     try:
-        changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f]
+        changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f and not any(fnmatch.fnmatch(f, g) for g in ignore)]
     except subprocess.CalledProcessError:
         return True, f"can't diff {before[:9]}..{after}"
     others = [f for f in changed if f != page and any(fnmatch.fnmatch(f, g) for g in watch)]

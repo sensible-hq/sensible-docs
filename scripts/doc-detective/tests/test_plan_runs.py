@@ -22,11 +22,11 @@ ENTRIES = [
 ]
 
 
-def always(page, before, after, watch):
+def always(page, before, after, watch, ignore=()):
     return True, "the page's tests changed"
 
 
-def never(page, before, after, watch):
+def never(page, before, after, watch, ignore=()):
     return False, "only the page's prose changed"
 
 
@@ -72,6 +72,12 @@ class ProblemsTest(unittest.TestCase):
         self.assertIn('needs "priority" (int)', found)  # true isn't a priority
         self.assertIn('propose_fixes needs "fix_branch"', found)
 
+    def test_timeout_must_end_before_the_job_timeout(self):
+        root = self.repo({"docs/a.md": ""})
+        for minutes in (0, plan_runs.MAX_TIMEOUT_MINUTES + 1):
+            found = "\n".join(plan_runs.problems([entry("docs/a.md", 1, "a", timeout_minutes=minutes)], repo_root=root))
+            self.assertIn("timeout_minutes must be 1 to", found)
+
     def test_duplicates(self):
         root = self.repo({"docs/a.md": ""})
         found = "\n".join(plan_runs.problems([entry("docs/a.md", 1, "a"), entry("docs/a.md", 2, "a")], repo_root=root))
@@ -88,6 +94,11 @@ class PlanTest(unittest.TestCase):
 
     def test_monthly_runs_priority_2(self):
         self.assertEqual(self.names(plan_runs.plan(ENTRIES, "schedule", schedule=plan_runs.MONTHLY_CRON)), ["b"])
+
+    def test_a_schedule_with_no_pages_fails(self):
+        with self.assertRaises(SystemExit) as caught:
+            plan_runs.plan([entry("docs/b.md", 2, "b")], "schedule", schedule=plan_runs.WEEKLY_CRON)
+        self.assertIn("would test nothing", str(caught.exception))
 
     def test_unknown_schedule_fails(self):
         with self.assertRaises(SystemExit):
@@ -111,6 +122,17 @@ class PlanTest(unittest.TestCase):
         self.assertEqual(self.push(["assets/pdfs/a.pdf"]), ["a"])
         self.assertEqual(self.push(["scripts/doc-detective/run.sh"]), ["a", "b"])
         self.assertEqual(self.push(["scripts/doc-detective/test-pages.json"]), ["a", "b"])
+
+    def test_push_ignores_saved_reports_and_tooling_docs(self):
+        for path in ("scripts/doc-detective/reports/docs-a.html", "scripts/doc-detective/reports/docs-a.json",
+                     "scripts/doc-detective/README.md", "scripts/doc-detective/TEST-MATRIX.md"):
+            self.assertEqual(self.push([path]), [], path)
+        self.assertEqual(self.push(["scripts/doc-detective/reports/x.html", "docs/a.md"]), ["a"])
+
+    def test_workflow_paths_ignore_the_same_files(self):
+        with open(os.path.join(plan_runs.REPO_ROOT, ".github", "workflows", "doc-tests.yml"), encoding="utf-8") as f:
+            negated = set(re.findall(r'-\s*"!([^"]+)"', f.read()))
+        self.assertEqual(negated, set(plan_runs.NOT_TOOLING))
 
     def test_push_skips_unrelated_changes_and_prose_only_edits(self):
         self.assertEqual(self.push(["docs/other.md"]), [])

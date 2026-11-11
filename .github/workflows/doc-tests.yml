@@ -9,7 +9,10 @@
 # A push to v0 also runs each priority 1 or 2 page whose tests, watched files, or the test tooling
 # changed (a push that changes only a page's prose skips it). Never on pull requests.
 #
-# Pages run one at a time, since they share doc types in the test account. Per page, on failure:
+# Pages run one at a time, since they share doc types in the test account; runs that would overlap
+# wait in a queue instead of cancelling each other. If planning fails (for example, a page with
+# tests isn't in test-pages.json), no page runs and one issue labeled doc-tests-plan opens.
+# Per page, on failure:
 # - Opens one issue with the page's label, or comments on the open one
 # - For pages with propose_fixes: if the documented output drifted, opens a draft PR (or updates the
 #   open one) that rewrites the mismatched values. Review it: the drift can be a product regression.
@@ -32,6 +35,11 @@ on:
       - "scripts/doc-detective/**"
       - ".doc-detective.json"
       - ".github/workflows/doc-tests.yml"
+      # The tooling's own docs and saved evidence change nothing a test runs (NOT_TOOLING in plan_runs.py)
+      - "!scripts/doc-detective/reports/**"
+      - "!scripts/doc-detective/sample-reports/**"
+      - "!scripts/doc-detective/README.md"
+      - "!scripts/doc-detective/TEST-MATRIX.md"
   workflow_dispatch:
     inputs:
       priority:
@@ -49,15 +57,8 @@ on:
     - cron: "0 15 * * 1"
     - cron: "30 15 1 * *"
 
-# Tests create and delete shared doc types in the test account, so runs must not overlap
-concurrency:
-  group: doc-tests
-  cancel-in-progress: false
-
 permissions:
-  contents: write
-  pull-requests: write
-  issues: write
+  contents: read
 
 jobs:
   # Which pages to test. No secrets.
@@ -98,12 +99,48 @@ jobs:
           echo "matrix=$(cat "$RUNNER_TEMP/matrix.json")" >> "$GITHUB_OUTPUT"
           echo "any=$(jq -r '.include | length > 0' "$RUNNER_TEMP/matrix.json")" >> "$GITHUB_OUTPUT"
 
+  # If planning fails, no page runs, and the test job's issue step never starts. Open one issue so a
+  # scheduled or push run can't fail unnoticed. No secrets. On demand, the person who ran it sees it.
+  plan-failed:
+    needs: plan
+    if: failure() && github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update plan failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          body="The doc tests couldn't plan which pages to run, so no page was tested. See the \"Plan the run\" step: $RUN_URL"
+          gh label create doc-tests-plan --color D93F0B --description "Doc tests couldn't plan a run" --force -R "$GITHUB_REPOSITORY"
+          issue=$(gh issue list -R "$GITHUB_REPOSITORY" --label doc-tests-plan --state open --json number -q '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" -R "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create -R "$GITHUB_REPOSITORY" --title "Doc tests: planning failed, so no page was tested" --label doc-tests-plan --body "$body"
+          fi
+
   test:
     needs: plan
     if: needs.plan.outputs.any == 'true'
     name: test (${{ matrix.name }})
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    # Only this job writes: the fix PR (contents, pull-requests) and the failure and envelope issues
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    # Tests create and delete shared doc types in the test account, so test jobs must not overlap,
+    # across runs too. queue: max keeps waiting runs in line; by default a new run would cancel the
+    # one already waiting. The plan job stays outside the group, so a push that tests nothing never queues.
+    concurrency:
+      group: doc-tests
+      cancel-in-progress: false
+      queue: max
     strategy:
       fail-fast: false
       max-parallel: 1
@@ -146,7 +183,7 @@ jobs:
         run: python3 scripts/doc-detective/check_secrets.py --coverage-only
 
       # Keep this list, the Scrub reports step's, and the Check for leaked secrets step's, in step with
-      # scripts/doc-detective/config/secrets.txt (scrub.sh). run.sh skips Doc Detective on pages without UI tests.
+      # scripts/doc-detective/config/secrets.txt (scrub.sh). run.sh skips Doc Detective (and its options) on pages without UI tests.
       # .doc-detective.json sets autoUpdate: false; --no-auto-update repeats it, so only the pinned version runs.
       # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
       # DOC_TESTS_MONTHLY_BUDGET (repo variable, optional): the report shows usage against it.
@@ -155,15 +192,9 @@ jobs:
         id: tests
         continue-on-error: true
         timeout-minutes: ${{ matrix.timeout_minutes }}
-        run: |
-          if [ "$UI" = "true" ]; then
-            scripts/doc-detective/run.sh --no-auto-update "$PAGE"
-          else
-            scripts/doc-detective/run.sh "$PAGE"
-          fi
+        run: scripts/doc-detective/run.sh --no-auto-update "$PAGE"
         env:
           PAGE: ${{ matrix.page }}
-          UI: ${{ matrix.ui }}
           SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
           SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
@@ -285,18 +316,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          LABEL: doc-detective-envelope
+          LABEL: ${{ matrix.issue_label }}-envelope
+          TITLE: ${{ matrix.title }}
         run: |
           python3 scripts/doc-detective/report.py envelope-issue --run-url "$RUN_URL" > "$RUNNER_TEMP/envelope.json"
           state=$(jq -r .state "$RUNNER_TEMP/envelope.json")
           fingerprint=$(jq -r .fingerprint "$RUNNER_TEMP/envelope.json")
           jq -r .body "$RUNNER_TEMP/envelope.json" > "$RUNNER_TEMP/envelope.md"
           echo "Envelope state: $state"
-          gh label create "$LABEL" --color 5319E7 --description "Doc Detective regression envelope warnings" --force
+          gh label create "$LABEL" --color 5319E7 --description "Regression envelope warnings: $TITLE" --force
           issue=$(gh issue list --label "$LABEL" --state open --json number -q '.[0].number')
           if [ "$state" = "attention" ]; then
             if [ -z "$issue" ]; then
-              gh issue create --title "Doc Detective: LLM output shifted from its regression envelope" --label "$LABEL" --body-file "$RUNNER_TEMP/envelope.md"
+              gh issue create --title "Doc tests: $TITLE LLM output shifted from its regression envelope" --label "$LABEL" --body-file "$RUNNER_TEMP/envelope.md"
             else
               last=$(gh issue view "$issue" --json body,comments -q '[.body] + [.comments[] | select(.author.login == "github-actions" or .author.login == "app/github-actions") | .body] | join("\n")' | grep -o 'envelope-fingerprint: [a-f0-9]*' | tail -1 | cut -d' ' -f2)
               if [ "$last" != "$fingerprint" ]; then
