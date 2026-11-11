@@ -492,3 +492,5 @@ What the port has today: `.vale.ini` with Voices, Direct, DocShape, and SPCA, sc
 5. **Scripts D11, D14, D21, D22** in `scripts/style/`, run by the hook and CI.
 6. **In `my-docs`:** add the `authoring` block (`directives`, `guideFiles`, `exemplarFiles`), a `reference` scaffold, and the Sensible Vale style next to DocShape.
 7. **Judgment rules** last, as YAML specs in `.github/styles/Sensible/judgment/`, for Jev to read.
+
+Measure the effect with [style-baseline/README.md](style-baseline/README.md): the baseline is recorded there, and the evals rerun after each step.
