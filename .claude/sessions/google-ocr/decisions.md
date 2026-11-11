@@ -21,7 +21,7 @@ Claude Code session ID: bc2d327b-1002-40d8-9161-f39ecf5a8273
 - **Leave the Merge Lines page's handwriting example alone** until someone reruns it.
 - **Fixture config has no comments.** The runner parses the published config with `json.loads`; comments would cause permanent drift and the runner would overwrite them. The explanation lives in `manifest.json`'s description.
 - **Rename the fixture in place** (PUT doc type, config, reference) to keep Frances's version history.
-- **Test-only PDFs go in `scripts/test/assets/`, not `assets/pdfs/`.** Frances's rule: `assets/pdfs/` is only for PDFs that appear in the docs. The runner only allowed `assets/pdfs/`, so `FIXTURE_PDF_DIRS` in `codetests/settings.py` now allows both folders.
+- **Test-only PDFs go in `scripts/test/assets/`, not `assets/pdfs/`** (rule written in `internal-doc-guidelines.md` and `assets/pdfs/README.md`). Frances's rule: `assets/pdfs/` is only for PDFs that appear in the docs. The runner only allowed `assets/pdfs/`, so `FIXTURE_PDF_DIRS` in `codetests/settings.py` now allows both folders.
 - **No code test on a page yet.** Fixture tests only compare `documents` segmentation, not extracted values.
 - **Stack app #1906 on #1905** to avoid conflicts on the same paragraphs.
 - **Drop "Amazon is an alternative to experiment with"** from the settings tab: it contradicts "Amazon is the default engine".

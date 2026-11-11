@@ -14,6 +14,10 @@ In the Images dir:
 - If you edit the screenshot with callouts/arrows/etc and you're worried it might be difficult to replicate the original, then you can save an unedited version of the image to /source
 - the doc build process automatically applies styling such as drop shadows to images in screenshots/ and saves to final/
 
+### PDF directory conventions
+- `assets/pdfs/` is only for PDFs that appear in the docs, such as example documents that a page links to or shows.
+- Put test-only PDFs, such as reference documents for test fixtures, in `scripts/test/assets/`. The doc-detective runner accepts fixture PDFs from either folder.
+
 
 
 
