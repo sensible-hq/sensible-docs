@@ -12,6 +12,7 @@ Surveyed 2026-11-11 on `v0` at `39ff57219`, and on `my-docs` at `d4b2dd8` with S
 4. **Four Vale rules have bugs or overlap.** `AgainstPhrasing` misses adjacent text like "classification against". `Sensible.WordList` repeats `Google.WordListCase`, so "disabled" gets flagged twice. One `WordList` swap can never fire because the vocabulary accepts the word. `Google.EmDash` "fixes" an em dash in a way that still breaks the house rule.
 5. **The guides teach the errors they forbid.** The changelog guide's own examples use "against", "we", and an em dash. The blog template uses "template" and "let's". The glossary and `revise-doc-style` use "e.g.", which `Google.Latin` flags as an error.
 6. **Shoalrun already has a slot for most of this.** In Shoalrun, guides map to `authoring.guideFiles`, sibling-page picks to `authoring.exemplarFiles`, templates to `scaffold`, frontmatter rules to `frontmatter.schema`/`enforced`, page shape to DocShape Tengo scripts, and the eval skill to `audit.evals`. Prose judgment is the only part with no deterministic home.
+7. **The guides are frozen in March, and the corrections live in memory.** The core guides were written from 2026-03-10 to 03-16 and never majorly revised. From September on, every style correction went into memory or the friction log instead (see [Timeline](#timeline-when-each-piece-was-written)).
 
 ## 1. Inventory
 
@@ -97,6 +98,79 @@ Alert counts on `docs/` and `reference/` today, top 10 out of about 1,500:
 | Google.WordListCase | 117 | | Google.Jargon | 33 |
 | Google.Spacing | 100 | | Google.OxfordComma | 27 |
 | Google.Passive | 76 | | | |
+
+### Timeline: when each piece was written
+
+The dates come from `git log --follow` on `v0`.
+
+- **started**: the first commit.
+- **major revisions done**: the last commit whose added plus deleted lines reach 20% of the file's current length.
+- **last touched**: the latest commit of any size.
+
+Commit dates can trail the writing. Skills marked † were moved into the repo from `~/.claude/skills/` on 2026-06-17 (`b025f15ce`), so their real start is earlier and git can't see it. Skills marked ‡ came over in the same commit after a rename, and `--follow` traces their history from before the move.
+
+| file | started | major revisions done | last touched | commits (major) |
+| ---- | ------- | -------------------- | ------------ | --------------: |
+| **Skills** | | | | |
+| `update-docs-from-pr` | 2026-02-18 | 2026-02-19 | 2026-09-30 | 6 (2) |
+| `revise-doc-style` | 2026-02-18 | 2026-02-18 | 2026-03-16 | 3 (1) |
+| `create-docs-example` | 2026-02-18 | 2026-02-18 | 2026-05-11 | 2 (1) |
+| `upload-pr-extractor` | 2026-02-18 | 2026-02-18 | 2026-02-18 | 1 (1) |
+| `create-new-doc` | 2026-03-10 | 2026-03-10 | 2026-03-10 | 1 (1) |
+| `update-existing-doc` | 2026-03-10 | 2026-03-10 | 2026-03-10 | 1 (1) |
+| `style-guide-generator-senseml` ‡ | 2026-03-10 | 2026-03-10 | 2026-06-17 | 3 (1) |
+| `integration-guide-generator` ‡ | 2026-03-10 | 2026-03-11 | 2026-06-17 | 3 (2) |
+| `create-concept-doc` | 2026-03-13 | 2026-03-13 | 2026-03-16 | 2 (1) |
+| `changelog` ‡ | 2026-03-16 | 2026-07-09 | 2026-07-09 | 8 (2) |
+| `api-spec` ‡ | 2026-05-04 | 2026-06-17 | 2026-07-07 | 11 (2) |
+| `docs-checker` † | before 2026-06-17 | 2026-06-17 | 2026-06-17 | 1 (1) |
+| `quickbooks` † | before 2026-06-17 | 2026-06-17 | 2026-06-17 | 1 (1) |
+| `json5-commenter` | 2026-06-17 | 2026-06-17 | 2026-10-28 | 2 (1) |
+| `blog-how-to-parse-x` | 2026-06-17 | 2026-06-25 | 2026-06-30 | 15 (3) |
+| `blog-short` (+ template) | 2026-07-14 | 2026-07-14 | 2026-07-14 | 2 (1) |
+| `mcp-search-eval` | 2026-08-17 | 2026-08-17 | 2026-08-18 | 4 (2) |
+| `close-docs-pr` | 2026-09-30 | 2026-09-30 | 2026-09-30 | 1 (1) |
+| `categorize-pr` | uncommitted | | | 0 |
+| **Style guides and templates** | | | | |
+| `reference-topic-template` | 2026-03-10 | 2026-03-10 | 2026-03-10 | 1 (1) |
+| `style-guide-overview` | 2026-03-10 | 2026-03-10 | 2026-10-16 | 4 (1) |
+| `sentence-word-guidance` | 2026-03-10 | 2026-03-10 | 2026-10-16 | 4 (1) |
+| `integration-guide-template` | 2026-03-10 | 2026-03-10 | 2026-03-11 | 2 (1) |
+| `editorial-preferences` | 2026-03-10 | 2026-03-10 | 2026-07-02 | 4 (1) |
+| `config-library-supported-document-types` | 2026-03-11 | 2026-03-11 | 2026-03-11 | 1 (1) |
+| `concept-topic-template` | 2026-03-13 | 2026-03-13 | 2026-10-16 | 2 (1) |
+| `writing-rules` | 2026-03-16 | 2026-03-16 | 2026-05-07 | 3 (1) |
+| `changelog-style-guide` | 2026-03-16 | 2026-03-16 | 2026-06-25 | 2 (1) |
+| `glossary` | 2026-03-19 | 2026-03-19 | 2026-09-15 | 2 (1) |
+| `blog-post-template` | 2026-05-15 | 2026-06-22 | 2026-06-25 | 8 (3) |
+| `json5-comments-reference` | 2026-06-17 | 2026-06-17 | 2026-10-28 | 7 (1) |
+| `changelog/structural-check` | 2026-07-09 | 2026-07-09 | 2026-07-09 | 1 (1) |
+| `friction-log` | 2026-09-08 | 2026-09-08 | 2026-09-08 | 1 (1) |
+| `knowledge/fingerprints` | 2026-10-16 | 2026-10-16 | 2026-10-16 | 1 (1) |
+| **Vale** | | | | |
+| `.vale.ini` | 2026-03-24 | 2026-05-07 | 2026-05-08 | 4 (3) |
+| `Sensible/WordList` | 2026-05-05 | 2026-05-05 | 2026-05-05 | 1 (1) |
+| vocab `accept.txt` | 2026-05-05 | 2026-05-05 | 2026-10-20 | 8 (1) |
+| `Sensible/AgainstPhrasing` | 2026-05-08 | 2026-05-08 | 2026-05-08 | 1 (1) |
+| `Sensible/Terminology` | 2026-05-08 | 2026-05-08 | 2026-09-15 | 2 (1) |
+| `Sensible/DocLinks`, `NoDraftLinks` | 2026-09-14 | 2026-09-14 | 2026-09-14 | 1–2 (1) |
+| `.claude/hooks/vale-check.sh` | 2026-05-05 | 2026-10-13 | 2026-10-13 | 3 (2) |
+| **Style memories** (file date) | | | | |
+| `you-centric-style` | 2026-09-09 | | | |
+| `block-comments-only`, `keep-code-fence-language` | 2026-09-28 | | | |
+| `full-style-pass`, `label-method-near-deprecated` | 2026-09-30 | | | |
+| `excerpt-rules`, `seo-terminology` | 2026-10-20 | | | |
+| `anthropic-model-naming` | 2026-11-10 | | | |
+
+What the timeline shows:
+
+- **You wrote the core guidance in one week and never substantially revised it.** The reference template, overview, sentence-word guidance, writing rules, and editorial preferences all date from 2026-03-10 to 03-16. Each has had exactly one major commit: the first one. Later commits are small patches.
+- **From September on, corrections went somewhere else.** From 2026-09-08 to 11-10, your style corrections landed in `friction-log.md` and 8 memory files, not in the guides. That's why the guides contradict the memories (C1, C2, C4, C14). The guides still describe March, and the memories describe September through November.
+- **The skills that write most of your doc PRs were written once, in February and March.** `create-new-doc`, `update-existing-doc`, and `create-concept-doc` have 1–2 commits each. Their worktree flow (C12) and hard-coded `Sonnet 4.6` (C13) date from then. Only `update-docs-from-pr` got the September fixes.
+- **The skills you kept iterating are the blog and changelog skills.** `blog-how-to-parse-x` has 15 commits, `blog-post-template` 8, `changelog` 8. Those are the ones with a human gate and a friction log.
+- **Vale rules were written from May to September and haven't kept up.** No Vale rule exists for anything decided after 2026-09-15: excerpts, SEO terms, model naming, the Label method, `json5` fences.
+
+To rerun: `python3 scripts/style_baseline/guidance_timeline.py` from the repo root.
 
 ## 2. Contradictions
 
