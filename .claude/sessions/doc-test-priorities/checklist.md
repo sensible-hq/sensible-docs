@@ -31,7 +31,7 @@ Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741)
 - [x] CI: test-job concurrency with queue: max; plan-failed issue; empty schedule fails; saved reports/README/matrix don't trigger runs; read-only by default; per-page envelope labels; bare titles; timeout bound; single run.sh call
 - [x] Reference uploads: unknown extension fails; spreadsheet upload tested; stale comments, secrets.txt, schema, README fixed
 - [x] Saved evidence: provenance in reports and reports/<name>.json; generated TEST-MATRIX.md with a freshness test (247 unit tests pass)
-- [ ] Rest of the review on the fixed branch (report, quality checks, devil's advocate)
+- [x] Rest of the review on the fixed branch: report (`review-803.md`), three rounds of report checks, devil's-advocate pass on every finding (two P1s recalibrated to P2; two non-defects dropped); the last round found and fixed a 200-with-no-name gap (82bead504)
 - Deferred to a refactor PR: claim-kind registry, common result shape across runners, `claim: {kind}` record field, per-test persistent doc types (Frances's persist-until-next-run model)
 
 ## Fixture PDF sync (2026-11-11)
