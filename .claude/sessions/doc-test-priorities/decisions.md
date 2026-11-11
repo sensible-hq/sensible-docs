@@ -35,6 +35,19 @@ Related: #741 (XLSB docs; depends on this PR), #749 (`add-doc-tests` skill).
 | Persist what can't be rebuilt from the repo; delete what can | Frances's philosophy, stated as a rule in the README | Frances, Claude |
 | Claim-kind registry, common result shape, per-test persistent doc types go in a separate refactor PR | Behavior and structure changes; this PR is already large | Claude (proposed) |
 
+## Evidence: how /classify says it didn't classify a file
+
+`CLASSIFY_REJECTED = {400, 415}` in `codetests/sensible.py` rests on these observed responses (all committed on sensible-docs#741, branch `fe_xlsb_docs`):
+
+| Response | Where it's recorded | When, which account |
+| --- | --- | --- |
+| HTTP 400 "Missing request body" (4 requests) | `scripts/doc-detective/reports/docs-senseml-reference-concepts-file-types.html`, commit 16f5a3aa1 | 2026-11-10, docs test account |
+| HTTP 400 "Could not determine the content type of the document" (CSV sent as `application/pdf`) | Same report | 2026-11-10, docs test account |
+| HTTP 400 "No match found for document" | `scripts/test/file_types/smoke_test_xlsb.sh:190` (expected and observed result, checks 5 and 7) | 2026-10-12, production; rerun 2026-11-10 on the docs test account, 0 changed |
+| HTTP 415 for `...macroEnabled.12` (capital E) | `scripts/test/file_types/smoke_test_xlsb.sh:32` (check 9) | Same runs |
+
+The API spec (`reference/openapi_classification.json`) lists 200, 400, 401, 415, 429, and 500 for /classify; it doesn't say which mean "rejected the file".
+
 ## Open questions
 
 - Should priority 2 pages still run on push, or only monthly? Kept on push (today's behavior); easy to drop in `plan_runs.py`.
