@@ -3,9 +3,74 @@
 Tests that run inside a docs page and check the page still tells the truth. There are two kinds:
 
 - **UI tests** walk through the Sensible app the way the page tells a reader to, for example signing in and opening the Document Types tab. [Doc Detective](https://docs.doc-detective.com) runs them.
-- **Code tests** run a documented SenseML config on its example document with the Sensible API, and check Sensible's output against the output the page shows. `code_tests.py` runs them.
+- **Code tests** check a page's claims against the Sensible API: a documented SenseML config's output, how fingerprints segment a portfolio, or which files Sensible classifies. `code_tests.py` runs them.
 
-Both are written as HTML comments in the page, so readers never see them. Today they cover `docs/document extraction/getting-started.md`.
+Both are written as HTML comments in the page, so readers never see them. [`TEST-MATRIX.md`](TEST-MATRIX.md) lists every test, the claim it checks, how often CI runs it, and its last saved result.
+
+## How it works
+
+The tests are evidence that a page was true when someone tested it. Sensible's API and SenseML rarely change behavior, so most of a test's value is the record of that run: a saved report, the commit it tested, and the fixtures it used. CI reruns the tests on a schedule, and a failure is your cue to check the page, the fixture, or the product.
+
+```mermaid
+flowchart LR
+    page["Docs page<br/>test markup in HTML comments"] --> runsh["run.sh"]
+    runsh --> dd["Doc Detective<br/>UI tests"]
+    runsh --> ct["code_tests.py<br/>code tests"]
+    ct --> api["Sensible API<br/>docs test account"]
+    dd --> results["output/<br/>UI results and code-test records"]
+    ct --> results
+    results --> report["report.html"]
+    report --> scrub["scrub and leak check"]
+    scrub -->|DOC_TESTS_SAVE_REPORT=1| saved["reports/<br/>saved report and results"]
+    saved --> matrix["TEST-MATRIX.md"]
+    pages["test-pages.json<br/>priority per page"] --> plan["plan_runs.py"] --> ci["doc-tests.yml<br/>one job per page"] --> runsh
+```
+
+### The pieces
+
+| Piece | What it does |
+| --- | --- |
+| Test markup | Comments in the page, each a single line in the form `<!-- name {json} -->`. Code tests use markers that say where each part comes from: `inline` (shown on the page), `fixture` (committed, private), or `expect` (written in the test). The shape follows Doc Detective's inline tests, so a later move to Doc Detective stays possible. |
+| `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
+| `codetests/runner.py` | Runs each code test by its kind of claim, compares the result with the page, and records what happened. |
+| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, temporary doc types, and fixtures. |
+| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json`. Every report reads records, never the API. |
+| `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
+| `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
+| `test-pages.json`, `plan_runs.py`, `.github/workflows/doc-tests.yml` | CI: each tested page has a priority, the planner picks the pages for each run, and the workflow runs each page as its own job. |
+| `test_matrix.py` | Writes `TEST-MATRIX.md` and the saved results in `reports/`. |
+
+### What happens in a run
+
+1. `run.sh` clears `output/` and runs Doc Detective, if the page has UI tests.
+2. `code_tests.py` checks each code test's markup, then runs it on the docs test account. For a fixture, it first restores the doc type and config in the account to match the committed files.
+3. The runner compares what Sensible returned with what the page claims, and writes a record.
+4. `report.py` builds `output/report.html` from the Doc Detective results and the records. The header shows the commit the run tested.
+5. `scrub.sh` removes secret values from every output file, and `check_secrets.py` fails the run if any remain.
+6. With `DOC_TESTS_SAVE_REPORT=1`, `run.sh` saves the results and the report to `reports/` and regenerates `TEST-MATRIX.md`.
+
+### What persists, and what doesn't
+
+Keep what can't be rebuilt from the repo, and delete what can.
+
+| Thing | Where | Lifetime |
+| --- | --- | --- |
+| Fixture doc types and configs (`fixture_*`) | Docs test account, with committed copies under `scripts/test/probe_endpoints/contract/fixtures/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
+| Temporary doc types (`docs_ci_*`) | Docs test account | Rebuilt from the page on every run, then deleted. |
+| Test files (spreadsheets, PDFs) | `assets/pdfs/` (published examples) or `scripts/test/assets/` (test only) | Committed. |
+| Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
+| Raw run output | `output/` | Overwritten on every run; git-ignored. |
+
+### Extending it
+
+| To add | You change | Notes |
+| --- | --- | --- |
+| A test to a tested page | The page's markup | Regenerate `TEST-MATRIX.md`. |
+| A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
+| A kind of claim (for example, an API status code) | `markup.py` (parse and check), `runner.py` (run), `sensible.py` (the API call), the record schema, the three reports, `test_matrix.KINDS`, and unit tests | About a dozen places today. The classification claim is the most recent example to follow. |
+| A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code and its own reporting | Its results don't reach the HTML report, the matrix, or CI issues yet. |
+
+The last two rows are the expensive ones. Two follow-ups would make each a single module: a registry of claim kinds, where each kind is one file that parses, runs, and reports its claim; and one record shape that every runner writes, so the report, the matrix, and CI cover them all.
 
 ## Run the tests
 
@@ -44,7 +109,7 @@ Both are written as HTML comments in the page, so readers never see them. Today 
 
    It then regenerates `TEST-MATRIX.md`. Commit all three; they stay as they are until the next saved run. The report's header shows the same commit and time. `output/` is git-ignored and overwritten on every run. CI never saves: its runs check that claims still hold, and open issues when they don't.
 
-   **What persists, and what doesn't:** keep what can't be rebuilt from the repo, and delete what can. Fixture doc types (`fixture_*`) persist in the test account, and every run first restores them to the committed files. Saved reports and results persist until the next saved run. Temporary doc types (`docs_ci_*`) and `output/` are rebuilt from the page on every run.
+   For what else persists between runs, see [What persists, and what doesn't](#what-persists-and-what-doesnt).
 
 Other commands:
 
