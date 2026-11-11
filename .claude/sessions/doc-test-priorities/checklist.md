@@ -34,6 +34,13 @@ Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741)
 - [ ] Rest of the review on the fixed branch (report, quality checks, devil's advocate)
 - Deferred to a refactor PR: claim-kind registry, common result shape across runners, `claim: {kind}` record field, per-test persistent doc types (Frances's persist-until-next-run model)
 
+## Fixture PDF sync (2026-11-11)
+
+- [x] `sync_fixture_pdfs.py`: copies each `assets/pdfs/` file over its namesake in `scripts/test/fixture_pdfs/` when the bytes differ; `--check` reports only. No-op until the folder exists
+- [x] `.github/workflows/sync-fixture-pdfs.yml`: on pushes to v0 that change `assets/pdfs/**`, syncs and opens or updates a PR on `auto/sync-fixture-pdfs` (same pattern as sync-llmstxt.yml); no secrets
+- [x] Checked against #801's folder: `portfolio.pdf` and `portfolio_bank_paystub_tax.pdf` match `assets/pdfs/` today; `beazley_scanned_72_pages.pdf` has no namesake (fixture only)
+- [ ] Conflict with #801 (`fe_google_ocr_page_limit_docs`, another session): both edit `settings.py` (FIXTURE_PDFS_DIR comment and value) and `markup.fixture_references`. Whichever merges second: set FIXTURE_PDFS_DIR to `scripts/test/fixture_pdfs`, keep #803's `fixture_document_dirs()` (fixture_pdfs + scripts/test/assets) and extension check, keep #801's "copy a docs PDF there" hint
+
 ## Next steps
 
 - [x] Open the PR: #803

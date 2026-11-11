@@ -58,6 +58,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | Fixture doc types and configs (`fixture_*`) | Docs test account, with committed copies under `scripts/test/probe_endpoints/contract/fixtures/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
 | Temporary doc types (`docs_ci_*`) | Docs test account | Rebuilt from the page on every run, then deleted. |
 | Test files (spreadsheets, PDFs) | `assets/pdfs/` (published examples) or `scripts/test/assets/` (test only) | Committed. |
+| Fixture copies of docs PDFs | `scripts/test/fixture_pdfs/`, a copy with the same file name as the docs PDF | Committed. `assets/pdfs/` is the source of truth: when a push to `v0` changes a docs PDF, `.github/workflows/sync-fixture-pdfs.yml` runs `sync_fixture_pdfs.py`, which copies it over its namesake, and opens or updates a PR on `auto/sync-fixture-pdfs`. `sync_fixture_pdfs.py --check` reports drift without changing anything. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
 
@@ -394,6 +395,7 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/record.py` | The record each code test produces. |
 | `codetests/runner.py` | Runs a code test, builds envelopes. |
 | `codetests/reports/` | Text summary, failure issue, envelope issue, report.html, and their shared wording. |
+| `sync_fixture_pdfs.py` | Keeps fixture copies of docs PDFs identical to `assets/pdfs/`. |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
 | `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record and envelope schemas. |

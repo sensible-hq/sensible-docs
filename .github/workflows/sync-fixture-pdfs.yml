@@ -1,0 +1,76 @@
+# Keeps fixture copies of docs PDFs (scripts/test/fixture_pdfs/) identical to the docs PDFs
+# (assets/pdfs/, the source of truth). When a push to v0 changes assets/pdfs/, this runs
+# scripts/doc-detective/sync_fixture_pdfs.py; if any copy with the same file name differs, it
+# rewrites the copy and opens a PR (or updates the open one) on branch auto/sync-fixture-pdfs.
+# Review and merge it like any PR: the next doc tests run then uploads the updated reference documents.
+# No secrets.
+
+name: Sync fixture PDFs
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - "assets/pdfs/**"
+  workflow_dispatch:
+
+concurrency:
+  group: sync-fixture-pdfs
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # The token isn't left on disk: only the step that pushes gets it
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Sync fixture PDFs from assets/pdfs
+        id: sync
+        run: |
+          python3 scripts/doc-detective/sync_fixture_pdfs.py | tee "$RUNNER_TEMP/synced.txt"
+          if git diff --quiet -- scripts/test/fixture_pdfs; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Open or update the sync PR
+        if: steps.sync.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: auto/sync-fixture-pdfs
+          REPO: ${{ github.repository }}
+          TRIGGER: ${{ github.sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}.git"
+          git switch -c "$BRANCH"
+          git add -- scripts/test/fixture_pdfs
+          git commit -m "Sync fixture PDFs from assets/pdfs (trigger: ${TRIGGER:0:7})" -m "$(cat "$RUNNER_TEMP/synced.txt")"
+          git push --force origin "$BRANCH"
+          pr=$(gh pr list --head "$BRANCH" --state open --json number -q '.[0].number')
+          if [ -z "$pr" ]; then
+            gh pr create --base v0 --head "$BRANCH" --title "Sync fixture PDFs from assets/pdfs" \
+              --body "A push to v0 changed PDFs in \`assets/pdfs/\` that fixtures also use. This PR copies them over their namesakes in \`scripts/test/fixture_pdfs/\`, so fixture reference documents match the docs.
+
+          $(cat "$RUNNER_TEMP/synced.txt")
+
+          Trigger: https://github.com/${REPO}/commit/${TRIGGER}"
+          else
+            gh pr comment "$pr" --body "Updated from https://github.com/${REPO}/commit/${TRIGGER}:
+
+          $(cat "$RUNNER_TEMP/synced.txt")"
+          fi
