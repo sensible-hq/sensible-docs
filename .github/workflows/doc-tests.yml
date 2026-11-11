@@ -1,36 +1,57 @@
-# Runs the tests in the layout-based getting started guide: Doc Detective runs its UI test
-# (signs in to the Sensible app with the docs test account), and code_tests.py runs its code
-# tests (each documented config against the Sensible API, checked against the documented
-# output). See scripts/doc-detective/README.md.
+# Runs the docs pages' tests: Doc Detective runs UI tests (signing in to the Sensible app with the
+# docs test account), and code_tests.py runs code tests (documented configs, fixtures, and claims
+# against the Sensible API, checked against the page). See scripts/doc-detective/README.md.
 #
-# Runs on pushes to v0 that change the guide or the test tooling, monthly, and on demand; not on PRs.
+# Which pages run, and when, comes from scripts/doc-detective/test-pages.json (plan_runs.py):
+#   Priority 1: weekly (Mondays 15:00 UTC)
+#   Priority 2: monthly (the 1st, 15:30 UTC)
+#   Priority 3: on demand only (Actions > Doc tests > Run workflow, priority 3 or a page)
+# A push to v0 also runs each priority 1 or 2 page whose tests, watched files, or the test tooling
+# changed (a push that changes only a page's prose skips it). Never on pull requests.
 #
-# On failure:
-# - Opens one issue labeled doc-detective, or comments on the open one
-# - If the documented output drifted from what Sensible returns, opens a draft PR
-#   (or updates the open one) that rewrites the mismatched values. Review it: the
-#   drift can be a product regression, or LLM variation, not a docs bug.
+# Pages run one at a time, since they share doc types in the test account. Per page, on failure:
+# - Opens one issue with the page's label, or comments on the open one
+# - For pages with propose_fixes: if the documented output drifted, opens a draft PR (or updates the
+#   open one) that rewrites the mismatched values. Review it: the drift can be a product regression.
+# - For pages with envelope_issue: one standing issue tracks LLM output outside its regression envelope.
+# Every run shows a summary per page, links the HTML report (it opens in the browser), and uploads
+# the reports and records as an artifact.
 
-name: Doc Detective (getting started)
+name: Doc tests
 
 on:
   push:
     branches:
       - v0
+    # Broad on purpose: the plan job decides which pages a push affects (test-pages.json "watch")
     paths:
-      - "docs/document extraction/getting-started.md"
+      - "docs/**"
+      - "assets/pdfs/**"
+      - "scripts/test/assets/**"
+      - "scripts/test/probe_endpoints/contract/fixtures/**"
       - "scripts/doc-detective/**"
       - ".doc-detective.json"
-      - ".github/workflows/doc-detective-getting-started.yml"
+      - ".github/workflows/doc-tests.yml"
   workflow_dispatch:
-  # Monthly, so product drift is caught even when nothing in the guide changes:
-  # the 1st of each month at 15:00 UTC. Scheduled runs use this file on the default branch (v0).
+    inputs:
+      priority:
+        description: "Run every page at this priority (or all)"
+        type: choice
+        options: ["1", "2", "3", "all"]
+        default: "all"
+      page:
+        description: "Or run just this page (its path, as in test-pages.json); overrides priority"
+        type: string
+        default: ""
+  # Keep in step with WEEKLY_CRON and MONTHLY_CRON in scripts/doc-detective/plan_runs.py.
+  # Scheduled runs use this file on the default branch (v0).
   schedule:
-    - cron: "0 15 1 * *"
+    - cron: "0 15 * * 1"
+    - cron: "30 15 1 * *"
 
-# The code test creates and deletes one shared document type, so runs must not overlap.
+# Tests create and delete shared doc types in the test account, so runs must not overlap
 concurrency:
-  group: doc-detective-getting-started
+  group: doc-tests
   cancel-in-progress: false
 
 permissions:
@@ -39,9 +60,54 @@ permissions:
   issues: write
 
 jobs:
-  test:
+  # Which pages to test. No secrets.
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      any: ${{ steps.plan.outputs.any }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Plan the run
+        id: plan
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          SCHEDULE: ${{ github.event.schedule }}
+          PRIORITY: ${{ inputs.priority }}
+          PAGE: ${{ inputs.page }}
+        run: |
+          if [ "$EVENT" = "push" ]; then
+            git fetch -q --depth=1 origin "$BEFORE" || true
+          fi
+          python3 scripts/doc-detective/plan_runs.py --event "$EVENT" --before "$BEFORE" --after "$GITHUB_SHA" \
+            --schedule "$SCHEDULE" --priority "$PRIORITY" --page "$PAGE" \
+            > "$RUNNER_TEMP/matrix.json" 2> "$RUNNER_TEMP/reasons.txt" || { cat "$RUNNER_TEMP/reasons.txt"; exit 1; }
+          cat "$RUNNER_TEMP/reasons.txt"
+          { echo "## Doc tests plan"; echo; sed 's/^/- /' "$RUNNER_TEMP/reasons.txt"; } >> "$GITHUB_STEP_SUMMARY"
+          echo "matrix=$(cat "$RUNNER_TEMP/matrix.json")" >> "$GITHUB_OUTPUT"
+          echo "any=$(jq -r '.include | length > 0' "$RUNNER_TEMP/matrix.json")" >> "$GITHUB_OUTPUT"
+
+  test:
+    needs: plan
+    if: needs.plan.outputs.any == 'true'
+    name: test (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
 
     steps:
       # Actions are pinned to commit SHAs, since this job holds the test account's secrets.
@@ -52,6 +118,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup node
+        if: matrix.ui
         uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 24
@@ -62,37 +129,47 @@ jobs:
           python-version: "3.12"
 
       - name: Install Doc Detective
+        if: matrix.ui
         run: npm install --global doc-detective@4.38.1
 
       - name: Install runner dependencies
         run: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
 
-      # Offline: comparison, routing to the LLM judge, and syntax checks. No secrets needed.
+      # Offline: markup, comparison, routing to the LLM judge, syntax checks, and test-pages.json. No secrets.
       - name: Unit test the runner
         run: python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective
 
       # Secrets come from env vars only. Don't write a .env here: its values would override these.
       # Every secret this workflow, the docs' test markup, or .env uses must be classified in
-      # config/secrets.txt (or config/public-vars.txt), so a new secret can't leak unnoticed. No secrets needed.
+      # config/secrets.txt (or config/public-vars.txt), so a new secret can't leak unnoticed. No secrets.
       - name: Check every secret is classified
         run: python3 scripts/doc-detective/check_secrets.py --coverage-only
 
-      # Keep this list, the Scrub reports step's, and the Check for leaked secrets step's, in step with scripts/doc-detective/config/secrets.txt (scrub.sh).
+      # Keep this list, the Scrub reports step's, and the Check for leaked secrets step's, in step with
+      # scripts/doc-detective/config/secrets.txt (scrub.sh). run.sh skips Doc Detective on pages without UI tests.
       # .doc-detective.json sets autoUpdate: false; --no-auto-update repeats it, so only the pinned version runs.
       # DOC_EXAMPLES_PROPOSE_FIXES makes the runner rewrite drifted output blocks in place.
-      # A step timeout fails this step, so the scrub, issue, and fix PR steps still run; a job
-      # timeout would cancel the job instead.
+      # DOC_TESTS_MONTHLY_BUDGET (repo variable, optional): the report shows usage against it.
+      # A step timeout fails this step, so the scrub, issue, and fix PR steps still run.
       - name: Run tests
         id: tests
         continue-on-error: true
-        timeout-minutes: 18
-        run: scripts/doc-detective/run.sh --no-auto-update "docs/document extraction/getting-started.md"
+        timeout-minutes: ${{ matrix.timeout_minutes }}
+        run: |
+          if [ "$UI" = "true" ]; then
+            scripts/doc-detective/run.sh --no-auto-update "$PAGE"
+          else
+            scripts/doc-detective/run.sh "$PAGE"
+          fi
         env:
+          PAGE: ${{ matrix.page }}
+          UI: ${{ matrix.ui }}
           SENSIBLE_TEST_EMAIL: ${{ secrets.SENSIBLE_TEST_EMAIL }}
           SENSIBLE_TEST_PASSWORD: ${{ secrets.SENSIBLE_TEST_PASSWORD }}
           SENSIBLE_TEST_API_KEY: ${{ secrets.SENSIBLE_TEST_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          DOC_EXAMPLES_PROPOSE_FIXES: "1"
+          DOC_EXAMPLES_PROPOSE_FIXES: ${{ matrix.propose_fixes && '1' || '' }}
+          DOC_TESTS_MONTHLY_BUDGET: ${{ vars.DOC_TESTS_MONTHLY_BUDGET }}
 
       # run.sh scrubs the reports too, but not if the run was cancelled or timed out mid-way.
       # Upload only after this step succeeds: Doc Detective writes the password in plain text.
@@ -124,10 +201,12 @@ jobs:
       - name: Name the HTML report
         id: htmlname
         if: always() && steps.secretcheck.outcome == 'success'
+        env:
+          NAME: ${{ matrix.name }}
         run: |
           if [ -f scripts/doc-detective/output/report.html ]; then
-            cp scripts/doc-detective/output/report.html "$RUNNER_TEMP/doc-detective-getting-started-report.html"
-            echo "path=$RUNNER_TEMP/doc-detective-getting-started-report.html" >> "$GITHUB_OUTPUT"
+            cp scripts/doc-detective/output/report.html "$RUNNER_TEMP/doc-tests-$NAME-report.html"
+            echo "path=$RUNNER_TEMP/doc-tests-$NAME-report.html" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Upload HTML report
@@ -142,17 +221,19 @@ jobs:
       - name: Write run summary
         if: always() && steps.secretcheck.outcome == 'success'
         env:
+          PAGE: ${{ matrix.page }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
-        run: python3 scripts/doc-detective/report.py summary --page "docs/document extraction/getting-started.md" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"
+        run: python3 scripts/doc-detective/report.py summary --page "$PAGE" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open or update proposed docs fix PR
         id: fix_pr
-        if: steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
+        if: matrix.propose_fixes && steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          BRANCH: doc-detective/getting-started-fixes
+          BRANCH: ${{ matrix.fix_branch }}
+          TITLE: ${{ matrix.title }}
         run: |
           if git diff --quiet -- docs/; then
             echo "No proposed docs changes"
@@ -163,13 +244,13 @@ jobs:
           git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
           git switch -c "$BRANCH"
           git add -- docs/
-          git commit -m "Update getting started output to match Sensible" -m "Proposed by Doc Detective run $RUN_URL"
+          git commit -m "Update $TITLE output to match Sensible" -m "Proposed by doc tests run $RUN_URL"
           git push --force origin "$BRANCH"
           pr=$(gh pr list --head "$BRANCH" --state open --json url -q '.[0].url')
           if [ -z "$pr" ]; then
             pr=$(gh pr create --draft --base v0 --head "$BRANCH" \
-              --title "Doc Detective: update getting started output to match Sensible" \
-              --body "Doc Detective found that the documented output in the getting started guide no longer matches what Sensible returns. This PR rewrites the mismatched values to the actual ones.
+              --title "Doc tests: update $TITLE output to match Sensible" \
+              --body "The doc tests found that the documented output on the $TITLE page no longer matches what Sensible returns. This PR rewrites the mismatched values to the actual ones.
 
           **Review before merging.** The difference can be a docs bug, a product regression (don't codify it), or LLM variation.
 
@@ -177,27 +258,30 @@ jobs:
           fi
           echo "url=$pr" >> "$GITHUB_OUTPUT"
 
+      # Also when a step before the tests failed (dependencies, unit tests), so a scheduled run never fails silently
       - name: Open or update failure issue
-        if: steps.tests.outcome == 'failure' && steps.secretcheck.outcome == 'success'
+        if: (failure() || steps.tests.outcome == 'failure') && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
           REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
           PR_URL: ${{ steps.fix_pr.outputs.url }}
+          LABEL: ${{ matrix.issue_label }}
+          TITLE: ${{ matrix.title }}
         run: |
           python3 scripts/doc-detective/report.py issue --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} ${PR_URL:+--pr-url "$PR_URL"} > "$RUNNER_TEMP/issue.md"
-          gh label create doc-detective --color D93F0B --description "Doc Detective docs test failures" --force
-          issue=$(gh issue list --label doc-detective --state open --json number -q '.[0].number')
+          gh label create "$LABEL" --color D93F0B --description "Docs test failures: $TITLE" --force
+          issue=$(gh issue list --label "$LABEL" --state open --json number -q '.[0].number')
           if [ -n "$issue" ]; then
             gh issue comment "$issue" --body-file "$RUNNER_TEMP/issue.md"
           else
-            gh issue create --title "Doc Detective: getting started tests are failing" --label doc-detective --body-file "$RUNNER_TEMP/issue.md"
+            gh issue create --title "Doc tests: $TITLE tests are failing" --label "$LABEL" --body-file "$RUNNER_TEMP/issue.md"
           fi
 
       # A separate standing issue for envelope warnings, so they don't dilute the failure issue.
       # Comments only when the breaches change; closes when a run is back within the envelope.
       - name: Open, update, or close envelope issue
-        if: always() && steps.tests.outcome != 'skipped' && steps.secretcheck.outcome == 'success'
+        if: always() && matrix.envelope_issue && steps.tests.outcome != 'skipped' && steps.secretcheck.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
@@ -229,7 +313,7 @@ jobs:
         if: always() && steps.secretcheck.outcome == 'success'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: doc-detective-reports
+          name: doc-tests-${{ matrix.name }}-reports
           path: scripts/doc-detective/output/
           include-hidden-files: true
           if-no-files-found: warn

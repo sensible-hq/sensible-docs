@@ -129,8 +129,7 @@ class RepoCoverageTest(unittest.TestCase):
 
     def test_covers_every_docs_test_workflow(self):
         names = [os.path.basename(f) for f in cs.workflow_files()]
-        self.assertIn("doc-detective-getting-started.yml", names)
-        self.assertIn("doc-tests-fingerprint.yml", names)
+        self.assertIn("doc-tests.yml", names)
 
     def test_runner_key_variables_are_registered(self):
         from codetests import settings

@@ -271,7 +271,6 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 - **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
 - **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run. What does stop a run is a hard cap of 20 extractions per run (`DOC_TESTS_MAX_EXTRACTIONS` overrides it): an extraction past the cap fails its test with `RUNNER_ERROR`, so a page that grows, or a bug, can't spend the test account's budget.
 
-
 - **`output/report.html`**: every test in page order, sections collapsed unless they need attention, judge verdicts with the full prompt and output, envelope results with the baseline. Test sections are labeled UI test or Code test.
 - **Text summary**: printed per code test; the failure issue quotes it.
 - **Failure issue** (CI): one standing issue labeled `doc-detective`, with failed UI steps, failed code tests, and a triage table pairing each judge failure with its envelope state.
@@ -282,7 +281,19 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## CI
 
-`.github/workflows/doc-detective-getting-started.yml` runs on pushes to `v0` that change the page or this tooling, monthly (the 1st, 15:00 UTC), and on demand. Never on pull requests. It needs repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` runs it last, and the workflow runs it again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password.
+`.github/workflows/doc-tests.yml` runs every tested page, by priority. `test-pages.json` lists each page with test markup and its priority:
+
+| Priority | When it runs | Pages |
+| --- | --- | --- |
+| 1 | Weekly (Mondays, 15:00 UTC) | Getting started |
+| 2 | Monthly (the 1st, 15:30 UTC) | Fingerprint, Portfolios |
+| 3 | On demand only | |
+
+A push to `v0` also runs each priority 1 or 2 page whose tests, watched files (the entry's `watch`, such as its fixtures and example documents), or this tooling changed. A push that changes only a page's prose, such as a ReadMe save, skips it: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. Priority 3 pages never run on push. Never on pull requests. To run on demand: Actions > Doc tests > Run workflow, with a priority (1, 2, 3, or all) or one page's path.
+
+`plan_runs.py` decides which pages a run tests (the plan job prints why, per page, on the run's summary). It fails, and so does the unit-test step, if a page has test markup but isn't in `test-pages.json`, so a new page can't be left out of CI by accident. **To add a page:** add an entry with its priority, a `name` (artifact names), a `title` (issue titles), its own `issue_label`, any `watch` globs, a `timeout_minutes` for its test step, and whether it has UI tests (`ui`), gets proposed fixes (`propose_fixes` with a `fix_branch`), or has regression envelopes (`envelope_issue`). The description in `test-pages.json` explains each field.
+
+Pages run one at a time (they share doc types in the test account), each as its own job with the same steps: unit tests, the secret classification check, `run.sh`, scrub, leak check, then the summary, report upload, and, on failure, the page's standing issue (labeled with its `issue_label`), plus the proposed-fix PR and envelope issue where configured. Every job gets the repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` scrubs last, and the workflow scrubs again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. Extractions per run: Fingerprint 12 (5 table rows, 4 portfolio samples, 3 strict-mode runs), Portfolios 1.
 
 **Secrets fail closed.** Doc Detective writes typed text, including the test account password, into its reports in plain text ([doc-detective#204](https://github.com/doc-detective/doc-detective/issues/204)), and a scrub alone fails open. So `check_secrets.py` runs after every scrub:
 
@@ -290,10 +301,6 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 - **Coverage**, so a future secret can't be missed: the run fails if a `${{ secrets.X }}` in the workflow, a `$VAR` in a page's test markup, or a variable in `.env` is in neither `config/secrets.txt` nor `config/public-vars.txt`, or if the "Check for leaked secrets" step doesn't receive every secret the workflow uses. CI runs this first (`--coverage-only`, no secrets needed).
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
-
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. It runs 12 extractions: 5 table rows, 4 portfolio samples, and 3 strict-mode runs of the standalone sample.
-
-`.github/workflows/doc-tests-portfolio.yml` runs the Portfolios page's fingerprint example the same way (1 portfolio extraction; monthly on the 1st, 15:45 UTC). Its failures go to a standing issue labeled `doc-tests-portfolio`. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
 
 ## Fixtures
 
@@ -303,7 +310,7 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 | Path | Contents |
 | --- | --- |
-| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push needs the fingerprint run. |
+| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push changed what a page's tests run. `plan_runs.py` decides which pages a CI run tests, from `test-pages.json` (each tested page and its priority). |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules. |
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `[...]` and `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |

@@ -1,0 +1,34 @@
+# doc-test-priorities checklist
+
+Claude Code session name: xlsb (this branch was split off the xlsb session)
+Claude Code session ID: 1e71441a-3c84-48a0-baa5-c36aac379bbb
+Branch: `fe_doc_test_priorities` · worktree `~/GitHub/sensible-docs-doc-test-priorities` · started 2026-11-11 from `v0`
+Decisions and progress: `.claude/sessions/doc-test-priorities/decisions.md`
+
+Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741): the runner changes the XLSB tests need, and CI that runs pages by priority.
+
+## Runner changes (moved from #741)
+
+- [x] Classification claims: `expect {"compare": "classification"}` with one fixture, `CLASSIFICATION_DRIFT`, record schema, HTML/text/summary reports with curl commands and file links
+- [x] Fixture reference documents can be spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), under `assets/pdfs/` or `scripts/test/assets/`
+- [x] `DOC_TESTS_SAVE_REPORT=1`: `run.sh` keeps the scrubbed report in `scripts/doc-detective/reports/`
+- [x] Unit tests build their own temporary repo and fixture (no dependency on #741's files)
+- [x] Removed the same changes from #741 (it keeps the docs, file-types tests, fixture, samples, saved report)
+
+## Priority-based CI
+
+- [x] `scripts/doc-detective/test-pages.json`: each tested page with priority 1 (weekly), 2 (monthly), or 3 (on demand only)
+- [x] `plan_runs.py`: which pages a run tests (push, schedule, on demand); fails if a page with test markup isn't listed
+- [x] `.github/workflows/doc-tests.yml` replaces `doc-detective-getting-started.yml`, `doc-tests-fingerprint.yml`, `doc-tests-portfolio.yml`; same steps per page, pages one at a time, same issue labels
+- [x] `check_secrets.py` covers `doc-tests.yml` (glob `doc-tests*.yml`); coverage check passes
+- [x] Unit tests for the planner, including that the workflow's crons match the planner's (229 pass)
+- [x] README CI section rewritten
+- [x] `.gitignore`: `scripts/doc-detective/.deps` ignored as a folder or a symlink
+
+## Next steps
+
+- [ ] Open the PR
+- [ ] Frances: review
+- [ ] After merge: run the workflow on demand once per priority (1, 2) to confirm it works on GitHub; schedules only run from `v0`
+- [ ] After this merges: #741 adds `docs/Senseml reference/concepts/file-types.md` to `test-pages.json` with priority 3 (its tests need this PR's runner)
+- [ ] #749's `add-doc-tests` skill: add a step to add new pages to `test-pages.json` with a priority
