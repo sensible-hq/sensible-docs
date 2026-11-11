@@ -10,6 +10,9 @@ Related: #741 (XLSB docs; depends on this PR), #749 (`add-doc-tests` skill).
 - Frances asked to separate the test infrastructure from the XLSB docs: moved the runner changes from #741 into this branch as a patch from #741's last `v0` merge (`v0` hadn't changed those files since), and removed them from #741.
 - Wrote `test-pages.json`, `plan_runs.py`, and `doc-tests.yml`, deleted the three per-page workflows, updated the README and secret-coverage glob. 229 unit tests pass.
 
+- Review of f2933c834 (six reviewers): two P1s (classify false pass on API errors; a docs push could cancel a waiting scheduled run), two P2s (plan failure stops all pages silently; saved-report commits rerun every page), and P3s. All fixed in four commits; 247 unit tests pass.
+- Added saved-evidence provenance and a generated test matrix (Frances: keep track of which claims are tested, where, and where their reports are).
+
 ## Decisions
 
 | Decision | Why | Who |
@@ -23,6 +26,14 @@ Related: #741 (XLSB docs; depends on this PR), #749 (`add-doc-tests` skill).
 | Keep each page's issue label (`doc-detective`, `doc-tests-fingerprint`, `doc-tests-portfolio`) | Open issues keep receiving comments | Claude |
 | Every page's job receives all four secrets | Simpler, and the leak check must receive every secret the workflow passes; a conditional expression would hide secrets from the coverage check | Claude |
 | Test infrastructure in its own PR, merged before #741 | Frances: separate infra from the XLSB docs | Frances |
+
+| Only 400 and 415 from /classify mean "not classified"; anything else fails the test | An outage or rate limit says nothing about the file | Review finding, Claude |
+| Concurrency on the test job with queue: max, not on the workflow | A docs push could cancel a waiting scheduled run; plan-only runs shouldn't queue | Review finding, Claude |
+| A failed plan opens one doc-tests-plan issue | Otherwise a bad test-pages.json stops every page with only a red X | Review finding, Claude |
+| Generate the test matrix from markup + test-pages.json + saved results, never hand-edit; a unit test checks it's current | A hand-kept list drifts from the pages | Frances asked for the matrix; Claude chose generated |
+| Saved evidence = report.html + results JSON with commit, uncommitted flag, UTC time, environment | Reports are long-term traceability for future writers (Frances's testing philosophy) | Frances |
+| Persist what can't be rebuilt from the repo; delete what can | Frances's philosophy, stated as a rule in the README | Frances, Claude |
+| Claim-kind registry, common result shape, per-test persistent doc types go in a separate refactor PR | Behavior and structure changes; this PR is already large | Claude (proposed) |
 
 ## Open questions
 

@@ -25,6 +25,15 @@ Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741)
 - [x] README CI section rewritten
 - [x] `.gitignore`: `scripts/doc-detective/.deps` ignored as a folder or a symlink
 
+## Review fixes (2026-11-11, review of f2933c834)
+
+- [x] Classification: only 400/415 mean "not classified"; other responses fail as RUNNER_ERROR; request files limited to the test folders (symlinks resolved); curl commands shell-quoted
+- [x] CI: test-job concurrency with queue: max; plan-failed issue; empty schedule fails; saved reports/README/matrix don't trigger runs; read-only by default; per-page envelope labels; bare titles; timeout bound; single run.sh call
+- [x] Reference uploads: unknown extension fails; spreadsheet upload tested; stale comments, secrets.txt, schema, README fixed
+- [x] Saved evidence: provenance in reports and reports/<name>.json; generated TEST-MATRIX.md with a freshness test (247 unit tests pass)
+- [ ] Rest of the review on the fixed branch (report, quality checks, devil's advocate)
+- Deferred to a refactor PR: claim-kind registry, common result shape across runners, `claim: {kind}` record field, per-test persistent doc types (Frances's persist-until-next-run model)
+
 ## Next steps
 
 - [x] Open the PR: #803
