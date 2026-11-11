@@ -14,6 +14,7 @@ Surveyed 2026-11-11 on `v0` at `39ff57219`, and on `my-docs` at `d4b2dd8` with S
 6. **Shoalrun already has a slot for most of this.** In Shoalrun, guides map to `authoring.guideFiles`, sibling-page picks to `authoring.exemplarFiles`, templates to `scaffold`, frontmatter rules to `frontmatter.schema`/`enforced`, page shape to DocShape Tengo scripts, and the eval skill to `audit.evals`. Prose judgment is the only part with no deterministic home.
 7. **The guides are frozen in March, and the corrections live in memory.** The core guides were written from 2026-03-10 to 03-16 and never majorly revised. From September on, every style correction went into memory or the friction log instead (see [Timeline](#timeline-when-each-piece-was-written)).
 8. **53 recorded corrections, and half could be deterministic.** They come from memory, five friction logs, and your recorded edits. 26 could be deterministic, and only 2 are fully enforced. [Section 7](#7-correction-inventory) triages each one and adds 13 new rules.
+9. **Skills can't enforce their own steps; the layer around them can.** A skill is instructions. Subagent `skills:`, `tools:`, and frontmatter hooks are deterministic, and verified in `sensible-docs-gen`. Vale can run before each write, not only after. [Section 8](#8-enforcement-what-can-make-an-agent-follow-the-rules) records what is verified and lists 5 spikes.
 
 ## 1. Inventory
 
@@ -699,7 +700,70 @@ So half of the corrections you've recorded could be deterministic, and only 2 of
 
 Until the cleanup is done, a new correction goes into this table, not into memory or a new friction log. Each entry gets its destination, rule ID, and status at the time you write it down. A memory can stay as a one-line pointer to its rule. The share of entries with status `encoded` is a guidance-health metric for the evals (`style-baseline/README.md`, layer 4).
 
-## 8. Order of work
+## 8. Enforcement: what can make an agent follow the rules
+
+A rule is only as strong as what enforces it. This section records which Claude Code mechanisms are deterministic, which are only instructions, and what has been verified on this machine. **Verified** means a spike or working config in `sensible-docs-gen` or this repo shows it. **Unverified** means documented or believed, but not yet tested here. Spike it before relying on it.
+
+### Skills are text
+
+Invoking a skill is one tool call (`Skill`). Everything inside `SKILL.md` is instructions the model reads and chooses to follow. A skill can't make a tool call happen: "Read `glossary.md`" or "run `scripts/x.py`" in a skill can be skipped, and the `full-style-pass` memory exists because they were. Steps that must happen have to move into the layer around the skill.
+
+| mechanism | what it does | deterministic? | status |
+| --------- | ------------ | -------------- | ------ |
+| Agent frontmatter `skills:` | Loads the skill's content into a subagent at start. The agent doesn't choose to read it. | yes | verified: `sensible-docs-gen/.claude/agents/doc-writer.md` (`skills: [sensible-docs-style]`) |
+| Agent frontmatter `hooks:` | Hooks scoped to one subagent | yes | verified: `doc-planner.md`, `doc-writer.md` (`PreToolUse` on `SubagentHandback`) |
+| Agent frontmatter `tools:` | Refuses tools not on the list | yes | verified: M1 spike H5 |
+| Skill frontmatter `allowed-tools` | Limits and pre-approves tools while the skill runs. Restricts calls; can't require one. | yes, for restriction | in use (`update-docs-from-pr` and others) |
+| Skill frontmatter `hooks:` | Hooks active only while the skill runs | yes | **unverified**; no skill here uses it |
+| `` !`command` `` in a skill | Runs a shell command when the skill loads and inlines its output, so "run the script" has already happened | yes | **unverified**; no skill here uses it |
+| Hook `additionalContext` | A hook adds text to the agent's context | yes | verified: `sensible-docs-gen/report/budget_hook.py` |
+| Hook `updatedInput` (`PreToolUse`) | Rewrites a tool call's input before it runs, such as an automatic Vale fix | yes | **unverified** |
+
+**Consequence:** the doc-writing workflows (`update-docs-from-pr`, `create-new-doc`, `update-existing-doc`, `create-concept-doc`) are stronger as subagents with `skills:` for guidance, `tools:` for limits, and a handback gate for checks. `sensible-docs-gen` already made this move. Leave only judgment in the prose.
+
+### Hooks see tool calls, not intent
+
+Hooks receive the tool call (`tool_input`), the agent (`agent_id`, `agent_type`; verified in M1 H3), and `transcript_path`. So a hook can enforce any step that leaves a tool call behind, and nothing else.
+
+| want | how | note |
+| ---- | --- | ---- |
+| "Read every style guide" | A `PreToolUse` gate on `git commit` / `gh pr create` parses the transcript for a full Read of each required file since the `Skill` call, and denies with a reason if one is missing | A Read with `limit` is still a Read; require the whole file, as `sensible-docs-gen` check I3 does. **Reading doesn't prove applying**: the xml-postprocessor PR ran the full style pass and applied the wrong rule. |
+| "Check the output passes" | The same gate runs the D-rules and Jev on the J-rules, and denies until they pass | **Prefer this.** It enforces the result reading was meant to produce, and works even while guides contradict each other. |
+| Keep a subagent working until it passes | `PreToolUse` on `SubagentHandback` in the agent's frontmatter | verified (M1 H1b). A `Stop` hook doesn't hold a subagent: it fires after the handback (M1 H1, failed). |
+| Keep the main session working until it passes | Blocking `Stop` hook | **unverified** here |
+| Measure compliance after a run | Parse the run log (`sensible-docs-gen` I3, I4) | an eval metric, not a gate |
+
+Use read gates only where the output can't show the step happened, such as "read the sibling page before writing a shared parameter". Even that becomes an output check once D16 exists.
+
+### Vale while the agent writes
+
+The earliest a hook can see text is the tool call that writes it. Prose drafted in chat and pasted in later is invisible until the write.
+
+| stage | hook | enforces | status |
+| ----- | ---- | -------- | ------ |
+| before each write | `PreToolUse` on Edit/Write: rebuild the file with the edit applied, run Vale on a copy at the same repo path, keep alerts inside `new_string`, **deny** on error-level alerts with the fix | high-precision D-rules only, each with fixture tests (eval layer 3). A false positive here stalls the agent. | proposed |
+| after each write | `PostToolUse`: feedback on **changed lines only** | warnings and broader D-rules | exists (`.claude/hooks/vale-check.sh`) but lints the whole file; port the changed-lines filter from `sensible-docs-gen/validators/__init__.py:243` |
+| at commit or handback | gate | all D-rules, plus Jev on the J-rules | proposed |
+
+Design notes for the pre-write hook:
+
+- **Loop guard.** After 3 denials on the same file, allow the edit and report it for the end gate.
+- **Automatic fixes.** If `updatedInput` works, unambiguous one-to-one swaps (D7, Latin abbreviations) can be applied silently and logged. Everything else is denied with a reason.
+- **One integration.** The `vale-setup` memory records Vale as deliberately one `PostToolUse` hook plus CI. Either fold the pre-write check into that one hook script, or record the change of decision.
+- **Scope.** Lint `docs/` and the JSON spec descriptions (D29), not the generated `reference/**/*.md` (C17). Deciding on `drafts/` (blogs) is part of the same `vale-setup` decision.
+- **Subagents.** Settings hooks fire on subagent writes (M1 H3), so one hook covers both.
+
+### Spikes needed
+
+Each is small and modelled on M1: a fixture repo and `claude -p`, asserting harness behavior only.
+
+1. A `hooks:` block in skill frontmatter fires while the skill runs, and not after.
+2. `` !`command` `` output is inlined when a skill loads.
+3. `PreToolUse` `updatedInput` rewrites an Edit's `new_string`.
+4. A blocking `Stop` hook keeps the main session working.
+5. `PreToolUse` fires on the `Skill` tool, so a hook can inject guide sections as `additionalContext` when a doc skill starts.
+
+## 9. Order of work
 
 1. **Resolve C1–C6 in the guide files** (1–2 hours). The detectors are useless while the rules disagree. Commit the resolution in the guides themselves, not in memory.
 2. **Fix V1–V4 and add D1–D4** in `.github/styles/Sensible/`. Run the full corpus before and after, and paste the counts into the PR.
@@ -708,6 +772,7 @@ Until the cleanup is done, a new correction goes into this table, not into memor
 5. **Delete `docs-checker`**, or make it a thin `vale --filter` wrapper. Point `changelog` step 5 at Vale.
 6. **Scripts D11, D14, D21, D22, D26–D30** in `scripts/style/`, run by the hook and CI.
 7. **In `my-docs`:** add the `authoring` block (`directives`, `guideFiles`, `exemplarFiles`), a `reference` scaffold, and the Sensible Vale style next to DocShape.
-8. **Judgment rules** last, as YAML specs in `.github/styles/Sensible/judgment/`, for Jev to read.
+8. **Hooks** (section 8): port the changed-lines filter into `vale-check.sh` first (about an hour). Then run spikes 1–5. Then add the pre-write gate for D1–D4 once their fixtures exist, and the commit/handback gate.
+9. **Judgment rules** last, as YAML specs in `.github/styles/Sensible/judgment/`, for Jev to read.
 
 Measure the effect with [style-baseline/README.md](style-baseline/README.md): the baseline is recorded there, and the evals rerun after each step.
