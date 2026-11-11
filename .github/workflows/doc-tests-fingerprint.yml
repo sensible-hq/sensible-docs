@@ -23,8 +23,6 @@ on:
       - "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**"
       - "assets/pdfs/portfolio_bank_paystub_tax.pdf"
       - "assets/pdfs/wells_fargo_checking.pdf"
-      - "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf"
-      - "scripts/test/fixture_pdfs/portfolio.pdf"
       - "scripts/doc-detective/**"
       - ".github/workflows/doc-tests-fingerprint.yml"
   workflow_dispatch:
@@ -69,7 +67,7 @@ jobs:
           python3 scripts/doc-detective/should_run.py --page "docs/Senseml reference/config-settings/fingerprint.md" \
             --before "$BEFORE" --after "$GITHUB_SHA" \
             --watch "scripts/test/probe_endpoints/contract/fixtures/fingerprint_portfolio/**" \
-              "assets/pdfs/portfolio_bank_paystub_tax.pdf" "assets/pdfs/wells_fargo_checking.pdf" "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf" "scripts/test/fixture_pdfs/portfolio.pdf" "scripts/doc-detective/**" ".github/workflows/doc-tests-fingerprint.yml" \
+              "assets/pdfs/portfolio_bank_paystub_tax.pdf" "assets/pdfs/wells_fargo_checking.pdf" "scripts/doc-detective/**" ".github/workflows/doc-tests-fingerprint.yml" \
             >> "$GITHUB_OUTPUT" 2> "$RUNNER_TEMP/reason.txt"
           cat "$RUNNER_TEMP/reason.txt"
           { echo "## Docs tests"; echo; cat "$RUNNER_TEMP/reason.txt"; } >> "$GITHUB_STEP_SUMMARY"

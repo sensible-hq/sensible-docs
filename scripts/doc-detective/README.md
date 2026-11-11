@@ -186,7 +186,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
-- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `scripts/test/fixture_pdfs/`. That folder is separate from `assets/pdfs/`, which is only for PDFs that appear in the docs: to use a docs PDF in a fixture, copy it to `scripts/test/fixture_pdfs/`.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 

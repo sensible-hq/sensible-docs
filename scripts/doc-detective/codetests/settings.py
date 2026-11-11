@@ -51,14 +51,12 @@ FIXTURE_ENVIRONMENT = "production"
 FIXTURE_PREFIX = "fixture_"
 # Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
 TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
-# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files.
-# It's separate from assets/pdfs, which is only for PDFs that appear in the docs: to use a docs PDF in
-# a fixture, copy it here
-FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "scripts", "test", "fixture_pdfs")
+# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
+FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
 # The document a code test runs on when it names none (no <!-- inline document -->): a blank page, for
 # examples that don't read their document, such as a constant field and JsonLogic on it. Like the
 # pages' example document links, it's the file's raw URL on v0, so it resolves only once it's merged there.
-BLANK_DOCUMENT_PDF = os.path.join(REPO_ROOT, "assets", "pdfs", "blank_page.pdf")
+BLANK_DOCUMENT_PDF = os.path.join(FIXTURE_PDFS_DIR, "blank_page.pdf")
 BLANK_DOCUMENT_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/blank_page.pdf"
 # A hard cap on extractions per run, so a page that grows or a bug can't spend the test account's budget
 MAX_EXTRACTIONS_VAR = "DOC_TESTS_MAX_EXTRACTIONS"

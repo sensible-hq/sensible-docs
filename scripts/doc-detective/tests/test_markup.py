@@ -198,14 +198,12 @@ class SegmentTest(unittest.TestCase):
                 settings.TEST_FIXTURES_DIR = old
         self.assertIn("needs at least one reference document", str(caught.exception))
 
-    def fixture_root(self, root, doctype_name="fixture_x", pdf="scripts/test/fixture_pdfs/b.pdf"):
+    def fixture_root(self, root, doctype_name="fixture_x", pdf="assets/pdfs/a.pdf"):
         """A fixtures folder with one fixture under `root`, which also stands in for the repo root."""
         import os, json
         os.makedirs(os.path.join(root, "fx", "d"))
         os.makedirs(os.path.join(root, "assets", "pdfs"))
         open(os.path.join(root, "assets", "pdfs", "a.pdf"), "w").close()
-        os.makedirs(os.path.join(root, "scripts", "test", "fixture_pdfs"))
-        open(os.path.join(root, "scripts", "test", "fixture_pdfs", "b.pdf"), "w").close()
         open(os.path.join(root, "secret.pdf"), "w").close()
         with open(os.path.join(root, "fx", "d", "fixture_x.doctype.json"), "w") as f:
             json.dump({"name": doctype_name, "schema": {}}, f)
@@ -219,7 +217,7 @@ class SegmentTest(unittest.TestCase):
         import os
         from codetests import settings
         saved = settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR
-        settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = os.path.join(root, "fx"), root, os.path.join(root, "scripts", "test", "fixture_pdfs")
+        settings.TEST_FIXTURES_DIR, settings.REPO_ROOT, settings.FIXTURE_PDFS_DIR = os.path.join(root, "fx"), root, os.path.join(root, "assets", "pdfs")
         try:
             return fn()
         finally:
@@ -233,10 +231,9 @@ class SegmentTest(unittest.TestCase):
                 self.with_root(root, lambda: markup.fixture_files("fixture_x"))
         self.assertIn("it must match the file name", str(caught.exception))
 
-    def test_reference_pdf_must_be_under_the_fixture_pdf_folder(self):
+    def test_reference_pdf_must_be_under_assets_pdfs(self):
         import tempfile
-        # assets/pdfs is for docs PDFs only, so a fixture can't use it directly
-        for pdf in ("secret.pdf", "assets/pdfs/a.pdf", "scripts/test/fixture_pdfs/../../../secret.pdf", "/etc/hostname"):
+        for pdf in ("secret.pdf", "assets/pdfs/../../secret.pdf", "/etc/hostname"):
             with tempfile.TemporaryDirectory() as root:
                 self.fixture_root(root, pdf=pdf)
                 with self.assertRaises(CodeTestError, msg=pdf) as caught:
