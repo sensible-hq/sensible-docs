@@ -43,8 +43,8 @@ Related: #741 (XLSB docs; depends on this PR), #749 (`add-doc-tests` skill).
 | --- | --- | --- |
 | HTTP 400 "Missing request body" (4 requests) | `scripts/doc-detective/reports/docs-senseml-reference-concepts-file-types.html`, commit 16f5a3aa1 | 2026-11-10, docs test account |
 | HTTP 400 "Could not determine the content type of the document" (CSV sent as `application/pdf`) | Same report | 2026-11-10, docs test account |
-| HTTP 400 "No match found for document" | `scripts/test/file_types/smoke_test_xlsb.sh:190` (expected and observed result, checks 5 and 7) | 2026-10-12, production; rerun 2026-11-10 on the docs test account, 0 changed |
-| HTTP 415 for `...macroEnabled.12` (capital E) | `scripts/test/file_types/smoke_test_xlsb.sh:32` (check 9) | Same runs |
+| HTTP 400 "No match found for document" | `scripts/test/file_types/smoke_test_xlsb.sh:190` at commit b7409da17 (checks 5 and 7) | 2026-10-12, production (`.claude/sessions/xlsb/checklist.md:18` on `fe_xlsb_docs`); rerun 2026-11-10 on the docs test account, 0 changed (same file, `:53`) |
+| HTTP 415 for `...macroEnabled.12` (capital E) | `scripts/test/file_types/smoke_test_xlsb.sh:32` at commit b7409da17 (check 9) | Same runs |
 
 The API spec (`reference/openapi_classification.json`) lists 200, 400, 401, 415, 429, and 500 for /classify; it doesn't say which mean "rejected the file".
 

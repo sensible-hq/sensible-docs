@@ -179,8 +179,11 @@ class SensibleClient:
         try:
             name = response.json()["document_type"]["name"]
         except (ValueError, TypeError, KeyError):
-            # Sensible answers "no match" with a 400; a 200 always names a doc type
-            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code} with a body that isn't a classification: {settings.redact(response.text)[:200]}")
+            name = None
+        # Sensible answers "no match" with a 400, and the request allows only doc_type, so a 200 names doc_type
+        if name != doc_type:
+            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code} without classifying the file as {doc_type}, "
+                                f"the only doc type requested: {settings.redact(response.text)[:200]}")
         return response.status_code, response.text, name
 
     # -- Inline fingerprint samples: temporary doc types, deleted after each test --
