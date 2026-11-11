@@ -56,6 +56,7 @@ A new session taking over should add itself to this table, update `.claude-sessi
 | 2026-11-10 | Extend the runner, in the existing `<!-- name {json} -->` shape, when no markup fits a claim, and propose it to Frances first | Classification needed it; the skill's "Extending the runner" section records the steps | Frances agreed, in the xlsb session |
 | 2026-11-10 | Reports Frances should see get saved and committed (`DOC_TESTS_SAVE_REPORT=1`, `scripts/doc-detective/reports/`), and show each request's curl command and links to test files | Frances wanted a permanent HTML report she can read without rerunning | Frances |
 | 2026-11-10 | Prefer persistent `fixture_` doc types she can open in the app over temporary ones | Frances wanted to view the doc type in her Sensible account | Frances |
+| 2026-11-11 | Test documents, doc types, and configs are realistic business documents (sparse is fine), named after the business document, with invented values | Abstract fixtures like `fixture_spreadsheet_classify` don't show a reader or reviewer what a real customer would test | Frances |
 | standing | Test account only: `SENSIBLE_TEST_API_KEY`, never `SENSIBLE_API_KEY`; never print keys | Test runs create and delete resources | Frances |
 
 ## Open questions (for Frances)

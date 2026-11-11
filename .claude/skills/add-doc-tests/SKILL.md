@@ -57,6 +57,7 @@ Placement and syntax:
 - Every comment on one line, in the `<!-- name {json} -->` shape.
 - Inside a numbered list, indent the comments under the item they test. Never put a comment between numbered items: it breaks ReadMe's numbering.
 - Put the test next to the claim it checks, so whoever edits the claim sees the test.
+- Test documents, doc types, and configs look like real business documents, never abstract placeholders. Pick a document type a Sensible customer would process (an invoice, a rent roll, a bank statement, an insurance quote) and name everything after it: `fixture_rent_roll` and `rent_roll_sample.xlsb`, not `fixture_spreadsheet_classify` and `xlsb_sample.xlsb`. The document can be sparse, a header and two rows, as long as each value is plausible for that business (a property address, a unit number, a monthly rent), not `foo`, `test1`, or `Lorem ipsum`. A classification fixture's description describes that business document, because Sensible classifies by it. Keep the values invented: no real customers, people, or account numbers.
 - Test files and fixture documents are committed. Check spreadsheet and Office metadata for personal names before committing (`docProps/core.xml` in ZIP formats, the summary stream in XLS), and shorten them.
 
 ## Step 4: Preview the markup
