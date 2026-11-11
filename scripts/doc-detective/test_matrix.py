@@ -112,7 +112,7 @@ def save(page_path, output_dir=settings.OUTPUT_DIR, reports_dir=REPORTS_DIR):
     result = {
         "page": page_path,
         "report": f"{name}.html",
-        **provenance.provenance(page_path),
+        **provenance.for_run(output_dir, page_path),
         "overall": "fail" if "fail" in statuses.values() else "warn" if "warn" in statuses.values() else "pass",
         "tests": statuses,
     }

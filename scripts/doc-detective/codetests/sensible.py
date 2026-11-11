@@ -177,8 +177,9 @@ class SensibleClient:
         if not response.ok:
             raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code}, which says nothing about the file: {settings.redact(response.text)[:200]}")
         try:
-            name = (response.json().get("document_type") or {}).get("name") or ""
-        except (ValueError, AttributeError):
+            name = response.json()["document_type"]["name"]
+        except (ValueError, TypeError, KeyError):
+            # Sensible answers "no match" with a 400; a 200 always names a doc type
             raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code} with a body that isn't a classification: {settings.redact(response.text)[:200]}")
         return response.status_code, response.text, name
 

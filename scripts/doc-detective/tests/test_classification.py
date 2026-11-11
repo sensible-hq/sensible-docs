@@ -262,7 +262,7 @@ class ClassifyResponseTest(unittest.TestCase):
 
     def test_a_200_that_isnt_a_classification_fails(self):
         from codetests.errors import CodeTestError
-        for body in ("<html>gateway</html>", "[]"):
+        for body in ("<html>gateway</html>", "[]", "{}", '{"document_type": null}'):
             with self.assertRaises(CodeTestError) as caught:
                 self.classify(200, body)
             self.assertEqual(caught.exception.category, "RUNNER_ERROR")

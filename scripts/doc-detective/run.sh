@@ -62,10 +62,13 @@ python3 "$here/check_secrets.py" --output "$output_dir" || leak=1
 if [[ -n "${DOC_TESTS_SAVE_REPORT:-}" ]]; then
   if [[ $leak -eq 0 && -f "$output_dir/report.html" ]]; then
     slug=$(python3 "$here/test_matrix.py" slug "$page")
-    mkdir -p "$here/reports"
-    cp "$output_dir/report.html" "$here/reports/$slug.html"
-    echo "Saved the report to scripts/doc-detective/reports/$slug.html"
-    python3 "$here/test_matrix.py" save "$page" || status=1
+    # Results and matrix first: if they fail, the old report stays next to its own results
+    if python3 "$here/test_matrix.py" save "$page"; then
+      cp "$output_dir/report.html" "$here/reports/$slug.html"
+      echo "Saved the report to scripts/doc-detective/reports/$slug.html"
+    else
+      status=1
+    fi
   else
     echo "Not saving the report: the leak check failed or there's no report" >&2
   fi
