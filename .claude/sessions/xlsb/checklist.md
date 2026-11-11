@@ -75,6 +75,7 @@ case-sensitive. Reported on sensible#3474.
 ## Next steps
 - [ ] Merge #803 first (this PR's file-types tests need its runner)
 - [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
+- [ ] Also after #803 merges: move `scripts/test/probe_endpoints/contract/fixtures/spreadsheet_classification/` and the test spreadsheets (`scripts/test/assets/{xls,xlsm,xlsb}_sample.*`, `csv_sample.csv`) into `scripts/doc-detective/fixtures/spreadsheet_classification/`; manifest `"pdf"` → `"file"`; requests' `file` → bare file names; regenerate TEST-MATRIX.md and rerun with DOC_TESTS_SAVE_REPORT=1 (the smoke test keeps reading `scripts/test/assets/xlsb_sample.xlsb`, or points at the moved file)
 
 - [ ] Frances: review the docs, spec, and tooling diff on #741, and the saved report
 - [ ] Merge #741
