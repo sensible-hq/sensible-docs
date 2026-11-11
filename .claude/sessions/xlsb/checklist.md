@@ -72,8 +72,16 @@ case-sensitive. Reported on sensible#3474.
 - [x] Runner changes (classification markup, spreadsheet fixtures, curl commands and file links, saved reports) moved to #803 with priority-based CI; this PR keeps the XLSB docs, file-types tests, fixture, samples, smoke test, and saved report
 - Commission statement samples: CSV in the worktree (uncommitted) and `fixture_commission_statements` in the test account; waiting on a way to make XLS, XLSM, XLSB (SheetJS install or Excel)
 
+## Restructured (2026-11-11)
+
+- [x] Frances moved the XLSB docs to #809 (no tests, no embedded comments); this PR is now the XLSB tests, stacked on #803 with #809 merged in
+- [x] Fixture and test spreadsheets moved to `scripts/doc-detective/fixtures/spreadsheet_classification/`; requests name bare files in that folder
+- [x] file-types.md added to `test-pages.json` at priority 3; TEST-MATRIX.md regenerated
+- [x] Saved evidence rerun on a clean commit (eb0d6704b): both classification tests pass
+- [x] Draft commission statement CSV untracked (committed by mistake)
+
 ## Next steps
-- [ ] Merge #803 first (this PR's file-types tests need its runner)
+- [ ] Merge #803, then #809, then this PR
 - [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
 - [ ] Also after #803 merges: move `scripts/test/probe_endpoints/contract/fixtures/spreadsheet_classification/` and the test spreadsheets (`scripts/test/assets/{xls,xlsm,xlsb}_sample.*`, `csv_sample.csv`) into `scripts/doc-detective/fixtures/spreadsheet_classification/`; manifest `"pdf"` → `"file"`; requests' `file` → bare file names; regenerate TEST-MATRIX.md and rerun with DOC_TESTS_SAVE_REPORT=1 (the smoke test keeps reading `scripts/test/assets/xlsb_sample.xlsb`, or points at the moved file)
 
