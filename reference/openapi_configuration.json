@@ -1069,9 +1069,9 @@
             "enum": [
               "microsoft",
               "amazon",
-              "google",
-              "lazarus"
+              "google"
             ],
+            "x-internal-note": "DEFAULT ENGINE: Amazon is the default for new doc types. Don't misread the engine's DEFAULT_OCR_SERVICE_TYPE = \"microsoft\" (sensible-hq/sensible src/engine/standardized-text/index.ts) as the doc type default. That fallback only applies when a doc type has no stored ocr_engine, such as older doc types or doc types created through the API without one; those still use Microsoft. Every app flow that creates a doc type stores ocr_engine: \"amazon\" explicitly (sensible-hq/sensible-app src/state/server/DocumentType.ts and src/components/dashboard/QuickStartFullModal.tsx). The app's DocTypeForm.tsx help text claims Microsoft is the default; that text is wrong. LAZARUS: The backend still accepts \"lazarus\" (src/engine/standardized-text/readers/schemas.ts) but omitted here because it's deprecated: Lazarus no longer provides OCR services, so since sensible-hq/sensible#3468 the engine routes \"lazarus\" to the same Microsoft Document Intelligence reader as \"microsoft\". Existing doc types that specify it keep working. Documented as deprecated on the ocr-engine page.",
             "type": "string",
             "description": "For information about each OCR engine, see [OCR engine](doc:ocr-engine).\n"
           },
