@@ -36,4 +36,5 @@ Depends on: PR #737 (docs-test tooling, **merged**), PR #741 (classification mar
 - [ ] Merge `v0` into this branch (67 commits behind on 2026-11-11; keep this branch's session pointer files on conflict)
 - [ ] Revise the skill from Frances's review
 - [ ] Add the hook step to the doc-writing skills (item above)
+- [ ] Skill: add a step to list new tested pages in `scripts/doc-detective/test-pages.json` with a priority (1 weekly, 2 monthly, 3 on demand; PR #803)
 - [ ] Update the PR description and mark #749 ready
