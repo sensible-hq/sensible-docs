@@ -27,7 +27,7 @@ Goal: docs-test infrastructure in its own PR, separate from the XLSB docs (#741)
 
 ## Next steps
 
-- [ ] Open the PR
+- [x] Open the PR: #803
 - [ ] Frances: review
 - [ ] After merge: run the workflow on demand once per priority (1, 2) to confirm it works on GitHub; schedules only run from `v0`
 - [ ] After this merges: #741 adds `docs/Senseml reference/concepts/file-types.md` to `test-pages.json` with priority 3 (its tests need this PR's runner)
