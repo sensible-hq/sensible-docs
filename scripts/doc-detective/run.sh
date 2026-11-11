@@ -56,14 +56,16 @@ leak=0
 python3 "$here/check_secrets.py" --output "$output_dir" || leak=1
 [[ $leak -eq 0 ]] || status=1
 
-# DOC_TESTS_SAVE_REPORT=1 keeps a copy of the scrubbed report in the repo (reports/), so it stays
-# viewable until the next saved run. Never after a failed leak check.
+# DOC_TESTS_SAVE_REPORT=1 keeps the evidence in the repo (reports/): a copy of the scrubbed report, and
+# reports/<slug>.json with each test's result, the commit, and when it ran. Then it regenerates
+# TEST-MATRIX.md. It stays until the next saved run. Never after a failed leak check.
 if [[ -n "${DOC_TESTS_SAVE_REPORT:-}" ]]; then
   if [[ $leak -eq 0 && -f "$output_dir/report.html" ]]; then
-    slug=$(printf '%s' "${page%.md}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-*//; s/-*$//')
+    slug=$(python3 "$here/test_matrix.py" slug "$page")
     mkdir -p "$here/reports"
     cp "$output_dir/report.html" "$here/reports/$slug.html"
     echo "Saved the report to scripts/doc-detective/reports/$slug.html"
+    python3 "$here/test_matrix.py" save "$page" || status=1
   else
     echo "Not saving the report: the leak check failed or there's no report" >&2
   fi

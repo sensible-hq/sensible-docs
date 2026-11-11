@@ -7,9 +7,7 @@ code-test records. Sections that passed with nothing to review start collapsed.
 import html
 import json
 import os
-from datetime import datetime
-
-from .. import envelope, markup
+from .. import envelope, markup, provenance
 from . import wording
 
 CSS = """
@@ -420,7 +418,7 @@ def render(page_path, ui_results, records, out_path, usage=None):
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
         f"<title>Docs tests: {e(os.path.basename(page_path))}</title><style>{CSS}</style></head><body><main>",
         f'<div class="row"><h1>Docs tests: {e(os.path.basename(page_path))}</h1>{chip(overall, "All tests passed" if overall == "pass" else None)}</div>',
-        f'<p class="sub">{e(shown_path)} · {datetime.now().strftime("%Y-%m-%d %H:%M")}</p>',
+        f'<p class="sub">{e(shown_path)} · {e(provenance.describe(provenance.provenance(page_path)))}</p>',
         render_usage(usage),
         f'<p class="disclaimer">{e(wording.judge_disclaimer()).replace("labeled judge", "labeled " + JUDGE)} '
         f'{ENVELOPE} {e(wording.envelope_sentence(records))}</p>',
