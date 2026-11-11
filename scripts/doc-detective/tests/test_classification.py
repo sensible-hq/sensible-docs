@@ -117,10 +117,26 @@ class MarkupTest(unittest.TestCase):
         self.malformed(page(REQUESTS, extra='<!-- fixture {"name": "fixture_no_such_type"} -->\n'), "no fixture_no_such_type.doctype.json")
 
     def test_file_must_exist_in_the_repo(self):
-        self.malformed(page([{"file": "scripts/test/assets/missing.xlsb", "content_type": "text/csv", "classified": False}]), "isn't a file in the repo")
+        self.malformed(page([{"file": "scripts/test/assets/missing.xlsb", "content_type": "text/csv", "classified": False}]), "must be a file under")
 
     def test_file_cant_leave_the_repo(self):
-        self.malformed(page([{"file": "../outside.csv", "content_type": "text/csv", "classified": False}]), "isn't a file in the repo")
+        self.malformed(page([{"file": "../outside.csv", "content_type": "text/csv", "classified": False}]), "must be a file under")
+
+    def test_file_must_be_in_a_test_folder(self):
+        import os
+        with open(os.path.join(settings.REPO_ROOT, ".env"), "w") as f:
+            f.write("SECRET=x")
+        self.malformed(page([{"file": ".env", "content_type": "text/plain", "classified": False}]), "must be a file under")
+
+    def test_symlink_out_of_the_test_folders_is_rejected(self):
+        import os
+        outside = os.path.join(settings.REPO_ROOT, "outside.csv")
+        with open(outside, "w") as f:
+            f.write("a,b")
+        link = os.path.join(settings.REPO_ROOT, "scripts", "test", "assets", "link.csv")
+        os.symlink(outside, link)
+        self.addCleanup(os.remove, link)
+        self.malformed(page([{"file": "scripts/test/assets/link.csv", "content_type": "text/csv", "classified": False}]), "must be a file under")
 
     def test_takes_no_inline_document(self):
         doc = "<!-- inline document -->\n| Example document | [Download link](https://example.test/a.pdf) |\n"
@@ -146,10 +162,9 @@ class RunnerTest(unittest.TestCase):
         self.assertEqual([r["actual"] for r in cl["runs"]], [True, False])
         self.assertEqual(cl["runs"][1]["label"], "CSV")
         curl = cl["runs"][1]["curl"]
-        self.assertIn(f'/classify?document_types={FIXTURE}"', curl)
-        self.assertIn('-H "Content-Type: text/csv" --data-binary @scripts/test/assets/csv_sample.csv', curl)
-        self.assertIn("Bearer $SENSIBLE_TEST_API_KEY", curl)
-        self.assertIn('-w "\\nHTTP %{http_code}\\n"', curl)
+        self.assertIn(f"/classify?document_types={FIXTURE}", curl)
+        self.assertIn("-H 'Content-Type: text/csv' --data-binary @scripts/test/assets/csv_sample.csv", curl)
+        self.assertIn('"Authorization: Bearer $SENSIBLE_TEST_API_KEY"', curl)
 
     def test_drift_fails(self):
         rec, _ = self.run_test({"text/csv"})
@@ -189,6 +204,65 @@ class SpreadsheetReferenceTest(unittest.TestCase):
         refs = markup.fixture_references(FIXTURE)
         self.assertEqual(refs[0]["pdf"], XLSB)
 
-    def test_reference_upload_uses_the_extension_content_type(self):
+    def test_spreadsheet_content_types(self):
         self.assertEqual(settings.REFERENCE_CONTENT_TYPES[".xlsb"], "application/vnd.ms-excel.sheet.binary.macroenabled.12")
         self.assertEqual(settings.REFERENCE_CONTENT_TYPES[".pdf"], "application/pdf")
+
+
+class CurlCommandTest(unittest.TestCase):
+    def test_values_from_the_page_are_shell_quoted(self):
+        import shlex
+        curl = runner.curl_command("/classify", "fixture_x", 'text/csv"; rm -rf ~ #', "scripts/test/assets/types test.csv")
+        words = shlex.split(curl)
+        self.assertIn('Content-Type: text/csv"; rm -rf ~ #', words)
+        self.assertIn("@scripts/test/assets/types test.csv", words)
+        self.assertNotIn("rm", words)
+
+
+class ClassifyResponseTest(unittest.TestCase):
+    """SensibleClient.classify: which responses mean "not classified", and which fail the test."""
+
+    def client(self, status, body):
+        class Response:
+            def __init__(self):
+                self.status_code, self.text, self.ok = status, body if isinstance(body, str) else json.dumps(body), 200 <= status < 300
+
+            def json(self):
+                return json.loads(self.text)
+
+        class Client(sensible.SensibleClient):
+            def _api(self, method, path, **kwargs):
+                self.sent = (method, path, kwargs.get("params"), kwargs.get("headers"))
+                return Response()
+
+        return Client("key")
+
+    def classify(self, status, body):
+        import os
+        client = self.client(status, body)
+        return client.classify(os.path.join(settings.REPO_ROOT, CSV), "text/csv", FIXTURE), client
+
+    def test_classified(self):
+        (status, _, name), client = self.classify(200, {"document_type": {"name": FIXTURE}})
+        self.assertEqual((status, name), (200, FIXTURE))
+        self.assertEqual(client.sent, ("POST", "/classify", {"document_types": FIXTURE}, {"Content-Type": "text/csv"}))
+
+    def test_rejections_mean_not_classified(self):
+        for status in (400, 415):
+            (got, _, name), _ = self.classify(status, "Missing request body")
+            self.assertEqual((got, name), (status, ""))
+
+    def test_errors_that_say_nothing_about_the_file_fail(self):
+        from codetests.errors import CodeTestError
+        for status in (401, 429, 500, 502):
+            with self.assertRaises(CodeTestError) as caught:
+                self.classify(status, "unavailable")
+            self.assertEqual(caught.exception.category, "RUNNER_ERROR")
+            self.assertIn(f"HTTP {status}", str(caught.exception))
+
+    def test_a_200_that_isnt_a_classification_fails(self):
+        from codetests.errors import CodeTestError
+        for body in ("<html>gateway</html>", "[]"):
+            with self.assertRaises(CodeTestError) as caught:
+                self.classify(200, body)
+            self.assertEqual(caught.exception.category, "RUNNER_ERROR")

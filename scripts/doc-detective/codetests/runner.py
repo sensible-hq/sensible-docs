@@ -15,6 +15,7 @@ envelope never changes a verdict; it informs triage.
 
 import json
 import os
+import shlex
 import sys
 import traceback
 
@@ -204,9 +205,14 @@ def _run_fingerprint(rec, test, client):
 
 
 def curl_command(path, doc_type, content_type, file):
-    """The request a classification run sends, as a curl command to run from the repo root."""
-    return (f'curl -s -w "\\nHTTP %{{http_code}}\\n" -X POST "{settings.api()}{path}?document_types={doc_type}" '
-            f'-H "Authorization: Bearer ${settings.sensible_key_var()}" -H "Content-Type: {content_type}" --data-binary @{file}')
+    """The request a classification run sends, as a curl command to run from the repo root. Every value
+    from the page is shell-quoted; the key stays an environment variable, never its value."""
+    from urllib.parse import urlencode
+
+    url = f"{settings.api()}{path}?{urlencode({'document_types': doc_type})}"
+    return (f"curl -s -w '\\nHTTP %{{http_code}}\\n' -X POST {shlex.quote(url)} "
+            f'-H "Authorization: Bearer ${settings.sensible_key_var()}" '
+            f"-H {shlex.quote('Content-Type: ' + content_type)} --data-binary {shlex.quote('@' + file)}")
 
 
 def _run_classification(rec, test, client):
@@ -224,7 +230,7 @@ def _run_classification(rec, test, client):
         description = (json.load(f).get("schema") or {}).get("description", "")
     runs = []
     for request in expect["requests"]:
-        status, text, got = client.classify(os.path.join(settings.REPO_ROOT, request["file"]), request["content_type"], doc_type)
+        status, text, got = client.classify(markup.request_path(request["file"]), request["content_type"], doc_type)
         runs.append({
             "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
             "expected": request["classified"], "actual": got == doc_type, "http_status": status,

@@ -34,6 +34,12 @@ def actual_output(result):
     return output
 
 
+# How /classify says it didn't classify a file: 400 (for example "Missing request body", "Could not
+# determine the content type of the document", "No match found for document") and 415 (a content
+# type it doesn't accept). Observed against the docs test account, 2026-11-10.
+CLASSIFY_REJECTED = {400, 415}
+
+
 class SensibleClient:
     def __init__(self, key):
         self.key = key
@@ -159,16 +165,21 @@ class SensibleClient:
 
     def classify(self, path, content_type, doc_type):
         """Send a file's bytes to the classify endpoint with a content type, restricted to `doc_type`.
-        Returns (HTTP status, response text, the classified doc type's name or "")."""
+        Returns (HTTP status, response text, the classified doc type's name, or "" when Sensible
+        didn't classify it). Only CLASSIFY_REJECTED statuses mean "not classified": an outage, a rate
+        limit, or a bad key says nothing about the file, so it fails the test instead of passing a
+        "not classified" claim."""
         with open(path, "rb") as f:
             data = f.read()
-        response = self._api("POST", f"/classify?document_types={doc_type}", data=data, headers={"Content-Type": content_type})
-        name = ""
-        if response.ok:
-            try:
-                name = (response.json().get("document_type") or {}).get("name", "")
-            except ValueError:
-                pass
+        response = self._api("POST", "/classify", params={"document_types": doc_type}, data=data, headers={"Content-Type": content_type})
+        if response.status_code in CLASSIFY_REJECTED:
+            return response.status_code, response.text, ""
+        if not response.ok:
+            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code}, which says nothing about the file: {settings.redact(response.text)[:200]}")
+        try:
+            name = (response.json().get("document_type") or {}).get("name") or ""
+        except (ValueError, AttributeError):
+            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code} with a body that isn't a classification: {settings.redact(response.text)[:200]}")
         return response.status_code, response.text, name
 
     # -- Inline fingerprint samples: temporary doc types, deleted after each test --
@@ -300,13 +311,16 @@ class SensibleClient:
         return name, config_name, warnings
 
     def _upload_reference(self, type_id, ref):
-        """Create a reference document and upload its PDF from the repo."""
+        """Create a reference document and upload its file from the repo, with the content type for its extension
+        (settings.REFERENCE_CONTENT_TYPES; markup.fixture_references allows only those)."""
         import os
 
         import requests
 
-        # markup.fixture_references allows only known extensions; anything else uploads as a PDF, as before
-        content_type = settings.REFERENCE_CONTENT_TYPES.get(os.path.splitext(ref["pdf"])[1], "application/pdf")
+        extension = os.path.splitext(ref["pdf"])[1]
+        if extension not in settings.REFERENCE_CONTENT_TYPES:
+            raise CodeTestError(CONFIG_INVALID, f"reference document {ref['name']} ({ref['pdf']}): {extension!r} isn't one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
+        content_type = settings.REFERENCE_CONTENT_TYPES[extension]
         response = self._api("POST", f"/document_types/{type_id}/goldens",
                              json={"name": ref["name"], "configuration": ref["configuration"], "content_type": content_type})
         if not response.ok:

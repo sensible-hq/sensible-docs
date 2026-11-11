@@ -359,12 +359,11 @@ def check_syntax(test):
     """
     where = f"{test.file}, line {test.line}"
     if test.compare == "classification":
-        import os
-
         for request in test.expect["requests"]:
-            path = os.path.normpath(os.path.join(settings.REPO_ROOT, request["file"]))
-            if os.path.isabs(request["file"]) or not path.startswith(settings.REPO_ROOT + os.sep) or not os.path.isfile(path):
-                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: request file {request['file']!r} isn't a file in the repo (paths are relative to the repo root) ({where})")
+            try:
+                request_path(request["file"])
+            except ValueError as e:
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: {e} ({where})")
         fixture_files(test.fixtures[0])  # raises DOCS_MALFORMED if the fixture is missing
         fixture_references(test.fixtures[0])  # or has no reference document
         return None, test.expect
@@ -404,6 +403,20 @@ def check_syntax(test):
     config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
     output = _parse_block(test, "output", test.output, test.output_line, 0, False)
     return config, output
+
+
+def request_path(file):
+    """The resolved path of a file a test sends to Sensible: under fixture_document_dirs(), the same
+    rule as fixture reference documents, so a page can't send other repo files (such as .env or
+    unscrubbed output). Symlinks are resolved before the check. Raises ValueError otherwise."""
+    import os
+
+    path = os.path.realpath(os.path.join(settings.REPO_ROOT, file))
+    folders = settings.fixture_document_dirs()
+    if os.path.isabs(file) or not any(path.startswith(os.path.realpath(d) + os.sep) for d in folders) or not os.path.isfile(path):
+        raise ValueError(f"request file {file!r} must be a file under "
+                         f"{' or '.join(os.path.relpath(d, settings.REPO_ROOT) for d in folders)} (paths are relative to the repo root)")
+    return path
 
 
 def fixture_dir(name):
