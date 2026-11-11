@@ -354,6 +354,81 @@
           }
         }
       }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as the test's fixture doc type",
+      "required": [
+        "fixture",
+        "editor",
+        "doc_type_description",
+        "runs"
+      ],
+      "properties": {
+        "fixture": {
+          "type": "string",
+          "description": "The fixture doc type the files are classified as (persistent in the test account)"
+        },
+        "editor": {
+          "type": "string",
+          "description": "The SenseML editor, opened on the fixture"
+        },
+        "doc_type_description": {
+          "type": "string",
+          "description": "The fixture's description, which Sensible classifies by"
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "content_type",
+              "label",
+              "expected",
+              "actual",
+              "http_status",
+              "response",
+              "curl"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "Repo-relative path of the file sent"
+              },
+              "content_type": {
+                "type": "string",
+                "description": "The Content-Type header sent"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional name for the request in reports"
+              },
+              "expected": {
+                "type": "boolean",
+                "description": "Whether the page claims Sensible classifies it"
+              },
+              "actual": {
+                "type": "boolean",
+                "description": "Whether Sensible classified it as the temporary doc type"
+              },
+              "http_status": {
+                "type": "integer"
+              },
+              "response": {
+                "type": "string",
+                "description": "The start of the response body, keys redacted"
+              },
+              "curl": {
+                "type": "string",
+                "description": "The request as a curl command, run from the repo root, with the key as an environment variable"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

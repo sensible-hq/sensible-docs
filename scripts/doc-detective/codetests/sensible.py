@@ -56,7 +56,8 @@ class SensibleClient:
         self.counts["by_call"][call] = self.counts["by_call"].get(call, 0) + 1
         if method != "GET" and path.startswith("/document_types") and path.count("/") == (1 if method == "POST" else 2):
             self._doc_types = None  # a doc type was created or deleted
-        return requests.request(method, f"{settings.api()}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
+        headers = {"Authorization": f"Bearer {self.key}", **kwargs.pop("headers", {})}
+        return requests.request(method, f"{settings.api()}{path}", headers=headers, timeout=60, **kwargs)
 
     def _charge(self):
         """Count an extraction, refusing it if the run already made settings.max_extractions()."""
@@ -155,6 +156,20 @@ class SensibleClient:
             if time.time() > deadline:
                 raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
             time.sleep(5)
+
+    def classify(self, path, content_type, doc_type):
+        """Send a file's bytes to the classify endpoint with a content type, restricted to `doc_type`.
+        Returns (HTTP status, response text, the classified doc type's name or "")."""
+        with open(path, "rb") as f:
+            data = f.read()
+        response = self._api("POST", f"/classify?document_types={doc_type}", data=data, headers={"Content-Type": content_type})
+        name = ""
+        if response.ok:
+            try:
+                name = (response.json().get("document_type") or {}).get("name", "")
+            except ValueError:
+                pass
+        return response.status_code, response.text, name
 
     # -- Inline fingerprint samples: temporary doc types, deleted after each test --
 
@@ -290,13 +305,15 @@ class SensibleClient:
 
         import requests
 
+        # markup.fixture_references allows only known extensions; anything else uploads as a PDF, as before
+        content_type = settings.REFERENCE_CONTENT_TYPES.get(os.path.splitext(ref["pdf"])[1], "application/pdf")
         response = self._api("POST", f"/document_types/{type_id}/goldens",
-                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": "application/pdf"})
+                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": content_type})
         if not response.ok:
             raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
         try:
             with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
-                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
+                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": content_type}, timeout=120)
             problem = None if put.status_code == 200 else f"returned {put.status_code}"
         except requests.RequestException as e:
             # Only the exception type: its message includes the presigned upload URL

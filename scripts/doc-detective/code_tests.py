@@ -128,7 +128,7 @@ def probe_blank(args, selected, client):
     probed = [t for t in selected if runner.probeable(t)]
     for test in selected:
         if test not in probed:
-            why = "names no document" if test.blank_document else "is a fixture, portfolio, or fingerprint test, which needs its document"
+            why = "names no document" if test.blank_document else "is a fixture, portfolio, fingerprint, or classification test"
             print(f"SKIP {test.test_id}: {why}", file=sys.stderr)
     if not probed:
         print("[]")

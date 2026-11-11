@@ -38,6 +38,8 @@ Both are written as HTML comments in the page, so readers never see them. Today 
 
    It runs the UI tests, checks every UI test and step actually ran, runs the code tests, writes `scripts/doc-detective/output/report.html`, scrubs secret values from every report file, then checks that none are left (`check_secrets.py`). It exits 1 if anything failed, including a leak.
 
+   To keep the report in the repo, run with `DOC_TESTS_SAVE_REPORT=1`. After a clean leak check, `run.sh` copies the scrubbed report to `scripts/doc-detective/reports/<page path as a slug>.html`, for example `reports/docs-senseml-reference-concepts-file-types.html`. Commit it; it stays as it is until the next saved run. `output/` is git-ignored and overwritten on every run.
+
 Other commands:
 
 | Command | What it does |
@@ -178,6 +180,24 @@ The config as written and each variant is one extraction. A mismatch fails as `F
 
 A row's keys are marker names with the same options (`fixture`, `expect`), so a row converts to a code test and back mechanically: `rowId` becomes `testId`, each key becomes its marker, and the table test's `inline document` and `segment_documents_with` move onto the code test. The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
 
+### Classification claims
+
+For a claim about which files Sensible classifies, a code test sends files from the repo to the classify endpoint (`POST /classify`), each with a content type, restricted to one **fixture** doc type, and checks the page's claim for each. Sensible classifies by the fixture's description, so describe the test files in its `.doctype.json`. The test needs no inline document, config, or output.
+
+```markdown
+<!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
+<!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "scripts/test/assets/csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- code test end -->
+```
+
+| Marker or option | Meaning |
+| --- | --- |
+| `<!-- fixture {"name": ...} -->` | Exactly one: the doc type to classify as. Persistent in the test account, kept in step with the committed files like any fixture. The report links it to the SenseML editor. |
+| `requests` | Each request: `file` (a path relative to the repo root), `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
+
+The report shows each request's `curl` command (run it from the repo root; the key stays an environment variable) and links each file relative to the report, so the links open from a local checkout. Classification is compared exactly: Sensible's answer is the claim, so there's no judge and no envelope. A mismatch fails as `CLASSIFICATION_DRIFT`. Each request is one API call, not an extraction. `docs/Senseml reference/concepts/file-types.md` uses this for its classification footnote, with the fixture in `fixtures/spreadsheet_classification/` and test files in `scripts/test/assets/` (added in PR #741).
+
 **Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, checks the restore took (the test fails if it didn't), and the test passes **with a `[fixture]` warning** that names each difference. CI lists these warnings on the run's summary page, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
@@ -186,7 +206,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 
 - Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
-- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference documents must be under `assets/pdfs/` or `scripts/test/assets/`: PDFs, or spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), uploaded with the matching content type. The manifest's key for the file is `pdf` either way.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
@@ -220,6 +240,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
 | `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
 | `FINGERPRINT_DRIFT` | A standalone fingerprint sample passed when the page claims it fails, or the reverse. |
+| `CLASSIFICATION_DRIFT` | Sensible classified a file when the page claims it doesn't, or the reverse. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
