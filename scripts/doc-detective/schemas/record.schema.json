@@ -412,7 +412,7 @@
               },
               "actual": {
                 "type": "boolean",
-                "description": "Whether Sensible classified it as the temporary doc type"
+                "description": "Whether Sensible classified it as the fixture doc type"
               },
               "http_status": {
                 "type": "integer"

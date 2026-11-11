@@ -132,12 +132,32 @@ class FixtureTest(unittest.TestCase):
         url = "https://bucket.s3.amazonaws.com/k?X-Amz-Credential=AKIAEXAMPLE&X-Amz-Signature=abc"
         client = ScriptedClient({"POST /document_types/t1/goldens": Response(200, {"upload_url": url}),
                                  "DELETE /document_types/t1/goldens/fixture_ref": Response(200, {})})
-        ref = {"name": "fixture_ref", "configuration": "fixture_c", "pdf": self.config_file}
+        pdf = os.path.join(self.dir.name, "ref.pdf")
+        open(pdf, "wb").close()
+        ref = {"name": "fixture_ref", "configuration": "fixture_c", "pdf": pdf}
         with mock.patch("requests.put", side_effect=requests.ConnectionError(f"Max retries exceeded with url: {url}")):
             with self.assertRaises(CodeTestError) as caught:
                 client._upload_reference("t1", ref)
         self.assertNotIn("X-Amz", str(caught.exception))
         self.assertIn(("DELETE", "/document_types/t1/goldens/fixture_ref"), [c[:2] for c in client.calls])
+
+    def test_spreadsheet_reference_uploads_with_its_content_type(self):
+        xlsb = os.path.join(self.dir.name, "ref.xlsb")
+        open(xlsb, "wb").close()
+        client = ScriptedClient({"POST /document_types/t1/goldens": Response(200, {"upload_url": "https://bucket.test/u"})})
+        put = mock.Mock(return_value=mock.Mock(status_code=200))
+        with mock.patch("requests.put", put):
+            client._upload_reference("t1", {"name": "fixture_ref", "configuration": "fixture_c", "pdf": xlsb})
+        xlsb_type = "application/vnd.ms-excel.sheet.binary.macroenabled.12"
+        self.assertEqual(client.calls[0][2]["content_type"], xlsb_type)
+        self.assertEqual(put.call_args.kwargs["headers"], {"Content-Type": xlsb_type})
+
+    def test_unknown_reference_extension_fails(self):
+        client = ScriptedClient({})
+        with self.assertRaises(CodeTestError) as caught:
+            client._upload_reference("t1", {"name": "fixture_ref", "configuration": "fixture_c", "pdf": self.config_file})
+        self.assertIn("'.json' isn't one of", str(caught.exception))
+        self.assertEqual(client.calls, [])
 
 
 class HelpersTest(unittest.TestCase):

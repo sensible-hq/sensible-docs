@@ -51,10 +51,11 @@ FIXTURE_ENVIRONMENT = "production"
 FIXTURE_PREFIX = "fixture_"
 # Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
 TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
-# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
+# Published example documents. Files a test sends to Sensible (fixture reference documents, classification
+# requests) must come from fixture_document_dirs(), so a page or manifest can't upload other repo files.
 FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
-# A fixture's reference document can be any of these (the manifest's "pdf" key, named before
-# spreadsheets were allowed), uploaded with the matching content type
+# A fixture's reference document (the manifest's "pdf" key, whatever its type) has one of these
+# extensions, and uploads with the matching content type
 REFERENCE_CONTENT_TYPES = {
     ".pdf": "application/pdf",
     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
