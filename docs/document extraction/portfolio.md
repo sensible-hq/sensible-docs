@@ -1,15 +1,16 @@
 ---
 title: Multi-document extractions
 excerpt: >-
-  Learn how to extract data from multi-document portfolio files using LLM-based
-  or fingerprint segmentation methods in Sensible.
+  Split a PDF containing multiple documents, such as a loan package, and extract
+  each document's data separately using LLM or fingerprint segmentation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
   description: >-
-    Learn how to extract data from multi-document portfolio files using
-    LLM-based or fingerprint segmentation methods in Sensible.
+    Split a PDF containing multiple documents, such as a loan package, and
+    extract each document's data separately using LLM or fingerprint
+    segmentation.
   robots: index
 next:
   description: ''
@@ -222,29 +223,64 @@ The following example shows extracting three one-page documents from a portfolio
 
 - **config content:**
 
-To the config in [Getting started with layout-based extractions](doc:getting-started), append the following fingerprint:
+To the config in [Getting started with layout-based extractions](doc:getting-started), add the following fingerprint:
 
 <!-- inline config {"fragment": "fingerprint", "doc_type": "auto_insurance_quotes", "config": "anyco"} -->
+
 ```json
-"fingerprint": {
-  "tests": [
-    {
-      /* in combination, these matches are unique to the first page */
-      "page": "first",
-      "match": [[
-        /* chained match: succeeds only if Sensible finds all its Match objects on the same page, in order, on separate lines. Here, "anycocarinsurance.com" must occur before "outline of quoted" */
-        {
-          "text": "anycocarinsurance.com",
-          "type": "startsWith"
-        },
-        {
-          "text": "outline of quoted",
-          "type": "startsWith"
-        }
-      ]]
-    }
-  ]
-},
+
+  "fingerprint": {
+    "tests": [
+      {
+        /* in combination, these matches are unique to the first page */
+        "page": "first",
+        "match": [[
+          
+            /* chained match array (nested array): succeeds only if Sensible finds all its Match objects
+             on the same page, in order, on separate lines.
+             Here, "anycocarinsurance.com" must occur before "outline of quoted" */
+
+            {
+              "text": "outline of quoted",
+              "type": "startsWith"
+            },
+                     
+                                 {
+              "text": "deductible",
+              "type": "includes"
+            },
+          
+        ]]
+      },
+      {
+        /* in combination, these matches are unique to the last page. the example
+         is a one-page document, so `first` and `last` are the same page  */
+        
+        "page": "last",
+        "match": [
+             /* flat array: succeeds if Sensible finds all its Match objects
+             on the same page, but they can be in any order and don't need to be on separate lines.
+             Here, the two matches are specified out of order and occur on
+              one line that characteristically ends the document
+              */
+           
+                       
+            {
+              "text": "for a full explanation of coverages",
+              "type": "includes"
+            },
+                        {
+              "text": "please be sure to review your contract ",
+              "type": "includes"
+            }
+            
+                     
+                                
+          
+        ]
+      }
+    ]
+  },
 ```
 
 **_Document type 2_**
@@ -255,9 +291,10 @@ To the config in [Getting started with layout-based extractions](doc:getting-sta
 
 - **config content:**
 
-To the config in the [Example loss run](doc:sections-example-loss-run) topic, append the following fingerprint:
+To the config in the [Example loss run](doc:sections-example-loss-run) topic, add the following fingerprint:
 
 <!-- inline config {"fragment": "fingerprint", "doc_type": "loss_run_reports", "config": "acme"} -->
+
 ```json
 "fingerprint": {
   "tests": [
@@ -267,13 +304,26 @@ To the config in the [Example loss run](doc:sections-example-loss-run) topic, ap
       "match": [
         /* flat array: All the Match objects must be on the same page, but they can be in any order and don't need to be on separate lines */
         {
-          "text": "within 90 days",
+          "text": "claimant",
           "type": "includes"
         },
         {
-          /* because this is a flat array, this match succeeds even though "unprocessed claim" occurs before
-             "within 90 days", and both matchs occur on the same line: "Any unprocessed claim number must be processed within 90 days of receipt." */
-          "text": "unprocessed claim",
+          /* because this is a flat array, this match succeeds even though the matches are out of order. matches are on separate lines in this example, but in flat arrays can succeed on the same line. */
+          "text": "within 90 days",
+          "type": "includes"
+        }
+      ]
+    },
+    {
+      /* this match is unique to the last page. the example
+         is a one-page document, so `first` and `last` are the same page
+      */
+      "page": "last",
+      "match": [
+
+        {
+    
+          "text": "total claims",
           "type": "includes"
         }
       ]

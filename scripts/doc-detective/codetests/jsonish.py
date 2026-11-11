@@ -1,22 +1,47 @@
-"""Parse the JSON in docs code blocks: JSON plus comments, trailing commas (configs only), and `...`."""
+"""Parse the JSON in docs code blocks: JSON plus comments, trailing commas (configs only), and abridgement.
+
+Documented outputs mark what they abridge with `[...]`: as an array item or object member, as a whole
+value ("[...]"), or inside a string ("Fictional University [...] 3 C"). The older `...` and "…" markers
+still work as items, members, and whole values, but `...` inside a longer string is literal text.
+"""
 
 import json
 import re
 
-# A bare `...` in a documented output block becomes this string while parsing
+# A bare `...` or `[...]` in a documented output block becomes this string while parsing
 ELLIPSIS = "__ELLIPSIS__"
+# The abridgement mark: whole value, array item, object member, or any run of text inside a string
+MARK = "[...]"
 TRAILING_COMMA = re.compile(r",(\s*[}\]])")
 
 
 def is_ellipsis(value):
-    """`...` (bare or as a string) or "…" means "don't check this" in a documented output."""
-    return value in (ELLIPSIS, "...", "…")
+    """`[...]` or `...` (bare or as a string) or "…" means "don't check this" in a documented output."""
+    return value in (ELLIPSIS, MARK, "...", "…")
+
+
+def is_abridged_string(value):
+    """A string with `[...]` in it, like "Fictional University [...] 3 C": only the parts shown are checked."""
+    return isinstance(value, str) and MARK in value and value != MARK
+
+
+def abridged_matches(shown, actual):
+    """Whether `actual` is `shown` with each `[...]` replaced by some run of text (possibly empty)."""
+    if not isinstance(actual, str):
+        return False
+    pattern = ".*?".join(re.escape(part) for part in shown.split(MARK))
+    return re.fullmatch(pattern, actual, re.S) is not None
 
 
 class SyntaxIssue(Exception):
     def __init__(self, message, line):
         super().__init__(message)
         self.line = line
+
+
+def _previous(out):
+    """The last non-space character emitted so far."""
+    return "".join(out).rstrip()[-1:]
 
 
 def strip_json5(text, trailing_commas=True):
@@ -26,16 +51,21 @@ def strip_json5(text, trailing_commas=True):
     trailing_commas=False, a trailing comma raises SyntaxIssue instead of being removed.
 
     A bare `...` becomes the ELLIPSIS string. In an object's key position it becomes an
-    `"__ELLIPSIS__": null` member, which drop_ellipsis_keys removes after parsing.
+    `"__ELLIPSIS__": null` member, which drop_ellipsis_keys removes after parsing. A bare `[...]`
+    as an array item or object member does the same. After a colon, `[...]` stays an array whose
+    items aren't checked, so the value must still be an array.
     """
     out = []
     stack = []
     i, n = 0, len(text)
     while i < n:
         c = text[i]
-        if text.startswith("...", i):
-            previous = "".join(out).rstrip()[-1:]
-            key_position = bool(stack) and stack[-1] == "{" and previous in ("{", ",")
+        if text.startswith(MARK, i) and _previous(out) in ("[", "{", ","):
+            key_position = bool(stack) and stack[-1] == "{"
+            out.append(f'"{ELLIPSIS}": null' if key_position else f'"{ELLIPSIS}"')
+            i += len(MARK)
+        elif text.startswith("...", i):
+            key_position = bool(stack) and stack[-1] == "{" and _previous(out) in ("{", ",")
             out.append(f'"{ELLIPSIS}": null' if key_position else f'"{ELLIPSIS}"')
             i += 3
         elif c in "{[":

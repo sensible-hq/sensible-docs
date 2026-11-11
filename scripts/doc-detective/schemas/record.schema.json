@@ -29,6 +29,10 @@
       "type": "string",
       "description": "Another code test whose document this one reuses"
     },
+    "blank_document": {
+      "const": true,
+      "description": "The test names no document, so it ran on a blank page (document_url is the blank page's)"
+    },
     "config_fragment": {
       "type": "boolean",
       "description": "The config is a one-field excerpt, run wrapped"
@@ -219,7 +223,7 @@
     "segments": {
       "type": "object",
       "additionalProperties": false,
-      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in a temporary doc type).",
+      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in its own sample doc type).",
       "required": [
         "fixtures",
         "document_types",
@@ -353,6 +357,81 @@
               "editor": {
                 "type": "string",
                 "description": "This run's config in the SenseML editor"
+              }
+            }
+          }
+        }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as the test's fixture doc type",
+      "required": [
+        "fixture",
+        "editor",
+        "doc_type_description",
+        "runs"
+      ],
+      "properties": {
+        "fixture": {
+          "type": "string",
+          "description": "The fixture doc type the files are classified as (persistent in the test account)"
+        },
+        "editor": {
+          "type": "string",
+          "description": "The SenseML editor, opened on the fixture"
+        },
+        "doc_type_description": {
+          "type": "string",
+          "description": "The fixture's description, which Sensible classifies by"
+        },
+        "runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "content_type",
+              "label",
+              "expected",
+              "actual",
+              "http_status",
+              "response",
+              "curl"
+            ],
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "Repo-relative path of the file sent"
+              },
+              "content_type": {
+                "type": "string",
+                "description": "The Content-Type header sent"
+              },
+              "label": {
+                "type": "string",
+                "description": "Optional name for the request in reports"
+              },
+              "expected": {
+                "type": "boolean",
+                "description": "Whether the page claims Sensible classifies it"
+              },
+              "actual": {
+                "type": "boolean",
+                "description": "Whether Sensible classified it as the fixture doc type"
+              },
+              "http_status": {
+                "type": "integer"
+              },
+              "response": {
+                "type": "string",
+                "description": "The start of the response body, keys redacted"
+              },
+              "curl": {
+                "type": "string",
+                "description": "The request as a curl command, run from the repo root, with the key as an environment variable"
               }
             }
           }

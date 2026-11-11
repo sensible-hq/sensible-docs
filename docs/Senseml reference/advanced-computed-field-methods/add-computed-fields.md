@@ -1,18 +1,20 @@
 ---
 title: Add computed fields
-excerpt: Learn how to use the Add Computed Fields method to transform extracted tables
-  by adding, removing, or concatenating columns using computed field arrays.
+excerpt: >-
+  Transform extracted tables by adding, removing, or concatenating columns using
+  computed field arrays.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Add Computed Fields method to transform extracted
-    tables by adding, removing, or concatenating columns using computed field arrays.
+  description: >-
+    Transform extracted tables by adding, removing, or concatenating columns
+    using computed field arrays.
   robots: index
 next:
   description: ''
 ---
-Enables adding an array of computed fields that transform the extracted table. For example, you can add text to each cell in a row, concatenate columns, and add or remove columns. This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section).  In detail, this method:
+Enables adding an array of computed fields that transform the extracted table. For example, you can add text to each cell in a row, concatenate columns, and add or remove columns.  In detail, this method:
 
 - Automatically [zips](doc:zip) the source table. After the zip, each table cell is a field whose ID is the column heading. Note that zipped tables have the same JSON output structure as sections. This enables you to use section-specific computed fields to transform the table, such as  the Copy To Section method.
 - Operates on the fields in the table using the array of computed fields you specify.
@@ -21,11 +23,11 @@ Enables adding an array of computed fields that transform the extracted table. F
 
 The following parameters are in the computed field's [global Method](doc:computed-field-methods#parameters) parameter:
 
-| key                      | value                                                          | description                                                                                                                                                                                                                                                          |
-| :----------------------- | :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| id (**required**)        | `addComputedFields`                                            |                                                                                                                                                                                                                                                                      |
-| source_id (**required**) | source field ID in the current config                          | The ID of the table you want to transform. To transform fields in a section, add a [computed fields array to sections](doc:sections-example-copy-to-section).                                                                                                        |
-| fields                   | array of  [Computed field](doc:computed-field-methods) objects | Specifies to output computed fields in the new table. The computed fields have access to the source table's fields.<br />To get access to and transform the output of fields that aren't in the source table, use the [Copy to section](doc:copy-to-section) method. |
+| key                      | value                                                                                                                                                            | description                                                                                                                                                                                                                                                          |
+| :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| id (**required**)        | `addComputedFields`                                                                                                                                              |                                                                                                                                                                                                                                                                      |
+| source_id (**required**) | source field ID in the current config                                                                                                                            | The ID of the table you want to transform.                                                                                                                                                                                                                           |
+| fields                   | array of  [Computed field](doc:computed-field-methods) objects. Support for computed fields includes the Query Group method with Source Ids parameter specified. | Specifies to output computed fields in the new table. The computed fields have access to the source table's fields.<br />To get access to and transform the output of fields that aren't in the source table, use the [Copy to section](doc:copy-to-section) method. |
 
 # Examples
 
@@ -363,3 +365,9 @@ To ensure consistency, this example transforms the tables as follows:
   ]
 }
 ```
+
+## Notes
+
+This method is similar to adding a [computed fields array to sections](doc:sections-example-copy-to-section) in order to transform sections output. To transform section output, don't use this method. Instead, add a [computed fields array to sections](doc:sections-example-copy-to-section).
+
+<br />

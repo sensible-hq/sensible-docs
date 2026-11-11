@@ -1,16 +1,11 @@
 ---
 title: Table methods
-excerpt: >-
-  Compare Sensible's three table extraction methods, NLP Table, Fixed Table, and
-  Text Table, including supported features like merged cells and checkboxes.
+excerpt: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multi-page support, merged cells, and checkboxes.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: >-
-    Compare Sensible's three table extraction methods, NLP Table, Fixed Table,
-    and Text Table, including supported features like merged cells and
-    checkboxes.
+  description: Extract PDF tables with the NLP Table, Fixed Table, or Text Table method. Compare methods' speed, multi-page support, merged cells, and checkboxes.
   robots: index
 next:
   description: ''

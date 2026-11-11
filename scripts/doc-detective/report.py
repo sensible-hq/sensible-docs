@@ -28,9 +28,14 @@ def usage_summary(output_dir):
     tests run. A failure here never fails the report: it shows why the numbers are missing."""
     settings.load_dotenv()
     summary = {"run": usage.load_run(output_dir), "budget": usage.budget()}
-    key = settings.key(settings.SENSIBLE_KEY_VAR)
+    try:
+        key_var = settings.sensible_key_var()
+    except ValueError as e:
+        summary["error"] = str(e)
+        return summary
+    key = settings.key(key_var)
     if not key:
-        summary["error"] = f"{settings.SENSIBLE_KEY_VAR} isn't set"
+        summary["error"] = f"{key_var} isn't set"
         return summary
     try:
         summary["month"] = usage.month_to_date(key)

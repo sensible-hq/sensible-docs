@@ -1,13 +1,11 @@
 ---
 title: Spreadsheet extraction
-excerpt: Learn how to use the Cell Rows field type to extract data from large spreadsheets
-  with thousands of rows by specifying column headers and row ranges.
+excerpt: Extract data from large spreadsheets with thousands of rows by specifying column headers and row ranges.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Cell Rows field type to extract data from large
-    spreadsheets with thousands of rows by specifying column headers and row ranges.
+  description: Extract data from large spreadsheets with thousands of rows by specifying column headers and row ranges.
   robots: index
 next:
   description: ''

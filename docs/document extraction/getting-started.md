@@ -1,18 +1,18 @@
 ---
 title: Getting started with layout-based extractions
-excerpt: Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
+excerpt: Write deterministic, template-based extraction rules in SenseML to extract data from forms by layout, using anchors and methods.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract structured data from documents using Sensible's layout-based SenseML query language, including configs, anchors, methods, and API integration.
+  description: Write deterministic, template-based extraction rules in SenseML to extract data from forms by layout, using anchors and methods.
   robots: index
 next:
   description: ''
 ---
 In this tutorial, you'll learn to extract data from a set of similar documents using Sensible's query language, SenseML. You'll write JSON-formatted SenseML to tell Sensible about which data to extract from an example document, using what you know about the layout of the document.
 
-You can then save your descriptions as a "config." Publish your config to automate extracting from similar documents.   
+You can then save your descriptions as a "config" (also called a template). Publish your config to automate extracting from similar documents.   
 
 Use this tutorial if you want a guided tour of SenseML's layout-based concepts and the Sensible app. Or see the following links:
 

@@ -18,6 +18,10 @@ committed, and `expect` is written in the test itself.
     <!-- inline output -->                         the next code block is the documented output
     <!-- code test end -->
 
+A code test without <!-- inline document --> runs on a blank page (settings.BLANK_DOCUMENT_URL), for
+an example that doesn't read its document, such as a constant field and JsonLogic on it. Fixture,
+portfolio, and fingerprint tests still need a document.
+
 For claims the page makes in prose or in a table (for example, how fingerprints segment a
 portfolio), a code test runs a private fixture and checks an expectation written in the test:
 
@@ -43,6 +47,19 @@ row's keys are marker names with the same options, so a row converts to a code t
     <!-- row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} -->
     <!-- table test end -->
 
+For a claim about which files Sensible classifies, a code test sends files from the repo to the
+classify endpoint, each with a content type, against one fixture doc type (its description is what
+the files are classified by). It needs no inline document, config, or output:
+
+    <!-- code test {"testId": "classify_...", "description": "..."} -->
+    <!-- fixture {"name": "<doc type name>"} -->
+    <!-- expect {"compare": "classification", "requests": [
+        {"file": "<repo-relative path>", "content_type": "...", "classified": true or false, "label": "..."}, ...]} -->
+    <!-- code test end -->
+
+`classified` is the page's claim: whether Sensible classifies the file as that doc type when it's
+sent with that content type. `label` (optional) names the request in reports, for example "Python SDK".
+
 The tag and the test must name each other, and the test needs one row entry per table row, in the
 table's order: adding or deleting a row without updating the test fails the run. Row content isn't
 compared; the tag is the hint that the table and the test change together.
@@ -65,7 +82,7 @@ MARKER_RE = re.compile(r"<!--\s*(inline\s+config|inline\s+document|inline\s+outp
 # Markers renamed from #737's first version: fail loudly rather than silently not running
 OLD_MARKER_RE = re.compile(r"<!--\s*example\s+(config|document|output)\b")
 ROLES = {"inline config": "config", "inline document": "document", "inline output": "output", "fixture": "fixture", "expect": "expect"}
-COMPARES = ("documents", "fingerprint")
+COMPARES = ("documents", "fingerprint", "classification")
 # A name for an inline sample's doc type or config: what the expected documents refer to
 NAME_RE = re.compile(r"[a-z0-9_]+")
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
@@ -96,6 +113,7 @@ class CodeTest:
     output_span: tuple = (0, 0)  # character offsets of the output block's text in the page
     document_url: str = ""
     document_from: str = ""  # another code test whose document this one reuses
+    blank_document: bool = False  # names no document, so it runs on settings.BLANK_DOCUMENT_URL
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
     config_shift: int = 0  # lines the wrapper adds above the page's text, for syntax error line numbers
     # Inline fingerprint samples, each run in its own sample doc type: [{"doc_type", "config", "text", "line", "shift"}]
@@ -171,6 +189,18 @@ def _expect(options, test_id, where):
             raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs \"passes\": true or false, and optional \"variants\": "
                                 f"[{{\"break\": [<test index>, ...], \"passes\": true or false}}] ({where})")
         return compare, {"passes": options["passes"], "variants": variants}
+    if compare == "classification":
+        requests = options.get("requests")
+        if set(options) - {"compare", "requests"} or not isinstance(requests, list) or not requests or not all(
+            isinstance(r, dict) and sum(k in r for k in DOCUMENT_KEYS) == 1 and isinstance(r.get("content_type"), str) and r["content_type"]
+            and isinstance(r.get("classified"), bool) and isinstance(r.get("label", ""), str)
+            and set(r) <= {*DOCUMENT_KEYS, "content_type", "classified", "label"}
+            for r in requests
+        ):
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect needs only \"requests\": "
+                                f"[{{\"file\": \"<file in the fixture's folder>\" or \"docs_pdf\": \"<file name in assets/pdfs>\", "
+                                f"\"content_type\": \"...\", \"classified\": true or false, \"label\": \"...\"}}] ({where})")
+        return compare, {"requests": requests}
     return compare, options.get("documents")
 
 
@@ -236,8 +266,17 @@ def _code_test(text, match, path):
             test.output_line = text.count("\n", 0, start)
             test.output_span = (start, offset + fence.end(1))
     where = f"{path}, line {line}"
+    if test.compare == "classification":
+        if seen - {"expect", "fixture"} or test.segment_documents_with or len(test.fixtures) != 1:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect needs exactly one <!-- fixture --> (the doc type to classify as) "
+                                f"and sends the files in its requests, so the test takes no inline document, config, output, or segment_documents_with ({where})")
+        return test
     if "document" not in seen:
-        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where})")
+        if test.segment_documents_with or test.fixtures or test.inline_configs or test.compare:
+            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where}). Only a test that compares an "
+                                f"inline output can leave it out and run on a blank page")
+        # An example that doesn't read its document: run it on a blank page
+        test.document_url, test.blank_document = settings.BLANK_DOCUMENT_URL, True
     if (test.segment_documents_with or test.fixtures or test.inline_configs) and test.compare != "documents":
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\", <!-- fixture -->, and portfolio inline configs need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
     if test.compare == "documents":
@@ -297,7 +336,7 @@ def parse_page(path):
     for test in page.code_tests.values():
         if test.document_from:
             source = page.code_tests.get(test.document_from)
-            if not source or not source.document_url:
+            if not source or not source.document_url or source.blank_document:
                 raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: <!-- inline document {{\"from\": \"{test.document_from}\"}} --> names no code test with its own document link")
             test.document_url = source.document_url
     return page
@@ -321,6 +360,16 @@ def check_syntax(test):
     comments and `...`, but not trailing commas (Sensible never outputs them).
     """
     where = f"{test.file}, line {test.line}"
+    if test.compare == "classification":
+        folder = fixture_dir(test.fixtures[0])  # raises DOCS_MALFORMED if the fixture is missing
+        for request in test.expect["requests"]:
+            try:
+                document_path(request, folder)
+            except ValueError as e:
+                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: request {e} ({where})")
+        fixture_files(test.fixtures[0])
+        fixture_references(test.fixtures[0])  # or has no reference document
+        return None, test.expect
     if test.compare == "documents":
         for sample in test.inline_configs:
             _parse_block(test, "config", sample["text"], sample["line"], sample["shift"], True)
@@ -357,6 +406,30 @@ def check_syntax(test):
     config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
     output = _parse_block(test, "output", test.output, test.output_line, 0, False)
     return config, output
+
+
+DOCUMENT_KEYS = ("file", "docs_pdf")
+
+
+def document_path(entry, folder):
+    """The resolved path of a file a test sends to Sensible (a reference document or a classification
+    request). `entry` names it with exactly one of "file", a path inside the fixture's `folder`, or
+    "docs_pdf", a file name in assets/pdfs/, used in place. Symlinks are resolved before checking that
+    it stays in its folder, so a page or manifest can't send other repo files (such as .env or
+    unscrubbed output). Raises ValueError otherwise."""
+    import os
+
+    if "pdf" in entry:
+        raise ValueError(f'"pdf" was replaced: use "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/)')
+    keys = [k for k in DOCUMENT_KEYS if k in entry]
+    if len(keys) != 1 or not isinstance(entry[keys[0]], str) or not entry[keys[0]]:
+        raise ValueError(f'needs exactly one of "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/), got {entry!r}')
+    base = folder if keys[0] == "file" else settings.DOCS_PDFS_DIR
+    name = entry[keys[0]]
+    path = os.path.realpath(os.path.join(base, name))
+    if os.path.isabs(name) or not path.startswith(os.path.realpath(base) + os.sep) or not os.path.isfile(path):
+        raise ValueError(f"{keys[0]} {name!r} must be a file in {os.path.relpath(base, settings.REPO_ROOT)}")
+    return path
 
 
 def fixture_dir(name):
@@ -401,7 +474,8 @@ def fixture_references(name):
     """The reference documents of fixture `name`, from the manifest.json in its folder.
 
     Every fixture doc type needs at least one, so it can be opened in the SenseML editor. Each is
-    {"name", "pdf" (repo-relative), "configuration"}, in the contract-test manifest's shape."""
+    {"name", "configuration", and "file" or "docs_pdf" (see document_path)}; the returned entries also
+    have "path", the resolved file."""
     import os
 
     doctype = name
@@ -420,14 +494,15 @@ def fixture_references(name):
     for ref in refs:
         if not REF_NAME_RE.fullmatch(ref.get("name", "")):
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r} and use only letters, digits, _ . -")
-        pdf = os.path.realpath(os.path.join(settings.REPO_ROOT, ref.get("pdf", "")))
-        if not pdf.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not pdf.endswith(".pdf"):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} must be a .pdf under {os.path.relpath(settings.FIXTURE_PDFS_DIR, settings.REPO_ROOT)}")
+        try:
+            path = document_path(ref, fixture_dir(name))
+        except ValueError as e:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r}: {e} ({os.path.relpath(manifest_file, settings.REPO_ROOT)})")
+        if os.path.splitext(path)[1] not in settings.REFERENCE_CONTENT_TYPES:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must be one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
         if ref.get("configuration") != config:
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
-        if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} doesn't exist")
-    return refs
+    return [{**ref, "path": document_path(ref, fixture_dir(name))} for ref in refs]
 
 
 def editor_url(doctype, config, reference=None):
@@ -446,7 +521,7 @@ def local_pdf(url):
         return None
     path = url[len(settings.DOCS_RAW_PREFIX):]
     full = os.path.realpath(os.path.join(settings.REPO_ROOT, path))
-    if not full.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not os.path.isfile(full):
+    if not full.startswith(os.path.realpath(settings.DOCS_PDFS_DIR) + os.sep) or not os.path.isfile(full):
         return None
     return path
 

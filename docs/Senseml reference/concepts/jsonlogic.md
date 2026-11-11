@@ -1,11 +1,11 @@
 ---
 title: JsonLogic extensions
-excerpt: How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
+excerpt: Transform extracted data and validate it with JsonLogic, a JSON rules engine, using Sensible's custom operators. Includes syntax tips and examples.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How Sensible extends JsonLogic with custom operators for transforming and validating extracted document data, including syntax tips and supported operations.
+  description: Transform extracted data and validate it with JsonLogic, a JSON rules engine, using Sensible's custom operators. Includes syntax tips and examples.
   robots: index
 next:
   description: ''

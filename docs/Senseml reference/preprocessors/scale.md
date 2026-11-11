@@ -1,11 +1,11 @@
 ---
 title: Scale
-excerpt: Use the Scale preprocessor to correct text size variations in scanned documents like ID cards and receipts.
+excerpt: Correct text size variations in scanned documents like ID cards and receipts.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Use the Scale preprocessor to correct text size variations in scanned documents like ID cards and receipts.
+  description: Correct text size variations in scanned documents like ID cards and receipts.
   robots: index
 next:
   description: ''

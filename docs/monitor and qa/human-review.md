@@ -1,13 +1,11 @@
 ---
 title: Human review
-excerpt: Learn how to use Sensible's Human Review tab to manually correct, approve,
-  or reject flagged document extractions and resolve validation failures.
+excerpt: 'Use the Human Review tab for human-in-the-loop (HITL) manual review: correct flagged extractions, check failed validations, and approve or reject.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use Sensible's Human Review tab to manually correct, approve,
-    or reject flagged document extractions and resolve validation failures.
+  description: 'Use the Human Review tab for human-in-the-loop (HITL) manual review: correct flagged extractions, check failed validations, and approve or reject.'
   robots: index
 next:
   description: ''

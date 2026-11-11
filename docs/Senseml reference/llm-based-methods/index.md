@@ -1,13 +1,11 @@
 ---
 title: LLM-based methods
-excerpt: Learn how to extract text from documents using LLM-based SenseML methods
-  like List, Query Group, and NLP Table.
+excerpt: Compare Sensible's AI extraction methods for extracting lists, tables, and key-value pairs from unstructured documents like contracts and leases.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to extract text from documents using LLM-based SenseML methods
-    like List, Query Group, and NLP Table.
+  description: Compare Sensible's AI extraction methods for extracting lists, tables, and key-value pairs from unstructured documents like contracts and leases.
   robots: index
 next:
   description: ''

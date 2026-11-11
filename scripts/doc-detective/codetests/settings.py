@@ -7,19 +7,46 @@ HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # scripts/do
 REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
 CONFIG_DIR = os.path.join(HERE, "config")
 SCHEMAS_DIR = os.path.join(HERE, "schemas")
-FIXTURES_DIR = os.path.join(HERE, "fixtures")
+# The tooling's self-test pages: altered copies of real pages (tests/pages/build_fixtures.py)
+SELF_TEST_PAGES_DIR = os.path.join(HERE, "tests", "pages")
 OUTPUT_DIR = os.path.join(HERE, "output")
 # One JSON record per code test, read by the reports
 RECORDS_DIR = os.path.join(OUTPUT_DIR, "code-tests")
 DEPS_DIR = os.path.join(HERE, ".deps")
 
-# The Sensible API and the temporary document type that code tests run in
-API = "https://api.sensible.so/v0"
+# The Sensible API and the temporary document type that code tests run in.
+# DOC_TESTS_ENV picks the Sensible environment: "prod" (default) or "dev", for features that aren't
+# in production yet. Each has its own account key, so a dev run can't touch production.
+ENV_VAR = "DOC_TESTS_ENV"
+ENVS = {
+    "prod": {"api": "https://api.sensible.so/v0", "key_var": "SENSIBLE_TEST_API_KEY"},
+    "dev": {"api": "https://api.sensible.so/dev", "key_var": "SENSIBLE_DEV_API_KEY"},
+}
+
+
+def env():
+    """The selected environment name. An unknown value is an error, never a silent fallback."""
+    name = (os.environ.get(ENV_VAR) or "prod").strip().lower()
+    if name not in ENVS:
+        raise ValueError(f"{ENV_VAR}={name!r} isn't one of {', '.join(sorted(ENVS))}")
+    return name
+
+
+def api():
+    return ENVS[env()]["api"]
+
+
+def sensible_key_var():
+    return ENVS[env()]["key_var"]
+
+
+API = ENVS["prod"]["api"]  # production; code calls api() so DOC_TESTS_ENV applies
 DOC_TYPE = "docs_ci_examples"
 ENVIRONMENT = "development"
 # Test-account fixtures (doc types and configs) that code tests can run instead of a page's code block.
-# Same layout as the contract-test fixtures: <dir>/<doctype>.doctype.json and <dir>/<doctype>.<config>.config.json
-TEST_FIXTURES_DIR = os.path.join(REPO_ROOT, "scripts", "test", "probe_endpoints", "contract", "fixtures")
+# One folder per group: <group>/<doctype>.doctype.json, <group>/<doctype>.<config>.config.json, a
+# manifest.json listing reference documents, and the fixture's own files (test documents)
+TEST_FIXTURES_DIR = os.path.join(HERE, "fixtures")
 # Fixture configs are published to this environment, and fixture extractions run in it
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
@@ -29,15 +56,33 @@ FIXTURE_PREFIX = "fixture_"
 SAMPLE_DOC_TYPE_PREFIX = "docs_ci_sample_"
 # Example documents linked from this repo's v0 branch; the runner uploads the local copy as a reference document
 DOCS_RAW_PREFIX = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/"
-# Fixture reference documents are PDFs from this folder, so a manifest can't upload other repo files
-FIXTURE_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# The docs' published example documents. A file a test sends to Sensible (a fixture reference document,
+# a classification request) is either in its fixture's folder ("file") or here ("docs_pdf"), used in
+# place, so a page or manifest can't send other repo files
+DOCS_PDFS_DIR = os.path.join(REPO_ROOT, "assets", "pdfs")
+# A fixture's reference document has one of these extensions, and uploads with the matching content type
+REFERENCE_CONTENT_TYPES = {
+    ".pdf": "application/pdf",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".xls": "application/vnd.ms-excel",
+    ".xlsm": "application/vnd.ms-excel.sheet.macroenabled.12",
+    ".xlsb": "application/vnd.ms-excel.sheet.binary.macroenabled.12",
+    ".csv": "text/csv",
+}
+
+# The document a code test runs on when it names none (no <!-- inline document -->): a blank page, for
+# examples that don't read their document, such as a constant field and JsonLogic on it. Like the
+# pages' example document links, it's the file's raw URL on v0, so it resolves only once it's merged there.
+BLANK_DOCUMENT_PDF = os.path.join(DOCS_PDFS_DIR, "blank_page.pdf")
+BLANK_DOCUMENT_URL = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/blank_page.pdf"
 # A hard cap on extractions per run, so a page that grows or a bug can't spend the test account's budget
 MAX_EXTRACTIONS_VAR = "DOC_TESTS_MAX_EXTRACTIONS"
 MAX_EXTRACTIONS_DEFAULT = 20
 
-# Keys. The Sensible key is the docs test account's; there's deliberately no fallback to
-# SENSIBLE_API_KEY, so a missing key can't run tests against another account.
-SENSIBLE_KEY_VAR = "SENSIBLE_TEST_API_KEY"
+# Keys. The Sensible key is the docs test account's (sensible_key_var() picks it per environment);
+# there's deliberately no fallback to SENSIBLE_API_KEY, so a missing key can't run tests against
+# another account.
+SENSIBLE_KEY_VAR = "SENSIBLE_TEST_API_KEY"  # production's; prefer sensible_key_var()
 JUDGE_KEY_VARS = ("ANTHROPIC_API_KEY", "ANTHROPIC_KEY")  # ANTHROPIC_KEY: a name some local shells use
 JUDGE_MODEL_VAR = "DOC_EXAMPLES_JUDGE_MODEL"
 PROPOSE_FIXES_VAR = "DOC_EXAMPLES_PROPOSE_FIXES"

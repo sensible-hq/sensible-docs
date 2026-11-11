@@ -3,7 +3,8 @@
 For each code test:
   1. Check syntax, before any network call (markup.check_syntax)
   2. Check the example document link resolves, upload the config as written, and extract
-  3. Compare the documented output with parsed_document (compare.py). Values that LLM methods
+  3. Compare the documented output with parsed_document, plus a top-level "postprocessorOutput" when
+     the config has a postprocessor (sensible.actual_output, compare.py). Values that LLM methods
      produced and that differ go to the judge (judge.py); everything else must match exactly
   4. Check the LLM fields against the regression envelope (envelope.py), whatever the outcome above
   5. Record what happened (record.py)
@@ -14,13 +15,14 @@ envelope never changes a verdict; it informs triage.
 
 import json
 import os
+import shlex
 import sys
 import traceback
 
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
+    CLASSIFICATION_DRIFT, DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
     OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
 )
 
@@ -63,8 +65,8 @@ def check_envelope(rec, test, actual, index):
 
 def propose_fix(test, fixed_output):
     """Rewrite the test's output block in its page with `fixed_output`. Returns whether it did."""
-    if "/*" in test.output or "//" in test.output or jsonish.has_bare_ellipsis(test.output):
-        print("  Not proposing a fix: the output block has comments or a bare ...", file=sys.stderr)
+    if "/*" in test.output or "//" in test.output or jsonish.MARK in test.output or jsonish.has_bare_ellipsis(test.output):
+        print("  Not proposing a fix: the output block has comments or is abridged ([...] or ...)", file=sys.stderr)
         return False
     with open(test.file, encoding="utf-8") as f:
         text = f.read()
@@ -235,7 +237,57 @@ def _run_fingerprint(rec, test, client):
         raise CodeTestError(FINGERPRINT_DRIFT, "; ".join(say(r) for r in wrong))
 
 
+def curl_command(path, doc_type, content_type, file):
+    """The request a classification run sends, as a curl command to run from the repo root. Every value
+    from the page is shell-quoted; the key stays an environment variable, never its value."""
+    from urllib.parse import urlencode
+
+    url = f"{settings.api()}{path}?{urlencode({'document_types': doc_type})}"
+    return (f"curl -s -w '\\nHTTP %{{http_code}}\\n' -X POST {shlex.quote(url)} "
+            f'-H "Authorization: Bearer ${settings.sensible_key_var()}" '
+            f"-H {shlex.quote('Content-Type: ' + content_type)} --data-binary {shlex.quote('@' + file)}")
+
+
+def _run_classification(rec, test, client):
+    """Classification claim: send each file to the classify endpoint with its content type, restricted
+    to the test's fixture doc type, and check whether Sensible classified it as that doc type. The
+    fixture's description is what Sensible classifies by. No extraction, no LLM judge (classification
+    is the product's own LLM call; its answer is the claim), no envelope."""
+    _, expect = markup.check_syntax(test)
+    name = test.fixtures[0]
+    refs = markup.fixture_references(name)
+    doctype_file, config_file = markup.fixture_files(name)
+    doc_type, config_name, restored = client.ensure_fixture(doctype_file, config_file, refs)
+    rec["warnings"] += [{"source": "fixture", "text": f"{name}: {w}"} for w in restored]
+    with open(doctype_file, encoding="utf-8") as f:
+        description = (json.load(f).get("schema") or {}).get("description", "")
+    runs = []
+    folder = markup.fixture_dir(name)
+    for request in expect["requests"]:
+        path = markup.document_path(request, folder)
+        file = os.path.relpath(path, settings.REPO_ROOT)  # repo-relative, for the record, the curl, and report links
+        status, text, got = client.classify(path, request["content_type"], doc_type)
+        runs.append({
+            "file": file, "content_type": request["content_type"], "label": request.get("label", ""),
+            "expected": request["classified"], "actual": got == doc_type, "http_status": status,
+            "response": settings.redact(" ".join(text.split()))[:300],
+            "curl": curl_command("/classify", doc_type, request["content_type"], file),
+        })
+    rec["classification"] = {
+        "fixture": name, "editor": markup.editor_url(doc_type, config_name, refs[0]["name"]),
+        "doc_type_description": description, "runs": runs,
+    }
+    wrong = [r for r in runs if r["actual"] != r["expected"]]
+    if wrong:
+        say = lambda r: (f"{r['file']} sent as {r['content_type']}: the page claims Sensible "
+                         f"{'classifies' if r['expected'] else 'does not classify'} it, but it "
+                         f"{'did' if r['actual'] else 'did not'} (HTTP {r['http_status']}: {r['response'][:120]})")
+        raise CodeTestError(CLASSIFICATION_DRIFT, "; ".join(say(r) for r in wrong))
+
+
 def _run(rec, test, client, judge, judge_key, judge_model, fix):
+    if test.compare == "classification":
+        return _run_classification(rec, test, client)
     if test.compare == "documents":
         return _run_segments(rec, test, client)
     if test.compare == "fingerprint":
@@ -329,6 +381,47 @@ def build_envelope(test, client, runs, extend=False, progress=print):
         built = envelope.merge(existing, built)
     envelope.save(built)
     return built
+
+
+PROBE_DETAIL_MAX = 300
+
+
+def probeable(test):
+    """Whether --probe-blank can rerun a test on a blank page: a test that names its own document and
+    compares an inline output. Fixture, portfolio, and fingerprint tests need their document."""
+    return not test.blank_document and not test.compare
+
+
+def probe_blank(test, client):
+    """Run a test's config on the blank page instead of its document, and compare the output with
+    the page's inline output the way a run does. Returns {"testId", "unchanged", "detail"}.
+
+    "unchanged" true means the blank page gave the documented output, so the example doesn't read
+    its document. The comparison is compare.diffs alone: LLM values that differ count as changed,
+    without asking the judge, so a probe never calls the judge or its API. A probe that couldn't run
+    the test reports unchanged false, and "error" with the failure category."""
+    entry = {"testId": test.test_id}
+    try:
+        _, expected = markup.check_syntax(test)
+        client.upload_config(test.test_id, test.config)
+        try:
+            actual = client.extract(settings.BLANK_DOCUMENT_URL, test.test_id, f"ci__{test.test_id}__blank.pdf")
+        finally:
+            client.delete_config(test.test_id)
+        found = compare.diffs(expected, actual)
+        if not found:
+            entry.update(unchanged=True, detail="the blank page gives the documented output")
+        else:
+            entry.update(unchanged=False, detail=f"{len(found)} value(s) differ on the blank page, for example {compare.describe(found[0])}")
+    except CodeTestError as e:
+        entry.update(unchanged=False, detail=f"couldn't probe: {e}", error=e.category)
+    except Exception as e:  # noqa: BLE001 -- report it like a run does: redacted, traceback in the log
+        entry.update(unchanged=False, detail=f"couldn't probe: {RUNNER_ERROR}: {type(e).__name__}: {e}", error=RUNNER_ERROR)
+        print(settings.redact(traceback.format_exc()), file=sys.stderr)
+    # Redact before shortening, so a key cut in half can't get past the redaction
+    detail = settings.redact(entry["detail"])
+    entry["detail"] = detail if len(detail) <= PROBE_DETAIL_MAX else detail[:PROBE_DETAIL_MAX - 3] + "..."
+    return entry
 
 
 def judge_key():

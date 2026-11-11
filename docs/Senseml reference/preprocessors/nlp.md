@@ -1,11 +1,11 @@
 ---
 title: NLP
-excerpt: NLP configuration reference for setting full prompt parameters across all LLM-based methods.
+excerpt: Configuration reference for setting full prompt parameters across all LLM-based methods.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: NLP configuration reference for setting full prompt parameters across all LLM-based methods.
+  description: Configuration reference for setting full prompt parameters across all LLM-based methods.
   robots: index
 next:
   description: ''

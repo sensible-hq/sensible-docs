@@ -1,16 +1,15 @@
 ---
 title: Fingerprint
 excerpt: >-
-  Learn how fingerprints test documents for matching text, so you can choose the
-  config for a standalone document or find each document's pages in a portfolio.
+  Handle multiple document layouts by matching text: choose a config per form
+  revision or vendor, or find each document's pages in a portfolio.
 deprecated: false
 hidden: false
 metadata:
   title: ''
   description: >-
-    Learn how fingerprints test documents for matching text, so you can choose
-    the config for a standalone document or find each document's pages in a
-    portfolio.
+    Handle multiple document layouts by matching text: choose a config per form
+    revision or vendor, or find each document's pages in a portfolio.
   robots: index
 next:
   description: ''
@@ -117,7 +116,7 @@ For an example of using fingerprints to extract multiple documents from a portfo
 
 ## Fingerprint syntax conversion
 
-If you use a config in both standalone and portfolio extraction requests, write its fingerprint in the stricter portfolio syntax. Sensible automatically converts between the two syntaxes as follows:
+It's an edge case to use a config in both standalone and portfolio extraction requests. In this case, write the config's fingerprint in the stricter portfolio syntax. Sensible automatically converts between the two syntaxes as follows:
 
 - To convert to portfolio syntax, Sensible expands standalone syntax into a test with `"page": "any"`.
 - To convert to standalone syntax, Sensible keeps the value of each test's Match parameter and ignores the Page and Offset parameters.
@@ -146,11 +145,11 @@ A *chained match* is an array of Match objects that Sensible scores as one match
 
 The following table shows syntax and scoring for chained matches and other matches:
 
-| element ('match')                                                                             | standalone syntax for standalone documents                                                   | in this context, scores as:                                                                                                                    | portfolio syntax for portfolios                                         | in this context, scores as:                                                                                                                                                                                                                                                                                        |
-| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| a string or a [Match](doc:match) object, including [Boolean match](doc:match#boolean-matches) | syntax is consistent                                                                         | one match                                                                                                                                      | syntax is consistent                                                    | one match                                                                                                                                                                                                                                                                                                          |
-| chained match                                                                                 | flat array of Match objects as an element in the Tests parameter: `"tests": [ [A, B], ... ]` | one match                                                                                                                                      | nested array in a test's Match parameter: `"match": [[ A, B ]]`         | no partial page typing: For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page.<br/>The test classifies a page only if Sensible finds every Match object on that page, in order, on separate lines.<br />                                         |
-| unordered array                                                                               | N/A. Only flat array syntax `[ ]` is valid, and it's always a chained match.                 | N/A</br> (**note:** If you're using portfolio syntax for a standalone document extraction, each element in the flat array scores as one match) | array of Match objects in a test's Match parameter: `"match": [ A, B ]` | no partial page typing: For example, if two of four Match objects are on one page and two are on the next page, the test passes on neither page.<br/>The test classifies a page only if Sensible finds every Match object on that page. Matches can be in any order and don't have to be in separate lines. <br /> |
+| element ('match')                                                                             | standalone syntax for standalone documents                                                   | in this context, scores as:                                                                                                                    | portfolio syntax for portfolios                                         | in this context, scores as:                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| a string or a [Match](doc:match) object, including [Boolean match](doc:match#boolean-matches) | syntax is consistent                                                                         | one match                                                                                                                                      | syntax is consistent                                                    | one match                                                                                                                                                                                                                                                                                                                    |
+| chained match                                                                                 | flat array of Match objects as an element in the Tests parameter: `"tests": [ [A, B], ... ]` | one match                                                                                                                                      | nested array in a test's Match parameter: `"match": [[ A, B ]]`         | no partial page classification: For example, if two of four Match objects are on one page and two are on the next page, the test classifies neither page.<br />The test classifies a page only if Sensible finds every Match object on that page, in order, on separate lines.<br />                                         |
+| unordered array                                                                               | N/A. Only flat array syntax `[ ]` is valid, and it's always a chained match.                 | N/A</br> (**note:** If you're using portfolio syntax for a standalone document extraction, each element in the flat array scores as one match) | array of Match objects in a test's Match parameter: `"match": [ A, B ]` | no partial page classification: For example, if two of four Match objects are on one page and two are on the next page, the test classifies neither page.<br />The test classifies a page only if Sensible finds every Match object on that page. Matches can be in any order and don't have to be in separate lines. <br /> |
 
 # Notes
 

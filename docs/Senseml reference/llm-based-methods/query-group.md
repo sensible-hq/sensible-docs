@@ -1,14 +1,11 @@
 ---
 title: Query group
-excerpt: Query Group method extracts individual facts from documents or images using
-  LLM prompts, with tips on grouping and phrasing queries for accurate, fast results.
+excerpt: Use LLM extraction to pull facts and key-value pairs, such as an invoice date or policy limit, from documents and images. Includes prompt tips.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Query Group method extracts individual facts from documents or images
-    using LLM prompts, with tips on grouping and phrasing queries for accurate, fast
-    results.
+  description: Use LLM extraction to pull facts and key-value pairs, such as an invoice date or policy limit, from documents and images. Includes prompt tips.
   robots: index
 next:
   description: ''

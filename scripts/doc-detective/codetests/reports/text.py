@@ -30,6 +30,18 @@ def summary(record):
             lines.append(f"  {which}: page claims {'passes' if run['expected'] else 'fails'}; Sensible {'passed' if run['actual'] else 'failed'}  (extraction {run['extraction_id']})")
             if run.get("editor"):
                 lines.append(f"    Editor: {run['editor']}")
+    cl = record.get("classification")
+    if cl:
+        lines.append(f"{record['test_id']}: classification (compared exactly), fixture {cl['fixture']}")
+        lines.append(f"  Editor: {cl['editor']}")
+        for run in cl["runs"]:
+            label = f" ({run['label']})" if run["label"] else ""
+            lines.append(f"  {run['file']} as {run['content_type']}{label}: page claims {'classified' if run['expected'] else 'not classified'}; "
+                         f"Sensible {'classified' if run['actual'] else 'not classified'}  (HTTP {run['http_status']})")
+            lines.append(f"    $ {run['curl']}")
+        lines += [f"  [fixture] WARNING: {w['text']}" for w in record["warnings"] if w["source"] == "fixture"]
+    if record.get("blank_document"):
+        lines.append(f"{record['test_id']}: names no document, so it ran on a blank page")
     if "overall" in record:
         lines.append(f"{record['test_id']}: {record['overall']}")
         layout = record["layout"]

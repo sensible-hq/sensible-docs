@@ -1,14 +1,11 @@
 ---
 title: Constant
-excerpt: Learn how to use the Constant method to add fixed key/value pairs to document
-  extractions, such as form names or policy durations not present in the document.
+excerpt: Add fixed key/value pairs to document extractions, such as form names or policy durations not present in the document.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Constant method to add fixed key/value pairs to
-    document extractions, such as form names or policy durations not present in the
-    document.
+  description: Add fixed key/value pairs to document extractions, such as form names or policy durations not present in the document.
   robots: index
 next:
   description: ''

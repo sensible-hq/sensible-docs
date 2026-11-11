@@ -5,6 +5,7 @@ import os
 import tempfile
 
 from codetests import judge as judge_module
+from codetests import sensible
 from codetests.markup import CodeTest
 
 # A config with LLM fields at every depth the runner has to find
@@ -27,10 +28,15 @@ CONFIG = {
 
 
 class FakeClient:
-    """Returns `parsed` for every extraction; records what was uploaded."""
+    """Returns `parsed` for every extraction (or `by_url[url]`, for a URL in it); records what was
+    uploaded and which document URLs were extracted. With `postprocessor_output`, the fake response
+    also carries a postprocessorOutput, combined with `parsed` the way SensibleClient.extract does."""
 
-    def __init__(self, parsed, status=200):
+    def __init__(self, parsed, status=200, by_url=None, postprocessor_output=None):
         self.parsed, self.status, self.uploads, self.deleted, self.extractions = parsed, status, [], [], 0
+        self.postprocessor_output = postprocessor_output
+        self.by_url, self.urls = by_url or {}, []
+        self.counts = {"requests": 0, "extractions": 0, "by_call": {}}
 
     def document_status(self, url):
         return self.status
@@ -40,7 +46,12 @@ class FakeClient:
 
     def extract(self, url, config_name, document_name):
         self.extractions += 1
-        return self.parsed
+        self.counts["extractions"] += 1
+        self.urls.append(url)
+        parsed = self.by_url.get(url, self.parsed)
+        if self.postprocessor_output is None:
+            return parsed
+        return sensible.actual_output({"parsed_document": parsed, "postprocessorOutput": self.postprocessor_output})
 
     def delete_config(self, name):
         self.deleted.append(name)
@@ -93,6 +104,19 @@ CODE_TEST_PAGE = """<!-- code test {"testId": "first", "description": "first tes
 <!-- inline output -->
 ```json
 {}
+```
+<!-- code test end -->
+"""
+
+# A code test with no <!-- inline document -->: a constant field and JsonLogic on it
+BLANK_PAGE = """<!-- code test {"testId": "no_document", "description": "doesn't read its document"} -->
+<!-- inline config -->
+```json
+{"fields": [{"id": "greeting", "method": {"id": "customComputation", "jsonLogic": {"cat": ["I love", " pie"]}}}]}
+```
+<!-- inline output -->
+```json
+{"greeting": {"value": "I love pie", "type": "string"}}
 ```
 <!-- code test end -->
 """

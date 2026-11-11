@@ -1,14 +1,11 @@
 ---
 title: Integrating
-excerpt: Learn how to integrate Sensible document extraction using SDKs, APIs, email,
-  Zapier, MCP server, or quick extraction tools to automate document data workflows.
+excerpt: Export extracted data or send it to any application with Sensible's SDKs, API, email forwarding, Zapier, MCP server, or quick extraction.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to integrate Sensible document extraction using SDKs, APIs,
-    email, Zapier, MCP server, or quick extraction tools to automate document data
-    workflows.
+  description: Export extracted data or send it to any application with Sensible's SDKs, API, email forwarding, Zapier, MCP server, or quick extraction.
   robots: index
 next:
   description: ''
