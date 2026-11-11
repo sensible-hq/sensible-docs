@@ -57,7 +57,7 @@ Placement and syntax:
 - Every comment on one line, in the `<!-- name {json} -->` shape.
 - Inside a numbered list, indent the comments under the item they test. Never put a comment between numbered items: it breaks ReadMe's numbering.
 - Put the test next to the claim it checks, so whoever edits the claim sees the test.
-- Test documents, doc types, and configs look like real business documents, never abstract placeholders. Pick a document type a Sensible customer would process (an invoice, a rent roll, a bank statement, an insurance quote) and name everything after it: `fixture_rent_roll` and `rent_roll_sample.xlsb`, not `fixture_spreadsheet_classify` and `xlsb_sample.xlsb`. The document can be sparse, a header and two rows, as long as each value is plausible for that business (a property address, a unit number, a monthly rent), not `foo`, `test1`, or `Lorem ipsum`. A classification fixture's description describes that business document, because Sensible classifies by it. Keep the values invented: no real customers, people, or account numbers.
+- Test documents, doc types, and configs look like real business documents, never abstract placeholders. Pick a document type a Sensible customer would process (an insurance commission statement, a bank statement, a quote) and name everything after it: `fixture_commission_statements` and `commission_statement.csv`, not `fixture_spreadsheet_classify` and `csv_sample.csv`. The document can be sparse, a header and two rows, as long as each value is plausible for that business (a carrier, a policy number, a premium, a commission rate), not `foo`, `test1`, or `Lorem ipsum`. A classification fixture's description describes that business document, because Sensible classifies by it. Keep the values invented: no real customers, people, or account numbers.
 - Test files and fixture documents are committed. Check spreadsheet and Office metadata for personal names before committing (`docProps/core.xml` in ZIP formats, the summary stream in XLS), and shorten them.
 
 ## Step 4: Preview the markup
@@ -94,7 +94,7 @@ Give Frances the saved report's path. Unit tests for the tooling: `python3 -m un
 
 ## Extending the runner
 
-When a claim needs a check the markup can't express (as classification did, PR #741), propose the extension before writing it: the new markup in the existing `<!-- name {json} -->` shape, what the runner calls, the record fields, and the failure category. Then:
+When a claim needs a check the markup can't express (as classification did, PR #803), propose the extension before writing it: the new markup in the existing `<!-- name {json} -->` shape, what the runner calls, the record fields, and the failure category. Then:
 - keep it Doc Detective-compatible in shape (CONCEPT.md, "Licensing rule"), written from Doc Detective's documented syntax, never its code;
 - update `markup.py` (parse and validate), `runner.py`, `sensible.py`, `schemas/record.schema.json`, the reports (`reports/html.py`, `text.py`, `summary.py`), and `errors.py`;
 - add offline unit tests under `scripts/doc-detective/tests/`, including one that proves a mismatch fails;

@@ -10,7 +10,7 @@ Handover: read `.claude/sessions/doc-test-skill/decisions.md` first (where thing
 
 Goal: a skill that adds tests for new doc claims (with judgment), called by the doc-writing skills. Concept: `design/docs-test-skill/CONCEPT.md`.
 
-Depends on: PR #737 (docs-test tooling, **merged**), PR #741 (classification markup, saved reports, fixture spreadsheets; **open**, merge first), PR #744 (API contract tests and design; **open**).
+Depends on: PR #737 (docs-test tooling, **merged**), PR #803 (classification markup, saved reports, fixture spreadsheets, moved out of #741; **open**, merge first), PR #744 (API contract tests and design; **open**).
 
 - [x] Research Doc Detective's best practices (docs + agent-tools) and fold into the concept
 - [x] Draft the concept: triage rubric, per-surface tests (UI, code, SenseML reference incl. parameter tables, API), skill hooks
@@ -23,7 +23,7 @@ Depends on: PR #737 (docs-test tooling, **merged**), PR #741 (classification mar
   - [ ] Parameter-table schema checks (#749: `scripts/param-tables/`): document how they'd run under Doc Detective (`runShell` per page or a custom markup pattern), and keep the planned `<!-- param tests {…} -->` marker in Doc Detective's statement shape
   - [ ] One migration guide per format, in `design/`, kept up to date when the format changes (the skill's "change a test format" step should require it)
 - [ ] Licensing rule (2026-10-14, compliance): avoid AGPL. Doc Detective only as an unmodified, separately run CLI (never modify, vendor, redistribute or host; autoUpdate and telemetry off). No agent-tools or its hosted MCP. The skill must check the license of any tool it proposes. See CONCEPT.md "Licensing rule"
-- [x] Write `.claude/skills/add-doc-tests/SKILL.md` (first version, 2026-11-10, from the xlsb session). Its classification markup and `DOC_TESTS_SAVE_REPORT` come from PR #741; merge #741 first
+- [x] Write `.claude/skills/add-doc-tests/SKILL.md` (first version, 2026-11-10, from the xlsb session). Its classification markup and `DOC_TESTS_SAVE_REPORT` come from PR #803; merge #803 first
   - [ ] Frances reviews the skill (and the concept's open questions)
 - [ ] Add the hook step to create-new-doc, update-existing-doc, update-docs-from-pr, create-concept-doc, create-docs-example, api-spec (optional: blog-how-to-parse-x)
 - [ ] Check json5-commenter and revise-doc-style preserve test markup
@@ -32,7 +32,7 @@ Depends on: PR #737 (docs-test tooling, **merged**), PR #741 (classification mar
 ## Next steps (2026-11-11)
 
 - [ ] Frances: review the concept's open questions and the skill (decisions.md lists both)
-- [ ] Merge #741 (the skill's classification markup and saved reports come from it)
+- [ ] Merge #803 (the skill's classification markup and saved reports come from it)
 - [ ] Merge `v0` into this branch (67 commits behind on 2026-11-11; keep this branch's session pointer files on conflict)
 - [ ] Revise the skill from Frances's review
 - [ ] Add the hook step to the doc-writing skills (item above)

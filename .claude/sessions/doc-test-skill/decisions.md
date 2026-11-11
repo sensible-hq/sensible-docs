@@ -5,7 +5,7 @@ Handover file for whoever picks up the `add-doc-tests` skill. Read this, then th
 - Checklist: `.claude/sessions/doc-test-skill/checklist.md`
 - Design: `design/docs-test-skill/CONCEPT.md` (the reasoning behind everything below)
 - Skill: `.claude/skills/add-doc-tests/SKILL.md` (first version)
-- Tooling the skill drives: `scripts/doc-detective/README.md` (on `v0`, plus the classification additions on #741)
+- Tooling the skill drives: `scripts/doc-detective/README.md` (on `v0`, plus the classification additions on #803)
 - PR: sensible-docs#749 (draft), branch `doc-test-skill`, worktree `~/GitHub/sensible-docs-doc-test-skill`
 
 Sessions that worked on this branch:
@@ -20,7 +20,7 @@ A new session taking over should add itself to this table, update `.claude-sessi
 ## Where things stand (2026-11-11)
 
 - **The skill exists but hasn't been reviewed.** Frances hasn't reviewed the concept's open questions or the skill. Nothing calls the skill yet: the hook steps in the doc-writing skills aren't added.
-- **It depends on #741 (open).** #741 adds classification claims (`expect {"compare": "classification"}`), spreadsheet reference documents for fixtures, curl commands in the report, and saved reports (`DOC_TESTS_SAVE_REPORT=1`). The skill's markup table and Step 6 refer to them, so #741 merges before #749.
+- **It depends on #803 (open).** On 2026-11-11 the xlsb session moved the runner changes out of #741 into #803. #803 adds classification claims (`expect {"compare": "classification"}`), spreadsheet reference documents for fixtures, curl commands in the report, and saved reports (`DOC_TESTS_SAVE_REPORT=1`). The skill's markup table and Step 6 refer to them, so #803 merges before #749. #741 is now the XLSB docs only.
 - **#737 (docs-test tooling) merged.** **#744 (API contract tests) is still open**; the skill routes API spec claims there.
 - **The branch is 67 commits behind `v0`** (as of 2026-11-11). Merge `v0` in before more work; expect conflicts only in session pointer files (keep this branch's).
 - **The PR description is out of date** in places; the "Status" section added on 2026-11-11 says what's current.
@@ -57,6 +57,7 @@ A new session taking over should add itself to this table, update `.claude-sessi
 | 2026-11-10 | Reports Frances should see get saved and committed (`DOC_TESTS_SAVE_REPORT=1`, `scripts/doc-detective/reports/`), and show each request's curl command and links to test files | Frances wanted a permanent HTML report she can read without rerunning | Frances |
 | 2026-11-10 | Prefer persistent `fixture_` doc types she can open in the app over temporary ones | Frances wanted to view the doc type in her Sensible account | Frances |
 | 2026-11-11 | Test documents, doc types, and configs are realistic business documents (sparse is fine), named after the business document, with invented values | Abstract fixtures like `fixture_spreadsheet_classify` don't show a reader or reviewer what a real customer would test | Frances |
+| 2026-11-11 | Runner changes the skill uses moved from #741 to #803 | Frances split infra from the XLSB docs (xlsb session) | Frances |
 | standing | Test account only: `SENSIBLE_TEST_API_KEY`, never `SENSIBLE_API_KEY`; never print keys | Test runs create and delete resources | Frances |
 
 ## Open questions (for Frances)
@@ -74,4 +75,4 @@ From the skill's first version:
 
 ## Next steps
 
-See the checklist's "Next steps". In order: review (Frances), merge #741, merge `v0` into this branch, add the hook steps to the doc-writing skills, the post-edit hook, then mark #749 ready.
+See the checklist's "Next steps". In order: review (Frances), merge #803, merge `v0` into this branch, add the hook steps to the doc-writing skills, the post-edit hook, then mark #749 ready.
