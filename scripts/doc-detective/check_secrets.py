@@ -38,8 +38,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.abspath(os.path.join(HERE, "..", ".."))
 SECRETS_FILE = os.path.join(HERE, "config", "secrets.txt")
 PUBLIC_FILE = os.path.join(HERE, "config", "public-vars.txt")
-# Every docs-test workflow: doc-detective-*.yml, and doc-tests-*.yml for pages without UI tests
-WORKFLOW_GLOBS = [os.path.join(REPO_ROOT, ".github", "workflows", g) for g in ("doc-detective*.yml", "doc-tests-*.yml")]
+# Every docs-test workflow: doc-tests.yml (all pages, by priority), plus any doc-tests-*.yml or doc-detective*.yml
+WORKFLOW_GLOBS = [os.path.join(REPO_ROOT, ".github", "workflows", g) for g in ("doc-detective*.yml", "doc-tests*.yml")]
 DOCS_GLOB = os.path.join(REPO_ROOT, "docs", "**", "*.md")
 CHECK_STEP = "Check for leaked secrets"
 # A secret shorter than this would match too much by chance; it's reported as a coverage error

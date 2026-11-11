@@ -52,6 +52,26 @@ python3 "$here/report.py" html --page "$page" || status=1
 # Scrub secrets last, so it covers report.html and the code-test records too
 "$here/scrub.sh" "$output_dir" || status=1
 # Fail closed: exit 1 if any secret, or anything shaped like a credential, is still in the output
-python3 "$here/check_secrets.py" --output "$output_dir" || status=1
+leak=0
+python3 "$here/check_secrets.py" --output "$output_dir" || leak=1
+[[ $leak -eq 0 ]] || status=1
+
+# DOC_TESTS_SAVE_REPORT=1 keeps the evidence in the repo (reports/): a copy of the scrubbed report, and
+# reports/<slug>.json with each test's result, the commit, and when it ran. Then it regenerates
+# TEST-MATRIX.md. It stays until the next saved run. Never after a failed leak check.
+if [[ -n "${DOC_TESTS_SAVE_REPORT:-}" ]]; then
+  if [[ $leak -eq 0 && -f "$output_dir/report.html" ]]; then
+    slug=$(python3 "$here/test_matrix.py" slug "$page")
+    # Results and matrix first: if they fail, the old report stays next to its own results
+    if python3 "$here/test_matrix.py" save "$page"; then
+      cp "$output_dir/report.html" "$here/reports/$slug.html"
+      echo "Saved the report to scripts/doc-detective/reports/$slug.html"
+    else
+      status=1
+    fi
+  else
+    echo "Not saving the report: the leak check failed or there's no report" >&2
+  fi
+fi
 
 exit $status

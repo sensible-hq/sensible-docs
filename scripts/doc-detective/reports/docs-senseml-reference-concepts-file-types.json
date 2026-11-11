@@ -1,0 +1,13 @@
+{
+  "page": "docs/Senseml reference/concepts/file-types.md",
+  "report": "docs-senseml-reference-concepts-file-types.html",
+  "commit": "93c92c208",
+  "uncommitted": true,
+  "tested_at": "2026-11-11 23:47 UTC",
+  "environment": "prod",
+  "overall": "pass",
+  "tests": {
+    "classify_excel_formats_as_xlsx": "pass",
+    "classify_csv_not_supported": "pass"
+  }
+}
