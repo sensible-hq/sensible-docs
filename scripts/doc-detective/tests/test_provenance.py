@@ -40,6 +40,10 @@ class ProvenanceTest(unittest.TestCase):
         self.write("scripts/doc-detective/TEST-MATRIX.md", "# matrix")
         self.assertFalse(provenance.provenance("docs/a.md")["uncommitted"])
 
+    def test_files_outside_the_tooling_dont_count(self):
+        self.write("scripts/test/file_types/outputs/run.log", "smoke test log")
+        self.assertFalse(provenance.provenance("docs/a.md")["uncommitted"])
+
     def test_edited_page_or_tooling_counts(self):
         self.write("docs/a.md", "edited")
         self.assertTrue(provenance.provenance("docs/a.md")["uncommitted"])
