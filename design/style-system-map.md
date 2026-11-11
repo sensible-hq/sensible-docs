@@ -13,6 +13,7 @@ Surveyed 2026-11-11 on `v0` at `39ff57219`, and on `my-docs` at `d4b2dd8` with S
 5. **The guides teach the errors they forbid.** The changelog guide's own examples use "against", "we", and an em dash. The blog template uses "template" and "let's". The glossary and `revise-doc-style` use "e.g.", which `Google.Latin` flags as an error.
 6. **Shoalrun already has a slot for most of this.** In Shoalrun, guides map to `authoring.guideFiles`, sibling-page picks to `authoring.exemplarFiles`, templates to `scaffold`, frontmatter rules to `frontmatter.schema`/`enforced`, page shape to DocShape Tengo scripts, and the eval skill to `audit.evals`. Prose judgment is the only part with no deterministic home.
 7. **The guides are frozen in March, and the corrections live in memory.** The core guides were written from 2026-03-10 to 03-16 and never majorly revised. From September on, every style correction went into memory or the friction log instead (see [Timeline](#timeline-when-each-piece-was-written)).
+8. **53 recorded corrections, and half could be deterministic.** They come from memory, five friction logs, and your recorded edits. 26 could be deterministic, and only 2 are fully enforced. [Section 7](#7-correction-inventory) triages each one and adds 13 new rules.
 
 ## 1. Inventory
 
@@ -557,14 +558,156 @@ What the port has today: `.vale.ini` with Voices, Direct, DocShape, and SPCA, sc
 | Edit-time Vale (hook) | none in Shoalrun | n/a | Vale's Claude Code plugin in my-docs, `.claude/hooks/vale-check.sh` here. Same idea. |
 | Prose judgment (J1–J10) | none | no | Shoalrun "doesn't load these files into a model or run the instructions". Jev stays the judge; Shoalrun supplies the inputs (guides, exemplars, `docs validate` report). |
 
-## 7. Order of work
+## 7. Correction inventory
+
+Every place a correction you made has been written down, with each entry triaged to the place it should live. This is the intake list for new rules. Draft deterministic rules from here, not from the style guides: the guides describe March, and these entries describe what actually went wrong after that (see [Timeline](#timeline-when-each-piece-was-written)).
+
+**Destinations:**
+
+- **Vale**: a rule in `.github/styles/Sensible/`.
+- **script**: a check in `scripts/`, run by the hook or CI.
+- **judgment**: a J-rule for Jev.
+- **guide**: a sentence in a style guide or template.
+- **skill**: a step or gate in a skill.
+- **process**: how you or Claude work, with no doc output to check.
+- **drop**: duplicate, or done.
+
+**Status:**
+
+- **encoded**: a check enforces it.
+- **prose**: written in a repo guide or skill, but not checked.
+- **memory**: lives only in Claude's memory.
+- **log**: lives only in a friction log or session file.
+
+### Sources
+
+| source | entries | where |
+| ------ | ------: | ----- |
+| Claude memory, sensible-docs project | 20 | `~/.claude/projects/-home-franc-GitHub-sensible-docs/memory/` (not in the repo) |
+| Style friction log | 1 | `.claude/style-guide/friction-log.md` |
+| Changelog friction log | 8 | `.claude/skills/changelog/friction-log.md` |
+| Blog friction log + intro feedback | 10 | `.claude/skills/blog-how-to-parse-x/friction-log.md`, `intro-rewrite-feedback.md` |
+| Session friction logs | 12 | `.claude/sessions/xml-postprocessor-docs/`, `2026-07-02-region-asImage/` |
+| Your recorded edits | 3 sessions | `.claude/sessions/*/frances-edits.md` (region-asImage, actor, changelog-july) |
+| Unfinished rule plan | 1 | `.claude/sessions/vale-method-names/plan.md` |
+| Revision commits (unlabeled) | 257 | `design/style-baseline/revisions.csv` |
+| Editorial preferences log | 6 | `.claude/preferences/editorial-preferences.md` (rules already in §2–§5) |
+
+### Claude memory
+
+| memory | destination | rule | status | note |
+| ------ | ----------- | ---- | ------ | ---- |
+| `you-centric-style` | guide + judgment | C1, C2 → J1, J2 | memory | Contradicts `revise-doc-style`; the same correction also appears in the xml-postprocessor session log (#5). Resolve in `writing-rules.md`. |
+| `excerpt-rules` | Vale + script + guide | D19, D20, D21; C4 | partly encoded | Length is checked (`scripts/descriptions/`); mood, self-naming, and filler aren't. Templates still say `excerpt: ''`. |
+| `seo-terminology` | Vale + Shoalrun | D1, `search.synonyms` | partly encoded | "parse" is in `reject.txt`; "template" isn't. |
+| `block-comments-only` | script | D11 | prose | Guides were updated in the fingerprint session; nothing checks code blocks. The memory's claim that `sentence-word-guidance` says `//` is stale (C14). |
+| `keep-code-fence-language` | script + guide | D11 | memory | **No repo guide says it.** Worse, `json5-comments-reference.md` itself uses ` ```json5 ` fences (lines 19–79), so the file `json5-commenter` reads models the banned fence. |
+| `anthropic-model-naming` | Vale | D7 | memory | |
+| `label-method-near-deprecated` | judgment | J8 | memory | |
+| `image-processing` (point at `final/`, copy into it) | Vale + script | D10; new D30 | prose | D10 checks the path. D30 checks that each referenced image exists in `screenshots/` or `final/`. |
+| `full-style-pass` | process → drop | | memory | Exists because nothing ran the checks. Drop it once the hook and CI run the D and J rules. |
+| `brief-naming` | script | new D31 | memory | `.claude/briefs/` files match `brief-*.md`. Trivial. |
+| `blog_post_template` | drop | | memory | Duplicates `.claude/style-guide/blog-post-template.md`; two copies will drift. |
+| `worktree-flow`, `worktree-session-link`, `checklists-to-file`, `session-checklist-id` | skill | C12 | memory | Belong in the shared PR/branch snippet the doc skills call. |
+| `no-api-reference-markdown` | script + hook | new C17 | memory | **The Vale hook lints `reference/**/*.md`, which is generated**, so it asks the agent to fix files it must not edit. Lint the JSON spec descriptions instead (D29). |
+| `jq-for-json-schema-extraction` | skill | | memory | `api-spec` tooling. |
+| `test-api-key` | process | | memory | Not style. |
+| `no-agpl` | process | | memory | Not style; a license check could be a script later. |
+| `vale-setup` | constraint | | memory | "No new Vale integrations": applies to §8 step 3. Add rules to the existing CI job and hook, not new runners. |
+
+### Friction logs
+
+| entry | destination | rule | status | note |
+| ----- | ----------- | ---- | ------ | ---- |
+| style #1: open with what the user does, not "Returns a…" | judgment | C1 → J1 | log | |
+| changelog #1: doc links missing | script | D24 | prose (LLM `structural-check`) | |
+| changelog #2: image format | Vale | D9 | prose (LLM `structural-check`) | |
+| changelog #3: categorization was session-only | skill | | encoded as `references/categorization-rules.md` | |
+| changelog #4: template is post-draft | skill / Shoalrun | `scaffold` | log | The fix the log proposes (entry templates up front) is exactly what Shoalrun `scaffold` does. |
+| changelog #5: "docs PR exists" isn't `document` | script | new D32 | log | `gh` query: open docs PR, not merged → `investigate`. |
+| changelog #6: touched feature has no public page | script → judgment | new D33 | log | Detector: grep `docs/` for the method or parameter the PR touches; no hit → `investigate`. |
+| changelog #7: "interim / hack / not ready" signals | script | new D34 | log | Pure keyword detector on the PR body: `interim\|hack\|workaround\|not ready\|step 1 of`. |
+| changelog #8: mixed PRs need split dispositions | judgment | | log | |
+| blog: invented output blocks | script | new D27 | log (skill step) | Every output block must equal the saved extraction for its config. Also checks the `{"type", "value"}` shape. |
+| blog: sections flattened in the field summary | skill | | log | |
+| blog: config files lost inline comments | script | | encoded (`extract_config_from_draft.py`) | |
+| blog: golden re-upload is fatal | script | | log | A bug in `upload_pr_extractor.py`. |
+| blog: wrong app URL / URL not shown | skill | | log | A blocking checkpoint in the skill. |
+| blog: Notion drops content after `<!-- -->` | script | | log | Strip HTML comments before the Notion call. |
+| blog: Notion doesn't highlight long blocks | drop | | log | Notion limit. |
+| blog: "two objects per array" impossible | guide | | log | Soften in `blog-post-template.md`. |
+| blog intro: 3-paragraph structure | guide + script | new D35 | log | P2 must contain the "hybrid deterministic and LLM-based" boilerplate: a fixed string. |
+| xml #1–2: misread PR comment target | skill | | log | Read the comment's `line` field. |
+| xml #3–4: `open()` newline, `sed` with backticks | process | | log | Tooling habits. |
+| xml #5: style pass flipped "you" to "Sensible" | judgment | C1, C2 | log | Same as `you-centric-style`. |
+| xml #6: link to the parent index page | judgment | new J11 | log | Detector: a link changed to a child page of a renamed section. |
+| xml #7: article doesn't match link noun | Vale | new D36 | log | `\ba \[[^\]]*s\]\(doc:` (article "a" before a plural link text). |
+| xml #8: `attrs` example hardcodes a constant | judgment | new J12 | log | Detector: `"attrs"` with a literal value in a code block. |
+| region #1: paraphrased sibling wording | script → judgment | D16 | log + `editorial-preferences` | |
+| region #2: consolidate edits by file | process | | log | |
+| region #3: Vale failed (Google style not synced) | script | | encoded (`scripts/vale-doctor.sh`) | |
+| region #4: session artifacts belong in the repo, not memory | process | | log | **Contradicts current practice**: the 20 memories above are that. |
+
+### Your recorded edits (`frances-edits.md`)
+
+| edit | destination | rule | note |
+| ---- | ----------- | ---- | ---- |
+| "Cognito users", "reprocessing", "auth tokens" → user-facing names | Vale | new D26 | A ban list of internal implementation terms: `Cognito`, `reprocessing`, `Lambda`, `S3 bucket`, `worker`, `auth token`. Grow it from engine PR vocabulary. |
+| `this is <value>` → `the value is "<value>"` in schema descriptions | script | new D29 | Lint `reference/*.json` description strings (extract, then run Vale). Today nothing lints the source of the API reference. |
+| `asImage`: mechanism-first → scenario-first | judgment | J4 | |
+| "end-user to review" → "human to interpret" | judgment | | Too specific for a rule; keep as an exemplar pair. |
+| query-group table column widths normalized | script | new D28 | A Markdown table formatter in the hook. Formatting is never worth a review comment. |
+| "SenseML config editor" → "SenseML editor"; "Template library" tab | Vale | D1, D8 | Add to the glossary and UI-names swaps. |
+| changelog: lead with the UI, then the API | judgment | | Already in `editorial-preferences`. |
+
+### Unfinished rule plan
+
+`vale-method-names/plan.md` stalled on "Vale cannot distinguish inline code in a paragraph from inline code in a table cell". D5 sidesteps that: it matches the prose phrase ``the `x` method/parameter``, which never occurs in a table's key column. So the plan's four options aren't needed. Fold the plan into D5 and close the session.
+
+### New rules this inventory adds
+
+| id | rule | where |
+| -- | ---- | ----- |
+| D26 | Internal implementation terms | Vale `existence` |
+| D27 | Output blocks equal the saved extraction | script (blog drafts; docs already have Doc Detective) |
+| D28 | Markdown table formatting | formatter in the hook |
+| D29 | Lint OpenAPI description strings | script → Vale |
+| D30 | Referenced images exist | script |
+| D31 | Brief file naming | script |
+| D32–D34 | Changelog categorization signals | script in `categorize-pr` |
+| D35 | Blog intro boilerplate present | script |
+| D36 | Article agrees with plural link text | Vale |
+| C17 | The hook lints generated `reference/**/*.md` | hook fix: lint `docs/` and the JSON specs |
+| J11 | Link to the durable parent page | judgment |
+| J12 | Examples pull values with `var` | judgment |
+
+### Tally
+
+53 entries in the tables above. Not counted: the unlabeled revisions, and the editorial-preferences rules, which are already in §2–§5. Each entry is counted once, under its main destination:
+
+| destination | entries | enforced today |
+| ----------- | ------: | -------------: |
+| Vale or script (deterministic) | 26 | 2 fully, 2 partly |
+| judgment | 10 | 0 |
+| guide or template edit | 1 | 0 |
+| skill step | 7 | 1 |
+| process or drop | 9 | n/a |
+
+So half of the corrections you've recorded could be deterministic, and only 2 of those 26 are fully enforced. The labeled `revisions.csv` adds the corrections nobody wrote down.
+
+### Keeping it current
+
+Until the cleanup is done, a new correction goes into this table, not into memory or a new friction log. Each entry gets its destination, rule ID, and status at the time you write it down. A memory can stay as a one-line pointer to its rule. The share of entries with status `encoded` is a guidance-health metric for the evals (`style-baseline/README.md`, layer 4).
+
+## 8. Order of work
 
 1. **Resolve C1–C6 in the guide files** (1–2 hours). The detectors are useless while the rules disagree. Commit the resolution in the guides themselves, not in memory.
 2. **Fix V1–V4 and add D1–D4** in `.github/styles/Sensible/`. Run the full corpus before and after, and paste the counts into the PR.
-3. **Remove the three `mcp__vale__check_file` steps.** Replace them with `vale <file>` in Bash, or widen the hook to `drafts/`.
-4. **Delete `docs-checker`**, or make it a thin `vale --filter` wrapper. Point `changelog` step 5 at Vale.
-5. **Scripts D11, D14, D21, D22** in `scripts/style/`, run by the hook and CI.
-6. **In `my-docs`:** add the `authoring` block (`directives`, `guideFiles`, `exemplarFiles`), a `reference` scaffold, and the Sensible Vale style next to DocShape.
-7. **Judgment rules** last, as YAML specs in `.github/styles/Sensible/judgment/`, for Jev to read.
+3. **Remove the three `mcp__vale__check_file` steps.** Replace them with `vale <file>` in Bash. Widening the hook to `drafts/` is the other option. It changes the one existing integration, so check it against the `vale-setup` memory first.
+4. **Fix C17.** Stop the hook from linting generated `reference/**/*.md`, and add D29 to lint the JSON specs instead.
+5. **Delete `docs-checker`**, or make it a thin `vale --filter` wrapper. Point `changelog` step 5 at Vale.
+6. **Scripts D11, D14, D21, D22, D26–D30** in `scripts/style/`, run by the hook and CI.
+7. **In `my-docs`:** add the `authoring` block (`directives`, `guideFiles`, `exemplarFiles`), a `reference` scaffold, and the Sensible Vale style next to DocShape.
+8. **Judgment rules** last, as YAML specs in `.github/styles/Sensible/judgment/`, for Jev to read.
 
 Measure the effect with [style-baseline/README.md](style-baseline/README.md): the baseline is recorded there, and the evals rerun after each step.
