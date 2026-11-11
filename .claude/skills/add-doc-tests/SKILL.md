@@ -48,7 +48,7 @@ Match the claim to the markup the README defines. Don't invent a new format; if 
 | How fingerprints segment a portfolio, claimed in prose | Code test with `segment_documents_with`, `fixture`, and `expect {"compare": "documents"}` |
 | The page's own fingerprint samples | `inline config {"fragment": "fingerprint", ...}` with `expect {"compare": "documents"}` or `{"compare": "fingerprint"}` |
 | A table where each row is a claim | `<!-- table {"tableId"} -->` tag and a `<!-- table test -->` with one `row` per table row |
-| Which files Sensible classifies, with which content type | Code test with one `fixture` (the doc type to classify as; its description is what Sensible classifies by) and `expect {"compare": "classification"}`, with test files in `scripts/test/assets/`. The report shows each request's curl command |
+| Which files Sensible classifies, with which content type | Code test with one `fixture` (the doc type to classify as; its description is what Sensible classifies by) and `expect {"compare": "classification"}`, with the test files in the fixture's own folder. The report shows each request's curl command |
 | A parameter table's names, required flags, types, values | No markup: `scripts/param-tables/check_param_tables.py` reads the table (prototype) |
 | An API spec claim (`reference/*.json`) | Not page markup: a contract test in the API contract suite (PR #744), per CONCEPT.md "API changes" |
 
@@ -58,6 +58,7 @@ Placement and syntax:
 - Inside a numbered list, indent the comments under the item they test. Never put a comment between numbered items: it breaks ReadMe's numbering.
 - Put the test next to the claim it checks, so whoever edits the claim sees the test.
 - Test documents, doc types, and configs look like real business documents, never abstract placeholders. Pick a document type a Sensible customer would process (an insurance commission statement, a bank statement, a quote) and name everything after it: `fixture_commission_statements` and `commission_statement.csv`, not `fixture_spreadsheet_classify` and `csv_sample.csv`. The document can be sparse, a header and two rows, as long as each value is plausible for that business (a carrier, a policy number, a premium, a commission rate), not `foo`, `test1`, or `Lorem ipsum`. A classification fixture's description describes that business document, because Sensible classifies by it. Keep the values invented: no real customers, people, or account numbers.
+- Fixtures live in `scripts/doc-detective/fixtures/<group>/`, one self-contained folder each (doc type, config, `manifest.json`, and the fixture's own files). Name a file with `file` (in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`, used in place); never copy a docs PDF into a fixture.
 - Test files and fixture documents are committed. Check spreadsheet and Office metadata for personal names before committing (`docProps/core.xml` in ZIP formats, the summary stream in XLS), and shorten them.
 
 ## Step 4: Preview the markup
