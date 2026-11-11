@@ -15,8 +15,8 @@ In the Images dir:
 - the doc build process automatically applies styling such as drop shadows to images in screenshots/ and saves to final/
 
 ### PDF directory conventions
-- `assets/pdfs/` is only for PDFs that appear in the docs, such as example documents that a page links to or shows.
-- Put test-only PDFs, such as reference documents for test fixtures, in `scripts/test/assets/`. The doc-detective runner accepts fixture PDFs from either folder.
+- `assets/pdfs/` is only for PDFs that appear in the docs, such as example documents that a page links to or shows. Other test files go in `scripts/test/assets/`.
+- Put reference documents for test fixtures in `scripts/test/fixture_pdfs/`. Keep fixtures separate from `assets/pdfs/`: if a fixture needs a PDF that also appears in the docs, copy it to `scripts/test/fixture_pdfs/`. The doc-detective runner only accepts fixture PDFs from `scripts/test/fixture_pdfs/`.
 
 
 

@@ -14,7 +14,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_first_fails"
         }
       ]
@@ -32,7 +32,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_last_fails"
         }
       ]
@@ -50,7 +50,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_every_fails"
         }
       ]
@@ -68,7 +68,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_any_fails"
         }
       ]
@@ -86,7 +86,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_any_alternate"
         }
       ]
@@ -104,7 +104,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_chained"
         }
       ]
@@ -122,7 +122,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_flat_array"
         }
       ]
@@ -140,7 +140,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_separate_tests"
         }
       ]
@@ -158,7 +158,7 @@
       "references": [
         {
           "name": "fixture_portfolio",
-          "pdf": "assets/pdfs/portfolio.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio.pdf",
           "configuration": "fixture_auto"
         }
       ]
@@ -176,7 +176,7 @@
       "references": [
         {
           "name": "fixture_portfolio",
-          "pdf": "assets/pdfs/portfolio.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio.pdf",
           "configuration": "fixture_loss"
         }
       ]
@@ -194,7 +194,7 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
+          "pdf": "scripts/test/fixture_pdfs/portfolio_bank_paystub_tax.pdf",
           "configuration": "fixture_every_split"
         }
       ]

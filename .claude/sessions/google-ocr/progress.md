@@ -26,3 +26,4 @@ Claude Code session ID: bc2d327b-1002-40d8-9161-f39ecf5a8273. Newest entries las
 
 ## 2026-11-11
 - Moved the fixture PDF from `assets/pdfs/` to `scripts/test/assets/` (Frances: `assets/pdfs/` is only for docs PDFs). Runner now accepts fixture PDFs from either folder (`FIXTURE_PDF_DIRS`); updated `test_markup.py` and the README. `tests.test_markup` passes; fixture drift check still clean. 6 unrelated test failures also happen without this change (missing `anthropic` and `sensibleapi` modules locally).
+- Frances: keep fixture PDFs fully separate from `assets/pdfs/`, and name the folder so it's clearly for fixtures. Fixture PDFs now live only in `scripts/test/fixture_pdfs/` (runner `FIXTURE_PDFS_DIR`); `portfolio.pdf` and `portfolio_bank_paystub_tax.pdf` copied there from `assets/pdfs/` for the fingerprint fixtures; fingerprint workflow watches the copies. Blank page stays in `assets/pdfs/` (docs code tests use its v0 URL).
