@@ -21,7 +21,7 @@ import traceback
 from . import compare, envelope, fields, jsonish, markup, record, settings
 from . import judge as judge_module
 from .errors import (
-    CLASSIFICATION_DRIFT, DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
+    DOCUMENT_UNREACHABLE, ENVELOPE_INVALID, EXTRACTION_ERROR, FINGERPRINT_DRIFT, RUNNER_ERROR, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT,
     OUTPUT_DRIFT, SEGMENTS_DRIFT, CodeTestError,
 )
 
@@ -203,49 +203,7 @@ def _run_fingerprint(rec, test, client):
         raise CodeTestError(FINGERPRINT_DRIFT, "; ".join(say(r) for r in wrong))
 
 
-def curl_command(path, doc_type, content_type, file):
-    """The request a classification run sends, as a curl command to run from the repo root."""
-    return (f'curl -s -w "\\nHTTP %{{http_code}}\\n" -X POST "{settings.api()}{path}?document_types={doc_type}" '
-            f'-H "Authorization: Bearer ${settings.sensible_key_var()}" -H "Content-Type: {content_type}" --data-binary @{file}')
-
-
-def _run_classification(rec, test, client):
-    """Classification claim: send each file to the classify endpoint with its content type, restricted
-    to the test's fixture doc type, and check whether Sensible classified it as that doc type. The
-    fixture's description is what Sensible classifies by. No extraction, no LLM judge (classification
-    is the product's own LLM call; its answer is the claim), no envelope."""
-    _, expect = markup.check_syntax(test)
-    name = test.fixtures[0]
-    refs = markup.fixture_references(name)
-    doctype_file, config_file = markup.fixture_files(name)
-    doc_type, config_name, restored = client.ensure_fixture(doctype_file, config_file, refs)
-    rec["warnings"] += [{"source": "fixture", "text": f"{name}: {w}"} for w in restored]
-    with open(doctype_file, encoding="utf-8") as f:
-        description = (json.load(f).get("schema") or {}).get("description", "")
-    runs = []
-    for request in expect["requests"]:
-        status, text, got = client.classify(os.path.join(settings.REPO_ROOT, request["file"]), request["content_type"], doc_type)
-        runs.append({
-            "file": request["file"], "content_type": request["content_type"], "label": request.get("label", ""),
-            "expected": request["classified"], "actual": got == doc_type, "http_status": status,
-            "response": settings.redact(" ".join(text.split()))[:300],
-            "curl": curl_command("/classify", doc_type, request["content_type"], request["file"]),
-        })
-    rec["classification"] = {
-        "fixture": name, "editor": markup.editor_url(doc_type, config_name, refs[0]["name"]),
-        "doc_type_description": description, "runs": runs,
-    }
-    wrong = [r for r in runs if r["actual"] != r["expected"]]
-    if wrong:
-        say = lambda r: (f"{r['file']} sent as {r['content_type']}: the page claims Sensible "
-                         f"{'classifies' if r['expected'] else 'does not classify'} it, but it "
-                         f"{'did' if r['actual'] else 'did not'} (HTTP {r['http_status']}: {r['response'][:120]})")
-        raise CodeTestError(CLASSIFICATION_DRIFT, "; ".join(say(r) for r in wrong))
-
-
 def _run(rec, test, client, judge, judge_key, judge_model, fix):
-    if test.compare == "classification":
-        return _run_classification(rec, test, client)
     if test.compare == "documents":
         return _run_segments(rec, test, client)
     if test.compare == "fingerprint":

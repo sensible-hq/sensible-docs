@@ -52,21 +52,6 @@ python3 "$here/report.py" html --page "$page" || status=1
 # Scrub secrets last, so it covers report.html and the code-test records too
 "$here/scrub.sh" "$output_dir" || status=1
 # Fail closed: exit 1 if any secret, or anything shaped like a credential, is still in the output
-leak=0
-python3 "$here/check_secrets.py" --output "$output_dir" || leak=1
-[[ $leak -eq 0 ]] || status=1
-
-# DOC_TESTS_SAVE_REPORT=1 keeps a copy of the scrubbed report in the repo (reports/), so it stays
-# viewable until the next saved run. Never after a failed leak check.
-if [[ -n "${DOC_TESTS_SAVE_REPORT:-}" ]]; then
-  if [[ $leak -eq 0 && -f "$output_dir/report.html" ]]; then
-    slug=$(printf '%s' "${page%.md}" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/^-*//; s/-*$//')
-    mkdir -p "$here/reports"
-    cp "$output_dir/report.html" "$here/reports/$slug.html"
-    echo "Saved the report to scripts/doc-detective/reports/$slug.html"
-  else
-    echo "Not saving the report: the leak check failed or there's no report" >&2
-  fi
-fi
+python3 "$here/check_secrets.py" --output "$output_dir" || status=1
 
 exit $status

@@ -238,7 +238,7 @@ class SegmentTest(unittest.TestCase):
                 self.fixture_root(root, pdf=pdf)
                 with self.assertRaises(CodeTestError, msg=pdf) as caught:
                     self.with_root(root, lambda: markup.fixture_references("fixture_x"))
-            self.assertIn("must be a .pdf, ", str(caught.exception))
+            self.assertIn("must be a .pdf under", str(caught.exception))
         with tempfile.TemporaryDirectory() as root:
             self.fixture_root(root)
             self.assertEqual(self.with_root(root, lambda: markup.fixture_references("fixture_x"))[0]["name"], "fixture_ref")

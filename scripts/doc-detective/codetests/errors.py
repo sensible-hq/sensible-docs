@@ -22,8 +22,6 @@ ENVELOPE_INVALID = "ENVELOPE_INVALID"
 SEGMENTS_DRIFT = "SEGMENTS_DRIFT"
 # A fingerprint sample passed or failed when the page claims the opposite
 FINGERPRINT_DRIFT = "FINGERPRINT_DRIFT"
-# Sensible classified a document when the page claims it doesn't, or the reverse
-CLASSIFICATION_DRIFT = "CLASSIFICATION_DRIFT"
 # The test couldn't run: an unexpected error in the runner or its setup (for example a malformed key)
 RUNNER_ERROR = "RUNNER_ERROR"
 
