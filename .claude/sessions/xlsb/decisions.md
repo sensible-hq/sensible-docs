@@ -38,6 +38,10 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 - Extended the docs-test runner with classification claims, wrote two embedded tests under footnote 3, and saved the HTML report. Moved them from a temporary doc type to a persistent fixture, `fixture_spreadsheet_classify`, and added curl commands and file links to the report.
 - Wrote the `add-doc-tests` skill on #749.
 
+### 2026-11-11
+- Split the work: test infrastructure moved to #803 (with CI by priority: 1 weekly, 2 monthly, 3 on demand); this PR is the XLSB docs. #803 merges first; then file-types.md goes into `test-pages.json` as priority 3.
+- Started replacing the abstract test spreadsheets with a commission statement (Frances rejected invoice and rent roll examples): CSV written and uploaded to the test account as `fixture_commission_statements`; XLS, XLSM, XLSB need SheetJS (install blocked by the auto-mode classifier) or Excel.
+
 ## Decisions
 
 | Date | Decision | Why | Who |
@@ -59,6 +63,8 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 | 2026-11-10 | Save scrubbed reports to `scripts/doc-detective/reports/` with `DOC_TESTS_SAVE_REPORT=1`, only after a clean leak check | Frances wanted a committed report that changes only on rerun | Frances |
 | 2026-11-10 | Classify against a persistent fixture (`fixture_spreadsheet_classify`) with the XLSB as its reference document; allow spreadsheet reference documents | Frances wanted to open the doc type in the app | Frances |
 | 2026-11-10 | Report shows each request's curl command (key as `$SENSIBLE_TEST_API_KEY`) and links test files relative to the report | Frances wanted to see the requests and the documents | Frances |
+| 2026-11-11 | Test infrastructure in its own PR (#803), merged before this one | Frances: separate infra from the XLSB docs | Frances |
+| 2026-11-11 | Test spreadsheets show a realistic business document: an insurance commission statement (not an invoice or rent roll), with a fixture named for it | Frances wanted realistic, new examples; based on the configuration library's commission statement | Frances |
 | 2026-11-10 | `add-doc-tests` skill goes on #749 with its concept; runner change, fixture, and tests go on #741 | The docs claim and its test ship together; the skill builds on the concept | Claude (Frances didn't object) |
 
 ## Things that turned out wrong along the way

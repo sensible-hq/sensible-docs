@@ -67,7 +67,14 @@ case-sensitive. Reported on sensible#3474.
 - [x] Report: classification runs against a persistent fixture, `fixture_spreadsheet_classify` (linked to the SenseML editor, with the XLSB as its reference document); each request shows its curl command; files link relative to the report. Fixture reference documents can be spreadsheets now
 - Not run in CI: no workflow covers file-types.md yet
 
+## Split into two PRs (2026-11-11)
+
+- [x] Runner changes (classification markup, spreadsheet fixtures, curl commands and file links, saved reports) moved to #803 with priority-based CI; this PR keeps the XLSB docs, file-types tests, fixture, samples, smoke test, and saved report
+- Commission statement samples: CSV in the worktree (uncommitted) and `fixture_commission_statements` in the test account; waiting on a way to make XLS, XLSM, XLSB (SheetJS install or Excel)
+
 ## Next steps
+- [ ] Merge #803 first (this PR's file-types tests need its runner)
+- [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
 
 - [ ] Frances: review the docs, spec, and tooling diff on #741, and the saved report
 - [ ] Merge #741
