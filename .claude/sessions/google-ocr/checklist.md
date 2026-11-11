@@ -44,3 +44,11 @@ See [progress.md](progress.md) for what happened and [decisions.md](decisions.md
 
 ## Other follow-ups found along the way
 - [ ] `microsoftRead` OCR engine exists in the engine but isn't documented (asked Horacio in Slack 2026-09-15)
+
+## Reconciled with #803's fixture layout (2026-11-11, xlsb session, at Frances's request)
+
+- [x] Merged #803 (`fe_doc_test_priorities`) into this branch; PR base changed to it, so this PR merges after #803
+- [x] `ocr_engine` fixture moved to `scripts/doc-detective/fixtures/ocr_engine/`, with `beazley_scanned_72_pages.pdf` inside it (manifest `"file"`)
+- [x] `scripts/test/fixture_pdfs/` removed: docs PDFs are referenced in place (`"docs_pdf"`), never copied (Frances chose this, "Option A")
+- [x] Took #803's settings.py, markup.py, test_markup.py, README, and fingerprint manifest; dropped the edit to the deleted doc-tests-fingerprint.yml (doc-tests.yml replaces it)
+- [x] `assets/pdfs/README.md` and `internal-doc-guidelines.md` updated to the new rule

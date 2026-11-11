@@ -2,4 +2,4 @@
 
 This folder is only for PDFs that appear in the docs, such as example documents that a page links to or shows.
 
-Put reference documents for test fixtures in [`scripts/test/fixture_pdfs/`](../../scripts/test/fixture_pdfs/). Fixtures never use this folder directly: if a fixture needs a PDF from here, copy it to `scripts/test/fixture_pdfs/`. See [PDF directory conventions](../../internal-doc-guidelines.md#pdf-directory-conventions).
+Test-only files for the docs tests (fixture reference documents, test spreadsheets) go in the fixture's own folder under [`scripts/doc-detective/fixtures/`](../../scripts/doc-detective/fixtures/), never here. A fixture that uses a PDF from this folder names it in place (`docs_pdf` in its manifest) instead of copying it. See [PDF directory conventions](../../internal-doc-guidelines.md#pdf-directory-conventions).
