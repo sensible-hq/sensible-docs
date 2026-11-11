@@ -5,9 +5,12 @@ Claude Code session ID: 720fe7cf-48da-4332-8c4b-866ca3fa807d
 Branch: doc-test-skill · started 2026-10-13 from /home/franc/GitHub/sensible-docs
 Resume: `cd /home/franc/GitHub/sensible-docs && claude --resume 720fe7cf-48da-4332-8c4b-866ca3fa807d`
 
+Also worked on by session `xlsb` (`1e71441a-3c84-48a0-baa5-c36aac379bbb`), 2026-11-10: wrote the skill's first version.
+Handover: read `.claude/sessions/doc-test-skill/decisions.md` first (where things stand, progress log, decisions, open questions).
+
 Goal: a skill that adds tests for new doc claims (with judgment), called by the doc-writing skills. Concept: `design/docs-test-skill/CONCEPT.md`.
 
-Depends on: PR #737 (docs-test tooling), PR #744 (API contract tests and design).
+Depends on: PR #737 (docs-test tooling, **merged**), PR #741 (classification markup, saved reports, fixture spreadsheets; **open**, merge first), PR #744 (API contract tests and design; **open**).
 
 - [x] Research Doc Detective's best practices (docs + agent-tools) and fold into the concept
 - [x] Draft the concept: triage rubric, per-surface tests (UI, code, SenseML reference incl. parameter tables, API), skill hooks
@@ -25,3 +28,12 @@ Depends on: PR #737 (docs-test tooling), PR #744 (API contract tests and design)
 - [ ] Add the hook step to create-new-doc, update-existing-doc, update-docs-from-pr, create-concept-doc, create-docs-example, api-spec (optional: blog-how-to-parse-x)
 - [ ] Check json5-commenter and revise-doc-style preserve test markup
 - [ ] Re-implement (don't install: agent-tools is AGPL) a post-edit "tests may need updating" hook
+
+## Next steps (2026-11-11)
+
+- [ ] Frances: review the concept's open questions and the skill (decisions.md lists both)
+- [ ] Merge #741 (the skill's classification markup and saved reports come from it)
+- [ ] Merge `v0` into this branch (67 commits behind on 2026-11-11; keep this branch's session pointer files on conflict)
+- [ ] Revise the skill from Frances's review
+- [ ] Add the hook step to the doc-writing skills (item above)
+- [ ] Update the PR description and mark #749 ready
