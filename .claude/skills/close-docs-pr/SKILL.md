@@ -30,29 +30,28 @@ If you find none, ask Frances which source PR it was, or whether there isn't one
 
 ## Step 3 — Attach the doc-test evidence
 
-The HTML report from the page's doc tests is the evidence that the merge is OK. Frances wants a link that opens it as a rendered page, on the docs PR, once it merges. Skip this step if an earlier run already attached it: look for a PR comment starting `**Doc-test evidence**`.
+The HTML report from the page's doc tests is the evidence that the merge is OK. Frances wants a link that opens it as a rendered page, on the docs PR, once it merges. Use the doc-tests workflow's own report artifact: it uploads `report.html` unzipped (`archive: false`), so GitHub opens it as a page for anyone signed in. Don't use third-party hosts to render a committed HTML file. Skip this step if an earlier run already attached the evidence: look for a PR comment starting `**Doc-test evidence**`.
 
-1. **Find the tested pages the PR changed.** List the PR's files, and keep the docs pages that are in `scripts/doc-detective/test-pages.json` at the merge commit, plus any saved report the PR changed:
+1. **Find the tested pages the PR changed.** List the PR's files, and keep the docs pages that are in `scripts/doc-detective/test-pages.json` at the merge commit, plus the page of any saved report the PR changed:
    ```bash
    gh api repos/sensible-hq/sensible-docs/pulls/<N>/files --paginate --jq '.[].filename'
    git show <merge-sha>:scripts/doc-detective/test-pages.json
    ```
-   No tested page and no saved report among the files means there's no evidence to attach. Say so in the report (Step 7) and go on to Step 4.
+   No tested page among them means there's no evidence to attach. Say so in the report (Step 7) and go on to Step 4.
 
-2. **Link the saved report, if the PR has one.** A page's saved report is `scripts/doc-detective/reports/<slug>.html`, with its results in `<slug>.json`. Get the slug with `python3 scripts/doc-detective/test_matrix.py slug "<page>"`. Read the results at the merge commit (`git show <merge-sha>:scripts/doc-detective/reports/<slug>.json`) for `overall`, `commit`, `tested_at`, and `uncommitted`. Link the report two ways, both pinned to the merge commit, so each link shows exactly what merged and never changes:
-   - Rendered: `https://rawcdn.githack.com/sensible-hq/sensible-docs/<merge-sha>/scripts/doc-detective/reports/<slug>.html`. GitHub shows a committed HTML file as source, so the rendered link goes through githack, which serves public repo files as web pages. The report's links to fixture files resolve at the same commit. Check the link before posting it: `curl -sI <url>` returns 200 and `content-type: text/html`.
-   - Source: `https://github.com/sensible-hq/sensible-docs/blob/<merge-sha>/scripts/doc-detective/reports/<slug>.html`.
-
-   Say plainly, in the comment and the report, anything that weakens it as evidence: the PR didn't update the report (it's older evidence), `overall` isn't `pass`, `uncommitted` is true, or the tested commit isn't in the PR's history.
-
-3. **If it wasn't done already, run the tests now.** For a tested page the PR changed without saving its report, run the page's tests in CI on the merged `v0`, and link that run's report:
+2. **Get a CI run of each page on the merge commit.** A push to `v0` runs a priority 1 or 2 page whose tests or tooling changed, so first look for that run; otherwise, if it wasn't done already, start one:
    ```bash
+   gh run list --repo sensible-hq/sensible-docs --workflow doc-tests.yml --commit <merge-sha> --json databaseId,status,conclusion,event
    gh workflow run doc-tests.yml --repo sensible-hq/sensible-docs --ref v0 -f page="<page>"
-   gh run list --repo sensible-hq/sensible-docs --workflow doc-tests.yml --limit 1 --json databaseId,url,headSha
    gh run watch <run-id> --repo sensible-hq/sensible-docs --exit-status
-   gh api repos/sensible-hq/sensible-docs/actions/runs/<run-id>/artifacts --jq '.artifacts[] | select(.name | endswith("report.html")) | .id'
    ```
-   The report's link is `https://github.com/sensible-hq/sensible-docs/actions/runs/<run-id>/artifacts/<artifact-id>`. It opens as a rendered page for anyone signed in to GitHub, but it expires after 90 days, so say so in the comment. Then ask Frances whether to save a permanent report (`DOC_TESTS_SAVE_REPORT=1 scripts/doc-detective/run.sh "<page>"` on `v0`, committed in a follow-up PR). Don't open that PR unasked. A failed run is the finding: post it with the run's link, and flag it in the report rather than closing the loop as if it passed.
+   Confirm the run's `headSha` is the merge commit, or a later `v0` commit that didn't change the page or `scripts/doc-detective/`. A failed run is the finding: post it with the run's link, and flag it in the report rather than closing the loop as if it passed.
+
+3. **Link the run's report.** Each page's report is the artifact named `doc-tests-<name>-report.html`, where `<name>` is the page's `name` in `test-pages.json`:
+   ```bash
+   gh api repos/sensible-hq/sensible-docs/actions/runs/<run-id>/artifacts --jq '.artifacts[] | select(.name == "doc-tests-<name>-report.html") | "\(.id) \(.expires_at)"'
+   ```
+   The rendered link is `https://github.com/sensible-hq/sensible-docs/actions/runs/<run-id>/artifacts/<artifact-id>`. It expires after 90 days, the repo's maximum retention, so say so in the comment. When the PR saved the page's report (`scripts/doc-detective/reports/<slug>.html`; get the slug with `python3 scripts/doc-detective/test_matrix.py slug "<page>"`), also link its permanent copy at the merge commit, `https://github.com/sensible-hq/sensible-docs/blob/<merge-sha>/scripts/doc-detective/reports/<slug>.html`, with the result from `<slug>.json` there. Flag a saved report the PR didn't update, an `overall` other than `pass`, or `uncommitted` set to true.
 
 4. **Post one comment on the docs PR,** with a line per tested page:
    ```bash
@@ -61,7 +60,7 @@ The HTML report from the page's doc tests is the evidence that the merge is OK. 
    ```markdown
    **Doc-test evidence**
 
-   - `<page>`: [rendered report](<rendered url>) · [source](<source url>) · <overall>, tested at commit <commit> on <tested_at date>
+   - `<page>`: [rendered report](<artifact url>) (expires <expires_at date>) · <run conclusion>, [CI run](<run url>) on <merge-sha> · saved report: [permanent copy](<blob url>), <overall>, or none
    ```
    Add the same lines to the issue in Step 4.
 
