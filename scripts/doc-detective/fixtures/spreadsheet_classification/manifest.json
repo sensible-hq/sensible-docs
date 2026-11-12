@@ -1,0 +1,23 @@
+{
+  "description": "Test-account fixture for the classification footnote in docs/Senseml reference/concepts/file-types.md. Sensible classifies by the doc type's description, so it describes the test spreadsheets in this folder: one commission statement as CSV, XLSX, XLS, XLSM (made from the CSV with make_spreadsheets.py), and XLSB (converted from the XLSX with SheetJS; see make_spreadsheets.py). The config has no fields: classification doesn't use it, but every fixture needs one, plus a reference document, so you can open it in the SenseML editor. Paths are relative to this folder; a reference document is either `file` (in this folder) or `docs_pdf` (a file name in assets/pdfs/, used in place).",
+  "document_types": [
+    {
+      "doctype": "fixture_spreadsheet_classify.doctype.json",
+      "source": "docs/Senseml reference/concepts/file-types.md (footnote 3)",
+      "configs": [
+        {
+          "name": "fixture_spreadsheet_sample",
+          "file": "fixture_spreadsheet_classify.fixture_spreadsheet_sample.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_commission_statement",
+          "configuration": "fixture_spreadsheet_sample",
+          "file": "commission_statement.xlsb"
+        }
+      ]
+    }
+  ]
+}

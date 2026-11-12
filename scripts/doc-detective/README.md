@@ -33,7 +33,7 @@ flowchart LR
 | Test markup | Comments in the page, each a single line in the form `<!-- name {json} -->`. Code tests use markers that say where each part comes from: `inline` (shown on the page), `fixture` (committed, private), or `expect` (written in the test). The shape follows Doc Detective's inline tests, so a later move to Doc Detective stays possible. |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
 | `codetests/runner.py` | Runs each code test by its kind of claim, compares the result with the page, and records what happened. |
-| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, temporary doc types, and fixtures. |
+| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, the temporary and sample doc types, and fixtures. |
 | Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json`. Every report reads records, never the API. |
 | `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
 | `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
@@ -56,7 +56,8 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | Thing | Where | Lifetime |
 | --- | --- | --- |
 | Fixture doc types and configs (`fixture_*`) | Docs test account, with the committed files in `scripts/doc-detective/fixtures/<group>/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
-| Temporary doc types (`docs_ci_*`) | Docs test account | Rebuilt from the page on every run, then deleted. |
+| The temporary doc type (`docs_ci_examples`) | Docs test account | Rebuilt from the page on every run, then deleted. |
+| Sample doc types (`docs_ci_sample_<page>__<testId>…`) | Docs test account | Persist between runs, so the report's editor links work. Each run of a test replaces them from the page; orphans are deleted. |
 | Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
@@ -195,7 +196,13 @@ These comparisons are exact: fingerprinting uses no LLM, so there's no judge and
 
 ### Fingerprint samples (the page's own code blocks)
 
-To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **temporary doc type** named `docs_ci_tmp_<testId>…`, published to development, and deletes the doc type after the test. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`.
+To test a fingerprint sample as the page shows it, mark the sample itself instead of using a fixture. The runner uploads it as written (comments and all) to a **sample doc type** named `docs_ci_sample_<page>__<testId>…`, published to development. Sensible validates each config on upload, so a sample with invalid syntax fails as `CONFIG_INVALID`. If the example document is in this repo (a `raw.githubusercontent.com/.../v0/assets/pdfs/` link), the runner also uploads it as the doc type's reference document, so the editor opens on it.
+
+**Sample doc types are replaced, not kept:**
+
+- **Replaced on each run.** Every run of a test deletes its sample doc types and recreates them from the page's current samples, so they always match the page.
+- **Kept until then,** so the report can link each config to the SenseML editor. Because the names don't change between runs, an older report's editor links show the latest run's configs. For exactly what a run ran, use its extraction link (extraction history is permanent), or the page at the run's commit.
+- **Orphans are deleted.** After each page run, `code_tests.py` deletes that page's sample doc types that no test on the page uses any more, for example after you rename or remove a test. It only touches names with that page's prefix (`docs_ci_sample_<page>__`), and `--keep` skips it.
 
 **Portfolio samples:** give each sample's `inline config` a `doc_type` and a `config` name. Samples with the same `doc_type` share a doc type. All the doc types run together as one fingerprint-segmented portfolio:
 
@@ -259,7 +266,7 @@ For a claim about which files Sensible classifies, a code test sends files from 
 ```markdown
 <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
 <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
-<!-- expect {"compare": "classification", "requests": [{"file": "csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
 <!-- code test end -->
 ```
 
