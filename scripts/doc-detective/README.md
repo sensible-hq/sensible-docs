@@ -395,7 +395,7 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `[...]` and `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |
 | `codetests/fields.py` | Which output keys LLM methods produce, and their declared types. |
-| `codetests/judge.py` | The LLM judge. Prompts and model: `config/judge/`. |
+| `codetests/judge.py` | The LLM judge. Prompts: `prompts/judge/`; model, thresholds, and output schema: `config/judge/`. |
 | `codetests/envelope.py` | Regression envelopes. |
 | `codetests/sensible.py` | The Sensible API calls. |
 | `codetests/record.py` | The record each code test produces. |
@@ -408,7 +408,8 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
-| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`), result, and envelope schemas. |
+| `prompts/` | Prompts the tooling sends to an LLM, one folder per use. `prompts/judge/`: the judge's system prompt, user prompt, and per-claim template, which `codetests/judge.py` loads into variables at import (`$name` placeholders filled per run). |
+| `config/`, `schemas/` | Judge model, thresholds, and output schema, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`), result, and envelope schemas. |
 
 ## Known limits
 
