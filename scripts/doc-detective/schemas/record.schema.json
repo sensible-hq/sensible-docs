@@ -223,7 +223,7 @@
     "segments": {
       "type": "object",
       "additionalProperties": false,
-      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in a temporary doc type).",
+      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in its own sample doc type).",
       "required": [
         "fixtures",
         "document_types",
@@ -288,7 +288,7 @@
         },
         "samples": {
           "type": "array",
-          "description": "The page's inline fingerprint samples, each run in a temporary doc type",
+          "description": "The page's inline fingerprint samples, each run in a sample doc type that stays in the test account until the next run",
           "items": {
             "type": "object",
             "required": [
@@ -302,6 +302,10 @@
               },
               "config": {
                 "type": "string"
+              },
+              "editor": {
+                "type": "string",
+                "description": "The sample's config in the SenseML editor"
               }
             }
           }
@@ -349,6 +353,10 @@
               },
               "extraction_id": {
                 "type": "string"
+              },
+              "editor": {
+                "type": "string",
+                "description": "This run's config in the SenseML editor"
               }
             }
           }

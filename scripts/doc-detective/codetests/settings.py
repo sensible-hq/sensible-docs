@@ -51,8 +51,11 @@ TEST_FIXTURES_DIR = os.path.join(HERE, "fixtures")
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
 FIXTURE_PREFIX = "fixture_"
-# Inline fingerprint samples run in temporary doc types named with this prefix, deleted after each test
-TEMP_DOC_TYPE_PREFIX = "docs_ci_tmp_"
+# Inline fingerprint samples run in doc types named with this prefix. Each run recreates them, and
+# they stay in the test account between runs, so the report can link to each config in the editor
+SAMPLE_DOC_TYPE_PREFIX = "docs_ci_sample_"
+# Example documents linked from this repo's v0 branch; the runner uploads the local copy as a reference document
+DOCS_RAW_PREFIX = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/"
 # The docs' published example documents. A file a test sends to Sensible (a fixture reference document,
 # a classification request) is either in its fixture's folder ("file") or here ("docs_pdf"), used in
 # place, so a page or manifest can't send other repo files
