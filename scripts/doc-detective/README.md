@@ -259,7 +259,7 @@ For a claim about which files Sensible classifies, a code test sends files from 
 ```markdown
 <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
 <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
-<!-- expect {"compare": "classification", "requests": [{"file": "csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
 <!-- code test end -->
 ```
 

@@ -108,8 +108,23 @@ Frances chose LibreOffice for XLSX, XLS, and XLSM, and Excel by hand for XLSB (L
 - [x] Frances: `sudo apt install libreoffice-calc`
 - [x] Converted with `fixtures/spreadsheet_classification/make_spreadsheets.py` (2026-11-11), not plain `soffice --convert-to`: that dropped the number formats, so money showed as `4200` instead of `4,200.00`. The script sets `#,##0.00` and `0%`; all three files now display exactly like the CSV (checked by exporting each back to CSV as shown). The XLSM is macro-enabled with no VBA parts. The files are in `scripts/test/assets/` (untracked) until the XLSB is ready
 - [ ] Frances: save `commission_statement.xlsb` from Excel next to the CSV
-- [ ] Move all five into `scripts/doc-detective/fixtures/spreadsheet_classification/`, replacing `xls_sample.xls`, `xlsm_sample.xlsm`, `xlsb_sample.xlsb`, and `csv_sample.csv`; point `manifest.json`'s reference document at the XLSB, and the saved test lines above at the new file names
-- [ ] Rerun the fixture check and smoke test with the new files
+- [x] Moved the CSV, XLSX, XLS, and XLSM into the fixture folder, replacing `csv_sample.csv`, `xls_sample.xls`, and `xlsm_sample.xlsm`. The doc type's description now describes a commission statement; the reference document is `commission_statement.xlsx`. `xlsb_sample.xlsb` stays as a placeholder (the smoke test uses it too)
+- [ ] **TODO (Frances, deferred 2026-11-11):** save `commission_statement.xlsb` from Excel into the fixture folder, then point the XLSB requests below and the smoke test at it, delete `xlsb_sample.xlsb`, and rerun
+
+**Finding from the live check (2026-11-11):** a 400 "No match found" from `/classify` doesn't separate "unsupported format" from "the contents don't match the doc type's description". With the commission statement description, `xlsb_sample.xlsb` (the engine's "hello" sheet) isn't classified even as XLSX, so its two "classified" rows fail until the commission statement XLSB exists, and its "not classified" row passes for the wrong reason. So **every "not classified" request needs a control: the same file classified with a supported content type.** The XLSX row in the block below is that control for the commission statement; keep one when reimplementing. Every other request passed: XLSX, and XLS and XLSM sent as XLSX, classify; XLS and XLSM with their own content types, and CSV, don't.
+
+The saved test lines, updated for the commission statement files, with the XLSX control added (the original version is in the section above):
+
+```markdown
+   <!-- code test {"testId": "classify_excel_formats_as_xlsx", "description": "XLS, XLSM, and XLSB classify when sent as XLSX or by the Python SDK, but not with their own content types"} -->
+   <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+   <!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.xlsx", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLSX (control)"}, {"file": "commission_statement.xls", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLS sent as XLSX"}, {"file": "commission_statement.xlsm", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLSM sent as XLSX"}, {"file": "xlsb_sample.xlsb", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLSB sent as XLSX"}, {"file": "xlsb_sample.xlsb", "content_type": "application/pdf", "classified": true, "label": "Python SDK (sends application/pdf)"}, {"file": "commission_statement.xls", "content_type": "application/vnd.ms-excel", "classified": false, "label": "XLS with its own content type"}, {"file": "commission_statement.xlsm", "content_type": "application/vnd.ms-excel.sheet.macroenabled.12", "classified": false, "label": "XLSM with its own content type"}, {"file": "xlsb_sample.xlsb", "content_type": "application/vnd.ms-excel.sheet.binary.macroenabled.12", "classified": false, "label": "XLSB with its own content type"}]} -->
+   <!-- code test end -->
+   <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
+   <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+   <!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}, {"file": "commission_statement.csv", "content_type": "application/pdf", "classified": false, "label": "Python SDK (sends application/pdf)"}]} -->
+   <!-- code test end -->
+```
 
 ## Next steps
 - [ ] Merge #803, then #809, then this PR
