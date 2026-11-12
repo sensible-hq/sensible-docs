@@ -105,8 +105,8 @@ The removed lines, verbatim. They went under footnote 3, indented three spaces:
 
 Frances chose LibreOffice for XLSX, XLS, and XLSM, and Excel by hand for XLSB (LibreOffice can only import XLSB). No SheetJS. The XLSM is the macro-enabled container only, with no macros. Source: `scripts/test/assets/commission_statement.csv` (untracked).
 
-- [ ] Frances: `sudo apt install libreoffice-calc`
-- [ ] Convert, from `scripts/test/assets/`: `soffice --headless --infilter="CSV:44,34,76,1" --convert-to xlsx commission_statement.csv`, then the same with `xls`, and with `"xlsm:Calc MS Excel 2007 VBA XML"`
+- [x] Frances: `sudo apt install libreoffice-calc`
+- [x] Converted with `fixtures/spreadsheet_classification/make_spreadsheets.py` (2026-11-11), not plain `soffice --convert-to`: that dropped the number formats, so money showed as `4200` instead of `4,200.00`. The script sets `#,##0.00` and `0%`; all three files now display exactly like the CSV (checked by exporting each back to CSV as shown). The XLSM is macro-enabled with no VBA parts. The files are in `scripts/test/assets/` (untracked) until the XLSB is ready
 - [ ] Frances: save `commission_statement.xlsb` from Excel next to the CSV
 - [ ] Move all five into `scripts/doc-detective/fixtures/spreadsheet_classification/`, replacing `xls_sample.xls`, `xlsm_sample.xlsm`, `xlsb_sample.xlsb`, and `csv_sample.csv`; point `manifest.json`'s reference document at the XLSB, and the saved test lines above at the new file names
 - [ ] Rerun the fixture check and smoke test with the new files
