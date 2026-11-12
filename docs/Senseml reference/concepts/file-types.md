@@ -72,6 +72,8 @@ Sensible supports the following file sizes:
 
 ## File conversions
 
+When you submit a document to Sensible, it performs the following file conversions:
+
 * **Word documents**: Sensible converts the document to PDF before processing it.
 * **Email bodies**: Sensible converts the body to PDF before processing it.
 * **Spreadsheet documents**: All [OCR](doc:ocr) settings are inapplicable for this file type. Sensible extracts text directly from the file without OCR. Sensible represents the text both internally and in the Sensible app's editor as follows:
