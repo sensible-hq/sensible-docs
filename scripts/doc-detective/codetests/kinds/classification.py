@@ -9,8 +9,12 @@ answer is the claim), no envelope.
     <!-- fixture {"name": "<doc type name>"} -->
     <!-- expect {"compare": "classification", "requests": [
         {"file": "<file in the fixture's folder>" or "docs_pdf": "<file name in assets/pdfs>",
-         "content_type": "...", "classified": true or false, "label": "..."}, ...]} -->
+         "as": "xlsx", "classified": true or false}, ...]} -->
     <!-- code test end -->
+
+Each request gives its content type as `as`, a file extension that stands for that extension's MIME
+type (settings.REFERENCE_CONTENT_TYPES), or as `content_type`, the MIME type itself, for one with no
+extension there. `label` (optional) names the request in reports.
 """
 
 import json
@@ -27,18 +31,33 @@ LABEL = "classification"
 RECORD_KEY = "classification"
 
 
+# `as`: a short name for a request's content type, the file extension it belongs to
+CONTENT_TYPE_NAMES = {ext.lstrip("."): mime for ext, mime in settings.REFERENCE_CONTENT_TYPES.items()}
+
+
+def _content_type(r):
+    """A request's MIME type, from `as` or `content_type` (exactly one), or None if neither is valid."""
+    if ("as" in r) == ("content_type" in r):
+        return None
+    if "as" in r:
+        return CONTENT_TYPE_NAMES.get(r["as"]) if isinstance(r["as"], str) else None
+    return r["content_type"] if isinstance(r["content_type"], str) and r["content_type"] else None
+
+
 def parse_expect(options, test_id, where):
     requests = options.get("requests")
     if set(options) - {"compare", "requests"} or not isinstance(requests, list) or not requests or not all(
-        isinstance(r, dict) and sum(k in r for k in markup.DOCUMENT_KEYS) == 1 and isinstance(r.get("content_type"), str) and r["content_type"]
+        isinstance(r, dict) and sum(k in r for k in markup.DOCUMENT_KEYS) == 1 and _content_type(r)
         and isinstance(r.get("classified"), bool) and isinstance(r.get("label", ""), str)
-        and set(r) <= {*markup.DOCUMENT_KEYS, "content_type", "classified", "label"}
+        and set(r) <= {*markup.DOCUMENT_KEYS, "as", "content_type", "classified", "label"}
         for r in requests
     ):
         raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"classification\" expect needs only \"requests\": "
                             f"[{{\"file\": \"<file in the fixture's folder>\" or \"docs_pdf\": \"<file name in assets/pdfs>\", "
-                            f"\"content_type\": \"...\", \"classified\": true or false, \"label\": \"...\"}}] ({where})")
-    return {"requests": requests}
+                            f"\"as\": one of {', '.join(CONTENT_TYPE_NAMES)} (or \"content_type\": \"<MIME type>\"), "
+                            f"\"classified\": true or false, \"label\": \"...\" (optional)}}] ({where})")
+    # Expand `as`, so the rest of the run (the request, the curl command, the report) sees the MIME type
+    return {"requests": [{**{k: v for k, v in r.items() if k != "as"}, "content_type": _content_type(r)} for r in requests]}
 
 
 def validate(test, seen, where):

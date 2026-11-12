@@ -2,8 +2,9 @@
 
 LLM methods (Query Group, List, NLP Table) can return a correct answer that's worded or formatted
 differently from the docs, for example "1800-123-4567" instead of "1800 123 4567". The judge
-decides, per value, whether the actual value still supports what the docs show. Its model,
-prompts, and output schema live in config/judge/; DOC_EXAMPLES_JUDGE_MODEL overrides the model.
+decides, per value, whether the actual value still supports what the docs show. Its prompts live
+in prompts/judge/; its model, thresholds, and output schema in config/judge/.
+DOC_EXAMPLES_JUDGE_MODEL overrides the model.
 """
 
 import json
@@ -13,21 +14,23 @@ from string import Template
 from . import fields, settings
 
 JUDGE_DIR = os.path.join(settings.CONFIG_DIR, "judge")
+JUDGE_PROMPTS_DIR = os.path.join(settings.PROMPTS_DIR, "judge")
 
 
 def load_config():
-    """config/judge/config.json plus the prompt, template, and schema files it names."""
+    """config/judge/config.json, plus the prompt and template files it names (in prompts/judge/)
+    and its output schema (in config/judge/)."""
     with open(os.path.join(JUDGE_DIR, "config.json"), encoding="utf-8") as f:
         config = json.load(f)
 
-    def read(name):
-        with open(os.path.join(JUDGE_DIR, config[name]), encoding="utf-8") as f:
+    def read(folder, name):
+        with open(os.path.join(folder, config[name]), encoding="utf-8") as f:
             return f.read().strip()
 
-    config["system_prompt"] = read("system_prompt_file")
-    config["user_prompt"] = Template(read("user_prompt_file"))
-    config["claim_template"] = Template(read("claim_template_file"))
-    config["output_schema"] = json.loads(read("output_schema_file"))
+    config["system_prompt"] = read(JUDGE_PROMPTS_DIR, "system_prompt_file")
+    config["user_prompt"] = Template(read(JUDGE_PROMPTS_DIR, "user_prompt_file"))
+    config["claim_template"] = Template(read(JUDGE_PROMPTS_DIR, "claim_template_file"))
+    config["output_schema"] = json.loads(read(JUDGE_DIR, "output_schema_file"))
     config["type_examples"] = fields.load_type_examples(os.path.join(settings.REPO_ROOT, config["types_reference"]))
     return config
 

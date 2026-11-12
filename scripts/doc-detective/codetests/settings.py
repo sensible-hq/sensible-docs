@@ -6,6 +6,8 @@ import re
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # scripts/doc-detective
 REPO_ROOT = os.path.dirname(os.path.dirname(HERE))
 CONFIG_DIR = os.path.join(HERE, "config")
+# Prompts the tooling sends to an LLM, one folder per use (prompts/judge/); settings for them stay in config/
+PROMPTS_DIR = os.path.join(HERE, "prompts")
 SCHEMAS_DIR = os.path.join(HERE, "schemas")
 # The tooling's self-test pages: altered copies of real pages (tests/pages/build_fixtures.py)
 SELF_TEST_PAGES_DIR = os.path.join(HERE, "tests", "pages")

@@ -3,7 +3,7 @@
 Tests that run inside a docs page and check the page still tells the truth. There are two kinds:
 
 - **UI tests** walk through the Sensible app the way the page tells a reader to, for example signing in and opening the Document Types tab. [Doc Detective](https://docs.doc-detective.com) runs them.
-- **Code tests** check a page's claims against the Sensible API: a documented SenseML config's output, how fingerprints segment a portfolio, or which files Sensible classifies. `code_tests.py` runs them.
+- **Code tests** check a page's claims against the Sensible API, for example, a documented SenseML config's output, how fingerprints segment a portfolio, hidden test fixtures that back up a doc assertion, or which files Sensible classifies. `code_tests.py` runs them.
 
 Both are written as HTML comments in the page, so readers never see them. [`TEST-MATRIX.md`](TEST-MATRIX.md) lists every test, the claim it checks, how often CI runs it, and its last saved result.
 
@@ -265,14 +265,14 @@ For a claim about which files Sensible classifies, a code test sends files from 
 ```markdown
 <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
 <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
-<!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "as": "csv", "classified": false}]} -->
 <!-- code test end -->
 ```
 
 | Marker or option | Meaning |
 | --- | --- |
 | `<!-- fixture {"name": ...} -->` | Exactly one: the doc type to classify as. Persistent in the test account, kept in step with the committed files like any fixture. The report links it to the SenseML editor. |
-| `requests` | Each request names the file it sends with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`), the same rule as reference documents; symlinks are resolved first, so a request can't send other repo files. Each request also has `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
+| `requests` | Each request names the file it sends with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`), the same rule as reference documents; symlinks are resolved first, so a request can't send other repo files. Each request also has `as`, the `Content-Type` header to send, named by file extension (`pdf`, `xlsx`, `xls`, `xlsm`, `xlsb`, or `csv`; the runner expands it to the MIME type), or `content_type` with the MIME type itself, for a type without an extension name. It also has `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
 
 **What counts as "not classified":** a 400 or 415, which is how `/classify` rejects a file (for example "Missing request body", "Could not determine the content type of the document", or "No match found for document"). Any other response says nothing about the file, so the test fails as `RUNNER_ERROR` instead of passing a "not classified" claim: a 401, 429, or 5xx, or a 200 that doesn't name the fixture (each request allows only the fixture's doc type).
 
@@ -395,7 +395,7 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `[...]` and `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |
 | `codetests/fields.py` | Which output keys LLM methods produce, and their declared types. |
-| `codetests/judge.py` | The LLM judge. Prompts and model: `config/judge/`. |
+| `codetests/judge.py` | The LLM judge. Prompts: `prompts/judge/`; model, thresholds, and output schema: `config/judge/`. |
 | `codetests/envelope.py` | Regression envelopes. |
 | `codetests/sensible.py` | The Sensible API calls. |
 | `codetests/record.py` | The record each code test produces. |
@@ -408,7 +408,8 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
-| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`), result, and envelope schemas. |
+| `prompts/` | Prompts the tooling sends to an LLM, one folder per use. `prompts/judge/`: the judge's system prompt, user prompt, and per-claim template, which `codetests/judge.py` loads into variables at import (`$name` placeholders filled per run). |
+| `config/`, `schemas/` | Judge model, thresholds, and output schema, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`), result, and envelope schemas. |
 
 ## Known limits
 
