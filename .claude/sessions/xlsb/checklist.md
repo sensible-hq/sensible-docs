@@ -107,7 +107,7 @@ Frances chose LibreOffice for XLSX, XLS, and XLSM, and Excel by hand for XLSB (L
 
 - [x] Frances: `sudo apt install libreoffice-calc`
 - [x] Converted with `fixtures/spreadsheet_classification/make_spreadsheets.py` (2026-11-11), not plain `soffice --convert-to`: that dropped the number formats, so money showed as `4200` instead of `4,200.00`. The script sets `#,##0.00` and `0%`; all three files now display exactly like the CSV (checked by exporting each back to CSV as shown). The XLSM is macro-enabled with no VBA parts. The files are in `scripts/test/assets/` (untracked) until the XLSB is ready
-- [ ] Frances: save `commission_statement.xlsb` from Excel next to the CSV
+- [x] ~~Frances: save `commission_statement.xlsb` from Excel next to the CSV~~ (Excel expired; converted with SheetJS instead, below)
 - [x] Moved the CSV, XLSX, XLS, and XLSM into the fixture folder, replacing `csv_sample.csv`, `xls_sample.xls`, and `xlsm_sample.xlsm`. The doc type's description now describes a commission statement; the reference document is `commission_statement.xlsx`. `xlsb_sample.xlsb` stays as a placeholder (the smoke test uses it too)
 - [x] XLSB (2026-11-11): Frances's Excel license had expired, so it was converted from the XLSX once with SheetJS CE 0.20.3 (Apache-2.0), installed outside the repo (commands in `make_spreadsheets.py`). It's a real binary workbook and displays exactly like the CSV. It's now the fixture's reference document; `xlsb_sample.xlsb` is deleted, and the smoke test uses the new file
 - [x] Live check with the saved test lines below: all 12 requests behave as documented, including the XLSB rows that failed with the placeholder. Smoke test: 13 of 13 checks match the documented behavior
@@ -130,7 +130,7 @@ The saved test lines, updated for the commission statement files, with the XLSX 
 ## Next steps
 - [ ] Merge #803, then #809, then this PR
 - [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
-- [ ] Also after #803 merges: move `scripts/test/probe_endpoints/contract/fixtures/spreadsheet_classification/` and the test spreadsheets (`scripts/test/assets/{xls,xlsm,xlsb}_sample.*`, `csv_sample.csv`) into `scripts/doc-detective/fixtures/spreadsheet_classification/`; manifest `"pdf"` → `"file"`; requests' `file` → bare file names; regenerate TEST-MATRIX.md and rerun with DOC_TESTS_SAVE_REPORT=1 (the smoke test keeps reading `scripts/test/assets/xlsb_sample.xlsb`, or points at the moved file)
+- [x] (Done 2026-11-11, on this branch, before #803 merged) Move `scripts/test/probe_endpoints/contract/fixtures/spreadsheet_classification/` and the test spreadsheets (`scripts/test/assets/{xls,xlsm,xlsb}_sample.*`, `csv_sample.csv`) into `scripts/doc-detective/fixtures/spreadsheet_classification/`; manifest `"pdf"` → `"file"`; requests' `file` → bare file names; regenerate TEST-MATRIX.md and rerun with DOC_TESTS_SAVE_REPORT=1 (the smoke test keeps reading `scripts/test/assets/xlsb_sample.xlsb`, or points at the moved file)
 
 - [ ] Frances: review the docs, spec, and tooling diff on #741, and the saved report
 - [ ] Merge #741
