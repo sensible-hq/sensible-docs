@@ -66,6 +66,7 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 | 2026-11-11 | Test infrastructure in its own PR (#803), merged before this one | Frances: separate infra from the XLSB docs | Frances |
 | 2026-11-11 | Test spreadsheets show a realistic business document: an insurance commission statement (not an invoice or rent roll), with a fixture named for it | Frances wanted realistic, new examples; based on the configuration library's commission statement | Frances |
 | 2026-11-10 | `add-doc-tests` skill goes on #749 with its concept; runner change, fixture, and tests go on #741 | The docs claim and its test ship together; the skill builds on the concept | Claude (Frances didn't object) |
+| 2026-11-11 | Embedded code tests removed from `file-types.md`, and the page dropped from `test-pages.json`; the fixture, test files, and saved report stay | Frances wants #741 free of docs changes, with the docs shipped clean in #809; the tests get reimplemented later in the new approach (lines saved in checklist.md) | Frances, via the google-ocr session |
 
 ## Things that turned out wrong along the way
 
@@ -79,4 +80,3 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 - Node SDK: does its `classify` work for XLS, XLSM, XLSB like the Python SDK? Not checked.
 - Unverified: `.xls` maps to the XLSX content type in the engine's `DOCUMENT_CONTENT_TYPE_FOR_EXTENSIONS`, used for email attachments. Not tested; not documented.
 - Should a CI workflow run the file-types.md tests (about 9 classify calls, no extractions)?
-| 2026-11-11 | Embedded code tests removed from `file-types.md`, and the page dropped from `test-pages.json`; the fixture, test files, and saved report stay | Frances wants #741 free of docs changes, with the docs shipped clean in #809; the tests get reimplemented later in the new approach (lines saved in checklist.md) | Frances, via the google-ocr session |
