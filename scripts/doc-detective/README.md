@@ -34,8 +34,9 @@ flowchart LR
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
 | `codetests/kinds/` | One module per kind of claim: documented output, portfolio documents, fingerprint, and classification. Each kind parses its markup, runs its claim, and writes its part of the record and of each report. |
 | `codetests/runner.py` | Runs each code test through its kind, and records what happened, including a crash. |
-| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, the temporary and sample doc types, and fixtures. |
-| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json` plus the kind's section in `schemas/kinds/`. A record names its kind. Every report reads records, never the API. |
+| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, sample doc types, and fixtures. |
+| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json` plus the kind's section in `schemas/kinds/`. A record names its kind. Reports read records, never the API. |
+| Results | One result per test, whatever ran it (`codetests/results.py`, `schemas/result.schema.json`): the UI tests' Doc Detective results, the code tests' records, and other runners' results in `output/results/`. The report, the CI summary, the failure issue, the saved results, and the matrix all read results, so a test's status means the same everywhere. A marked-up test with no result is "not run", which fails the page. |
 | `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
 | `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
 | `test-pages.json`, `plan_runs.py`, `.github/workflows/doc-tests.yml` | CI: each tested page has a priority, the planner picks the pages for each run, and the workflow runs each page as its own job. |
@@ -57,8 +58,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | Thing | Where | Lifetime |
 | --- | --- | --- |
 | Fixture doc types and configs (`fixture_*`) | Docs test account, with the committed files in `scripts/doc-detective/fixtures/<group>/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
-| The temporary doc type (`docs_ci_examples`) | Docs test account | Rebuilt from the page on every run, then deleted. |
-| Sample doc types (`docs_ci_sample_<page>__<testId>…`) | Docs test account | Persist between runs, so the report's editor links work. Each run of a test replaces them from the page; orphans are deleted. |
+| Sample doc types (`docs_ci_sample_<page>__<testId>…`): each output test's config, and fingerprint and portfolio samples | Docs test account | Persist between runs, so the report's editor links open what ran. Each run of a test replaces them from the page; orphans are deleted. |
 | Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
@@ -71,9 +71,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
 | A fixture | A folder under `fixtures/` with its doc type, config, `manifest.json`, and files | Pages refer to it by doc type name; the folder's location is free. |
 | A kind of claim (for example, an API status code) | A module in `codetests/kinds/`, its record section's schema in `schemas/kinds/`, one line in `kinds.KINDS`, and unit tests. If it calls an endpoint the client doesn't yet, `sensible.py` too. | `codetests/kinds/__init__.py` lists what a kind module defines; `classification.py` is the shortest to copy. `tests/test_kinds.py` registers a made-up kind to check that nothing else needs to change. |
-| A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code and its own reporting | Its results don't reach the HTML report, the matrix, or CI issues yet. |
-
-The last row is the expensive one. A follow-up would fix it: one record shape that every runner writes, so the report, the matrix, and CI cover them all.
+| A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code, a step in `run.sh` before `report.py html` that writes `output/results/<runner>.json` (a list of results; see `schemas/result.schema.json`) | Its results then appear in report.html, the CI summary, the failure issue, the saved results, and the matrix, and a failure fails the run. Its tests aren't in the page's markup, so each result carries its own test ID, kind, claim, and evidence links. |
 
 ## Run the tests
 
@@ -296,7 +294,7 @@ The report shows each request's `curl` command, with every value from the page s
 
 1. **Syntax**, before any network call. Errors name the line in the page.
 2. **The example document link resolves.**
-3. **Extraction.** The config is uploaded to a temporary document type (`docs_ci_examples`) in the docs test account, published to development, and extracted. Only one config is in the document type at a time, and the runner checks Sensible used it: in development, Sensible runs every config in a document type and picks the best fit.
+3. **Extraction.** The config is uploaded as written to the test's own sample doc type (`docs_ci_sample_<page>__<testId>`) in the docs test account, published to development, and extracted. The doc type has only that config, and the runner checks Sensible used it. The doc type stays until the test's next run, so the report links to the config in the SenseML editor (see [sample doc types](#fingerprint-samples-the-pages-own-code-blocks)).
 4. **Comparison** with the extraction's output: Sensible's `parsed_document`, plus, when the config has a [postprocessor](https://docs.sensible.so/docs/postprocessors), a top-level `"postprocessorOutput"` key holding the response's `postprocessorOutput`. That's how pages document postprocessor output, for example `{"postprocessorOutput": {"custom_object": {...}}}` or, for the XML postprocessor, a string. An output block without `"postprocessorOutput"` compares with `parsed_document` alone, as before; the record lists an undocumented `postprocessorOutput` as a left-out field. A config whose own field ID is `postprocessorOutput` and that has a postprocessor fails with `CONFIG_INVALID`, since the two can't be told apart. Envelope builds and `--probe-blank` use the same output.
    - Every key and value the page shows must match. Keys the page leaves out are ignored.
    - `[...]` marks what the page abridges, and it isn't checked: a value (`"created": "[...]"`), an object member, or the rest of an array (`[a, b, [...]]`, `[a, [...], z]`). An array without a mark must match in full. After a colon, `"rows": [...]` means an array whose items aren't checked.
@@ -401,6 +399,7 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/envelope.py` | Regression envelopes. |
 | `codetests/sensible.py` | The Sensible API calls. |
 | `codetests/record.py` | The record each code test produces. |
+| `codetests/results.py` | One result per test from every runner, and the page's overall result. |
 | `codetests/kinds/` | The claim kinds, one module each (see `kinds/__init__.py`), and their shared helpers (`common.py`). |
 | `codetests/samples.py` | Sample doc types: the page's own samples, named for their page and test. |
 | `codetests/runner.py` | Runs a code test through its kind, builds envelopes, probes the blank page. |
@@ -409,7 +408,7 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
-| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`) and envelope schemas. |
+| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`), result, and envelope schemas. |
 
 ## Known limits
 

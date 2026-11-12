@@ -30,6 +30,10 @@
     "document_url": {
       "type": "string"
     },
+    "editor": {
+      "type": "string",
+      "description": "Output tests: the SenseML editor, opened on the test's sample doc type, its config, and the example document. The doc type stays until the test's next run."
+    },
     "document_from": {
       "type": "string",
       "description": "Another code test whose document this one reuses"
