@@ -9,8 +9,9 @@ from datetime import datetime, timezone
 
 from . import settings
 
-# Uncommitted changes here mean the run tested something no commit has: the page, the tooling, or test files
-TESTED_PATHS = ["scripts/doc-detective", "scripts/test"]
+# Uncommitted changes here mean the run tested something no commit has: the page, or the tooling and its
+# fixtures (everything the doc tests read lives under scripts/doc-detective)
+TESTED_PATHS = ["scripts/doc-detective"]
 # Except the saved evidence and the tooling's docs, which a run writes or which change nothing it runs
 # (keep in step with NOT_TOOLING in plan_runs.py; a unit test checks it)
 NOT_TESTED = [
