@@ -2,34 +2,34 @@
 
 UI tests use Doc Detective's own syntax, and Doc Detective runs them:
 
-    <!-- test {"testId": "app_document_types_page", "description": "..."} -->
-    <!-- step {...} -->
-    <!-- test end -->
+    {/* test {"testId": "app_document_types_page", "description": "..."} */}
+    {/* step {...} */}
+    {/* test end */}
 
 Code tests use their own wrapper, and code_tests.py runs them. Inside it, markers name where each
 part of the test comes from: `inline` parts are published on the page, a `fixture` is private and
 committed, and `expect` is written in the test itself.
 
-    <!-- code test {"testId": "extract_auto_insurance_anyco", "description": "..."} -->
-    <!-- inline document -->                       the next line's link is the document
-    <!-- inline document {"from": "<testId>"} -->  or reuse another code test's document
-    <!-- inline config -->                         the next code block is the SenseML config
-    <!-- inline config {"fragment": "field"} -->   or a one-field excerpt, run wrapped in {"fields": [...]}
-    <!-- inline output -->                         the next code block is the documented output
-    <!-- code test end -->
+    {/* code test {"testId": "extract_auto_insurance_anyco", "description": "..."} */}
+    {/* inline document */}                       the next line's link is the document
+    {/* inline document {"from": "<testId>"} */}  or reuse another code test's document
+    {/* inline config */}                         the next code block is the SenseML config
+    {/* inline config {"fragment": "field"} */}   or a one-field excerpt, run wrapped in {"fields": [...]}
+    {/* inline output */}                         the next code block is the documented output
+    {/* code test end */}
 
-A code test without <!-- inline document --> runs on a blank page (settings.BLANK_DOCUMENT_URL), for
+A code test without {/* inline document */} runs on a blank page (settings.BLANK_DOCUMENT_URL), for
 an example that doesn't read its document, such as a constant field and JsonLogic on it. Fixture,
 portfolio, and fingerprint tests still need a document.
 
 For claims the page makes in prose or in a table (for example, how fingerprints segment a
 portfolio), a code test runs a private fixture and checks an expectation written in the test:
 
-    <!-- code test {"testId": "...", "description": "...", "segment_documents_with": "fingerprints"} -->
-    <!-- inline document -->
-    <!-- fixture {"name": "<doc type name>"} -->     a doc type, its config, and a reference document; repeatable
-    <!-- expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} -->
-    <!-- code test end -->
+    {/* code test {"testId": "...", "description": "...", "segment_documents_with": "fingerprints"} */}
+    {/* inline document */}
+    {/* fixture {"name": "<doc type name>"} */}     a doc type, its config, and a reference document; repeatable
+    {/* expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} */}
+    {/* code test end */}
 
 `segment_documents_with` makes it a portfolio extraction, with the public API's parameter of the same
 name. A fixture's name is its doc type's name in the test account; code_tests.py finds it under the
@@ -40,12 +40,12 @@ A table of claims gets one tag, and one table test checks it, with a row entry f
 (like a Doc Detective test and its steps). The table itself has no markers, so it reads as usual. A
 row's keys are marker names with the same options, so a row converts to a code test and back:
 
-    <!-- table {"tableId": "portfolio_failures"} -->
+    {/* table {"tableId": "portfolio_failures"} */}
     | ... | ... |
-    <!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints"} -->
-    <!-- inline document -->                       or {"from": "<testId>"}
-    <!-- row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} -->
-    <!-- table test end -->
+    {/* table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints"} */}
+    {/* inline document */}                       or {"from": "<testId>"}
+    {/* row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} */}
+    {/* table test end */}
 
 Each kind of claim (the expect's "compare": documents, fingerprint, classification; no expect is
 "output") documents its own markup and rules in codetests/kinds/<kind>.py.
@@ -54,7 +54,7 @@ The tag and the test must name each other, and the test needs one row entry per 
 table's order: adding or deleting a row without updating the test fails the run. Row content isn't
 compared; the tag is the hint that the table and the test change together.
 
-Test IDs must be unique across both kinds of test on a page. The old `<!-- example ... -->` markers
+Test IDs must be unique across both kinds of test on a page. The old `{/* example ... */}` markers
 and the "segment" option were renamed; using them fails with a message naming the new markup.
 """
 
@@ -240,10 +240,33 @@ def _code_test(text, match, path):
     return test
 
 
-def parse_page(path):
-    """Read a page's UI tests and code tests, and check the markup rules."""
+# An MDX comment, `{/* ... */}`, outside code fences. ReadMe's editor saves a page's HTML comments in
+# this form, test markup included, so the runner reads both.
+MDX_COMMENT_RE = re.compile(r"\{/\*(\s)(.*?)\*/\}", re.S)
+FENCE_SPAN_RE = re.compile(r"^```.*?^```[^\n]*$", re.S | re.M)
+
+
+def read_page(path):
+    """A page's text, with each MDX comment outside code fences rewritten as an HTML comment of the
+    same length (`{/* ` to `<!--`, `*/}` to `-->`), so test markup reads the same in either form and
+    every offset and line number still points at the page as saved. Code fences are left alone:
+    SenseML configs in them use /* */ comments."""
     with open(path, encoding="utf-8") as f:
         text = f.read()
+    fences = [m.span() for m in FENCE_SPAN_RE.finditer(text)]
+
+    def html_comment(m):
+        if any(start <= m.start() < end for start, end in fences):
+            return m.group(0)
+        return "<!--" + m.group(2) + "-->"
+
+    return MDX_COMMENT_RE.sub(html_comment, text)
+
+
+def parse_page(path):
+    """Read a page's UI tests and code tests, and check the markup rules. Markup can be HTML
+    comments, `<!-- ... -->`, or MDX comments, `{/* ... */}` (see read_page)."""
+    text = read_page(path)
     page = Page(path)
     ids = {}  # test ID -> line where it's first defined
     old = OLD_MARKER_RE.search(text)

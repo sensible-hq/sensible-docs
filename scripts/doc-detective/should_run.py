@@ -37,8 +37,7 @@ def _code_spec(test):
 def spec(path):
     """What the page's tests run, in a comparable form."""
     page = markup.parse_page(path)
-    with open(path, encoding="utf-8") as f:
-        text = f.read()
+    text = markup.read_page(path)
     tables = {}
     for tag in markup.TABLE_TAG_RE.finditer(text):
         tables[tag.group(1)] = markup._table_rows(text, tag.end())

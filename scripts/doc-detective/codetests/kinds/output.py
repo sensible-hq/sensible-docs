@@ -6,11 +6,11 @@ names none), and compares the documented output with parsed_document, plus a top
 that LLM methods produced and that differ go to the judge (judge.py); everything else must match
 exactly. Then checks the LLM fields against the regression envelope (envelope.py), whatever the outcome.
 
-    <!-- code test {"testId": "...", "description": "..."} -->
-    <!-- inline document -->
-    <!-- inline config -->
-    <!-- inline output -->
-    <!-- code test end -->
+    {/* code test {"testId": "...", "description": "..."} */}
+    {/* inline document */}
+    {/* inline config */}
+    {/* inline output */}
+    {/* code test end */}
 
 The judge fails closed: if it can't decide, the test fails as JUDGE_ERROR, never passes. The envelope
 never changes a verdict; it informs triage.

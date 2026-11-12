@@ -5,11 +5,11 @@ completes with the config, or FAILS. Runs the page's config as written, then eac
 listed tests replaced by a match no document has, each in its own sample doc type. No LLM, so no
 judge and no envelope.
 
-    <!-- code test {"testId": "..."} -->
-    <!-- inline document -->
-    <!-- inline config {"fragment": "fingerprint"} -->   or a whole config with a fingerprint
-    <!-- expect {"compare": "fingerprint", "passes": true, "variants": [{"break": [0], "passes": false}]} -->
-    <!-- code test end -->
+    {/* code test {"testId": "..."} */}
+    {/* inline document */}
+    {/* inline config {"fragment": "fingerprint"} */}   or a whole config with a fingerprint
+    {/* expect {"compare": "fingerprint", "passes": true, "variants": [{"break": [0], "passes": false}]} */}
+    {/* code test end */}
 """
 
 import copy

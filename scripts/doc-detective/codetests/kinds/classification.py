@@ -5,12 +5,12 @@ type, and checks whether Sensible classified it as that doc type. The fixture's 
 Sensible classifies by. No extraction, no LLM judge (classification is the product's own LLM call; its
 answer is the claim), no envelope.
 
-    <!-- code test {"testId": "classify_...", "description": "..."} -->
-    <!-- fixture {"name": "<doc type name>"} -->
-    <!-- expect {"compare": "classification", "requests": [
+    {/* code test {"testId": "classify_...", "description": "..."} */}
+    {/* fixture {"name": "<doc type name>"} */}
+    {/* expect {"compare": "classification", "requests": [
         {"file": "<file in the fixture's folder>" or "docs_pdf": "<file name in assets/pdfs>",
-         "as": "xlsx", "classified": true or false}, ...]} -->
-    <!-- code test end -->
+         "as": "xlsx", "classified": true or false}, ...]} */}
+    {/* code test end */}
 
 Each request gives its content type as `as`, a file extension that stands for that extension's MIME
 type (settings.REFERENCE_CONTENT_TYPES), or as `content_type`, the MIME type itself, for one with no

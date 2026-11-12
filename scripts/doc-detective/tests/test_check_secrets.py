@@ -104,6 +104,11 @@ jobs:
         self.assertEqual(len(problems), 1)
         self.assertIn("$NEW_VAR", problems[0])
 
+    def test_unclassified_page_variable_in_mdx_markup(self):
+        problems = self.coverage(page='{/* step {"type": {"keys": "$NEW_VAR"}} */}\n')
+        self.assertEqual(len(problems), 1)
+        self.assertIn("$NEW_VAR", problems[0])
+
     def test_public_variable_is_accepted(self):
         self.assertEqual(self.coverage(page=self.PAGE, public=("NEW_VAR",)), [])
 

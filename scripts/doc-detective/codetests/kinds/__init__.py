@@ -1,6 +1,6 @@
 """Claim kinds: what a code test claims about Sensible, and how to check it. One module per kind.
 
-A code test's kind is its <!-- expect {"compare": "<kind>"} --> (no expect: "output", the page's
+A code test's kind is its {/* expect {"compare": "<kind>"} */} (no expect: "output", the page's
 documented output). Everything that differs by kind lives in its module, so adding a kind is a new
 module, its record section's schema (schemas/kinds/<kind>.schema.json), and one line in KINDS below.
 markup.py, runner.py, record.py, the reports, and test_matrix.py look the kind up here instead of

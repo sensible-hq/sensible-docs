@@ -56,6 +56,16 @@ class ProblemsTest(unittest.TestCase):
         self.assertEqual(len(found), 1)
         self.assertIn("docs/a.md has test markup but isn't in test-pages.json", found[0])
 
+    def test_mdx_markup_counts(self):
+        root = self.repo({"docs/a.md": '{/* code test {"testId": "x"} */}'})
+        self.assertIn("docs/a.md has test markup", plan_runs.problems([], repo_root=root)[0])
+
+    def test_listed_page_without_markup_fails(self):
+        root = self.repo({"docs/a.md": "Its comments were rewritten, so no test markup is left"})
+        found = plan_runs.problems([entry("docs/a.md", 3, "a")], repo_root=root)
+        self.assertEqual(len(found), 1)
+        self.assertIn("the page has no test markup, so its runs test nothing", found[0])
+
     def test_table_and_ui_tests_count_as_markup(self):
         root = self.repo({"docs/t.md": '<!-- table test {"testId": "x"} -->', "docs/u.md": '<!-- test {"testId": "y"} -->'})
         self.assertEqual(len(plan_runs.problems([], repo_root=root)), 2)
