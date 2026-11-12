@@ -152,6 +152,15 @@ class FixtureTest(unittest.TestCase):
         self.assertEqual(client.calls[0][2]["content_type"], xlsb_type)
         self.assertEqual(put.call_args.kwargs["headers"], {"Content-Type": xlsb_type})
 
+    def test_sample_reference_uploads_the_repo_pdf(self):
+        # A sample doc type's reference document is the page's example document, a repo-relative path
+        client = ScriptedClient({"POST /document_types/t1/goldens": Response(200, {"upload_url": "https://bucket.test/u"})})
+        put = mock.Mock(return_value=mock.Mock(status_code=200))
+        with mock.patch("requests.put", put):
+            client.add_reference("t1", "blank_page", "c", "assets/pdfs/blank_page.pdf")
+        self.assertEqual(client.calls[0][2], {"name": "blank_page", "configuration": "c", "content_type": "application/pdf"})
+        self.assertEqual(put.call_args.kwargs["data"].name, os.path.join(settings.REPO_ROOT, "assets", "pdfs", "blank_page.pdf"))
+
     def test_unknown_reference_extension_fails(self):
         client = ScriptedClient({})
         with self.assertRaises(CodeTestError) as caught:
