@@ -34,6 +34,12 @@ def actual_output(result):
     return output
 
 
+# How /classify says it didn't classify a file: 400 (for example "Missing request body", "Could not
+# determine the content type of the document", "No match found for document") and 415 (a content
+# type it doesn't accept). Observed against the docs test account, 2026-11-10.
+CLASSIFY_REJECTED = {400, 415}
+
+
 class SensibleClient:
     def __init__(self, key):
         self.key = key
@@ -56,7 +62,8 @@ class SensibleClient:
         self.counts["by_call"][call] = self.counts["by_call"].get(call, 0) + 1
         if method != "GET" and path.startswith("/document_types") and path.count("/") == (1 if method == "POST" else 2):
             self._doc_types = None  # a doc type was created or deleted
-        return requests.request(method, f"{settings.api()}{path}", headers={"Authorization": f"Bearer {self.key}"}, timeout=60, **kwargs)
+        headers = {"Authorization": f"Bearer {self.key}", **kwargs.pop("headers", {})}
+        return requests.request(method, f"{settings.api()}{path}", headers=headers, timeout=60, **kwargs)
 
     def _charge(self):
         """Count an extraction, refusing it if the run already made settings.max_extractions()."""
@@ -155,6 +162,29 @@ class SensibleClient:
             if time.time() > deadline:
                 raise CodeTestError(EXTRACTION_ERROR, f"extraction {extraction_id} didn't finish within {timeout} seconds")
             time.sleep(5)
+
+    def classify(self, path, content_type, doc_type):
+        """Send a file's bytes to the classify endpoint with a content type, restricted to `doc_type`.
+        Returns (HTTP status, response text, the classified doc type's name, or "" when Sensible
+        didn't classify it). Only CLASSIFY_REJECTED statuses mean "not classified": an outage, a rate
+        limit, or a bad key says nothing about the file, so it fails the test instead of passing a
+        "not classified" claim."""
+        with open(path, "rb") as f:
+            data = f.read()
+        response = self._api("POST", "/classify", params={"document_types": doc_type}, data=data, headers={"Content-Type": content_type})
+        if response.status_code in CLASSIFY_REJECTED:
+            return response.status_code, response.text, ""
+        if not response.ok:
+            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code}, which says nothing about the file: {settings.redact(response.text)[:200]}")
+        try:
+            name = response.json()["document_type"]["name"]
+        except (ValueError, TypeError, KeyError):
+            name = None
+        # Sensible answers "no match" with a 400, and the request allows only doc_type, so a 200 names doc_type
+        if name != doc_type:
+            raise CodeTestError(RUNNER_ERROR, f"classify returned HTTP {response.status_code} without classifying the file as {doc_type}, "
+                                f"the only doc type requested: {settings.redact(response.text)[:200]}")
+        return response.status_code, response.text, name
 
     # -- Inline fingerprint samples: temporary doc types, deleted after each test --
 
@@ -285,18 +315,24 @@ class SensibleClient:
         return name, config_name, warnings
 
     def _upload_reference(self, type_id, ref):
-        """Create a reference document and upload its PDF from the repo."""
+        """Create a reference document and upload its file from the repo, with the content type for its extension
+        (settings.REFERENCE_CONTENT_TYPES; markup.fixture_references allows only those)."""
         import os
 
         import requests
 
+        shown = os.path.relpath(ref["path"], settings.REPO_ROOT)
+        extension = os.path.splitext(ref["path"])[1]
+        if extension not in settings.REFERENCE_CONTENT_TYPES:
+            raise CodeTestError(CONFIG_INVALID, f"reference document {ref['name']} ({shown}): {extension!r} isn't one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
+        content_type = settings.REFERENCE_CONTENT_TYPES[extension]
         response = self._api("POST", f"/document_types/{type_id}/goldens",
-                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": "application/pdf"})
+                             json={"name": ref["name"], "configuration": ref["configuration"], "content_type": content_type})
         if not response.ok:
             raise CodeTestError(CONFIG_INVALID, f"creating reference document {ref['name']} returned {response.status_code}: {response.text[:300]}")
         try:
-            with open(os.path.join(settings.REPO_ROOT, ref["pdf"]), "rb") as f:
-                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": "application/pdf"}, timeout=120)
+            with open(ref["path"], "rb") as f:
+                put = requests.put(response.json()["upload_url"], data=f, headers={"Content-Type": content_type}, timeout=120)
             problem = None if put.status_code == 200 else f"returned {put.status_code}"
         except requests.RequestException as e:
             # Only the exception type: its message includes the presigned upload URL
@@ -304,7 +340,7 @@ class SensibleClient:
         if problem:
             # Delete the empty reference document, so the next run sees it's missing and uploads it again
             self._api("DELETE", f"/document_types/{type_id}/goldens/{ref['name']}")
-            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({ref['pdf']}) {problem}")
+            raise CodeTestError(CONFIG_INVALID, f"uploading reference document {ref['name']} ({shown}) {problem}")
 
     def _published_config(self, type_id, config_name, check_drafts=True):
         """(The config published to the fixture environment, parsed, or None; whether a newer unpublished version exists)."""

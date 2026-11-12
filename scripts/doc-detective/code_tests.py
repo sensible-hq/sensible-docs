@@ -128,7 +128,7 @@ def probe_blank(args, selected, client):
     probed = [t for t in selected if runner.probeable(t)]
     for test in selected:
         if test not in probed:
-            why = "names no document" if test.blank_document else "is a fixture, portfolio, or fingerprint test, which needs its document"
+            why = "names no document" if test.blank_document else "is a fixture, portfolio, fingerprint, or classification test"
             print(f"SKIP {test.test_id}: {why}", file=sys.stderr)
     if not probed:
         print("[]")
@@ -196,7 +196,7 @@ def build_envelopes(args, selected, client):
     if args.build_envelope and args.extend_envelope:
         print("Use --build-envelope or --extend-envelope, not both", file=sys.stderr)
         return 2
-    if os.path.abspath(args.file).startswith(settings.FIXTURES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
+    if os.path.abspath(args.file).startswith(settings.SELF_TEST_PAGES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
         print("Refusing to build envelopes from a fixture: it would overwrite the real baselines in envelopes/. "
               f"Set {settings.ENVELOPES_DIR_VAR} to a scratch folder to build fixture baselines.", file=sys.stderr)
         return 2

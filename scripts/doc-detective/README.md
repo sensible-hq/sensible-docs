@@ -3,9 +3,75 @@
 Tests that run inside a docs page and check the page still tells the truth. There are two kinds:
 
 - **UI tests** walk through the Sensible app the way the page tells a reader to, for example signing in and opening the Document Types tab. [Doc Detective](https://docs.doc-detective.com) runs them.
-- **Code tests** run a documented SenseML config on its example document with the Sensible API, and check Sensible's output against the output the page shows. `code_tests.py` runs them.
+- **Code tests** check a page's claims against the Sensible API: a documented SenseML config's output, how fingerprints segment a portfolio, or which files Sensible classifies. `code_tests.py` runs them.
 
-Both are written as HTML comments in the page, so readers never see them. Today they cover `docs/document extraction/getting-started.md`.
+Both are written as HTML comments in the page, so readers never see them. [`TEST-MATRIX.md`](TEST-MATRIX.md) lists every test, the claim it checks, how often CI runs it, and its last saved result.
+
+## How it works
+
+The tests are evidence that a page was true when someone tested it. Sensible's API and SenseML rarely change behavior, so most of a test's value is the record of that run: a saved report, the commit it tested, and the fixtures it used. CI reruns the tests on a schedule, and a failure is your cue to check the page, the fixture, or the product.
+
+```mermaid
+flowchart LR
+    page["Docs page<br/>test markup in HTML comments"] --> runsh["run.sh"]
+    runsh --> dd["Doc Detective<br/>UI tests"]
+    runsh --> ct["code_tests.py<br/>code tests"]
+    ct --> api["Sensible API<br/>docs test account"]
+    dd --> results["output/<br/>UI results and code-test records"]
+    ct --> results
+    results --> report["report.html"]
+    report --> scrub["scrub and leak check"]
+    scrub -->|DOC_TESTS_SAVE_REPORT=1| saved["reports/<br/>saved report and results"]
+    saved --> matrix["TEST-MATRIX.md"]
+    pages["test-pages.json<br/>priority per page"] --> plan["plan_runs.py"] --> ci["doc-tests.yml<br/>one job per page"] --> runsh
+```
+
+### The pieces
+
+| Piece | What it does |
+| --- | --- |
+| Test markup | Comments in the page, each a single line in the form `<!-- name {json} -->`. Code tests use markers that say where each part comes from: `inline` (shown on the page), `fixture` (committed, private), or `expect` (written in the test). The shape follows Doc Detective's inline tests, so a later move to Doc Detective stays possible. |
+| `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
+| `codetests/runner.py` | Runs each code test by its kind of claim, compares the result with the page, and records what happened. |
+| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, temporary doc types, and fixtures. |
+| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json`. Every report reads records, never the API. |
+| `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
+| `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
+| `test-pages.json`, `plan_runs.py`, `.github/workflows/doc-tests.yml` | CI: each tested page has a priority, the planner picks the pages for each run, and the workflow runs each page as its own job. |
+| `test_matrix.py` | Writes `TEST-MATRIX.md` and the saved results in `reports/`. |
+
+### What happens in a run
+
+1. `run.sh` clears `output/` and runs Doc Detective, if the page has UI tests.
+2. `code_tests.py` checks each code test's markup, then runs it on the docs test account. For a fixture, it first restores the doc type and config in the account to match the committed files.
+3. The runner compares what Sensible returned with what the page claims, and writes a record.
+4. `report.py` builds `output/report.html` from the Doc Detective results and the records. The header shows the commit the run tested.
+5. `scrub.sh` removes secret values from every output file, and `check_secrets.py` fails the run if any remain.
+6. With `DOC_TESTS_SAVE_REPORT=1`, `run.sh` saves the results and the report to `reports/` and regenerates `TEST-MATRIX.md`.
+
+### What persists, and what doesn't
+
+Keep what can't be rebuilt from the repo, and delete what can.
+
+| Thing | Where | Lifetime |
+| --- | --- | --- |
+| Fixture doc types and configs (`fixture_*`) | Docs test account, with the committed files in `scripts/doc-detective/fixtures/<group>/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
+| Temporary doc types (`docs_ci_*`) | Docs test account | Rebuilt from the page on every run, then deleted. |
+| Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
+| Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
+| Raw run output | `output/` | Overwritten on every run; git-ignored. |
+
+### Extending it
+
+| To add | You change | Notes |
+| --- | --- | --- |
+| A test to a tested page | The page's markup | Regenerate `TEST-MATRIX.md`. |
+| A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
+| A fixture | A folder under `fixtures/` with its doc type, config, `manifest.json`, and files | Pages refer to it by doc type name; the folder's location is free. |
+| A kind of claim (for example, an API status code) | `markup.py` (parse and check), `runner.py` (run), `sensible.py` (the API call), the record schema, the three reports, `test_matrix.KINDS`, and unit tests | About a dozen places today. The classification claim is the most recent example to follow. |
+| A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code and its own reporting | Its results don't reach the HTML report, the matrix, or CI issues yet. |
+
+The last two rows are the expensive ones. Two follow-ups would make each a single module: a registry of claim kinds, where each kind is one file that parses, runs, and reports its claim; and one record shape that every runner writes, so the report, the matrix, and CI cover them all.
 
 ## Run the tests
 
@@ -37,6 +103,14 @@ Both are written as HTML comments in the page, so readers never see them. Today 
    ```
 
    It runs the UI tests, checks every UI test and step actually ran, runs the code tests, writes `scripts/doc-detective/output/report.html`, scrubs secret values from every report file, then checks that none are left (`check_secrets.py`). It exits 1 if anything failed, including a leak.
+
+   To keep the evidence in the repo, run with `DOC_TESTS_SAVE_REPORT=1` when a page's docs are final. After a clean leak check, `run.sh` saves two files under `scripts/doc-detective/reports/`, named for the page path (for example `docs-senseml-reference-concepts-file-types`):
+   - `<name>.html`: the scrubbed report;
+   - `<name>.json`: each test's result, the commit it tested, whether the page or the test tooling had uncommitted changes, when it ran (UTC), and the Sensible environment.
+
+   It then regenerates `TEST-MATRIX.md`. Commit all three; they stay as they are until the next saved run. The report's header shows the same commit and time. `output/` is git-ignored and overwritten on every run. CI never saves: its runs check that claims still hold, and open issues when they don't.
+
+   For what else persists between runs, see [What persists, and what doesn't](#what-persists-and-what-doesnt).
 
 Other commands:
 
@@ -114,7 +188,7 @@ For a claim about how fingerprints segment a portfolio, a code test runs a priva
 | Marker or option | Meaning |
 | --- | --- |
 | `code test {"segment_documents_with": "fingerprints"}` | A portfolio extraction, segmented with fingerprints. Named after the public API's parameter, which it sets. Without it, a code test runs a single-document extraction. |
-| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed under `scripts/test/probe_endpoints/contract/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, and a reference document in the folder's `manifest.json`). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
+| `<!-- fixture {"name": "<doc type name>"} -->` | A fixture: the doc type with that name in the test account, as committed in a folder under `scripts/doc-detective/fixtures/` (`<name>.doctype.json`, `<name>.<config>.config.json`, a `manifest.json` listing its reference documents, and the fixture's own files). The name is exactly what the app shows; the runner finds its folder. Repeatable: each fixture is its own doc type, and all are requested together. Doc type, config, and reference document names must start with `fixture_`, so nobody deletes them in the app by accident. Fixture doc types are persistent: the runner creates or republishes them (to production) when they're missing or differ, and never deletes them. |
 | `<!-- expect {"compare": "documents", "documents": [...]} -->` | The documents the page claims, as `[config, firstPage, lastPage]` with **printed (1-based)** page numbers, to match the prose. `[]` means no documents. |
 
 These comparisons are exact: fingerprinting uses no LLM, so there's no judge and no envelope. A mismatch fails as `SEGMENTS_DRIFT`.
@@ -178,15 +252,35 @@ The config as written and each variant is one extraction. A mismatch fails as `F
 
 A row's keys are marker names with the same options (`fixture`, `expect`), so a row converts to a code test and back mechanically: `rowId` becomes `testId`, each key becomes its marker, and the table test's `inline document` and `segment_documents_with` move onto the code test. The runner checks the structure, not the prose: the tag and the test must name each other, and the test needs exactly one row entry per table row. Adding or deleting a row (or losing a comment in an editor) without updating the test fails with `DOCS_MALFORMED`. It doesn't compare a row's text with its `expect`. The tag is the hint that the table and its test change together. Each row runs as its own test, `<testId>__<rowId>`, and the report says which table row it checks.
 
+### Classification claims
+
+For a claim about which files Sensible classifies, a code test sends files from the repo to the classify endpoint (`POST /classify`), each with a content type, restricted to one **fixture** doc type, and checks the page's claim for each. Sensible classifies by the fixture's description, so describe the test files in its `.doctype.json`. The test needs no inline document, config, or output.
+
+```markdown
+<!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
+<!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+<!-- expect {"compare": "classification", "requests": [{"file": "csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}]} -->
+<!-- code test end -->
+```
+
+| Marker or option | Meaning |
+| --- | --- |
+| `<!-- fixture {"name": ...} -->` | Exactly one: the doc type to classify as. Persistent in the test account, kept in step with the committed files like any fixture. The report links it to the SenseML editor. |
+| `requests` | Each request names the file it sends with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`), the same rule as reference documents; symlinks are resolved first, so a request can't send other repo files. Each request also has `content_type` (the `Content-Type` header sent), `classified` (the page's claim: whether Sensible classifies the file as the fixture), and optional `label` (a name for the request in reports, for example `"Python SDK"`). |
+
+**What counts as "not classified":** a 400 or 415, which is how `/classify` rejects a file (for example "Missing request body", "Could not determine the content type of the document", or "No match found for document"). Any other response says nothing about the file, so the test fails as `RUNNER_ERROR` instead of passing a "not classified" claim: a 401, 429, or 5xx, or a 200 that doesn't name the fixture (each request allows only the fixture's doc type).
+
+The report shows each request's `curl` command, with every value from the page shell-quoted (run it from the repo root; the key stays an environment variable), and links each file relative to the report, so the links open from a local checkout. Classification is compared exactly: Sensible's answer is the claim, so there's no judge and no envelope. A mismatch fails as `CLASSIFICATION_DRIFT`. Each request is one API call, not an extraction.
+
 **Renamed markup:** `<!-- example config/document/output -->` are now `<!-- inline ... -->`; `example config {"fixture": ...}` is `<!-- fixture {"name": ...} -->`; `example output {"expect": ...}` is `<!-- expect {"compare": ..., "documents": ...} -->`; and `"segment"` is `"segment_documents_with"`. The old forms fail with `DOCS_MALFORMED`, naming the new markup.
 
 **If someone edits a fixture in the app:** before each run, the runner compares the fixture's doc type settings and its published config with the committed files. It also checks the reference documents (missing, or linked to another config). It restores anything that differs, checks the restore took (the test fails if it didn't), and the test passes **with a `[fixture]` warning** that names each difference. CI lists these warnings on the run's summary page, for example `config …: $.fingerprint.tests[1].match[1].text: committed "Form 1040-SR", test account "Form 1040"`. An unpublished draft in the app doesn't affect tests. To check fixtures without changing anything, run `code_tests.py --file PAGE --check-fixtures`. It lists each fixture as `OK` or `DRIFT` (with the differences) and exits 1 if any differ.
 
 ### Rules
 
-- Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests.
+- Test IDs are lowercase letters, digits, and underscores, and unique across all tests on a page. Name them for what they check, prefixed by surface: `app_...` for UI tests, `extract_...` for code tests, `classify_...` for classification claims.
 - `inline`, `fixture`, and `expect` markers go inside a `<!-- code test -->` (a table test takes only `inline document`; its rows hold `fixture` and `expect`), never a Doc Detective `<!-- test -->`. A code test has at most one `expect`, and `fixture` or `segment_documents_with` needs one.
-- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Its reference document PDFs must be under `assets/pdfs/`.
+- A fixture's `.doctype.json` file name and its `"name"` must match, both prefixed `fixture_`. Each reference document in its `manifest.json` names its file with exactly one of `file` (a path in the fixture's folder) or `docs_pdf` (a file name in `assets/pdfs/`, used in place, never copied). Files can be PDFs or spreadsheets (`.xlsx`, `.xls`, `.xlsm`, `.xlsb`, `.csv`), uploaded with the matching content type. A fixture's folder holds everything it needs except docs PDFs.
 - Put comments between list items, not inside a numbered list, so ReadMe's numbering doesn't break. A comment indented inside a list item (like the document marker above) is fine.
 - Configs may use `/* */` comments and trailing commas: Sensible accepts both. Output blocks may use comments and `[...]` (or the older `...`), but no trailing commas: Sensible never outputs them. Neither may have duplicate keys or `NaN`.
 
@@ -220,6 +314,7 @@ A row's keys are marker names with the same options (`fixture`, `expect`), so a 
 | `OUTPUT_DRIFT` | A layout value in the documented output doesn't match. |
 | `SEGMENTS_DRIFT` | A portfolio extraction's documents don't match the ones the page claims. |
 | `FINGERPRINT_DRIFT` | A standalone fingerprint sample passed when the page claims it fails, or the reverse. |
+| `CLASSIFICATION_DRIFT` | Sensible classified a file when the page claims it doesn't, or the reverse. |
 | `LLM_DRIFT` | The judge failed an LLM value. |
 | `JUDGE_UNAVAILABLE` | LLM values differ and there's no Anthropic key. |
 | `JUDGE_ERROR` | The judge couldn't decide. It fails closed: an undecided value is never a pass. |
@@ -250,7 +345,6 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 - **Month to date:** fetched from Sensible (`GET /extractions`, since the 1st, UTC) **after the tests run**, when the report is built. It shows extractions, total `charged`, and how many came from test runs (document names starting `ci__`). Sensible is the source of truth: local runs, CI, and app use all count, and there's nothing to persist between runs.
 - **Budget (optional):** set `DOC_TESTS_MONTHLY_BUDGET` to a monthly extraction budget (in charged extractions; Sensible doesn't report a month's API requests, only extractions). The line shows usage against it: a warning at 80%, a failure chip at 100%. It's informational: it never stops a run. What does stop a run is a hard cap of 20 extractions per run (`DOC_TESTS_MAX_EXTRACTIONS` overrides it): an extraction past the cap fails its test with `RUNNER_ERROR`, so a page that grows, or a bug, can't spend the test account's budget.
 
-
 - **`output/report.html`**: every test in page order, sections collapsed unless they need attention, judge verdicts with the full prompt and output, envelope results with the baseline. Test sections are labeled UI test or Code test.
 - **Text summary**: printed per code test; the failure issue quotes it.
 - **Failure issue** (CI): one standing issue labeled `doc-detective`, with failed UI steps, failed code tests, and a triage table pairing each judge failure with its envelope state.
@@ -261,7 +355,19 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 ## CI
 
-`.github/workflows/doc-detective-getting-started.yml` runs on pushes to `v0` that change the page or this tooling, monthly (the 1st, 15:00 UTC), and on demand. Never on pull requests. It needs repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` runs it last, and the workflow runs it again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password.
+`.github/workflows/doc-tests.yml` runs every tested page, by priority. `test-pages.json` lists each page with test markup and its priority:
+
+| Priority | When it runs | Pages |
+| --- | --- | --- |
+| 1 | Weekly (Mondays, 15:00 UTC) | Getting started |
+| 2 | Monthly (the 1st, 15:30 UTC) | Fingerprint, Portfolios |
+| 3 | On demand only | |
+
+A push to `v0` also runs each priority 1 or 2 page whose tests, watched files (the entry's `watch`, such as its fixtures and example documents), or this tooling changed. A push that changes only a page's prose, such as a ReadMe save, skips it: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. Priority 3 pages never run on push. Never on pull requests. Changes to `reports/`, `sample-reports/`, this README, and `TEST-MATRIX.md` don't trigger runs (`NOT_TOOLING` in `plan_runs.py`, mirrored as `!` paths in the workflow). To run on demand: Actions > Doc tests > Run workflow, with a priority (1, 2, 3, or all) or one page's path.
+
+`plan_runs.py` decides which pages a run tests (the plan job prints why, per page, on the run's summary). It fails, and so does the unit-test step, if a page has test markup but isn't in `test-pages.json`, so a new page can't be left out of CI by accident. If planning fails in a push or scheduled run, no page runs, and one standing issue labeled `doc-tests-plan` opens (the `plan-failed` job). A schedule whose priority has no pages also fails, so it can't pass while testing nothing. **To add a page:** add an entry with its priority, a `name` (artifact names), a `title` (the page's name in issue and fix PR titles), its own `issue_label`, any `watch` globs, a `timeout_minutes` for its test step (1 to 40; the job's timeout is 45), and whether it has UI tests (`ui`), gets proposed fixes (`propose_fixes` with a `fix_branch`), or has regression envelopes (`envelope_issue`). The description in `test-pages.json` explains each field.
+
+Pages run one at a time (they share doc types in the test account), each as its own job with the same steps. Runs that would overlap wait in a queue (`queue: max` on the test job's concurrency group) rather than cancelling each other; the plan job is outside the group, so a push that tests nothing never queues. Only the test job can write (issues, the fix PR), plus `plan-failed`, which can only open its issue; the rest of the workflow is read-only. Each job's steps: unit tests, the secret classification check, `run.sh`, scrub, leak check, then the summary, report upload, and, on failure, the page's standing issue (labeled with its `issue_label`), plus the proposed-fix PR and envelope issue (labeled `<issue_label>-envelope`) where configured. Every job gets the repo secrets `SENSIBLE_TEST_EMAIL`, `SENSIBLE_TEST_PASSWORD`, `SENSIBLE_TEST_API_KEY`, and `ANTHROPIC_API_KEY`; keep them in step with `config/secrets.txt`, which `scrub.sh` scrubs from reports. `run.sh` scrubs last, and the workflow scrubs again as its own step before uploading reports, so a cancelled or timed-out run never uploads Doc Detective's plain-text password. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. Extractions per run: Fingerprint 12 (5 table rows, 4 portfolio samples, 3 strict-mode runs), Portfolios 1.
 
 **Secrets fail closed.** Doc Detective writes typed text, including the test account password, into its reports in plain text ([doc-detective#204](https://github.com/doc-detective/doc-detective/issues/204)), and a scrub alone fails open. So `check_secrets.py` runs after every scrub:
 
@@ -270,19 +376,15 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 
 **To add a secret:** add its variable name to `config/secrets.txt`, pass it to the steps that need it **and** to "Scrub reports" and "Check for leaked secrets". If you miss one, the coverage check fails and says which. A variable that's safe to publish goes in `config/public-vars.txt` instead. The workflow pins its actions to commit SHAs and its Python dependencies to hashes (`requirements.txt`, compiled from `requirements.in`), since the job holds these secrets.
 
-`.github/workflows/doc-tests-fingerprint.yml` runs the Fingerprint page's code tests the same way: on pushes to `v0` that change the page's tests, its fixtures (`fixtures/fingerprint_portfolio/`), or this tooling, monthly (the 1st, 15:30 UTC), and on demand. A push that changes only `fingerprint.md`'s prose, such as a ReadMe save, skips the tests: `should_run.py` compares what the page's tests run (markup, configs, documents, expectations, and each tagged table's row count) before and after the push. It needs only `SENSIBLE_TEST_API_KEY` (no Doc Detective: `run.sh` skips it on pages without UI tests). It runs the same secret steps as the getting-started workflow (classification check, scrub, leak check) and publishes nothing unless the leak check passes; `check_secrets.py` covers `doc-tests-*.yml` workflows as well as `doc-detective*.yml`. Failures go to a standing issue labeled `doc-tests-fingerprint`; every run uploads `doc-tests-fingerprint-reports`. An optional repo variable `DOC_TESTS_MONTHLY_BUDGET` shows usage against a monthly extraction budget in the report. It runs 12 extractions: 5 table rows, 4 portfolio samples, and 3 strict-mode runs of the standalone sample.
+## Self-test pages
 
-`.github/workflows/doc-tests-portfolio.yml` runs the Portfolios page's fingerprint example the same way (1 portfolio extraction; monthly on the 1st, 15:45 UTC). Its failures go to a standing issue labeled `doc-tests-portfolio`. `code_tests.py` only deletes the temporary `docs_ci_examples` doc type if its own run used it, so the two workflows don't interfere.
-
-## Fixtures
-
-`fixtures/` has copies of the getting started page whose example document link points at an altered PDF: one with a wrong premium (fails), one with a reformatted phone number (passes, envelope warning). `fixtures/build_fixtures.py` regenerates the copies from the real page. Their links point at this branch's raw URLs; repoint `BRANCH` after it merges.
+`tests/pages/` has copies of the getting started page whose example document link points at an altered PDF: one with a wrong premium (fails), one with a reformatted phone number (passes, envelope warning). Run one with `run.sh` to see a failure and an envelope warning in the report. `tests/pages/build_fixtures.py` regenerates the copies from the real page. Their links point at this branch's raw URLs; repoint `BRANCH` after it merges.
 
 ## Code layout
 
 | Path | Contents |
 | --- | --- |
-| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push needs the fingerprint run. |
+| `run.sh`, `code_tests.py`, `report.py` | Commands. `report.py` has `html`, `verify-ui`, `issue`, `summary`, and `envelope-issue`. `should_run.py` decides whether a push changed what a page's tests run. `test_matrix.py` writes `TEST-MATRIX.md` (every test, its claim, priority, and last saved result) and `reports/<name>.json`. `plan_runs.py` decides which pages a CI run tests, from `test-pages.json` (each tested page and its priority). |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules. |
 | `codetests/jsonish.py` | Parses code blocks: comments, trailing commas, `[...]` and `...`. |
 | `codetests/compare.py` | The comparison, coverage notes, and proposed fixes. |
@@ -293,6 +395,10 @@ Baselines live in `envelopes/<testId>.json`; commit them. A baseline records its
 | `codetests/record.py` | The record each code test produces. |
 | `codetests/runner.py` | Runs a code test, builds envelopes. |
 | `codetests/reports/` | Text summary, failure issue, envelope issue, report.html, and their shared wording. |
+| `fixtures/<group>/` | Test-account fixtures: doc type and config files, a `manifest.json` of reference documents, and the fixture's own files. A push that changes a fixture's folder reruns only the pages whose tests use it. |
+| `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
+| `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
+| `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
 | `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record and envelope schemas. |
 
 ## Known limits
