@@ -79,3 +79,4 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 - Node SDK: does its `classify` work for XLS, XLSM, XLSB like the Python SDK? Not checked.
 - Unverified: `.xls` maps to the XLSX content type in the engine's `DOCUMENT_CONTENT_TYPE_FOR_EXTENSIONS`, used for email attachments. Not tested; not documented.
 - Should a CI workflow run the file-types.md tests (about 9 classify calls, no extractions)?
+| 2026-11-11 | Embedded code tests removed from `file-types.md`, and the page dropped from `test-pages.json`; the fixture, test files, and saved report stay | Frances wants #741 free of docs changes, with the docs shipped clean in #809; the tests get reimplemented later in the new approach (lines saved in checklist.md) | Frances, via the google-ocr session |

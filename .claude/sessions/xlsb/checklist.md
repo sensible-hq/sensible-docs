@@ -80,6 +80,27 @@ case-sensitive. Reported on sensible#3474.
 - [x] Saved evidence rerun on a clean commit (eb0d6704b): both classification tests pass
 - [x] Draft commission statement CSV untracked (committed by mistake)
 
+## Embedded tests removed from file-types.md (2026-11-11)
+
+Frances wants #741 free of docs changes, with the XLSB docs shipped clean in #809, and is rewriting the test approach in another session. So `file-types.md` here now matches #809 exactly, and the page's entry is out of `test-pages.json` (a listed page with no tests would run an empty job).
+
+Still in this PR, for when the tests come back: the fixture and test spreadsheets (`scripts/doc-detective/fixtures/spreadsheet_classification/`), and the saved report and results from the last run (`reports/docs-senseml-reference-concepts-file-types.{html,json}`, both tests passing at commit eb0d6704b). That report is the evidence that the claims held on 2026-11-11. `TEST-MATRIX.md` no longer lists the page.
+
+The removed lines, verbatim. They went under footnote 3, indented three spaces:
+
+```markdown
+   <!-- code test {"testId": "classify_excel_formats_as_xlsx", "description": "XLS, XLSM, and XLSB classify when sent as XLSX or by the Python SDK, but not with their own content types"} -->
+   <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+   <!-- expect {"compare": "classification", "requests": [{"file": "xls_sample.xls", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLS sent as XLSX"}, {"file": "xlsm_sample.xlsm", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLSM sent as XLSX"}, {"file": "xlsb_sample.xlsb", "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "classified": true, "label": "XLSB sent as XLSX"}, {"file": "xlsb_sample.xlsb", "content_type": "application/pdf", "classified": true, "label": "Python SDK (sends application/pdf)"}, {"file": "xls_sample.xls", "content_type": "application/vnd.ms-excel", "classified": false, "label": "XLS with its own content type"}, {"file": "xlsm_sample.xlsm", "content_type": "application/vnd.ms-excel.sheet.macroenabled.12", "classified": false, "label": "XLSM with its own content type"}, {"file": "xlsb_sample.xlsb", "content_type": "application/vnd.ms-excel.sheet.binary.macroenabled.12", "classified": false, "label": "XLSB with its own content type"}]} -->
+   <!-- code test end -->
+   <!-- code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} -->
+   <!-- fixture {"name": "fixture_spreadsheet_classify"} -->
+   <!-- expect {"compare": "classification", "requests": [{"file": "csv_sample.csv", "content_type": "text/csv", "classified": false, "label": "CSV"}, {"file": "csv_sample.csv", "content_type": "application/pdf", "classified": false, "label": "Python SDK (sends application/pdf)"}]} -->
+   <!-- code test end -->
+```
+
+- [ ] Reimplement these tests in the new test approach, then add `file-types.md` back to `test-pages.json` (it was priority 3, name `file-types`, issue label `doc-tests-file-types`, timeout 10)
+
 ## Next steps
 - [ ] Merge #803, then #809, then this PR
 - [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
