@@ -34,7 +34,7 @@ flowchart LR
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
 | `codetests/kinds/` | One module per kind of claim: documented output, portfolio documents, fingerprint, and classification. Each kind parses its markup, runs its claim, and writes its part of the record and of each report. |
 | `codetests/runner.py` | Runs each code test through its kind, and records what happened, including a crash. |
-| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, the temporary and sample doc types, and fixtures. |
+| `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, sample doc types, and fixtures. |
 | Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json` plus the kind's section in `schemas/kinds/`. A record names its kind. Every report reads records, never the API. |
 | `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
 | `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
@@ -57,8 +57,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | Thing | Where | Lifetime |
 | --- | --- | --- |
 | Fixture doc types and configs (`fixture_*`) | Docs test account, with the committed files in `scripts/doc-detective/fixtures/<group>/` | Persist. Each run restores them to the committed files first, and warns about anything it changed. |
-| The temporary doc type (`docs_ci_examples`) | Docs test account | Rebuilt from the page on every run, then deleted. |
-| Sample doc types (`docs_ci_sample_<page>__<testId>…`) | Docs test account | Persist between runs, so the report's editor links work. Each run of a test replaces them from the page; orphans are deleted. |
+| Sample doc types (`docs_ci_sample_<page>__<testId>…`): each output test's config, and fingerprint and portfolio samples | Docs test account | Persist between runs, so the report's editor links open what ran. Each run of a test replaces them from the page; orphans are deleted. |
 | Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
@@ -296,7 +295,7 @@ The report shows each request's `curl` command, with every value from the page s
 
 1. **Syntax**, before any network call. Errors name the line in the page.
 2. **The example document link resolves.**
-3. **Extraction.** The config is uploaded to a temporary document type (`docs_ci_examples`) in the docs test account, published to development, and extracted. Only one config is in the document type at a time, and the runner checks Sensible used it: in development, Sensible runs every config in a document type and picks the best fit.
+3. **Extraction.** The config is uploaded as written to the test's own sample doc type (`docs_ci_sample_<page>__<testId>`) in the docs test account, published to development, and extracted. The doc type has only that config, and the runner checks Sensible used it. The doc type stays until the test's next run, so the report links to the config in the SenseML editor (see [sample doc types](#fingerprint-samples-the-pages-own-code-blocks)).
 4. **Comparison** with the extraction's output: Sensible's `parsed_document`, plus, when the config has a [postprocessor](https://docs.sensible.so/docs/postprocessors), a top-level `"postprocessorOutput"` key holding the response's `postprocessorOutput`. That's how pages document postprocessor output, for example `{"postprocessorOutput": {"custom_object": {...}}}` or, for the XML postprocessor, a string. An output block without `"postprocessorOutput"` compares with `parsed_document` alone, as before; the record lists an undocumented `postprocessorOutput` as a left-out field. A config whose own field ID is `postprocessorOutput` and that has a postprocessor fails with `CONFIG_INVALID`, since the two can't be told apart. Envelope builds and `--probe-blank` use the same output.
    - Every key and value the page shows must match. Keys the page leaves out are ignored.
    - `[...]` marks what the page abridges, and it isn't checked: a value (`"created": "[...]"`), an object member, or the rest of an array (`[a, b, [...]]`, `[a, [...], z]`). An array without a mark must match in full. After a colon, `"rows": [...]` means an array whose items aren't checked.

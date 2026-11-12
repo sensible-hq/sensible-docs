@@ -11,6 +11,7 @@ import traceback
 from . import compare, envelope, fields, kinds, markup, record, settings
 from . import judge as judge_module
 from .errors import ENVELOPE_INVALID, RUNNER_ERROR, CodeTestError
+from .kinds import output
 
 
 def run_code_test(test, client, judge=judge_module.judge, judge_key=None, judge_model=None, fix=False):
@@ -50,15 +51,12 @@ def build_envelope(test, client, runs, extend=False, progress=print):
             raise CodeTestError(ENVELOPE_INVALID, f"{test.test_id}: no baseline to extend; build one with --build-envelope")
         if existing["config_sha256"] != envelope.config_hash(test.config):
             raise CodeTestError(ENVELOPE_INVALID, f"{test.test_id}: the baseline is stale (the config changed); rebuild it with --build-envelope")
-    client.upload_config(test.test_id, test.config)
+    doc_type, _ = output.prepare(client, test)
     observations = []
-    try:
-        for i in range(runs):
-            parsed = client.extract(test.document_url, test.test_id, f"ci__{test.test_id}__envelope_{i + 1}.pdf")
-            observations.append(envelope.observe_output(parsed, index.llm))
-            progress(f"  run {i + 1}/{runs} done")
-    finally:
-        client.delete_config(test.test_id)
+    for i in range(runs):
+        parsed = client.extract(test.document_url, doc_type, test.test_id, f"ci__{test.test_id}__envelope_{i + 1}.pdf")
+        observations.append(envelope.observe_output(parsed, index.llm))
+        progress(f"  run {i + 1}/{runs} done")
     built = envelope.build(observations, test.config, test.test_id)
     if existing:
         built = envelope.merge(existing, built)
@@ -86,11 +84,8 @@ def probe_blank(test, client):
     entry = {"testId": test.test_id}
     try:
         _, expected = markup.check_syntax(test)
-        client.upload_config(test.test_id, test.config)
-        try:
-            actual = client.extract(settings.BLANK_DOCUMENT_URL, test.test_id, f"ci__{test.test_id}__blank.pdf")
-        finally:
-            client.delete_config(test.test_id)
+        doc_type, _ = output.prepare(client, test)
+        actual = client.extract(settings.BLANK_DOCUMENT_URL, doc_type, test.test_id, f"ci__{test.test_id}__blank.pdf")
         found = compare.diffs(expected, actual)
         if not found:
             entry.update(unchanged=True, detail="the blank page gives the documented output")

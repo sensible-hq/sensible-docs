@@ -20,7 +20,7 @@ import json
 import os
 import sys
 
-from .. import compare, envelope, fields, jsonish, markup, record, settings
+from .. import compare, envelope, fields, jsonish, markup, record, samples, settings
 from .. import judge as judge_module
 from ..errors import (
     DOCS_MALFORMED, ENVELOPE_INVALID, JUDGE_ERROR, JUDGE_UNAVAILABLE, LLM_DRIFT, OUTPUT_DRIFT, CodeTestError,
@@ -30,7 +30,9 @@ from .common import check_document, require_no_portfolio
 
 NAME = "output"
 LABEL = "documented output"
-RECORD_KEY = None  # fills the record's top-level overall, layout, llm_fields, judge, and envelope
+RECORD_KEY = None  # fills the record's top-level overall, layout, llm_fields, judge, envelope, and editor
+# The test's sample doc type runs whichever config fits best if a fingerprint fails, as the shared one did
+DOC_TYPE_SCHEMA = {"fingerprint_mode": "fallback_to_all"}
 
 
 def parse_expect(options, test_id, where):
@@ -110,15 +112,20 @@ def propose_fix(test, fixed_output):
     return True
 
 
+def prepare(client, test):
+    """Recreate the test's sample doc type with the page's config as written, as configuration <testId>.
+    Sensible validates the config on upload, so invalid syntax fails here. Returns (doc type name, the
+    SenseML editor opened on the config and the example document)."""
+    name = sample_doc_types(test)[0]
+    _, reference = samples.create(client, name, test.test_id, test.config, test.document_url, DOC_TYPE_SCHEMA)
+    return name, markup.editor_url(name, test.test_id, reference)
+
+
 def run(rec, test, client, judge=judge_module.judge, judge_key=None, judge_model=None, fix=False):
     config, expected = check(test)
     check_document(client, test.document_url)
-    client.upload_config(test.test_id, test.config)
-    try:
-        actual = client.extract(test.document_url, test.test_id, f"ci__{test.test_id}.pdf")
-    finally:
-        # One config in the document type at a time: Sensible can pick any config in it
-        client.delete_config(test.test_id)
+    doc_type, rec["editor"] = prepare(client, test)
+    actual = client.extract(test.document_url, doc_type, test.test_id, f"ci__{test.test_id}.pdf")
 
     index = fields.FieldIndex(config)
     found = compare.diffs(expected, actual)
@@ -168,7 +175,8 @@ def run(rec, test, client, judge=judge_module.judge, judge_key=None, judge_model
 
 
 def sample_doc_types(test):
-    return []  # runs in the shared doc type settings.DOC_TYPE, one config at a time
+    """One, named for the page and test, with the test's config as its only config."""
+    return [f"{samples.prefix(test.file)}{test.test_id}"]
 
 
 def probeable(test):
@@ -183,6 +191,8 @@ def text(rec):
     if "overall" not in rec:
         return []
     lines = [f"{rec['test_id']}: {rec['overall']}"]
+    if rec.get("editor"):
+        lines.append(f"  Editor: {rec['editor']}")
     layout = rec["layout"]
     if layout["mismatches"]:
         lines.append(f"  Layout fields: {len(layout['mismatches'])} mismatch(es)")

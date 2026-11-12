@@ -14,7 +14,7 @@ OUTPUT_DIR = os.path.join(HERE, "output")
 RECORDS_DIR = os.path.join(OUTPUT_DIR, "code-tests")
 DEPS_DIR = os.path.join(HERE, ".deps")
 
-# The Sensible API and the temporary document type that code tests run in.
+# The Sensible API that code tests run against, and the environment their configs publish to.
 # DOC_TESTS_ENV picks the Sensible environment: "prod" (default) or "dev", for features that aren't
 # in production yet. Each has its own account key, so a dev run can't touch production.
 ENV_VAR = "DOC_TESTS_ENV"
@@ -41,7 +41,6 @@ def sensible_key_var():
 
 
 API = ENVS["prod"]["api"]  # production; code calls api() so DOC_TESTS_ENV applies
-DOC_TYPE = "docs_ci_examples"
 ENVIRONMENT = "development"
 # Test-account fixtures (doc types and configs) that code tests can run instead of a page's code block.
 # One folder per group: <group>/<doctype>.doctype.json, <group>/<doctype>.<config>.config.json, a
@@ -51,8 +50,9 @@ TEST_FIXTURES_DIR = os.path.join(HERE, "fixtures")
 FIXTURE_ENVIRONMENT = "production"
 # Fixture doc type and config names start with this, so they aren't deleted by accident in the app
 FIXTURE_PREFIX = "fixture_"
-# Inline fingerprint samples run in doc types named with this prefix. Each run recreates them, and
-# they stay in the test account between runs, so the report can link to each config in the editor
+# A page's own configs (output tests, and fingerprint and portfolio samples) run in doc types named with
+# this prefix. Each run recreates them, and they stay in the test account between runs, so the report
+# can link to each config in the editor
 SAMPLE_DOC_TYPE_PREFIX = "docs_ci_sample_"
 # Example documents linked from this repo's v0 branch; the runner uploads the local copy as a reference document
 DOCS_RAW_PREFIX = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/"

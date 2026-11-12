@@ -190,6 +190,8 @@ def render_code_test(record, links=None):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: none, so it ran on <a href="{e(record["document_url"])}">a blank page</a></p>')
     elif kind.shows_document(record):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
+    if record.get("editor"):
+        out.append(f'<p class="muted" style="margin:4px 0 0">Config: <a href="{e(record["editor"])}">open in the SenseML editor</a> (test account). Each run recreates the doc type from the page, so the link shows the latest run\'s config.</p>')
     if record.get("config_fragment"):
         out.append('<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>')
     if record["status"] == "fail":

@@ -1,8 +1,9 @@
 """The Sensible API calls code tests make, in one client.
 
-Code tests run in a temporary document type (settings.DOC_TYPE) in the docs test account. Each
-config is uploaded as written, as configuration <testId>, published to development. Deleting the
-document type removes its configs; extraction history stays in the app.
+Each code test runs in doc types of its own in the docs test account: a fixture, or a sample doc type
+named for its page and test (samples.py), where its config is uploaded as written, as configuration
+<testId>, published to development. Sample doc types stay until the test's next run, so a report's
+editor links open what ran; deleting one removes its configs, but extraction history stays in the app.
 """
 
 import json
@@ -43,12 +44,10 @@ CLASSIFY_REJECTED = {400, 415}
 class SensibleClient:
     def __init__(self, key):
         self.key = key
-        self._type_id = None
         # This run's Sensible API usage, for the report. SDK extractions count as one request each,
         # though the SDK also polls, so "requests" is a lower bound.
         self.counts = {"requests": 0, "extractions": 0, "by_call": {}}
         self._doc_types = None  # GET /document_types, cached for the run
-        self.used_temp_doc_type = False  # whether this run used settings.DOC_TYPE, so cleanup only deletes it then
 
     def _api(self, method, path, **kwargs):
         import requests
@@ -86,50 +85,9 @@ class SensibleClient:
             self._doc_types = response.json()
         return self._doc_types
 
-    def _doc_type_id(self):
-        return next((d["id"] for d in self.document_types() if d["name"] == settings.DOC_TYPE), None)
-
-    def ensure_doc_type(self):
-        self.used_temp_doc_type = True
-        if self._type_id:
-            return self._type_id
-        self._type_id = self._doc_type_id()
-        if not self._type_id:
-            response = self._api("POST", "/document_types", json={"name": settings.DOC_TYPE, "schema": {"fingerprint_mode": "fallback_to_all"}})
-            response.raise_for_status()
-            self._type_id = response.json()["id"]
-        return self._type_id
-
-    def delete_doc_type(self):
-        """Delete the temporary document type. Returns whether there was one."""
-        type_id = self._doc_type_id()
-        self._type_id = None
-        if not type_id:
-            return False
-        self._api("DELETE", f"/document_types/{type_id}").raise_for_status()
-        return True
-
-    def upload_config(self, name, config_text):
-        """Upload the config as the doc shows it, comments and all: Sensible accepts JSON5-style configs."""
-        type_id = self.ensure_doc_type()
-        body = {"configuration": config_text, "publish_as": settings.ENVIRONMENT}
-        if self._api("GET", f"/document_types/{type_id}/configurations/{name}").status_code == 404:
-            response = self._api("POST", f"/document_types/{type_id}/configurations", json={"name": name, **body})
-        else:
-            response = self._api("PUT", f"/document_types/{type_id}/configurations/{name}", json=body)
-        if not response.ok:
-            raise CodeTestError(CONFIG_INVALID, f"config upload returned {response.status_code}: {response.text[:500]}")
-
-    def delete_config(self, name):
-        """Delete a configuration, so the next code test's extraction can't pick it instead of its own."""
-        type_id = self.ensure_doc_type()
-        response = self._api("DELETE", f"/document_types/{type_id}/configurations/{name}")
-        if response.status_code not in (200, 204, 404):
-            response.raise_for_status()
-
-    def extract(self, url, config_name, document_name):
-        """Extract from a document URL with a configuration and wait. Returns actual_output(): parsed_document,
-        plus postprocessorOutput when the config has a postprocessor.
+    def extract(self, url, doc_type, config_name, document_name):
+        """Extract from a document URL with a doc type's configuration and wait. Returns actual_output():
+        parsed_document, plus postprocessorOutput when the config has a postprocessor.
 
         In the development environment Sensible runs every config in the document type and picks
         the best fit, so this checks the extraction used `config_name`."""
@@ -139,7 +97,7 @@ class SensibleClient:
         self._charge()
         self.counts["requests"] += 1
         result = self._wait(sdk.extract(
-            url=url, document_type=settings.DOC_TYPE, configuration_name=config_name,
+            url=url, document_type=doc_type, configuration_name=config_name,
             environment=settings.ENVIRONMENT, document_name=document_name,
         )["id"])
         if result.get("status") != "COMPLETE":
@@ -186,7 +144,7 @@ class SensibleClient:
                                 f"the only doc type requested: {settings.redact(response.text)[:200]}")
         return response.status_code, response.text, name
 
-    # -- Inline fingerprint samples: doc types recreated each run, kept for the report's editor links --
+    # -- Sample doc types: the page's own configs, recreated each run, kept for the report's editor links --
 
     def create_sample_doc_type(self, name, schema=None):
         """Create sample doc type `name`, replacing the one from the last run. Returns its ID."""
