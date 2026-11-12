@@ -7,7 +7,7 @@ code-test records. Sections that passed with nothing to review start collapsed.
 import os
 from .. import envelope, kinds, markup, provenance, settings
 from . import wording
-from .parts import ENVELOPE, JUDGE, VERDICT_CHIP, chip, e, j  # noqa: F401 -- also used by the claim kinds' sections
+from .parts import ENVELOPE, JUDGE, chip, e
 
 CSS = """
 :root {
