@@ -101,6 +101,16 @@ The removed lines, verbatim. They went under footnote 3, indented three spaces:
 
 - [ ] Reimplement these tests in the new test approach, then add `file-types.md` back to `test-pages.json` (it was priority 3, name `file-types`, issue label `doc-tests-file-types`, timeout 10)
 
+## Commission statement spreadsheets (decided 2026-11-11)
+
+Frances chose LibreOffice for XLSX, XLS, and XLSM, and Excel by hand for XLSB (LibreOffice can only import XLSB). No SheetJS. The XLSM is the macro-enabled container only, with no macros. Source: `scripts/test/assets/commission_statement.csv` (untracked).
+
+- [ ] Frances: `sudo apt install libreoffice-calc`
+- [ ] Convert, from `scripts/test/assets/`: `soffice --headless --infilter="CSV:44,34,76,1" --convert-to xlsx commission_statement.csv`, then the same with `xls`, and with `"xlsm:Calc MS Excel 2007 VBA XML"`
+- [ ] Frances: save `commission_statement.xlsb` from Excel next to the CSV
+- [ ] Move all five into `scripts/doc-detective/fixtures/spreadsheet_classification/`, replacing `xls_sample.xls`, `xlsm_sample.xlsm`, `xlsb_sample.xlsb`, and `csv_sample.csv`; point `manifest.json`'s reference document at the XLSB, and the saved test lines above at the new file names
+- [ ] Rerun the fixture check and smoke test with the new files
+
 ## Next steps
 - [ ] Merge #803, then #809, then this PR
 - [ ] Then add `docs/Senseml reference/concepts/file-types.md` to `scripts/doc-detective/test-pages.json` with priority 3
