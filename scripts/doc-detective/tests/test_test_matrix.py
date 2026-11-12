@@ -74,8 +74,8 @@ class MatrixTest(unittest.TestCase):
         path = test_matrix.save(self.page, output_dir=output, reports_dir=self.reports)
         with open(path) as f:
             saved = json.load(f)
-        # No Doc Detective results: the UI test didn't run, so it counts as a failure
-        self.assertEqual(saved["tests"], {"app_open_tab": "fail", "extract_example": "warn"})
+        # No Doc Detective results: the UI test didn't run, which fails the page
+        self.assertEqual(saved["tests"], {"app_open_tab": "not run", "extract_example": "warn"})
         self.assertEqual(saved["overall"], "fail")
         self.assertEqual(saved["report"], f"{test_matrix.slug(self.page)}.html")
         self.assertEqual(saved["commit"], subprocess.run(["git", "rev-parse", "--short=9", "HEAD"], capture_output=True,

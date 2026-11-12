@@ -6,8 +6,9 @@ in reports/, so it can't drift from them: --check fails when TEST-MATRIX.md is o
 Usage:
   test_matrix.py                write TEST-MATRIX.md
   test_matrix.py --check        exit 1 if TEST-MATRIX.md isn't what this would write
-  test_matrix.py save PAGE      after a run: write reports/<slug>.json (each test's result, the commit,
-                                and when it ran) from output/, then rewrite TEST-MATRIX.md. run.sh does
+  test_matrix.py save PAGE      after a run: write reports/<slug>.json (each test's result, including
+                                other runners', the commit, and when it ran) from output/, then
+                                rewrite TEST-MATRIX.md. run.sh does
                                 this with DOC_TESTS_SAVE_REPORT=1, after the leak check passes.
   test_matrix.py slug PAGE      print the name saved reports use for PAGE
 """
@@ -21,7 +22,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import kinds, markup, provenance, record, settings  # noqa: E402
+from codetests import kinds, markup, provenance, record, results, settings  # noqa: E402
 from codetests.reports import doc_detective  # noqa: E402
 import plan_runs  # noqa: E402
 
@@ -80,7 +81,8 @@ def render(entries=None, reports_dir=REPORTS_DIR):
         if result:
             stamp = f"{result['tested_at'][:10]}, commit {result['commit']}" + (" (uncommitted changes)" if result["uncommitted"] else "")
             report = os.path.relpath(os.path.join(reports_dir, result["report"]), HERE)
-        for test_id, kind, claim, fixtures in tests(page):
+        rows = tests(page) + [(r["test_id"], f"{r['kind']} ({r['runner']})", r["claim"], []) for r in (result or {}).get("other", [])]
+        for test_id, kind, claim, fixtures in rows:
             if result:
                 status = result["tests"].get(test_id, "not in that run")
                 evidence = f"{status}, {stamp}, [report]({report})"
@@ -95,25 +97,26 @@ def write(text=None):
 
 
 def save(page_path, output_dir=settings.OUTPUT_DIR, reports_dir=REPORTS_DIR):
-    """Write reports/<slug>.json from a run's output: each test's status, plus the run's provenance."""
+    """Write reports/<slug>.json from a run's output: each test's status, other runners' results, and
+    the run's provenance."""
     page = markup.parse_page(os.path.join(settings.REPO_ROOT, page_path))
-    ui = doc_detective.load_results(output_dir)
-    by_id = {r["test_id"]: r for r in record.load_all(os.path.join(output_dir, "code-tests"))}
-    statuses = {t.test_id: ("fail" if t.test_id not in ui or len(ui[t.test_id]["steps"]) < t.steps else ui[t.test_id]["status"])
-                for t in page.ui_tests}
-    statuses.update({t: by_id[t]["status"] if t in by_id else "fail" for t in page.code_tests})
+    other = results.load_other(output_dir)
+    page_results = results.for_page(page, doc_detective.load_results(output_dir),
+                                    record.load_all(os.path.join(output_dir, "code-tests")), other)
     name = slug(page_path)
-    result = {
+    saved_result = {
         "page": page_path,
         "report": f"{name}.html",
         **provenance.for_run(output_dir, page_path),
-        "overall": "fail" if "fail" in statuses.values() else "warn" if "warn" in statuses.values() else "pass",
-        "tests": statuses,
+        "overall": results.overall(page_results),
+        "tests": {r["test_id"]: r["status"] for r in page_results},
+        # Other runners' tests aren't in the page's markup, so the matrix lists them from here
+        **({"other": [{k: r[k] for k in ("test_id", "runner", "kind", "claim", "status")} for r in other]} if other else {}),
     }
     os.makedirs(reports_dir, exist_ok=True)
     path = os.path.join(reports_dir, f"{name}.json")
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(result, f, indent=2)
+        json.dump(saved_result, f, indent=2)
         f.write("\n")
     return path
 

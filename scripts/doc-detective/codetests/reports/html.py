@@ -5,7 +5,7 @@ code-test records. Sections that passed with nothing to review start collapsed.
 """
 
 import os
-from .. import envelope, kinds, markup, provenance, settings
+from .. import envelope, kinds, markup, provenance, results, settings
 from . import wording
 from .parts import ENVELOPE, JUDGE, chip, e
 
@@ -239,13 +239,33 @@ def render_usage(usage):
     return '<div class="muted" style="margin:-16px 0 20px;display:grid;gap:4px">' + "".join(parts) + "</div>"
 
 
-def render(page_path, ui_results, records, out_path, usage=None):
-    """Write report.html for one page."""
+RUNNER_LABELS = {"ui": "UI test", "code": "Code test"}
+
+
+def render_other_test(result):
+    """Another runner's test (output/results/): its claim, result, and evidence links."""
+    out = [f'<details class="card test" id="{e(result["test_id"])}"{" open" if result["status"] != "pass" else ""}>',
+           f'<summary><div class="row"><h2>{e(result["test_id"])}</h2>{chip(result["status"])}'
+           f'<span class="muted">{e(result["runner"])} · {e(result["kind"])}</span></div></summary>']
+    if result.get("claim"):
+        out.append(f'<p class="muted" style="margin:6px 0 0">{e(result["claim"])}</p>')
+    if result["status"] == "fail":
+        out.append(f'<h3>Failure</h3><pre>{e((result.get("category", "") + ": " if result.get("category") else "") + result.get("message", ""))}</pre>')
+    if result.get("warnings"):
+        out.append("<h3>Warnings</h3><ul>" + "".join(f"<li>{e(w)}</li>" for w in result["warnings"]) + "</ul>")
+    if result.get("evidence"):
+        out.append("<h3>Evidence</h3><ul>" + "".join(f'<li><a href="{e(x["url"])}">{e(x["label"])}</a></li>' for x in result["evidence"]) + "</ul>")
+    out.append("</details>")
+    return "\n".join(out)
+
+
+def render(page_path, ui_results, records, out_path, usage=None, other=()):
+    """Write report.html for one page. `other` is other runners' results (results.load_other)."""
     page = markup.parse_page(page_path)
     by_id = {r["test_id"]: r for r in records}
-    statuses = ["fail" if t.test_id not in ui_results or len(ui_results[t.test_id]["steps"]) < t.steps else ui_results[t.test_id]["status"] for t in page.ui_tests]
-    statuses += [by_id[t]["status"] if t in by_id else "fail" for t in page.code_tests]
-    overall = "fail" if "fail" in statuses else "warn" if "warn" in statuses else "pass"
+    tests = {t.test_id: t for t in page.ui_tests} | page.code_tests
+    page_results = results.for_page(page, ui_results, records, other)
+    overall = results.overall(page_results)
     shown_path = os.path.relpath(page_path) if os.path.isabs(page_path) else page_path
     links = Links(out_path)
 
@@ -260,30 +280,27 @@ def render(page_path, ui_results, records, out_path, usage=None):
         f'{ENVELOPE} {e(wording.envelope_sentence(records))}</p>',
         '<section class="card"><h2>Tests</h2><table><tr><th>Test</th><th>Type</th><th>Description</th><th>Result</th><th>Details</th></tr>',
     ]
-    rows = [(t.line, "ui", t) for t in page.ui_tests] + [(t.line, "code", t) for t in page.code_tests.values()]
-    for _, kind, test in sorted(rows, key=lambda r: r[0]):
-        if kind == "ui":
-            result = ui_results.get(test.test_id)
-            status = result["status"] if result else "not run"
-            if result and len(result["steps"]) < test.steps:
-                status = "fail"
-            failed = f', {result["failed"]} failed' if result and result["failed"] else ""
-            details = f'<a href="#{e(test.test_id)}">{e(test.test_id)}: {len(result["steps"]) if result else 0} steps{failed}</a>'
-            label = "UI test"
+    for result in page_results:
+        test_id = result["test_id"]
+        if result["runner"] == "code" and result["status"] == "not run":
+            details = "Not run"
         else:
-            rec = by_id.get(test.test_id)
-            status = rec["status"] if rec else "not run"
-            details = (f'<a href="#{e(test.test_id)}">{e(details_label(test, rec))}' + (" and judge reasoning</a> " + JUDGE if judged(rec) else "</a>")) if rec else "Not run"
-            label = "Code test"
-        out.append(f'<tr><td><code>{e(test.test_id)}</code></td><td>{label}</td><td>{e(test.description)}</td><td>{chip(status)}</td><td>{details}</td></tr>')
+            judge = " and judge reasoning</a> " + JUDGE if result["runner"] == "code" and judged(by_id[test_id]) else "</a>"
+            details = f'<a href="#{e(test_id)}">{e(result["details"] if result.get("details") else test_id)}{judge}'
+        label = RUNNER_LABELS.get(result["runner"], e(result["runner"]))
+        out.append(f'<tr><td><code>{e(test_id)}</code></td><td>{label}</td><td>{e(result["claim"])}</td><td>{chip(result["status"])}</td><td>{details}</td></tr>')
     out.append("</table></section>")
     out.append('<div class="toolbar"><button type="button" data-open="1">Expand all</button><button type="button" data-open="0">Collapse all</button>'
                '<span class="muted" style="align-self:center">Sections that passed with nothing to review start collapsed.</span></div>')
-    for _, kind, test in sorted(rows, key=lambda r: r[0]):
-        if kind == "ui":
-            out.append(render_ui_test(test, ui_results.get(test.test_id)))
-        elif test.test_id in by_id:
-            out.append(render_code_test(by_id[test.test_id], links))
+    for result in page_results:
+        test_id = result["test_id"]
+        if result["runner"] == "ui":
+            out.append(render_ui_test(tests[test_id], ui_results.get(test_id)))
+        elif result["runner"] == "code":
+            if test_id in by_id:
+                out.append(render_code_test(by_id[test_id], links))
+        else:
+            out.append(render_other_test(result))
     out.append("<script>"
                "document.querySelectorAll('.toolbar button').forEach(function(b){b.addEventListener('click',function(){"
                "document.querySelectorAll('details.test').forEach(function(d){d.open=b.dataset.open==='1';});});});"
