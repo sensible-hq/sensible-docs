@@ -53,7 +53,8 @@ PATTERNS = {
     "Bearer token": re.compile(r"Bearer\s+(?!\*{4})[A-Za-z0-9._~+/\-]{20,}=*"),
 }
 ENV_REF = re.compile(r"(?<!\$)\$([A-Z][A-Z0-9_]*)\b")
-TEST_COMMENT = re.compile(r"<!--\s*(?:test|step|code test)\b(.*?)-->", re.S)
+# Test markup, as HTML comments or as the MDX comments the ReadMe editor saves them as
+TEST_COMMENT = re.compile(r"(?:<!--|\{/\*)\s*(?:test|step|code test)\b(.*?)(?:-->|\*/\})", re.S)
 
 
 def read_names(path):

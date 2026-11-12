@@ -5,14 +5,14 @@ Runs a portfolio extraction of the test's document, segmented the way the test s
 either private fixtures or the page's own samples, each in a sample doc type. Fingerprinting uses no
 LLM, so there's no judge and no envelope.
 
-    <!-- code test {"testId": "...", "segment_documents_with": "fingerprints"} -->
-    <!-- inline document -->
-    <!-- fixture {"name": "<doc type name>"} -->     repeatable; or inline configs with "doc_type" and "config"
-    <!-- expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} -->
-    <!-- code test end -->
+    {/* code test {"testId": "...", "segment_documents_with": "fingerprints"} */}
+    {/* inline document */}
+    {/* fixture {"name": "<doc type name>"} */}     repeatable; or inline configs with "doc_type" and "config"
+    {/* expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} */}
+    {/* code test end */}
 
 Pages are printed (1-based) page numbers, to match the page's prose; [] means no documents. A test of
-the page's own samples can leave out "documents" and take them from its <!-- inline output -->.
+the page's own samples can leave out "documents" and take them from its {/* inline output */}.
 """
 
 from .. import markup, samples, settings

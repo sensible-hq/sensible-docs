@@ -87,12 +87,21 @@ def problems(entries, repo_root=REPO_ROOT, docs_glob=None):
                 found.append(f"{where}: {key} {value!r} is used by another entry")
             seen[key].add(value)
     listed = {e.get("page") for e in entries}
+    from codetests import markup
+
+    marked = set()
     for path in sorted(glob.glob(docs_glob or os.path.join(repo_root, "docs", "**", "*.md"), recursive=True)):
-        with open(path, encoding="utf-8") as f:
-            if MARKUP_RE.search(f.read()):
-                rel = os.path.relpath(path, repo_root)
-                if rel not in listed:
-                    found.append(f"{rel} has test markup but isn't in test-pages.json, so CI never runs it. Add it with a priority")
+        if MARKUP_RE.search(markup.read_page(path)):
+            rel = os.path.relpath(path, repo_root)
+            marked.add(rel)
+            if rel not in listed:
+                found.append(f"{rel} has test markup but isn't in test-pages.json, so CI never runs it. Add it with a priority")
+    # A listed page that lost its markup, for example to an editor that rewrote its comments, would run nothing
+    for i, entry in enumerate(entries):
+        page = entry.get("page")
+        if isinstance(page, str) and os.path.isfile(os.path.join(repo_root, page)) and page not in marked:
+            found.append(f"test-pages.json entry {i} ({page}): the page has no test markup, so its runs test nothing. "
+                         "Restore its tests, or remove the entry")
     return found
 
 

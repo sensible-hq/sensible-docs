@@ -371,3 +371,35 @@ class RenamedMarkupTest(unittest.TestCase):
         with self.assertRaises(CodeTestError) as caught:
             self.parse(TABLE_PAGE.replace('"fixture": {"name": "fixture_fp_demo_first_fails"}', '"config": {"fixture": "fixture_fp_demo_first_fails"}'))
         self.assertIn('was renamed "fixture"', str(caught.exception))
+
+
+def mdx(text):
+    """The same markup as MDX comments, as ReadMe's editor saves it."""
+    import re
+
+    return re.sub(r"<!--(\s.*?\s)-->", lambda m: "{/*" + m.group(1) + "*/}", text, flags=re.S)
+
+
+class MdxMarkupTest(unittest.TestCase):
+    """ReadMe's editor saves HTML comments as MDX comments; markup reads the same in either form."""
+
+    def test_mdx_markup_parses_like_html(self):
+        html, converted = (markup.parse_page(write_page(self, t)).code_tests["first"] for t in (CODE_TEST_PAGE, mdx(CODE_TEST_PAGE)))
+        self.assertIn("{/* code test", mdx(CODE_TEST_PAGE))
+        # Spans differ: an MDX comment is one character shorter. test_offsets_point_at_the_page_as_saved covers them
+        self.assertEqual((converted.document_url, converted.config, converted.output, converted.line),
+                         (html.document_url, html.config, html.output, html.line))
+
+    def test_offsets_point_at_the_page_as_saved(self):
+        path = write_page(self, mdx(CODE_TEST_PAGE))
+        with open(path, encoding="utf-8") as f:
+            saved = f.read()
+        test = markup.parse_page(path).code_tests["first"]
+        self.assertEqual(len(markup.read_page(path)), len(saved))
+        start, end = test.output_span
+        self.assertEqual(saved[start:end], test.output)  # so a proposed fix rewrites the right text
+
+    def test_code_fences_are_left_alone(self):
+        page = CODE_TEST_PAGE.replace('{"fields": []}', '{/* a SenseML comment */}', 1)
+        test = markup.parse_page(write_page(self, mdx(page))).code_tests["first"]
+        self.assertIn("{/* a SenseML comment */}", test.config)
