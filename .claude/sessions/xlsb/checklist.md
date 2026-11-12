@@ -99,7 +99,7 @@ The removed lines, verbatim. They went under footnote 3, indented three spaces:
    <!-- code test end -->
 ```
 
-- [ ] Reimplement these tests in the new test approach, then add `file-types.md` back to `test-pages.json` (it was priority 3, name `file-types`, issue label `doc-tests-file-types`, timeout 10)
+- [x] (2026-11-12, `fe_file_types_tests`) Restored the updated tests below to `file-types.md`, with the XLSX control, and added `file-types.md` back to `test-pages.json`; both pass, saved report at commit e3057fb48. Originally: reimplement these tests in the new test approach, then add `file-types.md` back to `test-pages.json` (it was priority 3, name `file-types`, issue label `doc-tests-file-types`, timeout 10)
 
 ## Commission statement spreadsheets (decided 2026-11-11)
 
