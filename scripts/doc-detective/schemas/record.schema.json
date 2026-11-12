@@ -1,10 +1,11 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Code test record",
-  "description": "What one code test compared and decided. Written by code_tests.py to output/code-tests/<testId>.json; read by every report.",
+  "description": "What one code test compared and decided. Written by code_tests.py to output/code-tests/<testId>.json; read by every report. Each claim kind's own section is in schemas/kinds/<kind>.schema.json; record.py adds them, and the allowed kinds, before validating.",
   "type": "object",
   "required": [
     "test_id",
+    "kind",
     "description",
     "file",
     "document_url",
@@ -15,6 +16,10 @@
     "test_id": {
       "type": "string",
       "pattern": "^[a-z0-9_]+$"
+    },
+    "kind": {
+      "type": "string",
+      "description": "The claim kind (codetests/kinds/): \"output\" compares the documented output; the others are an expect marker's \"compare\". record.py fills in the allowed values from the registry, and adds each kind's section from schemas/kinds/<kind>.schema.json."
     },
     "description": {
       "type": "string"
@@ -216,224 +221,6 @@
           },
           "text": {
             "type": "string"
-          }
-        }
-      }
-    },
-    "segments": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in its own sample doc type).",
-      "required": [
-        "fixtures",
-        "document_types",
-        "extraction_id",
-        "expected",
-        "actual"
-      ],
-      "properties": {
-        "fixtures": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "document_types": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "extraction_id": {
-          "type": "string"
-        },
-        "expected": {
-          "type": "array",
-          "items": {
-            "type": "array"
-          }
-        },
-        "actual": {
-          "type": "array",
-          "items": {
-            "type": "array"
-          }
-        },
-        "editors": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "fixture",
-              "url"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "fixture": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "row": {
-          "type": "string",
-          "description": "'<n>: <rowId>', the row of the tagged table this test checks"
-        },
-        "table": {
-          "type": "string",
-          "description": "tableId of the tagged table"
-        },
-        "samples": {
-          "type": "array",
-          "description": "The page's inline fingerprint samples, each run in a sample doc type that stays in the test account until the next run",
-          "items": {
-            "type": "object",
-            "required": [
-              "doc_type",
-              "config"
-            ],
-            "additionalProperties": false,
-            "properties": {
-              "doc_type": {
-                "type": "string"
-              },
-              "config": {
-                "type": "string"
-              },
-              "editor": {
-                "type": "string",
-                "description": "The sample's config in the SenseML editor"
-              }
-            }
-          }
-        }
-      }
-    },
-    "fingerprint": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "A standalone fingerprint claim: whether the page's config runs in strict fingerprint mode, as written and with tests broken on purpose",
-      "required": [
-        "config",
-        "runs"
-      ],
-      "properties": {
-        "config": {
-          "type": "string"
-        },
-        "runs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "break",
-              "expected",
-              "actual",
-              "extraction_id"
-            ],
-            "properties": {
-              "break": {
-                "type": "array",
-                "items": {
-                  "type": "integer"
-                },
-                "description": "0-based indexes of the tests replaced with a match no document has; empty for the config as written"
-              },
-              "expected": {
-                "type": "boolean",
-                "description": "Whether the page claims the fingerprint passes"
-              },
-              "actual": {
-                "type": "boolean",
-                "description": "Whether it passed: the extraction completed with this config"
-              },
-              "extraction_id": {
-                "type": "string"
-              },
-              "editor": {
-                "type": "string",
-                "description": "This run's config in the SenseML editor"
-              }
-            }
-          }
-        }
-      }
-    },
-    "classification": {
-      "type": "object",
-      "additionalProperties": false,
-      "description": "A classification claim: whether Sensible classifies each file, sent with a content type, as the test's fixture doc type",
-      "required": [
-        "fixture",
-        "editor",
-        "doc_type_description",
-        "runs"
-      ],
-      "properties": {
-        "fixture": {
-          "type": "string",
-          "description": "The fixture doc type the files are classified as (persistent in the test account)"
-        },
-        "editor": {
-          "type": "string",
-          "description": "The SenseML editor, opened on the fixture"
-        },
-        "doc_type_description": {
-          "type": "string",
-          "description": "The fixture's description, which Sensible classifies by"
-        },
-        "runs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "file",
-              "content_type",
-              "label",
-              "expected",
-              "actual",
-              "http_status",
-              "response",
-              "curl"
-            ],
-            "properties": {
-              "file": {
-                "type": "string",
-                "description": "Repo-relative path of the file sent"
-              },
-              "content_type": {
-                "type": "string",
-                "description": "The Content-Type header sent"
-              },
-              "label": {
-                "type": "string",
-                "description": "Optional name for the request in reports"
-              },
-              "expected": {
-                "type": "boolean",
-                "description": "Whether the page claims Sensible classifies it"
-              },
-              "actual": {
-                "type": "boolean",
-                "description": "Whether Sensible classified it as the fixture doc type"
-              },
-              "http_status": {
-                "type": "integer"
-              },
-              "response": {
-                "type": "string",
-                "description": "The start of the response body, keys redacted"
-              },
-              "curl": {
-                "type": "string",
-                "description": "The request as a curl command, run from the repo root, with the key as an environment variable"
-              }
-            }
           }
         }
       }

@@ -9,7 +9,7 @@ from tests.fakes import CODE_TEST_PAGE, write_page
 
 class SummaryTest(unittest.TestCase):
     def record(self, status, **extra):
-        return {"test_id": "first", "file": "p.md", "status": status, "warnings": [], "message": "boom", **extra}
+        return {"test_id": "first", "kind": "output", "file": "p.md", "status": status, "warnings": [], "message": "boom", **extra}
 
     def test_missing_records_count_as_failures(self):
         text = summary.body(write_page(self, CODE_TEST_PAGE), {}, [], report_url="https://example.test/r")

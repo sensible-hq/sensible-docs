@@ -32,9 +32,10 @@ flowchart LR
 | --- | --- |
 | Test markup | Comments in the page, each a single line in the form `<!-- name {json} -->`. Code tests use markers that say where each part comes from: `inline` (shown on the page), `fixture` (committed, private), or `expect` (written in the test). The shape follows Doc Detective's inline tests, so a later move to Doc Detective stays possible. |
 | `codetests/markup.py` | Reads a page's tests and checks the markup rules before anything calls Sensible. |
-| `codetests/runner.py` | Runs each code test by its kind of claim, compares the result with the page, and records what happened. |
+| `codetests/kinds/` | One module per kind of claim: documented output, portfolio documents, fingerprint, and classification. Each kind parses its markup, runs its claim, and writes its part of the record and of each report. |
+| `codetests/runner.py` | Runs each code test through its kind, and records what happened, including a crash. |
 | `codetests/sensible.py` | Calls the Sensible API with the docs test account: extractions, classification, the temporary and sample doc types, and fixtures. |
-| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json`. Every report reads records, never the API. |
+| Records | One JSON file per code test in `output/code-tests/`, checked against `schemas/record.schema.json` plus the kind's section in `schemas/kinds/`. A record names its kind. Every report reads records, never the API. |
 | `codetests/reports/` | The HTML report, the text summary, the CI summary, and the failure and envelope issues. |
 | `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
 | `test-pages.json`, `plan_runs.py`, `.github/workflows/doc-tests.yml` | CI: each tested page has a priority, the planner picks the pages for each run, and the workflow runs each page as its own job. |
@@ -69,10 +70,10 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | A test to a tested page | The page's markup | Regenerate `TEST-MATRIX.md`. |
 | A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
 | A fixture | A folder under `fixtures/` with its doc type, config, `manifest.json`, and files | Pages refer to it by doc type name; the folder's location is free. |
-| A kind of claim (for example, an API status code) | `markup.py` (parse and check), `runner.py` (run), `sensible.py` (the API call), the record schema, the three reports, `test_matrix.KINDS`, and unit tests | About a dozen places today. The classification claim is the most recent example to follow. |
+| A kind of claim (for example, an API status code) | A module in `codetests/kinds/`, its record section's schema in `schemas/kinds/`, one line in `kinds.KINDS`, and unit tests. If it calls an endpoint the client doesn't yet, `sensible.py` too. | `codetests/kinds/__init__.py` lists what a kind module defines; `classification.py` is the shortest to copy. `tests/test_kinds.py` registers a made-up kind to check that nothing else needs to change. |
 | A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code and its own reporting | Its results don't reach the HTML report, the matrix, or CI issues yet. |
 
-The last two rows are the expensive ones. Two follow-ups would make each a single module: a registry of claim kinds, where each kind is one file that parses, runs, and reports its claim; and one record shape that every runner writes, so the report, the matrix, and CI cover them all.
+The last row is the expensive one. A follow-up would fix it: one record shape that every runner writes, so the report, the matrix, and CI cover them all.
 
 ## Run the tests
 
@@ -400,13 +401,15 @@ Pages run one at a time (they share doc types in the test account), each as its 
 | `codetests/envelope.py` | Regression envelopes. |
 | `codetests/sensible.py` | The Sensible API calls. |
 | `codetests/record.py` | The record each code test produces. |
-| `codetests/runner.py` | Runs a code test, builds envelopes. |
-| `codetests/reports/` | Text summary, failure issue, envelope issue, report.html, and their shared wording. |
+| `codetests/kinds/` | The claim kinds, one module each (see `kinds/__init__.py`), and their shared helpers (`common.py`). |
+| `codetests/samples.py` | Sample doc types: the page's own samples, named for their page and test. |
+| `codetests/runner.py` | Runs a code test through its kind, builds envelopes, probes the blank page. |
+| `codetests/reports/` | Text summary, failure issue, envelope issue, report.html, and their shared wording and HTML parts. Report links to repo files are relative to where the report is written. |
 | `fixtures/<group>/` | Test-account fixtures: doc type and config files, a `manifest.json` of reference documents, and the fixture's own files. A push that changes a fixture's folder reruns only the pages whose tests use it. |
 | `tests/pages/` | Self-test pages for the tooling (see [Self-test pages](#self-test-pages)). |
 | `codetests/provenance.py` | The commit, uncommitted changes, time, and environment that reports and saved results record. |
 | `TEST-MATRIX.md`, `reports/` | Generated: the claims matrix, and saved evidence (report.html and results JSON per page). |
-| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record and envelope schemas. |
+| `config/`, `schemas/` | Judge prompts and model, envelope tuning, the secrets list; record (and each kind's section, in `schemas/kinds/`) and envelope schemas. |
 
 ## Known limits
 

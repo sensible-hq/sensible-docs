@@ -1,6 +1,7 @@
 """The record of one code test: what was compared and decided. Every report reads records.
 
-Its shape is schemas/record.schema.json; save() validates against it.
+Its shape is schemas/record.schema.json plus each claim kind's section, from
+schemas/kinds/<kind>.schema.json (schema() puts them together); save() validates against it.
 """
 
 import json
@@ -10,14 +11,32 @@ import jsonschema
 
 from . import compare, fields, settings
 
-with open(os.path.join(settings.SCHEMAS_DIR, "record.schema.json"), encoding="utf-8") as f:
-    SCHEMA = json.load(f)
+def _load(*parts):
+    with open(os.path.join(settings.SCHEMAS_DIR, *parts), encoding="utf-8") as f:
+        return json.load(f)
+
+
+def schema():
+    """The full record schema: the shared fields, the registered kinds, and each kind's section."""
+    from . import kinds
+
+    full = _load("record.schema.json")
+    full["properties"]["kind"]["enum"] = list(kinds.KINDS)
+    for name, kind in kinds.KINDS.items():
+        if kind.RECORD_KEY:
+            section = _load("kinds", f"{name}.schema.json")
+            section.pop("$schema", None)
+            full["properties"][kind.RECORD_KEY] = section
+    return full
 
 
 def new(test):
     """A record for a code test (a markup.CodeTest), before it runs."""
+    from . import kinds
+
     record = {
         "test_id": test.test_id,
+        "kind": kinds.of(test).NAME,
         "description": test.description,
         "file": os.path.relpath(test.file, settings.REPO_ROOT) if os.path.isabs(test.file) else test.file,
         "document_url": test.document_url,
@@ -88,7 +107,7 @@ def summarize(record, expected, actual, index, exact, judged):
 
 
 def validate(record):
-    jsonschema.validate(record, SCHEMA)
+    jsonschema.validate(record, schema())
 
 
 def save(record, directory=None):

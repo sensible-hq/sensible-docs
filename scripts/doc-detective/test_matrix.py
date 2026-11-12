@@ -21,19 +21,13 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import markup, provenance, record, settings  # noqa: E402
+from codetests import kinds, markup, provenance, record, settings  # noqa: E402
 from codetests.reports import doc_detective  # noqa: E402
 import plan_runs  # noqa: E402
 
 MATRIX_FILE = os.path.join(HERE, "TEST-MATRIX.md")
 REPORTS_DIR = os.path.join(HERE, "reports")
 CADENCE = {1: "weekly", 2: "monthly", 3: "on demand"}
-KINDS = {
-    "": "documented output",
-    "documents": "portfolio documents",
-    "fingerprint": "fingerprint (strict mode)",
-    "classification": "classification",
-}
 
 
 def slug(page):
@@ -46,7 +40,7 @@ def tests(page_path):
     page = markup.parse_page(os.path.join(settings.REPO_ROOT, page_path))
     rows = [(t.line, t.test_id, "UI", t.description, []) for t in page.ui_tests]
     for t in page.code_tests.values():
-        kind = KINDS.get(t.compare, t.compare)
+        kind = kinds.of(t).LABEL
         if t.row:
             kind += f", table row {t.row.split(':')[0]}"
         rows.append((t.line, t.test_id, kind, t.description, list(t.fixtures)))

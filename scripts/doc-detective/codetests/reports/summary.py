@@ -3,8 +3,8 @@ what it checked, and a link to the full HTML report."""
 
 import os
 
-from .. import markup
-from . import html, text
+from .. import kinds, markup
+from . import text
 
 
 def test_rows(page, ui_results, records):
@@ -24,7 +24,7 @@ def test_rows(page, ui_results, records):
         if not rec:
             rows.append((test.line, test.test_id, "Code test", "not run", ""))
             continue
-        checked = html.details_label(test, rec) if rec.get("segments") or rec.get("fingerprint") or rec.get("classification") else f"documented output vs Sensible: {rec['overall']}" if rec.get("overall") else ""
+        checked = kinds.of_record(rec).checked(test, rec)
         rows.append((test.line, test.test_id, "Code test", rec["status"], checked))
     return [row[1:] for row in sorted(rows, key=lambda r: r[0])]
 
