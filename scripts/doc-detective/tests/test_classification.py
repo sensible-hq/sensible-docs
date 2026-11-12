@@ -105,6 +105,17 @@ class MarkupTest(unittest.TestCase):
         _, expect = markup.check_syntax(test)
         self.assertEqual([r["classified"] for r in expect["requests"]], [True, False])
 
+    def test_as_names_a_content_type_by_its_extension(self):
+        test = self.parse(page([{"file": XLSB, "as": "xlsx", "classified": True}, {"file": XLSB, "as": "pdf", "classified": True}]))["classify_formats"]
+        self.assertEqual([r["content_type"] for r in test.expect["requests"]],
+                         ["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "application/pdf"])
+        self.assertTrue(all("as" not in r for r in test.expect["requests"]))  # expanded, so runs and reports see the MIME type
+
+    def test_as_must_be_a_known_extension_and_not_beside_content_type(self):
+        self.malformed(page([{"file": XLSB, "as": "docx", "classified": True}]), "\"as\": one of pdf, xlsx, xls, xlsm, xlsb, csv")
+        self.malformed(page([{"file": XLSB, "as": "xlsx", "content_type": "text/csv", "classified": True}]), "needs only \"requests\"")
+        self.malformed(page([{"file": XLSB, "classified": True}]), "needs only \"requests\"")
+
     def test_needs_requests(self):
         self.malformed(page([]), "needs only \"requests\"")
 
