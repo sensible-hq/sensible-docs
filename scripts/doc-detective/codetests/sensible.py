@@ -206,8 +206,10 @@ class SensibleClient:
             response.raise_for_status()
 
     def add_reference(self, type_id, name, config, pdf):
-        """Upload a repo PDF as a reference document linked to `config`, so the editor opens on it."""
-        self._upload_reference(type_id, {"name": name, "configuration": config, "pdf": pdf})
+        """Upload a repo PDF (a repo-relative path) as a reference document linked to `config`, so the editor opens on it."""
+        import os
+
+        self._upload_reference(type_id, {"name": name, "configuration": config, "path": os.path.join(settings.REPO_ROOT, pdf)})
 
     def publish_config(self, type_id, name, config_text):
         """Upload a config as the page shows it, published to settings.ENVIRONMENT. Sensible validates it,
