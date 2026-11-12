@@ -68,6 +68,7 @@ Sources: sensible-hq/sensible#3474 (engine), sensible-hq/sensible-app#1882 (app 
 | 2026-11-10 | `add-doc-tests` skill goes on #749 with its concept; runner change, fixture, and tests go on #741 | The docs claim and its test ship together; the skill builds on the concept | Claude (Frances didn't object) |
 | 2026-11-11 | Embedded code tests removed from `file-types.md`, and the page dropped from `test-pages.json`; the fixture, test files, and saved report stay | Frances wants #741 free of docs changes, with the docs shipped clean in #809; the tests get reimplemented later in the new approach (lines saved in checklist.md) | Frances, via the google-ocr session |
 | 2026-11-11 | Swap the classification fixture to the commission statement now, with `xlsb_sample.xlsb` as a placeholder; every "not classified" request gets a same-file control that classifies | Frances deferred the XLSB; the live check showed a 400 can mean a content mismatch, not an unsupported format | Frances (defer), Claude (control) |
+| 2026-11-11 | XLSB converted once with SheetJS CE (Apache-2.0), outside the repo, not added as a dependency | Frances's Excel license expired; LibreOffice can't write XLSB. A conversion tool's license doesn't reach its output | Frances ("that one-off thing") |
 
 ## Things that turned out wrong along the way
 

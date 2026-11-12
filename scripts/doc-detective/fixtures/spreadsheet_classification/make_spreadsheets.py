@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """Make the commission statement test spreadsheets (XLSX, XLS, XLSM) from commission_statement.csv,
 with LibreOffice, so each one displays exactly like the CSV (money as #,##0.00, rates as 0%).
-The XLSB is saved by hand from Excel: LibreOffice can read XLSB but not write it.
+LibreOffice can read XLSB but not write it, so the XLSB was converted from the XLSX once with SheetJS
+Community Edition 0.20.3 (Apache-2.0), installed outside the repo, not a dependency:
+
+    npm install https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz
+    node -e 'const X = require("xlsx"); X.writeFile(X.readFile("commission_statement.xlsx", {cellNF: true, cellStyles: true}), "commission_statement.xlsb", {bookType: "xlsb"})'
+
+Saving the XLSX as an Excel Binary Workbook in Excel works too.
 
 Needs LibreOffice Calc and its Python bridge (sudo apt install libreoffice-calc). Run with the system
 python3, which has `uno`:  python3 make_spreadsheets.py commission_statement.csv

@@ -93,7 +93,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   "https://api.sensible.so/v0/classify?document_types=1040s,auto_insurance_quotes" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 record 1 "XLSB -> POST /classify" "$(reaches_engine)" FAIL "Limitation: raw body (gateway)"
 
@@ -108,7 +108,7 @@ ASYNC=$(curl -s -w "\nHTTP %{http_code}" -X POST \
   "https://api.sensible.so/v0/classify/async?document_types=1040s,auto_insurance_quotes" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb)
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb)
 echo "$ASYNC"
 CMD
 RESULT_2A=$(reaches_engine)
@@ -134,7 +134,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   "https://api.sensible.so/v0/extract/layout_basics" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 record 3 "XLSB -> POST /extract/layout_basics" "$(reaches_engine)" FAIL "Limitation: raw body"
 
@@ -162,7 +162,7 @@ echo "4c. Upload the XLSB file to the upload_url"
 run <<'CMD'
 curl -s -w "HTTP %{http_code}\n" -X PUT "$(echo "$GOLDEN" | jq -r .upload_url)" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 echo "4d. Wait 15 seconds, then check that Sensible processed it"
 run <<'CMD'
@@ -220,7 +220,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   "https://api.sensible.so/v0/classify?document_types=1040s,auto_insurance_quotes" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
   -H "Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 record 7 "XLSB sent as XLSX -> /classify (control)" "$(reaches_engine)" PASS "Engine reads XLSB fine"
 
@@ -246,7 +246,7 @@ curl -s -w "\nHTTP %{http_code}\n" -X POST \
   "https://api.sensible.so/v0/classify?document_types=1040s,auto_insurance_quotes" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroEnabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 record 9 "XLSB as macroEnabled (capital E) -> /classify" "$(reaches_engine)" FAIL "Limitation: lowercase only"
 
@@ -302,7 +302,7 @@ echo "12b. Upload the XLSB file to the upload_url"
 run <<'CMD'
 curl -s -w "HTTP %{http_code}\n" -X PUT "$(echo "$UPLOAD" | jq -r .upload_url)" \
   -H "Content-Type: application/vnd.ms-excel.sheet.binary.macroenabled.12" \
-  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb
+  --data-binary @scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb
 CMD
 echo "12c. Wait 20 seconds, then retrieve the extraction"
 run <<'CMD'
@@ -319,7 +319,7 @@ section "13. Workaround: POST /extract/layout_basics with XLSB as base64 in a JS
   "same"
 run <<'CMD'
 jq -n \
-  --arg doc "$(base64 -w0 scripts/doc-detective/fixtures/spreadsheet_classification/xlsb_sample.xlsb)" \
+  --arg doc "$(base64 -w0 scripts/doc-detective/fixtures/spreadsheet_classification/commission_statement.xlsb)" \
   '{document: $doc, content_type: "application/vnd.ms-excel.sheet.binary.macroenabled.12"}' |
 curl -s -X POST "https://api.sensible.so/v0/extract/layout_basics" \
   -H "Authorization: Bearer $SENSIBLE_TEST_API_KEY" \
