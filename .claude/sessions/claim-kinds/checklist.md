@@ -20,7 +20,7 @@
 
 ## Not done
 
-- [ ] O2: one record shape for every runner (UI tests, parameter-table checks from #749, API contract tests from #744). Not started: it's a design question about what those runners record, not a refactor of this one
-- [ ] O3, the rest: #760 already keeps sample doc types until the next run. The documented-output tests still share `docs_ci_examples`, one config at a time, deleted after each run; a doc type per test would make those openable too
-- [ ] Update the `add-doc-tests` skill (#749) after this merges: its "add a new claim kind" step lists the dozen files this PR replaces with one module (`.claude/skills/add-doc-tests/SKILL.md`, line 100 on #749)
+- [x] (#811) O2: one record shape for every runner (UI tests, parameter-table checks from #749, API contract tests from #744). Not started: it's a design question about what those runners record, not a refactor of this one
+- [x] (#811) O3, the rest: #760 already keeps sample doc types until the next run. The documented-output tests still share `docs_ci_examples`, one config at a time, deleted after each run; a doc type per test would make those openable too
+- [ ] Update the `add-doc-tests` skill (#749) after this merges (exact replacement text in #811's checklist): its "add a new claim kind" step lists the dozen files this PR replaces with one module (`.claude/skills/add-doc-tests/SKILL.md`, line 100 on #749)
 - [ ] Getting started's UI test fails locally only: `SENSIBLE_TEST_PASSWORD` isn't set in this shell, so sign-in can't finish. CI has the secret
