@@ -1,9 +1,11 @@
 """Classification claims: files sent to the classify endpoint with a content type."""
 
 import json
+import os
 import unittest
 
 from codetests import markup, record, runner, settings
+from codetests.kinds import classification
 from codetests import sensible
 from codetests.errors import CodeTestError
 from codetests.reports import html, text
@@ -194,7 +196,10 @@ class RunnerTest(unittest.TestCase):
 
     def test_reports_render_the_runs(self):
         rec, _ = self.run_test({"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"})
-        rendered = html.render_code_test(rec)
+        # A report in output/ or reports/ (two folders below scripts/) links to repo files three folders up
+        rendered = html.render_code_test(rec, html.Links(os.path.join(settings.REPO_ROOT, "scripts", "doc-detective", "output", "report.html")))
+        elsewhere = html.render_code_test(rec, html.Links(os.path.join(settings.REPO_ROOT, "report.html")))
+        self.assertIn('href="fx/spreadsheets/csv_sample.csv"', elsewhere)
         lines = "\n".join(text.summary(rec))
         self.assertIn("classification (compared exactly)", lines)
         self.assertIn("csv_sample.csv as text/csv (CSV): page claims not classified; Sensible not classified", lines)
@@ -225,7 +230,7 @@ class SpreadsheetReferenceTest(unittest.TestCase):
 class CurlCommandTest(unittest.TestCase):
     def test_values_from_the_page_are_shell_quoted(self):
         import shlex
-        curl = runner.curl_command("/classify", "fixture_x", 'text/csv"; rm -rf ~ #', "scripts/doc-detective/fixtures/spreadsheets/types test.csv")
+        curl = classification.curl_command("/classify", "fixture_x", 'text/csv"; rm -rf ~ #', "scripts/doc-detective/fixtures/spreadsheets/types test.csv")
         words = shlex.split(curl)
         self.assertIn('Content-Type: text/csv"; rm -rf ~ #', words)
         self.assertIn("@scripts/doc-detective/fixtures/spreadsheets/types test.csv", words)

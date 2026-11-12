@@ -4,11 +4,10 @@ Reads the page (for test order and descriptions), Doc Detective's results for UI
 code-test records. Sections that passed with nothing to review start collapsed.
 """
 
-import html
-import json
 import os
-from .. import envelope, markup, provenance
+from .. import envelope, kinds, markup, provenance, settings
 from . import wording
+from .parts import ENVELOPE, JUDGE, chip, e
 
 CSS = """
 :root {
@@ -78,25 +77,6 @@ summary:focus-visible, .toolbar button:focus-visible { outline: 2px solid var(--
 .muted { color: var(--muted); }
 ul { margin: 6px 0 0; padding-left: 20px; }
 """
-
-STATUS_CHIP = {"pass": ("pass", "Passed"), "warn": ("warn", "Passed with warnings"), "fail": ("fail", "Failed"), "not run": ("fail", "Not run")}
-VERDICT_CHIP = {"pass": "pass", "warn": "warn", "fail": "fail", "error": "fail"}
-JUDGE = '<span class="chip judge" title="Probabilistic: decided by an LLM judge">judge</span>'
-ENVELOPE = '<span class="chip envelope" title="Compared with a baseline of earlier runs">envelope</span>'
-
-
-def e(value):
-    return html.escape(str(value))
-
-
-def j(value):
-    return e(json.dumps(value, ensure_ascii=False))
-
-
-def chip(status, text=None):
-    css, default = STATUS_CHIP.get(status, ("info", status))
-    return f'<span class="chip {css}">{e(text or default)}</span>'
-
 
 def render_ui_test(test, result):
     status = result["status"] if result else "not run"
@@ -183,11 +163,22 @@ def needs_attention(record):
     return record.get("status") != "pass" or judged(record) or record.get("envelope", {}).get("status", "within") != "within"
 
 
-# Sample doc types keep their names from run to run, so an older report's editor links show newer configs
-SAMPLE_LINKS_NOTE = ("Each run deletes and recreates these doc types with the page's current samples, so the editor links show the latest run's configs. For exactly what this run ran, see its extraction.")
+class Links:
+    """Links from a report to files in the repo, relative to where the report is written, so they open
+    from a local checkout. run.sh writes the report in output/ and saves a copy in reports/, a folder at
+    the same depth, so the links work from either."""
+
+    def __init__(self, out_path=None):
+        self.base = os.path.dirname(os.path.abspath(out_path)) if out_path else settings.OUTPUT_DIR
+
+    def repo(self, path):
+        """A repo-relative path, as a link from the report."""
+        return os.path.relpath(os.path.join(settings.REPO_ROOT, path), self.base).replace(os.sep, "/")
 
 
-def render_code_test(record):
+def render_code_test(record, links=None):
+    kind = kinds.of_record(record)
+    links = links or Links()
     env_status = record.get("envelope", {}).get("status")
     badges = (JUDGE if judged(record) else "") + (f' {ENVELOPE} <span class="chip warn">{e(env_status)}</span>' if env_status and env_status != "within" else "")
     out = [f'<details class="card test" id="{e(record["test_id"])}"{" open" if needs_attention(record) else ""}>']
@@ -195,12 +186,9 @@ def render_code_test(record):
     if record.get("overall"):
         out.append(f'<p class="muted" style="margin:6px 0 0">Docs output vs <code>parsed_document</code>: {e(record["overall"])}</p>')
     source = f' (the link in <a href="#{e(record["document_from"])}"><code>{e(record["document_from"])}</code></a>)' if record.get("document_from") else ""
-    # Fingerprint tests link each fixture to the SenseML editor instead, which has the document
     if record.get("blank_document"):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: none, so it ran on <a href="{e(record["document_url"])}">a blank page</a></p>')
-    elif record.get("classification"):
-        pass  # the files it sends are in the table below
-    elif not record.get("segments", {}).get("editors"):
+    elif kind.shows_document(record):
         out.append(f'<p class="muted" style="margin:4px 0 0">Example document: <a href="{e(record["document_url"])}">{e(os.path.basename(record["document_url"]))}</a>{source}</p>')
     if record.get("config_fragment"):
         out.append('<p class="muted" style="margin:4px 0 0">Config: an excerpt of one field, run wrapped in <code>{"fields": [ ... ]}</code></p>')
@@ -211,154 +199,7 @@ def render_code_test(record):
             out.append('<table><tr><th>Field</th><th>Judge</th><th>Envelope</th><th>What it suggests</th></tr>')
             out += [f'<tr><td><code>{e(p)}</code></td><td>{JUDGE} <span class="chip fail">{e(v)}</span></td><td>{ENVELOPE} {e(s)}</td><td>{e(n)}</td></tr>' for p, v, s, n in rows]
             out.append("</table>")
-
-    seg = record.get("segments")
-    if seg:
-        def docs(items):
-            return "<br>".join(f"<code>{e(c)}</code> pages {s}–{n}" for c, s, n in items) or '<span class="muted">no documents</span>'
-        link = f"https://app.sensible.so/extraction/?e={seg['extraction_id']}"
-        out.append("<h3>Portfolio segments</h3>")
-        if seg.get("row"):
-            out.append(f'<p>Checks row <strong>{e(seg["row"])}</strong> of table <code>{e(seg.get("table", ""))}</code>.</p>')
-        out.append('<p class="muted">Fingerprint claim, compared exactly: no LLM fields, so no judge and no envelope.</p>')
-        out.append('<table><tr><th>Page claims</th><th>Sensible returned</th></tr>'
-                   f'<tr><td>{docs(seg["expected"])}</td><td>{docs(seg["actual"])}</td></tr></table>')
-        editors = {x["fixture"]: x["url"] for x in seg.get("editors", [])}
-
-        def fixture(name):
-            editor = f' (<a href="{e(editors[name])}">open in the SenseML editor</a>)' if name in editors else ""
-            return f"<code>{e(name)}</code>{editor}"
-
-        if seg.get("samples"):
-            def sample(x):
-                editor = f' (<a href="{e(x["editor"])}">open in the SenseML editor</a>)' if x.get("editor") else ""
-                return f"<code>{e(x['config'])}</code>{editor}"
-            out.append(f'<p class="muted">The page\'s own samples: {", ".join(sample(x) for x in seg["samples"])}, each in its own doc type. '
-                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
-            out.append(f'<p class="muted">{e(SAMPLE_LINKS_NOTE)}</p>')
-        else:
-            out.append(f'<p class="muted">Fixtures: {", ".join(fixture(x) for x in seg["fixtures"])}. '
-                       f'Extraction: <a href="{e(link)}">{e(seg["extraction_id"])}</a> (test account).</p>')
-        restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
-        if restored:
-            out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
-                       'so the runner restored it before the run. Check whether someone edited it in the app:</p><ul>')
-            out += [f"<li><code>{e(r)}</code></li>" for r in restored]
-            out.append("</ul>")
-
-    fp = record.get("fingerprint")
-    if fp:
-        out.append("<h3>Fingerprint, strict mode</h3>")
-        out.append('<p class="muted">In strict fingerprint mode, Sensible runs the config only if its fingerprint passes. '
-                   'Each row runs the page\'s config, as written or with tests replaced by a match no document has; '
-                   'the Config column opens each one in the SenseML editor. No LLM, so no judge and no envelope.</p>')
-        out.append(f'<p class="muted">{e(SAMPLE_LINKS_NOTE)}</p>')
-        out.append("<table><tr><th>Config</th><th>Page claims</th><th>Sensible</th><th>Extraction</th></tr>")
-        for run in fp["runs"]:
-            which = "as written" if not run["break"] else f"tests {', '.join(map(str, run['break']))} broken (0-based)"
-            verdict = lambda passed: "passes" if passed else "fails"
-            ok = "pass" if run["actual"] == run["expected"] else "fail"
-            link = f"https://app.sensible.so/extraction/?e={run['extraction_id']}"
-            config = f'<a href="{e(run["editor"])}">{e(which)}</a>' if run.get("editor") else e(which)
-            out.append(f'<tr><td>{config}</td><td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
-                       f'<td><a href="{e(link)}">{e(run["extraction_id"][:8])}…</a></td></tr>')
-        out.append("</table>")
-
-    layout = record.get("layout")
-    if layout:
-        out.append("<h3>Layout fields</h3>")
-        if layout["mismatches"]:
-            out.append(f'<p>{chip("fail", str(len(layout["mismatches"])) + " mismatch(es)")} compared exactly:</p><ul>')
-            out += [f"<li><code>{e(m)}</code></li>" for m in layout["mismatches"]]
-            out.append("</ul>")
-        else:
-            out.append(f'<p>{layout["fields"]} field(s), all an exact match.</p>' if layout["fields"] else '<p class="muted">None in the documented output.</p>')
-
-    notes = record.get("not_checked", [])
-    left = record.get("left_out", {})
-    if notes or left.get("fields") or left.get("nested_keys"):
-        out.append("<h3>Not compared</h3><ul>")
-        out += [f"<li>Marked <code>...</code> in the docs: <code>{e(n)}</code></li>" for n in notes]
-        if left.get("fields"):
-            out.append(f'<li>In <code>parsed_document</code> but not in the docs: {", ".join(f"<code>{e(k)}</code>" for k in left["fields"])}</li>')
-        if left.get("nested_keys"):
-            out.append(f'<li>{left["nested_keys"]} nested key(s) in <code>parsed_document</code> that the docs leave out</li>')
-        out.append("</ul>")
-
-    fields = record.get("llm_fields", [])
-    if "overall" in record:
-        out.append("<h3>LLM fields</h3>")
-        if fields:
-            out.append('<table><tr><th>Field</th><th>Type</th><th>Extraction prompt</th><th>Result</th></tr>')
-            for f in fields:
-                if f["judged"]:
-                    verdicts = {x["verdict"] for x in f["judged"]}
-                    worst = next(v for v in ("error", "fail", "warn", "pass") if v in verdicts)
-                    result = f'{JUDGE} <span class="chip {VERDICT_CHIP[worst]}">{e(worst)}</span>'
-                else:
-                    result = '<span class="chip info">Identical to the docs</span>'
-                note = ' <span class="muted">(fallback chain with a layout field)</span>' if f["kind"] == "fallback" else ""
-                out.append(f'<tr><td><code>{e(f["field"])}</code>{note}</td><td><code>{e(f["type"])}</code></td><td>{e(f["prompt"]) or "<span class=muted>none</span>"}</td><td>{result}</td></tr>')
-            out.append("</table>")
-        else:
-            out.append('<p class="muted">None in the documented output.</p>')
-
-    judge = record.get("judge")
-    if fields and not judge and record.get("overall"):
-        out.append('<p class="muted" style="margin:10px 0 0">The judge wasn\'t called: every LLM field matched the docs exactly.</p>')
-    if judge:
-        out.append(f'<h3>Judge reasoning {JUDGE} <span class="muted" style="text-transform:none;letter-spacing:0">({e(judge["model"])})</span></h3>')
-        for f in fields:
-            for v in f["judged"]:
-                pct = max(0, min(100, round(v["confidence"] * 100)))
-                out.append(
-                    f'<div class="verdict"><div class="row">{JUDGE}<code>{e(v["path"])}</code>'
-                    f'<span class="muted">type <code>{e(v["type"])}</code></span>'
-                    f'<span class="chip {VERDICT_CHIP[v["verdict"]]}">{e(v["verdict"].upper())}</span>'
-                    f'<span class="muted">match: {e(v["match"])}, confidence {v["confidence"]:.2f}</span>'
-                    f'<span class="meter"><span style="width:{pct}%"></span></span></div>'
-                    f'<div class="compare"><div><span class="label">Docs show</span><code>{j(v["documented"])}</code></div>'
-                    f'<div><span class="label">Sensible returned</span><code>{j(v["actual"])}</code></div></div>'
-                    f'<p class="reasoning">{e(v["reasoning"])}</p></div>'
-                )
-        raw = judge["raw_output"]
-        try:
-            raw = json.dumps(json.loads(raw), indent=2, ensure_ascii=False)
-        except ValueError:
-            pass
-        out.append(
-            f'<details><summary>Full prompt the judge received</summary>'
-            f'<span class="label" style="margin-top:10px">System</span><pre>{e(judge["system_prompt"])}</pre>'
-            f'<span class="label" style="margin-top:10px">User</span><pre>{e(judge["user_prompt"])}</pre></details>'
-            f'<details><summary>Full judge output (JSON)</summary><pre>{e(raw)}</pre></details>'
-        )
-    cl = record.get("classification")
-    if cl:
-        out.append("<h3>Classification</h3>")
-        out.append(f'<p>Each row sends a file to the classify endpoint with a content type, restricted to the fixture doc type '
-                   f'<code>{e(cl["fixture"])}</code> (<a href="{e(cl["editor"])}">open in the SenseML editor</a>, test account). '
-                   f'Sensible classifies by its description: <em>{e(cl["doc_type_description"])}</em></p>')
-        out.append('<p class="muted">Compared exactly: Sensible\'s answer is the claim, so no judge and no envelope. '
-                   'File links are relative to this report, so they open from a local checkout. Run the curl commands from the repo root.</p>')
-        out.append("<table><tr><th>File</th><th>Sent as</th><th>Page claims</th><th>Sensible</th><th>Response</th></tr>")
-        for run in cl["runs"]:
-            verdict = lambda yes: "classified" if yes else "not classified"
-            ok = "pass" if run["actual"] == run["expected"] else "fail"
-            label = f'<br><span class="muted">{e(run["label"])}</span>' if run["label"] else ""
-            # Reports live two folders below scripts/ (output/, reports/), so the repo root is ../../../
-            link = f'<a href="../../../{e(run["file"])}"><code>{e(os.path.basename(run["file"]))}</code></a>'
-            out.append(f'<tr><td>{link}{label}</td><td><code>{e(run["content_type"])}</code></td>'
-                       f'<td>{verdict(run["expected"])}</td><td>{chip(ok, verdict(run["actual"]))}</td>'
-                       f'<td><span class="muted">HTTP {run["http_status"]}</span><br><code>{e(run["response"][:160])}</code></td></tr>')
-            out.append(f'<tr><td colspan="5"><pre>{e(run["curl"])}</pre></td></tr>')
-        out.append("</table>")
-        restored = [w["text"] for w in record.get("warnings", []) if w["source"] == "fixture"]
-        if restored:
-            out.append('<p><span class="chip warn">fixture restored</span> The test account didn\'t match the committed fixture, '
-                       'so the runner restored it before the run:</p><ul>')
-            out += [f"<li><code>{e(r)}</code></li>" for r in restored]
-            out.append("</ul>")
-
+    out += kind.html(record, links)
     out.append(render_envelope(record.get("envelope"), record))
     out.append("</details>")
     return "\n".join(out)
@@ -366,25 +207,7 @@ def render_code_test(record):
 
 def details_label(test, rec):
     """Link text for a test's details, unique to the test: what it checked, not a generic word."""
-    seg = rec.get("segments")
-    if seg:
-        def pages(docs):
-            return ", ".join(f"pages {s}–{n}" for _, s, n in docs) or "no documents"
-        if seg.get("row"):
-            number, _, row_id = seg["row"].partition(": ")
-            where = f"Row {number} ({row_id})"
-        else:
-            where = test.test_id
-        return f"{where}: {pages(seg['expected'])}"
-    fp = rec.get("fingerprint")
-    if fp:
-        claims = ", ".join(("as written" if not r["break"] else f"{len(r['break'])} broken") + (" passes" if r["expected"] else " fails") for r in fp["runs"])
-        return f"{test.test_id}: fingerprint {claims}"
-    cl = rec.get("classification")
-    if cl:
-        yes = sum(r["expected"] for r in cl["runs"])
-        return f"{test.test_id}: classification, {yes} classified and {len(cl['runs']) - yes} not"
-    return f"{test.test_id}: output comparison"
+    return kinds.of_record(rec).details(test, rec)
 
 
 def render_usage(usage):
@@ -422,6 +245,7 @@ def render(page_path, ui_results, records, out_path, usage=None):
     statuses += [by_id[t]["status"] if t in by_id else "fail" for t in page.code_tests]
     overall = "fail" if "fail" in statuses else "warn" if "warn" in statuses else "pass"
     shown_path = os.path.relpath(page_path) if os.path.isabs(page_path) else page_path
+    links = Links(out_path)
 
     out = [
         "<!doctype html><html lang=en><head><meta charset=utf-8>",
@@ -457,7 +281,7 @@ def render(page_path, ui_results, records, out_path, usage=None):
         if kind == "ui":
             out.append(render_ui_test(test, ui_results.get(test.test_id)))
         elif test.test_id in by_id:
-            out.append(render_code_test(by_id[test.test_id]))
+            out.append(render_code_test(by_id[test.test_id], links))
     out.append("<script>"
                "document.querySelectorAll('.toolbar button').forEach(function(b){b.addEventListener('click',function(){"
                "document.querySelectorAll('details.test').forEach(function(d){d.open=b.dataset.open==='1';});});});"

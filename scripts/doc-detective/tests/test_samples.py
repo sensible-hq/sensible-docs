@@ -3,7 +3,8 @@
 import json
 import unittest
 
-from codetests import markup, record, runner, settings
+from codetests import markup, record, runner, samples, settings
+from codetests.kinds import fingerprint
 from codetests.errors import CodeTestError
 
 from tests.fakes import FakeClient, write_page
@@ -140,7 +141,7 @@ class RunnerTest(unittest.TestCase):
         client = SampleClient(documents=docs)
         rec = self.run_page(PORTFOLIO, "pf", client)
         self.assertEqual(rec["status"], "pass")
-        prefix = runner.sample_prefix(rec["file"])
+        prefix = samples.prefix(rec["file"])
         quotes = f"{prefix}pf__quotes"
         self.assertEqual(client.portfolio_types, [quotes, f"{prefix}pf__losses"])
         self.assertEqual(client.environment, settings.ENVIRONMENT)
@@ -154,7 +155,7 @@ class RunnerTest(unittest.TestCase):
         docs = [{"configuration": "anyco", "startPage": 0, "endPage": 0}, {"configuration": "acme", "startPage": 2, "endPage": 2}]
         client = SampleClient(documents=docs)
         rec = self.run_page(PORTFOLIO.replace("https://example.test/p.pdf", url), "pf", client)
-        quotes = f"{runner.sample_prefix(rec['file'])}pf__quotes"
+        quotes = f"{samples.prefix(rec['file'])}pf__quotes"
         self.assertEqual(client.references[0], (f"id-{quotes}", "portfolio", "anyco", "assets/pdfs/portfolio.pdf"))
         self.assertEqual(rec["segments"]["samples"][0]["editor"], markup.editor_url(quotes, "anyco", "portfolio"))
 
@@ -179,8 +180,8 @@ class RunnerTest(unittest.TestCase):
         self.assertEqual([r["break"] for r in rec["fingerprint"]["runs"]], [[], [0], [0, 1]])
         self.assertTrue(all(schema == {"fingerprint_mode": "strict"} for schema in client.types.values()))
         broken = json.loads(client.published[2][2])["fingerprint"]["tests"]
-        self.assertEqual(broken[:2], [runner.NO_MATCH, runner.NO_MATCH])
-        prefix = runner.sample_prefix(rec["file"])
+        self.assertEqual(broken[:2], [fingerprint.NO_MATCH, fingerprint.NO_MATCH])
+        prefix = samples.prefix(rec["file"])
         self.assertEqual(sorted(client.types), [f"{prefix}sa", f"{prefix}sa__v1", f"{prefix}sa__v2"])
         self.assertEqual(rec["fingerprint"]["runs"][2]["editor"], markup.editor_url(f"{prefix}sa__v2", "sa"))
 
@@ -202,7 +203,7 @@ if __name__ == "__main__":
 class ReportTest(unittest.TestCase):
     def test_restored_fixtures_and_editor_links_show_in_the_html_report(self):
         from codetests.reports import html
-        rec = {"test_id": "t", "status": "warn", "document_url": "https://example.test/p.pdf",
+        rec = {"test_id": "t", "kind": "documents", "status": "warn", "document_url": "https://example.test/p.pdf",
                "warnings": [{"source": "fixture", "text": "fixture_x: restored fixture from the committed files (config drifted)"}],
                "segments": {"fixtures": [], "samples": [{"doc_type": "d", "config": "c", "editor": "https://app.sensible.so/editor/?d=x&c=c"}],
                             "document_types": ["x"], "extraction_id": "e1", "expected": [], "actual": []}}
@@ -214,18 +215,18 @@ class ReportTest(unittest.TestCase):
 
 class CleanupTest(unittest.TestCase):
     def test_page_slug_and_names(self):
-        self.assertEqual(runner.page_slug("docs/Senseml reference/config-settings/fingerprint.md"), "fingerprint")
+        self.assertEqual(samples.page_slug("docs/Senseml reference/config-settings/fingerprint.md"), "fingerprint")
         page = markup.parse_page(write_page(self, PORTFOLIO + STANDALONE))
-        prefix = runner.sample_prefix(page.path)
-        self.assertEqual(runner.sample_doc_types(page.code_tests["pf"]), [f"{prefix}pf__quotes", f"{prefix}pf__losses"])
-        self.assertEqual(runner.sample_doc_types(page.code_tests["sa"]), [f"{prefix}sa", f"{prefix}sa__v1", f"{prefix}sa__v2"])
+        prefix = samples.prefix(page.path)
+        self.assertEqual(samples.doc_types(page.code_tests["pf"]), [f"{prefix}pf__quotes", f"{prefix}pf__losses"])
+        self.assertEqual(samples.doc_types(page.code_tests["sa"]), [f"{prefix}sa", f"{prefix}sa__v1", f"{prefix}sa__v2"])
 
     def test_cleanup_deletes_only_this_pages_orphans(self):
         from unittest import mock
 
         import code_tests
         page = markup.parse_page(write_page(self, PORTFOLIO))
-        prefix = runner.sample_prefix(page.path)
+        prefix = samples.prefix(page.path)
 
         class Client:
             deleted = []

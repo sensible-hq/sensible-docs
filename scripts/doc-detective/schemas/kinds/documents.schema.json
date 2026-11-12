@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "The record section of a \"documents\" claim: record[\"segments\"]",
+  "type": "object",
+  "additionalProperties": false,
+  "description": "A fingerprint claim: the portfolio's expected and actual documents, as [config, firstPage, lastPage] with 1-based pages. Fixtures or the page's inline samples (each run in its own sample doc type).",
+  "required": [
+    "fixtures",
+    "document_types",
+    "extraction_id",
+    "expected",
+    "actual"
+  ],
+  "properties": {
+    "fixtures": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "document_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "extraction_id": {
+      "type": "string"
+    },
+    "expected": {
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
+    },
+    "actual": {
+      "type": "array",
+      "items": {
+        "type": "array"
+      }
+    },
+    "editors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "fixture",
+          "url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "fixture": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "row": {
+      "type": "string",
+      "description": "'<n>: <rowId>', the row of the tagged table this test checks"
+    },
+    "table": {
+      "type": "string",
+      "description": "tableId of the tagged table"
+    },
+    "samples": {
+      "type": "array",
+      "description": "The page's inline fingerprint samples, each run in a sample doc type that stays in the test account until the next run",
+      "items": {
+        "type": "object",
+        "required": [
+          "doc_type",
+          "config"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "doc_type": {
+            "type": "string"
+          },
+          "config": {
+            "type": "string"
+          },
+          "editor": {
+            "type": "string",
+            "description": "The sample's config in the SenseML editor"
+          }
+        }
+      }
+    }
+  }
+}
