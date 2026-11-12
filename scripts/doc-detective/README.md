@@ -3,7 +3,7 @@
 Tests that run inside a docs page and check the page still tells the truth. There are two kinds:
 
 - **UI tests** walk through the Sensible app the way the page tells a reader to, for example signing in and opening the Document Types tab. [Doc Detective](https://docs.doc-detective.com) runs them.
-- **Code tests** check a page's claims against the Sensible API: a documented SenseML config's output, how fingerprints segment a portfolio, or which files Sensible classifies. `code_tests.py` runs them.
+- **Code tests** check a page's claims against the Sensible API, for example, a documented SenseML config's output, how fingerprints segment a portfolio, hidden test fixtures that back up a doc assertion, or which files Sensible classifies. `code_tests.py` runs them.
 
 Both are written as HTML comments in the page, so readers never see them. [`TEST-MATRIX.md`](TEST-MATRIX.md) lists every test, the claim it checks, how often CI runs it, and its last saved result.
 
