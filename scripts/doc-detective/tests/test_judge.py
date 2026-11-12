@@ -11,7 +11,7 @@ CLAIM = {"path": "$.a", "prompt": "p", "type": "string", "documented": "x", "act
 
 class PromptTest(unittest.TestCase):
     def test_prompts_come_from_the_judge_config_files(self):
-        with open(os.path.join(judge.JUDGE_DIR, "system-prompt.md"), encoding="utf-8") as f:
+        with open(os.path.join(judge.JUDGE_PROMPTS_DIR, "system-prompt.md"), encoding="utf-8") as f:
             self.assertEqual(judge.CONFIG["system_prompt"], f.read().strip())
         prompt = judge.build_user_prompt([CLAIM])
         for line in ("- path: $.a", 'documented: "x"', 'actual: "y"', "declared type: string", 'whole field as returned: {"value": "y"}'):
