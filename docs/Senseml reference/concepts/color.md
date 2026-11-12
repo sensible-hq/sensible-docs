@@ -16,7 +16,7 @@ metadata:
 next:
   description: ''
 ---
-Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the SenseML editor. Use the editor's options to control which symbols display, and to test configs on reference documents.
+Sensible displays the source text for extracted fields using color-coded symbols overlaid on the rendered document in the SenseML editor. Use the editor's options to control which symbols display, and to test configs on reference documents. For more information, see the following topic, or click the **Help** icon in the middle pane of the SenseML editor in the Sensible app.
 
 # Source text traceability
 
