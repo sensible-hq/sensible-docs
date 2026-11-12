@@ -44,6 +44,18 @@
       "ui": false,
       "propose_fixes": false,
       "envelope_issue": false
+    },
+    {
+      "page": "docs/Senseml reference/concepts/file-types.md",
+      "priority": 3,
+      "name": "file-types",
+      "title": "Supported file types",
+      "issue_label": "doc-tests-file-types",
+      "watch": [],
+      "timeout_minutes": 10,
+      "ui": false,
+      "propose_fixes": false,
+      "envelope_issue": false
     }
   ]
 }
