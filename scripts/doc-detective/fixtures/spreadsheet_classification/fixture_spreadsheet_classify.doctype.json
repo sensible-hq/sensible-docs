@@ -1,0 +1,7 @@
+{
+  "name": "fixture_spreadsheet_classify",
+  "schema": {
+    "ocr_engine": "amazon",
+    "description": "An insurance carrier's commission statement to a producer: the carrier, the producer, the statement period, a table of policies with the premium applied, commission rate, and commission for each, the total for the broker, and the disbursement for the period."
+  }
+}
