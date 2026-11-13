@@ -133,7 +133,7 @@ This file contains links to the Sensible documentation to help LLMs understand t
 - [Document type settings](https://docs.sensible.so/docs/document-type-settings.md): Learn how to configure document type settings in Sensible, including extraction templates, OCR engine, fingerprint mode, validations, and human review options.
 - [Document type descriptions](https://docs.sensible.so/docs/descriptions.md): Improve LLM-based page range segmentation and document classification in your Sensible account.
 - [Fingerprint mode](https://docs.sensible.so/docs/fingerprint-mode.md): Control extraction strictness for standalone files.
-- [OCR engine](https://docs.sensible.so/docs/ocr-engine.md): Options for extracting text from images, including Amazon, Microsoft, Lazarus, and Google engines with their use cases and limitations.
+- [OCR engine](https://docs.sensible.so/docs/ocr-engine.md): Choose an OCR engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.
 - [OCR level](https://docs.sensible.so/docs/ocr-level.md): Control how and when OCR is applied to PDF documents, from skipping OCR entirely to page-by-page detection.
 - [Advanced computed field methods](https://docs.sensible.so/docs/advanced-computed-field-methods.md): Advanced methods for computed fields including conditional execution, custom computation, copying data between sections, and retrieving file metadata.
 - [Add computed fields](https://docs.sensible.so/docs/add-computed-fields.md): Transform extracted tables by adding, removing, or concatenating columns using computed field arrays.
