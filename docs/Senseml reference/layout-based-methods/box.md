@@ -51,7 +51,7 @@ The following example shows the preceding parameters documented with in-line com
           "direction": "right", /* direction in which to search for the offset box. enums: above | below | right | left */
           "number": 1 /* number of boxes to offset by */
         },
-        "darknessThreshold": 0.9, /* default: 0.9. brightness threshold below which a pixel is considered a box border. white is 1.0 */
+        "darknessThreshold": 0.9, /* default: 0.9 for white backgrounds, otherwise automatic. brightness threshold below which a pixel is considered a box border. white is 1.0 */
         "includeAnchor": false /* default: false. if true, includes anchor lines inside box borders in the output */
       }
     }
@@ -117,7 +117,7 @@ The following example shows extracting text from a box with a dark background an
       "id": "dark_box", /* user-friendly ID for extracted target data */
       "method": {
         "id": "box", /* extracts all lines inside a box */
-        "darknessThreshold": 0.8 /* lowers the brightness threshold for box border detection; use for boxes with dark backgrounds. default: 0.9, white is 1.0 */
+        "darknessThreshold": 0.8 /* lowers the brightness threshold for box border detection; use for boxes with dark backgrounds. default: 0.9 for white backgrounds, otherwise automatic. white is 1.0 */
       },
       "anchor": "dark box with light text", /* text that always occurs in the same position relative to your target data */
     }
