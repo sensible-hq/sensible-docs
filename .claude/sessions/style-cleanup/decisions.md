@@ -70,3 +70,26 @@ The `vale-setup` memory records Vale as one `PostToolUse` hook plus CI, with no 
 ## D-015 The after-write report compares with the last commit
 
 `PostToolUse` doesn't get the file's previous text, so "changed lines" means lines that differ from `HEAD`. Over a session that includes earlier uncommitted edits, which is still the agent's own work. The pre-write gate compares with the file as it is before the edit, so it sees only the new text.
+
+## D-016 Markers inside fenced code don't count
+
+`style-rules/README.md` shows a marker in an example code block, and the checker flagged it as an unregistered link. Markers inside fences are examples, so the checker skips fenced code.
+
+## D-017 The PR doesn't merge `v0`
+
+The branch is stacked on `style-map`. Merging `v0` here would add unrelated `v0` commits to the PR's diff against `style-map`. Sync with `v0` when #808 merges and this branch is rebased.
+
+## Proposed memory edits (not applied; see D-005)
+
+If this PR merges, these memories should shrink to pointers, so the rule lives in the repo and memory points at it:
+
+| memory | change |
+| ------ | ------ |
+| `feedback_you_centric_style` | Replace "revise-doc-style's default is wrong" with: the boundary is in `writing-rules.md` (Explicit subjects); registry rule `sensible-explicit-actor`. |
+| `feedback_block_comments_only` | Remove the stale claim that `sentence-word-guidance.md` prescribes `//`. Point at registry rule `sensible-code-fences`, which the hook now blocks. |
+| `feedback_keep_code_fence_language` | Point at `sensible-code-fences`; the guides now state it, and the hook blocks `json5` fences. |
+| `feedback_excerpt_rules` | Point at `style-guide-overview.md` (Frontmatter) and `scripts/style/check_excerpts.py`. |
+| `feedback_anthropic_model_naming`, `project_label_method_near_deprecated` | Point at `sensible-model-names` (blocked by the hook) and `sensible-label-method`. |
+| `feedback_full_style_pass` | Shrink: the hook and CI enforce the deterministic rules. Keep "copy sibling wording", now `sensible-copy-sibling-wording`. |
+| `project_vale_setup` | Update if D-013 stands: one hook script, two events (`vale_gate.py`), plus CI. |
+| `blog_post_template` | Delete: it duplicates `.claude/style-guide/blog-post-template.md`. |

@@ -37,6 +37,11 @@ def norm(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def markers(text: str) -> list[str]:
+    """Rule ids in <!-- rule: id --> markers, outside fenced code blocks (examples don't count)."""
+    return MARKER.findall(re.sub(r"(?ms)^\s*(`{3,}|~{3,}).*?^\s*\1\s*$", "", text))
+
+
 def vale_rule_exists(name: str) -> bool:
     style, _, rule = name.partition(".")
     return (STYLES / style / f"{rule}.yml").is_file()
@@ -104,7 +109,7 @@ def check(registry: list[dict]) -> list[str]:
             text = path.read_text()
             if norm(s.get("quote", "")) not in norm(text):
                 problems.append(f"{rid}: quote not found in {s['file']}: {s.get('quote', '')[:70]}")
-            if rid not in MARKER.findall(text):
+            if rid not in markers(text):
                 problems.append(f"{rid}: no <!-- rule: {rid} --> marker in {s['file']}")
 
     for path in sorted((STYLES / "Sensible").glob("*.yml")):
@@ -116,7 +121,7 @@ def check(registry: list[dict]) -> list[str]:
         if "/sessions/" in str(path) or "/tests/" in str(path):
             continue
         rel = str(path.relative_to(ROOT))
-        for rid in MARKER.findall(path.read_text()):
+        for rid in markers(path.read_text()):
             if rid not in by_id:
                 problems.append(f"{rel}: marker names unknown rule {rid}")
             elif rel not in [s.get("file") for s in by_id[rid].get("stated_in") or []]:
