@@ -69,5 +69,6 @@ See [glossary.md](glossary.md) for the canonical term reference. Apply the unive
 - Terse and precise. No filler phrases.
 - Avoid: "please note that", "it's important to remember", "it is worth mentioning"
 - State facts directly.
+- Don't use Latin abbreviations: write "for example", not "e.g.", and "that is", not "i.e.". <!-- rule: google-latin -->
 
 <!-- rule: sensible-filler -->

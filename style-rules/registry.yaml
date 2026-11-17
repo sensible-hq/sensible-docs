@@ -1,0 +1,496 @@
+# Style rule registry: one entry per rule, linking where the rule is stated in prose (stated_in: guides,
+# templates, skills the model reads) to what enforces it (enforced_by: Vale rules, scripts, Jev judgment
+# specs). scripts/style/check_registry.py fails when the two sides drift apart. See style-rules/README.md.
+#
+# kind:  deterministic  a pattern or script settles it
+#        judgment       a detector finds candidates; Jev (or a reviewer) decides, using the spec
+#        prose          no check; the guide is the only carrier
+# gate:  block          the write-time hook denies an edit that adds a hit (deterministic rules only)
+#        warn           the hook reports hits on changed lines after the edit
+#        report         CI and manual runs only
+# map_id: the rule's ID in design/style-system-map.md
+
+# ---------------------------------------------------------------- deterministic: Vale
+
+- id: sensible-em-dash
+  map_id: D2
+  statement: Don't use em dashes. Split the sentence, or use a colon or parentheses.
+  kind: deterministic
+  gate: block
+  enforced_by:
+    vale: [Sensible.EmDash]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: Do not use em dashes to join compound clauses. Split into two sentences instead.
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: "**Em dashes:** Do not use em dashes to join compound clauses."
+  fixture: style-rules/tests/sensible-em-dash.md
+  notes: Replaces Google.EmDash, which banned only spaced dashes.
+
+- id: google-latin
+  map_id: D18
+  statement: Don't use Latin abbreviations. Write "for example" and "that is".
+  kind: deterministic
+  gate: block
+  enforced_by:
+    vale: [Google.Latin]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: Don't use Latin abbreviations
+  fixture: style-rules/tests/google-latin.md
+
+- id: sensible-model-names
+  map_id: D7
+  statement: Name Claude models in Anthropic's order, "Claude Sonnet 5.5", and use each vendor's official model names.
+  kind: deterministic
+  gate: block
+  enforced_by:
+    vale: [Sensible.ModelNames]
+  stated_in:
+    - file: .claude/style-guide/glossary.md
+      quote: 'Anthropic''s order: "Claude Sonnet 5.5", "Claude Haiku 4.5"'
+  origin: [memory feedback_anthropic_model_naming]
+  fixture: style-rules/tests/sensible-model-names.md
+
+- id: sensible-ui-names
+  map_id: D8
+  statement: Use the app's own names for its parts, such as the "Extraction history" tab.
+  kind: deterministic
+  gate: block
+  enforced_by:
+    vale: [Sensible.UINames]
+  stated_in:
+    - file: .claude/style-guide/glossary.md
+      quote: '| The tab that lists past extractions | "Extraction history" |'
+    - file: .claude/preferences/editorial-preferences.md
+      quote: 'Use the correct tab name: "Extraction history".'
+  fixture: style-rules/tests/sensible-ui-names.md
+
+- id: sensible-doc-links
+  map_id: D17
+  statement: Link to docs pages with ReadMe slugs in a Markdown link, and never to draft slugs.
+  kind: deterministic
+  gate: block
+  enforced_by:
+    vale: [Sensible.DocLinks, Sensible.NoDraftLinks]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Use `ref:` slugs for API reference links.
+  fixture: style-rules/tests/sensible-doc-links.md
+  notes: NoDraftLinks blocks; DocLinks catches a bare slug outside a link.
+
+- id: sensible-terminology
+  map_id: D1
+  statement: Use the glossary's terms. Avoid "the UI", "the dashboard", "template", "result object", "repeating groups", and the other avoid-terms a pattern can settle.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.Terminology]
+  stated_in:
+    - file: .claude/style-guide/glossary.md
+      quote: Canonical term reference for all Sensible documentation.
+  origin: [memory project_seo_terminology]
+  fixture: style-rules/tests/sensible-terminology.md
+  notes: >-
+    Warn, not block: "template" is allowed as a defined alias on two pages (layout-based getting started,
+    library quickstart). "parse" and "dashboard" are also in the vocabulary's reject list (Vale.Avoid).
+
+- id: sensible-internal-terms
+  map_id: D26
+  statement: Don't use internal implementation terms such as Cognito, reprocessing, or auth token. Use the name readers see.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.InternalTerms]
+  stated_in:
+    - file: .claude/style-guide/glossary.md
+      quote: '| Internal implementation details |'
+  origin: [.claude/sessions/2026-07-06-actor/frances-edits.md]
+  fixture: style-rules/tests/sensible-internal-terms.md
+
+- id: sensible-against-phrasing
+  map_id: D3
+  statement: Don't say "extract against" or "classify against". Use "using".
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.AgainstPhrasing]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: Do not use "against" to describe extraction or classification. Use "using" instead.
+  fixture: style-rules/tests/sensible-against-phrasing.md
+  notes: Warn, because "validate extracted data against rules" is ordinary English.
+
+- id: sensible-filler
+  map_id: D4
+  statement: No filler phrases or marketing words. State facts directly.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.Filler]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: 'Avoid: "please note that", "it''s important to remember", "it is worth mentioning"'
+  fixture: style-rules/tests/sensible-filler.md
+
+- id: sensible-param-name-code
+  map_id: D5
+  statement: In prose, write method, preprocessor, and parameter names in spaced Title Case without backticks.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.ParamNameCode]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Never use camelCase with backticks for method or preprocessor names in running prose.
+  origin: [.claude/sessions/vale-method-names/plan.md]
+  fixture: style-rules/tests/sensible-param-name-code.md
+  notes: Matches "the `x` method/parameter" only, so table key columns and JSON keys aren't flagged.
+
+- id: sensible-param-cell-opener
+  map_id: D6
+  statement: A parameter description starts with what the parameter does, not "This parameter…" or "Use this to…".
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.ParamCellOpener]
+  stated_in:
+    - file: .claude/style-guide/sentence-word-guidance.md
+      quote: Don't start with "This parameter..." or "Use this to...".
+  fixture: style-rules/tests/sensible-param-cell-opener.md
+
+- id: sensible-image-syntax
+  map_id: D9
+  statement: Docs pages use Markdown images; changelogs use JSX <Image>.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.NoJSXImage, Sensible.ChangelogImage]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Use the standard markdown `![]()` syntax when authoring docs pages.
+    - file: .claude/style-guide/changelog-style-guide.md
+      quote: Always use JSX `<Image>` (not markdown `![alt](url)`).
+    - file: .claude/skills/changelog/structural-check.md
+      quote: "`Sensible.ChangelogImage` flags Markdown image syntax"
+  fixture: style-rules/tests/sensible-image-syntax.md
+
+- id: sensible-image-url
+  map_id: D10
+  statement: Images use alt text "Click to enlarge" and point at assets/images/final/ on the v0 branch, never screenshots/.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.ImageURL]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Always use `![Click to enlarge]` as the alt text. Images live in `assets/images/final/`.
+  origin: [memory project_image_processing]
+  fixture: style-rules/tests/sensible-image-url.md
+
+- id: sensible-note-blockquote
+  map_id: D12
+  statement: Write notes as **Note:** inline, not as a blockquote.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.NoteBlockquote]
+  stated_in:
+    - file: .claude/style-guide/sentence-word-guidance.md
+      quote: Do not use `> ` blockquote syntax.
+  fixture: style-rules/tests/sensible-note-blockquote.md
+
+- id: sensible-numbers
+  map_id: D13
+  statement: Write "90%", not "90 percent", and decimals, not fractions in words.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.Numbers]
+  stated_in:
+    - file: .claude/style-guide/sentence-word-guidance.md
+      quote: 'Percentages: "90%" not "90 percent".'
+  fixture: style-rules/tests/sensible-numbers.md
+
+- id: sensible-changelog-sections
+  map_id: D15
+  statement: Changelog sections start with "New feature:", "Improvement:", "UX improvement:", "UX improvements:", or "Deprecation:".
+  kind: deterministic
+  gate: report
+  enforced_by:
+    vale: [Sensible.ChangelogHeadings]
+  stated_in:
+    - file: .claude/style-guide/changelog-style-guide.md
+      quote: "**Do not use** `Update:`, phased out as of 2025."
+    - file: .claude/skills/changelog/structural-check.md
+      quote: "`Sensible.ChangelogHeadings` flags section headings"
+  fixture: style-rules/tests/changelog-sections.md
+  notes: Report only. Changelog drafts live in drafts/, which the hook doesn't cover; the changelog skill runs Vale on the draft.
+
+- id: sensible-excerpt-filler
+  map_id: D19
+  statement: An excerpt starts with the reader's action, with no filler opener such as "Learn how to".
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.ExcerptFiller]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Has no filler opener such as "Learn how to" or "How X works".
+  origin: [memory feedback_excerpt_rules]
+  fixture: style-rules/tests/sensible-excerpt-filler.md
+
+- id: sensible-link-article
+  map_id: D36
+  statement: An article before a link agrees with the link text ("a [postprocessor]", not "a [postprocessors]").
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    vale: [Sensible.LinkArticle]
+  stated_in: []
+  origin: [.claude/sessions/xml-postprocessor-docs/friction-log.md]
+  fixture: style-rules/tests/sensible-link-article.md
+
+- id: sensible-word-list
+  map_id: V2
+  statement: Follow the case-sensitive half of Google's word list (Google.WordListCase covers the rest).
+  kind: deterministic
+  gate: report
+  enforced_by:
+    vale: [Sensible.WordList]
+  stated_in: []
+  fixture: style-rules/tests/sensible-word-list.md
+
+# ---------------------------------------------------------------- deterministic: scripts
+
+- id: sensible-code-fences
+  map_id: D11
+  statement: Fence SenseML code as ```json, never ```json5, and comment with /* */, never //.
+  kind: deterministic
+  gate: block
+  enforced_by:
+    script: [scripts/style/check_code_blocks.py]
+  stated_in:
+    - file: .claude/style-guide/sentence-word-guidance.md
+      quote: Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`.
+    - file: .claude/style-guide/json5-comments-reference.md
+      quote: Fence the code block as ` ```json `, not ` ```json5 `
+    - file: .claude/style-guide/blog-post-template.md
+      quote: fence code blocks as ` ```json ` so drafts and docs share one form
+  origin: [memory feedback_keep_code_fence_language, memory feedback_block_comments_only]
+  notes: The write-time hook runs this script on the edited file.
+
+- id: sensible-excerpt-self-naming
+  map_id: D21
+  statement: An excerpt doesn't name the page's own method, object, or setting; the title already does.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    script: [scripts/style/check_excerpts.py]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Doesn't name the page's own method, object, or setting, because the title already does.
+  origin: [memory feedback_excerpt_rules]
+
+- id: sensible-excerpt-length
+  map_id: D20
+  statement: An excerpt is 150 characters or fewer, with a hard cap of 160, and metadata.description holds the same text.
+  kind: deterministic
+  gate: warn
+  enforced_by:
+    script: [scripts/style/check_excerpts.py]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`).
+  origin: [memory feedback_excerpt_rules]
+
+- id: sensible-order-registration
+  map_id: D22
+  statement: Every page in docs/ appears in its directory's _order.yaml.
+  kind: deterministic
+  gate: report
+  enforced_by:
+    script: [scripts/style/check_order.py]
+  stated_in:
+    - file: .claude/skills/create-concept-doc/SKILL.md
+      quote: After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`.
+
+# ---------------------------------------------------------------- judgment
+
+- id: sensible-opening-sentence
+  map_id: J1
+  statement: A reference page's first sentence says what the feature does, in third-person present ("Extracts…"). "Use this method to…" only when the user supplies the input.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-opening-sentence.yaml]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: "**Opening paragraph:** Use third-person present tense."
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: "Exception: a feature whose input the user supplies"
+    - file: .claude/style-guide/friction-log.md
+      quote: Reference pages open in third person ("Extracts…")
+  origin: [memory feedback_excerpt_rules, memory feedback_you_centric_style]
+
+- id: sensible-explicit-actor
+  map_id: J2
+  statement: Name who acts. The user makes the choices ("you"); Sensible carries them out. Never flip an existing "you" sentence.
+  kind: judgment
+  enforced_by:
+    vale: [Google.Passive]
+    judgment: [style-rules/judgment/sensible-explicit-actor.yaml]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: Where the two meet, the user makes the choices and Sensible carries them out
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: Don't change an existing "you" sentence to make the feature or "Sensible" the subject.
+  origin: [memory feedback_you_centric_style, .claude/sessions/xml-postprocessor-docs/friction-log.md]
+  notes: Google.Passive is the detector; the judgment spec decides.
+
+- id: sensible-gerunds
+  map_id: J3
+  statement: Prefer gerunds over nominalizations ("automates extracting", not "automates the extraction of").
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-gerunds.yaml]
+  stated_in:
+    - file: .claude/style-guide/writing-rules.md
+      quote: Use the verb form directly rather than a noun derived from it.
+    - file: .claude/style-guide/sentence-word-guidance.md
+      quote: "**Prefer gerunds over nominalizations.**"
+
+- id: sensible-scenario-first
+  map_id: J4
+  statement: Lead with what the user experiences or achieves, then explain how to configure it.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-scenario-first.yaml]
+  stated_in:
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: Lead with what the user experiences or achieves, not with internal structure
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Scenario-first, not mechanism-first.**"
+
+- id: sensible-context-terms
+  map_id: J5
+  statement: Glossary terms with a legitimate meaning elsewhere ("response", "segment", "section", "key", "empty", "free form") are right or wrong by context.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-context-terms.yaml]
+  stated_in:
+    - file: .claude/style-guide/glossary.md
+      quote: Terms whose avoided form has a legitimate meaning elsewhere
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: Some glossary terms have a legitimate meaning elsewhere, so no pattern can flag them.
+
+- id: sensible-no-table-for-unconfigurable
+  map_id: J6
+  statement: Don't put values the user can't configure in a table; a table implies configurability.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-no-table-for-unconfigurable.yaml]
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: If the user can't directly configure a set of values via the API or UI, don't document those values in a table.
+
+- id: sensible-label-method
+  map_id: J8
+  statement: Don't mention the Label method in new text, such as lists of methods that share a parameter.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-label-method.yaml]
+  stated_in: []
+  origin: [memory project_label_method_near_deprecated]
+
+- id: sensible-integrate-before-heading
+  map_id: J10
+  statement: Work a new 1–3 sentence concept into an existing section rather than adding a heading.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-integrate-before-heading.yaml]
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Integrate new features into existing explanatory sections rather than creating new headings.**"
+
+- id: sensible-parent-link
+  map_id: J11
+  statement: When a page is renamed or split, an inline link usually points at the durable parent index page, with its article and noun updated to match.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-parent-link.yaml]
+  stated_in: []
+  origin: [.claude/sessions/xml-postprocessor-docs/friction-log.md]
+
+- id: sensible-example-var
+  map_id: J12
+  statement: 'Examples pull field values with {"var": …} rather than hardcoding constants, so they teach the real pattern.'
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-example-var.yaml]
+  stated_in: []
+  origin: [.claude/sessions/xml-postprocessor-docs/friction-log.md]
+
+- id: sensible-copy-sibling-wording
+  map_id: D16
+  statement: When a parameter with the same implementation is documented on another page, copy its description word for word.
+  kind: judgment
+  enforced_by:
+    script: [scripts/style/compare_param_descriptions.py]
+    judgment: [style-rules/judgment/sensible-copy-sibling-wording.yaml]
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Copy existing wording precisely when a parameter is already documented elsewhere.**"
+  origin: [memory feedback_full_style_pass, .claude/sessions/2026-07-02-region-asImage/friction-log.md]
+  notes: The script lists parameters whose descriptions differ across pages; only the engine source says whether they share an implementation.
+
+- id: sensible-example-per-scenario
+  map_id: C5
+  statement: One example per distinct scenario; never split one scenario into "basic" and "advanced" examples.
+  kind: judgment
+  enforced_by:
+    judgment: [style-rules/judgment/sensible-example-per-scenario.yaml]
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: Give each distinct scenario its own example.
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: "The axis is the scenario, not difficulty: don't split one scenario into \"basic\" and \"advanced\" examples."
+    - file: .claude/skills/create-new-doc/SKILL.md
+      quote: Give separate examples only to separate scenarios.
+
+# ---------------------------------------------------------------- prose only
+
+- id: sensible-realistic-example-data
+  statement: Pick example data that shows why the feature is useful, not placeholder rows.
+  kind: prose
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Use realistic, meaningful example data.**"
+
+- id: sensible-compare-only-with-choice
+  statement: Compare Sensible features only when the reader chooses between them, and say when to pick each.
+  kind: prose
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Compare to other Sensible features if the user can choose between them.**"
+
+- id: sensible-changelog-ui-first
+  statement: When a change affects both the app and the API, the changelog entry leads with the app.
+  kind: prose
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**When a change affects both the app UI and the API, lead with the UI.**"
+
+- id: sensible-capability-not-friction
+  statement: A changelog entry describes what the user can now do, not the limitation that went away.
+  kind: prose
+  stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: "**Focus on new capability, not removed friction.**"
+
+- id: sensible-blog-voice
+  statement: Blog posts may use "we" and "let's"; docs pages don't.
+  kind: prose
+  stated_in:
+    - file: .claude/style-guide/blog-post-template.md
+      quote: Blog posts may use "we" and "let's"; docs pages don't
+  notes: .vale.ini turns off Google.We and Google.FirstPerson for drafts/blog-*.md, so Vale agrees with the guide.

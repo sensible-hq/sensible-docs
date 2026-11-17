@@ -1,0 +1,23 @@
+# Judgment spec for Jev. Registry entry: sensible-gerunds in style-rules/registry.yaml.
+id: sensible-gerunds
+source:
+  file: .claude/style-guide/writing-rules.md
+  heading: Gerunds over nominalizations
+  quote: Use the verb form directly rather than a noun derived from it.
+applies: prose sentences in docs/
+check:
+  kind: judgment
+  detector: '''\bthe \w+(?:tion|ment|ance|ing)s? of\b'''
+  precheck: skip fixed terms such as "the result of", "the end of", "the rest of"
+  question:
+    type: choice
+    ask: Is the marked noun a verb in disguise that the sentence could use directly?
+    criteria:
+      nominalization: '"automates the extraction of data"; rewrite with the gerund ("automates extracting data")'
+      noun: the noun names a thing, not an action ("the configuration of this document type" meaning the config);
+        fine
+      other: none of these
+examples:
+  fail: Sensible automates the extraction of structured data.
+  pass: Sensible automates extracting structured data.
+fix: replace 'the X-tion of Y' with the gerund 'X-ing Y'

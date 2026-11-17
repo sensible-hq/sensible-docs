@@ -58,9 +58,9 @@ next:
 `excerpt` is the source of truth, and `metadata.description` holds the same text (it drives the meta description and `llms.txt`). Set both together. The excerpt:
 
 - Uses the imperative: the reader acts ("Extract…", not "Extracts…").
-- Doesn't name the page's own method, object, or setting, because the title already does. Overview pages that list several methods may name them.
+- Doesn't name the page's own method, object, or setting, because the title already does. Overview pages that list several methods may name them. <!-- rule: sensible-excerpt-self-naming -->
 - Has no filler opener such as "Learn how to" or "How X works".
-- Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`).
+- Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`). <!-- rule: sensible-excerpt-length -->
 
 <!-- rule: sensible-excerpt-filler -->
 
@@ -297,7 +297,7 @@ Use `doc:` slugs for links to other docs pages:
 - `[Global parameters for methods](doc:method#global-parameters-for-methods)`
 - `[JsonLogic](doc:jsonlogic)`
 
-Use `ref:` slugs for API reference links. Use full `https://` URLs only for external sites (MDN, GitHub, etc.).
+Use `ref:` slugs for API reference links. Use full `https://` URLs only for external sites (MDN, GitHub, etc.). <!-- rule: sensible-doc-links -->
 
 ---
 

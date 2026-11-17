@@ -1,0 +1,23 @@
+# Judgment spec for Jev. Registry entry: sensible-opening-sentence in style-rules/registry.yaml.
+id: sensible-opening-sentence
+source:
+  file: .claude/style-guide/style-guide-overview.md
+  heading: Voice and tone
+  quote: Use third-person present tense. Start with the verb that says what the feature does.
+applies: the first sentence after the frontmatter on pages under docs/Senseml reference/, except concepts/ and index.md
+check:
+  kind: judgment
+  detector: 'first body sentence whose first word isn''t a third-person verb: ''^(?![A-Z][a-z]+s\b)'''
+  precheck: skip a first block that is a **Note:** callout; read the sentence after it
+  question:
+    type: choice
+    ask: How does the first sentence open?
+    criteria:
+      third-person: 'states what the feature does: "Extracts lines near the anchor."'
+      use-this: '"Use this method to…": right only when the user supplies the input (Extra Data); otherwise rewrite'
+      mechanism: 'describes what the API returns: "Returns a value from…"; rewrite'
+      other: none of these
+examples:
+  fail: Returns a value from an extra_data object you supply in an asynchronous request.
+  pass: Extracts data in a rectangular region, defined in inches.
+fix: 'rewrite as third-person present: the verb that says what the feature does, then what it acts on'

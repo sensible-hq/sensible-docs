@@ -1,0 +1,23 @@
+# Judgment spec for Jev. Registry entry: sensible-example-per-scenario in style-rules/registry.yaml.
+id: sensible-example-per-scenario
+source:
+  file: .claude/style-guide/style-guide-overview.md
+  heading: Multiple examples
+  quote: Give each distinct scenario its own example.
+applies: the Examples section of a docs page
+check:
+  kind: judgment
+  detector: two or more example headings on one page, or one example config that combines unrelated features
+  precheck: skip troubleshooting PROBLEM/SOLUTION pairs, which show one scenario before and after
+  question:
+    type: choice
+    ask: How are the examples divided?
+    criteria:
+      by-scenario: each example is a different use case; right
+      by-difficulty: one scenario split into "basic" and "advanced"; merge into one well-chosen example
+      merged: unrelated scenarios combined in one config; split them
+      other: none of these
+examples:
+  fail: A "Basic example" and a "Custom computation group" example that use the same cells to show the same feature.
+  pass: One bestselling-books example that shows the custom computation group and the basic extraction together.
+fix: 'one example per scenario: merge difficulty splits, split merged scenarios'

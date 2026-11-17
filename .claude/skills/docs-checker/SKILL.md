@@ -24,7 +24,7 @@ These rules carry every avoid-term in `.claude/style-guide/glossary.md` that a p
 
 ## Step 3: Judge the context terms
 
-Some glossary terms have a legitimate meaning elsewhere, so no pattern can flag them. Search the prose (not code) for these and decide each hit:
+Some glossary terms have a legitimate meaning elsewhere, so no pattern can flag them. <!-- rule: sensible-context-terms --> Search the prose (not code) for these and decide each hit:
 
 | term | fine when | wrong when |
 | ---- | --------- | ---------- |

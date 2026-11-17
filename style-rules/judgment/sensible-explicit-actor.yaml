@@ -1,0 +1,26 @@
+# Judgment spec for Jev. Registry entry: sensible-explicit-actor in style-rules/registry.yaml.
+id: sensible-explicit-actor
+source:
+  file: .claude/style-guide/writing-rules.md
+  heading: Explicit subjects
+  quote: Where the two meet, the user makes the choices and Sensible carries them out
+applies: prose sentences in docs/
+check:
+  kind: judgment
+  detector: Google.Passive (a form of be plus a past participle), plus any sentence a revision changed from 'you'
+    to 'Sensible' or a feature name
+  precheck: skip adjective uses such as "is enabled by default" in a parameter table, and sentences inside code
+  question:
+    type: choice
+    ask: Who performs the action, and is that actor the subject?
+    criteria:
+      user-hidden: the user acts but isn't named ("when Anthropic is configured as the provider"); make "you" the
+        subject
+      sensible-hidden: the platform acts but isn't named ("documents are classified"); make "Sensible" the subject
+      flipped: an existing "you" sentence was changed to make the feature or Sensible the subject; restore "you"
+      adjective: the participle describes a state ("the parameter is optional when…"); fine
+      other: none of these
+examples:
+  fail: Documents are classified using the specified types.
+  pass: Sensible classifies documents using the specified types.
+fix: 'name the actor as the subject: "you" for choices the user makes, "Sensible" for what the platform does'

@@ -51,7 +51,7 @@ Write the page at: `docs/Senseml reference/concepts/<slug>.md`
 
 Where `<slug>` is a kebab-case filename derived from the concept name (for example, `llm-token-limits`, `anchor-nuances`).
 
-After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`. Insert it in a thematically logical position — group it near related concepts (for example, LLM concepts near other LLM entries, layout concepts near lines/anchor entries).
+After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`. <!-- rule: sensible-order-registration --> Insert it in a thematically logical position — group it near related concepts (for example, LLM concepts near other LLM entries, layout concepts near lines/anchor entries).
 
 ## Step 4 — Branch, commit, and open a PR
 
