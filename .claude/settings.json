@@ -1,15 +1,29 @@
 {
   "permissions": {
-    "additionalDirectories": ["/home/franc/GitHub/sensible-docs-extra-data"]
+    "additionalDirectories": [
+      "/home/franc/GitHub/sensible-docs-extra-data"
+    ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale_gate.py",
+            "statusMessage": "Checking the edit against house style..."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale-check.sh",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale_gate.py",
             "statusMessage": "Running Vale on the edited doc..."
           }
         ]

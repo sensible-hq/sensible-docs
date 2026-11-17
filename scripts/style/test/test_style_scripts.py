@@ -77,3 +77,11 @@ def test_registry_detects_drift(tmp_path, monkeypatch):
     (tmp_path / ".claude/style-guide/rules.md").write_text("Don't use em dashes.\n<!-- rule: em -->\n")
     (tmp_path / ".github/styles/Sensible/Orphan.yml").write_text("extends: existence\n")
     assert any("Sensible.Orphan: no registry entry" in p for p in cr.check(registry))
+
+
+def test_this_repos_registry_is_clean():
+    """The real registry agrees with the real guides, Vale rules, scripts, and specs."""
+    import check_registry as cr
+    import yaml
+    registry = yaml.safe_load(cr.REGISTRY.read_text())
+    assert cr.check(registry) == []

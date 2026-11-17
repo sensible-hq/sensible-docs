@@ -58,3 +58,15 @@ Found while testing; recorded in `style-rules/README.md`.
 - Fractions in words beyond thirds, tenths, and quarters: no corpus hits worth the noise.
 - A `parse` rule: already in the vocabulary's reject list.
 - Glossary terms that depend on context ("response", "segment", "section", "key", "empty"): judgment rule `sensible-context-terms`.
+
+## D-013 One hook script for two events, replacing `vale-check.sh`
+
+The `vale-setup` memory records Vale as one `PostToolUse` hook plus CI, with no new integrations. `vale_gate.py` keeps one script and one Vale config, but it adds a `PreToolUse` entry, because checking text before it lands is the point of write-time enforcement. The pre-write gate denies only on rules with `gate: block` in the registry (em dashes, Latin abbreviations, model names, UI names, draft links, code fences), and lets an edit through after 3 denials on one file. To go back to the old shape, delete the `PreToolUse` entry in `.claude/settings.json`; the `PostToolUse` half still works alone. If this is kept, update the `vale-setup` memory.
+
+## D-014 The registry check runs in the existing pytest workflow
+
+`test-scripts.yml` gains `scripts/style/test`, and its path filter gains the guides, skills, preferences, Vale styles, and `style-rules/`. A PR that edits a rule's guide text without updating the registry now fails. This adds no Vale runner: the Vale-dependent tests skip in CI, where Vale isn't installed.
+
+## D-015 The after-write report compares with the last commit
+
+`PostToolUse` doesn't get the file's previous text, so "changed lines" means lines that differ from `HEAD`. Over a session that includes earlier uncommitted edits, which is still the agent's own work. The pre-write gate compares with the file as it is before the edit, so it sees only the new text.
