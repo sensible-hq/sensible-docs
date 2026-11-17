@@ -3,7 +3,7 @@ name: update-existing-doc
 description: Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 
 You are updating existing sensible-docs pages based on a pull request from the sensible-hq/sensible engine repo. Your job is to make targeted, accurate edits — not to rewrite working content.
@@ -49,6 +49,8 @@ Pay particular attention to the preferences file. It documents specific choices 
 
 ## Step 4 — Plan and make the changes
 
+Before you edit any file, create the branch's worktree with the first three commands in the "Branch, commit, and open a PR" step, and make every edit in that worktree. A worktree created after the edits doesn't contain them.
+
 For each file you're editing, think through:
 
 **Where to put new content.**
@@ -65,9 +67,11 @@ Don't rewrite sentences that are correct and well-phrased. Don't restructure sec
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
 ```
-git checkout -b fe_<short_description>_docs
+git -C ~/GitHub/sensible-docs pull
+git -C ~/GitHub/sensible-docs worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
+cd ~/GitHub/sensible-docs-<short-description>
 git add <files>
-git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#<pr-number>.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#<pr-number>.\n\n<Co-Authored-By line from this session's attribution instructions>"
 git push -u origin fe_<short_description>_docs
 gh pr create --title "..." --body "..."
 ```

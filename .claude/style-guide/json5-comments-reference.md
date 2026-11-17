@@ -4,7 +4,7 @@ Canonical inline comments for SenseML code examples. Source: docs/Senseml refere
 
 When writing or enriching JSON5 code blocks, comment each parameter **the first time it appears in a sample on the page**. After that, don't comment it again, unless a later sample shows a notably different configuration or behavior of that parameter. Later samples don't repeat earlier comments. Commenting every parameter in every sample is overcommenting.
 
-Comments go on the same line as the parameter, in `/* */` style.
+Comments go on the same line as the parameter, in `/* */` style. Fence the code block as ` ```json `, not ` ```json5 `: ReadMe doesn't render `json5` fences. <!-- rule: sensible-code-fences -->
 
 Add this line as a block comment before the opening `{` of the **first** commented example on the page (once per page):
 
@@ -16,7 +16,7 @@ Add this line as a block comment before the opening `{` of the **first** comment
 
 ## Fingerprint
 
-```json5
+```json
 "fingerprint": {       /* optional. Sensible skips this config if these tests fail, improving performance when you have multiple configs */
   "tests": [           /* array of tests; for standalone documents, the config passes if Sensible finds 50% or more of the matches */
     {
@@ -32,7 +32,7 @@ Add this line as a block comment before the opening `{` of the **first** comment
 
 ## Field-level (applies to every field, on its first appearance on the page)
 
-```json5
+```json
 "id": "field_name",        /* user-friendly ID for extracted target data */
 "type": "currency",        /* Sensible formats extracted data as this data type, or returns null if it doesn't recognize extracted data as the specified type */
 "match": "first",          /* use the first occurrence of the anchor */
@@ -44,7 +44,7 @@ Add this line as a block comment before the opening `{` of the **first** comment
 
 ## Anchor
 
-```json5
+```json
 "anchor": "some text",     /* an anchor is text that always occurs in the same position relative to your target data. Without an anchor, Sensible wouldn't know which page to search in for your target data. */
 
 /* Full anchor object: */
@@ -64,19 +64,19 @@ Add this line as a block comment before the opening `{` of the **first** comment
 ```
 
 Match object comments:
-```json5
+```json
 "text": "some string",     /* string to match */
 "type": "includes",        /* match anywhere in line. */
 "type": "startsWith",      /* line must start with the match */
 "type": "equals",          /* matching line must equal the string exactly */
 "type": "regex",           /* match using a regular expression */
-"pattern": "\\d+",         /* JavaScript-flavored regex. Double-escape special characters, e.g. \\s not \s. Doesn't support capturing groups */
-"flags": "ig",             /* flags to apply to the regex, e.g. "i" for case-insensitive */
+"pattern": "\\d+",         /* JavaScript-flavored regex. Double-escape special characters, for example, \\s not \s. Doesn't support capturing groups */
+"flags": "ig",             /* flags to apply to the regex, for example, "i" for case-insensitive */
 "isCaseSensitive": true    /* match is case-sensitive */
 ```
 
 Compound match types:
-```json5
+```json
 "type": "all",             /* boolean and: all sub-match conditions must pass */
 "type": "any",             /* boolean or: any sub-match condition must pass */
 "type": "not",             /* boolean not: finds a line that doesn't meet the sub-match condition */
@@ -84,7 +84,7 @@ Compound match types:
 ```
 
 Array of match objects:
-```json5
+```json
 "match": [ /* array of Match objects. Sensible matches the last element
                if each element matches a successive line in the document */
 ```
@@ -93,7 +93,7 @@ Array of match objects:
 
 ## Row method
 
-```json5
+```json
 "method": {
   "id": "row",              /* target data to extract is distributed on same horizontal line as anchor */
   "position": "right",      /* default: right. target data is to left or right of anchor. enums: left | right. */
@@ -107,7 +107,7 @@ Array of match objects:
 
 ## Region method
 
-```json5
+```json
 "method": {
   "id": "region",           /* extracts lines contained in a defined rectangular region */
   "start": "below",         /* initial coordinates for region's top-left corner relative to anchor's boundaries. enums: above | below | left | right */
@@ -123,7 +123,7 @@ Array of match objects:
 
 ## Intersection method
 
-```json5
+```json
 "method": {
   "id": "intersection",
   "verticalAnchor": "col heading",  /* defines the vertical axis (the column). use horizontalAnchor instead to swap which anchor defines which axis */
@@ -144,7 +144,7 @@ Array of match objects:
 
 ## Box method
 
-```json5
+```json
 "method": {
   "id": "box",              /* extracts all lines inside a box */
   "position": "right",      /* starting point for searching outward in all directions until Sensible recognizes a box. point is relative to anchor boundaries. default: center of anchor line's bounding box. enums: right | left | below | above */
@@ -165,7 +165,7 @@ Array of match objects:
 
 ## Sections
 
-```json5
+```json
 {
   "id": "claims_sections",  /* ID for the extracted array of sections */
   "type": "sections",       /* extracts repeating sections; returns each section as an object */
@@ -206,7 +206,7 @@ Array of match objects:
 
 ## Checkbox method
 
-```json5
+```json
 "method": {
   "id": "checkbox",             /* returns true if the checkbox is selected, false if unselected */
   "position": "left",           /* direction to search for the checkbox from the anchor. enums: left | right */
@@ -223,11 +223,11 @@ Array of match objects:
 
 ## Pick Values method
 
-```json5
+```json
 "method": {
   "id": "pickValues",                    /* selects values from a group of fields; commonly used to return the label of the selected option from a checkbox or radio button group */
   "source_ids": ["field_a", "field_b"],  /* IDs of the fields to evaluate */
-  "match": "all",                        /* default: all. enums: one | all. one: for mutually exclusive groups (e.g. radio buttons); returns null if none or more than one field matches. all: returns every field that matches the value */
+  "match": "all",                        /* default: all. enums: one | all. one: for mutually exclusive groups (for example, radio buttons); returns null if none or more than one field matches. all: returns every field that matches the value */
   "value": true                          /* default: true. value to match; true selects checked checkboxes */
 }
 ```
@@ -235,7 +235,7 @@ Array of match objects:
 ---
 
 Vertical sections additional parameters:
-```json5
+```json
 "direction": "vertical",        /* extracts columnar sections scanning left-to-right */
 "columnSelection": [[1, -2]],   /* default: all columns. specifies which columns are sections; unselected columns are appended to each section */
 "minColumnGap": 0,              /* default: 0. minimum column gap in inches; increase if whitespace inside a column is mistaken for a column boundary */

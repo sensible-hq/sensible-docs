@@ -11,6 +11,8 @@ Do not use em dashes to join compound clauses. Split into two sentences instead.
 - Avoid: "configure the processor for portfolio mode — Sensible can segment single-document files without affecting accuracy."
 - Prefer: "Configure the processor for portfolio mode. Sensible can segment single-document files without affecting accuracy."
 
+<!-- rule: sensible-em-dash -->
+
 ---
 
 ## Explicit subjects — avoid passive voice
@@ -20,11 +22,15 @@ Use explicit subjects so it's always clear who is acting.
 - **"Sensible"** for platform behavior: "Sensible routes documents to a document type."
 - **"You"** for user actions: "You upload documents via the API, SDK, or email."
 
+Where the two meet, the user makes the choices and Sensible carries them out: "You configure a postprocessor, and Sensible transforms the output." When the user is the one choosing or acting, the subject is "you", not the feature or "Sensible". A style pass never flips an existing "you" sentence to make the feature or Sensible the subject.
+
 Avoid passive constructions that obscure the actor:
 - Avoid: "when Anthropic is configured as the provider"
 - Prefer: "when you configure Anthropic as the provider"
 - Avoid: "documents are classified against the specified types"
 - Prefer: "Sensible classifies documents using the specified types"
+
+<!-- rule: sensible-explicit-actor -->
 
 ---
 
@@ -34,6 +40,8 @@ Do not use "against" to describe extraction or classification. Use "using" inste
 
 - Avoid: "extracts against a document type", "classifies the document against the specified types"
 - Prefer: "extracts data using a document type", "classifies the document using the specified types"
+
+<!-- rule: sensible-against-phrasing -->
 
 ---
 
@@ -45,6 +53,8 @@ Use the verb form directly rather than a noun derived from it.
 - Prefer: "automates extracting structured data"
 - Avoid: "enables the configuration of multiple document types"
 - Prefer: "enables configuring multiple document types"
+
+<!-- rule: sensible-gerunds -->
 
 ---
 
@@ -59,3 +69,5 @@ See [glossary.md](glossary.md) for the canonical term reference. Apply the unive
 - Terse and precise. No filler phrases.
 - Avoid: "please note that", "it's important to remember", "it is worth mentioning"
 - State facts directly.
+
+<!-- rule: sensible-filler -->

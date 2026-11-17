@@ -20,7 +20,7 @@ gh pr diff $ARGUMENTS --repo sensible-hq/sensible
 
 Look for file paths matching `extractors/{customer}/{doctype}/...`. Collect each unique `{customer}/{doctype}` pair.
 
-Only proceed with directories that have **both** a config JSON file (e.g. `all.json`) and at least one golden PDF in `goldens/`. Skip any that are missing either.
+Only proceed with directories that have **both** a config JSON file (for example, `all.json`) and at least one golden PDF in `goldens/`. Skip any that are missing either.
 
 ## Step 2 — Locate the files
 

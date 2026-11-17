@@ -8,7 +8,7 @@ description: Creates or updates OpenAPI JSON spec files in the /reference direct
 **Docs repo**: `sensible-hq/sensible-docs` (local: `/home/franc/GitHub/sensible-docs`)  
 **Backend repo**: `sensible-hq/sensible`  
 **Spec files**: `reference/openapi_*.json`  
-**New spec naming**: `reference/openapi_{domain}.json` (e.g., `openapi_email.json`)
+**New spec naming**: `reference/openapi_{domain}.json` (for example, `openapi_email.json`)
 
 ---
 
@@ -75,7 +75,7 @@ From the diff, extract:
 
 Sort each discovered change into one of three buckets:
 
-**New spec** — new route paths that don't exist in any current spec (e.g., `/processors/email/*`). These will become a new `openapi_{domain}.json` file.
+**New spec** — new route paths that don't exist in any current spec (for example, `/processors/email/*`). These will become a new `openapi_{domain}.json` file.
 
 **Update existing spec** — new fields, parameters, or response codes added to routes already documented in an existing spec. Current specs and their route coverage:
 - `openapi_extraction.json` — `/extract/*`, `/generate_upload_url/*`, `/retrieve/*`
@@ -119,7 +119,7 @@ Also read the spec structure reference to understand existing schema relationshi
 
 Use the schema relationship trees in `api-code-reference.md` to:
 - Identify which existing schemas a new field or endpoint touches
-- Avoid duplicating schemas that are already shared (e.g. `ExtractionSummaryBase`, `PortfolioBase`)
+- Avoid duplicating schemas that are already shared (for example, `ExtractionSummaryBase`, `PortfolioBase`)
 - Wire new schemas into the correct inheritance chain rather than creating standalone duplicates
 - Confirm which endpoint response shapes are used by the list endpoint vs the retrieval endpoint vs the async pending response
 
@@ -158,7 +158,7 @@ The top-level structure:
 3. `paths` — all new routes, each with operations for every supported method
 4. `components` — reusable schemas, parameters, request bodies, security scheme
 
-For discriminated union request bodies (e.g., `bodySpec`/`attachmentSpecs` with multiple `kind` values), use `oneOf` with a `discriminator`:
+For discriminated union request bodies (for example, `bodySpec`/`attachmentSpecs` with multiple `kind` values), use `oneOf` with a `discriminator`:
 
 ```json
 "attachmentSpec": {
@@ -275,11 +275,11 @@ cat /home/franc/GitHub/sensible-docs/reference/_order.yaml
 
 ## Step 8: Generate test scripts from the spec
 
-After writing the spec, generate one curl script per endpoint. Save to `scripts/test/{domain}/` (e.g., `scripts/test/email_processor/`).
+After writing the spec, generate one curl script per endpoint. Save to `scripts/test/{domain}/` (for example, `scripts/test/email_processor/`).
 
 **Template**: copy from `references/curl_script_template.sh` in this skill directory. All scripts must follow this template exactly — it contains the HTTP status code capture, JSON pretty-print with raw fallback, and timestamped output file pattern.
 
-**Naming**: convert `operationId` from kebab-case to snake_case for the filename (e.g., `get-email-processor` → `get_email_processor.sh`).
+**Naming**: convert `operationId` from kebab-case to snake_case for the filename (for example, `get-email-processor` → `get_email_processor.sh`).
 
 **Adapting the template per method**:
 
@@ -324,7 +324,7 @@ gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
 
 **What curl scripts should add (not covered by backend tests):**
 - End-to-end happy paths for every valid input variation (each `kind` variant, optional fields present vs omitted, multiple webhooks)
-- Ordering and positional constraints the schema cannot enforce (e.g., `EnvironmentWebhook` must not be first in the webhooks array — validators pass, only the API catches it)
+- Ordering and positional constraints the schema cannot enforce (for example, `EnvironmentWebhook` must not be first in the webhooks array — validators pass, only the API catches it)
 - 404 behavior for GET/DELETE on nonexistent resources — backend service may be a no-op; route-level behavior needs verification
 - Any behavior the spec explicitly flags as "schema validators will not catch this"
 
@@ -352,7 +352,7 @@ Once the user has run the scripts and output files exist in `scripts/test/{domai
 
 **What to update**:
 - Response schema `example` fields for 200 responses
-- Request body `example` fields for PUT/POST operations, if the GET output reveals realistic field values (e.g., real IDs, real processor names)
+- Request body `example` fields for PUT/POST operations, if the GET output reveals realistic field values (for example, real IDs, real processor names)
 
 **What not to update**:
 - Any `example` that already contains a real-looking value (non-placeholder)
@@ -387,7 +387,7 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 - [ ] **Grep before committing**: Before committing any text change, grep the whole spec file for all instances of the pattern you're replacing — not just the one you found. A single phrase like "extracts against" can appear in schema descriptions, property descriptions, and examples across the file.
 
 ### Naming consistency
-- [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (e.g. `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
+- [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (for example, `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
 - [ ] **Enum values**: Compare enum values against `src/common.ts` (`OCR_ENGINE_TYPES`) and `src/engine/types.ts` (`portfolioSplittingMethodSchema`) — do not invent or omit values.
 
 ### Semantic consistency

@@ -3,7 +3,7 @@ name: create-new-doc
 description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about what's being added or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
 ---
 
 You are creating new sensible-docs reference pages based on a pull request from the sensible-hq/sensible engine repo.
@@ -51,6 +51,8 @@ Use the template that matches the type of page you're creating.
 
 ## Step 4 — Write the new page
 
+Before you edit any file, create the branch's worktree with the first three commands in the "Branch, commit, and open a PR" step, and make every edit in that worktree. A worktree created after the edits doesn't contain them.
+
 Use the template as your scaffold. Cover:
 - All parameters: required/optional/deprecated status, types, defaults
 - At least one complete example with config + output (+ example document image if it's a visual/layout method)
@@ -59,7 +61,7 @@ Use the template as your scaffold. Cover:
 For the example:
 - Choose data that illustrates *why* the feature is useful, not just that it runs
 - Truncate output to 2–3 representative rows + `"..."` if the result is a list or array
-- One well-chosen example is better than a "basic" + "advanced" pair
+- One well-chosen example is better than a "basic" + "advanced" pair. Give separate examples only to separate scenarios. <!-- rule: sensible-example-per-scenario -->
 
 After writing the page, update `index.md` for the category to include a link to the new page.
 
@@ -68,9 +70,11 @@ After writing the page, update `index.md` for the category to include a link to 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
 ```
-git checkout -b fe_<short_description>_docs
+git -C ~/GitHub/sensible-docs pull
+git -C ~/GitHub/sensible-docs worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
+cd ~/GitHub/sensible-docs-<short-description>
 git add <files>
-git commit -m "docs: add <feature> reference page\n\nBased on sensible-hq/sensible#<pr-number>.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+git commit -m "docs: add <feature> reference page\n\nBased on sensible-hq/sensible#<pr-number>.\n\n<Co-Authored-By line from this session's attribution instructions>"
 git push -u origin fe_<short_description>_docs
 gh pr create --title "..." --body "..."
 ```

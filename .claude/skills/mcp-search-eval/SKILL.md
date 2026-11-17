@@ -148,7 +148,7 @@ Note in comments whether a failure is a **docs gap** (answer doesn't exist) or a
 
 Before re-running, the minimum viable hardening step is golden fixtures:
 
-1. Designate 4–5 questions (e.g., b01 + 2–3 expert) with **known-good expected doc IDs** — docs you've verified should appear in results
+1. Designate 4–5 questions (for example, b01 + 2–3 expert) with **known-good expected doc IDs** — docs you've verified should appear in results
 2. Write a smoke test: assert the expected doc ID appears in search results and the fetched content contains expected key strings
 3. Add a meta-eval step to the run script: run golden fixtures first, fail fast if any break — catches regressions in the MCP tool, agent prompt, or file-writing logic before wasting 30 agent runs
 4. Version the question list and ground truth separately from run artifacts so changes to questions/rubric are auditable

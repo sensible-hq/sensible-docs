@@ -75,7 +75,7 @@ Do not reorder items or change any other formatting.
 
 ## Step 4 — Push to readme.io
 
-Determine the title from the current month: `prs-<month>-<year>` (e.g., `prs-july-2026`).
+Determine the title from the current month: `prs-<month>-<year>` (for example, `prs-july-2026`).
 
 Format the body with a dispositions summary at the top, followed by the annotated release notes:
 

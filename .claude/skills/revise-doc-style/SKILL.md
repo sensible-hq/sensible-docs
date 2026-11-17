@@ -19,22 +19,23 @@ Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, 
   - ✅ `Removes lines that match the specified text from all pages in the document. For example, use this preprocessor to remove watermarks.`
   - ❌ `Removes lines that match a configurable pattern. Unlike the Remove Header and Remove Footer preprocessors, which remove lines relative to a match position, this preprocessor removes the matched lines themselves.`
 - Don't open with a comparison to other features. Only mention related features if the distinction is the *primary* thing to understand about this feature (and even then, put it in a **Note** or after the first sentence).
-- Use present tense, active voice, third-person ("Removes…", not "Use this to remove…" as the *first* sentence).
+- Use present tense, active voice, third-person ("Removes…", not "Use this to remove…" as the *first* sentence). Exception: a feature whose input the user supplies, such as Extra Data, may open with "Use this method to…". <!-- rule: sensible-opening-sentence -->
+- Third person applies to the first sentence only. In the rest of the page, when the user chooses or acts, the subject is "you". Don't change an existing "you" sentence to make the feature or "Sensible" the subject. <!-- rule: sensible-explicit-actor -->
 
 ### metadata.description
 
 - Should be a useful search snippet — specific enough to distinguish this feature from similar ones.
-- Include the key behavior detail, e.g. "from all pages in a document", "using regex or string matching".
+- Include the key behavior detail, for example, "from all pages in a document", "using regex or string matching".
 - ✅ `Remove lines matching a pattern from all pages in a document`
 - ❌ `Remove lines matching a pattern`
 
 ### Examples structure
 
-- **Separate `##` subheadings** for each conceptually distinct use case. Don't merge separate scenarios into one config to keep the page shorter.
+- **Separate `##` subheadings** for each conceptually distinct use case. Don't merge separate scenarios into one config to keep the page shorter. The axis is the scenario, not difficulty: don't split one scenario into "basic" and "advanced" examples. <!-- rule: sensible-example-per-scenario -->
   - ✅ `## Remove page number lines` and `## Remove rotated watermarks` as separate examples
   - ❌ One combined config that does both, described with a bullet list
 - Exception: if two things are *always* used together and don't make sense independently, a single example is fine.
-- `##` heading names should be short verb phrases naming the use case (e.g. `## Remove page number lines`, `## Handwriting OCR`), not descriptions of the parameters used.
+- `##` heading names should be short verb phrases naming the use case (for example, `## Remove page number lines`, `## Handwriting OCR`), not descriptions of the parameters used.
 
 ### Example intro sentence
 
@@ -50,7 +51,7 @@ Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, 
 - ❌ Comment above the `{ "type": "removeLines", ... }` object
 
 **Content:** Make comments concrete. Include an example of the matched or produced value, not just a label.
-- ✅ `/* remove all page number lines, e.g., 'page 2 of 5' */`
+- ✅ `/* remove all page number lines, for example, 'page 2 of 5' */`
 - ❌ `/* remove "page N of N" lines */`
 
 **Field comments:** When a field in the example exists mainly to *demonstrate* or *verify* the feature (not because it's a typical extraction field), add a comment explaining why it's there.
@@ -67,15 +68,17 @@ Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, 
 
 ### Before/after examples
 
-When showing the effect of a preprocessor (i.e., what the document looks like without vs with it), use **PROBLEM** / **SOLUTION** structure rather than just showing the "after" state.
+When showing the effect of a preprocessor (that is, what the document looks like without vs with it), use **PROBLEM** / **SOLUTION** structure rather than just showing the "after" state.
 
 ### Framing: scenario-first over mechanism-first
+
+<!-- rule: sensible-scenario-first -->
 
 - Lead with what the user experiences or achieves, not with internal structure (specs, matchers, selectors, config keys, etc.).
 - Use concrete scenarios to anchor the reader before introducing the mechanism.
   - ✅ `an applicant might attach a single combined PDF containing both a paystub and a signed lease`
   - ❌ `configure an attachment spec to use portfolio extraction`
-- Drop implementation contrasts (e.g. "unlike the direct API…", "unlike the X preprocessor…") unless the distinction is the *primary* thing the reader needs to act on. If needed, put it in a **Note** rather than the main flow.
+- Drop implementation contrasts (for example, "unlike the direct API…", "unlike the X preprocessor…") unless the distinction is the *primary* thing the reader needs to act on. If needed, put it in a **Note** rather than the main flow.
 
 ### General
 

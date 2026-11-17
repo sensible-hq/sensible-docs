@@ -166,7 +166,7 @@ Once all entries are drafted, assemble them in order: New features first, then I
 
 ## Step 5: Style check, then review with user
 
-Run the **`docs-checker`** skill (`.claude/skills/docs-checker/SKILL.md`) on the full draft. Fix all errors and warnings it returns. Use judgment on suggestions — Google style rules often don't apply to changelogs.
+Run Vale on the draft from the repo root: `vale --minAlertLevel=warning drafts/<month>-<year>-changelog.md`. The file name must contain `changelog`, so `.vale.ini` applies the changelog rules (JSX images, section heading types). Fix every error and warning. Glossary terms are part of Vale's `Sensible.Terminology` rule, so this replaces the separate terminology pass. Use judgment on suggestions: Google style rules often don't apply to changelogs.
 
 Then run the **`structural-check`** subskill (`.claude/skills/changelog/structural-check.md`) to verify doc links and image format.
 

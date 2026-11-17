@@ -14,7 +14,7 @@ Use this stub when drafting each section. Fill in the bracketed parts; the examp
 ## [New feature | Improvement | UX improvement | UX improvements | Deprecation]: [short title]
 
 Sensible released [feature name], which [what it does in one clause]. 
-You can now [primary action a user takes with this feature] — for example, [concrete use case]. 
+You can now [primary action a user takes with this feature]. For example, [concrete use case]. 
 [Optional: what problem it solves, or what it replaces.]
 For more information, see [Topic name](doc:slug).
 ```
@@ -26,8 +26,8 @@ For more information, see [Topic name](doc:slug).
 
 Sensible released the new Today operator for [JsonLogic](doc:jsonlogic).
 The operator returns the current UTC date as a `YYYY-MM-DD` string and takes no arguments.
-Combine it with the existing Date Shift operator to compute dates relative to today — for example,
-a contract expiration date one year from the current date — without hardcoding a date in your config.
+Combine it with the existing Date Shift operator to compute dates relative to today without hardcoding a date in your config.
+For example, compute a contract expiration date one year from the current date.
 For more information, see [JsonLogic](doc:jsonlogic).
 ```
 
@@ -61,7 +61,7 @@ Images must use JSX `<Image>` syntax, **not** markdown `![alt](url)`:
 <Image alt="Click to enlarge" border={false} src="URL" />
 ```
 
-Scan the draft for any markdown image syntax `![` and replace with `<Image>`.
+Run `vale <draft>` on the changelog draft (a file in `drafts/` whose name contains `changelog`). `Sensible.ChangelogImage` flags Markdown image syntax and `Sensible.ChangelogHeadings` flags section headings that don't use the allowed types. Replace each flagged image with `<Image>`. <!-- rule: sensible-image-syntax --> <!-- rule: sensible-changelog-sections -->
 
 ---
 

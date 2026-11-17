@@ -2,7 +2,7 @@
 name: blog-how-to-parse-x
 description: Generates a "how to extract data from X" blog post draft for Sensible. Takes a document type as input and either fetches the matching prebuilt config from the open-source library, or accepts an explicit config file/URL and optional PDF path via --config and --pdf flags. Invoke whenever the user wants to write or draft a "how to parse/extract X" blog post.
 argument-hint: <document type> [--config <path-or-url>] [--pdf <path>]
-allowed-tools: Bash, Read, Write, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page, mcp__vale__check_file
+allowed-tools: Bash, Read, Write, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 ---
 
 Generate a "how to extract data from [document type]" blog post draft.
@@ -78,7 +78,7 @@ Produce a full field inventory before selecting examples. Structure it in two pa
 > |---|---|---|---|
 > | `sub_field_id` | type | method + key params | one-line note |
 
-After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — e.g. method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them. Do not propose any field that is a sections field whose sub-fields are also sections fields (nested sections) — the structural wrapper cost makes them too long and complex to explain in a blog post.
+After the inventory, propose 2–4 fields to demonstrate and state explicit reasoning for each choice — for example, method complexity, reader value, uniqueness to the document type. Eliminate fields with redundant methods unless there's a specific reason to include them. Do not propose any field that is a sections field whose sub-fields are also sections fields (nested sections) — the structural wrapper cost makes them too long and complex to explain in a blog post.
 
 For each proposed field, show this display. Estimate the line count from the config: count the lines in the field definition (`{` through closing `}`), then add 3 for the outer `{"fields": [...]}` wrapper.
 
@@ -120,7 +120,7 @@ Flag any field over 75 lines in bold: **N lines ⚠️ OVER LIMIT**
 | `subject to inspection.appraisal_condition` | Checkbox |
 | `appraisal_condition` | PickValues |
 
-The user must approve both the field selection and the line counts before proceeding. If any field is over 75 lines, propose a trim (e.g. drop fallback anchors, drop intermediate checkbox fields, show only the PickValues result).
+The user must approve both the field selection and the line counts before proceeding. If any field is over 75 lines, propose a trim (for example, drop fallback anchors, drop intermediate checkbox fields, show only the PickValues result).
 
 **Pause here and present the following to the user for approval before continuing:**
 
@@ -133,7 +133,7 @@ The user must approve both the field selection and the line counts before procee
 
 3. **Title form** — "with LLMs and Sensible" or "with Sensible", and why.
 
-4. **Vendor/variant** — the specific variant used, if any (e.g., "Sun Life commission statements").
+4. **Vendor/variant** — the specific variant used, if any (for example, "Sun Life commission statements").
 
 5. **Fingerprint** — present or absent; if present, it will appear in "Putting it all together".
 
@@ -254,7 +254,7 @@ Run all checks in order. Fix issues before proceeding to Step 7.
 
 **6.7a — Vale:**
 
-Use `mcp__vale__check_file` on `drafts/blog-[doc-type-slug].md`. Fix all **errors** and **warnings**. Suggestions are optional — apply if clearly right, skip if they conflict with existing blog conventions.
+Run `vale --minAlertLevel=warning drafts/blog-[doc-type-slug].md` from the repo root. Fix all **errors** and **warnings**. `.vale.ini` turns off the "we" and first-person rules for blog drafts, because blog posts may use "we" and "let's". Suggestions are optional: apply them if clearly right, and skip them if they conflict with existing blog conventions.
 
 **6.7b — Writing rules:**
 
@@ -269,7 +269,7 @@ Read the "Formatting conventions" section of `.claude/style-guide/style-guide-ov
 
 **6.7d — Code comment style:**
 
-Read the "Code examples: inline comments" section of `.claude/style-guide/sentence-word-guidance.md`. Comments must explain non-obvious choices, not restate what the parameter name already says. Remove or rewrite redundant comments (e.g., `/* set position to below */`).
+Read the "Code examples: inline comments" section of `.claude/style-guide/sentence-word-guidance.md`. Comments must explain non-obvious choices, not restate what the parameter name already says. Remove or rewrite redundant comments (for example, `/* set position to below */`).
 
 **6.7e — Glossary:**
 

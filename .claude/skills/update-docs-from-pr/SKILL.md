@@ -3,7 +3,7 @@ name: update-docs-from-pr
 description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, mcp__vale__check_file
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, Bash(vale:*)
 ---
 
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
@@ -97,11 +97,13 @@ Make all file edits and creations. Be thorough — cover all parameters and incl
 
 ## Step 5 — Style check before committing
 
-Run vale on every `.md` file you created or modified. Use the vale MCP server's `check_file` tool for each file:
-- Fix all **errors** and **warnings** before committing
-- Suggestions are optional — apply if clearly right, skip if they conflict with existing doc conventions
+The Vale hook already reports on each `docs/` page as you edit it. Before committing, run Vale on every `.md` file you created or modified in `docs/`: `vale --minAlertLevel=warning <file>`.
+- Fix all **errors** and **warnings** on the lines you changed before committing
+- Suggestions are optional: apply them if clearly right, and skip them if they conflict with existing doc conventions
 
-Also check each file against the Sensible terminology glossary at `.claude/style-guide/glossary.md`. Fix any violations in the "Avoid" column.
+The glossary's avoid-terms are part of Vale's `Sensible.Terminology` rule. Terms that depend on context ("response", "section", "key") still need a read against `.claude/style-guide/glossary.md`.
+
+Don't run Vale on `reference/**/*.md`: those pages are generated from the OpenAPI JSON specs. Edit the JSON instead.
 
 Only proceed to the commit once all errors and warnings are resolved.
 

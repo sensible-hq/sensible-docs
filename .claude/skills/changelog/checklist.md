@@ -41,7 +41,7 @@ If results: print each one with date and bullet items so the user can see what c
 
 ### Step 3 — Append raw notes to prs on readme.io
 
-Determine the entry title from the current month: `prs-<month>-<year>` (e.g., `prs-july-2026`).
+Determine the entry title from the current month: `prs-<month>-<year>` (for example, `prs-july-2026`).
 
 Format the content to append:
 

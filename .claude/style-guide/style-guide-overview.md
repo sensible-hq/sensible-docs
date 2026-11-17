@@ -19,8 +19,8 @@ Every SenseML reference page follows this section order. Sections marked *(optio
 ### Parameters heading level
 
 - Use `# Parameters` (H1) for standalone methods: layout-based methods, LLM-based methods, preprocessors, computed field methods.
-- Use `## Parameters` (H2) for object pages (anchor, match) and for subsections within a multi-table parameters section (e.g., a "Query group parameters" table nested under a top-level `# Parameters`).
-- Use `## Examples` and `# Notes` (H1) for their respective sections.
+- Use `## Parameters` (H2) for object pages (anchor, match) and for subsections within a multi-table parameters section (for example, a "Query group parameters" table nested under a top-level `# Parameters`).
+- Use `# Examples` and `# Notes` (H1) for their respective sections. (53 of 60 pages with an Examples section use H1.)
 
 ### When to add jump links
 
@@ -38,30 +38,42 @@ Note the backslash line break (not a blank line) between each link — this rend
 
 ## Frontmatter
 
-Always use this exact structure. Only `title` and `metadata.description` vary per page.
+Always use this exact structure. Only `title`, `excerpt`, and `metadata.description` vary per page.
 
 ```yaml
 ---
 title: Method Name
-excerpt: ''
+excerpt: 'Imperative phrase: what the reader does with this feature'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Short phrase describing what the method does'
+  description: 'Same text as excerpt'
   robots: index
 next:
   description: ''
 ---
 ```
 
-`metadata.description` is a short phrase (4–7 words), lowercase except for proper nouns. Examples: `'Extract labeled values'`, `'Extract repeating document sections'`, `'Limit extraction to page ranges'`.
+`excerpt` is the source of truth, and `metadata.description` holds the same text (it drives the meta description and `llms.txt`). Set both together. The excerpt:
+
+- Uses the imperative: the reader acts ("Extract…", not "Extracts…").
+- Doesn't name the page's own method, object, or setting, because the title already does. Overview pages that list several methods may name them.
+- Has no filler opener such as "Learn how to" or "How X works".
+- Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`).
+
+<!-- rule: sensible-excerpt-filler -->
+
+The excerpt is imperative, but the page's first body sentence is third person (see Voice and tone).
 
 ---
 
 ## Voice and tone
 
-**Opening paragraph:** Use imperative present tense. Start with a verb. Examples:
+**Opening paragraph:** Use third-person present tense. Start with the verb that says what the feature does. Examples:
+
+<!-- rule: sensible-opening-sentence -->
+
 - "Extracts lines or parts of lines proximate to the anchor point."
 - "Extracts data in a rectangular region, defined in inches."
 - "Merges lines distributed along a horizontal axis more aggressively than the built-in line merger."
@@ -69,7 +81,7 @@ next:
 - "Define your own computed field method using JsonLogic."
 - "Ignores pages outside the start page and end page."
 
-Acceptable variations when the imperative form is awkward:
+Acceptable variations when that form is awkward:
 - "This LLM-based method extracts repeating data..." (list method)
 - "Use the Conditional method to handle document variations..." (conditional method)
 
@@ -81,7 +93,7 @@ Do not start with "The X method..." as a default. Lead with what it does.
 
 **Tone:** Terse and precise. No filler. No "please note that" or "it's important to remember". State facts directly.
 
-**Em dashes:** Do not use em dashes to join compound clauses. Split them into two sentences instead.
+**Em dashes:** Do not use em dashes to join compound clauses. Split them into two sentences instead. <!-- rule: sensible-em-dash -->
 - Avoid: "a fixed layout — the same fields appear in the same positions across issuers."
 - Prefer: "a fixed layout. The same fields appear in the same positions across issuers."
 
@@ -104,7 +116,7 @@ The `anchor` page uses `values` (plural) as the second column header. Use `value
 
 ### Four-column table with interactions (complex LLM methods)
 
-For methods with many parameter interactions (e.g., query-group), add an `interactions` column:
+For methods with many parameter interactions (for example, query-group), add an `interactions` column:
 
 ```markdown
 | key | value | description | interactions |
@@ -156,7 +168,7 @@ This applies even though the JSON key is camelCase (`sortLines`, `textAlignment`
 ### Method and feature names in prose
 Capitalize method names and major feature names: "the Label method", "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
 
-**Never use camelCase with backticks for method or preprocessor names in running prose.** Convert to spaced Title Case instead:
+**Never use camelCase with backticks for method or preprocessor names in running prose.** Convert to spaced Title Case instead: <!-- rule: sensible-param-name-code -->
 
 | Wrong | Right |
 | ----- | ----- |
@@ -190,7 +202,10 @@ The standard authoring format for images is:
 
 Always use `![Click to enlarge]` as the alt text. Images live in `assets/images/final/`. Use the GitHub raw URL on the `v0` branch.
 
-Note: some existing pages use `<Image alt="Click to enlarge" border={false} src="..." />` (JSX syntax). This is a publishing artifact — use the standard markdown `![]()` syntax when authoring.
+Note: some existing pages use `<Image alt="Click to enlarge" border={false} src="..." />` (JSX syntax). This is a publishing artifact. Use the standard markdown `![]()` syntax when authoring docs pages. Changelogs are the exception: they use JSX (see `changelog-style-guide.md`).
+
+<!-- rule: sensible-image-syntax -->
+<!-- rule: sensible-image-url -->
 
 ---
 
@@ -265,7 +280,11 @@ This pattern appears in merge-lines and box pages. Use it when the example's pur
 
 ### Multiple examples
 
-Use H2 subheadings: `## Example: Descriptive name` or `## Example 1` / `## Example 2` when names aren't meaningful.
+Use H2 subheadings that name the use case as a short verb phrase: `## Remove page number lines`, `## Handwriting OCR`. Some existing pages use `## Example: Descriptive name` or `## Example 1`; keep that form when editing those pages, and use verb phrases for new pages.
+
+Give each distinct scenario its own example. Don't split one scenario into a "basic" and an "advanced" example: one well-chosen example that shows the feature teaches both.
+
+<!-- rule: sensible-example-per-scenario -->
 
 Preprocessor examples often omit the Example document section when the visual isn't necessary to understand the config.
 

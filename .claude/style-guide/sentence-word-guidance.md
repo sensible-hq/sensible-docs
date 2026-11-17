@@ -34,7 +34,7 @@ When a parameter accepts multiple distinct types with meaningfully different beh
 
 ### description column
 
-**Lead with what it does.** Don't start with "This parameter..." or "Use this to...". Start with a verb or noun phrase:
+**Lead with what it does.** Don't start with "This parameter..." or "Use this to...". Start with a verb or noun phrase: <!-- rule: sensible-param-cell-opener -->
 - "Specifies the direction of the target data relative to the anchor point."
 - "Filters out the specified lines from the method's output."
 - "The number of top-scoring document chunks Sensible combines as context."
@@ -70,11 +70,11 @@ When a method's table lists a global param for completeness, use this shorthand 
 
 ## Sentence construction
 
-**Prefer gerunds over nominalizations.** Use the verb form directly rather than a noun derived from it.
+**Prefer gerunds over nominalizations.** Use the verb form directly rather than a noun derived from it. <!-- rule: sensible-gerunds -->
 - Avoid: "automates the extraction of structured data"
 - Prefer: "automates extracting structured data"
 
-**Use explicit subjects in numbered steps.** Don't use imperative or passive voice in numbered-step lists. Use "You" for user actions and "Sensible" for platform behavior.
+**Use explicit subjects in "how it works" lists.** In a numbered list that explains how Sensible processes something, don't use imperative or passive voice. Use "You" for user actions and "Sensible" for platform behavior. Procedures the reader follows step by step ("Click **Publish**") use the imperative.
 - Avoid: "Upload documents via API, SDK, or email."
 - Avoid: "Documents are routed to a document type."
 - Prefer: "You upload documents via API, SDK, or email."
@@ -109,7 +109,7 @@ State null behavior explicitly when it's non-obvious:
 
 ## Notes and callouts
 
-Use `**Note:**` (bold inline) for important context within a section. Do not use `> ` blockquote syntax.
+Use `**Note:**` (bold inline) for important context within a section. Do not use `> ` blockquote syntax. <!-- rule: sensible-note-blockquote -->
 
 Standard note before layout-based method parameter tables:
 ```
@@ -145,13 +145,15 @@ For methods with many interdependencies, use the 4-column table format with an e
 - Inch measurements: decimal numbers with units — "0.2 inches", "0.1 inches", "0.08 inches". Not "two-tenths of an inch".
 - Zero-based indexes: always say "zero-based index" on first use.
 - Percentages: "90%" not "90 percent".
-- Fractions used in threshold descriptions: state as decimals — "0.667" not "two-thirds".
+- Fractions used in threshold descriptions: state as decimals, "0.667" not "two-thirds".
+
+<!-- rule: sensible-numbers -->
 
 ---
 
 ## Code examples: inline comments
 
-Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`. The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says.
+Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`. Fence code blocks as ` ```json `, never ` ```json5 `: ReadMe doesn't render `json5` fences. <!-- rule: sensible-code-fences --> The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says.
 
 Good: `/* Use a multimodal LLM to troubleshoot problems with OCR */`
 Good: `/* Ensure the document type's OCR Engine parameter is set to Google for this example */`
