@@ -1,4 +1,5 @@
 # Judgment spec for Jev. Registry entry: sensible-example-per-scenario in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
 id: sensible-example-per-scenario
 source:
   file: .claude/style-guide/style-guide-overview.md
@@ -17,7 +18,23 @@ check:
       by-difficulty: one scenario split into "basic" and "advanced"; merge into one well-chosen example
       merged: unrelated scenarios combined in one config; split them
       other: none of these
+  find:
+    kind: examples-section
+  verdicts:
+    violation:
+    - by-difficulty
+    - merged
 examples:
   fail: A "Basic example" and a "Custom computation group" example that use the same cells to show the same feature.
   pass: One bestselling-books example that shows the custom computation group and the basic extraction together.
 fix: 'one example per scenario: merge difficulty splits, split merged scenarios'
+calibration:
+  precision: 1.0
+  recall: 0.5
+  violations: 2
+  agreement: 0.75
+  choice_agreement: 1.0
+  cases: 4
+  model: jev-1.14.0
+  date: '2026-11-17'
+  labels: labels/sensible-example-per-scenario.yaml

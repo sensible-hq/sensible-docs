@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_scenario_first": {
+      "type": "choice",
+      "choice": "mechanism",
+      "confidence": 1.0,
+      "probabilities": {
+        "scenario": 0.0,
+        "mechanism": 1.0,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 402,
+    "output_tokens": 47
+  }
+}

@@ -3,7 +3,7 @@ name: create-new-doc
 description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about what's being added or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
 ---
 
 You are creating new sensible-docs reference pages based on a pull request from the sensible-hq/sensible engine repo.
@@ -66,6 +66,8 @@ For the example:
 After writing the page, update `index.md` for the category to include a link to the new page.
 
 ## Step 5 — Branch, commit, and open a PR
+
+Before committing, run `vale --minAlertLevel=warning <file>` and `python3 scripts/style/judge.py <file> --base origin/v0` on each page you changed. Fix Vale errors and warnings on your lines, and every judge `violation`. Read the judge's `unsure`, `review`, and `(advisory)` lines, and fix the ones you agree with. Exit code 3 means Jev was unavailable; say so in the PR body.
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 

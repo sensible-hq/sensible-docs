@@ -81,6 +81,23 @@ def check(registry: list[dict]) -> list[str]:
                 problems.append(f"{rid}: judgment spec {spec} lacks {', '.join(missing)}")
             if data.get("id") != rid:
                 problems.append(f"{rid}: judgment spec {spec} has id {data.get('id')}")
+            chk = data.get("check") or {}
+            kinds = {"sentences", "first-sentence", "section-openers", "vale", "added-tables", "added-headings",
+                     "changed-links", "json-blocks", "examples-section", "manual"}
+            if (chk.get("find") or {}).get("kind") not in kinds:
+                problems.append(f"{rid}: judgment spec {spec} has no check.find with a known kind")
+            criteria = set(((chk.get("question") or {}).get("criteria") or {}))
+            verdicts = chk.get("verdicts") or {}
+            if not verdicts.get("violation"):
+                problems.append(f"{rid}: judgment spec {spec} has no check.verdicts.violation")
+            for v in (verdicts.get("violation") or []) + (verdicts.get("review") or []):
+                if v not in criteria:
+                    problems.append(f"{rid}: verdict {v} isn't one of the question's criteria")
+            labels = path.parent / "labels" / f"{rid}.yaml"
+            if labels.is_file():
+                for case in (yaml.safe_load(labels.read_text()) or {}).get("cases") or []:
+                    if case.get("expected") not in criteria:
+                        problems.append(f"{rid}: label expects {case.get('expected')}, which isn't a criterion")
             src = data.get("source") or {}
             if src.get("file"):
                 src_path = ROOT / src["file"]

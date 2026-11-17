@@ -73,3 +73,21 @@ So changing a rule means changing the guide, the check, and the registry in the 
 - When two `.vale.ini` sections match a file, the later section wins. Changelog drafts (`drafts/*changelog*.md`) and blog drafts (`drafts/blog-*.md`) have their own sections after `[*.md]`.
 - Quote YAML tokens that contain `: `, or the rule fails to load. `test_rules.py` reports Vale load errors instead of missing alerts.
 - Vale exits 1 when it finds an error-level alert, so don't chain other commands after it with `&&`.
+
+## Judging the judgment rules with Jev
+
+`scripts/style/judge.py` runs the judgment rules on docs pages with TypeSafe's Jev:
+
+```bash
+python3 scripts/style/judge.py <file> [...] [--base origin/v0] [--rules id,...] [--dry-run]
+```
+
+1. **Code finds candidates.** Each spec's `check.find` names a detector: a regex over prose sentences, a Vale check, the page's first sentence, the first sentence under each heading, JSON code blocks, the Examples section, or, with `--base`, added tables, added headings, and changed links.
+2. **Jev answers the spec's multiple-choice question** about each candidate. The state is the candidate, its paragraph, and the page title. Jev returns a choice, a confidence, and probabilities, but no reasons; the choice names are the explanation.
+3. **Code decides.** A choice in `check.verdicts.violation` with confidence of at least 0.70 is a `violation`, and below that it's `unsure`. A choice in `verdicts.review` is `review`.
+
+A rule fails a run (exit 1) only when its calibration earned trust: on its labeled cases (`judgment/labels/<id>.yaml`), at least 90% of what it flagged was a real violation (precision), it found at least half of the labeled violations (recall), and there were at least 6 cases with 3 violations. Other rules print `(advisory)`. `scripts/style/calibrate.py --write` reruns calibration and stores the result in each spec. Precision comes first: a judge that flags good text teaches writers to ignore it.
+
+Jev isn't deterministic: the same request can come back with a different confidence. Tests replay recorded responses (`JEV_REPLAY`), so they're stable; record new ones with `JEV_RECORD`. A missing recording fails; it never passes. A live run needs `TYPESAFE_API_KEY` and costs $0.042 per million input tokens (about $0.0002 for four pages).
+
+The judge doesn't run in the write-time hook: a network call per edit is too slow, and judgment needs the whole change. The doc skills run it before committing.

@@ -1,4 +1,5 @@
 # Judgment spec for Jev. Registry entry: sensible-parent-link in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
 id: sensible-parent-link
 source:
   file: .claude/sessions/xml-postprocessor-docs/friction-log.md
@@ -19,7 +20,23 @@ check:
       too-specific: a general mention links one child page; link the parent index
       mismatch: the article or noun no longer agrees with the link ("a [postprocessors]"); fix the words
       other: none of these
+  find:
+    kind: changed-links
+  verdicts:
+    violation:
+    - too-specific
+    - mismatch
 examples:
   fail: Sensible returns [postprocessed](doc:json-postprocessor) output.
   pass: Sensible returns [postprocessed](doc:postprocessors) output.
 fix: link the parent index for a general mention, and make the article and noun agree
+calibration:
+  precision: 0.0
+  recall: 0.0
+  violations: 2
+  agreement: 0.5
+  choice_agreement: 0.5
+  cases: 4
+  model: jev-1.14.0
+  date: '2026-11-17'
+  labels: labels/sensible-parent-link.yaml

@@ -1,4 +1,5 @@
 # Judgment spec for Jev. Registry entry: sensible-opening-sentence in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
 id: sensible-opening-sentence
 source:
   file: .claude/style-guide/style-guide-overview.md
@@ -17,7 +18,30 @@ check:
       use-this: '"Use this method to…": right only when the user supplies the input (Extra Data); otherwise rewrite'
       mechanism: 'describes what the API returns: "Returns a value from…"; rewrite'
       other: none of these
+  find:
+    kind: first-sentence
+    paths:
+    - docs/Senseml reference/**
+    exclude_paths:
+    - '**/concepts/**'
+    - '**/index.md'
+    - '**/draft-*'
+  verdicts:
+    violation:
+    - mechanism
+    review:
+    - use-this
 examples:
   fail: Returns a value from an extra_data object you supply in an asynchronous request.
   pass: Extracts data in a rectangular region, defined in inches.
 fix: 'rewrite as third-person present: the verb that says what the feature does, then what it acts on'
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 3
+  agreement: 1.0
+  choice_agreement: 1.0
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-17'
+  labels: labels/sensible-opening-sentence.yaml

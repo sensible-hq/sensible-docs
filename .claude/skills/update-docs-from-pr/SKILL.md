@@ -3,7 +3,7 @@ name: update-docs-from-pr
 description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, Bash(vale:*)
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, Bash(vale:*), Bash(python3 scripts/style/judge.py:*)
 ---
 
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
@@ -104,6 +104,11 @@ The Vale hook already reports on each `docs/` page as you edit it. Before commit
 The glossary's avoid-terms are part of Vale's `Sensible.Terminology` rule. Terms that depend on context ("response", "section", "key") still need a read against `.claude/style-guide/glossary.md`.
 
 Don't run Vale on `reference/**/*.md`: those pages are generated from the OpenAPI JSON specs. Edit the JSON instead.
+
+Then run the Jev judge on the same files: `python3 scripts/style/judge.py <files> --base origin/v0`. It checks the judgment rules in `style-rules/judgment/` (opening sentence, explicit actor, scenario-first, and others) and needs `TYPESAFE_API_KEY`.
+- Fix every `violation`. These come only from rules whose calibration earned trust.
+- Read each `unsure`, `review`, and `(advisory)` line, and fix it if you agree. Leave it if you don't, and say why in the PR body.
+- Exit code 3 means Jev was unavailable. Say so in the PR body; it isn't a pass.
 
 Only proceed to the commit once all errors and warnings are resolved.
 

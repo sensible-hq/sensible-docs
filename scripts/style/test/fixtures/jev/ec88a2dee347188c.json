@@ -1,0 +1,20 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_parent_link": {
+      "type": "choice",
+      "choice": "durable",
+      "confidence": 0.2,
+      "probabilities": {
+        "durable": 0.4,
+        "too-specific": 0.23,
+        "mismatch": 0.33,
+        "other": 0.04
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 454,
+    "output_tokens": 54
+  }
+}

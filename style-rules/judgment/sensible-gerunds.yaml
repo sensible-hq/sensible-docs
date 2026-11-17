@@ -1,4 +1,5 @@
 # Judgment spec for Jev. Registry entry: sensible-gerunds in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
 id: sensible-gerunds
 source:
   file: .claude/style-guide/writing-rules.md
@@ -17,7 +18,24 @@ check:
       noun: the noun names a thing, not an action ("the configuration of this document type" meaning the config);
         fine
       other: none of these
+  find:
+    kind: sentences
+    pattern: \bthe \w+(?:tion|ment|ance)s? of\b
+    exclude: \bthe (?:result|end|rest|start|top|bottom) of\b
+  verdicts:
+    violation:
+    - nominalization
 examples:
   fail: Sensible automates the extraction of structured data.
   pass: Sensible automates extracting structured data.
 fix: replace 'the X-tion of Y' with the gerund 'X-ing Y'
+calibration:
+  precision: 1.0
+  recall: 0.25
+  violations: 4
+  agreement: 0.57
+  choice_agreement: 0.71
+  cases: 7
+  model: jev-1.14.0
+  date: '2026-11-17'
+  labels: labels/sensible-gerunds.yaml

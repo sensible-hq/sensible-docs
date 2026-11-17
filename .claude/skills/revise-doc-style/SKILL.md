@@ -3,10 +3,12 @@ name: revise-doc-style
 description: Revise a SenseML reference doc draft to match the house style. Applies rules for intro sentences, metadata, examples structure, JSON5 comment placement, and parameter descriptions.
 argument-hint: <path/to/draft.md>
 disable-model-invocation: true
-allowed-tools: Read, Edit, Write
+allowed-tools: Read, Edit, Write, Bash(python3 scripts/style/judge.py:*)
 ---
 
 Revise the doc at **$ARGUMENTS** to match the house style. Read the file first, then read `.claude/style-guide/writing-rules.md` for cross-cutting prose rules (em dashes, passive voice, explicit subjects, terminology, gerunds). Apply both those rules and the rules below, then write the file back. Report what you changed and flag any TODOs or unresolved questions you found (don't remove them — leave them in place for the author).
+
+After revising, run `python3 scripts/style/judge.py $ARGUMENTS` and include its `violation`, `unsure`, and `review` lines in your report. It needs `TYPESAFE_API_KEY`; exit code 3 means Jev was unavailable.
 
 ---
 

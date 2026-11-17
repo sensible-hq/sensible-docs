@@ -3,7 +3,7 @@ name: update-existing-doc
 description: Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If you're not sure whether to create or update, use update-docs-from-pr instead.
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
 ---
 
 You are updating existing sensible-docs pages based on a pull request from the sensible-hq/sensible engine repo. Your job is to make targeted, accurate edits — not to rewrite working content.
@@ -63,6 +63,8 @@ If the PR changes behavior the existing example exercises, update the example ou
 Don't rewrite sentences that are correct and well-phrased. Don't restructure sections that aren't affected by the PR. The scope of your edits should match the scope of the PR.
 
 ## Step 5 — Branch, commit, and open a PR
+
+Before committing, run `vale --minAlertLevel=warning <file>` and `python3 scripts/style/judge.py <file> --base origin/v0` on each page you changed. Fix Vale errors and warnings on your lines, and every judge `violation`. Read the judge's `unsure`, `review`, and `(advisory)` lines, and fix the ones you agree with. Exit code 3 means Jev was unavailable; say so in the PR body.
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 

@@ -1,0 +1,35 @@
+# Labeled cases for sensible-explicit-actor: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-explicit-actor
+cases:
+- text: When Anthropic is configured as the provider, Sensible uses Claude.
+  expected: user-hidden
+  source: writing-rules.md
+  labeled_by: claude
+- text: Documents are classified against the specified types.
+  expected: sensible-hidden
+  source: writing-rules.md
+  labeled_by: claude
+- text: Documents are routed to a document type.
+  expected: sensible-hidden
+  source: sentence-word-guidance.md
+  labeled_by: claude
+- text: The config is published when you click Publish.
+  expected: user-hidden
+  source: claude
+  labeled_by: claude
+- text: The parameter is optional when you specify an anchor.
+  expected: adjective
+  source: claude
+  labeled_by: claude
+- text: This setting is enabled by default.
+  expected: adjective
+  source: claude
+  labeled_by: claude
+- text: The region is defined in inches from the anchor.
+  expected: user-hidden
+  source: claude
+  labeled_by: claude
+- text: Extraction is complete when the status is COMPLETE.
+  expected: adjective
+  source: claude
+  labeled_by: claude
