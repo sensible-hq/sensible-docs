@@ -1,0 +1,7 @@
+extends: existence
+message: "Lead the description with what the parameter does, not '%s'."
+level: warning
+scope: table.cell
+tokens:
+  - '^(?:This parameter|Use this to)\b'
+  - '^Specifies the method type'
