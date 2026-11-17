@@ -13,7 +13,7 @@ Newest first.
 | 4 scripts | `scripts/style/` | 12 pytest tests pass |
 | 12 judgment specs | `style-rules/judgment/` | validated by `check_registry.py`, including their source quotes |
 | Write-time hook, before and after each edit | `.claude/hooks/vale_gate.py` | 6 hook tests; `vale-doctor.sh` all checks pass, including a pre-write denial |
-| Guide and skill edits | `.claude/` | 31 markers link guide text to the registry |
+| Guide and skill edits | `.claude/` | 50 markers link guide text to the registry |
 
 ### Corpus before and after (Vale, `docs/` + `reference/`, all levels)
 
