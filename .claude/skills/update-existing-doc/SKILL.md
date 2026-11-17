@@ -6,6 +6,8 @@ disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 You are updating existing sensible-docs pages based on a pull request from the sensible-hq/sensible engine repo. Your job is to make targeted, accurate edits — not to rewrite working content.
 
 Parse **$ARGUMENTS** as follows:
@@ -16,8 +18,8 @@ Parse **$ARGUMENTS** as follows:
 
 Run in parallel:
 ```
-gh pr view <pr-number> --repo sensible-hq/sensible --json title,body,files,commits
-gh pr diff <pr-number> --repo sensible-hq/sensible
+gh pr view <pr-number> --repo "$ENGINE_REPO" --json title,body,files,commits
+gh pr diff <pr-number> --repo "$ENGINE_REPO"
 ```
 
 Scan the PR body for related PR references (`follow up of`, `based on`, `see also`, `#NNNN`). Fetch any that add important context.
@@ -69,9 +71,9 @@ Before committing, run `vale --minAlertLevel=warning <file>` and `python3 script
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
 ```
-git -C ~/GitHub/sensible-docs pull
-git -C ~/GitHub/sensible-docs worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
-cd ~/GitHub/sensible-docs-<short-description>
+git -C "$DOCS_DIR" pull
+git -C "$DOCS_DIR" worktree add "$DOCS_DIR-<short-description>" -b fe_<short_description>_docs
+cd "$DOCS_DIR-<short-description>"
 git add <files>
 git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#<pr-number>.\n\n<Co-Authored-By line from this session's attribution instructions>"
 git push -u origin fe_<short_description>_docs

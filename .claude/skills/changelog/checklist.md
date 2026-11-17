@@ -56,7 +56,7 @@ Format the content to append:
 
 Check if the prs entry already exists:
 ```bash
-python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" --append < /tmp/prs_body.txt
+python $DOCS_DIR/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" --append < /tmp/prs_body.txt
 ```
 
 If it doesn't exist yet, create it (omit `--append`). The script auto-avoids slug conflicts.

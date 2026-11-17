@@ -3,13 +3,15 @@ name: changelog
 description: Generates and publishes a monthly Sensible product changelog. Invoke whenever the user wants to write, draft, or publish a monthly changelog, or mentions writing up a release summary given a list of PRs. The user will provide PR numbers (from the frontend or backend GitHub repo, or both) and optionally a list of doc topic URLs. The skill structures the input, fetches PR context, drafts the changelog in Sensible's house style, gets user approval, then publishes as a hidden draft to readme.com.
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 # Sensible Changelog Skill
 
 ## Repos
 
-- **Backend**: `sensible-hq/sensible`
-- **Frontend**: `sensible-hq/sensible-app`
-- **Docs**: `sensible-hq/sensible-docs`
+- **Backend**: `$ENGINE_REPO`
+- **Frontend**: `$APP_REPO`
+- **Docs**: `$DOCS_REPO`
 
 ---
 
@@ -86,9 +88,9 @@ Ignore boilerplate (checklists, "how to test", internal notes). Focus on user-fa
 **Complete all sub-steps for one PR before starting the next.** Batching these steps is the most common source of skipped research and missing doc links.
 
 Read these three files once before starting the loop — they apply to every entry:
-- `/home/franc/GitHub/sensible-docs/.claude/style-guide/changelog-style-guide.md`
-- `/home/franc/GitHub/sensible-docs/.claude/style-guide/writing-rules.md`
-- `/home/franc/GitHub/sensible-docs/.claude/preferences/editorial-preferences.md`
+- `$DOCS_DIR/.claude/style-guide/changelog-style-guide.md`
+- `$DOCS_DIR/.claude/style-guide/writing-rules.md`
+- `$DOCS_DIR/.claude/preferences/editorial-preferences.md`
 
 ---
 
@@ -99,15 +101,15 @@ Use the best available source in priority order:
 1. **Pasted doc content** — if the user pasted doc text directly, use it as-is.
 2. **Docs PR** — fetch body and diff:
    ```bash
-   gh pr view <number> --repo sensible-hq/sensible-docs --json title,body,files
-   gh pr diff <number> --repo sensible-hq/sensible-docs
+   gh pr view <number> --repo "$DOCS_REPO" --json title,body,files
+   gh pr diff <number> --repo "$DOCS_REPO"
    ```
    Use added lines (`+`) as the primary source.
 3. **Doc URL → local file** — derive the path from the slug:
    ```
    https://docs.sensible.so/docs/remove-lines → slug = "remove-lines"
-   Check: /home/franc/GitHub/sensible-docs/docs/remove-lines.md
-          /home/franc/GitHub/sensible-docs/reference/remove-lines.md
+   Check: $DOCS_DIR/docs/remove-lines.md
+          $DOCS_DIR/reference/remove-lines.md
    ```
 4. **Code PR body** — use the user-facing description from the backend/frontend PR.
 5. **MCP fallback** — `mcp__sensible-docs__search` with the feature name. Least reliable.
@@ -122,7 +124,7 @@ Do this if:
 
 ```bash
 grep -ril "<relevant terms>" \
-  /home/franc/GitHub/sensible-docs/.claude/skills/changelog/references/changelogs/
+  $DOCS_DIR/.claude/skills/changelog/references/changelogs/
 ```
 
 Read the matching section. Model the new entry on the same sentence structure, level of detail, and phrasing — update only the specifics. Record the source for the review step (`https://docs.sensible.so/changelog/<slug>`).
@@ -193,7 +195,7 @@ cat > /tmp/changelog_body.txt << 'CHANGELOG_EOF'
 <paste full body here>
 CHANGELOG_EOF
 
-python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py "March 2026" < /tmp/changelog_body.txt
+python $DOCS_DIR/.claude/skills/changelog/scripts/publish_changelog.py "March 2026" < /tmp/changelog_body.txt
 ```
 
 Flags:
@@ -208,7 +210,7 @@ The script handles auth, the POST/PUT request, and prints the draft URL on succe
 Use `scripts/update_section.py` when Frances has already edited the draft and you need to rewrite one section only:
 
 ```bash
-cat << 'EOF' | python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/update_section.py july-2026 "## Improvement: Advanced configurability"
+cat << 'EOF' | python $DOCS_DIR/.claude/skills/changelog/scripts/update_section.py july-2026 "## Improvement: Advanced configurability"
 ## Improvement: Advanced configurability for the Region method
 
 For the [Region](doc:region) method, you can now relax the criteria ...

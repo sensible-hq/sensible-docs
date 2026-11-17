@@ -6,6 +6,8 @@ disable-model-invocation: true
 allowed-tools: Bash(gh pr diff:*), Bash(gh pr view:*), Bash(python3:*), Bash(python:*), Glob, Read
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 You are uploading extractor test configs and golden PDFs from a sensible-hq/sensible pull request to the Sensible account.
 
 The PR number is: **$ARGUMENTS**
@@ -15,7 +17,7 @@ The PR number is: **$ARGUMENTS**
 Fetch the PR diff and identify any files added or modified under `extractors/`:
 
 ```
-gh pr diff $ARGUMENTS --repo sensible-hq/sensible
+gh pr diff $ARGUMENTS --repo "$ENGINE_REPO"
 ```
 
 Look for file paths matching `extractors/{customer}/{doctype}/...`. Collect each unique `{customer}/{doctype}` pair.

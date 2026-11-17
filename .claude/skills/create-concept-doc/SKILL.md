@@ -6,6 +6,8 @@ disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 You are writing a new concept topic page for the Sensible docs.
 
 Parse **$ARGUMENTS** as follows:
@@ -25,8 +27,8 @@ Run in parallel:
 
 **If a PR number was given:** Fetch it for context:
 ```
-gh pr view <pr-number> --repo sensible-hq/sensible --json title,body,files
-gh pr diff <pr-number> --repo sensible-hq/sensible
+gh pr view <pr-number> --repo "$ENGINE_REPO" --json title,body,files
+gh pr diff <pr-number> --repo "$ENGINE_REPO"
 ```
 
 ## Step 2 — Load your guidance
@@ -60,9 +62,9 @@ Before committing, run `vale --minAlertLevel=warning <file>` and `python3 script
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
 ```
-git -C ~/GitHub/sensible-docs pull
-git -C ~/GitHub/sensible-docs worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
-cd ~/GitHub/sensible-docs-<short-description>
+git -C "$DOCS_DIR" pull
+git -C "$DOCS_DIR" worktree add "$DOCS_DIR-<short-description>" -b fe_<short_description>_docs
+cd "$DOCS_DIR-<short-description>"
 git add docs/Senseml\ reference/concepts/<slug>.md docs/Senseml\ reference/concepts/_order.yaml
 git commit -m "docs: add <concept name> concept topic
 

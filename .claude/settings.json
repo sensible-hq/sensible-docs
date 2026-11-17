@@ -15,6 +15,16 @@
             "statusMessage": "Checking the edit against house style..."
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sandbox_guard.py",
+            "statusMessage": "Checking for writes to sensible-hq repos..."
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -29,5 +39,12 @@
         ]
       }
     ]
+  },
+  "env": {
+    "DOCS_REPO": "fscelliott/sensible-docs-private-test",
+    "DOCS_DIR": "/home/franc/GitHub/sensible-docs-private-test",
+    "ENGINE_REPO": "sensible-hq/sensible",
+    "APP_REPO": "sensible-hq/sensible-app",
+    "SOURCE_LABELS": "off"
   }
 }

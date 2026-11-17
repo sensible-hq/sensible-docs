@@ -46,7 +46,7 @@ For each section in the draft:
 2. Check whether a doc link exists in the section body.
 3. If a link is missing, find the relevant local file:
    ```bash
-   find /home/franc/GitHub/sensible-docs/docs -iname "*<slug>*" | grep -v ".claude"
+   find $DOCS_DIR/docs -iname "*<slug>*" | grep -v ".claude"
    ```
 4. If a doc page exists: add a `[text](doc:slug)` link — use "For more information, see [X](doc:x)" as a closing sentence if no natural inline placement exists.
 5. If no doc page exists: add a comment `<!-- DOC LINK NEEDED: no public page for [feature] -->` so it's visible in the readme.io draft.

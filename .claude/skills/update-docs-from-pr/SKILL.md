@@ -6,6 +6,8 @@ disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, Bash(vale:*), Bash(python3 scripts/style/judge.py:*)
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 You are updating the sensible-docs repo based on a pull request from the sensible-hq/sensible engine repo. This skill handles both updating existing pages and creating new pages — use it when you're not sure which is needed, or when a PR requires both.
 
 Parse **$ARGUMENTS** as follows:
@@ -16,13 +18,13 @@ Parse **$ARGUMENTS** as follows:
 
 Run these in parallel:
 ```
-gh pr view <pr-number> --repo sensible-hq/sensible --json title,body,files,commits
-gh pr diff <pr-number> --repo sensible-hq/sensible
+gh pr view <pr-number> --repo "$ENGINE_REPO" --json title,body,files,commits
+gh pr diff <pr-number> --repo "$ENGINE_REPO"
 ```
 
 Then scan the PR body for references to related PRs (look for phrases like "follow up of", "based on", "see also", or bare `#NNNN` links). Fetch any referenced PRs that add important context:
 ```
-gh pr view <related-pr-number> --repo sensible-hq/sensible --json title,body,files
+gh pr view <related-pr-number> --repo "$ENGINE_REPO" --json title,body,files
 ```
 
 Read all output carefully. Identify:
@@ -84,11 +86,11 @@ For each doc change needed, determine whether to:
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
-Create the branch in a worktree that sits next to the main repo, not with `git checkout -b`. Run from `~/GitHub/sensible-docs`:
+Create the branch in a worktree that sits next to the main repo, not with `git checkout -b`. Run from `$DOCS_DIR`:
 
 ```
 git pull
-git worktree add ../sensible-docs-<short-description> -b fe_<short_description>_docs
+git worktree add "$DOCS_DIR-<short-description>" -b fe_<short_description>_docs
 ```
 
 Then add the worktree path to `permissions.additionalDirectories` in `.claude/settings.json`, and do all remaining work in the worktree.

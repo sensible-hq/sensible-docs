@@ -3,6 +3,8 @@ name: api-spec
 description: Creates or updates OpenAPI JSON spec files in the /reference directory of sensible-docs, based on backend PRs from sensible-hq/sensible. Use this skill whenever the user provides PR numbers or GitHub URLs from the backend repo and wants to document new API endpoints, update existing endpoint schemas, or add new fields to an existing API reference. Also triggers when the user mentions "new API", "update the spec", "API reference from PRs", "write a spec for [feature]", or provides a list of PRs and asks to document them. This skill handles the end-to-end workflow: reading PRs, extracting API surface changes from diffs and Zod/TypeScript schemas, drafting OpenAPI 3.0.3 JSON, creating supporting markdown files, and updating _order.yaml navigation files.
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 # Sensible API Spec Skill
 
 **Docs repo**: `sensible-hq/sensible-docs` (local: `/home/franc/GitHub/sensible-docs`)  
@@ -17,7 +19,7 @@ description: Creates or updates OpenAPI JSON spec files in the /reference direct
 Accept PR numbers or GitHub URLs from `sensible-hq/sensible`. Fetch titles in parallel:
 
 ```bash
-gh pr view <number> --repo sensible-hq/sensible --json number,title,mergedAt
+gh pr view <number> --repo "$ENGINE_REPO" --json number,title,mergedAt
 ```
 
 Present a structured summary before doing any more work:
@@ -57,8 +59,8 @@ If the diff output is empty, the live API hasn't changed — either the PR isn't
 The probe script only observes response shapes. For request body changes (new parameters, new query params, new enum values) and to understand the semantics well enough to write good descriptions, also fetch and read the PR:
 
 ```bash
-gh pr view <number> --repo sensible-hq/sensible --json title,body,mergedAt,labels
-gh pr diff <number> --repo sensible-hq/sensible
+gh pr view <number> --repo "$ENGINE_REPO" --json title,body,mergedAt,labels
+gh pr diff <number> --repo "$ENGINE_REPO"
 ```
 
 From the diff, extract:
@@ -109,12 +111,12 @@ Do this before writing a single line of the spec. Read in parallel.
 
 Read the annotated template before writing anything:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/openapi_template.jsonc
+$DOCS_DIR/.claude/skills/api-spec/openapi_template.jsonc
 ```
 
 Also read the spec structure reference to understand existing schema relationships before drafting any changes:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/api-code-reference.md
+$DOCS_DIR/.claude/skills/api-spec/api-code-reference.md
 ```
 
 Use the schema relationship trees in `api-code-reference.md` to:
@@ -134,13 +136,13 @@ Use it as a skeleton — copy the relevant sections and replace placeholders. Fo
 Read both files before drafting any descriptions or excerpt text:
 
 ```
-/home/franc/GitHub/sensible-docs/.claude/style-guide/writing-rules.md
-/home/franc/GitHub/sensible-docs/.claude/style-guide/glossary.md
+$DOCS_DIR/.claude/style-guide/writing-rules.md
+$DOCS_DIR/.claude/style-guide/glossary.md
 ```
 
 Also read the parameter description guidance in:
 ```
-/home/franc/GitHub/sensible-docs/.claude/style-guide/sentence-word-guidance.md
+$DOCS_DIR/.claude/style-guide/sentence-word-guidance.md
 ```
 Focus on: "Parameter table: how to write each column" and "Sentence construction". The parameter table conventions don't apply literally (this isn't a SenseML page), but the underlying principles — lead with what it does, explicit subjects, gerunds over nominalizations — apply directly to OpenAPI schema property descriptions and endpoint `description` fields.
 
@@ -273,7 +275,7 @@ If the change is a minor description edit or a new property on a leaf schema (no
 Read `reference/_order.yaml` before editing to see current ordering:
 
 ```bash
-cat /home/franc/GitHub/sensible-docs/reference/_order.yaml
+cat $DOCS_DIR/reference/_order.yaml
 ```
 
 ---
@@ -313,13 +315,13 @@ Run them to generate output before Step 9.
 Before writing error-case or edge-case scripts, check what the backend test suite already covers so curl scripts extend coverage rather than duplicate it. Run:
 
 ```bash
-gh pr diff <number> --repo sensible-hq/sensible | grep -E "test|spec|describe|it\(" | head -60
+gh pr diff <number> --repo "$ENGINE_REPO" | grep -E "test|spec|describe|it\(" | head -60
 ```
 
 Or search the backend repo for test files related to the new endpoints:
 
 ```bash
-gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
+gh api repos/$ENGINE_REPO/git/trees/main?recursive=1 \
   | python3 -c "import json,sys; [print(f['path']) for f in json.load(sys.stdin)['tree'] if 'test' in f['path'] and 'email' in f['path']]"
 ```
 
