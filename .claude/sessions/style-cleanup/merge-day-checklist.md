@@ -24,6 +24,7 @@ For Frances. #808 (style system map), #822 (registry, Vale rules, write-time gat
 
 ## Merge
 
+- [ ] **Get an approval on #822 and #826 from someone else** (anyone with write access; you can't approve your own PRs). Review them yourself first and leave comments.
 - [ ] **Merge the stack in order: #808, #822, #826.** #822 targets `style-map` and #826 targets `style-cleanup`, so point each at `v0` before merging it. Use merge commits, not squash: a squashed PR leaves the next one with conflicts.
 
   ```bash
@@ -69,6 +70,8 @@ The copy (`fscelliott/sensible-docs-private-test`, cloned at `~/GitHub/sensible-
 - [ ] Pick fixes from the backlog in `.claude/sessions/style-cleanup/progress.md`: 56 `//` comments in JSON code blocks, a stale `Email extraction` entry in `docs/_order.yaml`, two integration pages missing from the sidebar order.
 
 ## Future sessions
+
+- [ ] **A separate GitHub identity for Claude-authored PRs.** You can't approve your own PRs, and you don't want to bypass the ruleset, so Claude's PRs need another author: a bot account or a GitHub App that `gh` authenticates as in Claude sessions. Then you review as a reviewer, and `protect_v0` no longer depends on your bypass. In the same change, rename `.github/CODEOWNERS.md` to `.github/CODEOWNERS`: GitHub ignores the `.md` name, so nobody is auto-requested today.
 
 - [ ] **Weekly sweep of the skills.** Implement a recurring sweep that repeats this work on whatever changed that week:
   - Inventory skills, templates, guides, memory, friction logs, and Vale rules (`design/style-system-map.md`, sections 1 and 7).
