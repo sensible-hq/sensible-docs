@@ -2,34 +2,34 @@
 
 UI tests use Doc Detective's own syntax, and Doc Detective runs them:
 
-    <!-- test {"testId": "app_document_types_page", "description": "..."} -->
-    <!-- step {...} -->
-    <!-- test end -->
+    {/* test {"testId": "app_document_types_page", "description": "..."} */}
+    {/* step {...} */}
+    {/* test end */}
 
 Code tests use their own wrapper, and code_tests.py runs them. Inside it, markers name where each
 part of the test comes from: `inline` parts are published on the page, a `fixture` is private and
 committed, and `expect` is written in the test itself.
 
-    <!-- code test {"testId": "extract_auto_insurance_anyco", "description": "..."} -->
-    <!-- inline document -->                       the next line's link is the document
-    <!-- inline document {"from": "<testId>"} -->  or reuse another code test's document
-    <!-- inline config -->                         the next code block is the SenseML config
-    <!-- inline config {"fragment": "field"} -->   or a one-field excerpt, run wrapped in {"fields": [...]}
-    <!-- inline output -->                         the next code block is the documented output
-    <!-- code test end -->
+    {/* code test {"testId": "extract_auto_insurance_anyco", "description": "..."} */}
+    {/* inline document */}                       the next line's link is the document
+    {/* inline document {"from": "<testId>"} */}  or reuse another code test's document
+    {/* inline config */}                         the next code block is the SenseML config
+    {/* inline config {"fragment": "field"} */}   or a one-field excerpt, run wrapped in {"fields": [...]}
+    {/* inline output */}                         the next code block is the documented output
+    {/* code test end */}
 
-A code test without <!-- inline document --> runs on a blank page (settings.BLANK_DOCUMENT_URL), for
+A code test without {/* inline document */} runs on a blank page (settings.BLANK_DOCUMENT_URL), for
 an example that doesn't read its document, such as a constant field and JsonLogic on it. Fixture,
 portfolio, and fingerprint tests still need a document.
 
 For claims the page makes in prose or in a table (for example, how fingerprints segment a
 portfolio), a code test runs a private fixture and checks an expectation written in the test:
 
-    <!-- code test {"testId": "...", "description": "...", "segment_documents_with": "fingerprints"} -->
-    <!-- inline document -->
-    <!-- fixture {"name": "<doc type name>"} -->     a doc type, its config, and a reference document; repeatable
-    <!-- expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} -->
-    <!-- code test end -->
+    {/* code test {"testId": "...", "description": "...", "segment_documents_with": "fingerprints"} */}
+    {/* inline document */}
+    {/* fixture {"name": "<doc type name>"} */}     a doc type, its config, and a reference document; repeatable
+    {/* expect {"compare": "documents", "documents": [["<config>", firstPage, lastPage], ...]} */}
+    {/* code test end */}
 
 `segment_documents_with` makes it a portfolio extraction, with the public API's parameter of the same
 name. A fixture's name is its doc type's name in the test account; code_tests.py finds it under the
@@ -40,18 +40,21 @@ A table of claims gets one tag, and one table test checks it, with a row entry f
 (like a Doc Detective test and its steps). The table itself has no markers, so it reads as usual. A
 row's keys are marker names with the same options, so a row converts to a code test and back:
 
-    <!-- table {"tableId": "portfolio_failures"} -->
+    {/* table {"tableId": "portfolio_failures"} */}
     | ... | ... |
-    <!-- table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints"} -->
-    <!-- inline document -->                       or {"from": "<testId>"}
-    <!-- row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} -->
-    <!-- table test end -->
+    {/* table test {"testId": "portfolio_failures_tests", "table": "portfolio_failures", "segment_documents_with": "fingerprints"} */}
+    {/* inline document */}                       or {"from": "<testId>"}
+    {/* row {"rowId": "last_test_fails", "fixture": {"name": "..."}, "expect": {"compare": "documents", "documents": [...]}} */}
+    {/* table test end */}
+
+Each kind of claim (the expect's "compare": documents, fingerprint, classification; no expect is
+"output") documents its own markup and rules in codetests/kinds/<kind>.py.
 
 The tag and the test must name each other, and the test needs one row entry per table row, in the
 table's order: adding or deleting a row without updating the test fails the run. Row content isn't
 compared; the tag is the hint that the table and the test change together.
 
-Test IDs must be unique across both kinds of test on a page. The old `<!-- example ... -->` markers
+Test IDs must be unique across both kinds of test on a page. The old `{/* example ... */}` markers
 and the "segment" option were renamed; using them fails with a message naming the new markup.
 """
 
@@ -69,7 +72,6 @@ MARKER_RE = re.compile(r"<!--\s*(inline\s+config|inline\s+document|inline\s+outp
 # Markers renamed from #737's first version: fail loudly rather than silently not running
 OLD_MARKER_RE = re.compile(r"<!--\s*example\s+(config|document|output)\b")
 ROLES = {"inline config": "config", "inline document": "document", "inline output": "output", "fixture": "fixture", "expect": "expect"}
-COMPARES = ("documents", "fingerprint")
 # A name for an inline sample's doc type or config: what the expected documents refer to
 NAME_RE = re.compile(r"[a-z0-9_]+")
 FENCE_RE = re.compile(r"\s*```[a-zA-Z0-9]*\n(.*?)\n```", re.S)
@@ -103,12 +105,12 @@ class CodeTest:
     blank_document: bool = False  # names no document, so it runs on settings.BLANK_DOCUMENT_URL
     fragment: bool = False  # the config is a one-field excerpt, wrapped for the run
     config_shift: int = 0  # lines the wrapper adds above the page's text, for syntax error line numbers
-    # Inline fingerprint samples, each run in its own temporary doc type: [{"doc_type", "config", "text", "line", "shift"}]
+    # Inline fingerprint samples, each run in its own sample doc type: [{"doc_type", "config", "text", "line", "shift"}]
     inline_configs: list = field(default_factory=list)
     segment_documents_with: str = ""  # set: a portfolio extraction, segmented this way (the API parameter)
     fixtures: list = field(default_factory=list)  # fixture names: doc type names in the test account
-    compare: str = ""  # "documents": compare portfolio page ranges with `expect`, not parsed_document
-    expect: object = None  # the expected documents, [[config, firstPage, lastPage], ...]
+    compare: str = ""  # the claim kind (codetests/kinds/), from expect's "compare"; "" is "output"
+    expect: object = None  # what the expect marker claims, as the kind's parse_expect returns it
     table: str = ""  # the tagged table this test's row belongs to
     row: str = ""  # "<n>: <rowId>", the row of that table this test checks
 
@@ -162,21 +164,13 @@ def wrap_fingerprint_fragment(text):
 
 
 def _expect(options, test_id, where):
-    """(compare, expected) from an expect marker's or row's options. For "documents", the expected
-    documents (or None: take them from the inline output); for "fingerprint", the options."""
+    """(compare, expected) from an expect marker's or row's options, checked by the claim kind."""
+    from . import kinds
+
     compare = options.get("compare")
-    if compare not in COMPARES:
-        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: expect needs \"compare\": one of {', '.join(COMPARES)} ({where})")
-    if compare == "fingerprint":
-        variants = options.get("variants", [])
-        if not isinstance(options.get("passes"), bool) or not isinstance(variants, list) or not all(
-            isinstance(v, dict) and isinstance(v.get("passes"), bool) and isinstance(v.get("break"), list) and v["break"]
-            and all(type(i) is int and i >= 0 for i in v["break"]) for v in variants
-        ):
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs \"passes\": true or false, and optional \"variants\": "
-                                f"[{{\"break\": [<test index>, ...], \"passes\": true or false}}] ({where})")
-        return compare, {"passes": options["passes"], "variants": variants}
-    return compare, options.get("documents")
+    if compare not in kinds.COMPARES:
+        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: expect needs \"compare\": one of {', '.join(kinds.COMPARES)} ({where})")
+    return compare, kinds.KINDS[compare].parse_expect(options, test_id, where)
 
 
 def _code_test(text, match, path):
@@ -240,37 +234,39 @@ def _code_test(text, match, path):
             test.output = fence.group(1)
             test.output_line = text.count("\n", 0, start)
             test.output_span = (start, offset + fence.end(1))
-    where = f"{path}, line {line}"
-    if "document" not in seen:
-        if test.segment_documents_with or test.fixtures or test.inline_configs or test.compare:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline document --> ({where}). Only a test that compares an "
-                                f"inline output can leave it out and run on a blank page")
-        # An example that doesn't read its document: run it on a blank page
-        test.document_url, test.blank_document = settings.BLANK_DOCUMENT_URL, True
-    if (test.segment_documents_with or test.fixtures or test.inline_configs) and test.compare != "documents":
-        raise CodeTestError(DOCS_MALFORMED, f"{test_id}: \"segment_documents_with\", <!-- fixture -->, and portfolio inline configs need <!-- expect {{\"compare\": \"documents\", ...}} --> ({where})")
-    if test.compare == "documents":
-        if not test.segment_documents_with or bool(test.fixtures) == bool(test.inline_configs) or test.config:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: an expect with compare \"documents\" needs \"segment_documents_with\", and either fixtures "
-                                f"or inline configs with \"doc_type\" and \"config\" ({where})")
-        if test.fixtures and test.output:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a fixture test takes its expected documents from expect, not an inline output ({where})")
-        if test.expect is None and not test.output:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: expect has no \"documents\" and there's no <!-- inline output --> to take them from ({where})")
-    elif test.compare == "fingerprint":
-        if not test.config or test.output:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: a \"fingerprint\" expect needs one <!-- inline config --> and no inline output ({where})")
-    else:
-        missing = {"config", "output"} - seen
-        if missing:
-            raise CodeTestError(DOCS_MALFORMED, f"{test_id}: missing <!-- inline {'/'.join(sorted(missing))} --> ({where})")
+    from . import kinds
+
+    kinds.of(test).validate(test, seen, f"{path}, line {line}")
     return test
 
 
-def parse_page(path):
-    """Read a page's UI tests and code tests, and check the markup rules."""
+# An MDX comment, `{/* ... */}`, outside code fences. ReadMe's editor saves a page's HTML comments in
+# this form, test markup included, so the runner reads both.
+MDX_COMMENT_RE = re.compile(r"\{/\*(\s)(.*?)\*/\}", re.S)
+FENCE_SPAN_RE = re.compile(r"^```.*?^```[^\n]*$", re.S | re.M)
+
+
+def read_page(path):
+    """A page's text, with each MDX comment outside code fences rewritten as an HTML comment of the
+    same length (`{/* ` to `<!--`, `*/}` to `-->`), so test markup reads the same in either form and
+    every offset and line number still points at the page as saved. Code fences are left alone:
+    SenseML configs in them use /* */ comments."""
     with open(path, encoding="utf-8") as f:
         text = f.read()
+    fences = [m.span() for m in FENCE_SPAN_RE.finditer(text)]
+
+    def html_comment(m):
+        if any(start <= m.start() < end for start, end in fences):
+            return m.group(0)
+        return "<!--" + m.group(2) + "-->"
+
+    return MDX_COMMENT_RE.sub(html_comment, text)
+
+
+def parse_page(path):
+    """Read a page's UI tests and code tests, and check the markup rules. Markup can be HTML
+    comments, `<!-- ... -->`, or MDX comments, `{/* ... */}` (see read_page)."""
+    text = read_page(path)
     page = Page(path)
     ids = {}  # test ID -> line where it's first defined
     old = OLD_MARKER_RE.search(text)
@@ -312,7 +308,7 @@ def parse_page(path):
     return page
 
 
-def _parse_block(test, role, text, line, shift, trailing_commas):
+def parse_block(test, role, text, line, shift, trailing_commas):
     """Parse a config or output block, or raise DOCS_MALFORMED at the page line of the problem.
     `shift` is the number of wrapper lines above the page's text (a wrapped fragment)."""
     try:
@@ -323,49 +319,36 @@ def _parse_block(test, role, text, line, shift, trailing_commas):
 
 
 def check_syntax(test):
-    """Return (config, documented output) parsed, or raise DOCS_MALFORMED with the doc line of the problem.
-    For a "documents" test: (None, expected documents). For a "fingerprint" test: (config, expect options).
+    """Return what the test runs, parsed and checked before any network call: (config, expected),
+    whose shapes depend on the claim kind (see its check()). Raises DOCS_MALFORMED with the doc line
+    of the problem."""
+    from . import kinds
 
-    Configs may have comments and trailing commas (Sensible accepts them). Output blocks may have
-    comments and `...`, but not trailing commas (Sensible never outputs them).
-    """
-    where = f"{test.file}, line {test.line}"
-    if test.compare == "documents":
-        for sample in test.inline_configs:
-            _parse_block(test, "config", sample["text"], sample["line"], sample["shift"], True)
-        expect = test.expect
-        if expect is None:
-            # The page's documented response: its documents' configs and page ranges are the claim
-            output = _parse_block(test, "output", test.output, test.output_line, 0, False)
-            documents = output.get("documents") if isinstance(output, dict) else None
-            if not isinstance(documents, list) or not all(isinstance(d, dict) and {"configuration", "startPage", "endPage"} <= set(d) for d in documents):
-                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: the inline output needs a \"documents\" list whose items have configuration, startPage, and endPage ({where})")
-            expect = [[d["configuration"], d["startPage"] + 1, d["endPage"] + 1] for d in documents]
-        if not isinstance(expect, list) or not all(
-            isinstance(d, list) and len(d) == 3 and isinstance(d[0], str)
-            and all(type(n) is int and n >= 1 for n in d[1:]) and d[1] <= d[2] for d in expect
-        ):
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: expect's documents must be a list of [config, firstPage, lastPage] with 1-based pages, firstPage <= lastPage ({where})")
-        names = {sample["config"] for sample in test.inline_configs}
-        unknown = sorted({d[0] for d in expect} - names) if test.inline_configs else []
-        if unknown:
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: the expected documents name config {unknown[0]!r}, which no inline config has ({where})")
-        for name in test.fixtures:
-            fixture_files(name)  # raises DOCS_MALFORMED if the fixture is missing
-            fixture_references(name)  # or has no reference document
-        return None, expect
-    if test.compare == "fingerprint":
-        config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
-        tests = (config.get("fingerprint") or {}).get("tests") if isinstance(config, dict) else None
-        if not isinstance(tests, list) or not tests:
-            raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: a \"fingerprint\" test's config needs fingerprint.tests ({where})")
-        for variant in test.expect["variants"]:
-            if max(variant["break"]) >= len(tests):
-                raise CodeTestError(DOCS_MALFORMED, f"{test.test_id}: variant breaks test {max(variant['break'])}, but the fingerprint has {len(tests)} tests (0-based) ({where})")
-        return config, test.expect
-    config = _parse_block(test, "config", test.config, test.config_line, test.config_shift, True)
-    output = _parse_block(test, "output", test.output, test.output_line, 0, False)
-    return config, output
+    return kinds.of(test).check(test)
+
+
+DOCUMENT_KEYS = ("file", "docs_pdf")
+
+
+def document_path(entry, folder):
+    """The resolved path of a file a test sends to Sensible (a reference document or a classification
+    request). `entry` names it with exactly one of "file", a path inside the fixture's `folder`, or
+    "docs_pdf", a file name in assets/pdfs/, used in place. Symlinks are resolved before checking that
+    it stays in its folder, so a page or manifest can't send other repo files (such as .env or
+    unscrubbed output). Raises ValueError otherwise."""
+    import os
+
+    if "pdf" in entry:
+        raise ValueError(f'"pdf" was replaced: use "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/)')
+    keys = [k for k in DOCUMENT_KEYS if k in entry]
+    if len(keys) != 1 or not isinstance(entry[keys[0]], str) or not entry[keys[0]]:
+        raise ValueError(f'needs exactly one of "file" (a file in the fixture\'s folder) or "docs_pdf" (a file name in assets/pdfs/), got {entry!r}')
+    base = folder if keys[0] == "file" else settings.DOCS_PDFS_DIR
+    name = entry[keys[0]]
+    path = os.path.realpath(os.path.join(base, name))
+    if os.path.isabs(name) or not path.startswith(os.path.realpath(base) + os.sep) or not os.path.isfile(path):
+        raise ValueError(f"{keys[0]} {name!r} must be a file in {os.path.relpath(base, settings.REPO_ROOT)}")
+    return path
 
 
 def fixture_dir(name):
@@ -410,7 +393,8 @@ def fixture_references(name):
     """The reference documents of fixture `name`, from the manifest.json in its folder.
 
     Every fixture doc type needs at least one, so it can be opened in the SenseML editor. Each is
-    {"name", "pdf" (repo-relative), "configuration"}, in the contract-test manifest's shape."""
+    {"name", "configuration", and "file" or "docs_pdf" (see document_path)}; the returned entries also
+    have "path", the resolved file."""
     import os
 
     doctype = name
@@ -429,21 +413,36 @@ def fixture_references(name):
     for ref in refs:
         if not REF_NAME_RE.fullmatch(ref.get("name", "")):
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref.get('name')!r} must start with {settings.FIXTURE_PREFIX!r} and use only letters, digits, _ . -")
-        pdf = os.path.realpath(os.path.join(settings.REPO_ROOT, ref.get("pdf", "")))
-        if not pdf.startswith(os.path.realpath(settings.FIXTURE_PDFS_DIR) + os.sep) or not pdf.endswith(".pdf"):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} must be a .pdf under {os.path.relpath(settings.FIXTURE_PDFS_DIR, settings.REPO_ROOT)}")
+        try:
+            path = document_path(ref, fixture_dir(name))
+        except ValueError as e:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r}: {e} ({os.path.relpath(manifest_file, settings.REPO_ROOT)})")
+        if os.path.splitext(path)[1] not in settings.REFERENCE_CONTENT_TYPES:
+            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must be one of {', '.join(settings.REFERENCE_CONTENT_TYPES)}")
         if ref.get("configuration") != config:
             raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document {ref['name']!r} must use config {config!r}, not {ref.get('configuration')!r}")
-        if not os.path.exists(os.path.join(settings.REPO_ROOT, ref.get("pdf", ""))):
-            raise CodeTestError(DOCS_MALFORMED, f"fixture {name!r}: reference document PDF {ref.get('pdf')!r} doesn't exist")
-    return refs
+    return [{**ref, "path": document_path(ref, fixture_dir(name))} for ref in refs]
 
 
-def editor_url(doctype, config, reference):
-    """The SenseML editor, opened on a fixture's config and reference document."""
+def editor_url(doctype, config, reference=None):
+    """The SenseML editor, opened on a config and (if there is one) a reference document."""
     from urllib.parse import urlencode
 
-    return "https://app.sensible.so/editor/?" + urlencode({"d": doctype, "c": config, "g": reference})
+    params = {"d": doctype, "c": config, **({"g": reference} if reference else {})}
+    return "https://app.sensible.so/editor/?" + urlencode(params)
+
+
+def local_pdf(url):
+    """The repo path of an example document linked from this repo's v0 branch, or None."""
+    import os
+
+    if not url.startswith(settings.DOCS_RAW_PREFIX):
+        return None
+    path = url[len(settings.DOCS_RAW_PREFIX):]
+    full = os.path.realpath(os.path.join(settings.REPO_ROOT, path))
+    if not full.startswith(os.path.realpath(settings.DOCS_PDFS_DIR) + os.sep) or not os.path.isfile(full):
+        return None
+    return path
 
 
 TABLE_TAG_RE = re.compile(r"<!--\s*table\s+(\{.*?\})\s*-->", re.S)

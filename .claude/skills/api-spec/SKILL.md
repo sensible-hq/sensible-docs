@@ -184,6 +184,11 @@ Every `description` field in the spec and every `excerpt` in a markdown stub is 
 - **Gerunds** (`writing-rules.md`): "automates extracting" not "automates the extraction of"
 - **Em dashes** (`writing-rules.md`): split compound clauses into two sentences instead
 - **Terse and precise**: no filler ("please note that", "it's important to remember")
+- **No file-support information in descriptions**: don't say in a `description` which file types an endpoint or parameter supports or doesn't, what a file type requires (a parameter, an encoding, a content type workaround), or how support differs by type. Link to [Supported file types](doc:file-types) instead, and put any new file-support fact on that page. File types are fine where they're structural or illustrative:
+  - `enum` values, `example` and `examples`, and `default`
+  - an example in prose, for example "specify the `Content-Type` header, for example, `application/pdf`", or "get Excel files from documents, for example from PDFs"
+  - a concept that really is file-specific, for example a portfolio (a PDF of several documents) or PDF metadata
+  - `x-internal-note`, which isn't published
 
 The `excerpt` in each markdown stub should be copied from the endpoint's `description` in the spec, not rewritten.
 
@@ -385,6 +390,8 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 
 ### Text edits
 - [ ] **Grep before committing**: Before committing any text change, grep the whole spec file for all instances of the pattern you're replacing — not just the one you found. A single phrase like "extracts against" can appear in schema descriptions, property descriptions, and examples across the file.
+
+- [ ] **File-support information**: grep each spec's descriptions for file type names (PDF, Word, XLSX, XLS, XLSM, XLSB, CSV, JPEG, PNG, TIFF) and content types. Any statement about which types are supported, or what a type requires, moves to the Supported file types page; the description links to it. Examples and file-specific concepts can stay (see "Prose quality in descriptions").
 
 ### Naming consistency
 - [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (e.g. `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.

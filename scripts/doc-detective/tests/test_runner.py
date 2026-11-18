@@ -71,11 +71,17 @@ class JudgeRoutingTest(RunnerTestCase):
         self.assertEqual(rec["llm_fields"][0]["judged"][0]["verdict"], "error")
         self.assertIn("- path: $.phone.value", rec["judge"]["user_prompt"])
 
-    def test_each_config_is_deleted_after_its_extraction(self):
+    def test_each_test_runs_in_its_own_sample_doc_type(self):
+        from codetests import samples
+
         test = code_test({})
         client = FakeClient({})
-        runner.run_code_test(test, client, judge=FakeJudge(), judge_key="k")
-        self.assertEqual((client.uploads, client.deleted), (["test"], ["test"]))
+        rec = runner.run_code_test(test, client, judge=FakeJudge(), judge_key="k")
+        name = f"{samples.prefix(test.file)}test"
+        self.assertEqual((client.types, client.uploads, client.doc_types), ({name: {"fingerprint_mode": "fallback_to_all"}}, ["test"], [name]))
+        self.assertEqual(samples.doc_types(test), [name])  # so cleanup keeps it until the next run
+        self.assertIn(f"d={name}&c=test", rec["editor"])
+        record.validate(rec)
 
     def test_unreachable_document(self):
         rec, _ = self.run_test({}, {}, status=404)
@@ -170,7 +176,7 @@ class SecretHandlingTest(RunnerTestCase):
 
     def test_unexpected_error_is_recorded_with_keys_redacted(self):
         class CrashingClient(FakeClient):
-            def upload_config(self, name, text):
+            def publish_config(self, type_id, name, text):
                 raise ValueError("Invalid header value: 'Bearer secret-123'")
 
         with mock.patch.dict(os.environ, {settings.SENSIBLE_KEY_VAR: "secret-123\n"}), \
@@ -181,38 +187,6 @@ class SecretHandlingTest(RunnerTestCase):
         self.assertIn("ValueError", rec["message"])
         self.assertNotIn("secret-123", rec["message"])
         self.assertIn("********", rec["message"])
-
-    def test_failed_cleanup_doesnt_raise(self):
-        import code_tests
-
-        class UndeletableClient(FakeClient):
-            def delete_doc_type(self):
-                raise RuntimeError("delete failed")
-
-        args = mock.Mock(keep=False)
-        with mock.patch("sys.stderr"):
-            code_tests.cleanup(args, UndeletableClient({}))  # must not raise
-
-    def test_cleanup_leaves_the_temp_doc_type_if_this_run_didnt_use_it(self):
-        """Another page's run may be using docs_ci_examples, so a run that never used it must not delete it."""
-        import code_tests
-
-        class TrackingClient(FakeClient):
-            deleted = False
-
-            def delete_doc_type(self):
-                TrackingClient.deleted = True
-                return True
-
-        client = TrackingClient({})
-        client.used_temp_doc_type = False
-        code_tests.cleanup(mock.Mock(keep=False), client)
-        self.assertFalse(TrackingClient.deleted)
-        client.used_temp_doc_type = True
-        with mock.patch("builtins.print"):
-            code_tests.cleanup(mock.Mock(keep=False), client)
-        self.assertTrue(TrackingClient.deleted)
-
 
 class SegmentRunTest(unittest.TestCase):
     """_run_segments against committed fixtures: page ranges compared exactly, in any order."""

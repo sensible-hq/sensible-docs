@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Docs test result",
+  "description": "One test's result, whatever ran it: a UI test, a code test, or another runner (written to output/results/<runner>.json as a list of these). report.html, the CI summary, the failure issue, saved results, and TEST-MATRIX.md read results. See codetests/results.py.",
+  "type": "object",
+  "required": ["test_id", "runner", "kind", "claim", "status"],
+  "additionalProperties": false,
+  "properties": {
+    "test_id": {"type": "string", "minLength": 1, "description": "Unique on the page."},
+    "runner": {"type": "string", "pattern": "^[a-z0-9_-]+$", "description": "What ran it: \"ui\" (Doc Detective), \"code\" (code_tests.py), or another runner's name, for example \"param-tables\"."},
+    "kind": {"type": "string", "minLength": 1, "description": "The kind of claim: \"ui\", a code test's claim kind (codetests/kinds/), or the runner's own, for example \"parameter table\"."},
+    "claim": {"type": "string", "description": "What the page claims that the test checks, in a sentence."},
+    "status": {"enum": ["pass", "warn", "fail", "not run"]},
+    "line": {"type": "integer", "minimum": 1, "description": "The test's line on the page, when its markup is on the page."},
+    "checked": {"type": "string", "description": "What it checked, briefly, for the CI summary."},
+    "details": {"type": "string", "description": "Link text for the test's section in report.html, unique to the test."},
+    "category": {"type": "string", "description": "A failure's category, for example OUTPUT_DRIFT."},
+    "message": {"type": "string", "description": "A failure's explanation."},
+    "warnings": {"type": "array", "items": {"type": "string"}},
+    "evidence": {
+      "type": "array",
+      "description": "Links to what shows the result: a log, an extraction, a spec, a schema.",
+      "items": {
+        "type": "object",
+        "required": ["label", "url"],
+        "additionalProperties": false,
+        "properties": {"label": {"type": "string"}, "url": {"type": "string"}}
+      }
+    }
+  }
+}

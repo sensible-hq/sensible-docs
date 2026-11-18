@@ -37,8 +37,7 @@ def _code_spec(test):
 def spec(path):
     """What the page's tests run, in a comparable form."""
     page = markup.parse_page(path)
-    with open(path, encoding="utf-8") as f:
-        text = f.read()
+    text = markup.read_page(path)
     tables = {}
     for tag in markup.TABLE_TAG_RE.finditer(text):
         tables[tag.group(1)] = markup._table_rows(text, tag.end())
@@ -54,14 +53,17 @@ def git(*args):
     return subprocess.run(["git", *args], check=True, capture_output=True, text=True).stdout
 
 
-def decide(page, before, after="HEAD", watch=()):
-    """(run, reason)."""
+def decide(page, before, after="HEAD", watch=(), ignore=(), changed=None):
+    """(run, reason). Files matching `ignore` (globs) don't count as changes, even if `watch` matches them.
+    `changed` is the push's changed files, if the caller already has them (or has narrowed them for this page)."""
     if not before or set(before) == {"0"}:
         return True, "no previous commit to compare with"
-    try:
-        changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f]
-    except subprocess.CalledProcessError:
-        return True, f"can't diff {before[:9]}..{after}"
+    if changed is None:
+        try:
+            changed = [f for f in git("diff", "--name-only", before, after).splitlines() if f]
+        except subprocess.CalledProcessError:
+            return True, f"can't diff {before[:9]}..{after}"
+    changed = [f for f in changed if not any(fnmatch.fnmatch(f, g) for g in ignore)]
     others = [f for f in changed if f != page and any(fnmatch.fnmatch(f, g) for g in watch)]
     if others:
         return True, f"the push changed {others[0]}" + (f" and {len(others) - 1} more file(s)" if len(others) > 1 else "")

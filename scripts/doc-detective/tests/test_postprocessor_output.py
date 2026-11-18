@@ -50,7 +50,7 @@ class ClientExtractTest(unittest.TestCase):
         client = sensible.SensibleClient("key")
         with mock.patch.dict(sys.modules, {"sensibleapi": types.SimpleNamespace(SensibleSDK=sdk)}), \
              mock.patch.object(client, "_wait", return_value={"status": "COMPLETE", "configuration": "t", **result}):
-            return client.extract("https://example.test/doc.pdf", "t", "ci__t.pdf")
+            return client.extract("https://example.test/doc.pdf", "docs_ci_sample_p__t", "t", "ci__t.pdf")
 
     def test_includes_postprocessor_output(self):
         self.assertEqual(self.extract({"parsed_document": PARSED, "postprocessorOutput": POSTPROCESSED}),

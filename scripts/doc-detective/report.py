@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Reports from a run's output: Doc Detective's UI test results plus the code-test records.
+"""Reports from a run's output: Doc Detective's UI test results, the code-test records, and other
+runners' results (output/results/<runner>.json; see codetests/results.py).
 
 Usage:
-  report.py html --page PAGE             write output/report.html
+  report.py html --page PAGE             write output/report.html; exit 1 if another runner's test failed
   report.py verify-ui --page PAGE        exit 1 if a UI test on the page has no Doc Detective result
   report.py issue [--run-url URL] [--pr-url URL] [--report-url URL]    print the failure issue body (Markdown)
   report.py summary --page PAGE [--run-url URL] [--report-url URL]     print the run summary (Markdown)
@@ -19,7 +20,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import markup, record, settings, usage  # noqa: E402
+from codetests import markup, record, results, settings, usage  # noqa: E402
 from codetests.reports import doc_detective, envelope_issue, html, issue, summary  # noqa: E402
 
 
@@ -58,18 +59,24 @@ def main():
 
     ui_results = doc_detective.load_results(args.output)
     records = record.load_all(os.path.join(args.output, "code-tests"))
+    other = results.load_other(args.output)
 
     if args.command == "html":
-        print(f"Wrote {html.render(args.page, ui_results, records, os.path.join(args.output, 'report.html'), usage_summary(args.output))}")
+        print(f"Wrote {html.render(args.page, ui_results, records, os.path.join(args.output, 'report.html'), usage_summary(args.output), other)}")
+        # UI and code tests fail the run themselves (run.sh); another runner's tests fail it here
+        failed = [r for r in other if r["status"] == "fail"]
+        for r in failed:
+            print(f"FAIL {r['test_id']} ({r['runner']})  {r.get('category', '')}: {r.get('message', '')}".rstrip(": "))
+        return 1 if failed else 0
     elif args.command == "verify-ui":
         problems = doc_detective.verify_ui(markup.parse_page(args.page), ui_results)
         for problem in problems:
             print(f"FAIL {problem}")
         return 1 if problems else 0
     elif args.command == "issue":
-        print(issue.body(ui_results, records, args.run_url, args.pr_url, args.report_url))
+        print(issue.body(ui_results, records, args.run_url, args.pr_url, args.report_url, other))
     elif args.command == "summary":
-        print(summary.body(args.page, ui_results, records, args.report_url, args.run_url))
+        print(summary.body(args.page, ui_results, records, args.report_url, args.run_url, other))
     else:
         print(json.dumps(envelope_issue.decide(records, args.run_url)))
     return 0

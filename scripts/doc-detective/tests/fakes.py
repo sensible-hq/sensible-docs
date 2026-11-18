@@ -28,12 +28,13 @@ CONFIG = {
 
 
 class FakeClient:
-    """Returns `parsed` for every extraction (or `by_url[url]`, for a URL in it); records what was
-    uploaded and which document URLs were extracted. With `postprocessor_output`, the fake response
+    """Returns `parsed` for every extraction (or `by_url[url]`, for a URL in it); records the sample doc
+    types created, the configs published, and which documents and doc types were extracted. With `postprocessor_output`, the fake response
     also carries a postprocessorOutput, combined with `parsed` the way SensibleClient.extract does."""
 
     def __init__(self, parsed, status=200, by_url=None, postprocessor_output=None):
-        self.parsed, self.status, self.uploads, self.deleted, self.extractions = parsed, status, [], [], 0
+        self.parsed, self.status, self.uploads, self.extractions = parsed, status, [], 0
+        self.types, self.references, self.doc_types = {}, [], []
         self.postprocessor_output = postprocessor_output
         self.by_url, self.urls = by_url or {}, []
         self.counts = {"requests": 0, "extractions": 0, "by_call": {}}
@@ -41,23 +42,25 @@ class FakeClient:
     def document_status(self, url):
         return self.status
 
-    def upload_config(self, name, text):
+    def create_sample_doc_type(self, name, schema=None):
+        self.types[name] = schema
+        return f"id-{name}"
+
+    def publish_config(self, type_id, name, text):
         self.uploads.append(name)
 
-    def extract(self, url, config_name, document_name):
+    def add_reference(self, type_id, name, config, pdf):
+        self.references.append((type_id, name, config, pdf))
+
+    def extract(self, url, doc_type, config_name, document_name):
         self.extractions += 1
         self.counts["extractions"] += 1
         self.urls.append(url)
+        self.doc_types.append(doc_type)
         parsed = self.by_url.get(url, self.parsed)
         if self.postprocessor_output is None:
             return parsed
         return sensible.actual_output({"parsed_document": parsed, "postprocessorOutput": self.postprocessor_output})
-
-    def delete_config(self, name):
-        self.deleted.append(name)
-
-    def delete_doc_type(self):
-        return True
 
 
 class FakeJudge:

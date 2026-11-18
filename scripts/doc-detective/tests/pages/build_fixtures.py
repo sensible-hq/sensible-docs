@@ -12,18 +12,18 @@ tutorial's PDF, for rehearsing a failure or an envelope breach:
 The altered PDFs are committed next to this script. Their links point at the branch in BRANCH,
 because Sensible fetches documents by URL; repoint it after the branch merges.
 
-Usage: python3 scripts/doc-detective/fixtures/build_fixtures.py
-Run a fixture: scripts/doc-detective/run.sh scripts/doc-detective/fixtures/getting-started-bad-premium.md
+Usage: python3 scripts/doc-detective/tests/pages/build_fixtures.py
+Run a fixture: scripts/doc-detective/run.sh scripts/doc-detective/tests/pages/getting-started-bad-premium.md
 """
 
 import os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(HERE))))
 PAGE = os.path.join(REPO_ROOT, "docs", "document extraction", "getting-started.md")
 BRANCH = "v0"
 REAL_PDF = "https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/auto_insurance_anyco.pdf"
-FIXTURE_URL = f"https://raw.githubusercontent.com/sensible-hq/sensible-docs/{BRANCH}/scripts/doc-detective/fixtures/"
+FIXTURE_URL = f"https://raw.githubusercontent.com/sensible-hq/sensible-docs/{BRANCH}/scripts/doc-detective/tests/pages/"
 
 FIXTURES = {
     "getting-started-bad-premium.md": ("auto_insurance_anyco_bad_premium.pdf",

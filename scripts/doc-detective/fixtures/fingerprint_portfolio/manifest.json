@@ -1,5 +1,5 @@
 {
-  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table 'Alternate wordings' tip, and 'Prefer match arrays to single-match tests' tip (PR #727). Same layout as the contract-test fixtures in PR #744 (fixtures/manifest.json, read by seed.py), but the docs-test runner reads this folder's manifest, so keep it here. Paths are relative to this file, except `pdf`, which is relative to the repo root. Each document type holds exactly one config so configs can't affect each other's segmentation. Fixture doc types and configs are prefixed `fixture_` so they aren't deleted by accident in the app; the code-test runner refuses fixtures without the prefix. Every fixture doc type has at least one reference document (also prefixed `fixture_`), so you can open it in the SenseML editor.",
+  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table and the 'Alternate wordings' and 'Prefer match arrays to single-match tests' tips (PR #727). Each document type holds exactly one config, so configs can't affect each other's segmentation. Fixture doc types, configs, and reference documents are prefixed `fixture_`, so nobody deletes them in the app by accident; the code-test runner refuses fixtures without the prefix. Every fixture doc type has at least one reference document, so you can open it in the SenseML editor. Paths are relative to this folder; a reference document is either `file` (in this folder) or `docs_pdf` (a file name in assets/pdfs/, used in place).",
   "document_types": [
     {
       "doctype": "fixture_fp_demo_first_fails.doctype.json",
@@ -14,8 +14,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_first_fails"
+          "configuration": "fixture_first_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -32,8 +32,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_last_fails"
+          "configuration": "fixture_last_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -50,8 +50,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_every_fails"
+          "configuration": "fixture_every_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -68,8 +68,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_any_fails"
+          "configuration": "fixture_any_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -86,8 +86,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_any_alternate"
+          "configuration": "fixture_any_alternate",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -104,8 +104,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_chained"
+          "configuration": "fixture_chained",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -122,8 +122,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_flat_array"
+          "configuration": "fixture_flat_array",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -140,8 +140,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_separate_tests"
+          "configuration": "fixture_separate_tests",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     },
@@ -158,8 +158,8 @@
       "references": [
         {
           "name": "fixture_portfolio",
-          "pdf": "assets/pdfs/portfolio.pdf",
-          "configuration": "fixture_auto"
+          "configuration": "fixture_auto",
+          "docs_pdf": "portfolio.pdf"
         }
       ]
     },
@@ -176,8 +176,8 @@
       "references": [
         {
           "name": "fixture_portfolio",
-          "pdf": "assets/pdfs/portfolio.pdf",
-          "configuration": "fixture_loss"
+          "configuration": "fixture_loss",
+          "docs_pdf": "portfolio.pdf"
         }
       ]
     },
@@ -194,8 +194,8 @@
       "references": [
         {
           "name": "fixture_portfolio_bank_paystub_tax",
-          "pdf": "assets/pdfs/portfolio_bank_paystub_tax.pdf",
-          "configuration": "fixture_every_split"
+          "configuration": "fixture_every_split",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
         }
       ]
     }

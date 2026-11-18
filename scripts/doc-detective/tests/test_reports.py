@@ -15,7 +15,7 @@ def make_record(documented, actual, match="pass"):
 
 
 def envelope_record(status, breaches=None, judged=None, verdict_status="pass"):
-    return {"test_id": "t", "file": "doc.md", "status": verdict_status,
+    return {"test_id": "t", "kind": "output", "file": "doc.md", "status": verdict_status,
             "envelope": {"status": status, "runs": 10, "built": "2026-10-01", "breaches": breaches or {}},
             "llm_fields": [{"field": "phone", "judged": judged or []}]}
 

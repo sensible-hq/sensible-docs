@@ -104,6 +104,11 @@ jobs:
         self.assertEqual(len(problems), 1)
         self.assertIn("$NEW_VAR", problems[0])
 
+    def test_unclassified_page_variable_in_mdx_markup(self):
+        problems = self.coverage(page='{/* step {"type": {"keys": "$NEW_VAR"}} */}\n')
+        self.assertEqual(len(problems), 1)
+        self.assertIn("$NEW_VAR", problems[0])
+
     def test_public_variable_is_accepted(self):
         self.assertEqual(self.coverage(page=self.PAGE, public=("NEW_VAR",)), [])
 
@@ -129,8 +134,7 @@ class RepoCoverageTest(unittest.TestCase):
 
     def test_covers_every_docs_test_workflow(self):
         names = [os.path.basename(f) for f in cs.workflow_files()]
-        self.assertIn("doc-detective-getting-started.yml", names)
-        self.assertIn("doc-tests-fingerprint.yml", names)
+        self.assertIn("doc-tests.yml", names)
 
     def test_runner_key_variables_are_registered(self):
         from codetests import settings
