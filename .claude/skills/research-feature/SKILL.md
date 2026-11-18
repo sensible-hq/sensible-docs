@@ -1,7 +1,7 @@
 ---
 name: research-feature
 description: Research why a Sensible feature exists, starting from its engine or app PR. Reads the PR, any example extractor or uploaded example, and related Notion pages, Slack threads, and GitHub issues and PRs, then reports the customer need the feature fills, a real-world use case, the problem it solves for a user, and a 2–4 sentence summary of what it does. Invoke when Frances asks what a feature is for, who asked for it, or why it matters, usually before writing its docs.
-argument-hint: <pr-number-or-url> [example: path, editor URL, or doc type names]
+argument-hint: "<pr-number-or-url> [example: path, editor URL, or doc type names]"
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh issue view:*), Bash(gh search:*), Bash(gh api:*), Bash(git -C:*), Read, Glob, Grep, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Slack__slack_search_public_and_private, mcp__claude_ai_Slack__slack_search_public, mcp__claude_ai_Slack__slack_read_thread, mcp__claude_ai_Slack__slack_read_channel
 ---
 
