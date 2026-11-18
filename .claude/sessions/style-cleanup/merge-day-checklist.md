@@ -1,6 +1,6 @@
 # Merge day: style cleanup (2026-11-18)
 
-For Frances. #808 (style system map) and #822 (registry, Vale rules, write-time gate, Jev judge, repo variables) are ready, mergeable, and passing CI. Work top to bottom; each step says what to check before moving on.
+For Frances. #808 (style system map), #822 (registry, Vale rules, write-time gate, Jev judge, repo variables), and #826 (doc comparison rubric) are ready. Work top to bottom; each step says what to check before moving on.
 
 ## Before merging
 
@@ -24,12 +24,14 @@ For Frances. #808 (style system map) and #822 (registry, Vale rules, write-time 
 
 ## Merge
 
-- [ ] **Merge #808, point #822 at `v0`, merge #822.** Use merge commits, not squash: a squashed #808 leaves #822 with conflicts.
+- [ ] **Merge the stack in order: #808, #822, #826.** #822 targets `style-map` and #826 targets `style-cleanup`, so point each at `v0` before merging it. Use merge commits, not squash: a squashed PR leaves the next one with conflicts.
 
   ```bash
   gh pr merge 808 -R sensible-hq/sensible-docs --merge
   gh api -X PATCH repos/sensible-hq/sensible-docs/pulls/822 -f base=v0
   gh pr merge 822 -R sensible-hq/sensible-docs --merge
+  gh api -X PATCH repos/sensible-hq/sensible-docs/pulls/826 -f base=v0
+  gh pr merge 826 -R sensible-hq/sensible-docs --merge
   ```
 
   (`gh pr edit --base` fails on gh 2.45, hence the API call.)
@@ -65,3 +67,13 @@ The copy (`fscelliott/sensible-docs-private-test`, cloned at `~/GitHub/sensible-
 - [ ] Export Toggl (detailed report CSV), then `python3 scripts/style_baseline/pr_metrics.py --since 2026-06-01 --toggl <file>`.
 - [ ] Remove the worktrees once merged: `sensible-docs-style-map`, `sensible-docs-style-cleanup`, `sensible-docs-style-jev`, `sensible-docs-repo-vars`, `sensible-docs-remove-test-docs`.
 - [ ] Pick fixes from the backlog in `.claude/sessions/style-cleanup/progress.md`: 56 `//` comments in JSON code blocks, a stale `Email extraction` entry in `docs/_order.yaml`, two integration pages missing from the sidebar order.
+
+## Future sessions
+
+- [ ] **Weekly sweep of the skills.** Implement a recurring sweep that repeats this work on whatever changed that week:
+  - Inventory skills, templates, guides, memory, friction logs, and Vale rules (`design/style-system-map.md`, sections 1 and 7).
+  - Find contradictions and duplicated rules, including guide text whose registry quote no longer matches (`scripts/style/check_registry.py`).
+  - For each rule still carried only in prose, decide whether it can move to a more deterministic path (a Vale rule or a script) or a more certain one (a Jev judgment spec with calibration), and add it to the registry.
+  - Report the corrections recorded that week that aren't encoded yet, as rows in the correction inventory.
+
+  Decide in that session where it runs (a scheduled Claude routine, or a CI job plus a short report) and what it may change on its own versus only propose.
