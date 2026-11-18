@@ -1,10 +1,10 @@
 <!-- Draft example for the OCR preprocessor's Omit parameter (sensible-hq/sensible#3519).
      Destination: the Examples section of docs/Senseml reference/preprocessors/ocr-preprocessor.md.
-     Proposed rename: omit -> expectMatch. Update the config if the rename lands. -->
+     Eng agreed to rename omit -> ocrIfMissing in a future release. Update the config when the rename ships. -->
 
 ## Example: OCR when expected text is missing
 
-The following example shows how to OCR an insurance quote only when its premium table isn't readable as embedded text. Insurance agents often paste a screenshot of the carrier's premium table into an otherwise digital quote, so the premium amounts aren't in the document's embedded text. The config checks for the text "Total Premium". If Sensible doesn't find it, it OCRs every page, and then extracts the premiums from the screenshot. If Sensible finds it, it skips OCR, so you don't pay to OCR quotes that don't need it.
+The following example shows how to OCR an insurance quote only when its premium table isn't readable as embedded text. In the example quote, the premium table is a screenshot from the carrier's portal, so the premium amounts aren't in the document's embedded text. The config checks for the text "Total Premium". If Sensible doesn't find it, it OCRs every page, and then extracts the premiums from the screenshot. If Sensible finds it, it skips OCR, so you don't pay to OCR quotes that don't need it.
 
 **Config**
 
