@@ -41,10 +41,10 @@
     ]
   },
   "env": {
-    "DOCS_REPO": "fscelliott/sensible-docs-private-test",
-    "DOCS_DIR": "/home/franc/GitHub/sensible-docs-private-test",
+    "DOCS_REPO": "sensible-hq/sensible-docs",
+    "DOCS_DIR": "/home/franc/GitHub/sensible-docs",
     "ENGINE_REPO": "sensible-hq/sensible",
     "APP_REPO": "sensible-hq/sensible-app",
-    "SOURCE_LABELS": "off"
+    "SOURCE_LABELS": "on"
   }
 }

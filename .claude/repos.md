@@ -2,15 +2,15 @@
 
 The skills don't name repos or local paths directly. They use these environment variables, which `.claude/settings.json` sets for every Bash command in a Claude Code session started in this repo:
 
-| variable | now | upstream value | what it is |
-| -------- | --- | -------------- | ---------- |
-| `DOCS_REPO` | `fscelliott/sensible-docs-private-test` | `sensible-hq/sensible-docs` | where docs branches, PRs, and issues go |
-| `DOCS_DIR` | `/home/franc/GitHub/sensible-docs-private-test` | `/home/franc/GitHub/sensible-docs` | the local clone of `DOCS_REPO`; worktrees go beside it as `$DOCS_DIR-<slug>` |
+| variable | value | test-copy value | what it is |
+| -------- | ----- | --------------- | ---------- |
+| `DOCS_REPO` | `sensible-hq/sensible-docs` | `fscelliott/sensible-docs-private-test` | where docs branches, PRs, and issues go |
+| `DOCS_DIR` | `/home/franc/GitHub/sensible-docs` | `/home/franc/GitHub/sensible-docs-private-test` | the local clone of `DOCS_REPO`; worktrees go beside it as `$DOCS_DIR-<slug>` |
 | `ENGINE_REPO` | `sensible-hq/sensible` | same | engine PRs the skills read |
 | `APP_REPO` | `sensible-hq/sensible-app` | same | app PRs the skills read |
-| `SOURCE_LABELS` | `off` | `on` | whether `close-docs-pr` swaps `doc_changes_needed` for `docs_done` on engine and app PRs |
+| `SOURCE_LABELS` | `on` | `off` | whether `close-docs-pr` swaps `doc_changes_needed` for `docs_done` on engine and app PRs |
 
-The current values point at a private test copy, so the doc skills can be tried on real engine PRs without touching `sensible-hq/sensible-docs`. To point back upstream, set the upstream values and remove the sandbox guard entry from `PreToolUse` in `.claude/settings.json`.
+To test the doc skills on real engine PRs without touching this repo, use a private copy: set the test-copy values in that copy's `.claude/settings.json`. The sandbox guard below then blocks writes to `sensible-hq` repos.
 
 ## Sandbox guard
 
