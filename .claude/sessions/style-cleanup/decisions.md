@@ -61,7 +61,7 @@ Found while testing; recorded in `style-rules/README.md`.
 
 ## D-013 One hook script for two events, replacing `vale-check.sh`
 
-The `vale-setup` memory records Vale as one `PostToolUse` hook plus CI, with no new integrations. `vale_gate.py` keeps one script and one Vale config, but it adds a `PreToolUse` entry, because checking text before it lands is the point of write-time enforcement. The pre-write gate denies only on rules with `gate: block` in the registry (em dashes, Latin abbreviations, model names, UI names, draft links, code fences), and lets an edit through after 3 denials on one file. To go back to the old shape, delete the `PreToolUse` entry in `.claude/settings.json`; the `PostToolUse` half still works alone. If this is kept, update the `vale-setup` memory.
+The `vale-setup` memory records Vale as one `PostToolUse` hook plus CI, with no new integrations. `vale_gate.py` keeps one script and one Vale config, but it adds a `PreToolUse` entry, because checking text before it lands is the point of write-time enforcement. The pre-write gate denies only on rules with `gate: block` in the registry (em dashes, Latin abbreviations, model names, UI names, draft links, code fences), and lets an edit through after 3 denials on one file. To go back to the old shape, delete the `PreToolUse` entry in `.claude/settings.json`; the `PostToolUse` half still works alone. Frances chose to keep it on 2026-11-18, and the `vale-setup` memory now describes this shape.
 
 ## D-014 The registry check runs in the existing pytest workflow
 
@@ -91,5 +91,5 @@ If this PR merges, these memories should shrink to pointers, so the rule lives i
 | `feedback_excerpt_rules` | Point at `style-guide-overview.md` (Frontmatter) and `scripts/style/check_excerpts.py`. |
 | `feedback_anthropic_model_naming`, `project_label_method_near_deprecated` | Point at `sensible-model-names` (blocked by the hook) and `sensible-label-method`. |
 | `feedback_full_style_pass` | Shrink: the hook and CI enforce the deterministic rules. Keep "copy sibling wording", now `sensible-copy-sibling-wording`. |
-| `project_vale_setup` | Update if D-013 stands: one hook script, two events (`vale_gate.py`), plus CI. |
+| `project_vale_setup` | Done 2026-11-18. |
 | `blog_post_template` | Delete: it duplicates `.claude/style-guide/blog-post-template.md`. |
