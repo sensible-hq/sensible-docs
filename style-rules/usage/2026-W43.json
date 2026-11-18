@@ -1,0 +1,483 @@
+{
+ "week": "2026-W43",
+ "from": "2026-10-19",
+ "to": "2026-10-25",
+ "sessions": 3,
+ "default_branch": "origin/v0",
+ "rules": {
+  "Google.Ellipses": {
+   "checks": [
+    "Google.Ellipses"
+   ],
+   "firings": 1,
+   "acted": 0,
+   "ignored": 1,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Exclamation": {
+   "checks": [
+    "Google.Exclamation"
+   ],
+   "firings": 4,
+   "acted": 1,
+   "ignored": 3,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.FirstPerson": {
+   "checks": [
+    "Google.FirstPerson"
+   ],
+   "firings": 5,
+   "acted": 0,
+   "ignored": 5,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Headings": {
+   "checks": [
+    "Google.Headings"
+   ],
+   "firings": 1,
+   "acted": 0,
+   "ignored": 1,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Quotes": {
+   "checks": [
+    "Google.Quotes"
+   ],
+   "firings": 1,
+   "acted": 0,
+   "ignored": 1,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Spacing": {
+   "checks": [
+    "Google.Spacing"
+   ],
+   "firings": 7,
+   "acted": 0,
+   "ignored": 7,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.We": {
+   "checks": [
+    "Google.We"
+   ],
+   "firings": 5,
+   "acted": 0,
+   "ignored": 5,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Vale.Avoid": {
+   "checks": [
+    "Vale.Avoid"
+   ],
+   "firings": 1,
+   "acted": 0,
+   "ignored": 1,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Vale.Spelling": {
+   "checks": [
+    "Vale.Spelling"
+   ],
+   "firings": 5,
+   "acted": 0,
+   "ignored": 5,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "sensible-word-list": {
+   "checks": [
+    "Google.WordListCase",
+    "Sensible.WordList"
+   ],
+   "firings": 10,
+   "acted": 0,
+   "ignored": 10,
+   "unknown": 0,
+   "reverted": 0,
+   "pushback": 0
+  }
+ },
+ "guide_reads": {},
+ "firings": [
+  {
+   "session": "4869d9e6",
+   "file": "docs/welcome/overview.md",
+   "check": "Google.Exclamation",
+   "source": "post",
+   "outcome": "acted",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/welcome/overview.md",
+   "check": "Vale.Spelling",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/welcome/overview.md",
+   "check": "Vale.Avoid",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/welcome/overview.md",
+   "check": "Vale.Spelling",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Sensible.WordList",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Vale.Spelling",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Sensible.WordList",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Sensible.WordList",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.FirstPerson",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.FirstPerson",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.FirstPerson",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.FirstPerson",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.FirstPerson",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/integrations/getting-started-email.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.We",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.We",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Exclamation",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Exclamation",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Headings",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.We",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Sensible.WordList",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Quotes",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Exclamation",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Vale.Spelling",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.WordListCase",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.We",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.We",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Google.Spacing",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/getting-started.md",
+   "check": "Vale.Spelling",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "4869d9e6",
+   "file": "docs/document extraction/library-quickstart.md",
+   "check": "Google.Ellipses",
+   "source": "post",
+   "outcome": "ignored",
+   "reverted": false,
+   "pushback": false
+  }
+ ]
+}

@@ -1,0 +1,327 @@
+{
+ "week": "2026-W42",
+ "from": "2026-10-12",
+ "to": "2026-10-18",
+ "sessions": 2,
+ "default_branch": "origin/v0",
+ "rules": {
+  "Google.Acronyms": {
+   "checks": [
+    "Google.Acronyms"
+   ],
+   "firings": 15,
+   "acted": 0,
+   "ignored": 0,
+   "unknown": 15,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Parens": {
+   "checks": [
+    "Google.Parens"
+   ],
+   "firings": 2,
+   "acted": 0,
+   "ignored": 0,
+   "unknown": 2,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "Google.Units": {
+   "checks": [
+    "Google.Units"
+   ],
+   "firings": 1,
+   "acted": 0,
+   "ignored": 0,
+   "unknown": 1,
+   "reverted": 0,
+   "pushback": 0
+  },
+  "sensible-word-list": {
+   "checks": [
+    "Google.WordListCase",
+    "Sensible.WordList"
+   ],
+   "firings": 12,
+   "acted": 0,
+   "ignored": 0,
+   "unknown": 12,
+   "reverted": 0,
+   "pushback": 0
+  }
+ },
+ "guide_reads": {},
+ "firings": [
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Parens",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Parens",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Acronyms",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.Units",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Google.WordListCase",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  },
+  {
+   "session": "dd249a56",
+   "file": "docs/Senseml reference/concepts/file-types.md",
+   "check": "Sensible.WordList",
+   "source": "pr-hook",
+   "outcome": "unknown",
+   "reverted": false,
+   "pushback": false
+  }
+ ]
+}
