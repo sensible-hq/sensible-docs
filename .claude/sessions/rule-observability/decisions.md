@@ -43,3 +43,43 @@ Pass lines are short and often trip suggestion-level Google rules (Passive, Acro
 ## RO-011 The "Vale: N alert(s) in the docs this PR changes" hook isn't in any repo
 
 It fired on every Bash call in session `1e71441a` (the xlsb worktree, now deleted) and produced most of the 566 WordList mentions. No copy remains in this repo's history, `~/.claude`, or the other worktrees, so it can't be fixed here. The usage parser counts its alerts once per session.
+
+## RO-012 Weekly usage files hold counts only
+
+The repo is public. `style-rules/usage/<week>.json` holds rule ids, docs paths, sources, and outcomes. Frances's messages and the agent's text never leave her machine; the pushback excerpts appear only in the local report the skill opens.
+
+## RO-013 Usage is collected per ISO week, Monday to Sunday UTC
+
+A rolling "last 7 days" would overlap from one run to the next. The default is the last complete week; `--week` backfills any week still within the 30-day transcript window. W42 to W46 were backfilled; W41 had no sessions left.
+
+## RO-014 The hook reports each alert once per session
+
+Keyed by rule, message, and the text of the flagged line, so an edit that moves the line doesn't bring the alert back. The report adds a count of alerts still open. A false positive Claude chose to keep stops costing a re-read after every edit; a new session hears about it again.
+
+## RO-015 "Email" leaves Google.WordListCase
+
+The entry `(?:e-mail|Email|E-mail)` with `ignorecase: true` flagged every capitalized "Email" at the start of a sentence, table cell, or bold label (file-types.md had 3). The entry now targets the hyphenated forms only. A mid-sentence "Email" is no longer caught; that's rarer than the false positive.
+
+## RO-016 The judge gates on probability, not confidence
+
+TypeSafe's guidance: confidence measures how concentrated an answer is, not whether it's right. A violation is now the violation choices' probabilities summing to 0.70; unsure from 0.30 or when the top choice is a violation. Recalibrated from the existing recordings (no request changed): gerunds became trusted (recall 0.25 to 0.50 on 7 cases), no-table lost precision (1.00 to 0.67, still advisory). Gerunds can now fail a run on 7 Claude-written labels; worth a look when the labels are reviewed.
+
+## RO-017 Keep `other`; no companion question yet
+
+`probe_companion.py` asked each labeled case three ways (with `other`, without it, and with a yes-or-no "does any choice fit?"). Verdict agreement: 0.79 with `other`, 0.80 without, over 100 cases; `other` takes 2% of the probability on average. No label expects "nothing fits", so the probe can't show what the companion question would catch. Revisit when labels include null cases. Cost: $0.003.
+
+## RO-018 Two choice names collided; renamed
+
+`mechanism` meant "describes what the API returns" in opening-sentence and "starts with configuration" in scenario-first; opening-sentence's is now `returns-output`. label-method's `other` meant "no, or the page is about Label" (a pass), unlike every other spec's `other`; it's now `not-listed`, with `other` added back as "none of these". Both rules were re-recorded live; calibration unchanged.
+
+## RO-019 Relations: four pairs resolved, two detectors fixed
+
+The first live relations run (64 rules, 4,032 directed pairs, $0.033) called four pairs conflicting. Two were real tensions in detectors: no-table's added-tables detector would flag the standard example download table, and integrate-before-heading's added-headings detector would flag example headings. Both detectors now skip those. The other two (heading levels and example headings; Label and method-name capitals) are compatible. All four are recorded under `relations` with reasons, for Frances to review. A relations recording covers a rule against the statements as they were; changing any statement means re-recording the new rule's relations, so the gate replays only new rules and the weekly run checks every pair live.
+
+## RO-020 Copied labels are reported for existing rules, blocked for new ones
+
+12 labeled cases across 9 rules are copied from their spec's criteria or examples. Removing them would cut most rules below the trust minimum overnight, so the weekly report lists them and the new-rule gate blocks a new rule that has any.
+
+## RO-021 Prose rules registered from the two reference guides
+
+22 rules from `style-guide-overview.md` and `sentence-word-guidance.md`, each `kind: prose`, with its quote and marker. Three more statements were already registered rules stated in another place, so they became extra `stated_in` entries (explicit-actor twice, filler once). The coverage check still lists 26 rule-like sentences, mostly in the templates; many are template instructions rather than rules.
