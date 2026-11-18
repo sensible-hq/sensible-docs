@@ -2,6 +2,8 @@
 import sys
 from pathlib import Path
 
+import shutil
+
 import pytest
 
 HERE = Path(__file__).resolve().parent
@@ -35,6 +37,7 @@ def test_a_new_vale_rule_or_spec_counts_as_new():
     assert [r["id"] for r in gate.new_rules(registry, base)] == ["a", "b"]
 
 
+@pytest.mark.skipif(not (shutil.which("vale") or (Path.home() / ".local/bin/vale").is_file()), reason="needs Vale (cross-fire)")
 def test_a_judgment_rule_with_copied_labels_is_blocked(monkeypatch, replay):
     """sensible-filler's labels include its spec's own examples, so as a new rule it wouldn't pass."""
     monkeypatch.setattr(gate, "base_state", lambda base: base_without("sensible-filler"))
