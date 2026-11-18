@@ -1,0 +1,7 @@
+extends: existence
+message: "In docs pages, use ![Click to enlarge](...) rather than <Image>."
+level: warning
+nonword: true
+scope: raw
+tokens:
+  - '<Image\b'

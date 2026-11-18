@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_context_terms": {
+      "type": "choice",
+      "choice": "legitimate",
+      "confidence": 0.68,
+      "probabilities": {
+        "legitimate": 0.79,
+        "synonym": 0.21,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 428,
+    "output_tokens": 46
+  }
+}

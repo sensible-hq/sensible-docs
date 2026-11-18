@@ -1,19 +1,50 @@
 {
   "permissions": {
-    "additionalDirectories": ["/home/franc/GitHub/sensible-docs-extra-data"]
+    "additionalDirectories": [
+      "/home/franc/GitHub/sensible-docs-extra-data"
+    ]
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale_gate.py",
+            "statusMessage": "Checking the edit against house style..."
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/sandbox_guard.py",
+            "statusMessage": "Checking for writes to sensible-hq repos..."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale-check.sh",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/vale_gate.py",
             "statusMessage": "Running Vale on the edited doc..."
           }
         ]
       }
     ]
+  },
+  "env": {
+    "DOCS_REPO": "sensible-hq/sensible-docs",
+    "DOCS_DIR": "/home/franc/GitHub/sensible-docs",
+    "ENGINE_REPO": "sensible-hq/sensible",
+    "APP_REPO": "sensible-hq/sensible-app",
+    "SOURCE_LABELS": "on"
   }
 }

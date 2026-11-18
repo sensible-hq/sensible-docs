@@ -1,0 +1,8 @@
+extends: existence
+message: "Excerpt: cut '%s' and start with the reader's action."
+level: warning
+nonword: true
+scope: frontmatter.excerpt
+ignorecase: true
+tokens:
+  - '^(?:Learn (?:how )?to|How .+ works|This (?:page|topic|doc) (?:describes|explains|covers))'

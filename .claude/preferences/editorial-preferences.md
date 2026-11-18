@@ -6,8 +6,8 @@ This file captures Frances's editorial judgment — corrections made to Claude's
 
 ## Parameter descriptions
 
-**Copy existing wording precisely when a parameter is already documented elsewhere.**
-When a parameter appears in another SenseML method's docs and the underlying implementation is the same, copy the description verbatim. Only drop clauses that are structurally specific to the other method's context (e.g., a conditional "If you use the Width or Height parameters..." that doesn't apply). Do not paraphrase, tighten, or rewrite.
+**Copy existing wording precisely when a parameter is already documented elsewhere.** <!-- rule: sensible-copy-sibling-wording -->
+When a parameter appears in another SenseML method's docs and the underlying implementation is the same, copy the description verbatim. Only drop clauses that are structurally specific to the other method's context (for example, a conditional "If you use the Width or Height parameters..." that doesn't apply). Do not paraphrase, tighten, or rewrite.
 
 *Why:* Rewriting introduces subtle differences that require correction. The wording is already right — use it.
 
@@ -22,30 +22,30 @@ When a PR adds a new capability to an existing method, check existing examples t
 
 
 
-**Use realistic, meaningful example data.**
+**Use realistic, meaningful example data.** <!-- rule: sensible-realistic-example-data -->
 Pick example data that illustrates *why* the feature is useful. A computation that converts sales figures from millions to copies, or derives a boolean flag, is more instructive than `Widget/Gadget` or generic placeholder rows. The example data should help the reader grasp the use case, not just confirm the config runs.
 
 ---
 
 ## Framing new features
 
-**Scenario-first, not mechanism-first.**
+**Scenario-first, not mechanism-first.** <!-- rule: sensible-scenario-first -->
 Lead with what the user experiences or what Sensible does, then explain how to configure it. The user's mental model starts with their problem, not the implementation.
 
 - **Preferred:** "If your email attachments include single files containing multiple documents (portfolios) Sensible can segment the file and extract each sub-document separately."
 - **Avoid:** "You can configure an attachment spec to use portfolio extraction, where Sensible treats a single attachment as a multi-document file."
 
-**Compare to other Sensible features if the user can choose between them.**
+**Compare to other Sensible features if the user can choose between them.** <!-- rule: sensible-compare-only-with-choice -->
 Include comparisons only when the reader has an active choice between alternate approaches to the same problem, and indicate examples of when to choose one over the other, or pros and cons.
 
 ---
 
 ## Information architecture
 
-**Integrate new features into existing explanatory sections rather than creating new headings.**
-When a PR adds a secondary capability (e.g., portfolio support for email processors), add it as a numbered item in an existing list or explanatory section rather than a new `###` heading. Reserve new sections for content with enough substance — 3+ distinct concepts, a full parameter table, or a code example — to stand alone.
+**Integrate new features into existing explanatory sections rather than creating new headings.** <!-- rule: sensible-integrate-before-heading -->
+When a PR adds a secondary capability (for example, portfolio support for email processors), add it as a numbered item in an existing list or explanatory section rather than a new `###` heading. Reserve new sections for content with enough substance — 3+ distinct concepts, a full parameter table, or a code example — to stand alone.
 
-**Don't add tables for non-user-configurable behavior.**
+**Don't add tables for non-user-configurable behavior.** <!-- rule: sensible-no-table-for-unconfigurable -->
 If the user can't directly configure a set of values via the API or UI, don't document those values in a table. Mention them in prose if necessary, but a table implies configurability. Example: attachment filter criteria for portfolio specs are communicated to Sensible during processor setup, not configured by the user — so a reference table was misleading and was removed.
 
 **Don't create a section just to hold a single concept.**
@@ -55,16 +55,16 @@ If new content is 1–3 sentences that extends an existing topic, work it into t
 
 ## Changelog entries
 
-**When a change affects both the app UI and the API, lead with the UI.**
+**When a change affects both the app UI and the API, lead with the UI.** <!-- rule: sensible-changelog-ui-first -->
 Describe the app experience first, then reference the API as a secondary option: "You can use the same filtering option in the [List extractions](ref:list-extractions) endpoint by passing…". Don't lead with the API parameter.
 
 **Include a screenshot for UI changes.**
 If the change is visible in the Sensible app, include an image. Use JSX `<Image>` format per the changelog style guide. Don't omit images just because you don't have the URL — flag to the user that a screenshot is needed.
 
-**Use the correct tab name: "Extraction history".**
+**Use the correct tab name: "Extraction history".** <!-- rule: sensible-ui-names -->
 The tab that lists past extractions is called **Extraction history**, not "Extractions history" or "Extractions tab".
 
-**Focus on new capability, not removed friction.**
+**Focus on new capability, not removed friction.** <!-- rule: sensible-capability-not-friction -->
 Don't mention that a warning or limitation previously existed. Describe what the user can now do.
 
 ---

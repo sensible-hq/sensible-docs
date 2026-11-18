@@ -1,7 +1,19 @@
 extends: substitution
 message: "Use '%s' instead of '%s'."
 level: warning
+ignorecase: true
+# The vocabulary accepts "config", which would otherwise suppress matches that contain it.
+vocab: false
 action:
   name: replace
 swap:
   'the UI': the Sensible app
+  'the dashboard': the Sensible app
+  'SenseML config(?:uration)? editor': SenseML editor
+  'result objects?': output
+  'repeating groups?': sections
+  'free form (?=documents?|contracts?|forms?|text)': free-form
+  'entirely free-form': entirely free form
+  'prompt context': context
+  '(?:object|key) paths?': dot notation
+  'extraction templates?': config|configuration

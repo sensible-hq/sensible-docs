@@ -1,0 +1,34 @@
+# Judgment spec for Jev. Registry entry: sensible-copy-sibling-wording in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-copy-sibling-wording
+source:
+  file: .claude/preferences/editorial-preferences.md
+  heading: Parameter descriptions
+  quote: When a parameter appears in another SenseML method's docs and the underlying implementation is the same,
+    copy the description verbatim.
+applies: parameter table rows added or changed in a docs PR
+check:
+  kind: judgment
+  detector: 'scripts/style/compare_param_descriptions.py --key <key>: the same key on another page with a different
+    description'
+  precheck: skip rows that use the global-parameter shorthand
+  question:
+    type: choice
+    ask: Do the two parameters share an implementation in the engine, and if so, does the new description copy the
+      existing one?
+    criteria:
+      copied: same implementation, same words (only clauses specific to the other method dropped)
+      paraphrased: same implementation, different words; copy the existing description
+      different: different implementations; different wording is right
+      unknown: can't tell from the engine source; ask
+  find:
+    kind: manual
+    note: run scripts/style/compare_param_descriptions.py --key <key>, then check the engine source; Jev can't see
+      whether two parameters share an implementation
+  verdicts:
+    violation:
+    - paraphrased
+examples:
+  fail: Region's percentOverlapX description rewritten in new words although Intersection's shares getLinesInRegion.
+  pass: Region's percentOverlapX description copied from Intersection, with Intersection-only clauses removed.
+fix: copy the sibling description word for word; drop only clauses about the other method

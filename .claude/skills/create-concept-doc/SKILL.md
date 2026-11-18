@@ -3,13 +3,15 @@ name: create-concept-doc
 description: Create a new concept topic page in docs/Senseml reference/concepts/ — for explanatory "how it works" topics, not reference pages. Use this skill when you need to document a concept, behavior, or feature overview (not a new method, preprocessor, or config option). If you're documenting a new method or preprocessor introduced by a PR, use create-new-doc instead.
 argument-hint: "<concept-name> — <description of what to cover> [optional: PR #<number> for context]"
 disable-model-invocation: true
-allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write
+allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
 ---
+
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
 
 You are writing a new concept topic page for the Sensible docs.
 
 Parse **$ARGUMENTS** as follows:
-- **Concept name**: the topic to document (e.g., "anchor nuances", "LLM token limits")
+- **Concept name**: the topic to document (for example, "anchor nuances", "LLM token limits")
 - **Description**: what the page should cover — may be free-form notes, a feature description, or a question to answer
 - **Optional PR reference**: if the user says `PR #<number>`, fetch it for context
 
@@ -25,8 +27,8 @@ Run in parallel:
 
 **If a PR number was given:** Fetch it for context:
 ```
-gh pr view <pr-number> --repo sensible-hq/sensible --json title,body,files
-gh pr diff <pr-number> --repo sensible-hq/sensible
+gh pr view <pr-number> --repo "$ENGINE_REPO" --json title,body,files
+gh pr diff <pr-number> --repo "$ENGINE_REPO"
 ```
 
 ## Step 2 — Load your guidance
@@ -38,6 +40,8 @@ Read in parallel:
 
 ## Step 3 — Write the page
 
+Before you edit any file, create the branch's worktree with the first three commands in the "Branch, commit, and open a PR" step, and make every edit in that worktree. A worktree created after the edits doesn't contain them.
+
 Use the template from Step 2 as your scaffold. Apply the structural variant that fits the topic shape:
 
 - **Process/how-it-works**: opening definition → numbered steps or ordered H2s → optional Troubleshooting H2
@@ -47,20 +51,24 @@ Use the template from Step 2 as your scaffold. Apply the structural variant that
 
 Write the page at: `docs/Senseml reference/concepts/<slug>.md`
 
-Where `<slug>` is a kebab-case filename derived from the concept name (e.g., `llm-token-limits`, `anchor-nuances`).
+Where `<slug>` is a kebab-case filename derived from the concept name (for example, `llm-token-limits`, `anchor-nuances`).
 
-After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`. Insert it in a thematically logical position — group it near related concepts (e.g., LLM concepts near other LLM entries, layout concepts near lines/anchor entries).
+After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`. <!-- rule: sensible-order-registration --> Insert it in a thematically logical position — group it near related concepts (for example, LLM concepts near other LLM entries, layout concepts near lines/anchor entries).
 
 ## Step 4 — Branch, commit, and open a PR
+
+Before committing, run `vale --minAlertLevel=warning <file>` and `python3 scripts/style/judge.py <file> --base origin/v0` on each page you changed. Fix Vale errors and warnings on your lines, and every judge `violation`. Read the judge's `unsure`, `review`, and `(advisory)` lines, and fix the ones you agree with. Exit code 3 means Jev was unavailable; say so in the PR body.
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
 ```
-git checkout -b fe_<short_description>_docs
+git -C "$DOCS_DIR" pull
+git -C "$DOCS_DIR" worktree add "$DOCS_DIR-<short-description>" -b fe_<short_description>_docs
+cd "$DOCS_DIR-<short-description>"
 git add docs/Senseml\ reference/concepts/<slug>.md docs/Senseml\ reference/concepts/_order.yaml
 git commit -m "docs: add <concept name> concept topic
 
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+<Co-Authored-By line from this session's attribution instructions>"
 git push -u origin fe_<short_description>_docs
 gh pr create --title "docs: add <concept name> concept topic" --body "..."
 ```

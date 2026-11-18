@@ -1,0 +1,7 @@
+extends: existence
+message: "Number format: '%s'. Use '90%' rather than '90 percent', and decimals rather than fractions in words."
+level: warning
+ignorecase: true
+tokens:
+  - '\b\d+ percent\b'
+  - '\b(?:one|two)-(?:thirds?|tenths?|quarters?)\b'

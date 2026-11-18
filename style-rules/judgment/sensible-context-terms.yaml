@@ -1,0 +1,40 @@
+# Judgment spec for Jev. Registry entry: sensible-context-terms in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-context-terms
+source:
+  file: .claude/style-guide/glossary.md
+  heading: Universal terms
+  quote: Terms whose avoided form has a legitimate meaning elsewhere
+applies: prose sentences in docs/ and changelog drafts
+check:
+  kind: judgment
+  detector: '''\b(?:responses?|segments?|sections?|keys?|empty|free[- ]form)\b'''
+  precheck: skip code, inline code, link text that names a page, and the Sections feature's own pages
+  question:
+    type: choice
+    ask: Is the marked term used in its legitimate sense?
+    criteria:
+      legitimate: response = the API envelope; segment = a portfolio segment; section = the Sections feature; key
+        = a JSON key; empty = an empty string or array; "free-form" before a noun, "free form" after a verb
+      synonym: it stands for output, chunk, field, or null, or the hyphenation is reversed; use the glossary term
+      other: none of these
+  find:
+    kind: sentences
+    pattern: \b(?:responses?|segments?|keys?|empty|free[- ]form)\b
+  verdicts:
+    violation:
+    - synonym
+examples:
+  fail: The response contains each extracted field.
+  pass: The output contains each extracted field.
+fix: 'use the glossary term: output, chunk, field, null, or the right hyphenation'
+calibration:
+  precision: 0.0
+  recall: 0.0
+  violations: 5
+  agreement: 0.44
+  choice_agreement: 0.56
+  cases: 9
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-context-terms.yaml

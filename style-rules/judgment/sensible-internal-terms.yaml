@@ -1,0 +1,41 @@
+# Judgment spec for Jev. Registry entry: sensible-internal-terms in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-internal-terms
+source:
+  file: .claude/style-guide/glossary.md
+  heading: Universal terms
+  quote: '| Internal implementation details |'
+applies: prose sentences where Sensible.InternalTerms matched
+check:
+  kind: judgment
+  detector: 'Sensible.InternalTerms: Cognito, reprocessing, auth token, Lambda, S3 bucket'
+  precheck: none
+  question:
+    type: choice
+    ask: Does the marked term expose how Sensible is built, rather than name something readers see or use?
+    criteria:
+      implementation: it names internal infrastructure readers never see ("Cognito users", "the reprocessing pipeline");
+        use the user-facing name
+      user-facing: readers see or use it themselves ("your S3 bucket" in an integration they configure, "Reprocess"
+        as a button in the app)
+      other: none of these
+  find:
+    kind: vale
+    check: Sensible.InternalTerms
+  verdicts:
+    violation:
+    - implementation
+examples:
+  fail: Extractions by Cognito users include an actor.
+  pass: Sensible writes the output to your S3 bucket.
+fix: name what readers see in the Sensible app or API
+calibration:
+  precision: 1.0
+  recall: 0.8
+  violations: 5
+  agreement: 0.88
+  choice_agreement: 0.88
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-internal-terms.yaml

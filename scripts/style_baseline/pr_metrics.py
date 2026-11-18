@@ -18,6 +18,7 @@ and compare the two summaries.
 import argparse
 import csv
 import json
+import os
 import re
 import statistics
 import subprocess
@@ -27,7 +28,7 @@ from pathlib import Path
 
 ROOT = Path(subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True,
                            check=True).stdout.strip())
-REPO = "sensible-hq/sensible-docs"
+REPO = os.environ.get("DOCS_REPO", "sensible-hq/sensible-docs")
 CONTENT = re.compile(r"^(docs|reference)/.*\.md$")
 CLAUDE = re.compile(r"Co-Authored-By: Claude", re.I)
 TRANSCRIPTS = Path.home() / ".claude/projects"

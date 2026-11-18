@@ -1,0 +1,7 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: warning
+action:
+  name: replace
+swap:
+  'Claude (\d(?:\.\d)?) (Opus|Sonnet|Haiku|Fable)': Claude $2 $1

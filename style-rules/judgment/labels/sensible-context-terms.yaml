@@ -1,0 +1,48 @@
+# Labeled cases for sensible-context-terms: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-context-terms
+cases:
+- text: The response contains each extracted field and its value.
+  expected: synonym
+  source: docs-checker
+  labeled_by: claude
+  mark: response
+- text: The API response includes a status field and a download link.
+  expected: legitimate
+  source: claude
+  labeled_by: claude
+  mark: response
+- text: Sensible scores each segment of the document and sends the top segments to the LLM.
+  expected: synonym
+  source: glossary.md
+  labeled_by: claude
+  mark: segment
+- text: Sensible still segments the portfolio, but the page ranges can be wrong.
+  expected: legitimate
+  source: fingerprint.md
+  labeled_by: claude
+  mark: segments
+- text: Each key in the output is a field you defined in the config.
+  expected: synonym
+  source: claude
+  labeled_by: claude
+  mark: key
+- text: Set the key to a JSON key name that your backend expects.
+  expected: legitimate
+  source: claude
+  labeled_by: claude
+  mark: key
+- text: If the anchor isn't found, the field is empty.
+  expected: synonym
+  source: glossary.md
+  labeled_by: claude
+  mark: empty
+- text: Entirely free-form documents need an LLM-based method.
+  expected: synonym
+  source: glossary.md
+  labeled_by: claude
+  mark: free-form
+- text: Free-form documents need an LLM-based method.
+  expected: legitimate
+  source: glossary.md
+  labeled_by: claude
+  mark: Free-form

@@ -1,0 +1,20 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_example_per_scenario": {
+      "type": "choice",
+      "choice": "by-scenario",
+      "confidence": 0.96,
+      "probabilities": {
+        "by-scenario": 0.97,
+        "by-difficulty": 0.0,
+        "merged": 0.03,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 418,
+    "output_tokens": 61
+  }
+}

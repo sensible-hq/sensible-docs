@@ -79,7 +79,7 @@ Similarly, #3402 (per-request OCR engine override) was annotated `investigate: l
 
 **Why it happened:** The annotation system applies one disposition per PR. When a PR has both an internal component and a user-facing API surface change, the single-annotation format buries the documentable part.
 
-**Suggested improvement:** When annotating a PR with mixed internal/public scope, use `investigate (partial)` and note which specific part is potentially document-worthy — e.g., `investigate: queue is infra/skip, but API response adds uploaded/processing_started timestamps — check if those are public`.
+**Suggested improvement:** When annotating a PR with mixed internal/public scope, use `investigate (partial)` and note which specific part is potentially document-worthy — for example, `investigate: queue is infra/skip, but API response adds uploaded/processing_started timestamps — check if those are public`.
 
 ---
 

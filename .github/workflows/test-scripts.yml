@@ -6,6 +6,12 @@ on:
       - 'scripts/descriptions/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
+      - 'scripts/style/**'
+      - 'style-rules/**'
+      - '.github/styles/**'
+      - '.claude/style-guide/**'
+      - '.claude/preferences/**'
+      - '.claude/skills/**'
       - '.github/workflows/test-scripts.yml'
   push:
     branches:
@@ -14,6 +20,12 @@ on:
       - 'scripts/descriptions/**'
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
+      - 'scripts/style/**'
+      - 'style-rules/**'
+      - '.github/styles/**'
+      - '.claude/style-guide/**'
+      - '.claude/preferences/**'
+      - '.claude/skills/**'
       - '.github/workflows/test-scripts.yml'
 
 jobs:
@@ -26,6 +38,7 @@ jobs:
           - scripts/descriptions/test/tests
           - scripts/llms_txt/test/tests
           - scripts/style_images/test/tests
+          - scripts/style/test
 
     steps:
       - name: Checkout repository

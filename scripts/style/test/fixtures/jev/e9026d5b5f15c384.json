@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_example_var": {
+      "type": "choice",
+      "choice": "intended",
+      "confidence": 0.55,
+      "probabilities": {
+        "hardcoded": 0.26,
+        "intended": 0.7,
+        "other": 0.04
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 380,
+    "output_tokens": 44
+  }
+}

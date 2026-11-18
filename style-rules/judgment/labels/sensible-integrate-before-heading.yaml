@@ -1,0 +1,24 @@
+# Labeled cases for sensible-integrate-before-heading: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-integrate-before-heading
+cases:
+- text: '### Portfolio support
+
+
+    An attachment spec can treat an attachment as a portfolio. Sensible segments it and extracts each document.'
+  expected: extends
+  source: editorial-preferences.md
+  labeled_by: claude
+- text: '### Rate limits
+
+
+    The API allows 10 requests per second per account.'
+  expected: stands-alone
+  source: claude
+  labeled_by: claude
+- text: '### Case sensitivity
+
+
+    The Regex method''s pattern is case-insensitive by default.'
+  expected: extends
+  source: claude
+  labeled_by: claude

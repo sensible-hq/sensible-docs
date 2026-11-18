@@ -1,0 +1,41 @@
+# Judgment spec for Jev. Registry entry: sensible-against-phrasing in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-against-phrasing
+source:
+  file: .claude/style-guide/writing-rules.md
+  heading: Extraction and classification phrasing
+  quote: Do not use "against" to describe extraction or classification. Use "using" instead.
+applies: prose sentences where Sensible.AgainstPhrasing matched
+check:
+  kind: judgment
+  detector: 'Sensible.AgainstPhrasing: extract or classify, then ''against'' within 6 words'
+  precheck: none; the Vale rule already skips code
+  question:
+    type: choice
+    ask: Does "against" in the marked phrase describe how Sensible extracts or classifies?
+    criteria:
+      extraction-against: '"against" names the config, document type, or schema used to extract or classify ("extracts
+        data against a document type"); use "using"'
+      comparison: '"against" means compared with or checked against ("validate extracted data against your rules");
+        fine'
+      other: none of these
+  find:
+    kind: vale
+    check: Sensible.AgainstPhrasing
+  verdicts:
+    violation:
+    - extraction-against
+examples:
+  fail: Sensible classifies each attachment against the specified document types.
+  pass: Validate extracted data against your business rules.
+fix: replace "against" with "using"
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 4
+  agreement: 1.0
+  choice_agreement: 1.0
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-against-phrasing.yaml
