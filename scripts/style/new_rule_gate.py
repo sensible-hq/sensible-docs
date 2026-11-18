@@ -137,7 +137,9 @@ def summary_md(results: dict, base: str, report_url: str | None) -> str:
     if not results:
         return "\n".join(lines + [f"No new rules since `{base}`."])
     lines += ["| Rule | Result | Problems |", "| --- | --- | --- |"]
-    lines += [f"| `{rid}` | {'❌ Blocked' if p else '✅ Passes'} | {'<br>'.join(x.replace('|', '\\|') for x in p) or ''} |" for rid, p in results.items()]
+    for rid, p in results.items():
+        cell = "<br>".join(x.replace("|", "\\|") for x in p)
+        lines.append(f"| `{rid}` | {'❌ Blocked' if p else '✅ Passes'} | {cell} |")
     return "\n".join(lines)
 
 

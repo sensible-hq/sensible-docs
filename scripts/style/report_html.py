@@ -4,8 +4,8 @@ The CSS and the chip and escape helpers come from scripts/doc-detective/codetest
 change to the doc test report's look reaches these reports too. They're read from the files rather
 than imported as a package, because the package pulls in the doc tests' dependencies (jsonschema).
 """
-import ast
 import importlib.util
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -13,11 +13,11 @@ REPORTS = ROOT / "scripts/doc-detective/codetests/reports"
 
 
 def _css() -> str:
-    tree = ast.parse((REPORTS / "html.py").read_text())
-    for node in tree.body:
-        if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "CSS" for t in node.targets):
-            return ast.literal_eval(node.value)
-    raise RuntimeError("no CSS constant in scripts/doc-detective/codetests/reports/html.py")
+    # A regex, not ast: html.py uses Python 3.12 f-string syntax, and CI's style tests run 3.11
+    m = re.search(r'^CSS = """(.*?)"""', (REPORTS / "html.py").read_text(), re.S | re.M)
+    if not m:
+        raise RuntimeError("no CSS constant in scripts/doc-detective/codetests/reports/html.py")
+    return m.group(1)
 
 
 def _parts():
