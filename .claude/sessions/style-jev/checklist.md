@@ -1,7 +1,7 @@
 # Jev style judge checklist
 
-Session: jev-style (Claude Code session `cec011d3-0e56-45f1-aa31-0fc712c29141`)
-Worktree: `~/GitHub/sensible-docs-jev-style`, branch `jev-style`, stacked on `style-cleanup`
+Session: style-jev (Claude Code session `cec011d3-0e56-45f1-aa31-0fc712c29141`)
+Worktree: `~/GitHub/sensible-docs-style-jev`, branch `style-jev` (merged into `style-cleanup`)
 Repo: `fscelliott/sensible-docs-private-test` only (not upstream)
 Design: `design.md` in this directory
 
