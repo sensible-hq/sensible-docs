@@ -1,15 +1,35 @@
 """Standalone HTML reports for the style tooling, in the doc tests' house style.
 
-The CSS and the chip and escape helpers are imported from scripts/doc-detective/codetests/reports/,
-so a change to the doc test report's look reaches these reports too.
+The CSS and the chip and escape helpers come from scripts/doc-detective/codetests/reports/, so a
+change to the doc test report's look reaches these reports too. They're read from the files rather
+than imported as a package, because the package pulls in the doc tests' dependencies (jsonschema).
 """
-import sys
+import ast
+import importlib.util
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "scripts/doc-detective"))
-from codetests.reports.html import CSS  # noqa: E402
-from codetests.reports.parts import JUDGE, chip, e  # noqa: E402
+REPORTS = ROOT / "scripts/doc-detective/codetests/reports"
+
+
+def _css() -> str:
+    tree = ast.parse((REPORTS / "html.py").read_text())
+    for node in tree.body:
+        if isinstance(node, ast.Assign) and any(getattr(t, "id", None) == "CSS" for t in node.targets):
+            return ast.literal_eval(node.value)
+    raise RuntimeError("no CSS constant in scripts/doc-detective/codetests/reports/html.py")
+
+
+def _parts():
+    spec = importlib.util.spec_from_file_location("doc_tests_report_parts", REPORTS / "parts.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+CSS = _css()
+_p = _parts()
+JUDGE, chip, e = _p.JUDGE, _p.chip, _p.e
 
 __all__ = ["CSS", "JUDGE", "chip", "e", "page", "table", "card", "write"]
 
