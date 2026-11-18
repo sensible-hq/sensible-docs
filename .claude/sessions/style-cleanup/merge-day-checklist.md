@@ -24,7 +24,7 @@ For Frances. #808 (style system map), #822 (registry, Vale rules, write-time gat
 
 ## Merge
 
-- [ ] **Get an approval on #822 and #826 from someone else** (anyone with write access; you can't approve your own PRs). Review them yourself first and leave comments.
+- [ ] **You review #822 and #826.** GitHub won't let you approve PRs authored as you, and you don't want to bypass the ruleset, so these need a non-you author first (see the separate identity under Future sessions), or they wait until that exists.
 - [ ] **Merge the stack in order: #808, #822, #826.** #822 targets `style-map` and #826 targets `style-cleanup`, so point each at `v0` before merging it. Use merge commits, not squash: a squashed PR leaves the next one with conflicts.
 
   ```bash
