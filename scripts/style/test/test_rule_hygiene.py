@@ -51,14 +51,6 @@ def test_relations_block_unresolved_conflicts(monkeypatch):
     assert rh.relations(registry)["problems"] == []
 
 
-def test_recorded_relations_cover_every_rule_and_are_resolved(monkeypatch):
-    """Every pair of registered rules has a recorded answer, and no unresolved pair blocks."""
-    monkeypatch.setenv("JEV_REPLAY", str(rh.RELATIONS_FIXTURES))
-    monkeypatch.delenv("JEV_RECORD", raising=False)
-    out = rh.relations(rh.load_registry())
-    assert out["problems"] == []
-
-
 def test_choice_overlap_and_catalog_are_clean_for_this_repo(monkeypatch):
     monkeypatch.setenv("JEV_REPLAY", str(HERE / "fixtures/jev"))
     specs, labels = rh.judge.load_specs(), rh.load_labels()

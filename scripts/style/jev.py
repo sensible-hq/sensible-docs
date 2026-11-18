@@ -6,7 +6,8 @@ receives; scripts/style/judge.py decides what to ask.
 Environment:
   TYPESAFE_API_KEY  required for live calls
   JEV_REPLAY=<dir>  answer from recorded responses keyed by a hash of the request; never touches the
-                    network, and a missing recording raises JevUnavailable
+                    network, and a missing recording raises JevUnavailable. Several directories,
+                    separated by the path separator (":"), are searched in order.
   JEV_RECORD=<dir>  save each live response there for later replay
 
 Price: $0.042 per million input tokens; output tokens aren't priced (sensible-docs-gen config/prices.json,
@@ -41,10 +42,11 @@ def call(state: str, questions: dict, model: str = MODEL, timeout: int = 90) -> 
     body = {"state": state, "model": model, "questions": questions}
     replay = os.environ.get("JEV_REPLAY")
     if replay:
-        f = Path(replay) / f"{digest(body)}.json"
-        if not f.exists():
-            raise JevUnavailable(f"no recorded response {f.name} in {replay}")
-        return json.loads(f.read_text())
+        name = f"{digest(body)}.json"
+        for d in replay.split(os.pathsep):
+            if (Path(d) / name).exists():
+                return json.loads((Path(d) / name).read_text())
+        raise JevUnavailable(f"no recorded response {name} in {replay}")
     key = os.environ.get("TYPESAFE_API_KEY")
     if not key:
         raise JevUnavailable("TYPESAFE_API_KEY isn't set")

@@ -55,3 +55,67 @@ jobs:
       - name: Run tests
         working-directory: ${{ matrix.suite }}
         run: python -m pytest -q
+
+  # New style rules must be registered, tested, labeled, and checked against every other rule
+  # (scripts/style/new_rule_gate.py). Jev answers replay from committed recordings, so no secret.
+  new-rule-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+          scripts/style/install_vale.sh "$RUNNER_TEMP/vale"
+          echo "$RUNNER_TEMP/vale" >> "$GITHUB_PATH"
+
+      - name: Run the new-rule gate
+        id: gate
+        continue-on-error: true
+        env:
+          BASE: origin/${{ github.base_ref || 'v0' }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then BASE="${{ github.event.before }}"; fi
+          python3 scripts/style/new_rule_gate.py --base "$BASE" --html "$RUNNER_TEMP/new-rule-gate-report.html"
+
+      # The HTML report on its own, unzipped, so it opens in the browser from the run page
+      - name: Name the HTML report
+        id: htmlname
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/new-rule-gate-report.html" ]; then
+            echo "path=$RUNNER_TEMP/new-rule-gate-report.html" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload HTML report
+        id: htmlreport
+        if: always() && steps.htmlname.outputs.path != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.htmlname.outputs.path }}
+          archive: false
+
+      - name: Write run summary
+        if: always()
+        env:
+          BASE: origin/${{ github.base_ref || 'v0' }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then BASE="${{ github.event.before }}"; fi
+          python3 scripts/style/new_rule_gate.py --base "$BASE" --summary ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY" || true
+
+      - name: Fail the job if a new rule is blocked
+        if: steps.gate.outcome == 'failure'
+        run: exit 1
