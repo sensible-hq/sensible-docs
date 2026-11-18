@@ -24,12 +24,14 @@ def table(headers: list[str], rows: list[list[str]]) -> str:
     return f"<table><tr>{head}</tr>{body}</table>"
 
 
-def card(title: str, body: str, note: str = "", open_: bool | None = None) -> str:
-    """A section card. With open_ set, the card is a collapsible <details> that starts open or closed."""
+def card(title: str, body: str, note: str = "", open_: bool | None = None, badge: str = "") -> str:
+    """A section card. With open_ set, the card is a collapsible <details> that starts open or closed.
+    badge is HTML shown after the title, such as JUDGE for sections an LLM decided."""
     sub = f'<p class="sub" style="margin:4px 0 12px">{note}</p>' if note else ""
+    head = e(title) + (f" {badge}" if badge else "")
     if open_ is None:
-        return f'<section class="card"><h2>{e(title)}</h2>{sub}{body}</section>'
-    return (f'<details class="test card"{" open" if open_ else ""}><summary><h2 style="display:inline">{e(title)}</h2>'
+        return f'<section class="card"><h2>{head}</h2>{sub}{body}</section>'
+    return (f'<details class="test card"{" open" if open_ else ""}><summary><h2 style="display:inline">{head}</h2>'
             f"</summary>{sub}{body}</details>")
 
 

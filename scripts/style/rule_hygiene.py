@@ -248,9 +248,9 @@ def html_sections(cat=None, ovl=None, rel=None, cf=None, registry=None) -> list[
                  h.chip("fail" if top in BLOCKING else "info", top), f"{p:.2f}"] for p, a, b, top in sorted(flagged, reverse=True)]
         body = (h.table(["Problem"], [[h.e(p)] for p in rel["problems"]]) if rel["problems"] else "<p>No unresolved same-requirement or conflicting pair.</p>")
         body += "<h3>Pairs Jev relates</h3>" + (h.table(["Rule", "Other rule", "Relation", "p"], rows) if rows else "<p>None.</p>")
-        out.append(h.card(f"Rule relations {h.JUDGE}".replace(h.e(h.JUDGE), h.JUDGE), body,
+        out.append(h.card("Rule relations", body,
                           f"{len(rel['pairs'])} pairs judged from the rules' statements, in both directions. Code decides what blocks.",
-                          open_=bool(rel["problems"])))
+                          open_=bool(rel["problems"]), badge=h.JUDGE))
     if cf is not None:
         body = (h.table(["Fixture", "Line", "Text", "Broken rule"], [[h.e(f), str(n), h.e(t), f"<code>{h.e(c)}</code>"] for f, n, t, c in cf["contradictions"]])
                 if cf["contradictions"] else "<p>No fixture's correct text breaks another gating rule.</p>")
