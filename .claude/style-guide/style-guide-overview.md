@@ -66,6 +66,8 @@ next:
 
 The excerpt is imperative, but the page's first body sentence is third person (see Voice and tone).
 
+Don't fill `metadata.keywords`: ReadMe strips it from the rendered HTML, the `.md` view, and `llms.txt`. <!-- rule: sensible-no-metadata-keywords -->
+
 ---
 
 ## Voice and tone
@@ -166,7 +168,9 @@ Capitalize parameter names as Title Case when referring to them by name in runni
 This applies even though the JSON key is camelCase (`sortLines`, `textAlignment`).
 
 ### Method and feature names in prose
-Capitalize method names and major feature names: "the Label method", "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
+Capitalize method names and major feature names: "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
+
+The Label method is nearly deprecated. Don't mention it in new text, for example in a list of methods that share a parameter, and leave its existing mentions alone unless asked. <!-- rule: sensible-label-method -->
 
 **Never use camelCase with backticks for method or preprocessor names in running prose.** Convert to spaced Title Case instead: <!-- rule: sensible-param-name-code -->
 

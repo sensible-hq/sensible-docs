@@ -1,4 +1,5 @@
 {
+  "autoMemoryEnabled": false,
   "permissions": {
     "additionalDirectories": [
       "/home/franc/GitHub/sensible-docs-extra-data"
