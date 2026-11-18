@@ -6,7 +6,8 @@ The skills don't name repos or local paths directly. They use these environment 
 | -------- | ----- | --------------- | ---------- |
 | `DOCS_REPO` | `sensible-hq/sensible-docs` | `fscelliott/sensible-docs-private-test` | where docs branches, PRs, and issues go |
 | `DOCS_DIR` | `/home/franc/GitHub/sensible-docs` | `/home/franc/GitHub/sensible-docs-private-test` | the local clone of `DOCS_REPO`; worktrees go beside it as `$DOCS_DIR-<slug>` |
-| `ENGINE_REPO` | `sensible-hq/sensible` | same | engine PRs the skills read |
+| `ENGINE_REPO` | `sensible-hq/sensible` | same | engine PRs the skills read, and where `update-schema-descriptions` opens PRs |
+| `ENGINE_DIR` | `/home/franc/GitHub/sensible` | same | the local clone of `ENGINE_REPO`; worktrees go beside it as `$ENGINE_DIR-<slug>` |
 | `APP_REPO` | `sensible-hq/sensible-app` | same | app PRs the skills read |
 | `SOURCE_LABELS` | `on` | `off` | whether `close-docs-pr` swaps `doc_changes_needed` for `docs_done` on engine and app PRs |
 
@@ -14,7 +15,7 @@ To test the doc skills on real engine PRs without touching this repo, use a priv
 
 ## Sandbox guard
 
-`.claude/hooks/sandbox_guard.py` runs before every Bash command. While `DOCS_REPO` is outside the `sensible-hq` org, it denies commands that would change a `sensible-hq` repo: API writes, gh commands that create, edit, comment on, merge, or label PRs and issues, and pushes to a `sensible-hq` URL. Reads such as `gh pr view --repo "$ENGINE_REPO"` pass. When `DOCS_REPO` is a `sensible-hq` repo, the guard does nothing.
+`.claude/hooks/sandbox_guard.py` runs before every Bash command. While `DOCS_REPO` is outside the `sensible-hq` org, it denies commands that would change a `sensible-hq` repo: API writes, gh commands that create, edit, comment on, merge, or label PRs and issues, and pushes to a `sensible-hq` remote. It expands `$VARIABLES` first, and for a push it checks the URL of the remote being pushed to, so `git -C "$ENGINE_DIR-<slug>" push origin <branch>` is caught. Reads such as `gh pr view --repo "$ENGINE_REPO"` pass. When `DOCS_REPO` is a `sensible-hq` repo, the guard does nothing.
 
 ## In prose and links
 

@@ -45,6 +45,7 @@
     "DOCS_REPO": "sensible-hq/sensible-docs",
     "DOCS_DIR": "/home/franc/GitHub/sensible-docs",
     "ENGINE_REPO": "sensible-hq/sensible",
+    "ENGINE_DIR": "/home/franc/GitHub/sensible",
     "APP_REPO": "sensible-hq/sensible-app",
     "SOURCE_LABELS": "on"
   }
