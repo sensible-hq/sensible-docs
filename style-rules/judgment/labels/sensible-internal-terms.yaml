@@ -19,14 +19,10 @@ cases:
   labeled_by: claude
 - text: Sensible writes the output to your S3 bucket.
   mark: S3 bucket
-  expected: user-facing
+  expected: implementation
   labeled_by: claude
 - text: Click Reprocess to run the extraction again with the current config.
   mark: Reprocess
-  expected: user-facing
-  labeled_by: claude
-- text: Configure an AWS Lambda in your account to call the Sensible API.
-  mark: Lambda
   expected: user-facing
   labeled_by: claude
 - text: Reprocessing runs in a separate worker queue for large files.
