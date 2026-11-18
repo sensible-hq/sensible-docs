@@ -39,6 +39,7 @@ Look for `$APP_REPO` PRs that expose the feature in the Sensible app, or that ch
 - Search PRs for the same names and for the problem in plain words: `gh search prs "<terms>" --repo "$APP_REPO"`.
 - List app PRs updated within 3 weeks of the engine PR's merge, `gh pr list --repo "$APP_REPO" --state all --search "updated:>=<date>"`, and read the body of any whose title touches the same area, for example "portfolio" or "fingerprint".
 - Read the app PRs that name the engine PR or the PRs stacked with it.
+- Look for planned UI work as well as shipped work: open and WIP app PRs, `gh search issues "<terms>" --repo "$APP_REPO"`, and, in Step 4, Notion and Slack mentions of the feature together with words like "UI", "app", "Quick Extract", or "editor".
 
 For each app PR you keep, note whether it implements this feature, supports a sibling engine PR, or only touches the same area, and whether it has merged.
 
@@ -60,7 +61,7 @@ Answer these five, in this order, each under its own heading:
 2. **Real-world use case.** One concrete scenario, cited if a source describes one; otherwise built from the example and marked as inferred.
 3. **Problem it solves.** What goes wrong for a user without it, in the user's terms rather than the engine's.
 4. **What it does.** 2–4 sentences, high level, no internals a docs reader wouldn't see.
-5. **UI changes.** What a user sees or does in the Sensible app because of this feature, with each app PR's state. If the feature is API-only so far, say so, because the docs then have no screenshots to show.
+5. **UI changes.** What a user sees or does in the Sensible app because of this feature, with each app PR's state, and any UI work that is planned but not yet in a PR. If the feature is API-only with nothing planned, say so, because the docs then have no screenshots to show.
 
 For each claim, link its source. Mark anything you inferred rather than read as inferred. List the sources you searched that turned up nothing, so the technical writer knows the gaps.
 
