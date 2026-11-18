@@ -408,7 +408,9 @@
   kind: judgment
   enforced_by:
     judgment: [style-rules/judgment/sensible-label-method.yaml]
-  stated_in: []
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: The Label method is nearly deprecated. Don't mention it in new text
   origin: [memory project_label_method_near_deprecated]
 
 - id: sensible-integrate-before-heading
@@ -503,3 +505,19 @@
     - file: .claude/style-guide/blog-post-template.md
       quote: Blog posts may use "we" and "let's"; docs pages don't
   notes: .vale.ini turns off Google.We and Google.FirstPerson for drafts/blog-*.md, so Vale agrees with the guide.
+
+- id: sensible-no-metadata-keywords
+  statement: Don't fill metadata.keywords in page frontmatter; ReadMe drops it from every output.
+  kind: prose
+  stated_in:
+    - file: .claude/style-guide/style-guide-overview.md
+      quote: "Don't fill `metadata.keywords`"
+  origin: [memory project_seo_terminology]
+
+- id: sensible-full-style-pass
+  statement: Before committing a docs change, read every style guide and apply revise-doc-style to the changed pages.
+  kind: prose
+  stated_in:
+    - file: CLAUDE.md
+      quote: read every file in `.claude/style-guide/` and `.claude/preferences/editorial-preferences.md`
+  origin: [memory feedback_full_style_pass]
