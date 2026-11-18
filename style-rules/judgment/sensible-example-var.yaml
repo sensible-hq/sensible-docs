@@ -36,5 +36,5 @@ calibration:
   choice_agreement: 0.25
   cases: 4
   model: jev-1.14.0
-  date: '2026-11-17'
+  date: '2026-11-18'
   labels: labels/sensible-example-var.yaml

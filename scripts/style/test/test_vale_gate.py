@@ -87,3 +87,12 @@ def test_reference_markdown_is_skipped(repo):
     (repo / "reference/api.md").write_text("# API\n\nPlease note that — this.\n")
     r = edit(repo, "", "", event="PostToolUse", path="reference/api.md")
     assert r.returncode == 0 and r.stderr == ""
+
+
+def test_post_lists_judge_gated_alerts_as_candidates(repo):
+    page = repo / "docs/page.md"
+    page.write_text(page.read_text().replace("Sensible extracts the value.", "Sensible extracts data against a document type."))
+    r = edit(repo, "", "", event="PostToolUse")
+    assert r.returncode == 2
+    assert "Possible problems for Jev to judge" in r.stderr
+    assert "Sensible.AgainstPhrasing" in r.stderr.split("Possible problems for Jev to judge")[1]

@@ -28,7 +28,7 @@ REGISTRY = ROOT / "style-rules/registry.yaml"
 STYLES = ROOT / ".github/styles"
 MARKER = re.compile(r"<!--\s*rule:\s*([a-z0-9-]+)\s*-->")
 KINDS = {"deterministic", "judgment", "prose"}
-GATES = {"block", "warn", "report"}
+GATES = {"block", "warn", "report", "judge"}
 JUDGMENT_FIELDS = ("id", "source", "applies", "check", "examples")
 
 
@@ -118,6 +118,13 @@ def check(registry: list[dict]) -> list[str]:
                 problems.append(f"{rid}: fixture {fixture} doesn't exist")
         if kind == "judgment" and not enf.get("judgment"):
             problems.append(f"{rid}: judgment but no judgment spec")
+        if kind == "judgment" and enf.get("vale"):
+            if r.get("gate") != "judge":
+                problems.append(f"{rid}: a judgment rule with a Vale detector needs gate: judge")
+            if r.get("fixture") and not (ROOT / r["fixture"]).is_file():
+                problems.append(f"{rid}: fixture {r['fixture']} doesn't exist")
+        if r.get("gate") == "judge" and kind != "judgment":
+            problems.append(f"{rid}: gate judge is for judgment rules with a Vale detector")
         for s in r.get("stated_in") or []:
             path = ROOT / s.get("file", "")
             if not path.is_file():

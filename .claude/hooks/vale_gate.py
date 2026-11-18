@@ -11,7 +11,8 @@ scripts/vale-doctor.sh.
                are passed on as context instead, so a false positive can't stall the work.
   PostToolUse  Reports warnings and errors on the lines changed since the last commit (all lines for a
                new file) and hands them back to Claude with exit 2. Alerts on lines nobody touched
-               are left out, so Claude doesn't rewrite text outside its change.
+               are left out, so Claude doesn't rewrite text outside its change. Alerts from rules whose
+               gate is "judge" are listed apart, as candidates that may be fine: Jev decides those.
 
 Scope: Markdown under docs/ at the root of the file's checkout. reference/**/*.md is generated from the
 OpenAPI specs and is skipped. If Vale isn't installed, the hook exits 1 (shown to you, not Claude).
@@ -165,12 +166,22 @@ def post(root: Path, path: Path) -> int:
     base = subprocess.run(["git", "-C", str(root), "show", f"HEAD:{rel}"], capture_output=True,
                           text=True).stdout if tracked else ""
     touched = changed_lines(base, text)
-    alerts = [a for a in lint(root, text, path.name, "warning") if a["line"] in touched]
-    if not alerts:
+    found = [a for a in lint(root, text, path.name, "warning") if a["line"] in touched]
+    if not found:
         return 0
-    print(f"Vale flagged {len(alerts)} warnings or errors on lines you changed in {path}. Fix them, keeping "
-          f"the meaning.\nIf one is a false positive, such as a product term, code, or a quote, leave the "
-          f"text and say why.\n\n{describe(alerts)}", file=sys.stderr)
+    by_check, by_id = gates(root)
+    judged = [a for a in found if (by_check.get(a["check"]) or by_id.get(a["check"])) == "judge"]
+    alerts = [a for a in found if a not in judged]
+    parts = []
+    if alerts:
+        parts.append(f"Vale flagged {len(alerts)} warnings or errors on lines you changed in {path}. Fix them, "
+                     f"keeping the meaning.\nIf one is a false positive, such as a product term, code, or a quote, "
+                     f"leave the text and say why.\n\n{describe(alerts)}")
+    if judged:
+        parts.append(f"Possible problems for Jev to judge ({len(judged)}). These patterns also match correct text, "
+                     f"so change a line only if it's clearly wrong; scripts/style/judge.py decides before you "
+                     f"commit.\n\n{describe(judged)}")
+    print("\n\n".join(parts), file=sys.stderr)
     return 2
 
 

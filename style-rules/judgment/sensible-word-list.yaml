@@ -1,0 +1,44 @@
+# Judgment spec for Jev. Registry entry: sensible-word-list in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-word-list
+source:
+  file: .github/styles/Sensible/WordList.yml
+  heading: WordList
+  quote: The case-sensitive entries of the Google word list
+applies: prose sentences where Sensible.WordList or Google.WordListCase matched
+check:
+  kind: judgment
+  detector: 'Sensible.WordList and Google.WordListCase: Google''s word list'
+  precheck: none
+  question:
+    type: choice
+    ask: Is the marked word used in the sense Google's word list targets?
+    criteria:
+      targeted-sense: the sense the word list replaces ("the table above" meaning earlier in the page, "file name",
+        "click on", "in order to")
+      other-sense: a different, legitimate sense. In Sensible docs, "above" and "below" usually describe position
+        on the PDF page relative to an anchor or as a Start parameter value ("the anchor above the value", "set
+        Start to above"); "touch" can describe lines that touch a box
+      other: none of these
+  find:
+    kind: vale
+    checks:
+    - Sensible.WordList
+    - Google.WordListCase
+  verdicts:
+    violation:
+    - targeted-sense
+examples:
+  fail: See the table above for the defaults.
+  pass: The anchor appears above the value on the page.
+fix: use the word list's replacement
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 5
+  agreement: 1.0
+  choice_agreement: 1.0
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-word-list.yaml

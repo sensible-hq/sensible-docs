@@ -202,7 +202,8 @@ def find_candidates(spec: dict, path: Path, page: dict, base: str | None) -> tup
         if not exe:
             return [], "Vale isn't installed"
         res = subprocess.run([exe, "--config", str(ROOT / ".vale.ini"), "--output=JSON", "--minAlertLevel=suggestion",
-                              f'--filter=.Name=="{find["check"]}"', str(path)], capture_output=True, text=True, cwd=ROOT)
+                              "--filter=.Name in " + json.dumps(find.get("checks") or [find["check"]]), str(path)],
+                             capture_output=True, text=True, cwd=ROOT)
         try:
             alerts = [a for v in json.loads(res.stdout or "{}").values() for a in v]
         except json.JSONDecodeError:

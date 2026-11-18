@@ -1,0 +1,44 @@
+# Judgment spec for Jev. Registry entry: sensible-terminology in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-terminology
+source:
+  file: .claude/style-guide/glossary.md
+  heading: Universal terms
+  quote: Canonical term reference for all Sensible documentation.
+applies: prose sentences where Sensible.Terminology matched
+check:
+  kind: judgment
+  detector: 'Sensible.Terminology: the glossary''s avoid-terms'
+  precheck: none
+  question:
+    type: choice
+    ask: Is the marked term used where the glossary wants its preferred term?
+    criteria:
+      avoided-term: 'it names the thing the glossary has a preferred term for. The glossary avoids: "the UI" and
+        "the dashboard" (say "the Sensible app"), "template" or "extraction template" (say "config"), "result object"
+        (say "output"), "repeating groups" (say "sections"), "prompt context" (say "context"), "object path" or
+        "key path" (say "dot notation"), "SenseML config editor" (say "SenseML editor")'
+      defined-alias: it introduces the term as a defined alias for search ("configs, also called extraction templates"),
+        on purpose
+      proper-name: it is the exact name of a UI element or a quoted label ("the Template library tab")
+      other: none of these
+  find:
+    kind: vale
+    check: Sensible.Terminology
+  verdicts:
+    violation:
+    - avoided-term
+examples:
+  fail: Edit the extraction template in the editor.
+  pass: Import from the Template library tab.
+fix: use the glossary's preferred term
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 5
+  agreement: 1.0
+  choice_agreement: 0.88
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-terminology.yaml

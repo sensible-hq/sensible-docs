@@ -93,3 +93,9 @@ If this PR merges, these memories should shrink to pointers, so the rule lives i
 | `feedback_full_style_pass` | Shrink: the hook and CI enforce the deterministic rules. Keep "copy sibling wording", now `sensible-copy-sibling-wording`. |
 | `project_vale_setup` | Done 2026-11-18. |
 | `blog_post_template` | Delete: it duplicates `.claude/style-guide/blog-post-template.md`. |
+
+## D-018 Jev decides the Vale rules that also match correct text
+
+Frances's call (2026-11-18), implemented in this PR. `AgainstPhrasing`, `Terminology`, `InternalTerms`, `Filler`, and the word lists (`Sensible.WordList`, `Google.WordListCase`) are now `kind: judgment` with `gate: judge`: Vale finds candidates, Jev answers a choice question per hit, and the after-write hook lists these hits apart as possibly fine. Each has 8 labeled cases (3 to 5 violations).
+
+The first calibration trusted three of the five. `Terminology` (recall 0.20) didn't know which terms the glossary avoids, and `WordList` (precision 0.83) didn't know that "above" in Sensible docs usually means position on the page. Both questions now carry that context, and both reached precision and recall of 1.00. That revision came after seeing the results on the same 16 cases, so these two rules' numbers are optimistic until Frances's own labels confirm them.

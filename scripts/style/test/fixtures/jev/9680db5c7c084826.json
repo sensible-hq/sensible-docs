@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_internal_terms": {
+      "type": "choice",
+      "choice": "implementation",
+      "confidence": 0.97,
+      "probabilities": {
+        "implementation": 0.98,
+        "user-facing": 0.02,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 419,
+    "output_tokens": 42
+  }
+}

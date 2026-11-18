@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_filler": {
+      "type": "choice",
+      "choice": "filler",
+      "confidence": 0.91,
+      "probabilities": {
+        "filler": 0.94,
+        "meaningful": 0.06,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 410,
+    "output_tokens": 46
+  }
+}

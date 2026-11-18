@@ -16,7 +16,7 @@ For Frances. #808 (style system map) and #822 (registry, Vale rules, write-time 
 
 - [x] **Decide on the pre-write hook.** Decided 2026-11-18: keep it; the `vale-setup` memory is updated. `vale_gate.py` checks an edit before it's written and denies it on a blocking rule. The `vale-setup` memory says Vale should be one after-write hook plus CI. Keep it (and update the memory), or delete the `PreToolUse` entry for `vale_gate.py` in `.claude/settings.json`. Recommended: keep. Context: `.claude/sessions/style-cleanup/decisions.md`, D-013.
 
-- [ ] **Decide on false-positive questions for five Vale rules.** `AgainstPhrasing`, `Terminology`, `InternalTerms`, `Filler`, and `WordList` sometimes flag good text. Option a: give each a Jev judgment spec that uses the Vale rule as its detector, and make its write-time gate report-only. Option b: leave them as warnings. Recommended: a, as a follow-up PR after the merge.
+- [x] **Decide on false-positive questions for five Vale rules.** Decided 2026-11-18: Jev, in #822 (not a follow-up). All five are trusted after calibration. `AgainstPhrasing`, `Terminology`, `InternalTerms`, `Filler`, and `WordList` sometimes flag good text. Option a: give each a Jev judgment spec that uses the Vale rule as its detector, and make its write-time gate report-only. Option b: leave them as warnings. Recommended: a, as a follow-up PR after the merge.
 
 - [ ] **Skim the guide resolutions** in #822's `.claude/style-guide/` diff. The one most worth a look: reference pages open in third person ("Extracts…"), with an exception for Extra Data (`style-guide-overview.md`, Voice and tone).
 

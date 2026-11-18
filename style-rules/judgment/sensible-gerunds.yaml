@@ -37,5 +37,5 @@ calibration:
   choice_agreement: 0.71
   cases: 7
   model: jev-1.14.0
-  date: '2026-11-17'
+  date: '2026-11-18'
   labels: labels/sensible-gerunds.yaml

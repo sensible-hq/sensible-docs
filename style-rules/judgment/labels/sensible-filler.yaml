@@ -1,0 +1,35 @@
+# Labeled cases for sensible-filler: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-filler
+cases:
+- text: Please note that the Stop parameter is optional.
+  mark: Please note that
+  expected: filler
+  labeled_by: claude
+- text: It's important to remember that dates are in UTC.
+  mark: It's important to remember
+  expected: filler
+  labeled_by: claude
+- text: Sensible seamlessly extracts tables from scanned PDFs.
+  mark: seamlessly
+  expected: filler
+  labeled_by: claude
+- text: Sensible released a powerful new method for tables.
+  mark: powerful new
+  expected: filler
+  labeled_by: claude
+- text: In this guide, you connect Zapier to Sensible.
+  mark: In this guide
+  expected: filler
+  labeled_by: claude
+- text: Sensible stitches the scans into one seamless image before OCR.
+  mark: seamless
+  expected: meaningful
+  labeled_by: claude
+- text: It is worth noting the extraction ID, which you need for the next request.
+  mark: It is worth noting
+  expected: filler
+  labeled_by: claude
+- text: The setting produces a seamless table across page breaks.
+  mark: seamless
+  expected: meaningful
+  labeled_by: claude

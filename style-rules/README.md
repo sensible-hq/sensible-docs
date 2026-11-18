@@ -40,6 +40,8 @@ The pytest suite runs in CI (`test-scripts.yml`) whenever a guide, skill, Vale s
 
 `gate` is set per rule in the registry. Reserve `block` for rules that are almost never wrong: a false positive that blocks a write costs a round trip, while one in feedback costs a line of reading.
 
+Some patterns also match correct text: "against" in "validate against your rules", "above" for position on the page, "template" as a defined alias. Those rules are `kind: judgment` with `gate: judge`. Vale finds the candidates, the after-write report lists them apart as possibly fine, and the Jev judge decides before commit. Today that's `AgainstPhrasing`, `Terminology`, `InternalTerms`, `Filler`, the word lists, and `Google.Passive` (for the explicit-actor rule).
+
 ## The link between a guide and its check
 
 When a guide states a rule that has a check, put a marker right after the rule's text:

@@ -1,0 +1,35 @@
+# Labeled cases for sensible-against-phrasing: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-against-phrasing
+cases:
+- text: LLM-based attachment classification against specified document types.
+  mark: against
+  expected: extraction-against
+  labeled_by: claude
+- text: Sensible extracts data against a document type.
+  mark: against
+  expected: extraction-against
+  labeled_by: claude
+- text: Sensible classifies each document in each file against the document types you specify.
+  mark: against
+  expected: extraction-against
+  labeled_by: claude
+- text: Run an extraction against the config to see the output.
+  mark: against
+  expected: extraction-against
+  labeled_by: claude
+- text: Validate extracted data against your business rules.
+  mark: against
+  expected: comparison
+  labeled_by: claude
+- text: Compare the extracted totals against the invoice line items.
+  mark: against
+  expected: comparison
+  labeled_by: claude
+- text: Use the validation feature to check extracted values against expected formats.
+  mark: against
+  expected: comparison
+  labeled_by: claude
+- text: Sensible checks extraction results against the schema you define and reports mismatches.
+  mark: against
+  expected: comparison
+  labeled_by: claude

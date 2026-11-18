@@ -82,56 +82,62 @@
 - id: sensible-terminology
   map_id: D1
   statement: Use the glossary's terms. Avoid "the UI", "the dashboard", "template", "result object", "repeating groups", and the other avoid-terms a pattern can settle.
-  kind: deterministic
-  gate: warn
+  kind: judgment
+  gate: judge
   enforced_by:
     vale: [Sensible.Terminology]
+    judgment: [style-rules/judgment/sensible-terminology.yaml]
   stated_in:
     - file: .claude/style-guide/glossary.md
       quote: Canonical term reference for all Sensible documentation.
   origin: [memory project_seo_terminology]
   fixture: style-rules/tests/sensible-terminology.md
   notes: >-
-    Warn, not block: "template" is allowed as a defined alias on two pages (layout-based getting started,
+    Jev decides each hit: "template" is allowed as a defined alias on two pages (layout-based getting started,
     library quickstart). "parse" and "dashboard" are also in the vocabulary's reject list (Vale.Avoid).
 
 - id: sensible-internal-terms
   map_id: D26
   statement: Don't use internal implementation terms such as Cognito, reprocessing, or auth token. Use the name readers see.
-  kind: deterministic
-  gate: warn
+  kind: judgment
+  gate: judge
   enforced_by:
     vale: [Sensible.InternalTerms]
+    judgment: [style-rules/judgment/sensible-internal-terms.yaml]
   stated_in:
     - file: .claude/style-guide/glossary.md
       quote: '| Internal implementation details |'
   origin: [.claude/sessions/2026-07-06-actor/frances-edits.md]
   fixture: style-rules/tests/sensible-internal-terms.md
+  notes: Vale finds candidates; Jev decides whether each hit is the problem the rule targets, because the pattern also matches correct text.
 
 - id: sensible-against-phrasing
   map_id: D3
   statement: Don't say "extract against" or "classify against". Use "using".
-  kind: deterministic
-  gate: warn
+  kind: judgment
+  gate: judge
   enforced_by:
     vale: [Sensible.AgainstPhrasing]
+    judgment: [style-rules/judgment/sensible-against-phrasing.yaml]
   stated_in:
     - file: .claude/style-guide/writing-rules.md
       quote: Do not use "against" to describe extraction or classification. Use "using" instead.
   fixture: style-rules/tests/sensible-against-phrasing.md
-  notes: Warn, because "validate extracted data against rules" is ordinary English.
+  notes: Jev decides each hit, because "validate extracted data against rules" is ordinary English.
 
 - id: sensible-filler
   map_id: D4
   statement: No filler phrases or marketing words. State facts directly.
-  kind: deterministic
-  gate: warn
+  kind: judgment
+  gate: judge
   enforced_by:
     vale: [Sensible.Filler]
+    judgment: [style-rules/judgment/sensible-filler.yaml]
   stated_in:
     - file: .claude/style-guide/writing-rules.md
       quote: 'Avoid: "please note that", "it''s important to remember", "it is worth mentioning"'
   fixture: style-rules/tests/sensible-filler.md
+  notes: Vale finds candidates; Jev decides whether each hit is the problem the rule targets, because the pattern also matches correct text.
 
 - id: sensible-param-name-code
   map_id: D5
@@ -254,14 +260,16 @@
 - id: sensible-word-list
   map_id: V2
   statement: Follow the case-sensitive half of Google's word list (Google.WordListCase covers the rest).
-  kind: deterministic
-  gate: report
+  kind: judgment
+  gate: judge
   enforced_by:
-    vale: [Sensible.WordList]
+    vale: [Sensible.WordList, Google.WordListCase]
+    judgment: [style-rules/judgment/sensible-word-list.yaml]
   stated_in: []
   fixture: style-rules/tests/sensible-word-list.md
 
 # ---------------------------------------------------------------- deterministic: scripts
+  notes: Vale finds candidates; Jev decides whether each hit is the problem the rule targets, because the pattern also matches correct text.
 
 - id: sensible-code-fences
   map_id: D11
@@ -336,6 +344,7 @@
   map_id: J2
   statement: Name who acts. The user makes the choices ("you"); Sensible carries them out. Never flip an existing "you" sentence.
   kind: judgment
+  gate: judge
   enforced_by:
     vale: [Google.Passive]
     judgment: [style-rules/judgment/sensible-explicit-actor.yaml]
