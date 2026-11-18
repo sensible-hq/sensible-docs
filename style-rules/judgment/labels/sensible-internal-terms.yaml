@@ -20,7 +20,7 @@ cases:
 - text: Sensible writes the output to your S3 bucket.
   mark: S3 bucket
   expected: implementation
-  labeled_by: claude
+  labeled_by: frances
 - text: Click Reprocess to run the extraction again with the current config.
   mark: Reprocess
   expected: user-facing

@@ -12,6 +12,8 @@ fails when the two sides drift apart:
     or a file the rule doesn't list
   - a Sensible.* Vale rule has no registry entry, or an entry names a Vale rule, script, judgment
     spec, or fixture that doesn't exist
+  - an entry has no scope (general, page-type, construct), or a narrower scope has no applies_to
+  - style-rules/HIERARCHY.md is stale (scripts/style/rule_map.py hierarchy regenerates it)
   - a deterministic rule has no carrier or no fixture, or a judgment spec lacks a required field or
     quotes its source file wrongly
 
@@ -28,6 +30,7 @@ REGISTRY = ROOT / "style-rules/registry.yaml"
 STYLES = ROOT / ".github/styles"
 MARKER = re.compile(r"<!--\s*rule:\s*([a-z0-9-]+)\s*-->")
 KINDS = {"deterministic", "judgment", "prose"}
+SCOPES = {"general", "page-type", "construct"}
 GATES = {"block", "warn", "report", "judge"}
 JUDGMENT_FIELDS = ("id", "source", "applies", "check", "examples")
 
@@ -62,6 +65,10 @@ def check(registry: list[dict]) -> list[str]:
             problems.append(f"{rid}: kind must be one of {sorted(KINDS)}")
         if not r.get("statement"):
             problems.append(f"{rid}: no statement")
+        if r.get("scope") not in SCOPES:
+            problems.append(f"{rid}: scope must be one of {sorted(SCOPES)}")
+        elif r["scope"] != "general" and not r.get("applies_to"):
+            problems.append(f"{rid}: a {r['scope']} rule needs applies_to (the page type or construct)")
         enf = r.get("enforced_by") or {}
         for name in enf.get("vale") or []:
             claimed_vale.add(name)
@@ -156,6 +163,10 @@ def check(registry: list[dict]) -> list[str]:
 def main():
     registry = yaml.safe_load(REGISTRY.read_text()) or []
     problems = check(registry)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import rule_map
+    if rule_map.main(["hierarchy", "--check"]):
+        problems.append("style-rules/HIERARCHY.md is stale")
     for p in problems:
         print(p)
     kinds = {k: sum(1 for r in registry if r.get("kind") == k) for k in sorted(KINDS)}

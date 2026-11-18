@@ -10,11 +10,11 @@ This file covers how to write parameter descriptions, terminology rules, and spe
 - Write the JSON key in camelCase as it appears in the config: `position`, `sortLines`, `textAlignment`
 - Mark required parameters: `paramName (**required**)`
 - Mark deprecated parameters: `**(Deprecated)** paramName`
-- Do not backtick the key name in the key column (the table formatting is sufficient)
+- Do not backtick the key name in the key column (the table formatting is sufficient) <!-- rule: sensible-key-column-plain -->
 - **Preprocessors**: the identifying parameter uses key `type`, not `id`. Example: `type (**required**)` with value `mergeLines`.
 
 ### value column
-Write the type and, for optional params, the default. Use these exact formats:
+Write the type and, for optional params, the default. Use these exact formats: <!-- rule: sensible-value-column-format -->
 
 | Situation | Format in value column |
 | --------- | ---------------------- |
@@ -45,7 +45,7 @@ When a parameter accepts multiple distinct types with meaningfully different beh
 Specifies [what]. <br/>For `value1`, [what happens]. <br/>For `value2`, [what happens].
 ```
 
-**For boolean flags:** State what happens when true. The default is usually false, so describe the non-default behavior:
+**For boolean flags:** State what happens when true. The default is usually false, so describe the non-default behavior: <!-- rule: sensible-boolean-description -->
 - "Specifies whether to include the anchor text in the output."
 - "Makes the offsets relative to the 0,0 origin at the top left of the page rather than to the Start parameter."
 - "Set this parameter to true to troubleshoot optional character recognition (OCR) in a table."
@@ -74,7 +74,7 @@ When a method's table lists a global param for completeness, use this shorthand 
 - Avoid: "automates the extraction of structured data"
 - Prefer: "automates extracting structured data"
 
-**Use explicit subjects in "how it works" lists.** In a numbered list that explains how Sensible processes something, don't use imperative or passive voice. Use "You" for user actions and "Sensible" for platform behavior. Procedures the reader follows step by step ("Click **Publish**") use the imperative.
+**Use explicit subjects in "how it works" lists.** In a numbered list that explains how Sensible processes something, don't use imperative or passive voice. Use "You" for user actions and "Sensible" for platform behavior. <!-- rule: sensible-explicit-actor --> Procedures the reader follows step by step ("Click **Publish**") use the imperative.
 - Avoid: "Upload documents via API, SDK, or email."
 - Avoid: "Documents are routed to a document type."
 - Prefer: "You upload documents via API, SDK, or email."
@@ -100,7 +100,7 @@ In prose (outside the parameter table):
 
 ## Describing what a method returns when no match is found
 
-State null behavior explicitly when it's non-obvious:
+State null behavior explicitly when it's non-obvious: <!-- rule: sensible-null-behavior -->
 - "Returns null if the anchor isn't present in the document."
 - "Sensible returns null for the fields in this query group if the anchor isn't present."
 - "If the source field doesn't exist or is null, Sensible ignores this parameter and always returns null."
@@ -130,7 +130,7 @@ The following parameters are available both on the config level and for each ind
 
 ## Describing interactions between parameters
 
-Describe interactions in the description of the more specific/subordinate parameter, not the parent. Cross-reference with a link or with plain text referring to the parameter by Title Case name.
+Describe interactions in the description of the more specific/subordinate parameter, not the parent. Cross-reference with a link or with plain text referring to the parameter by Title Case name. <!-- rule: sensible-interaction-placement -->
 
 Example from `query-group`:
 - In `source_ids` description: "If you configure this parameter, then the following parameters aren't supported: Anchor parameter, Confidence Signals, Multimodal Engine parameter..."
@@ -143,7 +143,7 @@ For methods with many interdependencies, use the 4-column table format with an e
 ## Numbers and measurements
 
 - Inch measurements: decimal numbers with units — "0.2 inches", "0.1 inches", "0.08 inches". Not "two-tenths of an inch".
-- Zero-based indexes: always say "zero-based index" on first use.
+- Zero-based indexes: always say "zero-based index" on first use. <!-- rule: sensible-zero-based-index -->
 - Percentages: "90%" not "90 percent".
 - Fractions used in threshold descriptions: state as decimals, "0.667" not "two-thirds".
 
@@ -153,7 +153,7 @@ For methods with many interdependencies, use the 4-column table format with an e
 
 ## Code examples: inline comments
 
-Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`. Fence code blocks as ` ```json `, never ` ```json5 `: ReadMe doesn't render `json5` fences. <!-- rule: sensible-code-fences --> The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says.
+Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`. Fence code blocks as ` ```json `, never ` ```json5 `: ReadMe doesn't render `json5` fences. <!-- rule: sensible-code-fences --> The Sensible engine accepts relaxed JSON. Comment to explain non-obvious choices, not to restate what the parameter name already says. <!-- rule: sensible-comment-purpose -->
 
 Good: `/* Use a multimodal LLM to troubleshoot problems with OCR */`
 Good: `/* Ensure the document type's OCR Engine parameter is set to Google for this example */`
@@ -169,4 +169,4 @@ The `id` parameter description for layout-based methods often describes a proxim
 | id (**required**) | `label` | The gap between the borders of the target line and the anchor line must be 0.2 inches or less. |
 ```
 
-If there's no meaningful constraint to state, leave the description blank or write a one-sentence summary that restates the opening paragraph's core point. Do not write "Specifies the method type" — that's obvious from the value.
+If there's no meaningful constraint to state, leave the description blank or write a one-sentence summary that restates the opening paragraph's core point. Do not write "Specifies the method type" — that's obvious from the value. <!-- rule: sensible-id-description -->
