@@ -56,6 +56,12 @@ class DecideTest(unittest.TestCase):
     def page(self, text):
         return {PAGE: text}
 
+    def test_ignored_files_dont_count_as_changes(self):
+        after = self.commit({"tooling/reports/x.html": "<html>"})
+        self.assertEqual(should_run.decide(PAGE, self.before, after, ["tooling/**"], ["tooling/reports/**"])[0], True)  # page unchanged
+        self.assertEqual(should_run.decide(PAGE, self.before, after, ["tooling/**"])[1], "the push changed tooling/reports/x.html")
+        self.assertNotIn("tooling/reports", should_run.decide(PAGE, self.before, after, ["tooling/**"], ["tooling/reports/**"])[1])
+
     def test_prose_only_skips(self):
         self.assertEqual(self.decide(self.page("New intro, and **bold**.\n" + CODE_TEST_PAGE + TABLE.replace("| first | none |", "| first claim | none at all |")))[0], False)
 

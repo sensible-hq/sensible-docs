@@ -3,7 +3,7 @@
 from . import text, wording
 
 
-def body(ui_results, records, run_url=None, pr_url=None, report_url=None):
+def body(ui_results, records, run_url=None, pr_url=None, report_url=None, other=()):
     lines = [
         "Doc Detective tests failed on `v0`.",
         "",
@@ -29,6 +29,13 @@ def body(ui_results, records, run_url=None, pr_url=None, report_url=None):
             continue
         lines.append(f"\n### `{record['test_id']}` (code test)\n\nFile: `{record['file']}`\n")
         lines.append("```\n" + "\n".join(text.summary(record)) + "\n```")
+
+    for result in other:
+        if result["status"] != "fail":
+            continue
+        lines.append(f"\n### `{result['test_id']}` ({result['runner']})\n\n{result.get('claim', '')}\n")
+        lines.append("```\n" + f"{result.get('category', '')}: {result.get('message', '')}".lstrip(": ") + "\n```")
+        lines += [f"- [{x['label']}]({x['url']})" for x in result.get("evidence", [])]
 
     rows = [(r["test_id"], *row) for r in records for row in wording.triage_rows(r)]
     if rows:

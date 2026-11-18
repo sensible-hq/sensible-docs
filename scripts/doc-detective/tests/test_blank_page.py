@@ -168,9 +168,8 @@ class ProbeBlankTest(unittest.TestCase):
 
     def test_respects_the_per_run_extraction_cap(self):
         client = SensibleClient("fake-test-key")
-        with mock.patch.object(client, "upload_config"), mock.patch.object(client, "delete_config"), \
-             mock.patch.object(client, "document_status", return_value=200), \
-             mock.patch.object(client, "delete_doc_type", return_value=False):
+        with mock.patch.object(client, "create_sample_doc_type", return_value="t1"), mock.patch.object(client, "publish_config"), \
+             mock.patch.object(client, "add_reference"), mock.patch.object(client, "document_status", return_value=200):
             code, out, _ = self.probe(client, env={settings.SENSIBLE_KEY_VAR: "fake-test-key", settings.MAX_EXTRACTIONS_VAR: "0"})
         self.assertEqual(code, 0)
         [result] = json.loads(out)

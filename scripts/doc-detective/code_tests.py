@@ -25,7 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # Local installs: pip install --target scripts/doc-detective/.deps -r scripts/doc-detective/requirements.txt
 sys.path[:0] = [os.path.join(HERE, ".deps"), HERE]
 
-from codetests import envelope, judge, markup, record, runner, settings, usage  # noqa: E402
+from codetests import envelope, judge, markup, record, runner, samples, settings, usage  # noqa: E402
 from codetests.errors import CodeTestError  # noqa: E402
 from codetests.reports import text  # noqa: E402
 from codetests.sensible import SensibleClient  # noqa: E402
@@ -46,7 +46,7 @@ def main():
     parser.add_argument("--probe-blank", action="store_true",
                         help="Run each code test that names a document on a blank page instead, compare with the inline output, "
                              "and print JSON: [{testId, unchanged, detail}]. Unchanged means the example doesn't read its document")
-    parser.add_argument("--keep", action="store_true", help=f"Don't delete the {settings.DOC_TYPE} document type afterward (to inspect it in the app)")
+    parser.add_argument("--keep", action="store_true", help="Don't delete this page's sample doc types that no test uses any more")
     args = parser.parse_args()
     if args.probe_blank and (args.list or args.check_syntax or args.check_fixtures or args.build_envelope or args.extend_envelope):
         parser.error("--probe-blank can't be combined with --list, --check-syntax, --check-fixtures, or the envelope options")
@@ -118,7 +118,7 @@ def main():
             print("\n".join(text.summary(rec)))
             failed += rec["status"] == "fail"
     finally:
-        cleanup(args, client)
+        cleanup_samples(args, page, client)
         usage.save_run(client.counts)
     return 1 if failed else 0
 
@@ -128,7 +128,7 @@ def probe_blank(args, selected, client):
     probed = [t for t in selected if runner.probeable(t)]
     for test in selected:
         if test not in probed:
-            why = "names no document" if test.blank_document else "is a fixture, portfolio, or fingerprint test, which needs its document"
+            why = "names no document" if test.blank_document else "is a fixture, portfolio, fingerprint, or classification test"
             print(f"SKIP {test.test_id}: {why}", file=sys.stderr)
     if not probed:
         print("[]")
@@ -144,23 +144,25 @@ def probe_blank(args, selected, client):
     try:
         results = [runner.probe_blank(test, client) for test in probed]
     finally:
-        cleanup(args, client, out=sys.stderr)
         print(f"Sensible usage: {client.counts['extractions']} extraction(s), {client.counts['requests']} API request(s)", file=sys.stderr)
     print(json.dumps(results, indent=2, ensure_ascii=False))
     return 0
 
 
-def cleanup(args, client, out=None):
-    """Delete the temporary document type. A failure here is reported but never hides a test's own
-    result or error: records are already saved, and the next run reuses the document type."""
-    # Only delete the temporary doc type if this run used it: another page's run may be using it now
-    if args.keep or not getattr(client, "used_temp_doc_type", True):
+def cleanup_samples(args, page, client):
+    """Delete this page's sample doc types that no test on the page uses any more (a test removed or
+    renamed). Uses every test on the page, not only the ones this run selected. Never fails the run."""
+    if args.keep:
         return
+    prefix = samples.prefix(page.path)
+    wanted = {name for test in page.code_tests.values() for name in samples.doc_types(test)}
     try:
-        if client.delete_doc_type():
-            print(f"Deleted document type {settings.DOC_TYPE}", file=out or sys.stdout)
+        for doc_type in list(client.document_types()):
+            if doc_type["name"].startswith(prefix) and doc_type["name"] not in wanted:
+                client.delete_sample_doc_type(doc_type["id"])
+                print(f"Deleted sample doc type {doc_type['name']}: no test on the page uses it")
     except Exception as e:  # noqa: BLE001
-        print(settings.redact(f"WARN couldn't delete document type {settings.DOC_TYPE}: {type(e).__name__}: {e}"), file=sys.stderr)
+        print(settings.redact(f"WARN couldn't clean up sample doc types: {type(e).__name__}: {e}"), file=sys.stderr)
 
 
 def check_fixtures(selected, client):
@@ -196,7 +198,7 @@ def build_envelopes(args, selected, client):
     if args.build_envelope and args.extend_envelope:
         print("Use --build-envelope or --extend-envelope, not both", file=sys.stderr)
         return 2
-    if os.path.abspath(args.file).startswith(settings.FIXTURES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
+    if os.path.abspath(args.file).startswith(settings.SELF_TEST_PAGES_DIR + os.sep) and not os.environ.get(settings.ENVELOPES_DIR_VAR):
         print("Refusing to build envelopes from a fixture: it would overwrite the real baselines in envelopes/. "
               f"Set {settings.ENVELOPES_DIR_VAR} to a scratch folder to build fixture baselines.", file=sys.stderr)
         return 2
@@ -212,8 +214,6 @@ def build_envelopes(args, selected, client):
     except CodeTestError as e:
         print(f"FAIL  {e}")
         return 1
-    finally:
-        cleanup(args, client)
     return 0
 
 
