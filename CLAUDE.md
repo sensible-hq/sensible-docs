@@ -1,6 +1,6 @@
 # sensible-docs
 
-Project rules for Claude Code. Keep rules here or in the style guides, skills, and `style-rules/registry.yaml`, not in Claude Code's auto memory: a rule in memory is invisible to reviewers, to CI, and to the registry's duplicate and contradiction checks. Don't write to auto memory for this project. When a correction should outlive the session, add it to the file that owns the topic and say which one.
+Project rules for Claude Code. Keep rules here or in the style guides, skills, and `style-rules/registry.yaml`, not in Claude Code's auto memory: a rule in memory is invisible to reviewers, to CI, and to the registry's duplicate and contradiction checks. Auto memory is off for this repo (`autoMemoryEnabled: false` in `.claude/settings.json`). When a correction should outlive the session, add it to the file that owns the topic and say which one.
 
 ## Docs changes
 
