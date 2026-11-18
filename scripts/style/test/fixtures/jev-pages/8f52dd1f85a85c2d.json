@@ -4,11 +4,11 @@
     "sensible_context_terms": {
       "type": "choice",
       "choice": "legitimate",
-      "confidence": 0.48,
+      "confidence": 0.62,
       "probabilities": {
-        "legitimate": 0.65,
+        "legitimate": 0.75,
         "synonym": 0.03,
-        "other": 0.32
+        "other": 0.22
       }
     }
   },

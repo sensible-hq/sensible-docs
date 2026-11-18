@@ -14,7 +14,8 @@ check:
     ask: Does the new text list the Label method among other methods?
     criteria:
       listed: yes; drop Label from the list
-      other: no, or the page is about Label
+      not-listed: it doesn't list Label with other methods, or it's about the Label method itself
+      other: none of these
   find:
     kind: sentences
     added_only: true

@@ -6,7 +6,7 @@ cases:
   source: memory label-method
   labeled_by: claude
 - text: The Box, Column, and Row methods support the Stop parameter.
-  expected: other
+  expected: not-listed
   source: memory label-method
   labeled_by: claude
 - text: Like the Label method, the Row method finds text near the anchor.
@@ -14,6 +14,6 @@ cases:
   source: claude
   labeled_by: claude
 - text: The Label method is the default for simple key-value pairs.
-  expected: other
+  expected: not-listed
   source: claude (page about Label)
   labeled_by: claude

@@ -4,11 +4,11 @@
     "sensible_gerunds": {
       "type": "choice",
       "choice": "noun",
-      "confidence": 0.62,
+      "confidence": 0.7,
       "probabilities": {
-        "nominalization": 0.21,
-        "noun": 0.75,
-        "other": 0.04
+        "nominalization": 0.17,
+        "noun": 0.8,
+        "other": 0.03
       }
     }
   },

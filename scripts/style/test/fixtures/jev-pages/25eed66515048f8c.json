@@ -4,12 +4,12 @@
     "sensible_explicit_actor": {
       "type": "choice",
       "choice": "sensible-hidden",
-      "confidence": 0.51,
+      "confidence": 0.4,
       "probabilities": {
-        "user-hidden": 0.02,
-        "sensible-hidden": 0.63,
-        "adjective": 0.3,
-        "other": 0.05
+        "user-hidden": 0.03,
+        "sensible-hidden": 0.55,
+        "adjective": 0.35,
+        "other": 0.07
       }
     }
   },

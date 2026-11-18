@@ -12,6 +12,7 @@ fails when the two sides drift apart:
     or a file the rule doesn't list
   - a Sensible.* Vale rule has no registry entry, or an entry names a Vale rule, script, judgment
     spec, or fixture that doesn't exist
+  - a relations entry names an unknown rule, an unknown relation, or no reason
   - an entry has no scope (general, page-type, construct), or a narrower scope has no applies_to
   - style-rules/HIERARCHY.md is stale (scripts/style/rule_map.py hierarchy regenerates it)
   - a deterministic rule has no carrier or no fixture, or a judgment spec lacks a required field or
@@ -69,6 +70,13 @@ def check(registry: list[dict]) -> list[str]:
             problems.append(f"{rid}: scope must be one of {sorted(SCOPES)}")
         elif r["scope"] != "general" and not r.get("applies_to"):
             problems.append(f"{rid}: a {r['scope']} rule needs applies_to (the page type or construct)")
+        for rel in r.get("relations") or []:
+            if rel.get("rule") not in by_id:
+                problems.append(f"{rid}: relation names unknown rule {rel.get('rule')}")
+            if rel.get("relation") not in ("same-requirement", "overlapping", "conflicting", "independent"):
+                problems.append(f"{rid}: relation with {rel.get('rule')} must be same-requirement, overlapping, conflicting, or independent")
+            if not rel.get("reason"):
+                problems.append(f"{rid}: relation with {rel.get('rule')} needs a reason")
         enf = r.get("enforced_by") or {}
         for name in enf.get("vale") or []:
             claimed_vale.add(name)

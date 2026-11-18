@@ -14,11 +14,11 @@ cases:
   source: revise-doc-style
   labeled_by: claude
 - text: Returns a value from an extra_data object you supply in an asynchronous extraction request.
-  expected: mechanism
+  expected: returns-output
   source: friction-log.md
   labeled_by: claude
 - text: Returns the current UTC date as a YYYY-MM-DD string.
-  expected: mechanism
+  expected: returns-output
   source: claude
   labeled_by: claude
 - text: Use this method to inject data you supply at request time into the extraction config.
@@ -26,7 +26,7 @@ cases:
   source: extra-data.md
   labeled_by: claude
 - text: The Box method returns an object containing the text in the box.
-  expected: mechanism
+  expected: returns-output
   source: claude
   labeled_by: claude
 - text: Maps output from source fields using a case-sensitive lookup table.

@@ -459,6 +459,10 @@
   stated_in:
     - file: .claude/preferences/editorial-preferences.md
       quote: If the user can't directly configure a set of values via the API or UI, don't document those values in a table.
+  relations:
+    - rule: sensible-example-download-table
+      relation: overlapping
+      reason: 'The download table is a link row, not values the user could configure; the added-tables detector skips it.'
 
 - id: sensible-label-method
   map_id: J8
@@ -472,6 +476,10 @@
     - file: .claude/style-guide/style-guide-overview.md
       quote: The Label method is nearly deprecated. Don't mention it in new text
   origin: [memory project_label_method_near_deprecated]
+  relations:
+    - rule: sensible-feature-name-caps
+      relation: independent
+      reason: 'One says how to write a method name; the other says not to name Label in new lists. Both hold.'
 
 - id: sensible-integrate-before-heading
   map_id: J10
@@ -484,6 +492,10 @@
   stated_in:
     - file: .claude/preferences/editorial-preferences.md
       quote: "**Integrate new features into existing explanatory sections rather than creating new headings.**"
+  relations:
+    - rule: sensible-example-heading-verb
+      relation: overlapping
+      reason: 'Example headings sit in an Examples section; the added-headings detector skips headings under Examples.'
 
 - id: sensible-parent-link
   map_id: J11
@@ -624,6 +636,10 @@
   stated_in:
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Use `# Parameters` (H1) for standalone methods'
+  relations:
+    - rule: sensible-example-heading-verb
+      relation: independent
+      reason: 'Example H2s sit under the H1 Examples section, so both hold.'
 
 - id: sensible-jump-links
   statement: 'Add jump links when the page has a Notes section or more than two named examples, and link only to sections that exist.'

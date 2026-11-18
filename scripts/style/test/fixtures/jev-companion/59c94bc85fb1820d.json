@@ -1,0 +1,32 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "current": {
+      "type": "choice",
+      "choice": "nominalization",
+      "confidence": 0.8,
+      "probabilities": {
+        "nominalization": 0.87,
+        "noun": 0.09,
+        "other": 0.04
+      }
+    },
+    "no_other": {
+      "type": "choice",
+      "choice": "nominalization",
+      "confidence": 0.7,
+      "probabilities": {
+        "nominalization": 0.85,
+        "noun": 0.15
+      }
+    },
+    "fits": {
+      "type": "noul",
+      "noul": 0.64
+    }
+  },
+  "usage": {
+    "input_tokens": 557,
+    "output_tokens": 96
+  }
+}

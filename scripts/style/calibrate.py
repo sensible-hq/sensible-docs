@@ -6,8 +6,8 @@
 Cases are in style-rules/judgment/labels/<id>.yaml: a text and the choice a reviewer expects. For each
 rule it reports:
 
-  precision          of the cases Jev flagged as violations (a verdicts.violation choice at confidence
-                     >= 0.70), the share the labels agree are violations
+  precision          of the cases Jev flagged as violations (the verdicts.violation choices' probabilities
+                     sum to >= 0.70), the share the labels agree are violations
   recall             of the labeled violations, the share Jev flagged
   verdict agreement  Jev and the label agree on whether the case breaks the rule
   choice agreement   Jev picked exactly the labeled choice
@@ -34,8 +34,14 @@ import judge  # noqa: E402
 LABELS = judge.SPECS / "labels"
 
 
-def violates(spec: dict, choice: str, confidence: float = 1.0) -> bool:
-    return choice in (spec["check"].get("verdicts") or {}).get("violation", []) and confidence >= judge.THRESHOLD
+def violates(spec: dict, choice: str) -> bool:
+    """Whether a labeled choice breaks the rule."""
+    return choice in (spec["check"].get("verdicts") or {}).get("violation", [])
+
+
+def flagged(spec: dict, answer: dict) -> bool:
+    """Whether Jev's answer would be reported as a violation."""
+    return judge.verdict(spec, answer) == "violation"
 
 
 def calibrate(rid: str, spec: dict, cases: list[dict]) -> dict:
@@ -58,14 +64,16 @@ def calibrate(rid: str, spec: dict, cases: list[dict]) -> dict:
             usage += (resp.get("usage") or {}).get("input_tokens", 0)
             got, conf = ans.get("choice"), ans.get("confidence", 0)
             rows.append({"text": case["text"], "expected": case["expected"], "got": got, "confidence": conf,
-                         "verdict_ok": violates(spec, case["expected"]) == violates(spec, got, conf),
+                         "p_violation": judge.violation_probability(spec, ans), "flagged": flagged(spec, ans),
+                         "probabilities": ans.get("probabilities") or {},
+                         "verdict_ok": violates(spec, case["expected"]) == flagged(spec, ans),
                          "choice_ok": got == case["expected"]})
     n = len(rows)
-    flagged = [r for r in rows if violates(spec, r["got"], r["confidence"])]
+    flagged_rows = [r for r in rows if r["flagged"]]
     real = [r for r in rows if violates(spec, r["expected"])]
-    hits = [r for r in flagged if violates(spec, r["expected"])]
+    hits = [r for r in flagged_rows if violates(spec, r["expected"])]
     return {"rule": rid, "cases": n, "model": model, "input_tokens": usage,
-            "precision": round(len(hits) / len(flagged), 2) if flagged else 0.0,
+            "precision": round(len(hits) / len(flagged_rows), 2) if flagged_rows else 0.0,
             "recall": round(len(hits) / len(real), 2) if real else 0.0, "violations": len(real),
             "agreement": round(sum(r["verdict_ok"] for r in rows) / n, 2),
             "choice_agreement": round(sum(r["choice_ok"] for r in rows) / n, 2), "rows": rows}
@@ -97,7 +105,7 @@ def main(argv=None):
         for r in res["rows"]:
             if not r["verdict_ok"] or not r["choice_ok"]:
                 kind = "VERDICT" if not r["verdict_ok"] else "choice"
-                print(f"    {kind}: expected {r['expected']}, got {r['got']} {r['confidence']:.2f}: {r['text'][:90]!r}")
+                print(f"    {kind}: expected {r['expected']}, got {r['got']}, p(violation) {r['p_violation']:.2f}: {r['text'][:90]!r}")
         if a.write:
             path = judge.SPECS / f"{rid}.yaml"
             text = path.read_text()

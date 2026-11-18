@@ -30,9 +30,9 @@ examples:
 fix: cut the phrase and state the point
 calibration:
   precision: 1.0
-  recall: 0.5
+  recall: 0.67
   violations: 6
-  agreement: 0.62
+  agreement: 0.75
   choice_agreement: 1.0
   cases: 8
   model: jev-1.14.0

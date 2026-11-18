@@ -16,7 +16,7 @@ Enforcement: **Vale** matches a pattern; **Jev** judges each candidate a detecto
 | `sensible-explicit-actor` | Name who acts. The user makes the choices ("you"); Sensible carries them out. Never flip an existing "you" sentence. | Vale, Jev (Google.Passive, Jev trusted) | judge | SKILL.md, sentence-word-guidance.md, style-guide-overview.md, writing-rules.md |
 | `sensible-filler` | No filler phrases or marketing words. State facts directly. | Vale, Jev (Sensible.Filler, Jev trusted) | judge | style-guide-overview.md, writing-rules.md |
 | `sensible-full-style-pass` | Before committing a docs change, read every style guide and apply revise-doc-style to the changed pages. | prose |  | CLAUDE.md |
-| `sensible-gerunds` | Prefer gerunds over nominalizations ("automates extracting", not "automates the extraction of"). | Jev (Jev advisory) |  | sentence-word-guidance.md, writing-rules.md |
+| `sensible-gerunds` | Prefer gerunds over nominalizations ("automates extracting", not "automates the extraction of"). | Jev (Jev trusted) |  | sentence-word-guidance.md, writing-rules.md |
 | `sensible-internal-terms` | Don't use internal implementation terms such as Cognito, reprocessing, or auth token. Use the name readers see. | Vale, Jev (Sensible.InternalTerms, Jev trusted) | judge | glossary.md |
 | `sensible-scenario-first` | Lead with what the user experiences or achieves, then explain how to configure it. | Jev (Jev trusted) |  | SKILL.md, editorial-preferences.md |
 | `sensible-terminology` | Use the glossary's terms. Avoid "the UI", "the dashboard", "template", "result object", "repeating groups", and the other avoid-terms a pattern can settle. | Vale, Jev (Sensible.Terminology, Jev trusted) | judge | glossary.md |
