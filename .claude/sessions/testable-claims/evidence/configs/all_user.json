@@ -1,0 +1,31 @@
+{
+  "preprocessors": [
+    {
+      "type": "ocr",
+      "omit": {
+        "type": "includes",
+        "text": "Total Premium"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "total_premium",
+      "type": "currency",
+      "anchor": "Total Premium",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    },
+    {
+      "id": "total_due",
+      "type": "currency",
+      "anchor": "Total Due",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    }
+  ]
+}

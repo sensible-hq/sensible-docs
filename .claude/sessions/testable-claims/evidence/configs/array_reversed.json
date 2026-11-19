@@ -1,0 +1,37 @@
+{
+  "preprocessors": [
+    {
+      "type": "ocr",
+      "omit": [
+        {
+          "type": "includes",
+          "text": "Premium shown is annual"
+        },
+        {
+          "type": "includes",
+          "text": "Premium Summary"
+        }
+      ]
+    }
+  ],
+  "fields": [
+    {
+      "id": "total_premium",
+      "type": "currency",
+      "anchor": "Total Premium",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    },
+    {
+      "id": "total_due",
+      "type": "currency",
+      "anchor": "Total Due",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    }
+  ]
+}
