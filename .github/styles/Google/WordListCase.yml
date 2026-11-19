@@ -12,7 +12,8 @@ swap:
   "(?:API Console|dev|developer) key": API key
   "(?:cell ?phone|smart ?phone)": phone|mobile phone
   "(?:dev|developer|APIs) console": API console
-  "(?:e-mail|Email|E-mail)": email
+  # "Email" is left out: capitalized, it starts a sentence, a table cell, or a bold label.
+  "(?:e-mail|E-mail)": email
   "(?:file ?path|path ?name)": path
   "(?:kill|terminate|abort)": stop|exit|cancel|end
   # Longest form first: with the shortest alternative leading, 'OAuth 2' matched

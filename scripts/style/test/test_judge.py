@@ -40,10 +40,16 @@ def test_sentences_keep_line_numbers():
 
 def test_verdicts():
     spec = {"check": {"verdicts": {"violation": ["bad"], "review": ["maybe"]}}}
-    assert judge.verdict(spec, {"choice": "bad", "confidence": 0.9}) == "violation"
-    assert judge.verdict(spec, {"choice": "bad", "confidence": 0.5}) == "unsure"
-    assert judge.verdict(spec, {"choice": "maybe", "confidence": 0.9}) == "review"
-    assert judge.verdict(spec, {"choice": "good", "confidence": 0.9}) == "ok"
+    spec2 = {"check": {"verdicts": {"violation": ["bad", "worse"], "review": ["maybe"]}}}
+    # The gate is the probability of breaking the rule, not Jev's confidence in its top choice.
+    assert judge.verdict(spec, {"choice": "bad", "confidence": 0.2, "probabilities": {"bad": 0.75, "good": 0.25}}) == "violation"
+    assert judge.verdict(spec2, {"choice": "good", "probabilities": {"bad": 0.4, "worse": 0.35, "good": 0.25}}) == "violation"
+    assert judge.verdict(spec, {"choice": "bad", "confidence": 0.9, "probabilities": {"bad": 0.5, "good": 0.5}}) == "unsure"
+    assert judge.verdict(spec, {"choice": "good", "probabilities": {"bad": 0.35, "good": 0.65}}) == "unsure"
+    assert judge.verdict(spec, {"choice": "maybe", "probabilities": {"maybe": 0.9, "bad": 0.1}}) == "review"
+    assert judge.verdict(spec, {"choice": "good", "probabilities": {"good": 0.95, "bad": 0.05}}) == "ok"
+    # Without probabilities, the top choice counts as certain.
+    assert judge.verdict(spec, {"choice": "bad"}) == "violation"
 
 
 def test_trust_needs_precision_recall_and_enough_cases():

@@ -8,6 +8,8 @@ See `style-guide-overview.md` for formatting conventions and `sentence-word-guid
 
 ## Template
 
+<!-- rule: sensible-image-url -->
+
 ```markdown
 ---
 title: [Method Name]
@@ -154,14 +156,16 @@ Use H2 subheadings within Notes for multiple topics. -->
 ## Method category variations
 
 ### Layout-based method
-- Opening: imperative verb — "Extracts...", "Matches...", "Returns..."
+<!-- rule: sensible-opening-sentence -->
+- Opening: third-person present verb ("Extracts...", "Matches...", "Returns...")
 - Uses the global parameters note
 - Identifying param key is `id` (not `type`)
 - Example always includes config + output; example document section included when a visual helps
 - Notes section is common for performance guidance and related-methods references
 
 ### LLM-based method
-- Opening: imperative or "This LLM-based method extracts..." both acceptable
+<!-- rule: sensible-opening-sentence -->
+- Opening: third-person present ("Extracts...") or "This LLM-based method extracts..."
 - Often includes a Limitations subsection before Parameters
 - May include "Prompt Tips" guidance before Parameters
 - Parameter table may have two sub-tables (field-level params + method object params)
@@ -169,6 +173,7 @@ Use H2 subheadings within Notes for multiple topics. -->
 - Notes section common for how-it-works explanation
 
 ### Computed field method
+<!-- rule: sensible-opening-sentence -->
 - Opening: "Define...", "Maps...", "Concatenates...", "Returns..."
 - Uses the computed field global method note (not layout-based note)
 - Identifying param key is `id`
@@ -176,6 +181,7 @@ Use H2 subheadings within Notes for multiple topics. -->
 - Commonly accesses `parsed_document` in examples
 
 ### Preprocessor
+<!-- rule: sensible-filler --> <!-- rule: sensible-gerunds -->
 - Opening: imperative — "Merges...", "Ignores...", "Configures..."
 - No global parameters note
 - Identifying param key is `type` (not `id`), for example, `"type": "mergeLines"`
@@ -184,6 +190,7 @@ Use H2 subheadings within Notes for multiple topics. -->
 - Parameters section uses `# Parameters` (H1)
 
 ### Object page (anchor, match)
+<!-- rule: sensible-section-heading-levels -->
 - Opening: defines what the object is — "An anchor is a string, Match object, or array of Match objects."
 - Uses `## Parameters` (H2), not H1
 - May use `values` (plural) in the value column header — but prefer `value` (singular) for new pages

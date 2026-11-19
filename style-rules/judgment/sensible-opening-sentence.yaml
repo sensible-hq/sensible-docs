@@ -16,7 +16,7 @@ check:
     criteria:
       third-person: 'states what the feature does: "Extracts lines near the anchor."'
       use-this: '"Use this method to…": right only when the user supplies the input (Extra Data); otherwise rewrite'
-      mechanism: 'describes what the API returns: "Returns a value from…"; rewrite'
+      returns-output: 'describes what the API returns: "Returns a value from…"; rewrite'
       other: none of these
   find:
     kind: first-sentence
@@ -28,7 +28,7 @@ check:
     - '**/draft-*'
   verdicts:
     violation:
-    - mechanism
+    - returns-output
     review:
     - use-this
 examples:

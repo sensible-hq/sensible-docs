@@ -1,0 +1,119 @@
+# The weekly style rule cleanup (scripts/style/weekly_cleanup.py): reruns each Jev judgment rule on its
+# labels, judges every docs page, relates every rule to every other, and checks choices, fixtures, and
+# labels. Uploads one HTML report that opens in the browser, links it from the run summary, and
+# comments on the standing issue labeled style-weekly (opening it the first time).
+#
+# Mondays 14:00 UTC, and on demand (Actions > Weekly style rule cleanup > Run workflow).
+# Costs about $0.30 of Jev a week (TYPESAFE_API_KEY), most of it the skill scan. Never on pull requests.
+
+name: Weekly style rule cleanup
+
+on:
+  schedule:
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+    inputs:
+      pages:
+        description: "Judge only the first N docs pages (blank for all)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: style-weekly
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      # Actions are pinned to commit SHAs, since this job holds the Jev key
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+          scripts/style/install_vale.sh "$RUNNER_TEMP/vale"
+          echo "$RUNNER_TEMP/vale" >> "$GITHUB_PATH"
+
+      - name: Run the cleanup
+        id: cleanup
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+          PAGES: ${{ inputs.pages }}
+          # Routing answers replay from the committed recordings; anything changed goes live
+          JEV_REPLAY: scripts/style/test/fixtures/jev-skill-overlap
+          JEV_RECORD: ${{ runner.temp }}/jev-new
+        run: python3 scripts/style/weekly_cleanup.py run --out "$RUNNER_TEMP/style-weekly" ${PAGES:+--pages "$PAGES"}
+
+      # The HTML report on its own, unzipped, so it opens in the browser from the run page
+      - name: Name the HTML report
+        id: htmlname
+        if: always()
+        run: |
+          if [ -f "$RUNNER_TEMP/style-weekly/report.html" ]; then
+            cp "$RUNNER_TEMP/style-weekly/report.html" "$RUNNER_TEMP/style-weekly-report.html"
+            echo "path=$RUNNER_TEMP/style-weekly-report.html" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload HTML report
+        id: htmlreport
+        if: always() && steps.htmlname.outputs.path != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ steps.htmlname.outputs.path }}
+          archive: false
+
+      - name: Write run summary
+        if: always() && steps.htmlname.outputs.path != ''
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: python3 scripts/style/weekly_cleanup.py summary --results "$RUNNER_TEMP/style-weekly/results.json" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"
+
+      # One standing issue: a comment per week, so the history is in one place
+      - name: Open or update the weekly issue
+        if: always() && steps.htmlname.outputs.path != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: |
+          python3 scripts/style/weekly_cleanup.py issue --results "$RUNNER_TEMP/style-weekly/results.json" --run-url "$RUN_URL" ${REPORT_URL:+--report-url "$REPORT_URL"} > "$RUNNER_TEMP/issue.md"
+          gh label create style-weekly --color 5319E7 --description "Weekly style rule cleanup" --force -R "$GITHUB_REPOSITORY"
+          issue=$(gh issue list -R "$GITHUB_REPOSITORY" --label style-weekly --state open --json number -q '.[0].number')
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" -R "$GITHUB_REPOSITORY" --body-file "$RUNNER_TEMP/issue.md"
+          else
+            gh issue create -R "$GITHUB_REPOSITORY" --title "Weekly style rule cleanup" --label style-weekly --body-file "$RUNNER_TEMP/issue.md"
+          fi
+
+      # A failed run (no key, Jev down) still leaves a trace on the issue
+      - name: Report a failed run on the weekly issue
+        if: failure() && steps.htmlname.outputs.path == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create style-weekly --color 5319E7 --description "Weekly style rule cleanup" --force -R "$GITHUB_REPOSITORY"
+          issue=$(gh issue list -R "$GITHUB_REPOSITORY" --label style-weekly --state open --json number -q '.[0].number')
+          body="The weekly style rule cleanup failed before it wrote a report. See the run: $RUN_URL"
+          if [ -n "$issue" ]; then
+            gh issue comment "$issue" -R "$GITHUB_REPOSITORY" --body "$body"
+          else
+            gh issue create -R "$GITHUB_REPOSITORY" --title "Weekly style rule cleanup" --label style-weekly --body "$body"
+          fi

@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_label_method": {
+      "type": "choice",
+      "choice": "listed",
+      "confidence": 0.98,
+      "probabilities": {
+        "listed": 0.99,
+        "not-listed": 0.01,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 378,
+    "output_tokens": 43
+  }
+}

@@ -135,6 +135,8 @@ If no past match exists, draft from scratch.
 
 ### 3c. Draft the entry
 
+<!-- rule: sensible-changelog-sections --> <!-- rule: sensible-doc-links --> <!-- rule: sensible-explicit-actor --> <!-- rule: sensible-param-name-code -->
+
 Use the **entry template** in `.claude/skills/changelog/structural-check.md`. Draft directly into the template so the doc link slot and heading format are present from the start.
 
 Key reminders:
@@ -167,6 +169,8 @@ Once all entries are drafted, assemble them in order: New features first, then I
 ---
 
 ## Step 5: Style check, then review with user
+
+<!-- rule: sensible-image-syntax -->
 
 Run Vale on the draft from the repo root: `vale --minAlertLevel=warning drafts/<month>-<year>-changelog.md`. The file name must contain `changelog`, so `.vale.ini` applies the changelog rules (JSX images, section heading types). Fix every error and warning. Glossary terms are part of Vale's `Sensible.Terminology` rule, so this replaces the separate terminology pass. Use judgment on suggestions: Google style rules often don't apply to changelogs.
 

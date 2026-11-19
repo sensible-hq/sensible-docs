@@ -1,0 +1,34 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "current": {
+      "type": "choice",
+      "choice": "avoided-term",
+      "confidence": 0.99,
+      "probabilities": {
+        "avoided-term": 0.99,
+        "defined-alias": 0.0,
+        "proper-name": 0.0,
+        "other": 0.01
+      }
+    },
+    "no_other": {
+      "type": "choice",
+      "choice": "avoided-term",
+      "confidence": 0.97,
+      "probabilities": {
+        "avoided-term": 0.98,
+        "defined-alias": 0.01,
+        "proper-name": 0.01
+      }
+    },
+    "fits": {
+      "type": "noul",
+      "noul": 0.72
+    }
+  },
+  "usage": {
+    "input_tokens": 920,
+    "output_tokens": 112
+  }
+}

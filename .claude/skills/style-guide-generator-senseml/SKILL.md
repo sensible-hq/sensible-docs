@@ -65,6 +65,8 @@ Before rewriting the output files, look for these things across the pages:
 
 ## Step 4: Rewrite the output files
 
+<!-- rule: sensible-filler --> <!-- rule: sensible-value-column-format -->
+
 Use the pre-seeded content as a baseline. Update or correct anything that has changed, and add patterns you observed that weren't captured. Remove anything that turns out not to be a real convention.
 
 Write for an LLM agent reader: direct, rule-based, with real examples quoted from the docs. A rule like "use `boolean. default: \`false\``" is more useful than "defaults are noted in the value column."

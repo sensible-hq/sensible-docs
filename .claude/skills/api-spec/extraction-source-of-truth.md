@@ -120,6 +120,8 @@ Not publicly documented: `ocr_engine?`, `ocr_every_page?`
 
 ### Actor field
 
+<!-- rule: sensible-internal-terms -->
+
 - **File**: `src/api/extract/response-types.ts` (in `ExtractionResponseBase`)
 - Value: `'api_key: <name>'`, `'api_key'`, `'legacy: <account>'`, or the initiating user's email
 - auth_token-initiated extractions are not a real code path — omit that case from public docs

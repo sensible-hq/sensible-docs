@@ -1,0 +1,6 @@
+{"type": "attachment", "timestamp": "2026-11-17T11:00:00Z", "attachment": {"type": "instructions", "files": [{"path": "/home/x/.claude/CLAUDE.md", "type": "User", "content": "SECRET GLOBAL CONTENT"}, {"path": "/home/x/GitHub/sensible-docs/CLAUDE.md", "type": "Project", "content": "repo"}]}}
+{"type": "attachment", "timestamp": "2026-11-17T11:00:00Z", "attachment": {"type": "output_style", "style": "katharsis:Katharsis coding"}}
+{"type": "user", "timestamp": "2026-11-17T11:00:01Z", "message": {"content": "tighten the intro on b.md"}}
+{"type": "assistant", "timestamp": "2026-11-17T11:00:02Z", "message": {"content": [{"type": "tool_use", "id": "u1", "name": "Skill", "input": {"skill": "typesafe:typesafe-ai"}}]}}
+{"type": "assistant", "timestamp": "2026-11-17T11:00:03Z", "message": {"content": [{"type": "tool_use", "id": "u2", "name": "Edit", "input": {"file_path": "/home/x/GitHub/sensible-docs/docs/b.md"}}]}}
+{"type": "user", "timestamp": "2026-11-17T11:00:04Z", "message": {"content": "no, undo that, the old intro was fine"}}

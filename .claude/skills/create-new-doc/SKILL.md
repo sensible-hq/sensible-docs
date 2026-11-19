@@ -1,6 +1,6 @@
 ---
 name: create-new-doc
-description: Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If you're not sure whether to create or update, use update-docs-from-pr instead.
+description: 'Given a sensible-hq/sensible PR number, create new sensible-docs reference pages for new methods, preprocessors, or other features introduced by the PR — then open a PR. Use this skill when you already know the PR adds something new that needs a new doc page. If the request doesn''t say the PR adds something new, use update-docs-from-pr. For new API endpoints, use api-spec.'
 argument-hint: <pr-number> [hints about what's being added or related PRs]
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
@@ -52,6 +52,8 @@ Then read the template that matches the page type:
 Use the template that matches the type of page you're creating.
 
 ## Step 4 — Write the new page
+
+<!-- rule: sensible-realistic-example-data --> <!-- rule: sensible-value-column-format -->
 
 Before you edit any file, create the branch's worktree with the first three commands in the "Branch, commit, and open a PR" step, and make every edit in that worktree. A worktree created after the edits doesn't contain them.
 

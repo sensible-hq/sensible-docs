@@ -6,8 +6,8 @@
 For each rule, code finds candidates (the spec's check.find), Jev answers the spec's multiple-choice
 question about each one, and code decides (the spec's check.verdicts):
 
-  violation  Jev picked a choice listed under verdicts.violation with confidence >= 0.70
-  unsure     it picked a violation choice with lower confidence; reported, never a pass
+  violation  the probabilities of the choices listed under verdicts.violation sum to >= 0.70
+  unsure     they sum to 0.30 or more, or Jev's top choice is a violation choice; reported, never a pass
   review     it picked a choice listed under verdicts.review; worth a look, not a failure
   ok         anything else
 
@@ -37,7 +37,8 @@ import jev  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 SPECS = ROOT / "style-rules/judgment"
-THRESHOLD = 0.70
+THRESHOLD = 0.70  # probability that the text breaks the rule (TypeSafe: confidence isn't the gate)
+UNSURE = 0.30
 TRUST = 0.90
 MIN_CASES, MIN_VIOLATIONS = 6, 3  # fewer labeled cases than this can't earn trust
 MAX_STATE = 6000
@@ -220,11 +221,16 @@ def find_candidates(spec: dict, path: Path, page: dict, base: str | None) -> tup
     elif kind == "added-tables":
         for b in blocks:
             header = b["text"].splitlines()[0] if b["kind"] == "table" else ""
-            if b["kind"] == "table" and b["line"] in added and not re.match(r"^\|\s*(key|id)\s*\|", header, re.I):
+            # Parameter tables (key, id) and the example download table are configuration and links, not values
+            if b["kind"] == "table" and b["line"] in added and not re.match(r"^\|\s*(key|id|example document)\s*\|", header, re.I):
                 out.append({"line": b["line"], "text": b["text"], "context": b["text"]})
     elif kind == "added-headings":
         for k, b in enumerate(blocks):
             if b["kind"] != "heading" or b["line"] not in added or b["text"].lower().startswith("example"):
+                continue
+            # A heading inside an Examples section names an example; examples get their own headings
+            parent = next((x for x in reversed(blocks[:k]) if x["kind"] == "heading" and x["level"] < b["level"]), None)
+            if parent and parent["text"].lower().startswith("example"):
                 continue
             body = []
             for x in blocks[k + 1:]:
@@ -290,12 +296,24 @@ def key(rid: str) -> str:
     return re.sub(r"[^A-Za-z0-9_]", "_", rid)
 
 
+def violation_probability(spec: dict, answer: dict) -> float:
+    """The probability that the text breaks the rule: the sum over the violation choices. An answer
+    without probabilities (older recordings) counts its top choice as certain."""
+    bad = (spec["check"].get("verdicts") or {}).get("violation") or []
+    probs = answer.get("probabilities")
+    if probs:
+        return round(sum(probs.get(c, 0) for c in bad), 4)
+    return 1.0 if answer.get("choice") in bad else 0.0
+
+
 def verdict(spec: dict, answer: dict) -> str:
     v = spec["check"].get("verdicts") or {}
-    choice, conf = answer.get("choice"), answer.get("confidence", 0)
-    if choice in (v.get("violation") or []):
-        return "violation" if conf >= THRESHOLD else "unsure"
-    if choice in (v.get("review") or []):
+    p = violation_probability(spec, answer)
+    if p >= THRESHOLD:
+        return "violation"
+    if p >= UNSURE or answer.get("choice") in (v.get("violation") or []):
+        return "unsure"
+    if answer.get("choice") in (v.get("review") or []):
         return "review"
     return "ok"
 
@@ -354,6 +372,7 @@ def judge(files: list[Path], specs: dict, base: str | None = None, dry_run: bool
                 ans = (resp.get("answers") or {}).get(key(r)) or {}
                 results.append({"rule": r, "path": g["path"], "line": g["line"], "text": g["text"],
                                 "choice": ans.get("choice"), "confidence": ans.get("confidence"),
+                                "p_violation": violation_probability(specs[r], ans),
                                 "verdict": verdict(specs[r], ans), "trusted": trusted(specs[r]),
                                 "fix": specs[r].get("fix"), "model": resp.get("model")})
     return {"results": results, "skipped": skipped, "usage": usage, "calls": calls}
@@ -382,7 +401,7 @@ def main(argv=None):
             if r["verdict"] == "ok" and not a.all:
                 continue
             tag = r["verdict"] + ("" if r.get("trusted", True) or r["verdict"] == "candidate" else " (advisory)")
-            conf = f" {r['choice']} {r['confidence']:.2f}" if r.get("choice") else ""
+            conf = f" {r['choice']}, p(violation) {r['p_violation']:.2f}" if r.get("choice") else ""
             print(f"{r['path']}:{r['line']}: {tag}: {r['rule']}{conf}: {r['text'][:120]!r}")
             if r["verdict"] in ("violation", "unsure") and r.get("fix"):
                 print(f"    fix: {r['fix']}")

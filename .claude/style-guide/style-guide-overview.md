@@ -6,7 +6,7 @@ This file covers page structure, voice, formatting conventions, and cross-refere
 
 ## Page structure
 
-Every SenseML reference page follows this section order. Sections marked *(optional)* appear on some pages but not all.
+Every SenseML reference page follows this section order. Sections marked *(optional)* appear on some pages but not all. <!-- rule: sensible-reference-section-order -->
 
 1. **YAML frontmatter** (required)
 2. **Opening paragraph** (required) — 1–3 sentences
@@ -18,13 +18,13 @@ Every SenseML reference page follows this section order. Sections marked *(optio
 
 ### Parameters heading level
 
-- Use `# Parameters` (H1) for standalone methods: layout-based methods, LLM-based methods, preprocessors, computed field methods.
+- Use `# Parameters` (H1) for standalone methods: layout-based methods, LLM-based methods, preprocessors, computed field methods. <!-- rule: sensible-section-heading-levels -->
 - Use `## Parameters` (H2) for object pages (anchor, match) and for subsections within a multi-table parameters section (for example, a "Query group parameters" table nested under a top-level `# Parameters`).
 - Use `# Examples` and `# Notes` (H1) for their respective sections. (53 of 60 pages with an Examples section use H1.)
 
 ### When to add jump links
 
-Add the jump link block when the page has a Notes section, or when it has more than two named examples. Omit it for short, simple pages. Format:
+Add the jump link block when the page has a Notes section, or when it has more than two named examples. Omit it for short, simple pages. Format: <!-- rule: sensible-jump-links -->
 
 ```
 [**Parameters**](doc:page-slug#parameters)\
@@ -38,7 +38,7 @@ Note the backslash line break (not a blank line) between each link — this rend
 
 ## Frontmatter
 
-Always use this exact structure. Only `title`, `excerpt`, and `metadata.description` vary per page.
+Always use this exact structure. Only `title`, `excerpt`, and `metadata.description` vary per page. <!-- rule: sensible-frontmatter-structure -->
 
 ```yaml
 ---
@@ -57,7 +57,7 @@ next:
 
 `excerpt` is the source of truth, and `metadata.description` holds the same text (it drives the meta description and `llms.txt`). Set both together. The excerpt:
 
-- Uses the imperative: the reader acts ("Extract…", not "Extracts…").
+- Uses the imperative: the reader acts ("Extract…", not "Extracts…"). <!-- rule: sensible-excerpt-imperative -->
 - Doesn't name the page's own method, object, or setting, because the title already does. Overview pages that list several methods may name them. <!-- rule: sensible-excerpt-self-naming -->
 - Has no filler opener such as "Learn how to" or "How X works".
 - Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`). <!-- rule: sensible-excerpt-length -->
@@ -89,11 +89,11 @@ Acceptable variations when that form is awkward:
 
 Do not start with "The X method..." as a default. Lead with what it does.
 
-**Parameter descriptions:** Mix of second person ("You can use this parameter to...") and third person ("Sensible returns...", "Sensible ignores..."). Use "Sensible" as the subject when describing engine behavior. Use "you" when giving configuration guidance.
+**Parameter descriptions:** Mix of second person ("You can use this parameter to...") and third person ("Sensible returns...", "Sensible ignores..."). Use "Sensible" as the subject when describing engine behavior. <!-- rule: sensible-explicit-actor --> Use "you" when giving configuration guidance.
 
-**Examples:** Introduce each example in third person: "The following example shows [doing X]." or "The following example shows using the X parameter to [do Y]."
+**Examples:** Introduce each example in third person: "The following example shows [doing X]." or "The following example shows using the X parameter to [do Y]." <!-- rule: sensible-example-intro -->
 
-**Tone:** Terse and precise. No filler. No "please note that" or "it's important to remember". State facts directly.
+**Tone:** Terse and precise. No filler. No "please note that" or "it's important to remember". <!-- rule: sensible-filler --> State facts directly.
 
 **Em dashes:** Do not use em dashes to join compound clauses. Split them into two sentences instead. <!-- rule: sensible-em-dash -->
 - Avoid: "a fixed layout — the same fields appear in the same positions across issuers."
@@ -105,7 +105,7 @@ Do not start with "The X method..." as a default. Lead with what it does.
 
 ### Standard table (most pages)
 
-Three columns: `key`, `value`, `description`. Left-align all columns.
+Three columns: `key`, `value`, `description`. Left-align all columns. <!-- rule: sensible-param-table-columns -->
 
 ```markdown
 | key | value | description |
@@ -135,7 +135,7 @@ For long parameter tables, use bold separator rows to group related parameters v
 | | | ***CHAIN PROMPTS*** | |
 ```
 
-This is an empty row with bold italic text in the description cell, used to label a cluster of related parameters. Use it only for very long tables (8+ rows) where grouping genuinely aids comprehension.
+This is an empty row with bold italic text in the description cell, used to label a cluster of related parameters. Use it only for very long tables (8+ rows) where grouping genuinely aids comprehension. <!-- rule: sensible-table-separator-rows -->
 
 ### Referencing global parameters in a row
 
@@ -152,7 +152,7 @@ Use this pattern when a method's parameter table includes a global param for com
 ## Formatting conventions
 
 ### Backtick quoting
-- JSON keys: always backtick in prose — `"position"`, `"id"`, `"stop"`
+- JSON keys: always backtick in prose — `"position"`, `"id"`, `"stop"` <!-- rule: sensible-backtick-values -->
 - Enum values: always backtick — `"below"`, `"readingOrderLeftToRight"`, `true`, `false`
 - Method IDs: always backtick — `"label"`, `"queryGroup"`, `"customComputation"`
 - Parameter names: do NOT backtick in prose — write "the Stop parameter", not "the `stop` parameter"
@@ -168,7 +168,7 @@ Capitalize parameter names as Title Case when referring to them by name in runni
 This applies even though the JSON key is camelCase (`sortLines`, `textAlignment`).
 
 ### Method and feature names in prose
-Capitalize method names and major feature names: "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor".
+Capitalize method names and major feature names: "the Box method", "the Region method", "the Query Group method", "Sections", "the Multicolumn preprocessor", "the Merge Lines preprocessor". <!-- rule: sensible-feature-name-caps -->
 
 The Label method is nearly deprecated. Don't mention it in new text, for example in a list of methods that share a parameter, and leave its existing mentions alone unless asked. <!-- rule: sensible-label-method -->
 
@@ -192,7 +192,7 @@ Examples:
 - `[Remove Headers preprocessor](doc:remove-headers)`
 - `[Query Group method](doc:query-group)`
 
-Link on first meaningful mention per page. Do not re-link on every subsequent mention.
+Link on first meaningful mention per page. Do not re-link on every subsequent mention. <!-- rule: sensible-link-first-mention -->
 
 ---
 
@@ -215,7 +215,7 @@ Note: some existing pages use `<Image alt="Click to enlarge" border={false} src=
 
 ## Example document download table
 
-Every example that references a PDF uses this exact table:
+Every example that references a PDF uses this exact table: <!-- rule: sensible-example-download-table -->
 
 ```markdown
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/filename.pdf) |
@@ -230,7 +230,7 @@ Place this table immediately after the example document image (or after the `**E
 
 ### Standard example
 
-Use bold subheadings (not headings). The backslash after `**Example document**\` creates a line break so the image follows immediately.
+Use bold subheadings (not headings). The backslash after `**Example document**\` creates a line break so the image follows immediately. <!-- rule: sensible-example-bold-labels -->
 
 ```markdown
 **Config**
@@ -284,7 +284,7 @@ This pattern appears in merge-lines and box pages. Use it when the example's pur
 
 ### Multiple examples
 
-Use H2 subheadings that name the use case as a short verb phrase: `## Remove page number lines`, `## Handwriting OCR`. Some existing pages use `## Example: Descriptive name` or `## Example 1`; keep that form when editing those pages, and use verb phrases for new pages.
+Use H2 subheadings that name the use case as a short verb phrase: `## Remove page number lines`, `## Handwriting OCR`. Some existing pages use `## Example: Descriptive name` or `## Example 1`; keep that form when editing those pages, and use verb phrases for new pages. <!-- rule: sensible-example-heading-verb -->
 
 Give each distinct scenario its own example. Don't split one scenario into a "basic" and an "advanced" example: one well-chosen example that shows the feature teaches both.
 

@@ -55,6 +55,8 @@ If new content is 1–3 sentences that extends an existing topic, work it into t
 
 ## Changelog entries
 
+<!-- rule: sensible-image-syntax --> <!-- rule: sensible-scenario-first -->
+
 **When a change affects both the app UI and the API, lead with the UI.** <!-- rule: sensible-changelog-ui-first -->
 Describe the app experience first, then reference the API as a secondary option: "You can use the same filtering option in the [List extractions](ref:list-extractions) endpoint by passing…". Don't lead with the API parameter.
 
@@ -73,6 +75,8 @@ Don't mention that a warning or limitation previously existed. Describe what the
 
 ### 2026-02 — cell-rows: consolidate examples (branch `fe_cellrows_customcomputationgroup_docs`)
 
+<!-- rule: sensible-example-per-scenario --> <!-- rule: sensible-realistic-example-data -->
+
 **What Claude did:** Created two separate examples — "Basic example" (plain cell extraction) and "Custom computation group in cellRows" (customComputationGroup usage). Each had its own config, example document reference, and full output (~20 rows).
 
 **What Frances did:** Consolidated into a single example using a bestselling-books dataset. The example demonstrates `customComputationGroup` by converting raw sales values (stored in millions) to actual copy counts and flagging titles with >50M copies sold. Truncated output to 2 rows + `"..."`.
@@ -82,6 +86,8 @@ Don't mention that a warning or limitation previously existed. Describe what the
 ---
 
 ### 2026-02 — email extraction: portfolio framing (branch `fe_email_portfolio_docs`)
+
+<!-- rule: sensible-no-table-for-unconfigurable --> <!-- rule: sensible-scenario-first -->
 
 **What Claude did:** Led with mechanism — "Optionally, you can configure an attachment spec to use portfolio extraction, where Sensible treats a single attachment as a multi-document file and segments it into multiple document types."
 

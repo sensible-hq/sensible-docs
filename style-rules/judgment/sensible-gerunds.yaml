@@ -31,9 +31,9 @@ examples:
 fix: replace 'the X-tion of Y' with the gerund 'X-ing Y'
 calibration:
   precision: 1.0
-  recall: 0.25
+  recall: 0.5
   violations: 4
-  agreement: 0.57
+  agreement: 0.71
   choice_agreement: 0.71
   cases: 7
   model: jev-1.14.0

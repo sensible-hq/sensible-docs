@@ -1,5 +1,7 @@
 # blog-parse session checklist
 
+<!-- rule: sensible-link-first-mention -->
+
 - [x] Add canonical comments to `json5-comments-reference.md` for SenseML params missing from delivery orders post: `flags`, `horizontalAnchor`, `matches`, `pattern`, `wordFilters`
 - [x] Template: add new sections from commission statements post (delivery orders and insurance quotes sections already done)
 - [x] Use Notion MCP server to push blog post drafts (and revisions) to Notion

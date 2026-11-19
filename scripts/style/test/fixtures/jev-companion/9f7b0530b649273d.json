@@ -1,0 +1,32 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "current": {
+      "type": "choice",
+      "choice": "unconfigurable",
+      "confidence": 0.91,
+      "probabilities": {
+        "configurable": 0.04,
+        "unconfigurable": 0.94,
+        "other": 0.02
+      }
+    },
+    "no_other": {
+      "type": "choice",
+      "choice": "unconfigurable",
+      "confidence": 0.96,
+      "probabilities": {
+        "configurable": 0.02,
+        "unconfigurable": 0.98
+      }
+    },
+    "fits": {
+      "type": "noul",
+      "noul": 0.61
+    }
+  },
+  "usage": {
+    "input_tokens": 545,
+    "output_tokens": 106
+  }
+}

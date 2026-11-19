@@ -13,6 +13,9 @@ scripts/vale-doctor.sh.
                new file) and hands them back to Claude with exit 2. Alerts on lines nobody touched
                are left out, so Claude doesn't rewrite text outside its change. Alerts from rules whose
                gate is "judge" are listed apart, as candidates that may be fine: Jev decides those.
+               Each alert is reported once per session: an alert on the same text, from the same rule,
+               that an earlier edit already reported is counted, not repeated, so a false positive
+               Claude chose to keep doesn't come back after every edit.
 
 Scope: Markdown under docs/ at the root of the file's checkout. reference/**/*.md is generated from the
 OpenAPI specs and is skipped. If Vale isn't installed, the hook exits 1 (shown to you, not Claude).
@@ -126,6 +129,28 @@ def guard(session: str, path: Path, reset: bool = False) -> int:
     return data[key]
 
 
+def seen_before(session: str, path: Path, keys: list[str]) -> set[str]:
+    """The keys among these already reported for this file in this session; records the rest. Without a
+    session id (a manual run, vale-doctor.sh), nothing is remembered and everything is reported."""
+    if not session:
+        return set()
+    state = Path(tempfile.gettempdir()) / f"vale-gate-reported-{re.sub(r'[^A-Za-z0-9-]', '', session) or 'nosession'}.json"
+    try:
+        data = json.loads(state.read_text())
+    except (OSError, json.JSONDecodeError):
+        data = {}
+    reported = set(data.get(str(path), []))
+    data[str(path)] = sorted(reported | set(keys))
+    state.write_text(json.dumps(data))
+    return reported & set(keys)
+
+
+def alert_key(a: dict, lines: list[str]) -> str:
+    """The alert by rule, message, and the text of its line, so an edit elsewhere that moves the line keeps it."""
+    text = lines[a["line"] - 1].strip() if 0 < a["line"] <= len(lines) else ""
+    return f"{a['check']}|{a['message']}|{text}"
+
+
 def describe(alerts: list[dict]) -> str:
     return "\n".join(f"  line {a['line']}: {a['check']}: {a['message']}" for a in sorted(alerts, key=lambda a: a["line"]))
 
@@ -157,7 +182,7 @@ def pre(event: dict, root: Path, path: Path) -> int:
     return 0
 
 
-def post(root: Path, path: Path) -> int:
+def post(event: dict, root: Path, path: Path) -> int:
     if not path.is_file():
         return 0
     text = path.read_text()
@@ -167,6 +192,12 @@ def post(root: Path, path: Path) -> int:
                           text=True).stdout if tracked else ""
     touched = changed_lines(base, text)
     found = [a for a in lint(root, text, path.name, "warning") if a["line"] in touched]
+    if not found:
+        return 0
+    lines = text.splitlines()
+    earlier = seen_before(event.get("session_id", ""), path, [alert_key(a, lines) for a in found])
+    still_open = [a for a in found if alert_key(a, lines) in earlier]
+    found = [a for a in found if alert_key(a, lines) not in earlier]
     if not found:
         return 0
     by_check, by_id = gates(root)
@@ -181,6 +212,9 @@ def post(root: Path, path: Path) -> int:
         parts.append(f"Possible problems for Jev to judge ({len(judged)}). These patterns also match correct text, "
                      f"so change a line only if it's clearly wrong; scripts/style/judge.py decides before you "
                      f"commit.\n\n{describe(judged)}")
+    if still_open:
+        parts.append(f"({len(still_open)} alerts reported after an earlier edit are still on lines you changed; "
+                     f"they aren't repeated here.)")
     print("\n\n".join(parts), file=sys.stderr)
     return 2
 
@@ -202,7 +236,7 @@ def main() -> int:
         return 0  # reference/**/*.md is generated from the OpenAPI JSON specs
     if event.get("hook_event_name") == "PreToolUse":
         return pre(event, root, path)
-    return post(root, path)
+    return post(event, root, path)
 
 
 if __name__ == "__main__":

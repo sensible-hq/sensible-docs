@@ -38,6 +38,8 @@ Source: `drafts/blog-residential-appraisal-reports.md`
 
 ## Template implication
 
+<!-- rule: sensible-against-phrasing -->
+
 Update `blog-post-template.md` to show this three-paragraph structure:
 1. P1: document description ending with problem statement
 2. P2: "With Sensible..." boilerplate with "hybrid deterministic and LLM-based" phrasing

@@ -1,6 +1,6 @@
 ---
 name: api-spec
-description: Creates or updates OpenAPI JSON spec files in the /reference directory of sensible-docs, based on backend PRs from sensible-hq/sensible. Use this skill whenever the user provides PR numbers or GitHub URLs from the backend repo and wants to document new API endpoints, update existing endpoint schemas, or add new fields to an existing API reference. Also triggers when the user mentions "new API", "update the spec", "API reference from PRs", "write a spec for [feature]", or provides a list of PRs and asks to document them. This skill handles the end-to-end workflow: reading PRs, extracting API surface changes from diffs and Zod/TypeScript schemas, drafting OpenAPI 3.0.3 JSON, creating supporting markdown files, and updating _order.yaml navigation files.
+description: 'Creates or updates OpenAPI JSON spec files in the /reference directory of sensible-docs, based on backend PRs from sensible-hq/sensible. Use this skill whenever the user provides PR numbers or GitHub URLs from the backend repo and wants to document new API endpoints, update existing endpoint schemas, or add new fields to an existing API reference. Also triggers when the user mentions "new API", "update the spec", "API reference from PRs", "write a spec for [feature]", or provides a list of PRs and asks to document them. This skill handles the end-to-end workflow: reading PRs, extracting API surface changes from diffs and Zod/TypeScript schemas, drafting OpenAPI 3.0.3 JSON, creating supporting markdown files, and updating _order.yaml navigation files.'
 ---
 
 Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
@@ -133,6 +133,8 @@ Use it as a skeleton — copy the relevant sections and replace placeholders. Fo
 
 ### 4b. Read the Sensible prose style guides
 
+<!-- rule: sensible-gerunds --> <!-- rule: sensible-param-cell-opener -->
+
 Read both files before drafting any descriptions or excerpt text:
 
 ```
@@ -181,11 +183,7 @@ Locate the relevant path object and schema definitions. Add new fields to the ri
 
 Every `description` field in the spec and every `excerpt` in a markdown stub is published prose. The template encodes the API-reference-specific rules (sentence case, full sentence vs. noun phrase, trailing periods, active voice, backtick formatting, `doc:slug` links). The style guides cover Sensible-specific terminology and voice:
 
-- **Terminology** (`glossary.md`): "config" not "template" or "schema"; "output" not "result object"; "Sensible" always capitalized; "the Sensible app" not "the UI"; "null" not "empty"
-- **Subjects** (`writing-rules.md`): "Sensible [does X]" for platform behavior; "You [do Y]" for user actions; no passive constructions that hide the actor
-- **Gerunds** (`writing-rules.md`): "automates extracting" not "automates the extraction of"
-- **Em dashes** (`writing-rules.md`): split compound clauses into two sentences instead
-- **Terse and precise**: no filler ("please note that", "it's important to remember")
+- **Terminology, voice, and tone:** follow `.claude/style-guide/glossary.md` and `.claude/style-guide/writing-rules.md` as written. Don't work from a summary of them; read the files.
 - **No file-support information in descriptions**: don't say in a `description` which file types an endpoint or parameter supports or doesn't, what a file type requires (a parameter, an encoding, a content type workaround), or how support differs by type. Link to [Supported file types](doc:file-types) instead, and put any new file-support fact on that page. File types are fine where they're structural or illustrative:
   - `enum` values, `example` and `examples`, and `default`
   - an example in prose, for example "specify the `Content-Type` header, for example, `application/pdf`", or "get Excel files from documents, for example from PDFs"
@@ -265,6 +263,8 @@ If the changes add new paths, rename schemas, change the inheritance hierarchy, 
 If the change is a minor description edit or a new property on a leaf schema (not a base/shared schema), no update is needed.
 
 ### 7d. Update `_order.yaml` files
+
+<!-- rule: sensible-order-registration -->
 
 **New top-level section**: Add the new directory name to `reference/_order.yaml`. Ask the user where in the ordering it should appear before writing.
 
@@ -354,6 +354,8 @@ This is a required step — if you skip it, the next run will re-report the same
 ---
 
 ## Step 10: Update spec examples from real API output
+
+<!-- rule: sensible-realistic-example-data -->
 
 Once the user has run the scripts and output files exist in `scripts/test/{domain}/outputs/`, read the most recent output file for each GET/LIST endpoint and use the real response data to populate `example` values in the spec.
 

@@ -1,0 +1,51 @@
+# Renders the style rule usage report (scripts/style/rule_usage.py report) from the weekly files in
+# style-rules/usage/, which the rule-usage skill collects from local Claude Code transcripts and commits.
+# Uploads one HTML report that opens in the browser and links it from the run summary. No secrets.
+
+name: Style rule usage report
+
+on:
+  push:
+    branches:
+      - v0
+    paths:
+      - "style-rules/usage/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Render the report
+        run: python3 scripts/style/rule_usage.py report --html "$RUNNER_TEMP/style-usage-report.html"
+
+      # The HTML report on its own, unzipped, so it opens in the browser from the run page
+      - name: Upload HTML report
+        id: htmlreport
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          path: ${{ runner.temp }}/style-usage-report.html
+          archive: false
+
+      - name: Write run summary
+        if: always()
+        env:
+          REPORT_URL: ${{ steps.htmlreport.outputs.artifact-url }}
+        run: python3 scripts/style/rule_usage.py report --summary ${REPORT_URL:+--report-url "$REPORT_URL"} >> "$GITHUB_STEP_SUMMARY"

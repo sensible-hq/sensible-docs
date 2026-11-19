@@ -28,10 +28,10 @@ examples:
   pass: A parameter table for a method's settings.
 fix: replace the table with a sentence that names the behavior
 calibration:
-  precision: 1.0
+  precision: 0.67
   recall: 1.0
   violations: 2
-  agreement: 1.0
+  agreement: 0.75
   choice_agreement: 0.5
   cases: 4
   model: jev-1.14.0

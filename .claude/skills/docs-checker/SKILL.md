@@ -1,9 +1,11 @@
 ---
 name: docs-checker
-description: Checks Sensible documentation files for terminology violations before publishing. Invoke whenever the user wants to check, review, validate, or proofread a Sensible doc (changelog, reference page, integration guide, concept topic), or asks whether a file uses correct terminology. Accepts a file path, pasted content, or both. Also invoke if the user asks to "run the checker" or "check terminology".
+description: 'Checks Sensible documentation files for terminology violations before publishing. Invoke whenever the user wants to check, review, validate, or proofread a Sensible doc (changelog, reference page, integration guide, concept topic), or asks whether a file uses correct terminology. Accepts a file path, pasted content, or both. Also invoke if the user asks to "run the checker" or "check terminology". It checks terminology and doesn''t edit code blocks; to add JSON5 comments, use json5-commenter.'
 ---
 
 # Sensible Docs Terminology Checker
+
+<!-- rule: sensible-terminology -->
 
 Check a doc for terminology violations and optionally fix them. Vale does the lookup; you judge only the terms a pattern can't settle.
 
@@ -13,6 +15,8 @@ Check a doc for terminology violations and optionally fix them. Vale does the lo
 - If the user pasted content, write it to a scratch file named `check.md` (or `check-changelog.md` for a changelog, so the changelog rules apply) and use that.
 
 ## Step 2: Run Vale's terminology rules
+
+<!-- rule: sensible-terminology -->
 
 From the repo root:
 
@@ -39,6 +43,8 @@ The full rule is `style-rules/judgment/sensible-context-terms.yaml`.
 
 ## Step 4: Report
 
+<!-- rule: sensible-terminology --> <!-- rule: sensible-ui-names -->
+
 If you found violations, output this table, then a summary line:
 
 | Line | Found | Should be | Source |
@@ -49,6 +55,8 @@ If you found violations, output this table, then a summary line:
 If there are none, say "No terminology violations found."
 
 ## Step 5: Offer to fix
+
+<!-- rule: sensible-terminology -->
 
 Ask: "Fix all, fix specific lines, or skip?"
 

@@ -54,7 +54,7 @@ def _tree(tmp_path, guide_text):
     (tmp_path / ".claude/style-guide/rules.md").write_text(guide_text)
     (tmp_path / ".github/styles/Sensible/EmDash.yml").write_text("extends: existence\n")
     (tmp_path / "style-rules/tests/em.md").write_text("<!-- rules: Sensible.EmDash -->\n")
-    return [{"id": "em", "statement": "No em dashes.", "kind": "deterministic", "gate": "block",
+    return [{"id": "em", "statement": "No em dashes.", "kind": "deterministic", "gate": "block", "scope": "general",
              "enforced_by": {"vale": ["Sensible.EmDash"]}, "fixture": "style-rules/tests/em.md",
              "stated_in": [{"file": ".claude/style-guide/rules.md", "quote": "Don't use em dashes."}]}]
 
@@ -77,6 +77,10 @@ def test_registry_detects_drift(tmp_path, monkeypatch):
     (tmp_path / ".claude/style-guide/rules.md").write_text("Don't use em dashes.\n<!-- rule: em -->\n")
     (tmp_path / ".github/styles/Sensible/Orphan.yml").write_text("extends: existence\n")
     assert any("Sensible.Orphan: no registry entry" in p for p in cr.check(registry))
+    (tmp_path / ".github/styles/Sensible/Orphan.yml").unlink()
+    # No scope, or a narrow scope that doesn't say what it applies to.
+    assert any("scope must be one of" in p for p in cr.check([{**registry[0], "scope": None}]))
+    assert any("needs applies_to" in p for p in cr.check([{**registry[0], "scope": "construct"}]))
 
 
 def test_this_repos_registry_is_clean():
@@ -85,3 +89,24 @@ def test_this_repos_registry_is_clean():
     import yaml
     registry = yaml.safe_load(cr.REGISTRY.read_text())
     assert cr.check(registry) == []
+
+
+def test_hierarchy_page_is_current():
+    import rule_map
+    assert rule_map.main(["hierarchy", "--check"]) == 0, "run python3 scripts/style/rule_map.py hierarchy"
+
+
+def test_enforcement_is_derived_from_enforced_by():
+    import rule_map
+    specs = {"j": {"check": {"find": {"kind": "vale"}}}, "m": {"check": {"find": {"kind": "manual"}}}}
+    assert rule_map.enforcement({"enforced_by": {"vale": ["Sensible.X"], "judgment": ["style-rules/judgment/j.yaml"]}}, specs) == ["Vale", "Jev"]
+    assert rule_map.enforcement({"enforced_by": {"judgment": ["style-rules/judgment/m.yaml"]}}, specs) == ["manual"]
+    assert rule_map.enforcement({"enforced_by": {"script": ["scripts/style/x.py"]}}) == ["script"]
+    assert rule_map.enforcement({}) == ["prose"]
+
+
+def test_hierarchy_html_uses_the_house_report_style(tmp_path):
+    import rule_map
+    import report_html
+    html_text = rule_map.hierarchy_html(rule_map.load_registry(), rule_map.load_specs())
+    assert report_html.CSS in html_text and "General: every docs page" in html_text

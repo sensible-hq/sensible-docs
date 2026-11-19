@@ -1,0 +1,34 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "current": {
+      "type": "choice",
+      "choice": "mismatch",
+      "confidence": 0.39,
+      "probabilities": {
+        "durable": 0.3,
+        "too-specific": 0.15,
+        "mismatch": 0.54,
+        "other": 0.01
+      }
+    },
+    "no_other": {
+      "type": "choice",
+      "choice": "mismatch",
+      "confidence": 0.38,
+      "probabilities": {
+        "durable": 0.25,
+        "too-specific": 0.16,
+        "mismatch": 0.59
+      }
+    },
+    "fits": {
+      "type": "noul",
+      "noul": 0.73
+    }
+  },
+  "usage": {
+    "input_tokens": 674,
+    "output_tokens": 114
+  }
+}

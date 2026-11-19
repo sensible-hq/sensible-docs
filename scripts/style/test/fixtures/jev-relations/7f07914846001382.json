@@ -1,0 +1,702 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_em_dash": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.63,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.24,
+        "conflicting": 0.04,
+        "independent": 0.72
+      }
+    },
+    "google_latin": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.95,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.04,
+        "conflicting": 0.0,
+        "independent": 0.96
+      }
+    },
+    "sensible_model_names": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_ui_names": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.96,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.01,
+        "independent": 0.97
+      }
+    },
+    "sensible_doc_links": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_terminology": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.87,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.09,
+        "conflicting": 0.01,
+        "independent": 0.9
+      }
+    },
+    "sensible_internal_terms": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.89,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.08,
+        "conflicting": 0.0,
+        "independent": 0.92
+      }
+    },
+    "sensible_against_phrasing": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_filler": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.52,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.33,
+        "conflicting": 0.03,
+        "independent": 0.64
+      }
+    },
+    "sensible_param_name_code": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.92,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.05,
+        "conflicting": 0.01,
+        "independent": 0.94
+      }
+    },
+    "sensible_param_cell_opener": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.77,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.17,
+        "conflicting": 0.0,
+        "independent": 0.83
+      }
+    },
+    "sensible_image_syntax": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.96,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.03,
+        "conflicting": 0.0,
+        "independent": 0.97
+      }
+    },
+    "sensible_image_url": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_note_blockquote": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.93,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.05,
+        "conflicting": 0.0,
+        "independent": 0.95
+      }
+    },
+    "sensible_numbers": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_excerpt_filler": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.87,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.09,
+        "conflicting": 0.01,
+        "independent": 0.9
+      }
+    },
+    "sensible_link_article": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_word_list": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.53,
+      "probabilities": {
+        "same-requirement": 0.01,
+        "overlapping": 0.24,
+        "conflicting": 0.1,
+        "independent": 0.65
+      }
+    },
+    "sensible_code_fences": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_excerpt_self_naming": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.92,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.04,
+        "conflicting": 0.02,
+        "independent": 0.94
+      }
+    },
+    "sensible_excerpt_length": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.01,
+        "independent": 0.98
+      }
+    },
+    "sensible_order_registration": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_opening_sentence": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_explicit_actor": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.83,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.09,
+        "conflicting": 0.04,
+        "independent": 0.87
+      }
+    },
+    "sensible_gerunds": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.85,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.05,
+        "conflicting": 0.06,
+        "independent": 0.89
+      }
+    },
+    "sensible_scenario_first": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.65,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.21,
+        "conflicting": 0.05,
+        "independent": 0.74
+      }
+    },
+    "sensible_context_terms": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.95,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.03,
+        "conflicting": 0.01,
+        "independent": 0.96
+      }
+    },
+    "sensible_no_table_for_unconfigurable": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_label_method": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.93,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.04,
+        "conflicting": 0.01,
+        "independent": 0.95
+      }
+    },
+    "sensible_integrate_before_heading": {
+      "type": "choice",
+      "choice": "overlapping",
+      "confidence": 0.31,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.48,
+        "conflicting": 0.3,
+        "independent": 0.22
+      }
+    },
+    "sensible_parent_link": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_example_var": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_copy_sibling_wording": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.01,
+        "independent": 0.98
+      }
+    },
+    "sensible_example_per_scenario": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_realistic_example_data": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_compare_only_with_choice": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_changelog_ui_first": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.75,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.15,
+        "conflicting": 0.04,
+        "independent": 0.81
+      }
+    },
+    "sensible_capability_not_friction": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.44,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.37,
+        "conflicting": 0.05,
+        "independent": 0.58
+      }
+    },
+    "sensible_blog_voice": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_no_metadata_keywords": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_full_style_pass": {
+      "type": "choice",
+      "choice": "overlapping",
+      "confidence": 0.59,
+      "probabilities": {
+        "same-requirement": 0.16,
+        "overlapping": 0.69,
+        "conflicting": 0.01,
+        "independent": 0.14
+      }
+    },
+    "sensible_reference_section_order": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_section_heading_levels": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_jump_links": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.92,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.05,
+        "conflicting": 0.01,
+        "independent": 0.94
+      }
+    },
+    "sensible_frontmatter_structure": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_excerpt_imperative": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_example_intro": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_param_table_columns": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_table_separator_rows": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_backtick_values": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_feature_name_caps": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.69,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.17,
+        "conflicting": 0.06,
+        "independent": 0.77
+      }
+    },
+    "sensible_link_first_mention": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.96,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.03,
+        "conflicting": 0.0,
+        "independent": 0.97
+      }
+    },
+    "sensible_example_download_table": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_example_bold_labels": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.91,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.05,
+        "conflicting": 0.02,
+        "independent": 0.93
+      }
+    },
+    "sensible_example_heading_verb": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.91,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.06,
+        "conflicting": 0.01,
+        "independent": 0.93
+      }
+    },
+    "sensible_key_column_plain": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_value_column_format": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_boolean_description": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_interaction_placement": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_null_behavior": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.97,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.02,
+        "conflicting": 0.0,
+        "independent": 0.98
+      }
+    },
+    "sensible_zero_based_index": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    },
+    "sensible_comment_purpose": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 1.0,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.0,
+        "conflicting": 0.0,
+        "independent": 1.0
+      }
+    },
+    "sensible_id_description": {
+      "type": "choice",
+      "choice": "independent",
+      "confidence": 0.99,
+      "probabilities": {
+        "same-requirement": 0.0,
+        "overlapping": 0.01,
+        "conflicting": 0.0,
+        "independent": 0.99
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 12402,
+    "output_tokens": 3680
+  }
+}

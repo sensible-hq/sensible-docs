@@ -96,3 +96,20 @@ def test_post_lists_judge_gated_alerts_as_candidates(repo):
     assert r.returncode == 2
     assert "Possible problems for Jev to judge" in r.stderr
     assert "Sensible.AgainstPhrasing" in r.stderr.split("Possible problems for Jev to judge")[1]
+
+
+def test_post_reports_each_alert_once_per_session(repo):
+    page = repo / "docs/page.md"
+    page.write_text(page.read_text().replace("Sensible extracts the value.", "Please note that Sensible extracts it."))
+    first = edit(repo, "", "", event="PostToolUse", session="once")
+    assert first.returncode == 2 and "Sensible.Filler" in first.stderr
+    # Another edit elsewhere moves the line down; the same alert isn't repeated
+    page.write_text("Intro line.\n\n" + page.read_text())
+    second = edit(repo, "", "", event="PostToolUse", session="once")
+    assert "Sensible.Filler" not in second.stderr
+    # A new problem is reported, with a count of the open ones
+    page.write_text(page.read_text().replace("Intro line.", "It is worth mentioning the intro."))
+    third = edit(repo, "", "", event="PostToolUse", session="once")
+    assert third.returncode == 2 and "Sensible.Filler" in third.stderr and "still on lines you changed" in third.stderr
+    # Another session hears about it again
+    assert "Please note" in page.read_text() and "Sensible.Filler" in edit(repo, "", "", event="PostToolUse", session="other").stderr

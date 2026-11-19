@@ -1,0 +1,85 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "api_spec": {
+      "type": "noul",
+      "noul": 0.04
+    },
+    "blog_how_to_parse_x": {
+      "type": "noul",
+      "noul": 0.04
+    },
+    "blog_short": {
+      "type": "noul",
+      "noul": 0.4
+    },
+    "changelog": {
+      "type": "noul",
+      "noul": 0.02
+    },
+    "close_docs_pr": {
+      "type": "noul",
+      "noul": 0.02
+    },
+    "create_concept_doc": {
+      "type": "noul",
+      "noul": 0.95
+    },
+    "create_docs_example": {
+      "type": "noul",
+      "noul": 0.18
+    },
+    "create_new_doc": {
+      "type": "noul",
+      "noul": 0.13
+    },
+    "docs_checker": {
+      "type": "noul",
+      "noul": 0.06
+    },
+    "integration_guide_generator": {
+      "type": "noul",
+      "noul": 0.07
+    },
+    "json5_commenter": {
+      "type": "noul",
+      "noul": 0.04
+    },
+    "mcp_search_eval": {
+      "type": "noul",
+      "noul": 0.09
+    },
+    "quickbooks": {
+      "type": "noul",
+      "noul": 0.01
+    },
+    "revise_doc_style": {
+      "type": "noul",
+      "noul": 0.22
+    },
+    "rule_usage": {
+      "type": "noul",
+      "noul": 0.02
+    },
+    "style_guide_generator_senseml": {
+      "type": "noul",
+      "noul": 0.09
+    },
+    "update_docs_from_pr": {
+      "type": "noul",
+      "noul": 0.32
+    },
+    "update_existing_doc": {
+      "type": "noul",
+      "noul": 0.13
+    },
+    "upload_pr_extractor": {
+      "type": "noul",
+      "noul": 0.02
+    }
+  },
+  "usage": {
+    "input_tokens": 2694,
+    "output_tokens": 358
+  }
+}
