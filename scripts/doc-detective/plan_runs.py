@@ -44,6 +44,7 @@ NOT_TOOLING = [
     "scripts/doc-detective/sample-reports/**",
     "scripts/doc-detective/README.md",
     "scripts/doc-detective/TEST-MATRIX.md",
+    "scripts/doc-detective/evidence/**",
 ]
 # Fixtures live under the tooling, but a fixture change reruns only the pages whose tests use it
 FIXTURES = "scripts/doc-detective/fixtures/**"

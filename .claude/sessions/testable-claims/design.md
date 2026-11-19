@@ -1,6 +1,6 @@
-# Design: tested claims as durable evidence (proposal, not built)
+# Design: tested claims as durable evidence
 
-Status: proposed by Claude on 2026-11-19, shaped by Frances's direction in the same session. Nothing below is implemented yet except the `extract-testable-claims` skill itself (this PR).
+Status: proposed by Claude on 2026-11-19, shaped by Frances's direction; Frances answered the open questions the same day (see Answers). Built: the review step (§6), evidence records with schema and checks (§3), the pointer comment (§2), matrix rows (§4, linking the record rather than an HTML report), the stale warning, and the SQLite load (§7). Not built: HTML reports from records, and the `contrast` and `schema` kinds (§5).
 
 ## Why
 
@@ -20,19 +20,21 @@ What it lacks, per Frances: **some claims shouldn't add runnable markup to the p
 
 Today pages have priority 1 (weekly), 2 (monthly), or 3 (on demand only), in `test-pages.json` (see `.claude/sessions/doc-test-priorities/`). A **record-only** claim isn't runnable from the page at all. Its evidence is a committed record; anyone can recreate the test by hand from the record's fixtures.
 
-### 2. One pointer comment per page
+### 2. One pointer comment per section
 
-Instead of markup per claim, the page carries one short comment listing the IDs of its record-only claims:
+Instead of markup per claim, each section with record-only claims carries one short comment listing their IDs (Frances chose per section over per page):
 
 ```
-{/* tested-claims: see TEST-MATRIX.md, ids ocr_ifm_embedded, ocr_ifm_page_range, ocr_ifm_array */}
+{/* tested claims {"ids": ["ocr_if_missing_match_array", "ocr_if_missing_ocrs_every_page"]} */}
 ```
+
+Each record names its section, and `evidence.py check` fails when the page's comment doesn't list the claim under that section.
 
 The details live in the matrix and the evidence, not the page.
 
 ### 3. Evidence records
 
-One committed JSON file per claim, `scripts/doc-detective/evidence/<page>/<id>.json`, with a schema in `schemas/`:
+One committed JSON file per claim, `scripts/doc-detective/evidence/<page>/<id>.json`, with its own top-level schema, `schemas/evidence.schema.json`:
 
 - the claim, quoted (not a line number, which drifts), its page, and its kind (from `extract-testable-claims/criteria.md`);
 - each config that ran, the document, expected and actual values, and the extraction IDs;
@@ -40,7 +42,7 @@ One committed JSON file per claim, `scripts/doc-detective/evidence/<page>/<id>.j
 - the verdict (holds, contradicted, bug reported) and what changed on the page because of it;
 - Frances's approval and date.
 
-Fixture configs and PDFs go in `scripts/doc-detective/fixtures/` like today's fixtures, so the test can be recreated.
+The configs, PDFs, and responses go in `evidence/<page>/files/`, each cited with its SHA-256, so the test can be recreated and an edit is caught. Not in `fixtures/`: those folders are test-account fixtures with a manifest, which the runner restores before each run.
 
 ### 4. A durable report and a matrix row
 
@@ -63,11 +65,22 @@ After tests run, the skill presents each proposed matrix entry (claim, what ran,
 2. **`TEST-MATRIX.md` is generated; don't edit it by hand.** Still true: rows come from evidence records.
 3. **Priority is per page today; record-only is per claim.** A page can have both runnable and record-only claims, so record-only can't just be a page priority value.
 
-## Open questions
+### 7. Ready for a database
 
-1. Today's evidence ran in Frances's personal account with `omit`. Record it as (a) what actually ran, documented as such, now, and (b) a rerun in the docs test account with `ocrIfMissing` after the deploy? Claude recommends (a) now, (b) after.
-2. Pointer comment granularity: one per page (Frances's lean), or one per section when a page has many?
-3. Should stale record-only evidence warn in CI, and after how long?
-4. Build `contrast` and `schema` kinds now, or only the record-only path first?
-5. Where the evidence schema lives: alongside `schemas/record.schema.json` as a new top-level schema, or as a record kind?
-6. Does a contradicted claim get an evidence record (it documents why the page changed), or only claims that hold?
+Frances may build a database (SQLite) on the traceability matrix later. The matrix stays a generated view; the database would be a second view of the same committed JSON, so neither can drift from the records. The records are shaped for that:
+
+- **Stable keys.** `claim_id` is unique across the repo (the same namespace as code test IDs); `run_id` is unique within a record; files are keyed by SHA-256, so two claims citing one PDF share a row.
+- **One table per level, no nesting below it.** A record is one `claims` row; each run one `runs` row; each checked field one `run_fields` row. `expected` and `actual` are any JSON value, stored as JSON text.
+- **Enums and ISO dates** for verdict, role, environment, account, claim kind, and run dates, so queries can group and compare them.
+- **`schema_version`**, so a loader can migrate old records when a field changes meaning.
+
+`evidence.py sqlite FILE` does the load today, and a unit test loads records into SQLite with foreign keys on. Example: `SELECT claim_id, run_id, field, expected, actual FROM run_fields JOIN runs USING (claim_id, run_id) WHERE role = 'test' AND expected <> actual` lists the two runs where the OCR page's claims and reality diverged. Saved results (`reports/*.json`) and page markup aren't loaded yet; they already have stable test IDs, so they'd add `tests` and `test_results` tables keyed the same way.
+
+## Answers (2026-11-19)
+
+1. **Evidence that already ran:** record it now as what ran (`omit`, production, Frances's personal account, marked `account: personal`), and rerun in the docs test account with `ocrIfMissing` after the deploy.
+2. **Pointer comment:** one per section, not one per page.
+3. **Stale evidence:** CI annotates a record whose newest run is more than 183 days old; it never fails the run.
+4. **Code-test kinds:** the record-only path first; `schema` next, since 2 of #825's 3 untested claims are publish-accepts-or-rejects claims.
+5. **Schema location:** a new top-level `schemas/evidence.schema.json`; `record.schema.json` describes one automated code-test result.
+6. **Contradicted claims:** get a record, with `page_change` naming the commit that fixed the page.

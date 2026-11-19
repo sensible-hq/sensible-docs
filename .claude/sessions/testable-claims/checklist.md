@@ -2,12 +2,13 @@
 
 Claude Code session name: ocrIfMissing
 Claude Code session ID: 0ded2aae-03f7-4ca1-bf75-b37050ab318e
+Resumed in session ID: 182a711b-cc3c-4499-b338-54f7a8efa58c
 PR: sensible-hq/sensible-docs#834 (draft), branch `testable-claims-skill`, worktree `~/GitHub/sensible-docs-testable-claims`
 Decisions and progress: `decisions.md` · Design proposal: `design.md` · Evidence: `evidence/README.md`
 
 ## Status (2026-11-19)
 
-The `extract-testable-claims` skill is built and was tried on #825. The durable-evidence design (record-only priority, pointer comment, evidence records, review step) is a proposal with open questions; nothing of it is built. Start with `design.md`'s open questions.
+Frances answered `design.md`'s open questions. The record-only path is built: evidence schema and checks, per-section pointer comment, matrix rows, stale warning, SQLite load, and the skill's review step. The three #825 records are drafted (`evidence/scripts/build_records.py`) and wait on Frances's approval.
 
 ## Done
 
@@ -19,16 +20,19 @@ The `extract-testable-claims` skill is built and was tried on #825. The durable-
 ## To do
 
 - [ ] Frances reviews `cases.yaml` labels; add real sentences from docs pages
-- [ ] Frances answers `design.md`'s open questions
-- [ ] Add the review step to `extract-testable-claims/SKILL.md` (Frances approves matrix entries and the pointer comment before anything is written)
-- [ ] Evidence record schema and folder (`scripts/doc-detective/evidence/`)
-- [ ] Runner reads the pointer comment as a pointer, not a test (so it doesn't count as "not run")
-- [ ] `test_matrix.py` reads evidence records; a record-only row shows evidence date and report link
-- [ ] Report generated from an evidence record, saved in `reports/`
-- [ ] First evidence records: the three #825 claims in `evidence/README.md`, then the pointer comment on the OCR page (after Frances approves)
-- [ ] Optional, per open question 4: `contrast` and `schema` code-test kinds
-- [ ] Unit tests for each piece; README "Extending it" updated
-- [ ] Mark the skill PR ready for review once the review step exists
+- [x] Frances answers `design.md`'s open questions
+- [x] Review step in `extract-testable-claims/SKILL.md`; skill now names `SENSIBLE_TEST_API_KEY`
+- [x] Evidence schema (`schemas/evidence.schema.json`) and checks (`codetests/evidence.py check`, unit test on committed records)
+- [x] Runners ignore the pointer comment (unit test)
+- [x] `test_matrix.py` lists records in a Record-only claims section (links the record JSON)
+- [x] CI stale warning (183 days, annotation only)
+- [x] SQLite load (`evidence.py sqlite`), shaped for Frances's future database
+- [x] Unit tests; README section and Extending it row
+- [ ] Frances approves the three #825 records, then: write them to `scripts/doc-detective/evidence/`, and add the Parameters section's pointer comment to #825
+- [ ] After #3533 deploys: rerun the three claims in the docs test account with `ocrIfMissing`, as new records
+- [ ] `schema` code-test kind (next), then `contrast`
+- [ ] Report generated from an evidence record (HTML), if the JSON link isn't enough
+- [ ] Mark the skill PR ready for review
 
 ## Elsewhere, from the same session (for context)
 

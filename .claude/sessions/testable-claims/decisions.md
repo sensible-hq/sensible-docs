@@ -21,6 +21,15 @@ Related: sensible-hq/sensible-docs#825 (the OCR page whose claims were tested), 
 | Record-only priority below 3, one pointer comment per page, details in the traceability matrix | Avoid bloating page HTML with markup | Frances |
 | `extract-testable-claims` gets a review step: Frances approves what goes in the matrix and the page | Frances | Frances |
 | Handoff lives on this PR, and #825 gets its own checklist of tested claims with proof links | Frances, at session end | Frances |
+| Record the 2026-11-19 runs as what ran (`omit`, personal account), then rerun in the docs test account after #3533 deploys | The page change already rests on them | Frances |
+| One `tested claims` comment per section, not per page | Frances | Frances |
+| CI warns, never fails, on evidence older than 183 days | Records never rerun, and the rename broke every test within a day | Frances |
+| Record-only path first; `schema` kind next | 2 of #825's 3 untested claims are schema claims | Frances |
+| Evidence schema is its own top-level `evidence.schema.json` | A record covers several runs plus approval, unlike a code-test record | Frances |
+| Contradicted claims get records | They document why the page changed | Frances |
+| Records are shaped for a later SQLite database: stable keys, one table per level, enums, ISO dates, `schema_version` | Frances may build a database on the matrix | Frances |
+| Evidence files go in `evidence/<page>/files/` with SHA-256, not `fixtures/` | Fixture folders are test-account fixtures the runner restores | Claude |
+| The skill's tests use `SENSIBLE_TEST_API_KEY`; it named `SENSIBLE_API_KEY`, which is why the 2026-11-19 runs went to Frances's account | `CLAUDE.md` rule | Claude |
 
 ## Progress log
 
@@ -32,3 +41,10 @@ Related: sensible-hq/sensible-docs#825 (the OCR page whose claims were tested), 
   - "OCRs every page": likely engine bug with Page Range. Draft for eng in `eng-page-range-bug.md`, not sent.
 - Earlier, a match-array test confirmed `ocrIfMissing` accepts a Match array and evaluates it as a sequence.
 - Frances asked how QA handles durable proof; Claude found the repo's own framework already covers it except for record-only claims. Proposal in `design.md`.
+
+### 2026-11-19 (resumed in session 182a711b-cc3c-4499-b338-54f7a8efa58c)
+- Frances answered `design.md`'s open questions (Answers section there) and asked that the matrix support a later database.
+- Built: `schemas/evidence.schema.json`, `codetests/evidence.py` (check, stale, sqlite), the matrix's record-only section, the CI stale warning, the skill's review step, README section, `tests/test_evidence.py`.
+- Drafted the three #825 records with `evidence/scripts/build_records.py`; not written to `scripts/doc-detective/evidence/` until Frances approves them.
+- Production still rejects `ocrIfMissing` (published both names to a throwaway doc type in the docs test account, deleted after).
+
