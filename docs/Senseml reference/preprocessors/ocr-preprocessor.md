@@ -16,7 +16,7 @@ When you [extract document data with Sensible](doc:getting-started-ai), Sensible
 
 Use the OCR preprocessor to selectively OCR pages in a document. This preprocessor is useful when a document contains both embedded text and text images. Selectively OCRing the pages containing text images, rather than the entire document, improves extraction performance. Examples of text images include handwriting and scanned text.
 
-You can also use this preprocessor to force OCR for a whole document if it's missing expected embedded text, for example when it has enough embedded text that Sensible doesn't [OCR it automatically](doc:ocr-level).
+You can also use this preprocessor to force OCR for a whole document if it's missing expected embedded text, for example when the expected text is a text image, but the document contains enough embedded text that Sensible doesn't [OCR the whole document by default](doc:ocr-level).
 
 If the whole document is a scan or image file, you don't need to configure this preprocessor. In that case, Sensible OCRs the whole document by default.
 
