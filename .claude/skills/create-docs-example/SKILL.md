@@ -1,7 +1,7 @@
 ---
 name: create-docs-example
-description: Given an extractor directory path from the sensible engine repo, create or update a full-fledged documentation example — copying the golden PDF, generating a screenshot, assessing and redacting PII, and writing the example section with JSON5 comments.
-argument-hint: <path/to/extractor/dir> [doc-page-path]
+description: Given an extractor directory path from the sensible engine repo, create or update a full-fledged documentation example — copying the golden PDF, generating a screenshot, assessing and redacting PII, and writing the example section with JSON5 comments. Handles single doc type extractors and portfolio extractors (a `multi.json`), and can write the example as a standalone draft page.
+argument-hint: "<path/to/extractor/dir> [doc-page-path | standalone]"
 disable-model-invocation: true
 allowed-tools: Bash(pdftotext:*), Bash(pdftoppm:*), Bash(python3:*), Bash(cp:*), Bash(curl:*), Read, Glob, Edit, Write
 ---
@@ -12,7 +12,7 @@ The arguments are: **$ARGUMENTS**
 
 Parse the arguments as follows:
 - **First token**: the extractor directory path (for example, `extractors/sensible/removeLines`)
-- **Second token** (optional): the path to the target doc page to update (for example, `docs/Senseml reference/preprocessors/remove-lines.md`). If provided, skip Step 2 and use this path directly.
+- **Second token** (optional): the path to the target doc page to update (for example, `docs/Senseml reference/preprocessors/remove-lines.md`). If provided, skip Step 2 and use this path directly. The word `standalone` instead means: write the example as a new hidden draft page, `docs/<section>/draft-<slug>-example.md` with `hidden: true` in its front matter and no `_order.yaml` entry, in the section where the feature's docs will live.
 
 The sensible engine repo is at `../sensible` relative to this repo. So the full path to the extractor dir is `../sensible/<extractor-dir>`.
 
@@ -28,6 +28,8 @@ Read the config file(s) (for example, `all.json`) and list the golden PDFs from 
 ```
 
 If there are multiple golden PDFs, use the first one unless the user specifies otherwise.
+
+**Portfolio extractors.** A directory with a `multi.json` instead of a config is a portfolio test. `multi.json` lists the portfolio's doc types in `types` plus any portfolio options, such as `fallback_type`. Each doc type's configs live in a sibling directory, `../sensible/<customer>/<doc_type>/`. Read those too, and read the golden's `.extracted.csv` for the expected page ranges.
 
 ## Step 2 — Identify the target doc page
 
@@ -100,9 +102,13 @@ View the new screenshot to confirm the redactions look correct.
 
 **If no PII is found:** skip redaction and proceed.
 
+**If the PII can't be redacted** — for example, it's in scanned pages, which `redact_pdf.py` can't edit, or it's on so many pages that the document stops being useful — don't publish the golden. Build a substitute from documents already published in `assets/pdfs/` that shows the same behavior, and write configs for it. For a portfolio, combine pages with `pdfseparate` and `pdfunite`, and prefer extending an example the docs already have, such as the Fingerprint example in `docs/document extraction/portfolio.md`. Tell the user the golden was replaced, and why.
+
 ## Step 5 — Upload config and get actual extraction output
 
 Upload the config and the (potentially redacted) golden to the Sensible account, then run a live extraction to get the JSON output to use in the example.
+
+**Which account.** Use `SENSIBLE_TEST_API_KEY` and `https://api.sensible.so/v0` unless the user names another account. A feature that isn't in production yet needs the dev API, `https://api.sensible.so/dev`, with the dev key the user names, such as `SENSIBLE_DEV_API_KEY`. `upload_pr_extractor.py` reads `SENSIBLE_API_KEY` and `/v0`, so for any other account, run it through a small wrapper that sets its `API_BASE` and `get_api_key` before calling `main()`. Never print a key.
 
 ```bash
 python3 scripts/upload_pr_extractor.py \
@@ -122,6 +128,8 @@ curl -s -X POST "https://api.sensible.so/v0/extract/<doctype>" \
   -H "Content-Type: application/pdf" \
   --data-binary @assets/pdfs/<slug>.pdf | python3 -m json.tool
 ```
+
+For a portfolio, upload each doc type's configs, then run an asynchronous portfolio extraction instead: `POST /generate_upload_url` with `types`, `content_type`, and any portfolio options from `multi.json`, `PUT` the PDF to the returned `upload_url`, and poll `GET /documents/<id>` until `status` is `COMPLETE`. Compare each document's `documentType`, `configuration`, `startPage`, and `endPage` with the expected page ranges before you write anything. When the feature changes which pages are extracted, also run the request without the feature, so the page can say what happens without it.
 
 Use the `parsed_document` from this response as the **Output** in the example. Strip metadata fields (`classificationSummary`, `coverage`, `errors`, `fileMetadata`, etc.) — show only the extracted field values.
 
@@ -147,6 +155,8 @@ Update the `# Examples` section of the target doc page. Follow these conventions
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/<slug>.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------- |
 ```
+
+**Portfolio example layout:** follow the Fingerprint example in `docs/document extraction/portfolio.md`: a `### Config` section with a `**_Document type N_**` block per doc type (doc type, config name, config content, or a link to where an existing example defines it), an example document table, then `### Output` with the numbered `extract_from_url` and `GET /documents` curl steps. The request names the doc types and every portfolio option the example needs. Show the output per document under `#### Page N | <doc type> | <config>` headings, as the LLM example on that page does, with 1-based page numbers in the headings, and say that the response's `startPage` and `endPage` are zero-based.
 
 **Output block:** Use the actual extraction output. If the output value is a long string, truncate it with `...` after ~200 characters. Strip metadata fields (`classificationSummary`, `coverage`, `errors`, `fileMetadata`, etc.) — show only the `parsedDocument` contents. Use the redacted values in the output if you redacted the PDF.
 
