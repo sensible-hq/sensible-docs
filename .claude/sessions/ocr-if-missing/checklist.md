@@ -42,7 +42,12 @@ Jev scored these between 0.30 and 0.70 (unsure). Wording is from the 2026-11-19 
 - [ ] "Because the rest of the example quote is embedded text, Sensible doesn't OCR it by default." (0.52) Already backed by the control run above.
 - [ ] Not on the page, so not scored: `ocrIfMissing` also accepts a plain string (`AnchorMatch` includes `string`), but the value column says "Match object or Match array". Document the string form, or leave it out like the Match row does?
 
+## Evidence records (approved 2026-11-19)
+
+The three tested claims above are recorded as record-only claims in `scripts/doc-detective/evidence/docs-senseml-reference-preprocessors-ocr-preprocessor/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
+
 ## Before merging
+- [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
 
 - [ ] #3533 deployed to production (publishing a config with `ocrIfMissing` succeeds)
 - [ ] Rerun the example with `ocrIfMissing` and compare with the Output block

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "claim_id": "ocr_if_missing_match_array",
+  "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
+  "section": "Parameters",
+  "claim": "The OCR If Missing parameter accepts a Match array, and matches it as consecutive lines in order.",
+  "claim_kind": "type or shape",
+  "verdict": "holds",
+  "runs": [
+    {
+      "run_id": "array_in_order",
+      "role": "test",
+      "purpose": "The array's lines are consecutive on page 2 in this order, so it matches and nothing is OCR'd: total_premium, in a text image, stays null.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "ocr_array_in_order",
+      "extraction_id": "89b9d561-2ec7-4599-9950-51f4c93fb18e",
+      "config": {
+        "path": "files/array_in_order.json",
+        "sha256": "099a7d6349873c5a405887fa2e262cd2be0464e52e0cc9fa46a639a784232bf9"
+      },
+      "document": {
+        "path": "files/cgl_quote_screenshot.pdf",
+        "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
+      },
+      "response": {
+        "path": "files/response_array_in_order.json",
+        "sha256": "38497acd3d9daecb8d363defdda2c1edabfc23fc2bed4cb4d6b6a7ccbd3c804f"
+      },
+      "fields": [
+        {
+          "field": "total_premium",
+          "expected": null,
+          "actual": null
+        }
+      ]
+    },
+    {
+      "run_id": "array_reversed",
+      "role": "control",
+      "purpose": "The same lines in reverse order don't match as a sequence, so Sensible OCRs and total_premium extracts. Rules out the array being ignored.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "ocr_array_reversed",
+      "extraction_id": "13537dfc-76af-453d-8513-5068a57085cb",
+      "config": {
+        "path": "files/array_reversed.json",
+        "sha256": "c68e008e1896e0c142ac901dbe550c45d5dd04353a4a1c9bce877e6c69f90f1c"
+      },
+      "document": {
+        "path": "files/cgl_quote_screenshot.pdf",
+        "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
+      },
+      "response": {
+        "path": "files/response_array_reversed.json",
+        "sha256": "5fb2f83410b230532bd3cf33d6df812c3f5a600dbaab870f0fec3372bc2e3711"
+      },
+      "fields": [
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    }
+  ],
+  "approval": {
+    "by": "Frances Elliott",
+    "date": "2026-11-19"
+  }
+}
