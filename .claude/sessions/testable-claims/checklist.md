@@ -28,7 +28,7 @@ Frances answered `design.md`'s open questions. The record-only path is built: ev
 - [x] CI stale warning (183 days, annotation only)
 - [x] SQLite load (`evidence.py sqlite`), shaped for Frances's future database
 - [x] Unit tests; README section and Extending it row
-- [ ] Frances approves the three #825 records, then: write them to `scripts/doc-detective/evidence/`, and add the Parameters section's pointer comment to #825
+- [x] Frances approved the three #825 records (2026-11-19); records and the Parameters comment are committed on #825, which must merge after this PR
 - [ ] After #3533 deploys: rerun the three claims in the docs test account with `ocrIfMissing`, as new records
 - [ ] `schema` code-test kind (next), then `contrast`
 - [ ] Report generated from an evidence record (HTML), if the JSON link isn't enough
