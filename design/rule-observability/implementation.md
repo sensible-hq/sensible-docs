@@ -61,7 +61,7 @@ Wired in: a pytest test runs the gate in replay mode against `origin/v0` when it
 
 ## Step 8: skills restating or contradicting rules
 
-- `scripts/style/skill_rules.py`: sections of `.claude/skills/*/*.md`, `.claude/skills/*/references/*.md`, `.claude/style-guide/*template*.md`, and `.claude/preferences/*.md` (code blocks blanked, so line numbers match the file). One Jev request per section, one choice question per registered rule: `restates`, `contradicts`, `unrelated`. A restatement at ≥ 0.70 needs the rule's marker in the section; a contradiction at ≥ 0.70 is a problem, and from 0.50 it's listed for review. `style-rules/skill-exceptions.yaml` clears reviewed pairs; `check_registry.py` validates it.
+- `scripts/style/skill_rules.py`: sections of `.claude/skills/*/*.md`, `.claude/skills/*/references/*.md`, `.claude/style-guide/*template*.md`, and `.claude/preferences/*.md` (code blocks blanked, so line numbers match the file). One Jev request per section, one choice question per registered rule: `restates`, `contradicts`, `unrelated`. A restatement at ≥ 0.80 needs the rule's marker in the section; a contradiction at ≥ 0.80 is a problem, and from 0.50 it's listed for review (RO-031). `style-rules/skill-exceptions.yaml` clears reviewed pairs; `check_registry.py` validates it.
 - `rule_map.py coverage` also scans `SKILL.md` files.
 - `new_rule_gate.py`: a new rule is also checked against every section, in one request per section for all new rules.
 

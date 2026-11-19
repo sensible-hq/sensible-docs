@@ -11,8 +11,8 @@ once, with one choice question per registered rule:
   unrelated    it gives no instruction about what the rule covers, or only points to the guide
 
 Code decides:
-  - contradicts with probability >= 0.70 is a problem; from 0.50 it's listed for review.
-  - restates with probability >= 0.70 is a problem unless the section carries the rule's marker
+  - contradicts with probability >= 0.80 is a problem; from 0.50 it's listed for review.
+  - restates with probability >= 0.80 is a problem unless the section carries the rule's marker
     (<!-- rule: id -->, which check_registry.py then requires a stated_in entry for).
   - An entry in style-rules/skill-exceptions.yaml (file, heading, rule, reason) clears either.
 
@@ -40,7 +40,8 @@ REGISTRY = ROOT / "style-rules/registry.yaml"
 EXCEPTIONS = ROOT / "style-rules/skill-exceptions.yaml"
 SCAN = [".claude/skills/*/*.md", ".claude/skills/*/references/*.md", ".claude/style-guide/*template*.md",
         ".claude/preferences/*.md"]
-RESTATES, CONTRADICTS, REVIEW = 0.70, 0.70, 0.50
+# Jev isn't deterministic: the same section moved by up to 0.1 between runs, so a problem needs 0.80
+RESTATES, CONTRADICTS, REVIEW = 0.80, 0.80, 0.50
 MAX_SECTION = 3000
 FENCE = re.compile(r"(?ms)^\s*(`{3,}|~{3,}).*?^\s*\1\s*$")
 MARKER = re.compile(r"<!--\s*rule:\s*([a-z0-9-]+)\s*-->")
@@ -134,7 +135,7 @@ def html_section(res: dict) -> str:
     import report_html as h
     rows = [[h.e(f"{f['file']}:{f['line']}"), h.e(f["heading"]), f"<code>{h.e(f['rule'])}</code>",
              h.chip("fail" if f["kind"] == "contradicts" and not f["ok"] else ("warn" if not f["ok"] else "pass"), f["kind"]),
-             f"{f['p']:.2f}", "marker" if f["marked"] else ("exception" if f["excepted"] else ("below 0.70: review" if f.get("review") else ""))]
+             f"{f['p']:.2f}", "marker" if f["marked"] else ("exception" if f["excepted"] else ("below 0.80: review" if f.get("review") else ""))]
             for f in sorted(res["findings"], key=lambda f: (f["ok"], f["kind"] != "contradicts", f["file"], f["line"]))]
     body = (h.table(["Problem"], [[h.e(p)] for p in res["problems"]]) if res["problems"]
             else "<p>No skill restates a rule without its marker, and none contradicts one.</p>")

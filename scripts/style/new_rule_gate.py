@@ -152,6 +152,9 @@ def run(base: str) -> dict:
     JEV_RECORD is set (then they're live and recorded)."""
     if not os.environ.get("JEV_RECORD"):
         os.environ.setdefault("JEV_REPLAY", os.pathsep.join([str(HERE / "test/fixtures/jev"), str(rh.RELATIONS_FIXTURES)]))
+        if os.environ.get("TYPESAFE_API_KEY"):
+            # The skill scan for new rules isn't recorded: fetch what's missing live, into a scratch directory
+            os.environ["JEV_RECORD"] = tempfile.mkdtemp(prefix="jev-gate-")
     registry = rh.load_registry()
     new = new_rules(registry, base_state(base))
     if not new:

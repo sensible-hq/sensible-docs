@@ -23,6 +23,7 @@ def base_without(*ids):
 def replay(monkeypatch):
     monkeypatch.delenv("JEV_RECORD", raising=False)
     monkeypatch.delenv("JEV_REPLAY", raising=False)
+    monkeypatch.delenv("TYPESAFE_API_KEY", raising=False)  # offline, as in CI's pytest job
     # The skill scan is one live request per section; test_skill_findings_block_the_rule covers it
     monkeypatch.setattr(gate, "skill_problems", lambda registry, ids: {i: [] for i in ids})
 
