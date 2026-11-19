@@ -55,16 +55,14 @@ None shipped and none planned. The app has no code for `fallback_type`, and no a
 
 The PR's own example, `extractors/11multidoc/multi_fallback`, can't be published: its golden contains a real person's life insurance statements and real certificates of insurance.
 
-The docs example on this branch, `docs/document extraction/draft-portfolio-fallback-example.md`, uses public docs assets instead. It extends the Fingerprint example in Multi-document extractions with an invoice, a lease, and a bank statement, and adds an `other_documents` doc type with an LLM config and no fingerprint. Run on the personal dev account on Nov 18, 2026:
+The docs example on this branch, `docs/document extraction/draft-portfolio-fallback-example.md`, uses public docs assets instead. It extends the Fingerprint example in Multi-document extractions: a car insurance quote and a loss run, interleaved with an invoice and a bank statement, plus an `other_documents` doc type with an LLM config and no fingerprint. Run on the personal dev account on Nov 18, 2026:
 
 | Page | With `fallback_type` | Without `fallback_type` |
 | --- | --- | --- |
 | 1, invoice | `other_documents` / `catch_all` | dropped |
 | 2, car insurance quote | `auto_insurance_quotes` / `anyco` | same |
-| 3, lease | `other_documents` / `catch_all` | dropped |
-| 4, car insurance quote | `auto_insurance_quotes` / `anyco` | same |
-| 5, loss run | `loss_run_reports` / `acme` | same |
-| 6, bank statement | `other_documents` / `catch_all` | dropped |
+| 3, bank statement | `other_documents` / `catch_all` | dropped |
+| 4, loss run | `loss_run_reports` / `acme` | same |
 
 Without `fallback_type`, the response's `errors` reports that `other_documents` has no fingerprints, so it can't match any page.
 

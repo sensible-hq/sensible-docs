@@ -16,7 +16,7 @@ next:
 ---
 In a portfolio extraction that segments documents with fingerprints, Sensible drops pages that no document type's fingerprints match. To extract those pages instead, name a fallback document type in the extraction request's `fallback_type` parameter. Sensible extracts each run of consecutive unmatched pages as one document of the fallback type.
 
-The following example extends the [Fingerprint example](doc:portfolio#fingerprint-example) in Multi-document extractions. The portfolio contains the same two car insurance quotes and loss run, plus an invoice, a lease, and a bank statement that no fingerprint matches. A third document type, `other_documents`, has an LLM-based config without a fingerprint that extracts basic facts from any document. The extraction request names `other_documents` as the fallback.
+The following example extends the [Fingerprint example](doc:portfolio#fingerprint-example) in Multi-document extractions. The portfolio contains a car insurance quote and a loss run from that example, interleaved with an invoice and a bank statement that no fingerprint matches. A third document type, `other_documents`, has an LLM-based config without a fingerprint that extracts basic facts from any document. The extraction request names `other_documents` as the fallback.
 
 ### Config
 
@@ -39,7 +39,7 @@ Create the `auto_insurance_quotes` and `loss_run_reports` document types and the
   "fields": [
     {
       "method": {
-        "id": "queryGroup", /* LLM-based method, so the config works on documents with layouts you haven't seen, such as a lease or a bank statement */
+        "id": "queryGroup", /* LLM-based method, so the config works on documents with layouts you haven't seen, such as an invoice or a bank statement */
         "queries": [
           {
             "id": "document_type",
@@ -65,7 +65,7 @@ Create the `auto_insurance_quotes` and `loss_run_reports` document types and the
 
 ### Example document
 
-The example portfolio has six one-page documents, in this order: an invoice, a car insurance quote, a lease, a second car insurance quote, a loss run, and a bank statement.
+The example portfolio has four one-page documents, in this order: an invoice, a car insurance quote, a bank statement, and a loss run.
 
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/portfolio_fallback.pdf) |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -88,7 +88,7 @@ curl --request GET 'https://api.sensible.so/v0/documents/YOUR_EXTRACTION_ID' \
 --header "Authorization: Bearer $SENSIBLE_API_KEY"
 ```
 
-The response contains six document extractions. The fingerprints match pages 2, 4, and 5. Sensible extracts pages 1, 3, and 6 using the fallback document type. The following excerpts show each document's `parsedDocument`. In the response, `startPage` and `endPage` are zero-based, so page 1 is `"startPage": 0`.
+The response contains four document extractions. The fingerprints match pages 2 and 4. Sensible extracts pages 1 and 3 using the fallback document type. The following excerpts show each document's `parsedDocument`. In the response, `startPage` and `endPage` are zero-based, so page 1 is `"startPage": 0`.
 
 #### Page 1 | `other_documents` | `catch_all`
 
@@ -137,57 +137,6 @@ The response contains six document extractions. The fingerprints match pages 2, 
 ```json
 {
   "document_type": {
-    "value": "lease",
-    "type": "string",
-    "confidenceSignal": "confident_answer"
-  },
-  "issuer": null,
-  "document_date": {
-    "source": "01/01/2022",
-    "value": "2022-01-01T00:00:00.000Z",
-    "type": "date",
-    "confidenceSignal": "confident_answer"
-  }
-}
-```
-
-#### Page 4 | `auto_insurance_quotes` | `anyco`
-
-```json
-{
-  "bodily_injury_premium": {
-    "source": "$90",
-    "value": 90,
-    "unit": "$",
-    "type": "currency",
-    "confidenceSignal": "confident_answer"
-  },
-  "policy_number": {
-    "type": "string",
-    "value": "987654321"
-  }
-  /* etc */
-}
-```
-
-#### Page 5 | `loss_run_reports` | `acme`
-
-```json
-{
-  "total_unprocessed_claims": {
-    "source": "5",
-    "value": 5,
-    "type": "number"
-  }
-  /* etc */
-}
-```
-
-#### Page 6 | `other_documents` | `catch_all`
-
-```json
-{
-  "document_type": {
     "value": "bank statement",
     "type": "string",
     "confidenceSignal": "confident_answer"
@@ -206,4 +155,17 @@ The response contains six document extractions. The fingerprints match pages 2, 
 }
 ```
 
-If you leave out `fallback_type`, the response contains only the three documents on pages 2, 4, and 5. In the response's `errors` array, Sensible reports that `other_documents` has no fingerprints, so it can't match any page.
+#### Page 4 | `loss_run_reports` | `acme`
+
+```json
+{
+  "total_unprocessed_claims": {
+    "source": "5",
+    "value": 5,
+    "type": "number"
+  }
+  /* etc */
+}
+```
+
+If you leave out `fallback_type`, the response contains only the two documents on pages 2 and 4. In the response's `errors` array, Sensible reports that `other_documents` has no fingerprints, so it can't match any page.
