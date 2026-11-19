@@ -120,6 +120,8 @@ Congratulations, your integration is now published and running! Take the followi
 
 ### Opening sentence
 
+<!-- rule: sensible-filler -->
+
 - Pattern: "This topic describes [doing X] using [integration]."
 - One or two sentences max. State the destination system and the integration platform.
 - Don't start with "In this guide" or "This guide will show you."
@@ -142,6 +144,8 @@ Congratulations, your integration is now published and running! Take the followi
 - UI field names are always bold: `**Document type**`, `**Environment**`, `**Account**`.
 
 ### Images
+
+<!-- rule: sensible-image-syntax --> <!-- rule: sensible-image-url -->
 
 - Place after a configuration block to show the resulting state, not before.
 - Always use `![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/[filename].png)`.

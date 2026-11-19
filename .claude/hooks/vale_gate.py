@@ -130,7 +130,10 @@ def guard(session: str, path: Path, reset: bool = False) -> int:
 
 
 def seen_before(session: str, path: Path, keys: list[str]) -> set[str]:
-    """The keys among these already reported for this file in this session; records the rest."""
+    """The keys among these already reported for this file in this session; records the rest. Without a
+    session id (a manual run, vale-doctor.sh), nothing is remembered and everything is reported."""
+    if not session:
+        return set()
     state = Path(tempfile.gettempdir()) / f"vale-gate-reported-{re.sub(r'[^A-Za-z0-9-]', '', session) or 'nosession'}.json"
     try:
         data = json.loads(state.read_text())

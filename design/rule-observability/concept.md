@@ -81,6 +81,16 @@ Firings are deduplicated per session: the hook reports the same alert after ever
 
 It also counts how often each style guide was loaded. That's a weak signal (reading a guide loads every rule in it at once), so the report shows it per guide, not per rule.
 
+### 7. Skills, templates, and preferences
+
+Skills restate rules in their own words, and a restatement drifts silently when the guide changes. Three checks cover the instruction files the agent reads besides the guides:
+
+- **Restated or contradicted rules.** Jev reads each section of every skill, template, and preference file and, for each registered rule, answers whether the section restates it, contradicts it, or neither. A restatement becomes a pointer to the guide when the skill doesn't need its own wording, and otherwise carries the rule's marker and a `stated_in` entry, so the registry knows it's another carrier. A contradiction is fixed, or cleared in `style-rules/skill-exceptions.yaml` with a reason.
+- **Skill routing.** A committed set of realistic requests (`style-rules/skill-requests.yaml`), each with the skill that should handle it. Jev scores every skill's description against every request. Two skills that both match one request closely, or a request whose expected skill doesn't win, is a problem, fixed by sharpening the descriptions.
+- **Instructions outside the repo.** The global `CLAUDE.md`, user and plugin skills, and the output style reach the agent too, and no repo check can see them. The usage report attributes each correction Frances types after a docs edit to what drove the edit: a repo rule, a repo skill, or, when neither, the instructions from outside the repo, by file name only.
+
+In CI, a change to a skill, template, or preference runs the first two checks on the changed sections and the routing set, and a new rule is checked against every skill section. The weekly cleanup runs both over everything.
+
 ## What this doesn't do
 
 - It doesn't decide which rules to retire. The reports give the numbers; Frances decides.

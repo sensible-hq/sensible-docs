@@ -203,6 +203,8 @@ review_triggers       object (NOT string[]):
 
 ### Key types
 
+<!-- rule: sensible-null-behavior -->
+
 **Request input** (`schemas.ts`):
 ```typescript
 processorUpsertSchema = z.union([
@@ -497,6 +499,8 @@ Note: `extra_data` is NOT echoed here. It is only returned by `GET /documents/{i
 ```
 
 #### GET /documents/{id}
+
+<!-- rule: sensible-boolean-description -->
 
 **Query params:** `{ withMetadata?: "true" }`
 

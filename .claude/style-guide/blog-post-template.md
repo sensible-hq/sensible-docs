@@ -21,6 +21,8 @@ Include "with LLMs and Sensible" only for variable-layout documents (resumes, re
 
 ## INTRO (2–3 paragraphs, no heading)
 
+<!-- rule: sensible-compare-only-with-choice -->
+
 **Paragraph 1 — Industry context and pain point:**
 
 Variant A — "If you're building" opener (closing disclosures, EOBs):
@@ -85,6 +87,8 @@ Use if the document type needs more background (for example, explaining what an 
 
 ## What we'll cover
 
+<!-- rule: sensible-explicit-actor -->
+
 Use this sentence verbatim, adapting bracketed parts:
 
 > "This blog post briefly walks you through configuring extractions for [doc type variant]. By the end, you'll know [a few / a couple of] [SenseML methods / methods for extracting document data using our query language], and you'll be on your way to extracting any data you choose using our documentation or our prebuilt open-source [doc type] configurations[, which currently support [supported variants]]."
@@ -117,6 +121,8 @@ Older Pattern B — out-of-the-box extractions (inline, used for resumes, rent r
 ---
 
 ## Write document extraction queries with SenseML
+
+<!-- rule: sensible-blog-voice -->
 
 **Paragraph 1 — Example document:**
 
@@ -156,6 +162,8 @@ Follow the opening sentence with the fingerprint code block (JSON5 with inline c
 ---
 
 ## Extract [field] (repeat 2–4 times)
+
+<!-- rule: sensible-code-fences --> <!-- rule: sensible-comment-purpose --> <!-- rule: sensible-scenario-first -->
 
 **Step 1 — Screenshot intro:**
 
@@ -215,6 +223,8 @@ Include when extracted data needs reshaping (for example, zipping column arrays 
 
 ## [OPTIONAL] Test the config with a second document
 
+<!-- rule: sensible-ui-names -->
+
 Include when a second example document is available to show config portability.
 
 Steps:
@@ -228,6 +238,8 @@ Include screenshot showing updated output.
 ---
 
 ## Putting it all together
+
+<!-- rule: sensible-code-fences -->
 
 _New section — not present in older published posts. Include in all new posts._
 
@@ -265,6 +277,8 @@ Examples:
 
 ## [OPTIONAL] When to use a layout-specific config vs. a generalized config
 
+<!-- rule: sensible-compare-only-with-choice -->
+
 Include when the config is carrier- or vendor-specific and the reader may be wondering whether to build their own vs. use an LLM-based generalized approach.
 
 Pattern:
@@ -283,10 +297,10 @@ Opening sentence pattern:
 > "Once your SenseML config is set up, there are several ways to integrate [doc type] extraction into your application or process."
 
 Then list the integration options (use the current names — verify before publishing):
-- **Python SDK** — wraps the extraction API; install with pip
-- **MCP server** — connects document extraction to AI coding tools like Claude
-- **API (synchronous and asynchronous)** — synchronous returns data inline; asynchronous accepts a webhook, recommended for high-volume workflows
-- **Zapier** — no-code integration; routes extracted data into Google Sheets, Airtable, Slack, etc.
+- **Python SDK**: wraps the extraction API; install with pip
+- **MCP server**: connects document extraction to AI coding tools like Claude
+- **API (synchronous and asynchronous)**: synchronous returns data inline; asynchronous accepts a webhook, recommended for high-volume workflows
+- **Zapier**: no-code integration; routes extracted data into Google Sheets, Airtable, Slack, etc.
 
 ---
 
@@ -317,6 +331,8 @@ Oldest version (EOB post):
 ---
 
 ## WRITING STYLE NOTES
+
+<!-- rule: sensible-comment-purpose --> <!-- rule: sensible-filler -->
 
 **Tone:** Practical, tutorial-style. Direct second person ("you", "let's"). Not salesy. Blog posts may use "we" and "let's"; docs pages don't (Vale's `Google.We` and `Google.FirstPerson` apply to docs). <!-- rule: sensible-blog-voice -->
 

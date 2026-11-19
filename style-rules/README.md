@@ -13,6 +13,8 @@ Many rules are carried both ways. [`registry.yaml`](registry.yaml) records, for 
 | ---- | ---------- |
 | `registry.yaml` | One entry per rule: `stated_in` (prose carriers), `enforced_by` (Vale, script, judgment), `kind`, `scope`, `applies_to`, `gate`, `fixture`, and `relations` (pairs Jev related that a person resolved, with a reason) |
 | `HIERARCHY.md` | Generated: every rule grouped by scope (general, page type, construct), with how it's enforced and where it's stated |
+| `skill-exceptions.yaml` | Skill, template, or preference sections Jev tied to a rule, reviewed and cleared with a reason |
+| `skill-requests.yaml` | Realistic requests and the skill that should handle each, for the routing check |
 | `usage/<week>.json` | Weekly rule firings from Claude Code transcripts, and what happened to each (counts only) |
 | `judgment/<id>.yaml` | What Jev needs to judge a rule: source, scope, detector, precheck, question with criteria, examples |
 | `tests/<id>.md` | Fixtures: lines each Vale rule must flag (`<!-- fail -->`) and must not flag (`<!-- pass -->`) |
@@ -25,7 +27,10 @@ python3 scripts/style/check_registry.py          # registry agrees with guides, 
 python3 scripts/style/rule_map.py hierarchy      # regenerate HIERARCHY.md (--html for the report)
 python3 scripts/style/rule_map.py coverage       # rule-like sentences in the guides with no registry entry
 python3 scripts/style/rule_hygiene.py all        # choice catalog, choice overlap, rule relations, fixture cross-fire
-python3 scripts/style/new_rule_gate.py           # rules added since origin/v0 are registered, labeled, and related
+python3 scripts/style/new_rule_gate.py           # rules added since origin/v0 are registered, labeled, related, and not restated by skills
+python3 scripts/style/skill_rules.py             # skills, templates, and preferences that restate a rule without its marker, or contradict one
+python3 scripts/style/skill_overlap.py           # skill descriptions route each request in skill-requests.yaml to one skill
+python3 scripts/style/skill_checks.py --base origin/v0   # both, on what changed (the CI job)
 python3 scripts/style/test_rules.py              # every Vale rule passes its fixture
 python3 -m pytest -q scripts/style/test          # script and hook tests, including the registry check
 python3 scripts/style/check_code_blocks.py       # json fences and /* */ comments in docs/
@@ -101,6 +106,10 @@ A rule fails a run (exit 1) only when its calibration earned trust: on its label
 Jev isn't deterministic: the same request can come back with different probabilities. Tests replay recorded responses (`JEV_REPLAY`), so they're stable; record new ones with `JEV_RECORD`. A missing recording fails; it never passes. A live run needs `TYPESAFE_API_KEY` and costs $0.042 per million input tokens (about $0.0002 for four pages).
 
 The judge doesn't run in the write-time hook: a network call per edit is too slow, and judgment needs the whole change. The doc skills run it before committing.
+
+## Skills
+
+A skill that restates a rule in its own wording is another carrier of the rule. Point to the guide instead when the skill doesn't need the wording; otherwise put the rule's marker in the section and add a `stated_in` entry (the section's heading as the quote). The `skill-checks` CI job judges every changed section of a skill, template, or preference against every registered rule, and checks that the skill descriptions still route `skill-requests.yaml` to one skill each. When you add a skill or change a description, add two or three requests it should win.
 
 ## Weekly reports
 

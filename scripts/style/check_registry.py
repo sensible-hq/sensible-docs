@@ -12,6 +12,7 @@ fails when the two sides drift apart:
     or a file the rule doesn't list
   - a Sensible.* Vale rule has no registry entry, or an entry names a Vale rule, script, judgment
     spec, or fixture that doesn't exist
+  - a skill-exceptions.yaml entry names an unknown rule, file, or heading, or has no reason
   - a relations entry names an unknown rule, an unknown relation, or no reason
   - an entry has no scope (general, page-type, construct), or a narrower scope has no applies_to
   - style-rules/HIERARCHY.md is stale (scripts/style/rule_map.py hierarchy regenerates it)
@@ -150,6 +151,18 @@ def check(registry: list[dict]) -> list[str]:
                 problems.append(f"{rid}: quote not found in {s['file']}: {s.get('quote', '')[:70]}")
             if rid not in markers(text):
                 problems.append(f"{rid}: no <!-- rule: {rid} --> marker in {s['file']}")
+
+    exc = ROOT / "style-rules/skill-exceptions.yaml"
+    for x in (yaml.safe_load(exc.read_text()) or []) if exc.is_file() else []:
+        f = ROOT / x.get("file", "")
+        if x.get("rule") not in by_id:
+            problems.append(f"skill-exceptions.yaml: unknown rule {x.get('rule')}")
+        if not f.is_file():
+            problems.append(f"skill-exceptions.yaml: {x.get('file')} doesn't exist")
+        elif not re.search(r"(?m)^#{1,6}\s+" + re.escape(x.get("heading", "")) + r"\s*$", f.read_text()):
+            problems.append(f"skill-exceptions.yaml: no heading {x.get('heading')!r} in {x.get('file')}")
+        if not x.get("reason"):
+            problems.append(f"skill-exceptions.yaml: {x.get('file')} / {x.get('rule')} needs a reason")
 
     for path in sorted((STYLES / "Sensible").glob("*.yml")):
         name = f"Sensible.{path.stem}"

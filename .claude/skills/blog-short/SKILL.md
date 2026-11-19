@@ -1,6 +1,6 @@
 ---
 name: blog-short
-description: Generates a short conceptual blog post ("Automating Data Extraction from X") for Sensible. Covers a document type and the primary Sensible feature that addresses its extraction challenge. No code blocks or screenshots — 400–600 words. Invoke whenever the user wants to write a short/editorial/overview-style blog post about a document type.
+description: 'Generates a short conceptual blog post ("Automating Data Extraction from X") for Sensible. Covers a document type and the primary Sensible feature that addresses its extraction challenge. No code blocks or screenshots — 400–600 words. Invoke whenever the user wants a short, editorial, or overview-style blog post about a document type. For a technical how-to with config code, use blog-how-to-parse-x; for an explanatory docs page, use create-concept-doc.'
 argument-hint: <document type> [--feature <sensible feature>] [--context "<notes>"]
 allowed-tools: Bash, Read, Write, WebSearch, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 ---
@@ -68,11 +68,13 @@ Do not move to Step 4 until the user confirms or adjusts.
 
 ## Step 4 — Write the draft
 
+<!-- rule: sensible-blog-voice --> <!-- rule: sensible-explicit-actor -->
+
 Write the full post following `.claude/skills/blog-short/blog-short-template.md` exactly. Use:
 
 - Real document-type details from Step 2 research — do not invent challenges or feature behaviors
 - Verbatim boilerplate sentence patterns from the template, with `[variables]` filled in
-- Third person or second person — pick one and stay consistent throughout
+- "You" for what the reader does and "Sensible" for what the platform does, as in `.claude/style-guide/writing-rules.md`. Blog posts may also use "we" and "let's"
 
 **No SenseML config blocks. No screenshot placeholders.**
 
@@ -87,6 +89,8 @@ drafts/blog-[doc-type-slug].md
 
 ## Step 5 — Style and terminology check
 
+<!-- rule: sensible-blog-voice -->
+
 Run all checks in order. Fix issues before Step 6.
 
 **5a — Vale:**
@@ -95,20 +99,11 @@ Run `vale --minAlertLevel=warning drafts/blog-[doc-type-slug].md` from the repo 
 
 **5b — Writing rules:**
 
-Read `.claude/style-guide/writing-rules.md`. Check the draft for:
-- Em dashes: split into two sentences
-- Passive voice: use "Sensible" or "you" as explicit subject
-- Extraction phrasing: "using" not "against"
-- Gerunds over nominalizations: "automating extracting" not "automates the extraction of"
-- Tone: no filler phrases ("please note that", "it's important to remember")
+Read `.claude/style-guide/writing-rules.md` and check the draft against every rule in it. Fix all violations.
 
 **5c — Glossary:**
 
-Read `.claude/style-guide/glossary.md`. Fix any term in the prose that appears in the "Avoid" column. Key ones to watch:
-- "config" not "template" or "schema"
-- "sections" not "repeating groups" or "loops"
-- "the Sensible app" not "the UI" or "the dashboard"
-- "output" not "result object" or "response"
+Read `.claude/style-guide/glossary.md`. Fix any term in the prose that appears in the "Avoid" column.
 
 Only proceed to Step 6 once all checks are clean.
 

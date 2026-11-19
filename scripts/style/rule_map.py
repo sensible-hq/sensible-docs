@@ -7,8 +7,9 @@
 hierarchy  writes style-rules/HIERARCHY.md: every rule grouped by scope (general, page-type,
            construct), with how it's enforced and where it's stated. --check exits 1 if the file is
            stale instead of writing it. --html also writes a standalone HTML report.
-coverage   lists sentences in the style guides that read like a rule but have no <!-- rule: --> marker
-           in their section: candidates to register.
+coverage   lists sentences in the style guides, templates, preferences, and skills that read like a rule
+           but have no <!-- rule: --> marker in their section: candidates to register. skill_rules.py
+           judges whether a skill section restates a registered rule; this catches rules nobody registered.
 
 Enforcement is derived from each entry's enforced_by, never stored: Vale, Jev, script, manual (a
 judgment spec a person applies), or prose (the guide is the only carrier).
@@ -83,7 +84,8 @@ def active_package_rules() -> list[tuple[str, str]]:
 
 
 def guide_files() -> list[Path]:
-    return [p for d in GUIDES for p in sorted((ROOT / d).glob("*.md"))]
+    """Style guides, templates, preferences, and the repo's skills."""
+    return [p for d in GUIDES for p in sorted((ROOT / d).glob("*.md"))] + sorted(ROOT.glob(".claude/skills/*/SKILL.md"))
 
 
 def coverage() -> list[tuple[str, int, str]]:

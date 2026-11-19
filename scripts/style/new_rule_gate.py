@@ -16,12 +16,16 @@ or a judgment spec the base branch doesn't have. Each new rule must have:
                   choice name another spec defines differently; no near-duplicate choices; a stored
                   calibration (calibrate.py --write)
   prose           at least one stated_in place with its marker
+  and             no skill, template, or preference that restates it without its marker, or contradicts it
+                  (skill_rules.py, one Jev request per section)
 
 Jev answers come from recordings (JEV_REPLAY defaults to the committed fixtures), so CI needs no key.
 Exits 1 if a new rule fails, 0 otherwise (including when there are no new rules).
 """
 import argparse
+import json
 import os
+import tempfile
 import subprocess
 import sys
 from pathlib import Path
@@ -154,17 +158,42 @@ def run(base: str) -> dict:
         return {}
     specs, labels = judge.load_specs(), rh.load_labels()
     reg_problems = check_registry.check(registry)
-    return {r["id"]: check_rule(r, registry, specs, labels, reg_problems) for r in new}
+    out = {r["id"]: check_rule(r, registry, specs, labels, reg_problems) for r in new}
+    for rid, problems in skill_problems(registry, {r["id"] for r in new}).items():
+        out[rid] += problems
+    return out
+
+
+def skill_problems(registry: list[dict], ids: set) -> dict:
+    """Skills, templates, and preferences that restate a new rule without its marker, or contradict it.
+    One Jev request per section, with a question for each new rule."""
+    import skill_rules
+    try:
+        res = skill_rules.scan(skill_rules.files(), registry, ids)
+    except jev.JevUnavailable as e:
+        return {rid: [f"{rid}: no recorded skill check ({e}); run TYPESAFE_API_KEY=… python3 scripts/style/new_rule_gate.py, "
+                      "or let CI run it with the repo's key"] for rid in ids}
+    out = {rid: [] for rid in ids}
+    for f in res["findings"]:
+        if not f["ok"]:
+            out[f["rule"]].append(f"{f['rule']}: {f['file']}:{f['line']} ({f['heading']}) {f['kind']} it (p {f['p']:.2f}); "
+                                  "point to the guide, add the rule's marker and a stated_in entry, or record an exception")
+    return out
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--base", default="origin/v0")
     ap.add_argument("--html")
-    ap.add_argument("--summary", action="store_true", help="print the run summary (Markdown) instead of the plain report")
+    ap.add_argument("--summary", action="store_true", help="print the run summary (Markdown) of the last run, instead of the plain report")
     ap.add_argument("--report-url")
     a = ap.parse_args(argv)
-    results = run(a.base)
+    state = Path(tempfile.gettempdir()) / "new-rule-gate.json"
+    if a.summary and state.is_file():  # the run summary after the upload step: don't judge again
+        results = json.loads(state.read_text())
+    else:
+        results = run(a.base)
+        state.write_text(json.dumps(results))
     if a.html:
         import report_html as h
         h.write(Path(a.html), report_html(results, a.base))

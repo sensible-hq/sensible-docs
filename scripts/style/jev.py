@@ -7,7 +7,9 @@ Environment:
   TYPESAFE_API_KEY  required for live calls
   JEV_REPLAY=<dir>  answer from recorded responses keyed by a hash of the request; never touches the
                     network, and a missing recording raises JevUnavailable. Several directories,
-                    separated by the path separator (":"), are searched in order.
+                    separated by the path separator (":"), are searched in order. With JEV_RECORD
+                    also set, a missing recording is fetched live and recorded (refresh only what
+                    changed).
   JEV_RECORD=<dir>  save each live response there for later replay
 
 Price: $0.042 per million input tokens; output tokens aren't priced (sensible-docs-gen config/prices.json,
@@ -46,7 +48,8 @@ def call(state: str, questions: dict, model: str = MODEL, timeout: int = 90) -> 
         for d in replay.split(os.pathsep):
             if (Path(d) / name).exists():
                 return json.loads((Path(d) / name).read_text())
-        raise JevUnavailable(f"no recorded response {name} in {replay}")
+        if not os.environ.get("JEV_RECORD"):
+            raise JevUnavailable(f"no recorded response {name} in {replay}")
     key = os.environ.get("TYPESAFE_API_KEY")
     if not key:
         raise JevUnavailable("TYPESAFE_API_KEY isn't set")

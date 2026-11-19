@@ -1,0 +1,96 @@
+# Sections of skills, templates, and preferences that Jev ties to a registered rule (skill_rules.py), reviewed and
+# cleared. reason says why the pair is compatible; "Review:" marks a call for Frances.
+- file: .claude/skills/api-spec/SKILL.md
+  heading: 'Step 10: Update spec examples from real API output'
+  rule: sensible-example-var
+  reason: OpenAPI examples carry real API values; the var rule is about SenseML examples.
+- file: .claude/skills/api-spec/configuration-source-of-truth.md
+  heading: Fields deliberately not publicly documented
+  rule: sensible-no-table-for-unconfigurable
+  reason: An internal reference for the skill, not a docs page.
+- file: .claude/skills/api-spec/extraction-source-of-truth.md
+  heading: extract_from_url request body
+  rule: sensible-key-column-plain
+  reason: An internal reference for the skill, not a docs parameter table.
+- file: .claude/skills/blog-how-to-parse-x/SKILL.md
+  heading: Step 5 — Draft the blog post
+  rule: sensible-code-fences
+  reason: 'Blog posts aren''t ReadMe pages; the json5 fence and CONFIG markers feed the blog pipeline. Review: does
+    the rule''s scope need to say docs pages only?'
+- file: .claude/skills/create-docs-example/SKILL.md
+  heading: Step 6 — Write the example section
+  rule: sensible-example-heading-verb
+  reason: Says when to add example headings, not how to name them; compatible.
+- file: .claude/skills/quickbooks/SKILL.md
+  heading: 'Phase 4: Run the integration'
+  rule: sensible-internal-terms
+  reason: A tutorial skill that runs code with the user; the AWS and auth terms are the user's own setup.
+- file: .claude/skills/revise-doc-style/SKILL.md
+  heading: Examples structure
+  rule: sensible-integrate-before-heading
+  reason: Example headings sit under Examples; the pair is resolved in the registry.
+- file: .claude/skills/style-guide-generator-senseml/SKILL.md
+  heading: 'Step 1: Find page URLs'
+  rule: sensible-label-method
+  reason: Reads the Label page as input; writes nothing about Label.
+- file: .claude/style-guide/blog-post-template.md
+  heading: INTRO (2–3 paragraphs, no heading)
+  rule: sensible-terminology
+  reason: Blog intros describe the industry in the reader's words. Review.
+- file: .claude/style-guide/blog-post-template.md
+  heading: Write document extraction queries with SenseML
+  rule: sensible-filler
+  reason: 'Blog boilerplate. Review: the filler rule''s scope is every docs page; blog posts aren''t docs pages.'
+- file: .claude/style-guide/blog-post-template.md
+  heading: Write document extraction queries with SenseML
+  rule: sensible-example-intro
+  reason: Blog posts may use "let's" (sensible-blog-voice); the intro rule is for reference pages.
+- file: .claude/style-guide/blog-post-template.md
+  heading: '[CONDITIONAL] Identify and classify incoming [doc types]'
+  rule: sensible-code-fences
+  reason: Blog posts aren't ReadMe pages. Review with the blog-how-to-parse-x exception.
+- file: .claude/style-guide/blog-post-template.md
+  heading: '[CONDITIONAL] Nested sections: H3 subheadings + flattening'
+  rule: sensible-param-name-code
+  reason: Describes config keys in code formatting for the reader; compatible.
+- file: .claude/style-guide/blog-post-template.md
+  heading: Putting it all together
+  rule: sensible-example-intro
+  reason: Blog voice (sensible-blog-voice).
+- file: .claude/style-guide/blog-post-template.md
+  heading: Extract more [doc type] data
+  rule: sensible-filler
+  reason: 'Blog boilerplate ("Check it out!"). Review: keep or cut.'
+- file: .claude/style-guide/blog-post-template.md
+  heading: Extract more [doc type] data
+  rule: sensible-image-syntax
+  reason: Blog images are placeholders for the blog pipeline, not ReadMe images.
+- file: .claude/style-guide/blog-post-template.md
+  heading: Start extracting [from your documents]
+  rule: sensible-filler
+  reason: 'Blog call to action. Review: keep or cut.'
+- file: .claude/style-guide/concept-topic-template.md
+  heading: Notes section
+  rule: sensible-note-blockquote
+  reason: Uses a Notes heading and bullets, not a blockquote; compatible.
+- file: .claude/style-guide/integration-guide-template.md
+  heading: Optional test section
+  rule: sensible-filler
+  reason: '"Congratulations, your integration is now published and running!" is the established opener. Review:
+    an integration guide is a docs page, so the rule applies.'
+- file: .claude/style-guide/reference-topic-template.md
+  heading: Template
+  rule: sensible-example-heading-verb
+  reason: The template's example headings are placeholders.
+- file: .claude/style-guide/reference-topic-template.md
+  heading: Layout-based method
+  rule: sensible-param-name-code
+  reason: Names a JSON key (`id`) in code, which the rule allows.
+- file: .claude/style-guide/reference-topic-template.md
+  heading: LLM-based method
+  rule: sensible-reference-section-order
+  reason: A Limitations subsection before Parameters is the optional use-case block the order rule allows.
+- file: .claude/style-guide/reference-topic-template.md
+  heading: Template
+  rule: sensible-section-heading-levels
+  reason: The template uses H1 for Parameters and Examples, as the rule asks; the H2 headings around it are the template file's own.

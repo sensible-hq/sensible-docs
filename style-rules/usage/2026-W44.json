@@ -2,9 +2,10 @@
  "week": "2026-W44",
  "from": "2026-10-26",
  "to": "2026-11-01",
- "sessions": 1,
+ "sessions": 10,
  "default_branch": null,
  "rules": {},
  "guide_reads": {},
- "firings": []
+ "firings": [],
+ "pushbacks": []
 }

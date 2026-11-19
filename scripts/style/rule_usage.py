@@ -25,6 +25,10 @@ Outcomes, per firing:
   pushback  acted, and Frances's next message reads as a correction ("put it back", "revert", "don't change")
   unknown   a judge verdict or PR-wide alert on a file the session never edited again
 
+Separately, every correction Frances typed after a docs edit ("put it back", "revert", "don't change") is
+attributed to what drove the edit: a repo rule that fired on the page, a repo skill in use, or, when
+neither, instructions from outside the repo (global CLAUDE.md, user or plugin skills, the output style),
+which no repo check can see. Those are recorded by file name only.
 The repo is public, so the weekly file holds rule ids, docs paths, outcomes, and counts: never message
 text. Pushback excerpts appear only in a local report (--local-excerpts).
 """
@@ -122,10 +126,22 @@ def parse_session(lines: list[str]) -> dict:
                     events.append({"kind": "edit", "file": doc_path(fp), "ts": ts, "tool": c.get("id")})
                 if c.get("name") == "Read" and GUIDE_RE.search(fp):
                     events.append({"kind": "read", "guide": GUIDE_RE.search(fp).group(1), "ts": ts})
+                if c.get("name") == "Skill" and inp.get("skill"):
+                    events.append({"kind": "skill", "name": str(inp["skill"]), "ts": ts})
         typed = typed_message(o)
         if typed is not None:
             events.append({"kind": "message", "text": typed, "ts": ts})
         a = o.get("attachment") if isinstance(o.get("attachment"), dict) else None
+        if a and a.get("type") == "instructions":
+            for f in a.get("files") or []:
+                if isinstance(f, dict) and f.get("path"):
+                    events.append({"kind": "instructions", "path": f["path"], "ts": ts})
+        if a and a.get("type") == "output_style" and a.get("style"):
+            events.append({"kind": "style", "name": str(a["style"]), "ts": ts})
+        if a and a.get("type") == "invoked_skills":
+            for s in a.get("skills") or []:
+                if isinstance(s, dict) and s.get("name"):
+                    events.append({"kind": "skill", "name": str(s["name"]), "ts": ts})
         if a:
             text = text_of(a.get("content")) + "\n" + json.dumps(a.get("blockingError") or "") + "\n" + str(a.get("stdout") or "")
             text = text.replace("\\n", "\n")
@@ -170,6 +186,57 @@ def alerts_from(text: str, file: str | None, source: str, ts: str) -> list[dict]
             if f:
                 out.append({"kind": "alert", "source": "judge", "file": f, "line": int(m.group(2)), "check": m.group(4),
                             "message": m.group(3), "ts": ts})
+    return out
+
+
+def repo_skills() -> set:
+    return {p.parent.name for p in ROOT.glob(".claude/skills/*/SKILL.md")}
+
+
+def outside_name(path: str) -> str | None:
+    """A file name for an instruction file outside the repo, or None for a repo file. Names only: the
+    repo is public, so no content from these files is ever recorded."""
+    home = str(Path.home())
+    if re.search(r"/GitHub/sensible-docs[^/]*/", path) and "/.claude/projects/" not in path:
+        return None
+    return path.replace(home, "~", 1)
+
+
+def pushbacks(session: dict, skills_in_repo: set) -> list[dict]:
+    """Each typed message that reads as a correction of a docs edit since the last typed message, with
+    what most likely drove the edit:
+      repo-rule   a repo style rule fired on that file before the edit
+      repo-skill  a repo skill was in use
+      outside     neither: the instructions in play came from outside the repo (global CLAUDE.md, a
+                  user or plugin skill, the output style), or from the request itself
+    sources lists the outside instruction files, skills, and output style in play, by name."""
+    ev = session["events"]
+    out, last_msg = [], -1
+    for i, e in enumerate(ev):
+        if e["kind"] != "message":
+            continue
+        turn = ev[last_msg + 1:i]
+        last_msg = i
+        if not PUSHBACK.search(e["text"]):
+            continue
+        edits = [x for x in turn if x["kind"] == "edit"]
+        if not edits:
+            continue
+        before = ev[:i]
+        files = {x["file"] for x in edits}
+        skills = [x["name"] for x in before if x["kind"] == "skill"]
+        outside = sorted({n for n in (outside_name(x["path"]) for x in before if x["kind"] == "instructions") if n}
+                         | {f"skill:{s}" for s in skills if s not in skills_in_repo}
+                         | ({f"output style:{[x for x in before if x['kind'] == 'style'][-1]['name']}"}
+                            if any(x["kind"] == "style" for x in before) else set()))
+        if any(x["kind"] == "alert" and x["file"] in files for x in turn):
+            attribution = "repo-rule"
+        elif any(s in skills_in_repo for s in skills):
+            attribution = "repo-skill"
+        else:
+            attribution = "outside"
+        out.append({"files": sorted(files), "attribution": attribution, "sources": outside, "ts": e["ts"],
+                    "text": e["text"][:300]})
     return out
 
 
@@ -242,7 +309,8 @@ def collect(week: str | None, dirs: list[Path], base: str | None, now: datetime.
     name, since, until = week_bounds(week, now)
     lo, hi = since.isoformat()[:19], until.isoformat()[:19]
     ids = registry_ids()
-    all_firings, reads, sessions = [], collections.Counter(), 0
+    all_firings, all_pushbacks, reads, sessions = [], [], collections.Counter(), 0
+    in_repo = repo_skills()
     for d in dirs:
         for f in sorted(d.rglob("*.jsonl")):
             if datetime.datetime.fromtimestamp(f.stat().st_mtime, datetime.timezone.utc) < since:
@@ -259,6 +327,8 @@ def collect(week: str | None, dirs: list[Path], base: str | None, now: datetime.
             sid = hashlib.sha256(str(f).encode()).hexdigest()[:8]
             for x in firings({"events": evs}):
                 all_firings.append({**x, "session": sid})
+            for x in pushbacks({"events": evs}, in_repo):
+                all_pushbacks.append({**x, "session": sid})
     cache = {}
     for x in all_firings:
         if base and x["outcome"] == "acted" and x["source"] != "judge":
@@ -280,7 +350,10 @@ def collect(week: str | None, dirs: list[Path], base: str | None, now: datetime.
             "guide_reads": dict(sorted(reads.items())),
             # Public: rule, file, source, outcome. No message text from Frances or the agent.
             "firings": [{k: x[k] for k in ("session", "file", "check", "source", "outcome", "reverted", "pushback")} for x in all_firings],
-            "_local": [x for x in all_firings if x["pushback"]]}
+            # Corrections of docs edits and what drove them; instruction files outside the repo by name only
+            "pushbacks": [{k: x[k] for k in ("session", "files", "attribution", "sources")} for x in all_pushbacks],
+            "_local": [x for x in all_firings if x["pushback"]] + [{"check": x["attribution"], "file": ", ".join(x["files"]),
+                                                                     "pushback_text": x["text"]} for x in all_pushbacks]}
 
 
 def load_weeks() -> list[dict]:
@@ -324,6 +397,18 @@ def render_html(weeks: list[dict], local: list[dict] | None = None) -> str:
         sections.append(h.card("Pushback (local only)", h.table(["Rule", "File", "Next message"], [
             [f"<code>{h.e(x['check'])}</code>", h.e(x["file"]), h.e(x["pushback_text"] or "")] for x in local]),
             "From your transcripts. This section is never committed or uploaded.", open_=True))
+    pb = [x for w in weeks for x in w.get("pushbacks") or []]
+    by_attr = collections.Counter(x["attribution"] for x in pb)
+    srcs = collections.Counter(s for x in pb if x["attribution"] == "outside" for s in x["sources"])
+    sections.insert(1, h.card(
+        f"Corrections from instructions outside the repo ({by_attr.get('outside', 0)})",
+        h.table(["What drove the corrected edit", "Corrections"], [[h.e(k), str(v)] for k, v in by_attr.most_common()])
+        + "<h3>Outside instructions in play when Frances corrected an edit</h3>"
+        + (h.table(["Source", "Corrections"], [[h.e(s), str(n)] for s, n in srcs.most_common()]) if srcs else "<p>None.</p>"),
+        "A correction is a message such as \"put it back\" after the agent edited a docs page. When no repo rule fired on "
+        "that page and no repo skill was in use, the instruction came from outside the repo (global CLAUDE.md, a user or "
+        "plugin skill, the output style) or from the request itself, and no repo check can see it. Names only: nothing "
+        "from these files is recorded.", open_=bool(by_attr.get("outside"))))
     span = f"{weeks[0]['week']} to {weeks[-1]['week']}" if weeks else "no weeks yet"
     return h.page("Style rule usage", f"Claude Code sessions in sensible-docs, {span}", sections)
 
@@ -338,7 +423,8 @@ def summary(weeks: list[dict], report_url: str | None) -> str:
     f = sum(v["firings"] for v in w["rules"].values())
     lines += [f"Latest week {w['week']}: {w['sessions']} sessions, {f} firings across {len(w['rules'])} rules, "
               f"{sum(v['acted'] for v in w['rules'].values())} acted on, "
-              f"{sum(v['reverted'] + v['pushback'] for v in w['rules'].values())} reverted or pushed back."]
+              f"{sum(v['reverted'] + v['pushback'] for v in w['rules'].values())} reverted or pushed back, "
+              f"{sum(1 for x in w.get('pushbacks') or [] if x['attribution'] == 'outside')} corrections of edits driven from outside the repo."]
     return "\n".join(lines)
 
 

@@ -6,6 +6,8 @@ This file is a guide for writing new concept pages under `docs/Senseml reference
 
 ## Frontmatter
 
+<!-- rule: sensible-excerpt-filler --> <!-- rule: sensible-excerpt-length --> <!-- rule: sensible-excerpt-self-naming --> <!-- rule: sensible-filler --> <!-- rule: sensible-frontmatter-structure -->
+
 Same structure as all SenseML reference pages. Only `title` and `metadata.description` vary.
 
 ```yaml
@@ -97,11 +99,15 @@ When the concept has multiple configuration approaches, a comparison table in th
 
 ### Code examples
 
+<!-- rule: sensible-code-fences -->
+
 Use fenced ` ```json ` blocks. Inline `/* */` comments are acceptable (never `//`) — Sensible accepts relaxed JSON.
 
 Concept pages typically embed code inline rather than using the "Config / Example document / Output" scaffold from reference pages. Truncate illustrative output to 2–3 representative lines + `"..."` if needed.
 
 ### Images
+
+<!-- rule: sensible-image-syntax --> <!-- rule: sensible-image-url -->
 
 ```markdown
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/filename.png)
@@ -157,6 +163,8 @@ next:
 ---
 
 ## File naming and registration
+
+<!-- rule: sensible-order-registration -->
 
 - Filename: `kebab-case.md`, for example, `anchor-nuances.md`, `field-order.md`
 - Location: `docs/Senseml reference/concepts/`

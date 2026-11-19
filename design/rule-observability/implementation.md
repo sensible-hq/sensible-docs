@@ -59,6 +59,23 @@ Wired in: a pytest test runs the gate in replay mode against `origin/v0` when it
 - `vale_gate.py` PostToolUse: remember the alerts already reported for a file in the session (state file beside the denial counter) and report only new ones, with a count of those still open.
 - `Google.WordListCase`: drop `Email` from the `e-mail` entry, since a capitalized "Email" starts a sentence, a table cell, or a bold label. Fixture lines for both.
 
+## Step 8: skills restating or contradicting rules
+
+- `scripts/style/skill_rules.py`: sections of `.claude/skills/*/*.md`, `.claude/skills/*/references/*.md`, `.claude/style-guide/*template*.md`, and `.claude/preferences/*.md` (code blocks blanked, so line numbers match the file). One Jev request per section, one choice question per registered rule: `restates`, `contradicts`, `unrelated`. A restatement at ≥ 0.70 needs the rule's marker in the section; a contradiction at ≥ 0.70 is a problem, and from 0.50 it's listed for review. `style-rules/skill-exceptions.yaml` clears reviewed pairs; `check_registry.py` validates it.
+- `rule_map.py coverage` also scans `SKILL.md` files.
+- `new_rule_gate.py`: a new rule is also checked against every section, in one request per section for all new rules.
+
+## Step 9: skill routing
+
+- `style-rules/skill-requests.yaml`: 41 requests with the expected skill (or none).
+- `scripts/style/skill_overlap.py`: one Jev request per user request, one Noul per repo skill description. Collision: the runner-up also scores ≥ 0.50, within 0.20 of the top. Miss: the expected skill isn't top or scores < 0.50. Stray: a request that expects no skill gets one. Recorded under `scripts/style/test/fixtures/jev-skill-overlap`.
+
+## Step 10: CI, weekly, and usage
+
+- `scripts/style/skill_checks.py` runs both on the sections a change touched and writes one HTML report; the `skill-checks` job in `test-scripts.yml` runs it with `TYPESAFE_API_KEY` and uploads the report.
+- The weekly cleanup adds a full skill scan and the routing check to its report.
+- `rule_usage.py`: corrections after a docs edit are attributed to a repo rule, a repo skill, or instructions from outside the repo; the weekly file names outside sources and never stores their content.
+
 ## Tests
 
 All offline: unit tests for each command with small fixtures, a synthetic transcript for `rule_usage.py`, replayed Jev recordings for relations and overlap, and `--check` for the generated page.

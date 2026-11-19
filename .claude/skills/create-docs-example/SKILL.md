@@ -127,6 +127,8 @@ Use the `parsed_document` from this response as the **Output** in the example. S
 
 ## Step 6 — Write the example section
 
+<!-- rule: sensible-code-fences --> <!-- rule: sensible-comment-purpose --> <!-- rule: sensible-example-per-scenario --> <!-- rule: sensible-scenario-first -->
+
 Update the `# Examples` section of the target doc page. Follow these conventions exactly:
 
 **One example, one config.** Don't split into sub-examples with `##` headings unless the features are truly independent. If the extractor config uses multiple preprocessors or options together, present them as a single unified example.

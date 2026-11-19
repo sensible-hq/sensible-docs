@@ -4,7 +4,7 @@
 # comments on the standing issue labeled style-weekly (opening it the first time).
 #
 # Mondays 14:00 UTC, and on demand (Actions > Weekly style rule cleanup > Run workflow).
-# Costs a few cents of Jev (TYPESAFE_API_KEY). Never on pull requests.
+# Costs about $0.30 of Jev a week (TYPESAFE_API_KEY), most of it the skill scan. Never on pull requests.
 
 name: Weekly style rule cleanup
 
@@ -55,6 +55,9 @@ jobs:
         env:
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
           PAGES: ${{ inputs.pages }}
+          # Routing answers replay from the committed recordings; anything changed goes live
+          JEV_REPLAY: scripts/style/test/fixtures/jev-skill-overlap
+          JEV_RECORD: ${{ runner.temp }}/jev-new
         run: python3 scripts/style/weekly_cleanup.py run --out "$RUNNER_TEMP/style-weekly" ${PAGES:+--pages "$PAGES"}
 
       # The HTML report on its own, unzipped, so it opens in the browser from the run page

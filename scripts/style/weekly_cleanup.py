@@ -10,6 +10,8 @@ run      Needs TYPESAFE_API_KEY and Vale. Writes DIR/results.json and DIR/report
          - corpus: the judge on every docs page, and for each Vale-backed rule the share of its hits Jev clears
          - relations, choice overlap, choice catalog, and fixture cross-fire (rule_hygiene.py)
          - labels still marked labeled_by: claude, and rule-like sentences in the guides with no registry entry
+         - skills, templates, and preferences that restate a rule without its marker or contradict one
+           (skill_rules.py, every section, about $0.25 of Jev), and skill routing (skill_overlap.py)
          --pages N judges only the first N pages (for a quick check).
 summary  Prints the Markdown run summary ($GITHUB_STEP_SUMMARY).
 issue    Prints the Markdown body for the weekly issue.
@@ -86,6 +88,10 @@ def run(out_dir: Path, pages: int | None) -> dict:
     ovl = rh.overlap(specs, labels)
     cat = rh.catalog(specs, labels)
     cf = rh.crossfire(registry)
+    import skill_overlap
+    import skill_rules
+    sk = skill_rules.scan(skill_rules.files(), registry)
+    ov = skill_overlap.check(yaml.safe_load(skill_overlap.REQUESTS.read_text()), skill_overlap.skills())
     results = {
         "date": datetime.date.today().isoformat(), "model": next((c["model"] for c in cal if c.get("model")), None),
         "calibration": cal, "corpus": corpus,
@@ -95,7 +101,7 @@ def run(out_dir: Path, pages: int | None) -> dict:
                       "pairs": {f"{a}|{b}": both for (a, b), both in rel["pairs"].items()}},
         "overlap": {"problems": ovl["problems"], "rows": ovl["rows"]},
         "catalog": {"problems": cat["problems"], "copied": cat["copied"]},
-        "crossfire": cf, "unreviewed": unreviewed(labels),
+        "crossfire": cf, "unreviewed": unreviewed(labels), "skill_rules": sk, "skill_routing": ov,
         "coverage": [{"file": f, "line": n, "text": t} for f, n, t in rule_map.coverage()],
     }
     tokens = sum(c["input_tokens"] for c in cal) + corpus["input_tokens"]
@@ -111,6 +117,7 @@ def problems(results: dict) -> list[str]:
            + (f", {'now trusted' if c['trusted'] else 'no longer trusted'}" if c["trusted"] != c["stored_trusted"] else "")
            for c in results["calibration"] if c["drift"]]
     out += results["relations"]["problems"] + results["overlap"]["problems"] + results["catalog"]["problems"] + results["crossfire"]["problems"]
+    out += (results.get("skill_rules") or {}).get("problems", []) + (results.get("skill_routing") or {}).get("problems", [])
     return out
 
 
@@ -150,6 +157,12 @@ def render_html(results: dict, registry: list[dict]) -> str:
         rel={"problems": results["relations"]["problems"],
              "pairs": {tuple(k.split("|")): v for k, v in results["relations"]["pairs"].items()}},
         cf=results["crossfire"], registry=registry)
+    if results.get("skill_rules"):
+        import skill_rules
+        sections.append(skill_rules.html_section(results["skill_rules"]))
+    if results.get("skill_routing"):
+        import skill_overlap
+        sections.append(skill_overlap.html_section(results["skill_routing"]))
     un = [[f"<code>{h.e(rid)}</code>", f"{v['claude']} of {v['total']}"] for rid, v in sorted(results["unreviewed"].items()) if v["claude"]]
     sections.append(h.card(f"Labels to review ({sum(v['claude'] for v in results['unreviewed'].values())})",
                            h.table(["Rule", "Labeled by Claude, not reviewed"], un) if un else "<p>Every label is reviewed.</p>",
@@ -185,6 +198,12 @@ def summary(results: dict, report_url: str | None, run_url: str | None) -> str:
              f"{sum(v.get('unsure', 0) for v in corpus['by_rule'].values())} unsure",
              f"- Labels not yet reviewed: {sum(v['claude'] for v in results['unreviewed'].values())}",
              f"- Unregistered rule-like sentences: {len(results['coverage'])}"]
+    if results.get("skill_rules"):
+        lines.append(f"- Skills restating or contradicting a rule: {len(results['skill_rules']['problems'])} problems in "
+                     f"{results['skill_rules']['sections']} sections")
+    if results.get("skill_routing"):
+        lines.append(f"- Skill routing: {len(results['skill_routing']['problems'])} collisions or misses in "
+                     f"{len(results['skill_routing']['rows'])} requests")
     if probs:
         lines += ["", "### Problems", ""] + [f"- {p}" for p in probs]
     return "\n".join(lines)

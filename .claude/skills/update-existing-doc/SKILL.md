@@ -1,6 +1,6 @@
 ---
 name: update-existing-doc
-description: Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If you're not sure whether to create or update, use update-docs-from-pr instead.
+description: 'Given a sensible-hq/sensible PR number, update existing sensible-docs pages to reflect changes to existing features, parameters, or behaviors — then open a PR. Use this skill when you already know the PR only affects existing docs (no new pages needed). If the request doesn''t say the PR only changes existing features, use update-docs-from-pr. To restyle a page without a PR, use revise-doc-style.'
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
@@ -50,6 +50,8 @@ Read these files before writing anything:
 Pay particular attention to the preferences file. It documents specific choices Frances has made that override default instincts.
 
 ## Step 4 — Plan and make the changes
+
+<!-- rule: sensible-integrate-before-heading -->
 
 Before you edit any file, create the branch's worktree with the first three commands in the "Branch, commit, and open a PR" step, and make every edit in that worktree. A worktree created after the edits doesn't contain them.
 

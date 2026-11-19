@@ -1,6 +1,6 @@
 ---
 name: revise-doc-style
-description: Revise a SenseML reference doc draft to match the house style. Applies rules for intro sentences, metadata, examples structure, JSON5 comment placement, and parameter descriptions.
+description: 'Revise a SenseML reference doc draft to match the house style. Applies rules for intro sentences, metadata, examples structure, where JSON5 comments go, and parameter descriptions. To add the canonical JSON5 comments themselves, use json5-commenter; to check terminology only, use docs-checker.'
 argument-hint: <path/to/draft.md>
 disable-model-invocation: true
 allowed-tools: Read, Edit, Write, Bash(python3 scripts/style/judge.py:*)
@@ -33,6 +33,8 @@ After revising, run `python3 scripts/style/judge.py $ARGUMENTS` and include its 
 
 ### Examples structure
 
+<!-- rule: sensible-example-heading-verb --> <!-- rule: sensible-scenario-first -->
+
 - **Separate `##` subheadings** for each conceptually distinct use case. Don't merge separate scenarios into one config to keep the page shorter. The axis is the scenario, not difficulty: don't split one scenario into "basic" and "advanced" examples. <!-- rule: sensible-example-per-scenario -->
   - ✅ `## Remove page number lines` and `## Remove rotated watermarks` as separate examples
   - ❌ One combined config that does both, described with a bullet list
@@ -47,6 +49,8 @@ After revising, run `python3 scripts/style/judge.py $ARGUMENTS` and include its 
   - ❌ `The following example shows using two preprocessors together to clean up an academic transcript before extraction:` followed by bullets
 
 ### JSON5 comments in code blocks
+
+<!-- rule: sensible-comment-purpose -->
 
 **Placement:** Comments go *inside* the relevant nested object — next to the key or value they describe — not above the parent object.
 - ✅ Comment inside the `match` object, next to the `pattern` key
@@ -63,6 +67,8 @@ After revising, run `python3 scripts/style/judge.py $ARGUMENTS` and include its 
 **Don't over-comment.** Only add comments where the purpose or value isn't immediately obvious. Don't comment every key.
 
 ### Parameter descriptions
+
+<!-- rule: google-latin -->
 
 - Use "For example" to illustrate concrete behavior inline.
 - Be precise about *what* is matched/removed — "Sensible removes all lines that contain the matched text" vs "all lines that equal the matched text" are different behaviors; use the right one.
@@ -83,6 +89,8 @@ When showing the effect of a preprocessor (that is, what the document looks like
 - Drop implementation contrasts (for example, "unlike the direct API…", "unlike the X preprocessor…") unless the distinction is the *primary* thing the reader needs to act on. If needed, put it in a **Note** rather than the main flow.
 
 ### General
+
+<!-- rule: sensible-reference-section-order -->
 
 - Don't add content that isn't in the draft — this skill revises style, not substance.
 - Don't resolve TODOs or fill in missing information. Leave TODOs in place and report them.

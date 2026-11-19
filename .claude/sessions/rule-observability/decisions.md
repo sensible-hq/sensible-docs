@@ -83,3 +83,44 @@ The first live relations run (64 rules, 4,032 directed pairs, $0.033) called fou
 ## RO-021 Prose rules registered from the two reference guides
 
 22 rules from `style-guide-overview.md` and `sentence-word-guidance.md`, each `kind: prose`, with its quote and marker. Three more statements were already registered rules stated in another place, so they became extra `stated_in` entries (explicit-actor twice, filler once). The coverage check still lists 26 rule-like sentences, mostly in the templates; many are template instructions rather than rules.
+
+## RO-022 Skill restatements are judged per section against every rule
+
+Frances's call (2026-11-19): extend the PR to skills. A regex over imperatives can't tell "Third person or second person, pick one" contradicts the actor rule, so Jev judges each section of each skill, template, and preference file against every registered rule. Code decides: restates at 0.70 needs a marker; contradicts at 0.70 is a problem, 0.50 to 0.70 is listed for review. A first wording of the question flagged sections for how they were written (a skill's own em dashes); the question now says to judge what the section tells the agent to write.
+
+## RO-023 Pointers for rule checklists, markers for the rest
+
+Three sections listed the writing rules as a checklist: api-spec's "Prose quality in descriptions", blog-how-to-parse-x's 6.7b, and blog-short's 5b and 5c. Each now points to `writing-rules.md` and `glossary.md` instead, since a summary drifts. 60 other sections restate a rule because the skill needs the wording in place (a template's frontmatter, a step's image format); they carry the rule's marker, and the registry lists the section (quote: its heading). Markers took three rounds: adding one changes the section, and Jev then tied a few more rules to it.
+
+## RO-024 Contradictions: three fixed, the rest cleared with reasons
+
+Fixed: blog-short's "Third person or second person, pick one" (contradicts the actor rule; now "you" for the reader and "Sensible" for the platform, with "we" allowed in blogs); the reference template's "Opening: imperative verb, Extracts…" (Extracts is third person, which the opening-sentence rule asks for); em dashes in the blog template's integration bullets, which posts copy verbatim. 23 pairs are cleared in `skill-exceptions.yaml`; the ones marked "Review:" are Frances's call: whether code-fences and filler apply to blog posts (they're scoped to docs pages but the blog drafts run the same Vale rules), the blog boilerplate "Check it out!", and the integration guide's "Congratulations, your integration is now published and running!", which is a docs page.
+
+## RO-025 Skill scan recordings aren't committed
+
+A full scan is 393 requests and 3 MB of recordings, and any change to a rule statement invalidates all of them. CI judges only the sections a change touched, live with the repo's key (about $0.0007 a section); the weekly cleanup scans everything live (about $0.25). The routing recordings (41 small files) are committed, since descriptions change rarely.
+
+## RO-026 Routing: who handles what
+
+Applied to the descriptions:
+- update-docs-from-pr is the router when the request doesn't say whether the PR needs new pages or changes to existing ones; create-new-doc and update-existing-doc when it does.
+- api-spec handles new API endpoints and new specs; update-docs-from-pr updates existing specs for changed parameters (its body already edits `reference/*.json`).
+- blog-how-to-parse-x is the technical post with code; blog-short is the no-code overview; create-concept-doc writes a docs page, not a post.
+- revise-doc-style restyles; json5-commenter adds the canonical comments; docs-checker checks terminology and doesn't edit code blocks.
+Before: 10 requests where a second skill matched within 0.20 of the expected one. After: none. The expected skill won all 39 requests that expect one, before and after.
+
+## RO-027 A collision is a close runner-up, not any second match
+
+Requests like "update the docs for PR 3474" match the router and a specialist; that's by design when the router wins clearly. A collision is a runner-up at 0.50 or more within 0.20 of the top; a runner-up further behind is listed as close.
+
+## RO-028 Corrections attributed to instructions outside the repo
+
+A correction is a typed message matching the pushback pattern after a docs edit in the same turn. It's attributed to a repo rule (an alert on that page in the turn), a repo skill (one in use in the session), or otherwise to outside instructions, listed by name: instruction files outside the repo (`~/.claude/CLAUDE.md`), user and plugin skills, the output style. No content from those files is recorded. The backfilled weeks have no corrections that match the pattern, so the section starts empty; the pattern may be too narrow.
+
+## RO-029 api-spec's frontmatter wasn't valid YAML
+
+Its description had an unquoted ": ", which a strict YAML parser rejects. Quoted. `skill_overlap.py` reports a frontmatter that doesn't parse.
+
+## RO-030 Jev spend
+
+Tonight's extension: about $0.58 (two full skill scans while tuning the question, the marker rounds, the gate's skill scan for the 22 new rules, and four routing runs). Each push of this PR costs about $0.13 in CI (the gate's skill scan for 22 new rules, and the changed sections); a typical PR with one new rule or one skill edit costs a cent or two. The weekly cleanup is about $0.30.

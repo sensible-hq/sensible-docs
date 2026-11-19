@@ -68,6 +68,8 @@ Aim for 3–4 bullets. Each should name a concrete structural property of the do
 
 ## THE SOLUTION: SENSIBLE [FEATURE] (under heading "## The Solution: Sensible [Feature]")
 
+<!-- rule: sensible-scenario-first -->
+
 2–3 paragraphs. Conceptual — no SenseML code blocks. Explain what the feature does and how it maps to the challenges above.
 
 **Paragraph 1 — Introduce the feature:**
@@ -145,6 +147,8 @@ Example (Nested Sections):
 
 ## CONCLUSION (under heading "## Conclusion")
 
+<!-- rule: sensible-filler -->
+
 1 paragraph. Brief, direct. Point to next steps — demo, documentation, or sign-up.
 
 Pattern:
@@ -158,6 +162,8 @@ Avoid: salesy superlatives, vague closing lines like "the future of document AI 
 ---
 
 ## LENGTH AND TONE NOTES
+
+<!-- rule: sensible-filler -->
 
 **Length:** 400–600 words total. Aim for 4–5 minute read. This is not a tutorial — every sentence should earn its place.
 

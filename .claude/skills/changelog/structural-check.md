@@ -37,6 +37,8 @@ For more information, see [JsonLogic](doc:jsonlogic).
 
 ## Step 1 — Doc links
 
+<!-- rule: sensible-doc-links -->
+
 Every section must link to at least one relevant published doc page using readme short-link format:
 - `docs/` pages → `[text](doc:slug)`
 - `reference/` pages → `[text](reference:slug)`

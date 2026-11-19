@@ -1,6 +1,6 @@
 ---
 name: blog-how-to-parse-x
-description: Generates a "how to extract data from X" blog post draft for Sensible. Takes a document type as input and either fetches the matching prebuilt config from the open-source library, or accepts an explicit config file/URL and optional PDF path via --config and --pdf flags. Invoke whenever the user wants to write or draft a "how to parse/extract X" blog post.
+description: 'Generates a "how to extract data from X" blog post draft for Sensible. Takes a document type as input and either fetches the matching prebuilt config from the open-source library, or accepts an explicit config file/URL and optional PDF path via --config and --pdf flags. Invoke whenever the user wants to write or draft a "how to parse/extract X" blog post. It''s a technical post with SenseML code and screenshots; for a short overview post with no code, use blog-short.'
 argument-hint: <document type> [--config <path-or-url>] [--pdf <path>]
 allowed-tools: Bash, Read, Write, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 ---
@@ -250,6 +250,8 @@ Do this before moving to Step 7 — do not present a draft where individual and 
 
 ## Step 6.7 — Style and terminology check
 
+<!-- rule: sensible-backtick-values --> <!-- rule: sensible-blog-voice --> <!-- rule: sensible-comment-purpose --> <!-- rule: sensible-feature-name-caps --> <!-- rule: sensible-param-name-code --> <!-- rule: sensible-terminology -->
+
 Run all checks in order. Fix issues before proceeding to Step 7.
 
 **6.7a — Vale:**
@@ -258,7 +260,7 @@ Run `vale --minAlertLevel=warning drafts/blog-[doc-type-slug].md` from the repo 
 
 **6.7b — Writing rules:**
 
-Read `.claude/style-guide/writing-rules.md`. Check the draft for: em dashes (split into two sentences), passive voice (use "Sensible" or "you" as explicit subject), extraction phrasing ("using" not "against"), gerunds over nominalizations, and tone (no filler phrases). Fix all violations.
+Read `.claude/style-guide/writing-rules.md` and check the draft against every rule in it. Fix all violations.
 
 **6.7c — Naming conventions:**
 

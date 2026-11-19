@@ -40,6 +40,8 @@
   enforced_by:
     vale: [Google.Latin]
   stated_in:
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: 'Parameter descriptions'
     - file: .claude/style-guide/writing-rules.md
       quote: Don't use Latin abbreviations
   fixture: style-rules/tests/google-latin.md
@@ -69,6 +71,10 @@
   enforced_by:
     vale: [Sensible.UINames]
   stated_in:
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: 'Step 4: Report'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: '[OPTIONAL] Test the config with a second document'
     - file: .claude/style-guide/glossary.md
       quote: '| The tab that lists past extractions | "Extraction history" |'
     - file: .claude/preferences/editorial-preferences.md
@@ -85,6 +91,10 @@
   enforced_by:
     vale: [Sensible.DocLinks, Sensible.NoDraftLinks]
   stated_in:
+    - file: .claude/skills/changelog/SKILL.md
+      quote: '3c. Draft the entry'
+    - file: .claude/skills/changelog/structural-check.md
+      quote: 'Step 1 — Doc links'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Use `ref:` slugs for API reference links.
   fixture: style-rules/tests/sensible-doc-links.md
@@ -100,6 +110,16 @@
     vale: [Sensible.Terminology]
     judgment: [style-rules/judgment/sensible-terminology.yaml]
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: 'Step 4: Report'
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: 'Sensible Docs Terminology Checker'
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: 'Step 2: Run Vale''s terminology rules'
+    - file: .claude/skills/docs-checker/SKILL.md
+      quote: 'Step 5: Offer to fix'
     - file: .claude/style-guide/glossary.md
       quote: Canonical term reference for all Sensible documentation.
   origin: [memory project_seo_terminology]
@@ -118,6 +138,8 @@
     vale: [Sensible.InternalTerms]
     judgment: [style-rules/judgment/sensible-internal-terms.yaml]
   stated_in:
+    - file: .claude/skills/api-spec/extraction-source-of-truth.md
+      quote: 'Actor field'
     - file: .claude/style-guide/glossary.md
       quote: '| Internal implementation details |'
   origin: [.claude/sessions/2026-07-06-actor/frances-edits.md]
@@ -135,6 +157,8 @@
     vale: [Sensible.AgainstPhrasing]
     judgment: [style-rules/judgment/sensible-against-phrasing.yaml]
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/intro-rewrite-feedback.md
+      quote: 'Template implication'
     - file: .claude/style-guide/writing-rules.md
       quote: Do not use "against" to describe extraction or classification. Use "using" instead.
   fixture: style-rules/tests/sensible-against-phrasing.md
@@ -150,6 +174,22 @@
     vale: [Sensible.Filler]
     judgment: [style-rules/judgment/sensible-filler.yaml]
   stated_in:
+    - file: .claude/skills/blog-short/blog-short-template.md
+      quote: 'CONCLUSION (under heading "## Conclusion")'
+    - file: .claude/skills/blog-short/blog-short-template.md
+      quote: 'LENGTH AND TONE NOTES'
+    - file: .claude/skills/integration-guide-generator/SKILL.md
+      quote: 'Step 4: Rewrite the output file'
+    - file: .claude/skills/style-guide-generator-senseml/SKILL.md
+      quote: 'Step 4: Rewrite the output files'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'WRITING STYLE NOTES'
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Frontmatter'
+    - file: .claude/style-guide/integration-guide-template.md
+      quote: 'Opening sentence'
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Preprocessor'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'No "please note that" or "it''s important to remember".'
     - file: .claude/style-guide/writing-rules.md
@@ -167,6 +207,10 @@
   enforced_by:
     vale: [Sensible.ParamNameCode]
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
+    - file: .claude/skills/changelog/SKILL.md
+      quote: '3c. Draft the entry'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Never use camelCase with backticks for method or preprocessor names in running prose.
   origin: [.claude/sessions/vale-method-names/plan.md]
@@ -183,6 +227,8 @@
   enforced_by:
     vale: [Sensible.ParamCellOpener]
   stated_in:
+    - file: .claude/skills/api-spec/SKILL.md
+      quote: '4b. Read the Sensible prose style guides'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: Don't start with "This parameter..." or "Use this to...".
   fixture: style-rules/tests/sensible-param-cell-opener.md
@@ -197,6 +243,14 @@
   enforced_by:
     vale: [Sensible.NoJSXImage, Sensible.ChangelogImage]
   stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: 'Changelog entries'
+    - file: .claude/skills/changelog/SKILL.md
+      quote: 'Step 5: Style check, then review with user'
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Images'
+    - file: .claude/style-guide/integration-guide-template.md
+      quote: 'Images'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Use the standard markdown `![]()` syntax when authoring docs pages.
     - file: .claude/style-guide/changelog-style-guide.md
@@ -215,6 +269,12 @@
   enforced_by:
     vale: [Sensible.ImageURL]
   stated_in:
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Images'
+    - file: .claude/style-guide/integration-guide-template.md
+      quote: 'Images'
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Template'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Always use `![Click to enlarge]` as the alt text. Images live in `assets/images/final/`.
   origin: [memory project_image_processing]
@@ -258,6 +318,8 @@
   enforced_by:
     vale: [Sensible.ChangelogHeadings]
   stated_in:
+    - file: .claude/skills/changelog/SKILL.md
+      quote: '3c. Draft the entry'
     - file: .claude/style-guide/changelog-style-guide.md
       quote: "**Do not use** `Update:`, phased out as of 2025."
     - file: .claude/skills/changelog/structural-check.md
@@ -275,6 +337,8 @@
   enforced_by:
     vale: [Sensible.ExcerptFiller]
   stated_in:
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Frontmatter'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Has no filler opener such as "Learn how to" or "How X works".
   origin: [memory feedback_excerpt_rules]
@@ -318,6 +382,14 @@
   enforced_by:
     script: [scripts/style/check_code_blocks.py]
   stated_in:
+    - file: .claude/skills/create-docs-example/SKILL.md
+      quote: 'Step 6 — Write the example section'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'Extract [field] (repeat 2–4 times)'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'Putting it all together'
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Code examples'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: Use `/* */` for all comments in JSON configs, including single-line comments. Don't use `//`.
     - file: .claude/style-guide/json5-comments-reference.md
@@ -337,6 +409,8 @@
   enforced_by:
     script: [scripts/style/check_excerpts.py]
   stated_in:
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Frontmatter'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Doesn't name the page's own method, object, or setting, because the title already does.
   origin: [memory feedback_excerpt_rules]
@@ -351,6 +425,8 @@
   enforced_by:
     script: [scripts/style/check_excerpts.py]
   stated_in:
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Frontmatter'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Is 150 characters or fewer (hard cap 160, enforced by `scripts/descriptions/`).
   origin: [memory feedback_excerpt_rules]
@@ -365,6 +441,12 @@
   enforced_by:
     script: [scripts/style/check_order.py]
   stated_in:
+    - file: .claude/skills/api-spec/SKILL.md
+      quote: '7d. Update `_order.yaml` files'
+    - file: .claude/skills/create-concept-doc/SKILL.md
+      quote: 'Step 4 — Branch, commit, and open a PR'
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'File naming and registration'
     - file: .claude/skills/create-concept-doc/SKILL.md
       quote: After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`.
 
@@ -379,6 +461,12 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-opening-sentence.yaml]
   stated_in:
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'LLM-based method'
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Computed field method'
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Layout-based method'
     - file: .claude/style-guide/style-guide-overview.md
       quote: "**Opening paragraph:** Use third-person present tense."
     - file: .claude/skills/revise-doc-style/SKILL.md
@@ -397,6 +485,12 @@
     vale: [Google.Passive]
     judgment: [style-rules/judgment/sensible-explicit-actor.yaml]
   stated_in:
+    - file: .claude/skills/blog-short/SKILL.md
+      quote: 'Step 4 — Write the draft'
+    - file: .claude/skills/changelog/SKILL.md
+      quote: '3c. Draft the entry'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'What we''ll cover'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Use "Sensible" as the subject when describing engine behavior.'
     - file: .claude/style-guide/sentence-word-guidance.md
@@ -416,6 +510,10 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-gerunds.yaml]
   stated_in:
+    - file: .claude/skills/api-spec/SKILL.md
+      quote: '4b. Read the Sensible prose style guides'
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Preprocessor'
     - file: .claude/style-guide/writing-rules.md
       quote: Use the verb form directly rather than a noun derived from it.
     - file: .claude/style-guide/sentence-word-guidance.md
@@ -429,6 +527,18 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-scenario-first.yaml]
   stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: '2026-02 — email extraction: portfolio framing (branch `fe_email_portfolio_docs`)'
+    - file: .claude/preferences/editorial-preferences.md
+      quote: 'Changelog entries'
+    - file: .claude/skills/blog-short/blog-short-template.md
+      quote: 'THE SOLUTION: SENSIBLE [FEATURE] (under heading "## The Solution: Sensible [Feature]")'
+    - file: .claude/skills/create-docs-example/SKILL.md
+      quote: 'Step 6 — Write the example section'
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: 'Examples structure'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'Extract [field] (repeat 2–4 times)'
     - file: .claude/skills/revise-doc-style/SKILL.md
       quote: Lead with what the user experiences or achieves, not with internal structure
     - file: .claude/preferences/editorial-preferences.md
@@ -457,6 +567,8 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-no-table-for-unconfigurable.yaml]
   stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: '2026-02 — email extraction: portfolio framing (branch `fe_email_portfolio_docs`)'
     - file: .claude/preferences/editorial-preferences.md
       quote: If the user can't directly configure a set of values via the API or UI, don't document those values in a table.
   relations:
@@ -490,6 +602,8 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-integrate-before-heading.yaml]
   stated_in:
+    - file: .claude/skills/update-existing-doc/SKILL.md
+      quote: 'Step 4 — Plan and make the changes'
     - file: .claude/preferences/editorial-preferences.md
       quote: "**Integrate new features into existing explanatory sections rather than creating new headings.**"
   relations:
@@ -543,6 +657,10 @@
   enforced_by:
     judgment: [style-rules/judgment/sensible-example-per-scenario.yaml]
   stated_in:
+    - file: .claude/preferences/editorial-preferences.md
+      quote: '2026-02 — cell-rows: consolidate examples (branch `fe_cellrows_customcomputationgroup_docs`)'
+    - file: .claude/skills/create-docs-example/SKILL.md
+      quote: 'Step 6 — Write the example section'
     - file: .claude/style-guide/style-guide-overview.md
       quote: Give each distinct scenario its own example.
     - file: .claude/skills/revise-doc-style/SKILL.md
@@ -559,6 +677,12 @@
   applies_to: example data
   stated_in:
     - file: .claude/preferences/editorial-preferences.md
+      quote: '2026-02 — cell-rows: consolidate examples (branch `fe_cellrows_customcomputationgroup_docs`)'
+    - file: .claude/skills/api-spec/SKILL.md
+      quote: 'Step 10: Update spec examples from real API output'
+    - file: .claude/skills/create-new-doc/SKILL.md
+      quote: 'Step 4 — Write the new page'
+    - file: .claude/preferences/editorial-preferences.md
       quote: "**Use realistic, meaningful example data.**"
 
 - id: sensible-compare-only-with-choice
@@ -566,6 +690,12 @@
   kind: prose
   scope: general
   stated_in:
+    - file: .claude/skills/blog-short/checklist.md
+      quote: 'Open'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'INTRO (2–3 paragraphs, no heading)'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: '[OPTIONAL] When to use a layout-specific config vs. a generalized config'
     - file: .claude/preferences/editorial-preferences.md
       quote: "**Compare to other Sensible features if the user can choose between them.**"
 
@@ -593,6 +723,14 @@
   scope: page-type
   applies_to: blog posts
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
+    - file: .claude/skills/blog-short/SKILL.md
+      quote: 'Step 4 — Write the draft'
+    - file: .claude/skills/blog-short/SKILL.md
+      quote: 'Step 5 — Style and terminology check'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'Write document extraction queries with SenseML'
     - file: .claude/style-guide/blog-post-template.md
       quote: Blog posts may use "we" and "let's"; docs pages don't
   notes: .vale.ini turns off Google.We and Google.FirstPerson for drafts/blog-*.md, so Vale agrees with the guide.
@@ -625,6 +763,8 @@
   scope: page-type
   applies_to: 'reference pages'
   stated_in:
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: 'General'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Every SenseML reference page follows this section order.'
 
@@ -634,6 +774,8 @@
   scope: page-type
   applies_to: 'reference pages'
   stated_in:
+    - file: .claude/style-guide/reference-topic-template.md
+      quote: 'Object page (anchor, match)'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Use `# Parameters` (H1) for standalone methods'
   relations:
@@ -656,6 +798,8 @@
   scope: construct
   applies_to: 'page frontmatter'
   stated_in:
+    - file: .claude/style-guide/concept-topic-template.md
+      quote: 'Frontmatter'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Always use this exact structure. Only `title`, `excerpt`, and `metadata.description` vary per page.'
 
@@ -701,6 +845,8 @@
   scope: construct
   applies_to: 'JSON keys, enum values, method IDs in prose'
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'JSON keys: always backtick in prose'
 
@@ -710,6 +856,8 @@
   scope: construct
   applies_to: 'method and feature names'
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Capitalize method names and major feature names'
 
@@ -719,6 +867,8 @@
   scope: construct
   applies_to: 'links to methods and preprocessors'
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/checklist.md
+      quote: 'blog-parse session checklist'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Link on first meaningful mention per page. Do not re-link on every subsequent mention.'
 
@@ -746,6 +896,8 @@
   scope: construct
   applies_to: 'example headings'
   stated_in:
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: 'Examples structure'
     - file: .claude/style-guide/style-guide-overview.md
       quote: 'Use H2 subheadings that name the use case as a short verb phrase'
 
@@ -764,6 +916,10 @@
   scope: construct
   applies_to: 'parameter tables'
   stated_in:
+    - file: .claude/skills/create-new-doc/SKILL.md
+      quote: 'Step 4 — Write the new page'
+    - file: .claude/skills/style-guide-generator-senseml/SKILL.md
+      quote: 'Step 4: Rewrite the output files'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: 'Write the type and, for optional params, the default. Use these exact formats:'
 
@@ -773,6 +929,8 @@
   scope: construct
   applies_to: 'boolean parameter descriptions'
   stated_in:
+    - file: .claude/skills/api-spec/api-code-reference.md
+      quote: 'GET /documents/{id}'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: 'State what happens when true.'
 
@@ -791,6 +949,8 @@
   scope: construct
   applies_to: 'method descriptions'
   stated_in:
+    - file: .claude/skills/api-spec/api-code-reference.md
+      quote: 'Key types'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: 'State null behavior explicitly when it''s non-obvious'
 
@@ -809,6 +969,16 @@
   scope: construct
   applies_to: 'comments in SenseML examples'
   stated_in:
+    - file: .claude/skills/blog-how-to-parse-x/SKILL.md
+      quote: 'Step 6.7 — Style and terminology check'
+    - file: .claude/skills/create-docs-example/SKILL.md
+      quote: 'Step 6 — Write the example section'
+    - file: .claude/skills/revise-doc-style/SKILL.md
+      quote: 'JSON5 comments in code blocks'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'Extract [field] (repeat 2–4 times)'
+    - file: .claude/style-guide/blog-post-template.md
+      quote: 'WRITING STYLE NOTES'
     - file: .claude/style-guide/sentence-word-guidance.md
       quote: 'Comment to explain non-obvious choices, not to restate what the parameter name already says.'
 

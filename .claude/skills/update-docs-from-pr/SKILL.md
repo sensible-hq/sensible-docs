@@ -1,6 +1,6 @@
 ---
 name: update-docs-from-pr
-description: Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. If you already know which type of change is needed, use update-existing-doc or create-new-doc directly for a more focused workflow.
+description: 'Given a sensible-hq/sensible PR number, analyze the engine/API changes and update the sensible-docs repo accordingly, then open a PR. Handles both updating existing pages and creating new pages. Use it when the request doesn''t say whether the PR needs new pages or changes to existing ones. When it does, use create-new-doc (new pages only) or update-existing-doc (existing pages only). It updates existing OpenAPI specs for changed parameters; for new API endpoints or a new spec, use api-spec.'
 argument-hint: <pr-number> [hints about affected doc areas or related PRs]
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Read, Glob, Grep, Edit, Write, Bash(vale:*), Bash(python3 scripts/style/judge.py:*)

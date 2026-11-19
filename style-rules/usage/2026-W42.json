@@ -2,7 +2,7 @@
  "week": "2026-W42",
  "from": "2026-10-12",
  "to": "2026-10-18",
- "sessions": 2,
+ "sessions": 5,
  "default_branch": "origin/v0",
  "rules": {
   "Google.Acronyms": {
@@ -323,5 +323,6 @@
    "reverted": false,
    "pushback": false
   }
- ]
+ ],
+ "pushbacks": []
 }

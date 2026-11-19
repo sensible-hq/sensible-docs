@@ -1,6 +1,6 @@
 ---
 name: create-concept-doc
-description: Create a new concept topic page in docs/Senseml reference/concepts/ — for explanatory "how it works" topics, not reference pages. Use this skill when you need to document a concept, behavior, or feature overview (not a new method, preprocessor, or config option). If you're documenting a new method or preprocessor introduced by a PR, use create-new-doc instead.
+description: 'Create a new concept topic page in docs/Senseml reference/concepts/ — for explanatory "how it works" topics, not reference pages. Use this skill when you need to document a concept, behavior, or feature overview (not a new method, preprocessor, or config option). If you''re documenting a new method or preprocessor introduced by a PR, use create-new-doc instead. It writes a docs page, not a blog post (blog-short).'
 argument-hint: "<concept-name> — <description of what to cover> [optional: PR #<number> for context]"
 disable-model-invocation: true
 allowed-tools: Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh pr create:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git -C:*), Bash(git add:*), Bash(git commit:*), Bash(git push:*), Bash(vale:*), Bash(python3 scripts/style/judge.py:*), Read, Glob, Grep, Edit, Write
@@ -56,6 +56,8 @@ Where `<slug>` is a kebab-case filename derived from the concept name (for examp
 After writing the page, add the slug to `docs/Senseml reference/concepts/_order.yaml`. <!-- rule: sensible-order-registration --> Insert it in a thematically logical position — group it near related concepts (for example, LLM concepts near other LLM entries, layout concepts near lines/anchor entries).
 
 ## Step 4 — Branch, commit, and open a PR
+
+<!-- rule: sensible-order-registration -->
 
 Before committing, run `vale --minAlertLevel=warning <file>` and `python3 scripts/style/judge.py <file> --base origin/v0` on each page you changed. Fix Vale errors and warnings on your lines, and every judge `violation`. Read the judge's `unsure`, `review`, and `(advisory)` lines, and fix the ones you agree with. Exit code 3 means Jev was unavailable; say so in the PR body.
 

@@ -1,0 +1,85 @@
+# Realistic requests for skill_overlap.py: what Frances (or a colleague) types, and the repo skill that
+# should handle it. expect: none means no repo skill fits. Keep at least two per skill, and add a request
+# whenever a skill is invoked by mistake.
+- request: 'Update the docs for https://github.com/sensible-hq/sensible/pull/3474'
+  expect: update-docs-from-pr
+- request: 'Engine PR 3512 changed some extraction behavior, can you figure out what docs need to change and do it?'
+  expect: update-docs-from-pr
+- request: 'use the update from pr skill on sensible PR 3390'
+  expect: update-docs-from-pr
+- request: 'PR 3501 adds a brand-new preprocessor, write the reference page for it'
+  expect: create-new-doc
+- request: 'There''s a new LLM-based method in sensible#3466; it needs its own doc page'
+  expect: create-new-doc
+- request: 'PR 3440 only tweaks the Stop parameter''s default; update the existing page'
+  expect: update-existing-doc
+- request: 'sensible#3478 changes how the Region method rounds coordinates, fix the region page to match'
+  expect: update-existing-doc
+- request: 'Write a concept topic explaining how portfolio segmentation works'
+  expect: create-concept-doc
+- request: 'We need an overview page on how confidence signals behave, not a reference page'
+  expect: create-concept-doc
+- request: 'Check this changelog draft for terminology problems before I publish it'
+  expect: docs-checker
+- request: 'Does docs/Senseml reference/methods/box.md use the right terms?'
+  expect: docs-checker
+- request: 'run the checker on drafts/september-2026-changelog.md'
+  expect: docs-checker
+- request: 'Revise this new reference page draft to match house style'
+  expect: revise-doc-style
+- request: 'Restyle the intro, examples, and parameter descriptions on the query group draft'
+  expect: revise-doc-style
+- request: 'Clean up docs/Senseml reference/preprocessors/merge-lines.md so it follows our reference style'
+  expect: revise-doc-style
+- request: 'Write the November changelog from these PRs: 3401, 3410, app 1882'
+  expect: changelog
+- request: 'draft and publish this month''s release notes'
+  expect: changelog
+- request: 'Write a blog post on how to extract data from rent rolls'
+  expect: blog-how-to-parse-x
+- request: 'Draft a "how to parse bank statements" post using the prebuilt config'
+  expect: blog-how-to-parse-x
+- request: 'Write a short editorial blog post about automating data extraction from bills of lading'
+  expect: blog-short
+- request: 'I want a 500-word overview post on EOBs, no code'
+  expect: blog-short
+- request: 'Add canonical JSON5 comments to the code blocks in this draft'
+  expect: json5-commenter
+- request: 'comment the SenseML in drafts/blog-rent-roll.md before I publish'
+  expect: json5-commenter
+- request: 'Turn the extractor in tests/extractors/w2_2026 into a docs example with a screenshot'
+  expect: create-docs-example
+- request: 'Make a full documentation example from this engine extractor directory, redact any PII'
+  expect: create-docs-example
+- request: 'Upload the configs and golden PDFs from PR 3455''s new extractor tests to the account'
+  expect: upload-pr-extractor
+- request: 'PR 3460 added extractor tests, push them to Sensible'
+  expect: upload-pr-extractor
+- request: 'Document the new classification endpoints from backend PRs 3490 and 3491 in the API reference'
+  expect: api-spec
+- request: 'Update the OpenAPI spec for the new configuration versioning fields'
+  expect: api-spec
+- request: 'I squashed and merged the docs PR, close it out'
+  expect: close-docs-pr
+- request: 'merged, I''m done with that one'
+  expect: close-docs-pr
+- request: 'Rerun the MCP search eval on the question set'
+  expect: mcp-search-eval
+- request: 'Does the docs search tool surface the right pages for these questions?'
+  expect: mcp-search-eval
+- request: 'Help me set up the QuickBooks integration and create a bill from an invoice PDF'
+  expect: quickbooks
+- request: 'Walk me through the QuickBooks tutorial, I already have credentials'
+  expect: quickbooks
+- request: 'Refresh the integration guide template from the published guides'
+  expect: integration-guide-generator
+- request: 'Regenerate the SenseML style guide from the current reference pages'
+  expect: style-guide-generator-senseml
+- request: 'Run the weekly rule usage scores'
+  expect: rule-usage
+- request: 'Which style rules have been firing, and did I keep the rewrites?'
+  expect: rule-usage
+- request: 'Fix the typo in the README'
+  expect: none
+- request: 'What does the Fingerprint parameter do?'
+  expect: none

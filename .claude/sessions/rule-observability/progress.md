@@ -2,6 +2,14 @@
 
 Newest first.
 
+## 2026-11-19: skills (R10 to R13)
+
+- Skill scan: 393 sections of 41 skill, template, and preference files against 64 rules. First pass: 93 restatements without a marker and 29 strong contradictions. After: 3 checklists became pointers, 60 sections carry markers, 3 contradictions fixed, 23 cleared with reasons; 0 problems.
+- Routing: 41 requests, 19 skills. Expected skill won every time; 10 close collisions before the description edits, 0 after.
+- Usage: corrections attributed to repo rules, repo skills, or outside instructions. None in the backfilled weeks.
+- Coverage now includes skills: 63 rule-like sentences with no registry entry.
+- Jev: about $0.58 for the extension, about $0.62 in total.
+
 ## 2026-11-18: R1 to R8 done
 
 - Registry: 64 rules (was 42), every one scoped: 11 general, 7 page-type, 46 construct. 22 prose rules registered from the two reference guides. `HIERARCHY.md` generated; `check_registry.py` fails when it's stale.

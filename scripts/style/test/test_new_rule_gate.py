@@ -23,6 +23,17 @@ def base_without(*ids):
 def replay(monkeypatch):
     monkeypatch.delenv("JEV_RECORD", raising=False)
     monkeypatch.delenv("JEV_REPLAY", raising=False)
+    # The skill scan is one live request per section; test_skill_findings_block_the_rule covers it
+    monkeypatch.setattr(gate, "skill_problems", lambda registry, ids: {i: [] for i in ids})
+
+
+def test_skill_findings_block_the_rule(monkeypatch):
+    import skill_rules
+    findings = [{"rule": "r", "file": "f.md", "line": 3, "heading": "H", "kind": "restates", "p": 0.9, "ok": False},
+                {"rule": "r", "file": "g.md", "line": 1, "heading": "H", "kind": "restates", "p": 0.9, "ok": True}]
+    monkeypatch.setattr(skill_rules, "scan", lambda paths, registry, only: {"findings": findings, "problems": [], "sections": 2})
+    out = gate.skill_problems([], {"r", "s"})
+    assert out["s"] == [] and len(out["r"]) == 1 and "f.md:3" in out["r"][0]
 
 
 def test_nothing_new_passes(monkeypatch, replay):
