@@ -29,7 +29,7 @@ Frances answered `design.md`'s open questions. The record-only path is built: ev
 - [x] SQLite load (`evidence.py sqlite`), shaped for Frances's future database
 - [x] Unit tests; README section and Extending it row
 - [x] Frances approved the three #825 records (2026-11-19); records and the Parameters comment are committed on #825, which must merge after this PR
-- [ ] After #3533 deploys: rerun the three claims in the docs test account with `ocrIfMissing`, as new records
+- [x] Reran the three claims in the docs test account with `ocrIfMissing` (2026-11-20): 10 runs, every result matched; added to the records on #825 as `*_rerun` runs; doc types `evidence_pr825_*` kept so the run links open
 - [ ] `schema` code-test kind (next), then `contrast`
 - [ ] Report generated from an evidence record (HTML), if the JSON link isn't enough
 - [ ] Mark the skill PR ready for review
