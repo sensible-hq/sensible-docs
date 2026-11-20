@@ -19,7 +19,7 @@ Stop after every step. Report what the step produced and what Frances should che
 
 Keep one docs branch, one worktree, and one docs PR for the whole run. Step 4 creates them, and every later step reuses them.
 
-Track the run in `.claude/sessions/<session-name>/checklist.md` in the worktree, with one line per step. Before step 4 exists, keep the checklist in the main checkout and move it into the worktree when step 4 creates it.
+Before step 1, copy `checklist-template.md` from this skill's folder to `.claude/sessions/<session-name>/checklist.md` and fill in its header. Tick a step only after its skill has run and Frances has replied to the report. Under each step, record what the step produced. A skipped step stays unticked, with the reason written under it. Until step 4 creates the worktree, keep the checklist in the main checkout. Then move it into the worktree and commit it with the step 4 commit. Commit it again whenever a step is ticked. When Frances asks where the run stands, answer from the checklist.
 
 ## Step 1 — Research the PR
 
