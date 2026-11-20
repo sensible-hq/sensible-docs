@@ -40,6 +40,7 @@ on:
       - "!scripts/doc-detective/sample-reports/**"
       - "!scripts/doc-detective/README.md"
       - "!scripts/doc-detective/TEST-MATRIX.md"
+      - "!scripts/doc-detective/testable-claims/**"
   workflow_dispatch:
     inputs:
       priority:
@@ -175,6 +176,10 @@ jobs:
       # Offline: markup, comparison, routing to the LLM judge, syntax checks, and test-pages.json. No secrets.
       - name: Unit test the runner
         run: python3 -m unittest discover -s scripts/doc-detective/tests -t scripts/doc-detective
+
+      # A record-only claim never reruns, so flag evidence more than six months old. Annotations only; never fails.
+      - name: Warn on stale evidence
+        run: python3 scripts/doc-detective/codetests/evidence.py stale
 
       # Secrets come from env vars only. Don't write a .env here: its values would override these.
       # Every secret this workflow, the docs' test markup, or .env uses must be classified in

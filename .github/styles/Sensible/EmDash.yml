@@ -1,0 +1,6 @@
+extends: existence
+message: "Don't use an em dash. Split the sentence, or use a colon or parentheses."
+level: warning
+nonword: true
+tokens:
+  - '—'

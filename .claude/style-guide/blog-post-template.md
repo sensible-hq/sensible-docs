@@ -1,12 +1,12 @@
 # Template: How to extract data from [DOCUMENT TYPE] with [LLMs and] Sensible
 
 Variables used throughout this template:
-- `[doc type]` — singular, lowercase (e.g., "bank statement", "rent roll", "closing disclosure")
-- `[doc types]` — plural (e.g., "bank statements", "rent rolls")
-- `[doc type variant]` — specific variant used in the post (e.g., "Chase bank statements", "Medicaid EOBs")
-- `[industry]` — industry name (e.g., "proptech", "healthcare")
-- `[supported variants]` — list of supported variants (e.g., "Medicaid, Tricare, and Cigna EOBs")
-- `[field]` — a specific extracted field name (e.g., "date issued", "loan type")
+- `[doc type]` — singular, lowercase (for example, "bank statement", "rent roll", "closing disclosure")
+- `[doc types]` — plural (for example, "bank statements", "rent rolls")
+- `[doc type variant]` — specific variant used in the post (for example, "Chase bank statements", "Medicaid EOBs")
+- `[industry]` — industry name (for example, "proptech", "healthcare")
+- `[supported variants]` — list of supported variants (for example, "Medicaid, Tricare, and Cigna EOBs")
+- `[field]` — a specific extracted field name (for example, "date issued", "loan type")
 - `[fields]` — bullet list of fields extracted in the post
 
 ---
@@ -55,7 +55,7 @@ All variants end with "Both run through the same API" or equivalent.
 **Variant A — Deterministic-primary** (post showcases a carrier- or vendor-specific layout config):
 
 Pattern:
-> "Sensible handles this through [carrier / vendor]-specific layout configs. [Doc types] are well suited to this approach: [specific structural reason — e.g., fixed column positions, consistent label text across all [carrier] documents]. For [carriers / vendors] without a dedicated config yet, a generalized LLM config handles the same fields without per-[carrier / vendor] configuration. Both run through the same API."
+> "Sensible handles this through [carrier / vendor]-specific layout configs. [Doc types] are well suited to this approach: [specific structural reason — for example, fixed column positions, consistent label text across all [carrier] documents]. For [carriers / vendors] without a dedicated config yet, a generalized LLM config handles the same fields without per-[carrier / vendor] configuration. Both run through the same API."
 
 Examples:
 - *"This post uses Sun Life's commission statement as a worked example. Every carrier has its own layout — column ordering, label conventions, subtotal placement — so the right approach is a per-carrier deterministic config: fixed column positions and consistent label text mean the same config extracts reliably every month. For the long tail of smaller carriers, a generalized LLM config handles the same fields without per-carrier work. Both run through the same API."* (commission statements)
@@ -79,7 +79,7 @@ Examples:
 - *"Sensible addresses this dual challenge through two complementary approaches. The platform employs a generalized LLM template requiring no per-carrier configuration that works immediately upon implementation. For high-volume carriers with standardized layouts, Sensible can build deterministic templates in under an hour, delivering speed and precision across consistent document sets."* (delivery orders)
 
 **Paragraph 3 (optional) — Additional context:**
-Use if the document type needs more background (e.g., explaining what an EOB is, or why closing disclosures matter). Skip for straightforward document types.
+Use if the document type needs more background (for example, explaining what an EOB is, or why closing disclosures matter). Skip for straightforward document types.
 
 ---
 
@@ -182,7 +182,7 @@ Use ` ```json ` (always `json`, never `json5`). Include the `/* Sensible uses JS
 JSON output block. For array fields, show at least two objects if the document has them — individual objects can be abbreviated if long. Truncate remaining items with `/* JSON output abbreviated */`. If the document genuinely has only one repeating item, show it and add a sentence noting the config handles multiple.
 
 **Step 6 (optional) — Explanatory sentence:**
-Add 1–2 sentences if the output needs context (e.g., explaining `confidenceSignal`, noting that List with `"llmEngine": "thorough"` takes longer).
+Add 1–2 sentences if the output needs context (for example, explaining `confidenceSignal`, noting that List with `"llmEngine": "thorough"` takes longer).
 
 ---
 
@@ -190,10 +190,10 @@ Add 1–2 sentences if the output needs context (e.g., explaining `confidenceSig
 
 Include this pattern when a `sections` field contains nested sub-sections (sections within sections). The commission statements post uses this for a three-level hierarchy (broker → policy → transaction).
 
-**H3 structure:** Add one H3 per nesting level under the parent H2. Name each H3 after the data entity it represents (e.g., "Broker", "Policy", "Transactions"). Each H3 follows the same pattern as a regular extraction section: describe what the section anchors on, show the SenseML for that level's `sections` field, and explain the stop condition.
+**H3 structure:** Add one H3 per nesting level under the parent H2. Name each H3 after the data entity it represents (for example, "Broker", "Policy", "Transactions"). Each H3 follows the same pattern as a regular extraction section: describe what the section anchors on, show the SenseML for that level's `sections` field, and explain the stop condition.
 
-**"Flattening the nested sections" H3:** Add this final H3 when the config uses `copy_to_section`, `copy_from_sections`, or `customComputation` with path traversal (`../../`) to collapse nested output into a flat top-level array. Explain what each method does in plain language — e.g.:
-- `copy_to_section` — stamps a parent-level value (e.g., policy subtotal) onto each child row
+**"Flattening the nested sections" H3:** Add this final H3 when the config uses `copy_to_section`, `copy_from_sections`, or `customComputation` with path traversal (`../../`) to collapse nested output into a flat top-level array. Explain what each method does in plain language, for example:
+- `copy_to_section` — stamps a parent-level value (for example, policy subtotal) onto each child row
 - `copy_from_sections` — consolidates arrays from nested sections into one top-level output
 - `customComputation` with `../../_field` — climbs section levels to retrieve an ancestor value
 
@@ -203,7 +203,7 @@ Intermediate nested fields suppressed from final output (prefixed with `_`) shou
 
 ## [OPTIONAL] Transform extracted data [: description]
 
-Include when extracted data needs reshaping (e.g., zipping column arrays into row objects with `zip`, validating values with `customComputation`).
+Include when extracted data needs reshaping (for example, zipping column arrays into row objects with `zip`, validating values with `customComputation`).
 
 - 1 sentence explaining the default output format and why transformation is useful.
 - Optional screenshot.
@@ -213,7 +213,7 @@ Include when extracted data needs reshaping (e.g., zipping column arrays into ro
 
 ---
 
-## [OPTIONAL] Test the extraction template with a second document
+## [OPTIONAL] Test the config with a second document
 
 Include when a second example document is available to show config portability.
 
@@ -318,7 +318,7 @@ Oldest version (EOB post):
 
 ## WRITING STYLE NOTES
 
-**Tone:** Practical, tutorial-style. Direct second person ("you", "let's"). Not salesy.
+**Tone:** Practical, tutorial-style. Direct second person ("you", "let's"). Not salesy. Blog posts may use "we" and "let's"; docs pages don't (Vale's `Google.We` and `Google.FirstPerson` apply to docs). <!-- rule: sensible-blog-voice -->
 
 **Formatting:**
 - Bold key Sensible terms and product names on first mention per post: **SenseML**, **Sensible Instruct**, etc.
@@ -329,9 +329,9 @@ Oldest version (EOB post):
 - Caption format: `Extract [field name] (left pane: query. middle pane: document. right pane: output)` — omit pane descriptions if the screenshot doesn't show all three panes.
 
 **Code blocks:**
-- SenseML is JSON5. Use `/* */` comments to explain non-obvious parameters.
+- SenseML is JSON5. Use `/* */` comments to explain non-obvious parameters, and fence code blocks as ` ```json ` so drafts and docs share one form. <!-- rule: sensible-code-fences -->
 - Show complete, runnable snippets. Readers should be able to paste and go.
-- Prefix private/intermediate field IDs with `_` (e.g., `_experience`, `_electronic_withdrawals_table_raw`) when they'll be suppressed in output.
+- Prefix private/intermediate field IDs with `_` (for example, `_experience`, `_electronic_withdrawals_table_raw`) when they'll be suppressed in output.
 
 **Output blocks:**
 - Truncate long JSON with `/* JSON output abbreviated */` or `[...]`.
@@ -345,4 +345,4 @@ Oldest version (EOB post):
 - "Zapier" → Zapier integration page
 - "Out-of-the-box extractions" → relevant docs page
 
-**Document type specificity:** Name the specific variant used (e.g., "Chase bank statements", "Medicaid EOBs"). List other supported variants at the end of "What we'll cover."
+**Document type specificity:** Name the specific variant used (for example, "Chase bank statements", "Medicaid EOBs"). List other supported variants at the end of "What we'll cover."

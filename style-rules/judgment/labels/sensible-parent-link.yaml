@@ -1,0 +1,27 @@
+# Labeled cases for sensible-parent-link: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-parent-link
+cases:
+- text: 'Sensible returns [postprocessed](doc:json-postprocessor) output.
+
+    Note: previous link targets on this page: doc:postprocessor'
+  expected: too-specific
+  source: xml-postprocessor friction-log
+  labeled_by: claude
+- text: 'Sensible returns [postprocessed](doc:postprocessors) output.
+
+    Note: previous link targets on this page: doc:postprocessor'
+  expected: durable
+  source: xml-postprocessor friction-log
+  labeled_by: claude
+- text: 'Transform the output with a [postprocessors](doc:postprocessors) setting.
+
+    Note: previous link targets on this page: doc:postprocessor'
+  expected: mismatch
+  source: xml-postprocessor friction-log
+  labeled_by: claude
+- text: 'For the XML schema options, see [XML postprocessor](doc:xml-postprocessor).
+
+    Note: previous link targets on this page: doc:postprocessor'
+  expected: durable
+  source: claude
+  labeled_by: claude

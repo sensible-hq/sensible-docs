@@ -41,7 +41,7 @@ If results: print each one with date and bullet items so the user can see what c
 
 ### Step 3 — Append raw notes to prs on readme.io
 
-Determine the entry title from the current month: `prs-<month>-<year>` (e.g., `prs-july-2026`).
+Determine the entry title from the current month: `prs-<month>-<year>` (for example, `prs-july-2026`).
 
 Format the content to append:
 
@@ -56,7 +56,7 @@ Format the content to append:
 
 Check if the prs entry already exists:
 ```bash
-python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" --append < /tmp/prs_body.txt
+python $DOCS_DIR/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" --append < /tmp/prs_body.txt
 ```
 
 If it doesn't exist yet, create it (omit `--append`). The script auto-avoids slug conflicts.

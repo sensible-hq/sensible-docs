@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_word_list": {
+      "type": "choice",
+      "choice": "targeted-sense",
+      "confidence": 0.94,
+      "probabilities": {
+        "targeted-sense": 0.96,
+        "other-sense": 0.04,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 448,
+    "output_tokens": 51
+  }
+}

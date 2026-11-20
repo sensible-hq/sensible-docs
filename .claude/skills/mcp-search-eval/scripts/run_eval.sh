@@ -6,7 +6,7 @@
 #
 # Crontab entry (add with: crontab -e):
 #   TZ=America/Denver
-#   15 12 * * 2 /home/franc/GitHub/sensible-docs/.claude/skills/mcp-search-eval/scripts/run_eval.sh
+#   15 12 * * 2 $DOCS_DIR/.claude/skills/mcp-search-eval/scripts/run_eval.sh
 #
 # Required env vars (set in crontab or ~/.profile):
 #   EVAL_SMTP_HOST   EVAL_SMTP_PORT   EVAL_SMTP_USER   EVAL_SMTP_PASS

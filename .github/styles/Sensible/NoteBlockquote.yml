@@ -1,0 +1,7 @@
+extends: existence
+message: "Use '**Note:**' inline rather than a blockquote."
+level: warning
+nonword: true
+scope: raw
+tokens:
+  - '(?m)^>\s*(?:\*\*)?(?:Note|Tip|Important|Warning)\b'

@@ -15,7 +15,7 @@ Read both files in parallel:
 
 ## Step 2 — Find all JSON5 code blocks
 
-Identify every fenced code block in the target file (` ```json `, ` ```json5 `, or ` ``` ` blocks that contain SenseML). Ignore non-SenseML blocks (e.g. shell commands, plain JSON output blocks showing extraction results).
+Identify every fenced code block in the target file (` ```json `, ` ```json5 `, or ` ``` ` blocks that contain SenseML). Ignore non-SenseML blocks (for example, shell commands, plain JSON output blocks showing extraction results).
 
 ## Step 3 — Enrich each block
 

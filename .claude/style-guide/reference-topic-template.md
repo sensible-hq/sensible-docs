@@ -11,12 +11,12 @@ See `style-guide-overview.md` for formatting conventions and `sentence-word-guid
 ```markdown
 ---
 title: [Method Name]
-excerpt: ''
+excerpt: '[imperative phrase, 150 characters or fewer: what the reader does; don''t name this page''s own feature]'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: '[short phrase, 4–7 words, lowercase except proper nouns]'
+  description: '[same text as excerpt]'
   robots: index
 next:
   description: ''
@@ -145,7 +145,7 @@ Use when the example demonstrates a before/after fix.
 
 <!-- # Notes (OPTIONAL)
 Add when the method has non-obvious behavior that doesn't fit in parameter descriptions —
-e.g., how the algorithm works, performance characteristics, edge cases, related methods.
+for example, how the algorithm works, performance characteristics, edge cases, related methods.
 Use H2 subheadings within Notes for multiple topics. -->
 ```
 
@@ -178,7 +178,7 @@ Use H2 subheadings within Notes for multiple topics. -->
 ### Preprocessor
 - Opening: imperative — "Merges...", "Ignores...", "Configures..."
 - No global parameters note
-- Identifying param key is `type` (not `id`), e.g., `"type": "mergeLines"`
+- Identifying param key is `type` (not `id`), for example, `"type": "mergeLines"`
 - Config examples use `"preprocessors": [...]` array
 - Examples often use PROBLEM/SOLUTION pattern for troubleshooting scenarios
 - Parameters section uses `# Parameters` (H1)

@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_integrate_before_heading": {
+      "type": "choice",
+      "choice": "stands-alone",
+      "confidence": 0.66,
+      "probabilities": {
+        "extends": 0.18,
+        "stands-alone": 0.77,
+        "other": 0.05
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 381,
+    "output_tokens": 46
+  }
+}

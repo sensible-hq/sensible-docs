@@ -1,0 +1,7 @@
+extends: existence
+message: "Changelog sections start with 'New feature:', 'Improvement:', 'UX improvement:', 'UX improvements:', or 'Deprecation:'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '(?m)^## (?!(?:New feature|Improvement|UX improvements?|Deprecation): )\S.*$'

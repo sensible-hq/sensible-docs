@@ -2,7 +2,7 @@
 
 Use this template when creating a new Sensible integration guide. Replace all `[PLACEHOLDER]` text. Comments in `<!-- -->` are guidance — remove them from the final file.
 
-**File naming and visibility**: New integration guides are created as drafts. Name the file `draft-[slug].md` (e.g., `draft-make-tutorial.md`) and set `hidden: true` in the frontmatter. Remove the `draft-` prefix and change `hidden` to `false` only when the guide is ready to publish.
+**File naming and visibility**: New integration guides are created as drafts. Name the file `draft-[slug].md` (for example, `draft-make-tutorial.md`) and set `hidden: true` in the frontmatter. Remove the `draft-` prefix and change `hidden` to `false` only when the guide is ready to publish.
 
 The shared style conventions (voice, backtick usage, parameter capitalization, cross-reference syntax) are in `style-guide-overview.md` and `sentence-word-guidance.md`. This file covers structure specific to integration guides.
 
@@ -13,12 +13,12 @@ The shared style conventions (voice, backtick usage, parameter capitalization, c
 ```markdown
 ---
 title: [Integration Name] tutorial
-excerpt: ''
+excerpt: '[imperative phrase, 150 characters or fewer: what the reader does; don''t name this page''s own feature]'
 deprecated: false
 hidden: true
 metadata:
   title: ''
-  description: '[short phrase, 4–7 words, lowercase except proper nouns]'
+  description: '[same text as excerpt]'
   robots: index
 next:
   description: ''
@@ -54,7 +54,7 @@ next:
 
 1. [Step]
 
-## [Main section: named for the platform or phase, e.g. "Zap 1: Extract new file in Slack with Sensible"]
+## [Main section: named for the platform or phase, for example, "Zap 1: Extract new file in Slack with Sensible"]
 
 <!-- Use ## headings for each major phase or platform. Name them descriptively.
      Introduce each section with "Take the following steps to [do X]:" or
@@ -81,7 +81,7 @@ Take the following steps to [accomplish X]:
      Images go after a step group to show the configured state: -->
 <!-- ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/[filename].png) -->
 
-## [Second main section, e.g. "Zap 2: Upload extraction as spreadsheet to Google Drive"]
+## [Second main section, for example, "Zap 2: Upload extraction as spreadsheet to Google Drive"]
 
 Take the following steps to configure [Zap 2 / phase 2 / etc.]:
 
@@ -127,10 +127,10 @@ Congratulations, your integration is now published and running! Take the followi
 ### Prerequisites
 
 - Two valid patterns for prerequisite headings:
-  - `## Prerequisite: [action phrase]` — used in multi-system guides (e.g. advanced Zapier). One heading per system or major setup task.
-  - Descriptive action heading without "Prerequisite:" prefix (e.g. `## Create an example Sensible extraction`, `## Create an empty destination database`) — used in simpler single-flow guides.
+  - `## Prerequisite: [action phrase]` — used in multi-system guides (for example, advanced Zapier). One heading per system or major setup task.
+  - Descriptive action heading without "Prerequisite:" prefix (for example, `## Create an example Sensible extraction`, `## Create an empty destination database`) — used in simpler single-flow guides.
 - The action phrase is imperative and specific: "Configure 1040 extractions in Sensible", not "Sensible setup".
-- When a prerequisite requires only a single step (e.g., "Clone this document type"), prose is acceptable. For multi-step setup, use a numbered list.
+- When a prerequisite requires only a single step (for example, "Clone this document type"), prose is acceptable. For multi-step setup, use a numbered list.
 
 ### Main steps
 

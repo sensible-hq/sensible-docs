@@ -1,0 +1,40 @@
+# Judgment spec for Jev. Registry entry: sensible-filler in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-filler
+source:
+  file: .claude/style-guide/writing-rules.md
+  heading: Tone
+  quote: 'Avoid: "please note that", "it''s important to remember", "it is worth mentioning"'
+applies: prose sentences where Sensible.Filler matched
+check:
+  kind: judgment
+  detector: 'Sensible.Filler: stock phrases and marketing words'
+  precheck: none
+  question:
+    type: choice
+    ask: Does the marked phrase add meaning, or could it be cut without losing anything?
+    criteria:
+      filler: cutting it loses nothing ("Please note that the Stop parameter is optional", "seamlessly extracts");
+        cut it
+      meaningful: it carries information ("a seamless PDF with no page breaks", a heading that names a guide)
+      other: none of these
+  find:
+    kind: vale
+    check: Sensible.Filler
+  verdicts:
+    violation:
+    - filler
+examples:
+  fail: Please note that the Stop parameter is optional.
+  pass: Sensible stitches the scans into one seamless image before OCR.
+fix: cut the phrase and state the point
+calibration:
+  precision: 1.0
+  recall: 0.5
+  violations: 6
+  agreement: 0.62
+  choice_agreement: 1.0
+  cases: 8
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-filler.yaml

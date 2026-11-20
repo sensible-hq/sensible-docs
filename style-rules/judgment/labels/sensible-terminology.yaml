@@ -1,0 +1,35 @@
+# Labeled cases for sensible-terminology: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-terminology
+cases:
+- text: Open the dashboard to review the extraction.
+  mark: the dashboard
+  expected: avoided-term
+  labeled_by: claude
+- text: Edit the extraction template in the SenseML editor.
+  mark: extraction template
+  expected: avoided-term
+  labeled_by: claude
+- text: Sensible returns a result object for each field.
+  mark: result object
+  expected: avoided-term
+  labeled_by: claude
+- text: Use repeating groups to capture line items.
+  mark: repeating groups
+  expected: avoided-term
+  labeled_by: claude
+- text: Configs, also called extraction templates, tell Sensible what to extract.
+  mark: extraction templates
+  expected: defined-alias
+  labeled_by: claude
+- text: Out-of-the-box configs, sometimes called extraction templates, cover common document types.
+  mark: extraction templates
+  expected: defined-alias
+  labeled_by: claude
+- text: Click Save in the UI.
+  mark: the UI
+  expected: avoided-term
+  labeled_by: claude
+- text: Configure document types in the Sensible app.
+  mark: Sensible app
+  expected: other
+  labeled_by: claude

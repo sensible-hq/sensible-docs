@@ -5,60 +5,55 @@ description: Checks Sensible documentation files for terminology violations befo
 
 # Sensible Docs Terminology Checker
 
-Check a doc for terminology violations against the Sensible glossary and optionally fix them.
+Check a doc for terminology violations and optionally fix them. Vale does the lookup; you judge only the terms a pattern can't settle.
 
-## Step 1: Load the glossary
+## Step 1: Get the content
 
-Read `.claude/style-guide/glossary.md` from the project root. This is the single source of truth. Both sections apply — universal terms for all content, SenseML-specific terms when checking a reference page (method, preprocessor, computed field method, anchor/match object pages).
+- If the user gave a file path, use it.
+- If the user pasted content, write it to a scratch file named `check.md` (or `check-changelog.md` for a changelog, so the changelog rules apply) and use that.
 
-If the file doesn't exist, stop and tell the user the glossary is missing from `.claude/style-guide/`.
+## Step 2: Run Vale's terminology rules
 
-## Step 2: Get the content
+From the repo root:
 
-- If the user gave a file path, read the file and track line numbers.
-- If the user pasted content, use that. Line numbers still apply — count from 1.
-- If both, check the file.
+```bash
+vale --output=line --filter='.Name in ["Sensible.Terminology","Sensible.UINames","Sensible.ModelNames","Sensible.InternalTerms","Vale.Avoid"]' <file>
+```
 
-## Step 3: Scan for violations
+These rules carry every avoid-term in `.claude/style-guide/glossary.md` that a pattern settles, plus the vocabulary's reject list (`Vale.Avoid`: "parse", "dashboard", and others). They skip code blocks, inline code, and frontmatter.
 
-For each term in the "Avoid" column of the glossary:
-- Check whether any of those exact strings appear in the doc body.
-- **Skip**: fenced code blocks (` ``` ` ... ` ``` `), inline backtick spans (`` `...` ``), and YAML frontmatter (`---` ... `---` at the top of the file). Violations inside code are intentional.
-- The "Avoid" column may list multiple comma-separated terms — check for each one individually.
-- Matching is case-insensitive, but record the original casing so you can fix it correctly.
+## Step 3: Judge the context terms
 
-**Free-form hyphenation** is position-dependent (adjective before noun: "free-form documents"; predicate: "the document is free form") and hard to check reliably. Flag it if you're confident about the context, but note uncertainty when it's ambiguous.
+Some glossary terms have a legitimate meaning elsewhere, so no pattern can flag them. <!-- rule: sensible-context-terms --> Search the prose (not code) for these and decide each hit:
+
+| term | fine when | wrong when |
+| ---- | --------- | ---------- |
+| response | it means the API response envelope | it means the extracted output ("the response contains your fields") → "output" |
+| segment | it means a portfolio segment | it means a scored portion of the document → "chunk" |
+| section | it means the SenseML Sections feature | it means a chunk |
+| key | it means a JSON key | it means a field → "field" |
+| empty | it describes a string or array | it means an extraction returned nothing → "null" |
+| free form / free-form | hyphenated before a noun ("free-form documents"), open after a verb ("is free form") | the other way round |
+
+The full rule is `style-rules/judgment/sensible-context-terms.yaml`.
 
 ## Step 4: Report
 
-If violations found, output this table, then a summary line:
+If you found violations, output this table, then a summary line:
 
----
-**Terminology violations: N**
+| Line | Found | Should be | Source |
+|------|-------|-----------|--------|
+| 12 | "the UI" | "the Sensible app" | Vale |
+| 34 | "response" | "output" | judgment |
 
-| Line | Found | Should be | Scope |
-|------|-------|-----------|-------|
-| 12 | "the UI" | "the Sensible app" | universal |
-| 34 | "template" | "config" or "configuration" | universal |
-| 67 | "segment" | "chunk" | SenseML-specific |
-
-*N violations across N rules.*
-
----
-
-If no violations: say so — "No terminology violations found."
-
-SenseML-specific violations are errors in any doc type — a changelog that says "segment" instead of "chunk" is wrong regardless of context.
+If there are none, say "No terminology violations found."
 
 ## Step 5: Offer to fix
 
-After the report, ask:
-
-> Fix all, fix specific lines, or skip?
+Ask: "Fix all, fix specific lines, or skip?"
 
 If fixing:
 1. Apply the substitutions.
-2. When one avoided term maps to multiple valid replacements (e.g., "config" or "configuration"), ask which to use before applying.
-3. Preserve capitalization of the original: if the avoided term was title-cased, title-case the replacement.
-4. Show the diff before writing.
-5. Write the file only after the user confirms.
+2. When a term maps to more than one replacement ("config" or "configuration"), ask which to use.
+3. Keep the original capitalization.
+4. Show the diff before writing, and write only after the user confirms.

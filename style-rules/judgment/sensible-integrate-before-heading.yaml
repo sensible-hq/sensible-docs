@@ -1,0 +1,40 @@
+# Judgment spec for Jev. Registry entry: sensible-integrate-before-heading in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-integrate-before-heading
+source:
+  file: .claude/preferences/editorial-preferences.md
+  heading: Information architecture
+  quote: If new content is 1–3 sentences that extends an existing topic, work it into the existing section rather
+    than creating a new heading.
+applies: headings added in a docs PR
+check:
+  kind: judgment
+  detector: a heading added in the diff with fewer than 3 paragraphs, no table, and no code block under it
+  precheck: 'skip example headings (## Example: …) and new pages'
+  question:
+    type: choice
+    ask: Does the new section extend a topic an existing section already covers?
+    criteria:
+      extends: yes; fold it into that section as a sentence or list item
+      stands-alone: no; it has its own concepts, table, or example
+      other: none of these
+  find:
+    kind: added-headings
+  verdicts:
+    violation:
+    - extends
+examples:
+  fail: 'A new ### Portfolio support heading holding two sentences, under a section that already lists email attachment
+    options.'
+  pass: A numbered item for portfolio support in the existing list of attachment options.
+fix: move the content into the existing section and delete the heading
+calibration:
+  precision: 0.0
+  recall: 0.0
+  violations: 2
+  agreement: 0.33
+  choice_agreement: 0.33
+  cases: 3
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-integrate-before-heading.yaml

@@ -11,3 +11,5 @@ Running record of style and framing mistakes caught during doc sessions. Each en
 **What happened:** The opening read "Returns a value from an `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config so validations, postprocessors, and computed fields can read it." Frances rewrote it to "Use this method to inject data you supply at request time into the extraction config, so you can dynamically validate, transform, and postprocess extracted document data."
 
 **Rule:** Reference pages should open with what the user does and why, not with what the API returns. Lead with "Use this method to..." not "Returns a...". Mechanical API description belongs in the parameters table, not the opening.
+
+**Resolved 2026-11-16:** Reference pages open in third person ("Extracts…"), as 50 of 75 SenseML pages do and as the excerpt rules decided on 2026-10-20. "Use this method to…" is the exception for features whose input the user supplies, such as Extra Data. "Returns a…" stays wrong. See `style-guide-overview.md`, Voice and tone. <!-- rule: sensible-opening-sentence -->

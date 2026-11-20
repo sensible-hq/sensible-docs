@@ -1,0 +1,43 @@
+# Labeled cases for sensible-no-table-for-unconfigurable: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-no-table-for-unconfigurable
+cases:
+- text: '| Criterion | Description |
+
+    | --- | --- |
+
+    | All attachments | Sensible processes every attachment |
+
+    | File type | Sensible processes attachments of a type set during processor setup |'
+  expected: unconfigurable
+  source: editorial-preferences.md
+  labeled_by: claude
+- text: '| Option | Use when |
+
+    | --- | --- |
+
+    | Query Group | the document is free form |
+
+    | Region | the layout is fixed |'
+  expected: configurable
+  source: claude
+  labeled_by: claude
+- text: '| OCR engine | Languages Sensible supports |
+
+    | --- | --- |
+
+    | Microsoft | 100+ |
+
+    | Google | 200+ |'
+  expected: unconfigurable
+  source: claude
+  labeled_by: claude
+- text: '| Value | Behavior |
+
+    | --- | --- |
+
+    | `first` | uses the first match |
+
+    | `last` | uses the last match |'
+  expected: configurable
+  source: claude
+  labeled_by: claude

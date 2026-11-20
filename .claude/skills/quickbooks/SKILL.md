@@ -41,7 +41,7 @@ If the user hasn't done this, walk them through the Intuit portal:
 
 1. Sign in at https://developer.intuit.com and navigate to your workspace
 2. On the **Apps** tab, click **+** to create a new app
-3. Name it (e.g. "Sensible Integration Test"), select `com.intuit.quickbooks.accounting` as the scope, verify the API Product is QuickBooks Online
+3. Name it (for example, "Sensible Integration Test"), select `com.intuit.quickbooks.accounting` as the scope, verify the API Product is QuickBooks Online
 4. Click **View credentials** — or open the app and go to the **Keys and credentials** tab — to get the Client ID and Client Secret
 5. Go to **Settings** → **Redirect URIs** → **Development** tab → **Add URI** → enter `http://localhost:8080/callback` → **Save**
 6. Click **My Hub** (upper right) → **Sandboxes** → verify a default sandbox company exists (it should be there automatically)

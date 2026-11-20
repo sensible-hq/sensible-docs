@@ -1,0 +1,49 @@
+# Labeled cases for sensible-example-per-scenario: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-example-per-scenario
+cases:
+- text: '## Basic example
+
+
+    The following example extracts cells.
+
+
+    ## Custom computation group in cellRows
+
+
+    The following example extracts the same cells and converts sales to copies.'
+  expected: by-difficulty
+  source: editorial-preferences.md cell-rows log
+  labeled_by: claude
+- text: '## Remove page number lines
+
+
+    The following example removes lines matching page x of y.
+
+
+    ## Remove rotated watermarks
+
+
+    The following example removes a diagonal watermark.'
+  expected: by-scenario
+  source: revise-doc-style
+  labeled_by: claude
+- text: '## Example 1
+
+
+    The following example removes page numbers and a watermark and also flattens sections in one config.'
+  expected: merged
+  source: revise-doc-style
+  labeled_by: claude
+- text: '## Example: Handwriting OCR
+
+
+    The following example extracts handwritten values.
+
+
+    ## Example: Table OCR
+
+
+    The following example extracts a scanned table.'
+  expected: by-scenario
+  source: claude
+  labeled_by: claude

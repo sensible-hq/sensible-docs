@@ -1,0 +1,19 @@
+# Labeled cases for sensible-example-var: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-example-var
+cases:
+- text: '{ "attrs": { "type": "string" } }'
+  expected: hardcoded
+  source: xml-postprocessor friction-log
+  labeled_by: claude
+- text: '{ "attrs": { "type": { "var": "field.type" } } }'
+  expected: intended
+  source: xml-postprocessor friction-log
+  labeled_by: claude
+- text: '{ "id": "constant", "attrs": { "currency": "USD" } }  /* the Constant method returns this fixed value */'
+  expected: intended
+  source: claude
+  labeled_by: claude
+- text: '{ "attrs": { "confidence": 0.9 } }'
+  expected: hardcoded
+  source: claude
+  labeled_by: claude

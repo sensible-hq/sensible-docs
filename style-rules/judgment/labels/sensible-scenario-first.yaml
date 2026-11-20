@@ -1,0 +1,30 @@
+# Labeled cases for sensible-scenario-first: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-scenario-first
+cases:
+- text: You can configure an attachment spec to use portfolio extraction, where Sensible treats a single attachment
+    as a multi-document file.
+  expected: mechanism
+  source: editorial-preferences.md
+  labeled_by: claude
+- text: If your email attachments include single files containing multiple documents, Sensible can segment the file
+    and extract each sub-document separately.
+  expected: scenario
+  source: editorial-preferences.md
+  labeled_by: claude
+- text: A fingerprint for portfolios contains a Tests parameter that takes an array of test objects.
+  expected: mechanism
+  source: fingerprint.md
+  labeled_by: claude
+- text: When you need to show an extracted region to a person who checks the extraction, return the region as an
+    image.
+  expected: scenario
+  source: claude
+  labeled_by: claude
+- text: Set the As Image parameter to true to render the bounding rectangle as a base64 PNG string.
+  expected: mechanism
+  source: frances-edits region-asImage
+  labeled_by: claude
+- text: If a document's layout varies by issuer, use fallback fields to try a second method.
+  expected: scenario
+  source: claude
+  labeled_by: claude
