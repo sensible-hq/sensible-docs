@@ -6,10 +6,6 @@ on:
     paths:
       - 'docs/**/*.md'
       - 'reference/**/*.md'
-  pull_request:
-    paths:
-      - 'docs/**/*.md'
-      - 'reference/**/*.md'
 jobs:
   check-guide-links:
     runs-on: ubuntu-latest
