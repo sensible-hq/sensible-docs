@@ -88,8 +88,11 @@ To OCR only the pages that contain text images, select them by text match or pag
 
 The following example shows how to OCR an insurance quote only when its premium table isn't readable as embedded text. In this example scenario, the premium table is sometimes digitally embedded text, and sometimes it's a screenshot from the carrier's portal. In the example document, the table is a screenshot, so the premium amounts aren't in its embedded text. Because the rest of the quote is embedded text, Sensible doesn't OCR the document by default. The config checks the embedded text for "Total Premium". If Sensible doesn't find it, it OCRs every page, and then extracts the premiums from the screenshot. If Sensible finds it, it skips OCR, so you don't pay to OCR quotes that don't need it.
 
+{/* code test {"testId": "extract_ocr_if_missing_quote", "description": "OCR If Missing OCRs the example quote, whose premium table is a screenshot, and the example config extracts the documented premiums"} */}
+
 **Config**
 
+{/* inline config */}
 ```json
 {
   "preprocessors": [
@@ -132,11 +135,13 @@ The following image shows page 2 of the example document. The premium table unde
 
 ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ocr_if_missing_quote.png)
 
+{/* inline document */}
 | Example document | [Download link](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/pdfs/ocr_if_missing_quote.pdf) |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- |
 
 **Output**
 
+{/* inline output */}
 ```json
 {
   "total_premium": {
@@ -153,3 +158,4 @@ The following image shows page 2 of the example document. The premium table unde
   }
 }
 ```
+{/* code test end */}
