@@ -39,7 +39,7 @@ Many rules are carried both ways. [`registry.yaml`](registry.yaml) records, for 
 | ---- | ---------- |
 | `registry.yaml` | One entry per rule: `stated_in` (prose carriers), `enforced_by` (Vale, script, judgment), `kind`, `gate`, `fixture` |
 | `judgment/<id>.yaml` | What Jev needs to judge a rule: source, scope, detector, precheck, question with criteria, examples |
-| `tests/<id>.md` | Test examples for a Vale rule: sentences it must catch, marked `<!-- fail -->`, and correct sentences it must leave alone, marked `<!-- pass -->` |
+| `tests/<id>.md` | A small test file of sample sentences for one Vale rule: sentences that break the rule, marked `<!-- fail -->`, which the rule must flag, and correct sentences, marked `<!-- pass -->`, which it must leave alone. `test_rules.py` runs them. |
 | `corpus-before.tsv`, `corpus-after.tsv` | Vale alert counts per rule on `docs/` and `reference/`, before and after the 2026-11 cleanup |
 
 ## Checks

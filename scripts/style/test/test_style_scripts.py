@@ -79,6 +79,19 @@ def test_registry_detects_drift(tmp_path, monkeypatch):
     assert any("Sensible.Orphan: no registry entry" in p for p in cr.check(registry))
 
 
+def test_registry_checks_applies_and_overrides(tmp_path, monkeypatch):
+    import check_registry as cr
+    monkeypatch.setattr(cr, "ROOT", tmp_path)
+    monkeypatch.setattr(cr, "STYLES", tmp_path / ".github/styles")
+    registry = _tree(tmp_path, "Don't use em dashes.\n<!-- rule: em -->\n")
+    registry[0]["applies"] = []
+    assert "em: no applies list" in cr.check(registry)
+    registry[0]["applies"] = ["prose", "sidebar"]
+    registry[0]["overrides"] = ["gone"]
+    problems = cr.check(registry)
+    assert "em: unknown applies kind sidebar" in problems and "em: overrides unknown rule gone" in problems
+
+
 def test_this_repos_registry_is_clean():
     """The real registry agrees with the real guides, Vale rules, scripts, and specs."""
     import check_registry as cr

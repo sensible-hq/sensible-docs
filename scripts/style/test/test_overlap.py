@@ -1,5 +1,6 @@
 """Tests for scripts/style/check_overlap.py and the .claude/hooks/rule_gate.py hook."""
 import json
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -7,6 +8,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "scripts/style"))
 import check_overlap as co  # noqa: E402
+import pytest  # noqa: E402
+
+HAS_VALE = bool(shutil.which("vale") or (Path.home() / ".local/bin/vale").exists())
 
 A = {"id": "rule-a", "statement": "Don't use em dashes in prose.", "applies": ["prose"]}
 B = {"id": "rule-b", "statement": "Never use em dashes in prose text.", "overrides": ["rule-c"], "applies": ["prose"]}
@@ -86,3 +90,34 @@ def test_hook_ignores_files_that_carry_no_rules():
 def test_hook_passes_a_clean_carrier():
     r = hook(REPO / "CLAUDE.md")
     assert r.returncode == 0, r.stderr
+
+
+@pytest.mark.skipif(not HAS_VALE, reason="Vale isn't installed")
+def test_fixture_layer_reports_a_pass_line_another_rule_flags():
+    """The Latin fixture's correct example says "Cloud Run", which the word list flags."""
+    found = co.fixture_findings({r["id"]: r for r in co.load_rules()})
+    assert ("google-latin", "sensible-word-list", "contradiction (detector)") in [f[:3] for f in found]
+
+
+def test_hook_finds_the_rules_a_file_states():
+    sys.path.insert(0, str(REPO / ".claude/hooks"))
+    import rule_gate
+    ids = rule_gate.touched_rules(REPO, ".claude/style-guide/style-guide-overview.md")
+    assert {"sensible-label-method", "sensible-no-metadata-keywords"} <= ids
+    assert rule_gate.touched_rules(REPO, "docs/README.md") == set()
+
+
+def test_hook_reports_registry_drift(tmp_path):
+    """A guide reworded without its registry quote: the hook exits 2 and names the rule."""
+    for d in ("scripts/style", "style-rules", ".claude/style-guide", ".claude/preferences", ".claude/skills",
+              ".claude/hooks", ".github/styles"):
+        shutil.copytree(REPO / d, tmp_path / d, ignore=shutil.ignore_patterns("__pycache__", "sessions"))
+    for f in ("CLAUDE.md", ".vale.ini"):
+        shutil.copy(REPO / f, tmp_path / f)
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    guide = tmp_path / ".claude/style-guide/style-guide-overview.md"
+    guide.write_text(guide.read_text().replace("The Label method is nearly deprecated.", "Label is old."))
+    event = {"hook_event_name": "PostToolUse", "tool_input": {"file_path": str(guide)}}
+    r = subprocess.run([sys.executable, str(tmp_path / ".claude/hooks/rule_gate.py")], input=json.dumps(event),
+                       capture_output=True, text=True)
+    assert r.returncode == 2 and "sensible-label-method: quote not found" in r.stderr
