@@ -54,7 +54,7 @@ def _tree(tmp_path, guide_text):
     (tmp_path / ".claude/style-guide/rules.md").write_text(guide_text)
     (tmp_path / ".github/styles/Sensible/EmDash.yml").write_text("extends: existence\n")
     (tmp_path / "style-rules/tests/em.md").write_text("<!-- rules: Sensible.EmDash -->\n")
-    return [{"id": "em", "statement": "No em dashes.", "kind": "deterministic", "gate": "block",
+    return [{"id": "em", "statement": "No em dashes.", "applies": ["prose"], "kind": "deterministic", "gate": "block",
              "enforced_by": {"vale": ["Sensible.EmDash"]}, "fixture": "style-rules/tests/em.md",
              "stated_in": [{"file": ".claude/style-guide/rules.md", "quote": "Don't use em dashes."}]}]
 

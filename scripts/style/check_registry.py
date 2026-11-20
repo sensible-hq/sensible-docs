@@ -12,7 +12,7 @@ fails when the two sides drift apart:
     or a file the rule doesn't list
   - a Sensible.* Vale rule has no registry entry, or an entry names a Vale rule, script, judgment
     spec, or fixture that doesn't exist
-  - a rule overrides a rule the registry doesn't have
+  - a rule overrides a rule the registry doesn't have, or has no applies list or an unknown kind in it
   - a deterministic rule has no carrier or no fixture, or a judgment spec lacks a required field or
     quotes its source file wrongly
 
@@ -30,6 +30,7 @@ STYLES = ROOT / ".github/styles"
 MARKER = re.compile(r"<!--\s*rule:\s*([a-z0-9-]+)\s*-->")
 KINDS = {"deterministic", "judgment", "prose"}
 GATES = {"block", "warn", "report", "judge"}
+APPLIES = {"prose", "heading", "table", "code", "link", "image", "frontmatter", "whole-page"}
 JUDGMENT_FIELDS = ("id", "source", "applies", "check", "examples")
 
 
@@ -143,6 +144,11 @@ def check(registry: list[dict]) -> list[str]:
             problems.append(f"{name}: no registry entry")
 
     for r in registry:
+        applies = r.get("applies") or []
+        if not applies:
+            problems.append(f"{r.get('id')}: no applies list")
+        for kind in set(applies) - APPLIES:
+            problems.append(f"{r.get('id')}: unknown applies kind {kind}")
         for o in r.get("overrides") or []:
             if o not in by_id:
                 problems.append(f"{r['id']}: overrides unknown rule {o}")

@@ -10,7 +10,7 @@ These checks keep you from adding a style rule that repeats or conflicts with on
 
 When a pair is flagged, settle it once: merge the two rules, mark one as overriding the other, or record the pair as fine in `overlaps.yaml`. The pair stays quiet until someone rewords one of the rules.
 
-Every rule is compared with every other rule, so 42 rules make 861 pairs (42 × 41 ÷ 2). The weekly run compares all 861 by wording and asks Jev about each one twice, once in each order. The Vale fixture layer runs each of the 19 fixtures once against all rules. The hook compares only the rules an edit touched, each against the other 41.
+Two rules are compared only if they check the same kind of text, such as prose, headings, tables, or code. Each rule's `applies` list in the registry names its kinds. Of the 861 possible pairs among 42 rules, 403 share a kind. The weekly run compares those by wording and asks Jev about each one twice, once in each order. Jev's answers are cached, so after the first run Jev is only asked about pairs where a rule was added or reworded. The Vale fixture layer runs each of the 19 fixtures once against all rules. The hook compares only the rules an edit touched.
 
 What the checks cost at 42 rules:
 
@@ -18,9 +18,11 @@ What the checks cost at 42 rules:
 | --- | --- | --- | --- |
 | Hook, after an edit to a rule file | under 1.5 s | 0 | $0 |
 | Weekly, without Jev | 3 s | 0 | $0 |
-| Weekly, with Jev | 45 s | 1,722 (861 pairs, asked in both orders) | $0.04 |
+| Weekly, with Jev, first run | 21 s | 806 (403 pairs, asked in both orders) | $0.02 |
+| Weekly, with Jev, nothing changed | under 1 s | 0 | $0 |
+| Weekly, with Jev, one rule added | a few seconds | 2 per rule it shares a kind with | under $0.01 |
 
-No step calls Claude or any other LLM besides Jev. Jev time and cost grow with the square of the rule count. At 100 rules, a weekly run makes 9,900 calls and takes about 4 minutes, for about $0.25.
+No step calls Claude or any other LLM besides Jev.
 
 ## How rules are carried
 
@@ -37,7 +39,7 @@ Many rules are carried both ways. [`registry.yaml`](registry.yaml) records, for 
 | ---- | ---------- |
 | `registry.yaml` | One entry per rule: `stated_in` (prose carriers), `enforced_by` (Vale, script, judgment), `kind`, `gate`, `fixture` |
 | `judgment/<id>.yaml` | What Jev needs to judge a rule: source, scope, detector, precheck, question with criteria, examples |
-| `tests/<id>.md` | Fixtures: lines each Vale rule must flag (`<!-- fail -->`) and must not flag (`<!-- pass -->`) |
+| `tests/<id>.md` | Test examples for a Vale rule: sentences it must catch, marked `<!-- fail -->`, and correct sentences it must leave alone, marked `<!-- pass -->` |
 | `corpus-before.tsv`, `corpus-after.tsv` | Vale alert counts per rule on `docs/` and `reference/`, before and after the 2026-11 cleanup |
 
 ## Checks
@@ -124,8 +126,10 @@ The judge doesn't run in the write-time hook: a network call per edit is too slo
 `scripts/style/check_overlap.py` compares rules in pairs, in three layers:
 
 - **Fixtures:** every Vale fixture runs against every registered rule. A line marked `pass` for one rule that another rule flags is a contradiction: the example of correct text breaks a house rule. When the other rule is a judgment rule, its pattern only finds candidates, so the finding is marked as a detector finding.
+Only rules that share a kind of text in their `applies` lists are paired for the next two layers.
+
 - **Wording:** pairs whose statements and quotes share most of their content words, which catches a rule restated in a second file.
-- **Jev** (`--jev`): three yes-or-no questions per pair (same requirement, can conflict, apply to the same text), asked in both orders. Jev leans toward whichever rule comes first, so the two answers are averaged, and a pair whose orders disagree is reported as unstable.
+- **Jev** (`--jev`): two yes-or-no questions per pair (same requirement, can conflict), asked in both orders. Jev leans toward whichever rule comes first, so the two answers are averaged, and a pair whose orders disagree is reported as unstable. Answers are cached in `.cache/rule-overlap.json` by the exact request, so a pair is asked again only when a rule's wording changes.
 
 A pair you've ruled on goes in [`overlaps.yaml`](overlaps.yaml) with the hash the script prints; rewording either rule reopens it. A deliberate conflict goes in the registry as `overrides: [loser]` on the winning rule.
 

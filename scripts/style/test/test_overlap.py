@@ -8,9 +8,11 @@ REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "scripts/style"))
 import check_overlap as co  # noqa: E402
 
-A = {"id": "rule-a", "statement": "Don't use em dashes in prose."}
-B = {"id": "rule-b", "statement": "Never use em dashes in prose text.", "overrides": ["rule-c"]}
-C = {"id": "rule-c", "statement": "Use an em dash between a term and its definition."}
+A = {"id": "rule-a", "statement": "Don't use em dashes in prose.", "applies": ["prose"]}
+B = {"id": "rule-b", "statement": "Never use em dashes in prose text.", "overrides": ["rule-c"], "applies": ["prose"]}
+C = {"id": "rule-c", "statement": "Use an em dash between a term and its definition.", "applies": ["prose"]}
+D = {"id": "rule-d", "statement": "Fence code as json.", "applies": ["code"]}
+P = {"id": "rule-p", "statement": "Register every page.", "applies": ["whole-page"]}
 
 
 def test_pair_hash_ignores_order_and_tracks_wording():
@@ -37,7 +39,7 @@ def test_wording_finds_restatements_only():
 def test_jev_layer_averages_both_orders_and_flags_unstable(monkeypatch):
     def fake(first, second):
         same = 0.9 if first["id"] == "rule-a" else 0.2  # order flips the answer
-        return {"same": same, "conflict": 0.1, "overlap": 0.9}
+        return {"same": same, "conflict": 0.1}
     monkeypatch.setattr(co, "ask", fake)
     found = co.jev_findings({r["id"]: r for r in (A, B)}, workers=1)
     assert [f[2] for f in found] == ["unstable duplicate"]
@@ -48,9 +50,26 @@ def test_override_silences_contradiction(tmp_path, monkeypatch, capsys):
     reg.write_text(json.dumps([A, B, C]))
     monkeypatch.setattr(co, "REGISTRY", reg)
     monkeypatch.setattr(co, "SETTLED", tmp_path / "none.yaml")
-    monkeypatch.setattr(co, "ask", lambda f, s: {"same": 0.1, "conflict": 0.9, "overlap": 0.9})
-    co.main(["--jev", "--no-fixtures", "--rules", "rule-b,rule-c"])
+    monkeypatch.setattr(co, "ask", lambda f, s: {"same": 0.1, "conflict": 0.9})
+    co.main(["--jev", "--no-fixtures", "--rules", "rule-b,rule-c", "--cache", str(tmp_path / "c.json")])
     assert "Nothing to review." in capsys.readouterr().out
+
+
+def test_only_rules_that_share_text_are_compared():
+    pairs = co.candidate_pairs({r["id"]: r for r in (A, D, P)})
+    assert pairs == [("rule-a", "rule-p"), ("rule-d", "rule-p")]
+
+
+def test_cached_answers_are_reused_until_a_rule_changes(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr(co, "ask", lambda f, s: calls.append(1) or {"same": 0.1, "conflict": 0.1})
+    cache, stats = tmp_path / "c.json", {}
+    rules = {r["id"]: r for r in (A, B)}
+    co.jev_findings(rules, workers=1, cache_path=cache, stats=stats)
+    co.jev_findings(rules, workers=1, cache_path=cache, stats=stats)
+    assert len(calls) == 2 and stats["cached"] == 2
+    co.jev_findings({**rules, "rule-a": {**A, "statement": "Avoid em dashes."}}, workers=1, cache_path=cache)
+    assert len(calls) == 4
 
 
 def hook(path: Path) -> subprocess.CompletedProcess:
