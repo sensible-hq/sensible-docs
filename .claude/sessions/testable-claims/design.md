@@ -34,7 +34,7 @@ The details live in the matrix and the evidence, not the page.
 
 ### 3. Evidence records
 
-One committed JSON file per claim, `scripts/doc-detective/testable-claims/pr-<docs PR>/<id>.json` (for example `pr-825`), grouped by the docs PR that tested it, with its own top-level schema, `schemas/evidence.schema.json`:
+One committed JSON file per claim, `scripts/doc-detective/testable-claims/pr-<docs PR>-<feature>/<id>.json` (for example `pr-825-ocr-if-missing`), grouped by the docs PR that tested it, with its own top-level schema, `schemas/evidence.schema.json`:
 
 - the claim, quoted (not a line number, which drifts), its page, and its kind (from `extract-testable-claims/criteria.md`);
 - each config that ran, the document, expected and actual values, and the extraction IDs;
@@ -42,7 +42,7 @@ One committed JSON file per claim, `scripts/doc-detective/testable-claims/pr-<do
 - the verdict (holds, contradicted, bug reported) and what changed on the page because of it;
 - Frances's approval and date.
 
-The configs, PDFs, and responses go in `testable-claims/pr-<docs PR>/files/`, each cited with its SHA-256, so the test can be recreated and an edit is caught. Beside `fixtures/`, not in it: those folders are test-account fixtures with a manifest, which the runner restores before each run.
+The configs, PDFs, and responses go in `testable-claims/pr-<docs PR>-<feature>/files/`, each cited with its SHA-256, so the test can be recreated and an edit is caught. Beside `fixtures/`, not in it: those folders are test-account fixtures with a manifest, which the runner restores before each run.
 
 ### 4. A durable report and a matrix row
 

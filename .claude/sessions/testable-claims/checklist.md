@@ -4,17 +4,17 @@ Claude Code session name: ocrIfMissing
 Claude Code session ID: 0ded2aae-03f7-4ca1-bf75-b37050ab318e
 Resumed in session ID: 182a711b-cc3c-4499-b338-54f7a8efa58c
 PR: sensible-hq/sensible-docs#834 (draft), branch `testable-claims-skill`, worktree `~/GitHub/sensible-docs-testable-claims`
-Decisions and progress: `decisions.md` · Design proposal: `design.md` · Evidence: `evidence/README.md`
+Decisions and progress: `decisions.md` · Design proposal: `design.md` · Evidence: `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/` on #825
 
 ## Status (2026-11-19)
 
-Frances answered `design.md`'s open questions. The record-only path is built: evidence schema and checks, per-section pointer comment, matrix rows, stale warning, SQLite load, and the skill's review step. The three #825 records are drafted (`evidence/scripts/build_records.py`) and wait on Frances's approval.
+Frances answered `design.md`'s open questions. The record-only path is built: evidence schema and checks, per-section pointer comment, matrix rows, stale warning, SQLite load, and the skill's review step. The three #825 records are approved and committed on #825 in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/`, with the test material that produced them.
 
 ## Done
 
 - [x] `extract-testable-claims` skill: criteria, Jev noul scorer, calibration cases, steps for evidence and proposed tests
 - [x] Calibrated (14 cases, Claude-labeled)
-- [x] Dry run on #825; tests for two claims run with controls; results and configs saved in `evidence/`
+- [x] Dry run on #825; tests for two claims run with controls; results and configs saved in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/` on #825
 - [x] Design proposal with reasons, conflicts, and open questions (`design.md`)
 
 ## To do

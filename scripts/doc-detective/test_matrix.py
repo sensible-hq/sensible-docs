@@ -68,7 +68,7 @@ def evidence_rows(evidence_dir=evidence.EVIDENCE_DIR):
         "",
         "## Record-only claims",
         "",
-        "Claims tested by hand and recorded rather than run from the page: the page's section carries a `tested claims` comment listing their IDs, and each ID has an evidence record in `testable-claims/pr-<number>/`, grouped by the docs PR that tested it, with the configs, documents, and responses that ran. Nothing reruns them; CI warns when a record's newest run is more than six months old.",
+        "Claims tested by hand and recorded rather than run from the page: the page's section carries a `tested claims` comment listing their IDs, and each ID has an evidence record in `testable-claims/pr-<number>-<feature>/`, grouped by the docs PR that tested it, with the configs, documents, and responses that ran. Nothing reruns them; CI warns when a record's newest run is more than six months old.",
         "",
     ]
     records = evidence.load_all(evidence_dir)

@@ -1,8 +1,8 @@
 """Evidence records: the committed proof for a record-only claim, one the page doesn't run.
 
 A record-only claim has no test markup on its page. Its section carries one comment listing the claim
-IDs it covers, and each ID has a record in testable-claims/pr-<number>/<claim_id>.json, grouped by the
-docs PR whose claims were tested, for example testable-claims/pr-825/ (shape:
+IDs it covers, and each ID has a record in testable-claims/pr-<number>-<feature>/<claim_id>.json, grouped by
+the docs PR whose claims were tested, for example testable-claims/pr-825-ocr-if-missing/ (shape:
 schemas/evidence.schema.json), with the configs, documents, and responses it cites in files/ beside it.
 TEST-MATRIX.md lists every record; to_sqlite() loads them into a database with one table per level of
 the record, keyed by the record's own IDs.
@@ -66,10 +66,11 @@ def schema():
         return json.load(f)
 
 
-# A folder holds one docs PR's tested claims and is named for it, pr-<number> (the record's docs_pr). A PR
+# A folder holds one docs PR's tested claims, named pr-<number>-<feature> in kebab case, for example
+# pr-825-ocr-if-missing: the number is the record's docs_pr, and the feature says what the PR documents. A PR
 # can test claims on several pages; each record's "page" field ties it to its page.
-def folder_name(record):
-    return f"pr-{record['docs_pr']}"
+def folder_re(record):
+    return re.compile(rf"pr-{record['docs_pr']}(?:-[a-z0-9]+)+")
 
 
 def load_all(evidence_dir=EVIDENCE_DIR):
@@ -122,8 +123,8 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
     folder = os.path.dirname(path)
     if os.path.basename(path) != f"{record['claim_id']}.json":
         errors.append(f"file name isn't {record['claim_id']}.json")
-    if os.path.basename(folder) != folder_name(record):
-        errors.append(f"folder isn't {folder_name(record)}, for docs PR #{record['docs_pr']}")
+    if not folder_re(record).fullmatch(os.path.basename(folder)):
+        errors.append(f"folder {os.path.basename(folder)} isn't pr-{record['docs_pr']}-<feature> in kebab case, for docs PR #{record['docs_pr']}")
     run_ids = [r["run_id"] for r in record["runs"]]
     if len(set(run_ids)) != len(run_ids):
         errors.append("run_id repeats")
@@ -147,15 +148,21 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
 
 
 def check(evidence_dir=EVIDENCE_DIR, repo_root=settings.REPO_ROOT, check_page=True):
-    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records."""
+    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records and a
+    docs PR whose records are split across folders."""
     found = {}
     seen = {}
+    pr_folder = {}
     for path, record in load_all(evidence_dir):
         errors = problems(path, record, repo_root, check_page)
         claim_id = record.get("claim_id")
         if claim_id in seen:
             errors.append(f"claim_id {claim_id} is also in {seen[claim_id]}")
         seen.setdefault(claim_id, path)
+        folder = os.path.basename(os.path.dirname(path))
+        first = pr_folder.setdefault(record.get("docs_pr"), folder)
+        if folder != first:
+            errors.append(f"docs PR #{record.get('docs_pr')} also has records in {first}; one folder per PR")
         if errors:
             found[path] = errors
     return found

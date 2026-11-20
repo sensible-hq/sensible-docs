@@ -84,7 +84,7 @@ For each tested claim, present one entry:
 
 Frances approves, edits, rejects, or changes the priority of each entry. Then, for the approved record-only claims:
 
-1. Write each record to `scripts/doc-detective/testable-claims/pr-<docs PR number>/<claim_id>.json` (for example `testable-claims/pr-825/`), with `docs_pr` set to that number, and its files to `files/` beside it (shape: `scripts/doc-detective/schemas/evidence.schema.json`), with `approval` set to Frances and the date she approved.
+1. Write each record to `scripts/doc-detective/testable-claims/pr-<docs PR number>-<feature>/<claim_id>.json` (for example `testable-claims/pr-825-ocr-if-missing/`; the feature, in kebab case, is what the PR documents), with `docs_pr` set to that number, and its files to `files/` beside it (shape: `scripts/doc-detective/schemas/evidence.schema.json`), with `approval` set to Frances and the date she approved.
 2. Add the approved comments to the page.
 3. Run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py`, and fix anything `check` reports.
 

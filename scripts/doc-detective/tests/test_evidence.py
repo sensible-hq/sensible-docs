@@ -72,7 +72,7 @@ class EvidenceTest(unittest.TestCase):
         with open(os.path.join(self.root, self.page), "w", encoding="utf-8") as f:
             f.write(PAGE)
         self.dir = os.path.join(self.root, "testable-claims")
-        self.folder = os.path.join(self.dir, "pr-825")
+        self.folder = os.path.join(self.dir, "pr-825-ocr-if-missing")
         os.makedirs(os.path.join(self.folder, "files"))
         for name, data in (("config.json", CONFIG), ("doc.pdf", DOCUMENT)):
             with open(os.path.join(self.folder, "files", name), "wb") as f:
@@ -125,10 +125,24 @@ class EvidenceTest(unittest.TestCase):
         self.save(record(self.page), name="other.json")
         self.assertIn("file name isn't ocr_if_missing_every_page.json", next(iter(self.check().values())))
 
-    def test_folder_is_the_docs_pr(self):
-        rec = record(self.page)
-        rec["docs_pr"] = 900
-        self.assertIn("folder isn't pr-900, for docs PR #900", next(iter(self.check().values())) if self.save(rec) else [])
+    def test_folder_is_the_docs_pr_then_the_feature(self):
+        for bad in ("pr-825", "pr-900-ocr-if-missing", "pr-825_ocr", "PR-825-ocr"):
+            folder = os.path.join(self.dir, bad)
+            shutil.copytree(os.path.join(self.folder, "files"), os.path.join(folder, "files"))
+            path = os.path.join(folder, "ocr_if_missing_every_page.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(record(self.page), f)
+            self.assertTrue(any("isn't pr-825-<feature>" in e for e in self.check()[path]), bad)
+            shutil.rmtree(folder)
+
+    def test_one_folder_per_pr(self):
+        self.save(record(self.page))
+        folder = os.path.join(self.dir, "pr-825-other")
+        shutil.copytree(os.path.join(self.folder, "files"), os.path.join(folder, "files"))
+        path = os.path.join(folder, "ocr_if_missing_example.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(record(self.page, claim_id="ocr_if_missing_example", section="Examples"), f)
+        self.assertIn("docs PR #825 also has records in pr-825-ocr-if-missing; one folder per PR", self.check()[path])
 
     def test_one_pr_folder_can_hold_several_pages(self):
         other_page = "docs/other.md"
