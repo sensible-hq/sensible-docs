@@ -1,0 +1,51 @@
+# testable-claims session: decisions and progress
+
+Claude Code session name: ocrIfMissing
+Claude Code session ID: 0ded2aae-03f7-4ca1-bf75-b37050ab318e
+Resume: `cd /home/franc/GitHub/sensible-docs-private && claude --resume 0ded2aae-03f7-4ca1-bf75-b37050ab318e`
+Checklist: `.claude/sessions/testable-claims/checklist.md` · Design: `design.md` · Evidence: `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/` on #825
+This PR: sensible-hq/sensible-docs#834 (branch `testable-claims-skill`, worktree `~/GitHub/sensible-docs-testable-claims`)
+Related: sensible-hq/sensible-docs#825 (the OCR page whose claims were tested), sensible-hq/sensible#3519 and #3533 (engine)
+
+## Decisions
+
+| decision | why | who |
+| --- | --- | --- |
+| A skill, `extract-testable-claims`, lists the claims worth testing after a docs draft, with evidence and a proposed test each; it doesn't run tests unless asked | Frances wants to test defaults, types, compatibility, and null/empty behavior before a change ships | Frances |
+| The criteria for "worth testing" are written down (`criteria.md`), and Jev judges each claim's probability of meeting them | Frances: specify the criteria so Jev can judge them | Frances |
+| Jev answers a **noul** (one yes/no probability), not a choice label | Frances asked for a noul answer | Frances |
+| Threshold 0.70 (test) / 0.30 (skip), unsure between | Frances set 0.7 for nouls on 2026-11-18 | Frances |
+| Output-block claims skip Jev and are always `test` | Jev scored the same output claim 0.31 and 0.63 | Claude |
+| Only docs text goes to Jev; engine code stays with Claude | Jev is approved for docs, not the engine codebase (Frances, Slack, 2026-11-10) | Frances |
+| A proposed test must give a different result if the claim is false, with a control run | A test that passes either way proves nothing; the first test-1 attempt was invalid for this reason | Claude |
+| Record-only priority below 3, one pointer comment per page, details in the traceability matrix | Avoid bloating page HTML with markup | Frances |
+| `extract-testable-claims` gets a review step: Frances approves what goes in the matrix and the page | Frances | Frances |
+| Handoff lives on this PR, and #825 gets its own checklist of tested claims with proof links | Frances, at session end | Frances |
+| Record the 2026-11-19 runs as what ran (`omit`, personal account), then rerun in the docs test account after #3533 deploys | The page change already rests on them | Frances |
+| One `tested claims` comment per section, not per page | Frances | Frances |
+| CI warns, never fails, on evidence older than 183 days | Records never rerun, and the rename broke every test within a day | Frances |
+| Record-only path first; `schema` kind next | 2 of #825's 3 untested claims are schema claims | Frances |
+| Evidence schema is its own top-level `evidence.schema.json` | A record covers several runs plus approval, unlike a code-test record | Frances |
+| Contradicted claims get records | They document why the page changed | Frances |
+| Records are shaped for a later SQLite database: stable keys, one table per level, enums, ISO dates, `schema_version` | Frances may build a database on the matrix | Frances |
+| Evidence files go in `testable-claims/pr-<number>-<feature>/files/` with SHA-256, beside `fixtures/`, not in it | Fixture folders are test-account fixtures the runner restores | Claude |
+| The skill's tests use `SENSIBLE_TEST_API_KEY`; it named `SENSIBLE_API_KEY`, which is why the 2026-11-19 runs went to Frances's account | `CLAUDE.md` rule | Claude |
+
+## Progress log
+
+### 2026-11-19
+- Built `extract-testable-claims` (`SKILL.md`, `criteria.md`, `score_claims.py`, `cases.yaml`). Calibration: 14 cases, precision and recall 1.00 on the last run; the advice case "Choose OCR If Missing text…" swings between 0.33 and 0.52 across runs.
+- Dry run on #825: 13 claims, 8 test, 4 unsure, 1 skip (`claims/` in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/` on #825).
+- Ran two of the proposed tests on production, with controls (README in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/` on #825):
+  - "checks the document's embedded text": contradicted. Frances reworded the row on #825.
+  - "OCRs every page": likely engine bug with Page Range. Draft for eng in `eng-page-range-bug.md`, not sent.
+- Earlier, a match-array test confirmed `ocrIfMissing` accepts a Match array and evaluates it as a sequence.
+- Frances asked how QA handles durable proof; Claude found the repo's own framework already covers it except for record-only claims. Proposal in `design.md`.
+
+### 2026-11-19 (resumed in session 182a711b-cc3c-4499-b338-54f7a8efa58c)
+- Frances answered `design.md`'s open questions (Answers section there) and asked that the matrix support a later database.
+- Built: `schemas/evidence.schema.json`, `codetests/evidence.py` (check, stale, sqlite), the matrix's record-only section, the CI stale warning, the skill's review step, README section, `tests/test_evidence.py`.
+- Drafted the three #825 records with `build_records.py` (now in #825's `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/scripts/`); Frances approved them the same day.
+- Production still rejects `ocrIfMissing` (published both names to a throwaway doc type in the docs test account, deleted after).
+- Frances moved records to `testable-claims/pr-<number>-<feature>/` (one folder per docs PR, beside `fixtures/`), and approved moving this session folder's test material into #825's folder; `evidence/` here is removed (its configs, results, and documents were already in the records' `files/`).
+
