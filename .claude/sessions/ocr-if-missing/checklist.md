@@ -5,7 +5,7 @@ Claude Code session ID: 0ded2aae-03f7-4ca1-bf75-b37050ab318e
 Resume: `cd /home/franc/GitHub/sensible-docs-private && claude --resume 0ded2aae-03f7-4ca1-bf75-b37050ab318e`
 Docs PR: sensible-hq/sensible-docs#825 (draft), branch `ocr-omit-quote-example`, worktree `~/GitHub/sensible-docs-ocr-omit-quote`
 Engine: sensible-hq/sensible#3519 (adds `omit`), sensible-hq/sensible#3533 (renames it `ocrIfMissing`, no alias)
-Notes: fscelliott/sensible-docs-private#1 · Test evidence (configs, results, PDFs): `.claude/sessions/testable-claims/evidence/` on sensible-hq/sensible-docs#834
+Notes: fscelliott/sensible-docs-private#1 · Test evidence (configs, results, PDFs, and the narrative README): `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/`
 
 ## Status (2026-11-19)
 
@@ -44,7 +44,7 @@ Jev scored these between 0.30 and 0.70 (unsure). Wording is from the 2026-11-19 
 
 ## Evidence records (approved 2026-11-19)
 
-The three tested claims above are recorded as record-only claims in `scripts/doc-detective/testable-claims/pr-825/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
+The three tested claims above are recorded as record-only claims in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
 
 ## Before merging
 - [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
