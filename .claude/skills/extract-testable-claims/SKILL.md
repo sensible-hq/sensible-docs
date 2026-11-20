@@ -71,7 +71,7 @@ Offer to run the tests. Don't run them, publish configs, or create document type
 
 ## Step 7 — Review, then record
 
-Only after tests ran. Nothing goes into `scripts/doc-detective/evidence/`, `TEST-MATRIX.md`, or the page until Frances approves it here.
+Only after tests ran. Nothing goes into `scripts/doc-detective/testable-claims/`, `TEST-MATRIX.md`, or the page until Frances approves it here.
 
 For each tested claim, present one entry:
 
@@ -84,7 +84,7 @@ For each tested claim, present one entry:
 
 Frances approves, edits, rejects, or changes the priority of each entry. Then, for the approved record-only claims:
 
-1. Write each record to `scripts/doc-detective/evidence/<feature>-<parameter>/<claim_id>.json` (for example `evidence/ocr-ocr-if-missing/`) and its files to `files/` beside it (shape: `scripts/doc-detective/schemas/evidence.schema.json`), with `approval` set to Frances and the date she approved.
+1. Write each record to `scripts/doc-detective/testable-claims/pr-<docs PR number>/<claim_id>.json` (for example `testable-claims/pr-825/`), with `docs_pr` set to that number, and its files to `files/` beside it (shape: `scripts/doc-detective/schemas/evidence.schema.json`), with `approval` set to Frances and the date she approved.
 2. Add the approved comments to the page.
 3. Run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py`, and fix anything `check` reports.
 

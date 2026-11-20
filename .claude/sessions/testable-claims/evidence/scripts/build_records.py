@@ -4,8 +4,8 @@ documents, and responses in this evidence folder.
 
   python3 build_records.py OUT_DIR --approved-by NAME --date YYYY-MM-DD
 
-writes OUT_DIR/<page slug>/<claim_id>.json and OUT_DIR/<page slug>/files/. Point OUT_DIR at
-scripts/doc-detective/evidence only after Frances approves the records in the review step.
+writes OUT_DIR/pr-825/<claim_id>.json and OUT_DIR/pr-825/files/. Point OUT_DIR at
+scripts/doc-detective/testable-claims only after Frances approves the records in the review step.
 """
 
 import argparse
@@ -16,6 +16,7 @@ import re
 import shutil
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # the evidence folder
+DOCS_PR = 825
 PAGE = "docs/Senseml reference/preprocessors/ocr-preprocessor.md"
 SECTION = "Parameters"
 RAN_ON = "2026-11-19"
@@ -97,9 +98,6 @@ RECORDS = [
 ]
 
 
-def slug(page):
-    return re.sub(r"[^a-z0-9]+", "-", page[:-3].lower()).strip("-")
-
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -107,10 +105,10 @@ def main():
     parser.add_argument("--approved-by", required=True)
     parser.add_argument("--date", required=True)
     args = parser.parse_args()
-    folder = os.path.join(args.out, slug(PAGE))
+    folder = os.path.join(args.out, f"pr-{DOCS_PR}")
     os.makedirs(os.path.join(folder, "files"), exist_ok=True)
     for spec in RECORDS:
-        record = {"schema_version": 1, "claim_id": spec["claim_id"], "page": PAGE, "section": SECTION,
+        record = {"schema_version": 1, "claim_id": spec["claim_id"], "docs_pr": DOCS_PR, "page": PAGE, "section": SECTION,
                   "claim": spec["claim"], "claim_kind": spec["claim_kind"], "verdict": spec["verdict"]}
         for key in ("bug", "page_change"):
             if key in spec:

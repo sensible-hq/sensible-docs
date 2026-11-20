@@ -38,6 +38,7 @@ def record(page, claim_id="ocr_if_missing_every_page", section="Parameters", ran
     return {
         "schema_version": 1,
         "claim_id": claim_id,
+        "docs_pr": 825,
         "page": page,
         "section": section,
         "claim": "If Sensible doesn't find the text, it OCRs every page.",
@@ -70,8 +71,8 @@ class EvidenceTest(unittest.TestCase):
         os.makedirs(os.path.join(self.root, "docs"))
         with open(os.path.join(self.root, self.page), "w", encoding="utf-8") as f:
             f.write(PAGE)
-        self.dir = os.path.join(self.root, "evidence")
-        self.folder = os.path.join(self.dir, "ocr-ocr-if-missing")
+        self.dir = os.path.join(self.root, "testable-claims")
+        self.folder = os.path.join(self.dir, "pr-825")
         os.makedirs(os.path.join(self.folder, "files"))
         for name, data in (("config.json", CONFIG), ("doc.pdf", DOCUMENT)):
             with open(os.path.join(self.folder, "files", name), "wb") as f:
@@ -124,22 +125,18 @@ class EvidenceTest(unittest.TestCase):
         self.save(record(self.page), name="other.json")
         self.assertIn("file name isn't ocr_if_missing_every_page.json", next(iter(self.check().values())))
 
-    def test_folder_must_be_feature_then_parameter_in_kebab_case(self):
-        for bad in ("ocr", "OCR-ocrIfMissing", "ocr_ocr_if_missing"):
-            folder = os.path.join(self.dir, bad)
-            shutil.copytree(os.path.join(self.folder, "files"), os.path.join(folder, "files"))
-            rec = record(self.page)
-            with open(os.path.join(folder, f"{rec['claim_id']}.json"), "w", encoding="utf-8") as f:
-                json.dump(rec, f)
-            self.assertTrue(any("isn't <feature>-<parameter>" in e for e in self.check()[os.path.join(folder, f"{rec['claim_id']}.json")]), bad)
-            shutil.rmtree(folder)
+    def test_folder_is_the_docs_pr(self):
+        rec = record(self.page)
+        rec["docs_pr"] = 900
+        self.assertIn("folder isn't pr-900, for docs PR #900", next(iter(self.check().values())) if self.save(rec) else [])
 
-    def test_one_folder_holds_one_page(self):
+    def test_one_pr_folder_can_hold_several_pages(self):
+        other_page = "docs/other.md"
+        with open(os.path.join(self.root, other_page), "w", encoding="utf-8") as f:
+            f.write('# Other\n\n<!-- tested claims {"ids": ["other_claim"]} -->\n')
         self.save(record(self.page))
-        other = dict(record(self.page), claim_id="ocr_if_missing_other", page="docs/other.md")
-        path = self.save(other)
-        found = self.check()
-        self.assertTrue(any("one folder, one page" in e for e in found[path]))
+        self.save(dict(record(other_page, claim_id="other_claim", section="Other")))
+        self.assertEqual(self.check(), {})
 
     def test_stale_uses_the_newest_run(self):
         # "recent" has one old run and one recent one; "old" has only old runs
@@ -151,9 +148,9 @@ class EvidenceTest(unittest.TestCase):
 
     def test_matrix_lists_each_record(self):
         self.save(record(self.page))
-        rows = [l for l in test_matrix.evidence_rows(self.dir) if l.startswith("| ocr")]
+        rows = [l for l in test_matrix.evidence_rows(self.dir) if l.startswith("| #")]
         self.assertEqual(len(rows), 1)
-        self.assertIn("| Parameters | `ocr_if_missing_every_page` | scope and order |", rows[0])
+        self.assertIn("| #825 | ocr-preprocessor.md | Parameters | `ocr_if_missing_every_page` | scope and order |", rows[0])
         self.assertIn("| holds with bug | 2026-11-19, 2 runs, production (docs test account), [record](", rows[0])
 
     def test_matrix_says_when_there_are_none(self):

@@ -1,9 +1,9 @@
 """Evidence records: the committed proof for a record-only claim, one the page doesn't run.
 
 A record-only claim has no test markup on its page. Its section carries one comment listing the claim
-IDs it covers, and each ID has a record in evidence/<feature>-<parameter>/<claim_id>.json, for example
-evidence/ocr-ocr-if-missing/ for the OCR preprocessor's ocrIfMissing parameter (shape:
-schemas/evidence.schema.json) with the configs, documents, and responses it cites in files/ beside it.
+IDs it covers, and each ID has a record in testable-claims/pr-<number>/<claim_id>.json, grouped by the
+docs PR whose claims were tested, for example testable-claims/pr-825/ (shape:
+schemas/evidence.schema.json), with the configs, documents, and responses it cites in files/ beside it.
 TEST-MATRIX.md lists every record; to_sqlite() loads them into a database with one table per level of
 the record, keyed by the record's own IDs.
 
@@ -30,7 +30,7 @@ import jsonschema  # noqa: E402
 
 from codetests import markup, settings  # noqa: E402
 
-EVIDENCE_DIR = os.path.join(settings.HERE, "evidence")
+EVIDENCE_DIR = os.path.join(settings.HERE, "testable-claims")
 STALE_DAYS = 183
 # <!-- tested claims {"ids": [...]} -->, or the MDX form, which markup.read_page converts
 POINTER_RE = re.compile(r"<!--\s*tested claims\s+(\{.*?\})\s*-->", re.S)
@@ -39,7 +39,7 @@ HEADING_RE = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$", re.M)
 # One table per level of a record. Every column is a scalar; expected and actual are JSON text.
 SQLITE_TABLES = """
 CREATE TABLE claims (
-  claim_id TEXT PRIMARY KEY, schema_version INTEGER NOT NULL, page TEXT NOT NULL, section TEXT NOT NULL,
+  claim_id TEXT PRIMARY KEY, schema_version INTEGER NOT NULL, docs_pr INTEGER NOT NULL, page TEXT NOT NULL, section TEXT NOT NULL,
   claim TEXT NOT NULL, claim_kind TEXT NOT NULL, verdict TEXT NOT NULL,
   bug_summary TEXT, bug_status TEXT, bug_link TEXT,
   page_change_summary TEXT, page_change_commit TEXT, page_change_pr TEXT,
@@ -66,9 +66,10 @@ def schema():
         return json.load(f)
 
 
-# A folder is named <feature>-<parameter> in kebab case, for example ocr-ocr-if-missing: short, and stable
-# when the page moves. Each record's "page" field, not the folder name, ties it to its page.
-FOLDER_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)+")
+# A folder holds one docs PR's tested claims and is named for it, pr-<number> (the record's docs_pr). A PR
+# can test claims on several pages; each record's "page" field ties it to its page.
+def folder_name(record):
+    return f"pr-{record['docs_pr']}"
 
 
 def load_all(evidence_dir=EVIDENCE_DIR):
@@ -121,8 +122,8 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
     folder = os.path.dirname(path)
     if os.path.basename(path) != f"{record['claim_id']}.json":
         errors.append(f"file name isn't {record['claim_id']}.json")
-    if not FOLDER_RE.fullmatch(os.path.basename(folder)):
-        errors.append(f"folder {os.path.basename(folder)} isn't <feature>-<parameter> in kebab case, for example ocr-ocr-if-missing")
+    if os.path.basename(folder) != folder_name(record):
+        errors.append(f"folder isn't {folder_name(record)}, for docs PR #{record['docs_pr']}")
     run_ids = [r["run_id"] for r in record["runs"]]
     if len(set(run_ids)) != len(run_ids):
         errors.append("run_id repeats")
@@ -146,21 +147,15 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
 
 
 def check(evidence_dir=EVIDENCE_DIR, repo_root=settings.REPO_ROOT, check_page=True):
-    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records and
-    folders that hold records for more than one page."""
+    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records."""
     found = {}
     seen = {}
-    folder_page = {}
     for path, record in load_all(evidence_dir):
         errors = problems(path, record, repo_root, check_page)
         claim_id = record.get("claim_id")
         if claim_id in seen:
             errors.append(f"claim_id {claim_id} is also in {seen[claim_id]}")
         seen.setdefault(claim_id, path)
-        folder = os.path.basename(os.path.dirname(path))
-        page = folder_page.setdefault(folder, record.get("page"))
-        if record.get("page") != page:
-            errors.append(f"folder {folder} also holds records for {page}; one folder, one page")
         if errors:
             found[path] = errors
     return found
@@ -182,8 +177,8 @@ def to_sqlite(records, conn, evidence_dir=EVIDENCE_DIR):
     conn.executescript(SQLITE_TABLES)
     for path, r in records:
         bug, change, approval = r.get("bug", {}), r.get("page_change", {}), r["approval"]
-        conn.execute("INSERT INTO claims VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
-            r["claim_id"], r["schema_version"], r["page"], r["section"], r["claim"], r["claim_kind"], r["verdict"],
+        conn.execute("INSERT INTO claims VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
+            r["claim_id"], r["schema_version"], r["docs_pr"], r["page"], r["section"], r["claim"], r["claim_kind"], r["verdict"],
             bug.get("summary"), bug.get("status"), bug.get("link"),
             change.get("summary"), change.get("commit"), change.get("pr"),
             approval["by"], approval["date"], r.get("notes"), os.path.relpath(path, evidence_dir)))
