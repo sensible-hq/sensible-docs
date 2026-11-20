@@ -1,5 +1,27 @@
 # Style rules
 
+## Summary
+
+These checks keep you from adding a style rule that repeats or conflicts with one you already have. They run in three places:
+
+- **While you edit:** when you edit a file that holds a rule, a hook checks the rules you touched and reports drift or a clashing pair. It never blocks the edit.
+- **On each PR:** CI confirms that the registry still matches the guides.
+- **Every Monday:** a workflow checks every pair of rules, including with Jev, and posts a report.
+
+When a pair is flagged, settle it once: merge the two rules, mark one as overriding the other, or record the pair as fine in `overlaps.yaml`. The pair stays quiet until someone rewords one of the rules.
+
+What the checks cost at 42 rules:
+
+| Run | Time | Jev calls | Cost |
+| --- | --- | --- | --- |
+| Hook, after an edit to a rule file | under 1.5 s | 0 | $0 |
+| Weekly, without Jev | 3 s | 0 | $0 |
+| Weekly, with Jev | 45 s | 1,722 (861 pairs, asked in both orders) | $0.04 |
+
+No step calls Claude or any other LLM besides Jev. Jev time and cost grow with the square of the rule count. At 100 rules, a weekly run makes 9,900 calls and takes about 4 minutes, for about $0.25.
+
+## How rules are carried
+
 House style rules are carried in two ways:
 
 - **In prose**, in guides, templates, and skills that the model reads (`.claude/style-guide/`, `.claude/preferences/`, `.claude/skills/`). This is probabilistic: the model may or may not apply what it reads.
