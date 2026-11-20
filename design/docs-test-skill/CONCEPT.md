@@ -52,6 +52,8 @@ Sources: Doc Detective's docs (`docs.doc-detective.com`, indexed by `/docs/llms.
 
 ## What the skill does
 
+> **Update (2026-11-20):** `extract-testable-claims` (#834) now owns steps 1 and 2, plus hand-run tests, Frances's review, and record-only evidence. `add-doc-tests` starts from the claims she approves at priority 1 to 3 and does steps 3 to 7. The rubric below is kept as background; `extract-testable-claims/criteria.md` is the one in use. Test markup is now written as MDX comments, `{/* ... */}` (#819).
+
 1. **Find the claims.** Read the new or changed text, using the diff for an update, and list each concrete claim a reader would act on. Examples:
    - "Click **New document type**";
    - "this config outputs `{...}`";
@@ -176,7 +178,7 @@ For API changes, this skill's job is narrower:
 
 ## Wiring it into the doc skills
 
-The doc-writing skills call `add-doc-tests` as a step **after the page is written and before the commit**, passing the page and the surface. The skill writes the tests into the same branch, so the doc and its tests ship in one PR.
+The doc-writing skills call `extract-testable-claims` as a step **after the page is written and before the commit**; once Frances approves claims at priority 1 to 3, it hands them to `add-doc-tests`. The hooks below are where that pair runs. The skill writes the tests into the same branch, so the doc and its tests ship in one PR.
 
 | Skill | Writes | Surface(s) | Hook |
 |---|---|---|---|
@@ -190,7 +192,7 @@ The doc-writing skills call `add-doc-tests` as a step **after the page is writte
 | `blog-short` | blog drafts, no code | — | skip: no testable claims by design |
 | `changelog` | monthly changelog | — | skip (as you said) |
 
-Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don't write claims. They should **preserve** test markup, not add it. *Check that `json5-commenter` and `revise-doc-style` leave `<!-- test -->` and `<!-- example -->` comments alone.*
+Tooling-only skills (`json5-commenter`, `revise-doc-style`, `docs-checker`) don't write claims. They should **preserve** test markup, not add it. *Check that `json5-commenter` and `revise-doc-style` leave test markup (`{/* test */}`, `{/* code test */}`, and the older `<!-- ... -->` form) alone.*
 
 ---
 

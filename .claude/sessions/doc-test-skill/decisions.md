@@ -42,6 +42,9 @@ A new session taking over should add itself to this table, update `.claude-sessi
 - Wrote `.claude/skills/add-doc-tests/SKILL.md`, first version: list claims, triage, pick the markup from the README, preview, prove each test can fail, run and save the report, capped fix loop, claims table in the PR.
 - In #741, extended the runner with classification claims, persistent-fixture classification, spreadsheet reference documents, curl commands and file links in the report, and saved reports. Updated the skill's markup table to match.
 
+### 2026-11-20
+- Merged `v0` (100 commits) into the branch. Rewrote `add-doc-tests` to start from the claims Frances approves in `extract-testable-claims` (#834) at priority 1 to 3: it no longer lists or triages claims, writes MDX comments (#819), registers new pages in `test-pages.json`, and adds claim kinds the registry way (#810). `extract-testable-claims` Step 7 now hands off to it.
+
 ## Decisions
 
 | Date | Decision | Why | Who |
@@ -58,6 +61,7 @@ A new session taking over should add itself to this table, update `.claude-sessi
 | 2026-11-10 | Prefer persistent `fixture_` doc types she can open in the app over temporary ones | Frances wanted to view the doc type in her Sensible account | Frances |
 | 2026-11-11 | Test documents, doc types, and configs are realistic business documents (sparse is fine), named after the business document, with invented values | Abstract fixtures like `fixture_spreadsheet_classify` don't show a reader or reviewer what a real customer would test | Frances |
 | 2026-11-11 | Runner changes the skill uses moved from #741 to #803 | Frances split infra from the XLSB docs (xlsb session) | Frances |
+| 2026-11-20 | `extract-testable-claims` and `add-doc-tests` stay separate and don't overlap: the first finds, scores, hand-tests, and reviews claims and writes record-only evidence; the second turns approved priority 1 to 3 claims into page markup | Each skill has one job, and the review is the handoff | Frances |
 | standing | Test account only: `SENSIBLE_TEST_API_KEY`, never `SENSIBLE_API_KEY`; never print keys | Test runs create and delete resources | Frances |
 
 ## Open questions (for Frances)
