@@ -29,7 +29,7 @@ jobs:
           curl -sSL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz | sudo tar -xz -C /usr/local/bin vale
 
       - name: Restore Jev answers from earlier runs
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: .cache/rule-overlap.json
           key: rule-overlap-${{ github.run_id }}
@@ -39,6 +39,15 @@ jobs:
         env:
           TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
         run: python3 scripts/style/check_overlap.py --jev --report overlap-report.md
+
+      # Save even when the check fails: a failing run is the usual case while a pair is open, and
+      # without its answers the next run re-asks every pair and borderline verdicts can flip.
+      - name: Save Jev answers
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .cache/rule-overlap.json
+          key: rule-overlap-${{ github.run_id }}
 
       - name: Publish report
         if: always()
