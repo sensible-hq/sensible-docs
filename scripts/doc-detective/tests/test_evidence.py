@@ -71,7 +71,7 @@ class EvidenceTest(unittest.TestCase):
         with open(os.path.join(self.root, self.page), "w", encoding="utf-8") as f:
             f.write(PAGE)
         self.dir = os.path.join(self.root, "evidence")
-        self.folder = os.path.join(self.dir, evidence.page_slug(self.page))
+        self.folder = os.path.join(self.dir, "ocr-ocr-if-missing")
         os.makedirs(os.path.join(self.folder, "files"))
         for name, data in (("config.json", CONFIG), ("doc.pdf", DOCUMENT)):
             with open(os.path.join(self.folder, "files", name), "wb") as f:
@@ -123,6 +123,23 @@ class EvidenceTest(unittest.TestCase):
     def test_file_name_must_be_the_claim_id(self):
         self.save(record(self.page), name="other.json")
         self.assertIn("file name isn't ocr_if_missing_every_page.json", next(iter(self.check().values())))
+
+    def test_folder_must_be_feature_then_parameter_in_kebab_case(self):
+        for bad in ("ocr", "OCR-ocrIfMissing", "ocr_ocr_if_missing"):
+            folder = os.path.join(self.dir, bad)
+            shutil.copytree(os.path.join(self.folder, "files"), os.path.join(folder, "files"))
+            rec = record(self.page)
+            with open(os.path.join(folder, f"{rec['claim_id']}.json"), "w", encoding="utf-8") as f:
+                json.dump(rec, f)
+            self.assertTrue(any("isn't <feature>-<parameter>" in e for e in self.check()[os.path.join(folder, f"{rec['claim_id']}.json")]), bad)
+            shutil.rmtree(folder)
+
+    def test_one_folder_holds_one_page(self):
+        self.save(record(self.page))
+        other = dict(record(self.page), claim_id="ocr_if_missing_other", page="docs/other.md")
+        path = self.save(other)
+        found = self.check()
+        self.assertTrue(any("one folder, one page" in e for e in found[path]))
 
     def test_stale_uses_the_newest_run(self):
         # "recent" has one old run and one recent one; "old" has only old runs

@@ -1,7 +1,8 @@
 """Evidence records: the committed proof for a record-only claim, one the page doesn't run.
 
 A record-only claim has no test markup on its page. Its section carries one comment listing the claim
-IDs it covers, and each ID has a record in evidence/<page slug>/<claim_id>.json (shape:
+IDs it covers, and each ID has a record in evidence/<feature>-<parameter>/<claim_id>.json, for example
+evidence/ocr-ocr-if-missing/ for the OCR preprocessor's ocrIfMissing parameter (shape:
 schemas/evidence.schema.json) with the configs, documents, and responses it cites in files/ beside it.
 TEST-MATRIX.md lists every record; to_sqlite() loads them into a database with one table per level of
 the record, keyed by the record's own IDs.
@@ -65,9 +66,9 @@ def schema():
         return json.load(f)
 
 
-def page_slug(page):
-    """Same naming as saved reports (test_matrix.slug)."""
-    return re.sub(r"[^a-z0-9]+", "-", page[:-3].lower() if page.endswith(".md") else page.lower()).strip("-")
+# A folder is named <feature>-<parameter> in kebab case, for example ocr-ocr-if-missing: short, and stable
+# when the page moves. Each record's "page" field, not the folder name, ties it to its page.
+FOLDER_RE = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)+")
 
 
 def load_all(evidence_dir=EVIDENCE_DIR):
@@ -120,8 +121,8 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
     folder = os.path.dirname(path)
     if os.path.basename(path) != f"{record['claim_id']}.json":
         errors.append(f"file name isn't {record['claim_id']}.json")
-    if os.path.basename(folder) != page_slug(record["page"]):
-        errors.append(f"folder isn't {page_slug(record['page'])}")
+    if not FOLDER_RE.fullmatch(os.path.basename(folder)):
+        errors.append(f"folder {os.path.basename(folder)} isn't <feature>-<parameter> in kebab case, for example ocr-ocr-if-missing")
     run_ids = [r["run_id"] for r in record["runs"]]
     if len(set(run_ids)) != len(run_ids):
         errors.append("run_id repeats")
@@ -145,15 +146,21 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
 
 
 def check(evidence_dir=EVIDENCE_DIR, repo_root=settings.REPO_ROOT, check_page=True):
-    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records."""
+    """{path: [problem]} for every record with a problem, plus claim IDs that repeat across records and
+    folders that hold records for more than one page."""
     found = {}
     seen = {}
+    folder_page = {}
     for path, record in load_all(evidence_dir):
         errors = problems(path, record, repo_root, check_page)
         claim_id = record.get("claim_id")
         if claim_id in seen:
             errors.append(f"claim_id {claim_id} is also in {seen[claim_id]}")
         seen.setdefault(claim_id, path)
+        folder = os.path.basename(os.path.dirname(path))
+        page = folder_page.setdefault(folder, record.get("page"))
+        if record.get("page") != page:
+            errors.append(f"folder {folder} also holds records for {page}; one folder, one page")
         if errors:
             found[path] = errors
     return found

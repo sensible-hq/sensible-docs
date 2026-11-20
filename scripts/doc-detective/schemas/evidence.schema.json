@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Evidence record",
-  "description": "The committed proof that one docs claim was tested: what ran, on what, where, what came back, and who approved recording it. One file per claim, evidence/<page slug>/<claim_id>.json; the configs, documents, and responses it cites sit beside it in evidence/<page slug>/files/. Read by codetests/evidence.py, which puts each record in TEST-MATRIX.md and can load every record into SQLite (evidence.SQLITE_TABLES). Kept flat on purpose so that load stays mechanical: a record is one claims row, each run one runs row, each checked field one run_fields row, and every object has a stable key.",
+  "description": "The committed proof that one docs claim was tested: what ran, on what, where, what came back, and who approved recording it. One file per claim, evidence/<feature>-<parameter>/<claim_id>.json (for example evidence/ocr-ocr-if-missing/); the configs, documents, and responses it cites sit beside it in files/. Read by codetests/evidence.py, which puts each record in TEST-MATRIX.md and can load every record into SQLite (evidence.SQLITE_TABLES). Kept flat on purpose so that load stays mechanical: a record is one claims row, each run one runs row, each checked field one run_fields row, and every object has a stable key.",
   "type": "object",
   "required": ["schema_version", "claim_id", "page", "section", "claim", "claim_kind", "verdict", "runs", "approval"],
   "additionalProperties": false,

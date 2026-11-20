@@ -45,7 +45,7 @@ flowchart LR
 | `run.sh` | Runs one page end to end: UI tests, code tests, report, scrub, leak check, and, if you ask, save. |
 | `test-pages.json`, `plan_runs.py`, `.github/workflows/doc-tests.yml` | CI: each tested page has a priority, the planner picks the pages for each run, and the workflow runs each page as its own job. |
 | `test_matrix.py` | Writes `TEST-MATRIX.md` and the saved results in `reports/`. |
-| Evidence records | One JSON file per record-only claim in `evidence/<page>/`, checked against `schemas/evidence.schema.json` by `codetests/evidence.py` (see [Record-only claims](#record-only-claims)). Nothing runs them. |
+| Evidence records | One JSON file per record-only claim in `evidence/<feature>-<parameter>/`, checked against `schemas/evidence.schema.json` by `codetests/evidence.py` (see [Record-only claims](#record-only-claims)). Nothing runs them. |
 
 ### What happens in a run
 
@@ -67,7 +67,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | Fixture files (test documents, reference documents) | In the fixture's own folder, `scripts/doc-detective/fixtures/<group>/`. A fixture that uses a docs PDF names it in place (`docs_pdf`) instead of copying it, so there's one copy, in `assets/pdfs/`. | Committed. |
 | Saved report and results | `reports/<page>.html` and `.json` | Persist until the next saved run of the page. |
 | Raw run output | `output/` | Overwritten on every run; git-ignored. |
-| Evidence records, and the configs, documents, and responses they cite | `evidence/<page>/` and `evidence/<page>/files/` | Committed. Replaced only by a new approved record. |
+| Evidence records, and the configs, documents, and responses they cite | `evidence/<feature>-<parameter>/` and `evidence/<feature>-<parameter>/files/` | Committed. Replaced only by a new approved record. |
 
 ### Extending it
 
@@ -77,7 +77,7 @@ Keep what can't be rebuilt from the repo, and delete what can.
 | A tested page | The page's markup, and an entry in `test-pages.json` with a priority | CI fails if a page has tests but no entry. |
 | A fixture | A folder under `fixtures/` with its doc type, config, `manifest.json`, and files | Pages refer to it by doc type name; the folder's location is free. |
 | A kind of claim (for example, an API status code) | A module in `codetests/kinds/`, its record section's schema in `schemas/kinds/`, one line in `kinds.KINDS`, and unit tests. If it calls an endpoint the client doesn't yet, `sensible.py` too. | `codetests/kinds/__init__.py` lists what a kind module defines; `classification.py` is the shortest to copy. `tests/test_kinds.py` registers a made-up kind to check that nothing else needs to change. |
-| A record-only claim | A `tested claims` comment in the claim's section, and an evidence record with its files in `evidence/<page>/` | Records are written only after the `extract-testable-claims` review step approves them. Regenerate `TEST-MATRIX.md`. |
+| A record-only claim | A `tested claims` comment in the claim's section, and an evidence record with its files in `evidence/<feature>-<parameter>/` | Records are written only after the `extract-testable-claims` review step approves them. Regenerate `TEST-MATRIX.md`. |
 | A kind of test runner (for example, the parameter-table checks or the API contract tests) | Its own code, a step in `run.sh` before `report.py html` that writes `output/results/<runner>.json` (a list of results; see `schemas/result.schema.json`) | Its results then appear in report.html, the CI summary, the failure issue, the saved results, and the matrix, and a failure fails the run. Its tests aren't in the page's markup, so each result carries its own test ID, kind, claim, and evidence links. |
 
 ## Run the tests
@@ -297,7 +297,7 @@ Some tested claims don't need a rerun, and a page with a dozen of them would fil
 {/* tested claims {"ids": ["ocr_if_missing_match_array", "ocr_if_missing_ocrs_every_page"]} */}
 ```
 
-Each ID has an evidence record, `evidence/<page>/<claim_id>.json`: the claim as tested, each run (config, document, response, environment, account, expected and actual fields, extraction ID), the verdict, any engine bug or page change it led to, and who approved recording it. The files it cites sit in `evidence/<page>/files/` with their SHA-256 hashes, so the run can be recreated and an edit is caught. Runners ignore the comment, so a record-only claim never counts as "not run".
+Each ID has an evidence record, `evidence/<feature>-<parameter>/<claim_id>.json`. The folder is the feature, then the parameter, in kebab case: `evidence/ocr-ocr-if-missing/` for the OCR preprocessor's `ocrIfMissing`. Each folder holds one page's records; the record's `page` field, not the folder name, ties it to the page. A record has: the claim as tested, each run (config, document, response, environment, account, expected and actual fields, extraction ID), the verdict, any engine bug or page change it led to, and who approved recording it. The files it cites sit in `evidence/<feature>-<parameter>/files/` with their SHA-256 hashes, so the run can be recreated and an edit is caught. Runners ignore the comment, so a record-only claim never counts as "not run".
 
 `python3 codetests/evidence.py check` validates every record (schema, file hashes, and that the page's comment lists the claim in the record's section); a unit test runs the same check. CI annotates records whose newest run is more than six months old (`evidence.py stale`), without failing. `evidence.py sqlite FILE` loads every record into a SQLite database, one table per level (`claims`, `runs`, `run_fields`, `files`), keyed by the records' own IDs; `SQLITE_TABLES` in `evidence.py` is the schema.
 
