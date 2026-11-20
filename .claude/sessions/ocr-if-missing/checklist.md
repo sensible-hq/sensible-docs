@@ -44,7 +44,7 @@ Jev scored these between 0.30 and 0.70 (unsure). Wording is from the 2026-11-19 
 
 ## Evidence records (approved 2026-11-19)
 
-The three tested claims above are recorded as record-only claims in `scripts/doc-detective/evidence/docs-senseml-reference-preprocessors-ocr-preprocessor/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
+The three tested claims above are recorded as record-only claims in `scripts/doc-detective/evidence/ocr-ocr-if-missing/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
 
 ## Before merging
 - [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
