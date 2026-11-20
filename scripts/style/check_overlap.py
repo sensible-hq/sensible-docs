@@ -103,12 +103,14 @@ def pair_hash(ra, rb):
     return hashlib.sha256((first.get("statement", "") + "\n" + second.get("statement", "")).encode()).hexdigest()[:12]
 
 
-def load_settled(by_id):
+def load_settled(by_id, known=None):
     """Pairs ruled on whose statements haven't changed since, and pairs whose statements have."""
     settled, stale = {}, []
     entries = yaml.safe_load(SETTLED.read_text()) if SETTLED.exists() else None
     for e in entries or []:
         a, b = e["pair"]
+        if known and (a in known and b in known) and (a not in by_id or b not in by_id):
+            continue  # a rule outside --rules; not this run's business
         if a not in by_id or b not in by_id:
             stale.append(f"{a} / {b}: settled pair names a rule the registry doesn't have")
             continue
@@ -243,7 +245,7 @@ def main(argv=None):
     args = ap.parse_args(argv)
 
     by_id = {r["id"]: r for r in load_rules(set(args.rules.split(",")) if args.rules else None)}
-    settled, stale = load_settled(by_id)
+    settled, stale = load_settled(by_id, {r["id"] for r in load_rules()})
     won = overrides(by_id)
 
     found = [] if args.no_fixtures else fixture_findings(by_id)
