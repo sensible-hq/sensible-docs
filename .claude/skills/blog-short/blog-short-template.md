@@ -1,12 +1,12 @@
 # Template: Automating Data Extraction from [DOC TYPE]
 
 Variables used throughout this template:
-- `[doc type]` — singular, lowercase (e.g., "loss run", "acord form", "certificate of insurance")
-- `[doc types]` — plural (e.g., "loss runs", "acord forms")
-- `[industry]` — industry name (e.g., "insurance underwriting", "commercial real estate")
-- `[use case]` — downstream workflow that depends on the data (e.g., "assess business risk", "evaluate portfolio health")
-- `[sensible feature]` — the primary Sensible feature highlighted (e.g., "Sections", "Query Group", "NLP Table")
-- `[challenge theme]` — the overarching structural challenge (e.g., "complex repeating structures", "cross-carrier layout variability")
+- `[doc type]` — singular, lowercase (for example, "loss run", "acord form", "certificate of insurance")
+- `[doc types]` — plural (for example, "loss runs", "acord forms")
+- `[industry]` — industry name (for example, "insurance underwriting", "commercial real estate")
+- `[use case]` — downstream workflow that depends on the data (for example, "assess business risk", "evaluate portfolio health")
+- `[sensible feature]` — the primary Sensible feature highlighted (for example, "Sections", "Query Group", "NLP Table")
+- `[challenge theme]` — the overarching structural challenge (for example, "complex repeating structures", "cross-carrier layout variability")
 
 ---
 
@@ -136,7 +136,7 @@ Include when there's a differentiating capability that extends the core feature 
 
 1–2 paragraphs. Same conceptual style — no code.
 
-> "[Feature] can [do something beyond the basic case — e.g., nest within other sections, handle zero-count edge cases, combine with computed fields]. [Explain the practical benefit — what problem it solves that the reader would otherwise face]."
+> "[Feature] can [do something beyond the basic case — for example, nest within other sections, handle zero-count edge cases, combine with computed fields]. [Explain the practical benefit — what problem it solves that the reader would otherwise face]."
 
 Example (Nested Sections):
 > *"Sections can nest within other sections, enabling extraction across multiple policies in one document without manual PDF splitting. Each policy becomes a parent section containing individual claims as child sections."*
@@ -178,5 +178,5 @@ Avoid: salesy superlatives, vague closing lines like "the future of document AI 
 - Section headings: match the examples above — do not add extra H3 subheadings
 
 **When to use this style vs. the how-to style:**
-- Use this template when the document type benefits from a conceptual overview rather than a hands-on walkthrough — e.g., when the main story is a Sensible architectural feature (Sections, portfolio extraction) rather than a specific SenseML method.
+- Use this template when the document type benefits from a conceptual overview rather than a hands-on walkthrough — for example, when the main story is a Sensible architectural feature (Sections, portfolio extraction) rather than a specific SenseML method.
 - Use `blog-how-to-parse-x` when the goal is to walk a developer through a working config with real code and output.

@@ -1,13 +1,11 @@
 ---
 title: Preprocessors
-excerpt: Learn about document preprocessors that clean up and prepare files before
-  data extraction, including deskew, OCR, page range, multicolumn, and more.
+excerpt: 'Clean up documents before extraction with preprocessing options: image pre-processing (deskew, rotate, scale), selective OCR, and header removal.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn about document preprocessors that clean up and prepare files
-    before data extraction, including deskew, OCR, page range, multicolumn, and more.
+  description: 'Clean up documents before extraction with preprocessing options: image pre-processing (deskew, rotate, scale), selective OCR, and header removal.'
   robots: index
 next:
   description: ''
@@ -22,7 +20,7 @@ Use the following preprocessors to clean up your documents before extracting str
 | **[Merge Lines](doc:merge-lines)**     | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/merge_lines_oversplit_1.png) | Corrects oversplit lines.                                    |
 | **[Multicolumn](doc:multicolumn)**     | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/thumbnail_multicolumn.png) | Recognize multi-column formats                               |
 | **[NLP](doc:nlp)**                     |                                                              | Advanced prompt configuration for each large language model (LLM)-based method in a config. |
-| **[OCR](doc:ocr-preprocessor)**        | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/thumbnail_ocr.png) | Selectively OCRs pages in documents containing a mix of digitally generated text and text images (such as scanned text). If the whole PDF is a scan, you don't need to configure this preprocessor. |
+| **[OCR](doc:ocr-preprocessor)**        | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/thumbnail_ocr.png) | Selectively OCRs pages, or a whole document, when the document contains a mix of digitally generated text and text images (such as scanned text). If the whole PDF is a scan, you don't need to configure this preprocessor. |
 | **[Page Range](doc:page-range)**       |                                                              | Ignores pages outside the start page and end page.           |
 | **[Remove Header](doc:remove-header)** | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/remove_header_1.png) | Removes repeating elements at the top of the page. Ignores header elements that overlap with the page's main body. |
 | **[Remove Footer](doc:remove-footer)** | ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/remove_footer_1.png) | Removes repeating elements at the bottom of the page. Ignores footer elements that overlap with the page's main body. |

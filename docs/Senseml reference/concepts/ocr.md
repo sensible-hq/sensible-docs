@@ -1,11 +1,11 @@
 ---
 title: OCR
-excerpt: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
+excerpt: 'Sensible OCRs scanned PDFs and images automatically. Configure OCR level, per-page OCR, and the engine: Amazon, Google, or Microsoft.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: How Sensible handles OCR for document extraction, including configurable options for OCR level, preprocessor, and engine settings by document type or config.
+  description: 'Sensible OCRs scanned PDFs and images automatically. Configure OCR level, per-page OCR, and the engine: Amazon, Google, or Microsoft.'
   robots: index
 next:
   description: ''
@@ -17,7 +17,7 @@ For advanced cases, you can configure how Sensible OCRs documents using the foll
 | option                                   | configurable for | notes                                                                                                    |
 | ---------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- |
 | [OCR Level parameter](doc:ocr-level)     | document types   | Use this option to configure the criteria by which Sensible determines if a whole document requires OCR. |
-| [OCR preprocessor](doc:ocr-preprocessor) | configs          | Use this option to OCR specified pages or page ranges in a document.                                     |
+| [OCR preprocessor](doc:ocr-preprocessor) | configs          | Use this option to OCR specified pages in a document, or the whole document under conditions you configure.                                     |
 | [OCR Engine](doc:ocr-engine) parameter   | document types   | Use this option to choose your OCR provider, for example, Amazon, Google, or Microsoft.                  |
 
 For an overview of how Sensible handles OCR for supported [file type](doc:file-types), see the following steps:

@@ -1,0 +1,10 @@
+extends: existence
+message: "'%s' is an internal implementation term. Use the name readers see in the Sensible app or API."
+level: warning
+ignorecase: true
+tokens:
+  - Cognito
+  - reprocessing
+  - auth tokens?
+  - Lambdas?
+  - S3 buckets?

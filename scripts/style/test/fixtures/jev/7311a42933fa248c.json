@@ -1,0 +1,20 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_opening_sentence": {
+      "type": "choice",
+      "choice": "mechanism",
+      "confidence": 0.8,
+      "probabilities": {
+        "third-person": 0.13,
+        "use-this": 0.0,
+        "mechanism": 0.85,
+        "other": 0.02
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 411,
+    "output_tokens": 56
+  }
+}

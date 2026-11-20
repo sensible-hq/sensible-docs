@@ -1,13 +1,11 @@
 ---
 title: Document type descriptions
-excerpt: Learn how to write document type descriptions to improve LLM-based page range
-  segmentation and document classification in your Sensible account.
+excerpt: Improve LLM-based page range segmentation and document classification in your Sensible account.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to write document type descriptions to improve LLM-based
-    page range segmentation and document classification in your Sensible account.
+  description: Improve LLM-based page range segmentation and document classification in your Sensible account.
   robots: index
 next:
   description: ''

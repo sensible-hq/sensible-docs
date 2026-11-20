@@ -2,7 +2,7 @@
 name: blog-short
 description: Generates a short conceptual blog post ("Automating Data Extraction from X") for Sensible. Covers a document type and the primary Sensible feature that addresses its extraction challenge. No code blocks or screenshots — 400–600 words. Invoke whenever the user wants to write a short/editorial/overview-style blog post about a document type.
 argument-hint: <document type> [--feature <sensible feature>] [--context "<notes>"]
-allowed-tools: Bash, Read, Write, WebSearch, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page, mcp__vale__check_file
+allowed-tools: Bash, Read, Write, WebSearch, WebFetch, mcp__claude_ai_Notion__notion-search, mcp__claude_ai_Notion__notion-fetch, mcp__claude_ai_Notion__notion-create-pages, mcp__claude_ai_Notion__notion-update-page
 ---
 
 Generate a short conceptual blog post about automating data extraction from [document type].
@@ -18,7 +18,7 @@ Generate a short conceptual blog post about automating data extraction from [doc
 ```
 
 - `<document type>` — everything before `--feature` or `--context`
-- `--feature` — optional; the primary Sensible feature to highlight (e.g., "Sections", "NLP Table", "Query Group"). If omitted, infer it in Step 2.
+- `--feature` — optional; the primary Sensible feature to highlight (for example, "Sections", "NLP Table", "Query Group"). If omitted, infer it in Step 2.
 - `--context` — optional; additional notes about the document type, industry, or angle
 
 ## Step 1 — Read template and style guidance
@@ -91,7 +91,7 @@ Run all checks in order. Fix issues before Step 6.
 
 **5a — Vale:**
 
-Use `mcp__vale__check_file` on `drafts/blog-[doc-type-slug].md`. Fix all **errors** and **warnings**. Suggestions are optional — apply if clearly right, skip if they conflict with established blog conventions.
+Run `vale --minAlertLevel=warning drafts/blog-[doc-type-slug].md` from the repo root. Fix all **errors** and **warnings**. `.vale.ini` turns off the "we" and first-person rules for blog drafts, because blog posts may use "we" and "let's". Suggestions are optional: apply them if clearly right, and skip them if they conflict with established blog conventions.
 
 **5b — Writing rules:**
 

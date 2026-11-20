@@ -1,0 +1,20 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_terminology": {
+      "type": "choice",
+      "choice": "defined-alias",
+      "confidence": 0.47,
+      "probabilities": {
+        "avoided-term": 0.4,
+        "defined-alias": 0.6,
+        "proper-name": 0.0,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 530,
+    "output_tokens": 57
+  }
+}

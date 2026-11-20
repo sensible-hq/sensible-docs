@@ -14,7 +14,7 @@ Before showing the cursor, reconcile the cursor's `changelog_history` against wh
 1. Read the cursor. Note the most recent entry in `changelog_history` and its `release_notes_through` date.
 2. Run:
    ```bash
-   python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py --list
+   python $DOCS_DIR/.claude/skills/changelog/scripts/publish_changelog.py --list
    ```
    This returns all existing changelog slugs from readme.io, one per line.
 3. Filter for slugs matching `<month>-<year>` that fall **after** the most recent `changelog_history` entry. Ignore `prs-*` slugs, scratchpad slugs, and any with a `-2`/`-3` suffix.
@@ -75,7 +75,7 @@ Do not reorder items or change any other formatting.
 
 ## Step 4 — Push to readme.io
 
-Determine the title from the current month: `prs-<month>-<year>` (e.g., `prs-july-2026`).
+Determine the title from the current month: `prs-<month>-<year>` (for example, `prs-july-2026`).
 
 Format the body with a dispositions summary at the top, followed by the annotated release notes:
 
@@ -105,7 +105,7 @@ Format the body with a dispositions summary at the top, followed by the annotate
 Check whether the slug already exists by attempting to fetch it. If it exists, append (`--append`). If not, create it (no flag).
 
 ```bash
-python /home/franc/GitHub/sensible-docs/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" [--append] < /tmp/prs_body.txt
+python $DOCS_DIR/.claude/skills/changelog/scripts/publish_changelog.py "prs-<month>-<year>" [--append] < /tmp/prs_body.txt
 ```
 
 Print the hidden draft URL on success.

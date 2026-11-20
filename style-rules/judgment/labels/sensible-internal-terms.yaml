@@ -1,0 +1,31 @@
+# Labeled cases for sensible-internal-terms: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-internal-terms
+cases:
+- text: Extractions by Cognito users include an actor.
+  mark: Cognito
+  expected: implementation
+  labeled_by: claude
+- text: The email pipeline handles reprocessing.
+  mark: reprocessing
+  expected: implementation
+  labeled_by: claude
+- text: Pass auth tokens in the header.
+  mark: auth tokens
+  expected: implementation
+  labeled_by: claude
+- text: A Lambda function picks up each uploaded document.
+  mark: Lambda
+  expected: implementation
+  labeled_by: claude
+- text: Sensible writes the output to your S3 bucket.
+  mark: S3 bucket
+  expected: implementation
+  labeled_by: claude
+- text: Click Reprocess to run the extraction again with the current config.
+  mark: Reprocess
+  expected: user-facing
+  labeled_by: claude
+- text: Reprocessing runs in a separate worker queue for large files.
+  mark: Reprocessing
+  expected: implementation
+  labeled_by: claude

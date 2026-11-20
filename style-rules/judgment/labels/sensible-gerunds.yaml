@@ -1,0 +1,31 @@
+# Labeled cases for sensible-gerunds: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-gerunds
+cases:
+- text: Sensible automates the extraction of structured data.
+  expected: nominalization
+  source: writing-rules.md
+  labeled_by: claude
+- text: This feature enables the configuration of multiple document types.
+  expected: nominalization
+  source: writing-rules.md
+  labeled_by: claude
+- text: The validation of extracted fields happens after postprocessing.
+  expected: nominalization
+  source: claude
+  labeled_by: claude
+- text: Use the output of the Query Group method as context.
+  expected: noun
+  source: claude
+  labeled_by: claude
+- text: For the definition of contained, see the Parameters section.
+  expected: noun
+  source: region.md
+  labeled_by: claude
+- text: The configuration of this document type includes three configs.
+  expected: noun
+  source: claude
+  labeled_by: claude
+- text: Sensible supports the classification of documents by type.
+  expected: nominalization
+  source: claude
+  labeled_by: claude

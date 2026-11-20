@@ -1,0 +1,21 @@
+{
+  "preprocessors": [],
+  "fields": [
+    {
+      "id": "agency_ref",
+      "anchor": "Agency Reference",
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "total_premium",
+      "type": "currency",
+      "anchor": "Total Premium",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    }
+  ]
+}

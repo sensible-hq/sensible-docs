@@ -1,13 +1,11 @@
 ---
 title: Passthrough
-excerpt: Learn how to use the Passthrough method to return anchor matches directly
-  without additional extraction steps, ideal for regex-based text matching in documents.
+excerpt: Return an anchor's regex match directly as output, for pattern matching without further extraction steps.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use the Passthrough method to return anchor matches directly
-    without additional extraction steps, ideal for regex-based text matching in documents.
+  description: Return an anchor's regex match directly as output, for pattern matching without further extraction steps.
   robots: index
 next:
   description: ''

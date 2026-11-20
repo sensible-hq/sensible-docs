@@ -16,7 +16,7 @@ Derived from analysis of published changelogs (2024–2026). Use this to calibra
 ## Structure
 
 ### Title
-`Month YYYY` (e.g., `March 2026`)
+`Month YYYY` (for example, `March 2026`)
 
 ### Intro paragraph (no heading)
 One paragraph, pattern: `"In the last month, Sensible [summary of 2–4 highlights]."`
@@ -25,10 +25,10 @@ One paragraph, pattern: `"In the last month, Sensible [summary of 2–4 highligh
 - Mentions the most significant changes
 - Neutral and factual
 
-**Examples:**
-> In the last month, Sensible added deterministic methods for removing unwanted text from documents and for matching rotated text, such as watermarks. We also added advanced transformation logic for large spreadsheet extractions.
+**Examples** (edited to match the current rules: third person, no "we"):
+> In the last month, Sensible added deterministic methods for removing unwanted text from documents and for matching rotated text, such as watermarks. Sensible also added advanced transformation logic for large spreadsheet extractions.
 
-> In the last month, Sensible released several major new features. We introduced email-driven document extraction for automated processing of email attachments, significantly expanded our auto-generated extraction schemas to handle larger and more complex documents, and added new troubleshooting capabilities for multimodal extractions.
+> In the last month, Sensible released several major new features. Sensible introduced email-driven document extraction for automated processing of email attachments, significantly expanded its auto-generated extraction schemas to handle larger and more complex documents, and added new troubleshooting capabilities for multimodal extractions.
 
 ### Sections
 One section per feature (or group closely related items):
@@ -55,7 +55,7 @@ Use exactly these strings (casing matters):
 | `UX improvements:` | Multiple UI/UX changes grouped in one section |
 | `Deprecation:` | Something being deprecated or removed |
 
-**Do not use** `Update:` — phased out as of 2025.
+**Do not use** `Update:`, phased out as of 2025. <!-- rule: sensible-changelog-sections -->
 
 ---
 
@@ -77,7 +77,7 @@ Use exactly these strings (casing matters):
 
 **Feature with bulleted sub-items:**
 > Sensible added support for automated extraction from email documents. Key features include:
-> * LLM-based attachment classification against specified document types
+> * LLM-based attachment classification using specified document types
 > * Support for multiple attachments per email
 > * Optional email body extraction
 > * Webhook delivery of extraction results with metadata and download links
@@ -103,7 +103,7 @@ For `#` anchors, append them: `(doc:match#global-parameters)`
 
 ## Images
 
-Always use JSX `<Image>` (not markdown `![alt](url)`):
+Always use JSX `<Image>` (not markdown `![alt](url)`). Docs pages are the opposite: they use Markdown images. <!-- rule: sensible-image-syntax -->
 
 ```jsx
 <Image alt="Click to enlarge" border={false} src="URL" />

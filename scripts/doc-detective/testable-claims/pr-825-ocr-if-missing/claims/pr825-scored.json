@@ -1,0 +1,106 @@
+[
+  {
+    "claim": "If you specify an empty array for the OCR If Missing parameter, Sensible OCRs nothing.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.96,
+    "verdict": "test"
+  },
+  {
+    "claim": "You can combine the OCR If Missing parameter only with the Engine parameter.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.95,
+    "verdict": "test"
+  },
+  {
+    "claim": "The OCR preprocessor's Match parameter is required unless you specify the Page Lines Limit or OCR If Missing parameter.",
+    "sentence": "| match (required unless you specify the Page Lines Limit or OCR If Missing parameter) |",
+    "page": "ocr-preprocessor.md",
+    "line": 28,
+    "p": 0.94,
+    "verdict": "test"
+  },
+  {
+    "claim": "If Sensible doesn't find the OCR If Missing parameter's matched text in the document's embedded text, it OCRs every page.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.93,
+    "verdict": "test"
+  },
+  {
+    "claim": "If Sensible finds the OCR If Missing parameter's matched text in the document's embedded text, it OCRs nothing.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.93,
+    "verdict": "test"
+  },
+  {
+    "claim": "The OCR If Missing parameter accepts a Match object or a Match array.",
+    "sentence": "| ocrIfMissing | Match object or Match array |",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.87,
+    "verdict": "test"
+  },
+  {
+    "claim": "The OCR If Missing parameter checks the document's embedded text, not text from other preprocessors' OCR.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.84,
+    "verdict": "test"
+  },
+  {
+    "claim": "When a document contains enough embedded text, Sensible doesn't OCR the whole document by default, even if some expected text is in a text image.",
+    "sentence": "You can also use this preprocessor to force OCR for a whole document if it's missing expected embedded text, for example when the expected text is a text image, but the document contains enough embedded text that Sensible doesn't OCR the whole document by default.",
+    "page": "ocr-preprocessor.md",
+    "line": 19,
+    "p": 0.81,
+    "verdict": "test"
+  },
+  {
+    "claim": "Use the OCR If Missing parameter for documents with enough embedded text that Sensible doesn't OCR them by default.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.65,
+    "verdict": "unsure"
+  },
+  {
+    "claim": "The example config on the example document produces the Output block: total_premium $6,109.00 and total_due $6,477.72.",
+    "sentence": "**Output**",
+    "page": "ocr-preprocessor.md",
+    "line": 132,
+    "p": 0.63,
+    "verdict": "unsure"
+  },
+  {
+    "claim": "Choose OCR If Missing text that's in every document of this type, but that can variably need OCR.",
+    "sentence": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page. If it finds the text, it OCRs nothing. Use this parameter for documents with enough embedded text that Sensible doesn't OCR them by default, even when they contain text images such as a pasted screenshot. Choose text that's in every document of this type, but that can variably need OCR. If you specify an empty array, Sensible OCRs nothing. You can combine this parameter only with the Engine parameter.",
+    "page": "ocr-preprocessor.md",
+    "line": 32,
+    "p": 0.52,
+    "verdict": "unsure"
+  },
+  {
+    "claim": "Because the rest of the example quote is embedded text, Sensible doesn't OCR the example document by default.",
+    "sentence": "In the example document, the table is a screenshot, so the premium amounts aren't in its embedded text. Because the rest of the quote is embedded text, Sensible doesn't OCR the document by default. The config checks the embedded text for \"Total Premium\". If Sensible doesn't find it, it OCRs every page, and then extracts the premiums from the screenshot. If Sensible finds it, it skips OCR.",
+    "page": "ocr-preprocessor.md",
+    "line": 85,
+    "p": 0.52,
+    "verdict": "unsure"
+  },
+  {
+    "claim": "In the example document, the premium table is a screenshot, so the premium amounts aren't in its embedded text.",
+    "sentence": "In the example document, the table is a screenshot, so the premium amounts aren't in its embedded text. Because the rest of the quote is embedded text, Sensible doesn't OCR the document by default. The config checks the embedded text for \"Total Premium\". If Sensible doesn't find it, it OCRs every page, and then extracts the premiums from the screenshot. If Sensible finds it, it skips OCR.",
+    "page": "ocr-preprocessor.md",
+    "line": 85,
+    "p": 0.13,
+    "verdict": "skip"
+  }
+]

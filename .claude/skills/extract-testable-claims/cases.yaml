@@ -1,0 +1,45 @@
+# Labeled claims for score_claims.py --calibrate. expected: yes = worth testing under criteria.md.
+# labeled_by: claude means Frances hasn't reviewed the label.
+cases:
+- claim: If you specify an empty array, Sensible OCRs nothing.
+  expected: 'yes'
+  labeled_by: claude
+- claim: You can combine the OCR If Missing parameter only with the Engine parameter.
+  expected: 'yes'
+  labeled_by: claude
+- claim: If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page.
+  expected: 'yes'
+  labeled_by: claude
+- claim: The Page Offset parameter defaults to 0.
+  expected: 'yes'
+  labeled_by: claude
+- claim: If there are multiple text matches in the document, the Match parameter matches the first.
+  expected: 'yes'
+  labeled_by: claude
+- claim: The OCR If Missing parameter accepts a Match object or a Match array.
+  expected: 'yes'
+  labeled_by: claude
+- claim: The Row method returns null if the anchor isn't present in the document.
+  expected: 'yes'
+  labeled_by: claude
+- claim: Sensible recommends specifying a small Page Lines Limit relative to the typical number of lines per page.
+  expected: 'no'
+  labeled_by: claude
+- claim: Choose text that's in every document of this type, but that can variably need OCR.
+  expected: 'no'
+  labeled_by: claude
+- claim: In the example document, the premium table is a screenshot from the carrier's portal.
+  expected: 'no'
+  labeled_by: claude
+- claim: For information about additional OCR options, see OCR.
+  expected: 'no'
+  labeled_by: claude
+- claim: Examples of text images include handwriting and scanned text.
+  expected: 'no'
+  labeled_by: claude
+- claim: This topic covers advanced cases.
+  expected: 'no'
+  labeled_by: claude
+- claim: Choose OCR If Missing text that's in every document of this type, but that can variably need OCR.
+  expected: 'no'
+  labeled_by: claude

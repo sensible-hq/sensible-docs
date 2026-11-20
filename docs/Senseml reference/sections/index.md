@@ -1,11 +1,11 @@
 ---
 title: Sections
-excerpt: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
+excerpt: Extract nested or repeating data and nested tables, such as claims in a loss run, into an array of objects by defining repeating sections.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Use Sections to extract repeated or complex document elements like claims into structured arrays using horizontal or vertical section configurations.
+  description: Extract nested or repeating data and nested tables, such as claims in a loss run, into an array of objects by defining repeating sections.
   robots: index
 next:
   description: ''

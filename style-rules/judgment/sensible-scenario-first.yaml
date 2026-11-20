@@ -1,0 +1,44 @@
+# Judgment spec for Jev. Registry entry: sensible-scenario-first in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-scenario-first
+source:
+  file: .claude/preferences/editorial-preferences.md
+  heading: Framing new features
+  quote: Lead with what the user experiences or what Sensible does, then explain how to configure it.
+applies: the first sentence of a new section or of a new paragraph that introduces a feature
+check:
+  kind: judgment
+  detector: 'first sentence of the section names a config element: ''\b(?:spec|config|parameter|matcher|selector|attachment
+    spec)\b'''
+  precheck: skip parameter tables and sections whose heading is a parameter name
+  question:
+    type: choice
+    ask: Does the passage start from the reader's situation or from the mechanism?
+    criteria:
+      scenario: starts with what the reader has or wants ("If your email attachments include files containing several
+        documents…")
+      mechanism: starts with configuration ("You can configure an attachment spec to use portfolio extraction…");
+        reorder
+      other: none of these
+  find:
+    kind: section-openers
+    pattern: \b(?:spec|config|configure|parameter|matcher|selector)\b
+  verdicts:
+    violation:
+    - mechanism
+examples:
+  fail: You can configure an attachment spec to use portfolio extraction, where Sensible treats a single attachment
+    as a multi-document file.
+  pass: If your email attachments include single files containing several documents, Sensible can segment each file
+    and extract each document separately.
+fix: open with the reader's situation or goal, then the configuration that serves it
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 3
+  agreement: 1.0
+  choice_agreement: 0.83
+  cases: 6
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-scenario-first.yaml

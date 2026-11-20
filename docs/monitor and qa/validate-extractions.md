@@ -1,11 +1,11 @@
 ---
 title: Validating extractions
-excerpt: Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
+excerpt: Write JsonLogic validation rules to check extracted data, including field-level validation of values and sums, and flag extractions for human review.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Write JsonLogic-based validations in Sensible to quality-control document extractions, flag fields for human review, and test values and sums.
+  description: Write JsonLogic validation rules to check extracted data, including field-level validation of values and sums, and flag extractions for human review.
   robots: index
 next:
   description: ''

@@ -1,0 +1,7 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: warning
+action:
+  name: replace
+swap:
+  'Extractions history|Extractions tab': Extraction history

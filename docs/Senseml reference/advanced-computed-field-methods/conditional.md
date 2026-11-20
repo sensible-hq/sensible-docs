@@ -1,13 +1,11 @@
 ---
 title: Conditional execution
-excerpt: Learn how to use conditional field execution with JsonLogic to handle document
-  variations and extract different fields based on pass/fail conditions.
+excerpt: Handle document variations and extract different fields based on pass/fail conditions.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to use conditional field execution with JsonLogic to handle
-    document variations and extract different fields based on pass/fail conditions.
+  description: Handle document variations and extract different fields based on pass/fail conditions.
   robots: index
 next:
   description: ''

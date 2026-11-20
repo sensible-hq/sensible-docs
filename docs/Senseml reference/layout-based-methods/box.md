@@ -1,13 +1,11 @@
 ---
 title: Box
-excerpt: Extract text from bordered boxes in documents using the Box method, with
-  parameters for position, offset, overlap, and border detection settings.
+excerpt: Extract text from bordered boxes in documents, with parameters for position, offset, overlap, and border detection settings.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extract text from bordered boxes in documents using the Box method,
-    with parameters for position, offset, overlap, and border detection settings.
+  description: Extract text from bordered boxes in documents, with parameters for position, offset, overlap, and border detection settings.
   robots: index
 next:
   description: ''

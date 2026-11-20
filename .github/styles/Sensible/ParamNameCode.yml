@@ -1,0 +1,7 @@
+extends: existence
+message: "Write the name in spaced Title Case without backticks, for example 'the Custom Compute method'."
+level: warning
+nonword: true
+scope: raw
+tokens:
+  - '\bthe `[a-z]+(?:[A-Z][a-z0-9]*)+` (?:method|preprocessor|parameter|computed field method)'

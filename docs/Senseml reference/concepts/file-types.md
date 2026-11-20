@@ -1,11 +1,15 @@
 ---
 title: Supported file types
-excerpt: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification. Support has nuances.
+excerpt: >-
+  Extract data from PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files. Support
+  for each file format varies by operation.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Sensible supports PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files for extraction and classification. Support has nuances.
+  description: >-
+    Extract data from PDF, Word, Excel, CSV, JPEG, PNG, and TIFF files. Support
+    for each file format varies by operation.
   robots: index
 next:
   description: ''
@@ -16,7 +20,7 @@ Sensible supports the following file types:
 
 - PDF
 - Microsoft Word (DOC and DOCX)
-- Spreadsheet formats  (XLSX, XLS, XLSM, and CSV)
+- Spreadsheet formats  (XLSX, XLS, XLSM, XLSB, and CSV)
 - Single-page image formats (JPEG, PNG)
 - Multi-page image formats (TIFF)
 
@@ -27,24 +31,34 @@ For more information, see the following tables.
 | | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
   | --- | --- | --- | --- | --- | --- |
   | **Sensible app's Extract tab** | ✅ | ✅ | ✅ | ✅ | ❌ |
-  | **Single-file extraction with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
-  | **Portfolio extraction** | ✅ | ✅ | ❌ | ✅<sup>1</sup> | ❌ |
+  | **Single-file extraction with SDKs or API** | ✅ | ✅ | ✅<sup>1</sup> | ✅ | ✅ |
+  | **Portfolio extraction** | ✅ | ✅ | ❌ | ✅<sup>2</sup> | ❌ |
   | **Email bodies** | ✅ | ✅ | ✅ | ✅ | n/a |
   | **Email attachments** | ✅ | ✅ | ✅ | ✅ | ✅ |
-  | **Classification by type with SDKs or API** | ✅ | ✅ | ✅ | ✅ | ✅ |
+  | **Classification by type with SDKs or API** | ✅ | ✅ | ✅<sup>3</sup> | ✅ | ✅ |
 
 **SenseML extraction method**
 
-| | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
-  | --- | --- | --- | --- | --- | --- |
-  | **Methods that render non-text pixels<sup>2</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
-  | **NLP Table method,<br/>Fixed Table method<sup>3</sup>** | ✅ | ✅ | ❌ | ✅ | ❌ |
-  | **Extraction of text that requires OCR** | ✅ | ✅ | ❌ | ✅ | ✅ |
+|                                                                   | PDF | Microsoft Word | Spreadsheet formats | JPEG, PNG | TIFF |
+| ----------------------------------------------------------------- | --- | -------------- | ------------------- | --------- | ---- |
+| **Methods that render non-text pixels**<sup>**4**</sup>           | ✅   | ✅              | ❌                   | ✅         | ❌    |
+| **NLP Table method,**<br />**Fixed Table method**<sup>**5**</sup> | ✅   | ✅              | ❌                   | ✅         | ❌    |
+| **Extraction of text that requires OCR**                          | ✅   | ✅              | ❌                   | ✅         | ✅    |
 
-
-1. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
-2. Methods that render non-text image pixels include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
-3. As alternatives to these Table methods, use the Fixed Table method or the List method.
+1. For XLS, XLSM, and XLSB files, use an asynchronous extraction endpoint, such as [Extract from URL](ref:extract-from-url) or [Generate an upload URL](ref:generate-an-upload-url). If you use the synchronous [Extract data from a document](ref:extract-data-from-a-document) endpoint, base64-encode the file in the request body's `document` field instead of sending the file bytes as the request body. Specify spreadsheet content types in lowercase, for example, `application/vnd.ms-excel.sheet.binary.macroenabled.12`. For CSV files, the asynchronous extraction endpoints require the `content_type` body parameter, `text/csv`.
+2. If you're processing portfolios and expect a mix of image- and non-image files, then you can process single-page image files as portfolios. Sensible returns the first document it identifies in the image file.
+3. Sensible doesn't classify CSV files. To classify XLS, XLSM, or XLSB files with the API, specify the XLSX content type, `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`. Sensible detects the file's actual format. The Python SDK classifies these files without you specifying the content type.&#x20;
+   {/* Internal note: application/pdf also works for classifying XLS, XLSM, XLSB, and XLSX (checked 2026-11-12; the Python SDK hard-codes application/pdf for every file, which is why it classifies these without changes). CSV labeled application/pdf still isn't classified. Not documented on purpose: specifying XLSX is a workaround, so the footnote names one content type rather than every one that works. Sensible doesn't promise to correct a wrong label. */}
+   {/* code test {"testId": "classify_excel_formats_as_xlsx", "description": "XLS, XLSM, and XLSB classify when sent as XLSX or by the Python SDK, but not with their own content types"} */}
+   {/* fixture {"name": "fixture_spreadsheet_classify"} */}
+   {/* expect {"compare": "classification", "requests": [{"file": "commission_statement.xlsx", "as": "xlsx", "classified": true}, {"file": "commission_statement.xls", "as": "xlsx", "classified": true}, {"file": "commission_statement.xlsm", "as": "xlsx", "classified": true}, {"file": "commission_statement.xlsb", "as": "xlsx", "classified": true}, {"file": "commission_statement.xlsb", "as": "pdf", "classified": true, "label": "as the Python SDK sends it"}, {"file": "commission_statement.xls", "as": "xls", "classified": false}, {"file": "commission_statement.xlsm", "as": "xlsm", "classified": false}, {"file": "commission_statement.xlsb", "as": "xlsb", "classified": false}]} */}
+   {/* code test end */}
+   {/* code test {"testId": "classify_csv_not_supported", "description": "Sensible doesn't classify CSV files"} */}
+   {/* fixture {"name": "fixture_spreadsheet_classify"} */}
+   {/* expect {"compare": "classification", "requests": [{"file": "commission_statement.csv", "as": "csv", "classified": false}, {"file": "commission_statement.csv", "as": "pdf", "classified": false, "label": "as the Python SDK sends it"}]} */}
+   {/* code test end */}
+4. Methods that render non-text image pixels include pixel-based methods, such as Box, Checkbox, Nearest Checkbox, and Signature methods, [multimodal](doc:query-group#parameters) LLM-based methods, and image coordinates returned by the Document Range method.
+5. As alternatives to these Table methods, use the Fixed Table method or the List method.
 
 ## File sizes
 
@@ -57,6 +71,8 @@ Sensible supports the following file sizes:
 | Classification                  | 4.5 MB                                            | 4.5 MB                            |
 
 ## File conversions
+
+When you submit a document to Sensible, it performs the following file conversions:
 
 * **Word documents**: Sensible converts the document to PDF before processing it.
 * **Email bodies**: Sensible converts the body to PDF before processing it.

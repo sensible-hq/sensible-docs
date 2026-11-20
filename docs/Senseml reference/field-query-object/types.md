@@ -1,14 +1,11 @@
 ---
 title: Types
-excerpt: Learn how to filter and format extracted data using Sensible's Type parameter,
-  including address, boolean, currency, date, and other built-in field types.
+excerpt: 'Normalize data: filter and format extracted values by data type, such as date, currency, and address, with custom date formats.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how to filter and format extracted data using Sensible's Type
-    parameter, including address, boolean, currency, date, and other built-in field
-    types.
+  description: 'Normalize data: filter and format extracted values by data type, such as date, currency, and address, with custom date formats.'
   robots: index
 next:
   description: ''

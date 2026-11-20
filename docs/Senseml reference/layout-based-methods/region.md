@@ -1,13 +1,11 @@
 ---
 title: Region
-excerpt: Extracts data from a rectangular region defined in inches using the Region
-  SenseML method, with parameters for position, size, and overlap thresholds.
+excerpt: 'Extract text from a fixed position: a rectangle set in inches from an anchor, for coordinate-based extraction. Or capture the region as an image.'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Extracts data from a rectangular region defined in inches using the
-    Region SenseML method, with parameters for position, size, and overlap thresholds.
+  description: 'Extract text from a fixed position: a rectangle set in inches from an anchor, for coordinate-based extraction. Or capture the region as an image.'
   robots: index
 next:
   description: ''

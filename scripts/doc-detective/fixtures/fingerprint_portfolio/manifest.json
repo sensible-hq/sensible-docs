@@ -1,0 +1,203 @@
+{
+  "description": "Test-account fixtures for the fingerprint.md 'Troubleshooting portfolio fingerprints' table and the 'Alternate wordings' and 'Prefer match arrays to single-match tests' tips (PR #727). Each document type holds exactly one config, so configs can't affect each other's segmentation. Fixture doc types, configs, and reference documents are prefixed `fixture_`, so nobody deletes them in the app by accident; the code-test runner refuses fixtures without the prefix. Every fixture doc type has at least one reference document, so you can open it in the SenseML editor. Paths are relative to this folder; a reference document is either `file` (in this folder) or `docs_pdf` (a file name in assets/pdfs/, used in place).",
+  "document_types": [
+    {
+      "doctype": "fixture_fp_demo_first_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "fixture_first_fails",
+          "file": "fixture_fp_demo_first_fails.fixture_first_fails.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_first_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_demo_last_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "fixture_last_fails",
+          "file": "fixture_fp_demo_last_fails.fixture_last_fails.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_last_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_demo_every_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "fixture_every_fails",
+          "file": "fixture_fp_demo_every_fails.fixture_every_fails.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_every_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_demo_any_fails.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints)",
+      "configs": [
+        {
+          "name": "fixture_any_fails",
+          "file": "fixture_fp_demo_any_fails.fixture_any_fails.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_any_fails",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_demo_any_alternate.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Alternate wordings)",
+      "configs": [
+        {
+          "name": "fixture_any_alternate",
+          "file": "fixture_fp_demo_any_alternate.fixture_any_alternate.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_any_alternate",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_portfolio_chained.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
+      "configs": [
+        {
+          "name": "fixture_chained",
+          "file": "fixture_fp_portfolio_chained.fixture_chained.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_chained",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_portfolio_flat_array.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
+      "configs": [
+        {
+          "name": "fixture_flat_array",
+          "file": "fixture_fp_portfolio_flat_array.fixture_flat_array.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_flat_array",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_portfolio_separate_tests.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Tips > Prefer match arrays to single-match tests): separate tests vs one test, verified 2026-10-14",
+      "configs": [
+        {
+          "name": "fixture_separate_tests",
+          "file": "fixture_fp_portfolio_separate_tests.fixture_separate_tests.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_separate_tests",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_pmd_auto.doctype.json",
+      "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
+      "configs": [
+        {
+          "name": "fixture_auto",
+          "file": "fixture_fp_pmd_auto.fixture_auto.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio",
+          "configuration": "fixture_auto",
+          "docs_pdf": "portfolio.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_pmd_loss.doctype.json",
+      "source": "docs/document extraction/portfolio.md (Fingerprint example): fingerprint only, no fields",
+      "configs": [
+        {
+          "name": "fixture_loss",
+          "file": "fixture_fp_pmd_loss.fixture_loss.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio",
+          "configuration": "fixture_loss",
+          "docs_pdf": "portfolio.pdf"
+        }
+      ]
+    },
+    {
+      "doctype": "fixture_fp_demo_every_split.doctype.json",
+      "source": "docs/Senseml reference/config-settings/fingerprint.md (Troubleshooting portfolio fingerprints, every row: a failing page in the middle splits the document)",
+      "configs": [
+        {
+          "name": "fixture_every_split",
+          "file": "fixture_fp_demo_every_split.fixture_every_split.config.json",
+          "publish_as": "production"
+        }
+      ],
+      "references": [
+        {
+          "name": "fixture_portfolio_bank_paystub_tax",
+          "configuration": "fixture_every_split",
+          "docs_pdf": "portfolio_bank_paystub_tax.pdf"
+        }
+      ]
+    }
+  ]
+}

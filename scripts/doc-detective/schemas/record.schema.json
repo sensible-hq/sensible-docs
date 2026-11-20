@@ -1,0 +1,293 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Code test record",
+  "description": "What one code test compared and decided. Written by code_tests.py to output/code-tests/<testId>.json; read by every report. Each claim kind's own section is in schemas/kinds/<kind>.schema.json; record.py adds them, and the allowed kinds, before validating.",
+  "type": "object",
+  "required": [
+    "test_id",
+    "kind",
+    "description",
+    "file",
+    "document_url",
+    "status"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "test_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "kind": {
+      "type": "string",
+      "description": "The claim kind (codetests/kinds/): \"output\" compares the documented output; the others are an expect marker's \"compare\". record.py fills in the allowed values from the registry, and adds each kind's section from schemas/kinds/<kind>.schema.json."
+    },
+    "description": {
+      "type": "string"
+    },
+    "file": {
+      "type": "string"
+    },
+    "document_url": {
+      "type": "string"
+    },
+    "editor": {
+      "type": "string",
+      "description": "Output tests: the SenseML editor, opened on the test's sample doc type, its config, and the example document. The doc type stays until the test's next run."
+    },
+    "document_from": {
+      "type": "string",
+      "description": "Another code test whose document this one reuses"
+    },
+    "blank_document": {
+      "const": true,
+      "description": "The test names no document, so it ran on a blank page (document_url is the blank page's)"
+    },
+    "config_fragment": {
+      "type": "boolean",
+      "description": "The config is a one-field excerpt, run wrapped"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "warn",
+        "fail"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Failure category, from codetests/errors.py"
+    },
+    "message": {
+      "type": "string"
+    },
+    "overall": {
+      "type": "string",
+      "description": "identical, matches, not identical (...), mismatch, or undecided: the judge errored"
+    },
+    "layout": {
+      "type": "object",
+      "required": [
+        "fields",
+        "mismatches"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mismatches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "llm_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "field",
+          "kind",
+          "prompt",
+          "type",
+          "judged"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "llm",
+              "fallback"
+            ]
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "judged": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/judged"
+            }
+          }
+        }
+      }
+    },
+    "not_checked": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "left_out": {
+      "type": "object",
+      "required": [
+        "fields",
+        "nested_keys"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nested_keys": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "judge": {
+      "type": "object",
+      "required": [
+        "model",
+        "system_prompt",
+        "user_prompt",
+        "raw_output"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "model": {
+          "type": "string"
+        },
+        "system_prompt": {
+          "type": "string"
+        },
+        "user_prompt": {
+          "type": "string"
+        },
+        "raw_output": {
+          "type": "string"
+        }
+      }
+    },
+    "envelope": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "within",
+            "outside",
+            "stale",
+            "missing"
+          ]
+        },
+        "runs": {
+          "type": "integer"
+        },
+        "built": {
+          "type": "string"
+        },
+        "breaches": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "slots": {
+          "type": "object"
+        }
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "source": {
+            "enum": [
+              "judge",
+              "envelope",
+              "fixture"
+            ]
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "judged": {
+      "type": "object",
+      "required": [
+        "field",
+        "path",
+        "type",
+        "documented",
+        "actual",
+        "verdict",
+        "match",
+        "confidence",
+        "reasoning"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "documented": {},
+        "actual": {},
+        "verdict": {
+          "enum": [
+            "pass",
+            "warn",
+            "fail",
+            "error"
+          ],
+          "description": "The runner's decision: pass, warn (partial or low confidence), fail, or error (the judge couldn't decide)"
+        },
+        "match": {
+          "enum": [
+            "pass",
+            "fail",
+            "partial",
+            "error"
+          ],
+          "description": "The judge's own answer"
+        },
+        "confidence": {
+          "type": "number"
+        },
+        "reasoning": {
+          "type": "string"
+        },
+        "judge_claim": {
+          "type": "string"
+        },
+        "judge_observed": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

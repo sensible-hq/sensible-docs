@@ -1,0 +1,35 @@
+# Labeled cases for sensible-word-list: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-word-list
+cases:
+- text: See the table above for the defaults.
+  mark: above
+  expected: targeted-sense
+  labeled_by: claude
+- text: Enter the file name of the PDF.
+  mark: file name
+  expected: targeted-sense
+  labeled_by: claude
+- text: Click on Publish to save the config.
+  mark: Click on
+  expected: targeted-sense
+  labeled_by: claude
+- text: Use the Region method in order to extract a fixed area.
+  mark: in order to
+  expected: targeted-sense
+  labeled_by: claude
+- text: The anchor appears above the value on the page.
+  mark: above
+  expected: other-sense
+  labeled_by: claude
+- text: Set Start to above to search the lines above the anchor.
+  mark: above
+  expected: other-sense
+  labeled_by: claude
+- text: The lines touch the box border.
+  mark: touch
+  expected: other-sense
+  labeled_by: claude
+- text: As shown above, the output includes a confidence score.
+  mark: above
+  expected: targeted-sense
+  labeled_by: claude

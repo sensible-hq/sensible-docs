@@ -1,0 +1,20 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_explicit_actor": {
+      "type": "choice",
+      "choice": "adjective",
+      "confidence": 0.64,
+      "probabilities": {
+        "user-hidden": 0.02,
+        "sensible-hidden": 0.13,
+        "adjective": 0.73,
+        "other": 0.12
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 422,
+    "output_tokens": 56
+  }
+}

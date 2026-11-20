@@ -1,0 +1,19 @@
+# Labeled cases for sensible-label-method: the choice a reviewer expects. labeled_by: claude means Frances hasn't reviewed it.
+id: sensible-label-method
+cases:
+- text: The Box, Column, Row, and Label methods support the Stop parameter.
+  expected: listed
+  source: memory label-method
+  labeled_by: claude
+- text: The Box, Column, and Row methods support the Stop parameter.
+  expected: other
+  source: memory label-method
+  labeled_by: claude
+- text: Like the Label method, the Row method finds text near the anchor.
+  expected: listed
+  source: claude
+  labeled_by: claude
+- text: The Label method is the default for simple key-value pairs.
+  expected: other
+  source: claude (page about Label)
+  labeled_by: claude

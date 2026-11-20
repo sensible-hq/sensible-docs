@@ -1,11 +1,11 @@
 ---
 title: Row
-excerpt: Row method matches text lines horizontally aligned with an anchor line.
+excerpt: Extract text next to a label, such as the value in a key-value pair, or every line to the left or right of an anchor on the same row.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Row method matches text lines horizontally aligned with an anchor line.
+  description: Extract text next to a label, such as the value in a key-value pair, or every line to the left or right of an anchor on the same row.
   robots: index
 next:
   description: ''

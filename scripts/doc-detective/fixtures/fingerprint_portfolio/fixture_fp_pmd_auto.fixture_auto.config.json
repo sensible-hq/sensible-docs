@@ -1,0 +1,22 @@
+{
+  "fingerprint": {
+    "tests": [
+      {
+        "page": "first",
+        "match": [
+          [
+            {
+              "text": "anycocarinsurance.com",
+              "type": "startsWith"
+            },
+            {
+              "text": "outline of quoted",
+              "type": "startsWith"
+            }
+          ]
+        ]
+      }
+    ]
+  },
+  "fields": []
+}

@@ -144,6 +144,9 @@ end
 # #################
 options = {
   :log_level => :info,
+  # Status 0 means the request never got a response (timeout, SSL or DNS error),
+  # which is almost always a transient runner problem rather than a dead link.
+  :http_status_ignore => [0],
   :url_ignore => [
     "https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api",
     "https://platform.openai.com/tokenizer",

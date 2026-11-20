@@ -1,0 +1,40 @@
+# Judgment spec for Jev. Registry entry: sensible-label-method in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-label-method
+source:
+  memory: project_label_method_near_deprecated
+  quote: Don't mention it in new doc text, for example in lists of other methods that share a parameter.
+applies: lines added in a docs PR
+check:
+  kind: judgment
+  detector: '''\bLabel\b'' in an added line that also names another method (Box, Column, Row, Region, …)'
+  precheck: skip label.md itself and existing lines the PR didn't add
+  question:
+    type: choice
+    ask: Does the new text list the Label method among other methods?
+    criteria:
+      listed: yes; drop Label from the list
+      other: no, or the page is about Label
+  find:
+    kind: sentences
+    added_only: true
+    exclude_paths:
+    - '**/label.md'
+    pattern: \bLabel\b[^.]*\b(?:Box|Column|Row|Region|Intersection|Document Range)\b|\b(?:Box|Column|Row|Region|Intersection)\b[^.]*\bLabel\b
+  verdicts:
+    violation:
+    - listed
+examples:
+  fail: The Box, Column, Row, and Label methods support this parameter.
+  pass: The Box, Column, and Row methods support this parameter.
+fix: remove Label from the list
+calibration:
+  precision: 1.0
+  recall: 0.5
+  violations: 2
+  agreement: 0.75
+  choice_agreement: 0.75
+  cases: 4
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-label-method.yaml

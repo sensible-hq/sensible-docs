@@ -1,0 +1,39 @@
+# Judgment spec for Jev. Registry entry: sensible-no-table-for-unconfigurable in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-no-table-for-unconfigurable
+source:
+  file: .claude/preferences/editorial-preferences.md
+  heading: Information architecture
+  quote: If the user can't directly configure a set of values via the API or UI, don't document those values in
+    a table.
+applies: tables added or changed in a docs PR
+check:
+  kind: judgment
+  detector: a Markdown table in the diff whose header isn't a parameter table (first column isn't key or id)
+  precheck: skip comparison tables of options the reader chooses between, and API response field tables
+  question:
+    type: choice
+    ask: Can the reader set the values in this table through the API, a config, or the app?
+    criteria:
+      configurable: yes; a table is right
+      unconfigurable: no; the values are set by Sensible or during processor setup. Use prose.
+      other: none of these
+  find:
+    kind: added-tables
+  verdicts:
+    violation:
+    - unconfigurable
+examples:
+  fail: A table of attachment filter criteria (All attachments, File type, Position) that users can't set themselves.
+  pass: A parameter table for a method's settings.
+fix: replace the table with a sentence that names the behavior
+calibration:
+  precision: 1.0
+  recall: 1.0
+  violations: 2
+  agreement: 1.0
+  choice_agreement: 0.5
+  cases: 4
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-no-table-for-unconfigurable.yaml

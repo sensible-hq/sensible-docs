@@ -202,7 +202,7 @@
       "delete": {
         "operationId": "delete-document-type",
         "summary": "Delete document type",
-        "description": "Delete a document type and everything it contains, for example configurations and reference PDfs,\nbut not its extraction history displayed in the Sensible app.\n",
+        "description": "Delete a document type and everything it contains, for example configurations and reference documents,\nbut not its extraction history displayed in the Sensible app.\n",
         "tags": [
           "Document type"
         ],
@@ -660,7 +660,7 @@
       "post": {
         "operationId": "create-reference-document",
         "summary": "Create reference document",
-        "description": "Specify document metadata in the request, and get back an `upload_url` at which to put the PDF, for example with `curl -T ./sample.pdf`.",
+        "description": "Specify document metadata in the request, and get back an `upload_url` at which to put the document, for example with `curl -T ./sample.pdf`.",
         "tags": [
           "Reference document"
         ],
@@ -1069,9 +1069,9 @@
             "enum": [
               "microsoft",
               "amazon",
-              "google",
-              "lazarus"
+              "google"
             ],
+            "x-internal-note": "DEFAULT ENGINE: Amazon is the default for new doc types. Don't misread the engine's DEFAULT_OCR_SERVICE_TYPE = \"microsoft\" (sensible-hq/sensible src/engine/standardized-text/index.ts) as the doc type default. That fallback only applies when a doc type has no stored ocr_engine, such as older doc types or doc types created through the API without one; those still use Microsoft. Every app flow that creates a doc type stores ocr_engine: \"amazon\" explicitly (sensible-hq/sensible-app src/state/server/DocumentType.ts and src/components/dashboard/QuickStartFullModal.tsx). The app's DocTypeForm.tsx help text claims Microsoft is the default; that text is wrong. LAZARUS: The backend still accepts \"lazarus\" (src/engine/standardized-text/readers/schemas.ts) but omitted here because it's deprecated: Lazarus no longer provides OCR services, so since sensible-hq/sensible#3468 the engine routes \"lazarus\" to the same Microsoft Document Intelligence reader as \"microsoft\". Existing doc types that specify it keep working. Documented as deprecated on the ocr-engine page.",
             "type": "string",
             "description": "For information about each OCR engine, see [OCR engine](doc:ocr-engine).\n"
           },
@@ -1179,7 +1179,7 @@
           },
           "converted_url": {
             "type": "string",
-            "description": "If present, the URL to GET the PDF Sensible converted this reference document to (present only when the uploaded document wasn't already a PDF)"
+            "description": "If present, the URL to GET the PDF Sensible converted this reference document to (present only when Sensible converted the document to PDF)"
           }
         },
         "required": [
@@ -1211,6 +1211,7 @@
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
               "application/vnd.ms-excel",
               "application/vnd.ms-excel.sheet.macroenabled.12",
+              "application/vnd.ms-excel.sheet.binary.macroenabled.12",
               "text/csv",
               "application/json"
             ],

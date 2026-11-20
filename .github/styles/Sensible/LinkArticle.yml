@@ -1,0 +1,7 @@
+extends: existence
+message: "The article 'a' doesn't match the plural link text. Make them agree."
+level: warning
+nonword: true
+scope: raw
+tokens:
+  - '\b[Aa] \[[A-Za-z]+[a-rt-z]s\]\((?:doc|reference):'

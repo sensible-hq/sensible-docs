@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_gerunds": {
+      "type": "choice",
+      "choice": "noun",
+      "confidence": 0.4,
+      "probabilities": {
+        "nominalization": 0.22,
+        "noun": 0.6,
+        "other": 0.18
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 394,
+    "output_tokens": 45
+  }
+}

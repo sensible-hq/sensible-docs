@@ -1,14 +1,11 @@
 ---
 title: Intelligent document processing
-excerpt: Learn how intelligent document processing automates structured data extraction
-  from documents to handle variability across real-world business document types.
+excerpt: Intelligent document processing (IDP) automates data extraction. Use probabilistic or deterministic techniques depending on document variability.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Learn how intelligent document processing automates structured data
-    extraction from documents to handle variability across real-world business document
-    types.
+  description: Intelligent document processing (IDP) automates data extraction. Use probabilistic or deterministic techniques depending on document variability.
   robots: index
 next:
   description: ''

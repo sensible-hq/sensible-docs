@@ -20,15 +20,15 @@ if "$vale" ls-config >/dev/null 2>&1; then pass ".vale.ini loads"; else fail ".v
 [ -d .github/styles/Google ] && pass "Google style is committed" || fail ".github/styles/Google is missing"
 
 echo "Hook"
-cmd="$(jq -r '.hooks.PostToolUse[]?.hooks[]? | select(.command | contains("vale-check")) | .command' .claude/settings.json 2>/dev/null)"
+cmd="$(jq -r '.hooks.PostToolUse[]?.hooks[]? | select(.command | contains("vale_gate")) | .command' .claude/settings.json 2>/dev/null)"
 if [ -z "$cmd" ]; then
-  fail "no vale-check PostToolUse hook in .claude/settings.json"
+  fail "no vale_gate hook in .claude/settings.json"
 else
   pass "wired up in .claude/settings.json"
   # Runs the hook the way Claude Code does: /bin/sh, the JSON event on stdin,
   # and a bare PATH, so it also proves the ~/.local/bin fallback works
   hook() {
-    printf '{"tool_name":"Edit","tool_input":{"file_path":"%s"}}' "$1" |
+    printf '{"hook_event_name":"PostToolUse","tool_name":"Edit","tool_input":{"file_path":"%s"}}' "$1" |
       env -i HOME="$HOME" PATH=/usr/bin:/bin CLAUDE_PROJECT_DIR="$root" /bin/sh -c "$cmd" 2>&1
   }
   probe="$root/docs/vale-doctor-probe.md"
@@ -46,10 +46,16 @@ else
 
   printf '# Probe\n\nWe will utilize this feature.\n' >"$outside"
   out="$(hook "$outside")"; code=$?
-  [ "$code" -eq 0 ] && [ -z "$out" ] && pass "ignores Markdown outside docs/ and reference/" || fail "file outside docs/ gave exit $code: $(head -1 <<<"$out")"
+  [ "$code" -eq 0 ] && [ -z "$out" ] && pass "ignores Markdown outside docs/" || fail "file outside docs/ gave exit $code: $(head -1 <<<"$out")"
 
   out="$(hook "$root/.claude/settings.json")"; code=$?
   [ "$code" -eq 0 ] && pass "ignores non-Markdown files" || fail "non-Markdown file gave exit $code"
+
+  printf '# Probe\n\nYou can use this feature.\n' >"$probe"
+  out="$(printf '{"hook_event_name":"PreToolUse","session_id":"doctor-%s","tool_name":"Edit","tool_input":{"file_path":"%s","old_string":"this feature.","new_string":"this feature \u2014 now."}}' "$$" "$probe" |
+    env -i HOME="$HOME" PATH=/usr/bin:/bin CLAUDE_PROJECT_DIR="$root" /bin/sh -c "$cmd" 2>&1)"
+  grep -q '"permissionDecision": "deny"' <<<"$out" && pass "denies an edit that adds a blocking-rule hit (pre-write)" ||
+    fail "pre-write gate didn't deny an em dash: $(head -c 200 <<<"$out")"
 fi
 
 echo "Settings that switch hooks off"

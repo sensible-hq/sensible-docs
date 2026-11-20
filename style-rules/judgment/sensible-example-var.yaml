@@ -1,0 +1,40 @@
+# Judgment spec for Jev. Registry entry: sensible-example-var in style-rules/registry.yaml.
+# check.find: the detector judge.py runs. check.verdicts: the choices that break the rule.
+id: sensible-example-var
+source:
+  file: .claude/sessions/xml-postprocessor-docs/friction-log.md
+  heading: 8. attrs example used a hardcoded constant instead of var
+  quote: always use
+applies: SenseML code examples in docs/
+check:
+  kind: judgment
+  detector: 'an "attrs" or JsonLogic object in a json code block whose values are string or number literals rather
+    than {"var": …}'
+  precheck: skip examples whose point is a constant (the Constant method)
+  question:
+    type: choice
+    ask: Does the example hardcode a value the reader would normally pull from the extraction?
+    criteria:
+      hardcoded: 'yes; use {"var": "field.type"} or the matching path'
+      intended: no; the constant is the point of the example
+      other: none of these
+  find:
+    kind: json-blocks
+    pattern: '"attrs"\s*:\s*\{[^{}]*"\w+"\s*:\s*(?:"[^"]*"|\d+)'
+  verdicts:
+    violation:
+    - hardcoded
+examples:
+  fail: '"attrs": { "type": "string" }'
+  pass: '"attrs": { "type": { "var": "field.type" } }'
+fix: 'replace the literal with {"var": …} pointing at the extracted value'
+calibration:
+  precision: 0.0
+  recall: 0.0
+  violations: 2
+  agreement: 0.5
+  choice_agreement: 0.25
+  cases: 4
+  model: jev-1.14.0
+  date: '2026-11-18'
+  labels: labels/sensible-example-var.yaml

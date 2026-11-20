@@ -1,11 +1,11 @@
 ---
 title: Merge lines
-excerpt: Merge Lines preprocessor documentation covering how to fix oversplit, overlapping, or misaligned lines from poor scans or handwritten text.
+excerpt: Fix broken text lines from poor quality scans and handwriting OCR by merging oversplit, overlapping, or misaligned lines.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Merge Lines preprocessor documentation covering how to fix oversplit, overlapping, or misaligned lines from poor scans or handwritten text.
+  description: Fix broken text lines from poor quality scans and handwriting OCR by merging oversplit, overlapping, or misaligned lines.
   robots: index
 next:
   description: ''

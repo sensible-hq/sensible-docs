@@ -1,0 +1,9 @@
+extends: existence
+message: "Image problem: '%s'. Use ![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/<file>)."
+level: warning
+nonword: true
+scope: raw
+tokens:
+  - 'assets/images/screenshots/'
+  - '!\[(?!Click to enlarge\])[^\]]*\]\(https://raw\.githubusercontent\.com/sensible-hq/sensible-docs/[^)]*\.(?:png|jpe?g|gif)\)'
+  - 'raw\.githubusercontent\.com/sensible-hq/sensible-docs/(?!v0/)[^/\s)]+/assets/images/'

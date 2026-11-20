@@ -3,12 +3,14 @@ name: api-spec
 description: Creates or updates OpenAPI JSON spec files in the /reference directory of sensible-docs, based on backend PRs from sensible-hq/sensible. Use this skill whenever the user provides PR numbers or GitHub URLs from the backend repo and wants to document new API endpoints, update existing endpoint schemas, or add new fields to an existing API reference. Also triggers when the user mentions "new API", "update the spec", "API reference from PRs", "write a spec for [feature]", or provides a list of PRs and asks to document them. This skill handles the end-to-end workflow: reading PRs, extracting API surface changes from diffs and Zod/TypeScript schemas, drafting OpenAPI 3.0.3 JSON, creating supporting markdown files, and updating _order.yaml navigation files.
 ---
 
+Repos and paths come from environment variables in `.claude/settings.json`: `$DOCS_REPO`, `$DOCS_DIR`, `$ENGINE_REPO`, `$APP_REPO`, `$SOURCE_LABELS`. See `.claude/repos.md`.
+
 # Sensible API Spec Skill
 
 **Docs repo**: `sensible-hq/sensible-docs` (local: `/home/franc/GitHub/sensible-docs`)  
 **Backend repo**: `sensible-hq/sensible`  
 **Spec files**: `reference/openapi_*.json`  
-**New spec naming**: `reference/openapi_{domain}.json` (e.g., `openapi_email.json`)
+**New spec naming**: `reference/openapi_{domain}.json` (for example, `openapi_email.json`)
 
 ---
 
@@ -17,7 +19,7 @@ description: Creates or updates OpenAPI JSON spec files in the /reference direct
 Accept PR numbers or GitHub URLs from `sensible-hq/sensible`. Fetch titles in parallel:
 
 ```bash
-gh pr view <number> --repo sensible-hq/sensible --json number,title,mergedAt
+gh pr view <number> --repo "$ENGINE_REPO" --json number,title,mergedAt
 ```
 
 Present a structured summary before doing any more work:
@@ -57,8 +59,8 @@ If the diff output is empty, the live API hasn't changed — either the PR isn't
 The probe script only observes response shapes. For request body changes (new parameters, new query params, new enum values) and to understand the semantics well enough to write good descriptions, also fetch and read the PR:
 
 ```bash
-gh pr view <number> --repo sensible-hq/sensible --json title,body,mergedAt,labels
-gh pr diff <number> --repo sensible-hq/sensible
+gh pr view <number> --repo "$ENGINE_REPO" --json title,body,mergedAt,labels
+gh pr diff <number> --repo "$ENGINE_REPO"
 ```
 
 From the diff, extract:
@@ -75,7 +77,7 @@ From the diff, extract:
 
 Sort each discovered change into one of three buckets:
 
-**New spec** — new route paths that don't exist in any current spec (e.g., `/processors/email/*`). These will become a new `openapi_{domain}.json` file.
+**New spec** — new route paths that don't exist in any current spec (for example, `/processors/email/*`). These will become a new `openapi_{domain}.json` file.
 
 **Update existing spec** — new fields, parameters, or response codes added to routes already documented in an existing spec. Current specs and their route coverage:
 - `openapi_extraction.json` — `/extract/*`, `/generate_upload_url/*`, `/retrieve/*`
@@ -109,17 +111,17 @@ Do this before writing a single line of the spec. Read in parallel.
 
 Read the annotated template before writing anything:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/openapi_template.jsonc
+$DOCS_DIR/.claude/skills/api-spec/openapi_template.jsonc
 ```
 
 Also read the spec structure reference to understand existing schema relationships before drafting any changes:
 ```
-/home/franc/GitHub/sensible-docs/.claude/skills/api-spec/api-code-reference.md
+$DOCS_DIR/.claude/skills/api-spec/api-code-reference.md
 ```
 
 Use the schema relationship trees in `api-code-reference.md` to:
 - Identify which existing schemas a new field or endpoint touches
-- Avoid duplicating schemas that are already shared (e.g. `ExtractionSummaryBase`, `PortfolioBase`)
+- Avoid duplicating schemas that are already shared (for example, `ExtractionSummaryBase`, `PortfolioBase`)
 - Wire new schemas into the correct inheritance chain rather than creating standalone duplicates
 - Confirm which endpoint response shapes are used by the list endpoint vs the retrieval endpoint vs the async pending response
 
@@ -134,13 +136,13 @@ Use it as a skeleton — copy the relevant sections and replace placeholders. Fo
 Read both files before drafting any descriptions or excerpt text:
 
 ```
-/home/franc/GitHub/sensible-docs/.claude/style-guide/writing-rules.md
-/home/franc/GitHub/sensible-docs/.claude/style-guide/glossary.md
+$DOCS_DIR/.claude/style-guide/writing-rules.md
+$DOCS_DIR/.claude/style-guide/glossary.md
 ```
 
 Also read the parameter description guidance in:
 ```
-/home/franc/GitHub/sensible-docs/.claude/style-guide/sentence-word-guidance.md
+$DOCS_DIR/.claude/style-guide/sentence-word-guidance.md
 ```
 Focus on: "Parameter table: how to write each column" and "Sentence construction". The parameter table conventions don't apply literally (this isn't a SenseML page), but the underlying principles — lead with what it does, explicit subjects, gerunds over nominalizations — apply directly to OpenAPI schema property descriptions and endpoint `description` fields.
 
@@ -158,7 +160,7 @@ The top-level structure:
 3. `paths` — all new routes, each with operations for every supported method
 4. `components` — reusable schemas, parameters, request bodies, security scheme
 
-For discriminated union request bodies (e.g., `bodySpec`/`attachmentSpecs` with multiple `kind` values), use `oneOf` with a `discriminator`:
+For discriminated union request bodies (for example, `bodySpec`/`attachmentSpecs` with multiple `kind` values), use `oneOf` with a `discriminator`:
 
 ```json
 "attachmentSpec": {
@@ -184,6 +186,11 @@ Every `description` field in the spec and every `excerpt` in a markdown stub is 
 - **Gerunds** (`writing-rules.md`): "automates extracting" not "automates the extraction of"
 - **Em dashes** (`writing-rules.md`): split compound clauses into two sentences instead
 - **Terse and precise**: no filler ("please note that", "it's important to remember")
+- **No file-support information in descriptions**: don't say in a `description` which file types an endpoint or parameter supports or doesn't, what a file type requires (a parameter, an encoding, a content type workaround), or how support differs by type. Link to [Supported file types](doc:file-types) instead, and put any new file-support fact on that page. File types are fine where they're structural or illustrative:
+  - `enum` values, `example` and `examples`, and `default`
+  - an example in prose, for example "specify the `Content-Type` header, for example, `application/pdf`", or "get Excel files from documents, for example from PDFs"
+  - a concept that really is file-specific, for example a portfolio (a PDF of several documents) or PDF metadata
+  - `x-internal-note`, which isn't published
 
 The `excerpt` in each markdown stub should be copied from the endpoint's `description` in the spec, not rewritten.
 
@@ -268,18 +275,18 @@ If the change is a minor description edit or a new property on a leaf schema (no
 Read `reference/_order.yaml` before editing to see current ordering:
 
 ```bash
-cat /home/franc/GitHub/sensible-docs/reference/_order.yaml
+cat $DOCS_DIR/reference/_order.yaml
 ```
 
 ---
 
 ## Step 8: Generate test scripts from the spec
 
-After writing the spec, generate one curl script per endpoint. Save to `scripts/test/{domain}/` (e.g., `scripts/test/email_processor/`).
+After writing the spec, generate one curl script per endpoint. Save to `scripts/test/{domain}/` (for example, `scripts/test/email_processor/`).
 
 **Template**: copy from `references/curl_script_template.sh` in this skill directory. All scripts must follow this template exactly — it contains the HTTP status code capture, JSON pretty-print with raw fallback, and timestamped output file pattern.
 
-**Naming**: convert `operationId` from kebab-case to snake_case for the filename (e.g., `get-email-processor` → `get_email_processor.sh`).
+**Naming**: convert `operationId` from kebab-case to snake_case for the filename (for example, `get-email-processor` → `get_email_processor.sh`).
 
 **Adapting the template per method**:
 
@@ -308,13 +315,13 @@ Run them to generate output before Step 9.
 Before writing error-case or edge-case scripts, check what the backend test suite already covers so curl scripts extend coverage rather than duplicate it. Run:
 
 ```bash
-gh pr diff <number> --repo sensible-hq/sensible | grep -E "test|spec|describe|it\(" | head -60
+gh pr diff <number> --repo "$ENGINE_REPO" | grep -E "test|spec|describe|it\(" | head -60
 ```
 
 Or search the backend repo for test files related to the new endpoints:
 
 ```bash
-gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
+gh api repos/$ENGINE_REPO/git/trees/main?recursive=1 \
   | python3 -c "import json,sys; [print(f['path']) for f in json.load(sys.stdin)['tree'] if 'test' in f['path'] and 'email' in f['path']]"
 ```
 
@@ -324,7 +331,7 @@ gh api repos/sensible-hq/sensible/git/trees/main?recursive=1 \
 
 **What curl scripts should add (not covered by backend tests):**
 - End-to-end happy paths for every valid input variation (each `kind` variant, optional fields present vs omitted, multiple webhooks)
-- Ordering and positional constraints the schema cannot enforce (e.g., `EnvironmentWebhook` must not be first in the webhooks array — validators pass, only the API catches it)
+- Ordering and positional constraints the schema cannot enforce (for example, `EnvironmentWebhook` must not be first in the webhooks array — validators pass, only the API catches it)
 - 404 behavior for GET/DELETE on nonexistent resources — backend service may be a no-op; route-level behavior needs verification
 - Any behavior the spec explicitly flags as "schema validators will not catch this"
 
@@ -352,7 +359,7 @@ Once the user has run the scripts and output files exist in `scripts/test/{domai
 
 **What to update**:
 - Response schema `example` fields for 200 responses
-- Request body `example` fields for PUT/POST operations, if the GET output reveals realistic field values (e.g., real IDs, real processor names)
+- Request body `example` fields for PUT/POST operations, if the GET output reveals realistic field values (for example, real IDs, real processor names)
 
 **What not to update**:
 - Any `example` that already contains a real-looking value (non-placeholder)
@@ -386,8 +393,10 @@ Before finalizing any spec, verify each item. Add new items here as they're disc
 ### Text edits
 - [ ] **Grep before committing**: Before committing any text change, grep the whole spec file for all instances of the pattern you're replacing — not just the one you found. A single phrase like "extracts against" can appear in schema descriptions, property descriptions, and examples across the file.
 
+- [ ] **File-support information**: grep each spec's descriptions for file type names (PDF, Word, XLSX, XLS, XLSM, XLSB, CSV, JPEG, PNG, TIFF) and content types. Any statement about which types are supported, or what a type requires, moves to the Supported file types page; the description links to it. Examples and file-specific concepts can stay (see "Prose quality in descriptions").
+
 ### Naming consistency
-- [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (e.g. `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
+- [ ] **Casing convention**: Compare every new field name against existing specs. Sensible's extraction API uses `snake_case` (for example, `segment_documents_with`, `ocr_engine`). If a new endpoint uses `camelCase` for the same concept, flag it as a potential inconsistency and confirm with eng before publishing. Do not silently document the inconsistency — surface it.
 - [ ] **Enum values**: Compare enum values against `src/common.ts` (`OCR_ENGINE_TYPES`) and `src/engine/types.ts` (`portfolioSplittingMethodSchema`) — do not invent or omit values.
 
 ### Semantic consistency

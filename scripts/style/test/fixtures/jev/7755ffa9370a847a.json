@@ -1,0 +1,19 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "sensible_against_phrasing": {
+      "type": "choice",
+      "choice": "comparison",
+      "confidence": 1.0,
+      "probabilities": {
+        "extraction-against": 0.0,
+        "comparison": 1.0,
+        "other": 0.0
+      }
+    }
+  },
+  "usage": {
+    "input_tokens": 416,
+    "output_tokens": 50
+  }
+}

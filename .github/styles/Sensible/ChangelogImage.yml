@@ -1,0 +1,7 @@
+extends: existence
+message: 'In changelogs, use <Image alt="Click to enlarge" border={false} src="..." /> rather than Markdown image syntax.'
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '!\[[^\]]*\]\('

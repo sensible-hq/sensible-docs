@@ -11,23 +11,19 @@ Same structure as all SenseML reference pages. Only `title` and `metadata.descri
 ```yaml
 ---
 title: Concept name
-excerpt: ''
+excerpt: '[imperative phrase, 150 characters or fewer: what the reader does; don''t name this page''s own feature]'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Short phrase describing the concept'
+  description: '[same text as excerpt]'
   robots: index
 next:
   description: ''
 ---
 ```
 
-`metadata.description` is 4–7 words, lowercase except proper nouns. Examples:
-- `'Understanding extraction coverage'`
-- `'Control field extraction order'`
-- `'Optical character recognition overview'`
-- `'Understanding text lines in PDFs'`
+`excerpt` and `metadata.description` hold the same text. Follow the excerpt rules in `style-guide-overview.md` (Frontmatter): imperative, 150 characters or fewer, no filler opener, and don't name the page's own feature.
 
 ---
 
@@ -101,7 +97,7 @@ When the concept has multiple configuration approaches, a comparison table in th
 
 ### Code examples
 
-Use fenced ` ```json ` blocks. Inline `//` comments are acceptable — Sensible accepts relaxed JSON.
+Use fenced ` ```json ` blocks. Inline `/* */` comments are acceptable (never `//`) — Sensible accepts relaxed JSON.
 
 Concept pages typically embed code inline rather than using the "Config / Example document / Output" scaffold from reference pages. Truncate illustrative output to 2–3 representative lines + `"..."` if needed.
 
@@ -133,12 +129,12 @@ The following is a starting scaffold. Delete or add H2 sections as needed for th
 ```markdown
 ---
 title: Concept name
-excerpt: ''
+excerpt: '[imperative phrase, 150 characters or fewer: what the reader does; don''t name this page''s own feature]'
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: 'Short phrase describing the concept'
+  description: '[same text as excerpt]'
   robots: index
 next:
   description: ''
@@ -162,7 +158,7 @@ next:
 
 ## File naming and registration
 
-- Filename: `kebab-case.md`, e.g., `anchor-nuances.md`, `field-order.md`
+- Filename: `kebab-case.md`, for example, `anchor-nuances.md`, `field-order.md`
 - Location: `docs/Senseml reference/concepts/`
 - After writing the file, add the slug (filename without `.md`) to `docs/Senseml reference/concepts/_order.yaml`
 - No link needed in `index.md` — it just says "see child topics"

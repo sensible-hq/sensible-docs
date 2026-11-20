@@ -1,0 +1,14 @@
+extends: existence
+message: "Filler: '%s'. State the point directly."
+level: warning
+ignorecase: true
+tokens:
+  - 'please note(?: that)?'
+  - 'it''?s important to (?:remember|note)'
+  - 'it is important to (?:remember|note)'
+  - 'it is worth (?:mentioning|noting)'
+  - 'excited to announce'
+  - 'powerful new'
+  - 'seamless(?:ly)?'
+  - 'in this guide'
+  - 'this guide (?:will )?shows? you'
