@@ -1,10 +1,138 @@
 # Pairs of style rules you've ruled on, so scripts/style/check_overlap.py stops reporting them.
 #
 # - pair: [rule-a, rule-b]
-#   verdict: distinct | duplicate-kept | conflict-accepted
+#   verdict: distinct | duplicate-kept | conflict-accepted | unreviewed
 #   hash: <12 characters; check_overlap.py prints it for an open pair>
 #   note: why, in a sentence
 #
+# `unreviewed` marks a known pair nobody has ruled on yet: the weekly report lists it without failing.
+# Replace it with a real verdict once you've looked.
+#
 # The hash covers both rules' statements. Rewording either one reopens the pair. A conflict where one
 # rule should win belongs in the registry instead, as `overrides: [loser]` on the winner.
-[]
+- pair:
+  - google-latin
+  - sensible-copy-sibling-wording
+  verdict: unreviewed
+  hash: 14d53cbf3808
+  note: found by the first run, 2026-11-20
+- pair:
+  - google-latin
+  - sensible-word-list
+  verdict: unreviewed
+  hash: 1672b7395059
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-against-phrasing
+  - sensible-explicit-actor
+  verdict: unreviewed
+  hash: 971b33909c64
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-context-terms
+  - sensible-internal-terms
+  verdict: unreviewed
+  hash: cbd50cbe1e4d
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-context-terms
+  - sensible-terminology
+  verdict: unreviewed
+  hash: a026feeeaf6c
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-context-terms
+  - sensible-word-list
+  verdict: unreviewed
+  hash: 58d0c757f29a
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-internal-terms
+  verdict: unreviewed
+  hash: 811dea9e8f8c
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-label-method
+  verdict: unreviewed
+  hash: 058b2b7f6d27
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-numbers
+  verdict: unreviewed
+  hash: 4eccc19c3689
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-param-cell-opener
+  verdict: unreviewed
+  hash: 15f7703ee85b
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-terminology
+  verdict: unreviewed
+  hash: c7a6617c8eae
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-word-list
+  verdict: unreviewed
+  hash: 2261798267b8
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-excerpt-length
+  - sensible-terminology
+  verdict: unreviewed
+  hash: dcafcebd370b
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-excerpt-self-naming
+  - sensible-terminology
+  verdict: unreviewed
+  hash: 2f8990abdaf3
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-explicit-actor
+  - sensible-note-blockquote
+  verdict: unreviewed
+  hash: 0005ca3b3c15
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-explicit-actor
+  - sensible-terminology
+  verdict: unreviewed
+  hash: 93c0863c9552
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-internal-terms
+  - sensible-word-list
+  verdict: unreviewed
+  hash: a2dd14f9e8c6
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-link-article
+  - sensible-parent-link
+  verdict: unreviewed
+  hash: f7ff01fe8cd9
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-link-article
+  - sensible-word-list
+  verdict: unreviewed
+  hash: 4554d76de864
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-param-name-code
+  - sensible-word-list
+  verdict: unreviewed
+  hash: e2882a9f427f
+  note: found by the first run, 2026-11-20
+- pair:
+  - sensible-terminology
+  - sensible-word-list
+  verdict: unreviewed
+  hash: b09b21c08bbc
+  note: found by the first run, 2026-11-20

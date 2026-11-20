@@ -1,7 +1,8 @@
 name: Style rule overlap
 
 # Weekly: look for style rules that duplicate, overlap, or contradict each other, using Vale fixtures,
-# wording similarity, and Jev. The run fails when a pair isn't settled; the report is the job summary.
+# wording similarity, and Jev. The run fails on a pair not recorded in style-rules/overlaps.yaml; pairs
+# recorded as unreviewed are listed without failing. The report is the job summary.
 # Settle a pair in style-rules/overlaps.yaml, or add `overrides` to the winning rule in the registry.
 
 on:

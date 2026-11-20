@@ -121,3 +121,15 @@ def test_hook_reports_registry_drift(tmp_path):
     r = subprocess.run([sys.executable, str(tmp_path / ".claude/hooks/rule_gate.py")], input=json.dumps(event),
                        capture_output=True, text=True)
     assert r.returncode == 2 and "sensible-label-method: quote not found" in r.stderr
+
+
+def test_unreviewed_backlog_is_listed_but_does_not_fail(tmp_path, monkeypatch, capsys):
+    reg = tmp_path / "registry.yaml"
+    reg.write_text(json.dumps([A, B]))
+    settled = tmp_path / "overlaps.yaml"
+    settled.write_text(f"- pair: [rule-a, rule-b]\n  verdict: unreviewed\n  hash: {co.pair_hash(A, B)}\n")
+    monkeypatch.setattr(co, "REGISTRY", reg)
+    monkeypatch.setattr(co, "SETTLED", settled)
+    monkeypatch.setattr(co, "ask", lambda f, s: {"same": 0.9, "conflict": 0.1})
+    assert co.main(["--jev", "--no-fixtures", "--cache", str(tmp_path / "c.json")]) == 0
+    assert "Unreviewed backlog (" in capsys.readouterr().out

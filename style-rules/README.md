@@ -131,7 +131,7 @@ Only rules that share a kind of text in their `applies` lists are paired for the
 - **Wording:** pairs whose statements and quotes share most of their content words, which catches a rule restated in a second file.
 - **Jev** (`--jev`): two yes-or-no questions per pair (same requirement, can conflict), asked in both orders. Jev leans toward whichever rule comes first, so the two answers are averaged, and a pair whose orders disagree is reported as unstable. Answers are cached in `.cache/rule-overlap.json` by the exact request, so a pair is asked again only when a rule's wording changes.
 
-A pair you've ruled on goes in [`overlaps.yaml`](overlaps.yaml) with the hash the script prints; rewording either rule reopens it. A deliberate conflict goes in the registry as `overrides: [loser]` on the winning rule.
+The 21 pairs found by the first run are recorded there as `unreviewed`: the weekly report lists them without failing, so only a new pair fails the run. A pair you've ruled on goes in [`overlaps.yaml`](overlaps.yaml) with the hash the script prints; rewording either rule reopens it. A deliberate conflict goes in the registry as `overrides: [loser]` on the winning rule.
 
 The checks run in three places:
 

@@ -28,7 +28,8 @@ Editing either rule's statement changes the hash, so the pair comes back for rev
 a deliberate conflict lists the loser under `overrides` in the registry; that pair is never reported
 as a contradiction.
 
-Exits 1 when any layer reports a pair that isn't settled. Set JEV_RECORD / JEV_REPLAY as for jev.py.
+A pair recorded with verdict `unreviewed` is a known backlog item: it's listed in the report but
+doesn't fail the run. Exits 1 when any layer reports a pair that isn't recorded at all. Set JEV_RECORD / JEV_REPLAY as for jev.py.
 """
 import argparse
 import concurrent.futures
@@ -257,10 +258,15 @@ def main(argv=None):
     if args.involving:
         keep = set(args.involving.split(","))
         found = [f for f in found if f[0] in keep or f[1] in keep]
-    open_, quiet = [], 0
+    open_, backlog, quiet = [], [], 0
     seen = set()
     for a, b, kind, evidence in found:
         k = pair_key(a, b)
+        if k in settled and settled[k].get("verdict") == "unreviewed":
+            if (k, kind, evidence) not in seen:
+                seen.add((k, kind, evidence))
+                backlog.append((a, b, kind, evidence))
+            continue
         if k in settled or (k in won and "contradiction" in kind):
             quiet += 1
             continue
@@ -269,10 +275,15 @@ def main(argv=None):
         seen.add((k, kind, evidence))
         open_.append((a, b, kind, evidence))
 
-    lines = [f"- **{kind}**: `{a}` / `{b}` (hash {pair_hash(by_id[a], by_id[b])}): {ev}" for a, b, kind, ev in
-             sorted(open_, key=lambda f: (f[2] != "contradiction", "contradiction" not in f[2], "duplicate" not in f[2], f[0], f[1]))]
-    lines += [f"- **stale**: {s}" for s in stale]
-    summary = (f"{len(by_id)} rules, {len(open_)} open findings, {len(stale)} stale settlements, "
+    def listing(items):
+        return [f"- **{kind}**: `{a}` / `{b}` (hash {pair_hash(by_id[a], by_id[b])}): {ev}" for a, b, kind, ev in
+                sorted(items, key=lambda f: (f[2] != "contradiction", "contradiction" not in f[2],
+                                             "duplicate" not in f[2], f[0], f[1]))]
+    lines = listing(open_) + [f"- **stale**: {s}" for s in stale]
+    if backlog:
+        lines += ["", f"Unreviewed backlog ({len(backlog)}), not failing the run:", ""] + listing(backlog)
+    summary = (f"{len(by_id)} rules, {len(open_)} open findings, {len(backlog)} in the unreviewed backlog, "
+               f"{len(stale)} stale settlements, "
                f"{quiet} settled or overridden; {len(candidate_pairs(by_id))} of "
                f"{len(by_id) * (len(by_id) - 1) // 2} pairs share a kind of text")
     if stats:
