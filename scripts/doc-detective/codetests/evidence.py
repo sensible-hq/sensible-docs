@@ -110,8 +110,17 @@ def sha256(path):
 
 
 def files_of(record):
-    """Every file a record cites, as {"path", "sha256"} objects."""
+    """Every file a record cites, as {"path" or "docs_pdf", "sha256"} objects."""
     return [run[role] for run in record["runs"] for role in ("config", "document", "response") if role in run]
+
+
+def label(f):
+    """How a cited file is named: files/<name>, or assets/pdfs/<name> for a docs PDF used in place."""
+    return f"assets/pdfs/{f['docs_pdf']}" if "docs_pdf" in f else f["path"]
+
+
+def file_path(folder, f, repo_root=settings.REPO_ROOT):
+    return os.path.join(repo_root, label(f)) if "docs_pdf" in f else os.path.join(folder, f["path"])
 
 
 def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
@@ -129,11 +138,11 @@ def problems(path, record, repo_root=settings.REPO_ROOT, check_page=True):
     if len(set(run_ids)) != len(run_ids):
         errors.append("run_id repeats")
     for f in files_of(record):
-        full = os.path.join(folder, f["path"])
+        full = file_path(folder, f, repo_root)
         if not os.path.isfile(full):
-            errors.append(f"{f['path']} is missing")
+            errors.append(f"{label(f)} is missing")
         elif sha256(full) != f["sha256"]:
-            errors.append(f"{f['path']} doesn't match its sha256")
+            errors.append(f"{label(f)} doesn't match its sha256")
     if check_page:
         page = os.path.join(repo_root, record["page"])
         if not os.path.isfile(page):
@@ -191,7 +200,7 @@ def to_sqlite(records, conn, evidence_dir=EVIDENCE_DIR):
             approval["by"], approval["date"], r.get("notes"), os.path.relpath(path, evidence_dir)))
         folder = os.path.relpath(os.path.dirname(path), evidence_dir)
         for f in files_of(r):
-            conn.execute("INSERT OR IGNORE INTO files VALUES (?,?)", (f["sha256"], f"{folder}/{f['path']}"))
+            conn.execute("INSERT OR IGNORE INTO files VALUES (?,?)", (f["sha256"], label(f) if "docs_pdf" in f else f"{folder}/{f['path']}"))
         for run in r["runs"]:
             conn.execute("INSERT INTO runs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
                 r["claim_id"], run["run_id"], run["role"], run["purpose"], run["environment"], run["account"],

@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "claim_id": "ocr_if_missing_searches_embedded_text",
+  "docs_pr": 825,
+  "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
+  "section": "Parameters",
+  "claim": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page.",
+  "claim_kind": "scope and order",
+  "verdict": "contradicted",
+  "page_change": {
+    "summary": "The row now says \"in the document\": OCR If Missing searches the text as earlier preprocessors left it, OCR text included.",
+    "commit": "c8c5ede36",
+    "pr": "sensible-hq/sensible-docs#825"
+  },
+  "runs": [
+    {
+      "run_id": "claims_t1b_test",
+      "role": "test",
+      "purpose": "An earlier OCR preprocessor OCRs page 2, then OCR If Missing looks for \"Total Premium\", which is only in page 2's text image. If it searched embedded text it would OCR every page and agency_ref (page 1's image) would extract; it stays null.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1b_test",
+      "extraction_id": "64cbc7b6-34f9-4ef8-bc19-043e6cada4fb",
+      "config": {
+        "path": "files/claims_t1b_test.json",
+        "sha256": "685b3fcaa60799739bd4408a78eabcc6c5534142ea8018963bfb9ab5ba86f79a"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1b_test.json",
+        "sha256": "80f1604fe91c342bf5cf3a2117d4fd673992f599929731244200ecb9d34f9970"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1b_match_only",
+      "role": "control",
+      "purpose": "The earlier OCR preprocessor alone OCRs page 2 only: agency_ref null, total_premium extracted.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1b_match_only",
+      "extraction_id": "c7dda447-382c-4834-a015-47ddbf06c248",
+      "config": {
+        "path": "files/claims_t1b_match_only.json",
+        "sha256": "6d8de644034da23159d42127f938502937d28fc28c2b06e676b7a5bcd70a706c"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1b_match_only.json",
+        "sha256": "d3da6fd2dbf4d72528c84e251333cae791e5e95154887d0d27d9f2d1543bee0e"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": null,
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_omit_only",
+      "role": "control",
+      "purpose": "OCR If Missing alone OCRs both pages, so agency_ref can extract when OCR runs on page 1.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1_omit_only",
+      "extraction_id": "64cbaa10-8273-4362-87e2-ab05d0ec33fa",
+      "config": {
+        "path": "files/claims_t1_omit_only.json",
+        "sha256": "5d331ab4f8963fc3bed8cd2b90326de4dd237d61d492dbb5316175055d6fccde"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_omit_only.json",
+        "sha256": "e101c107d10bf2cb4bb437223292457ffdf645a9f8d72ffb66deeaf15f7349fb"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": "Agency Reference: HIA-REF-4417"
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_none",
+      "role": "control",
+      "purpose": "No preprocessors: neither image is OCR'd.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1_none",
+      "extraction_id": "82caa28b-4833-43ea-b000-51a900ef811f",
+      "config": {
+        "path": "files/claims_t1_none.json",
+        "sha256": "ff6910ba3e352d076aecc4d62eb88865962d7fec8a44790f789617c25cb2ba7c"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_none.json",
+        "sha256": "3c1938d407ec65e560ca690702cac99d5053d1b0eaf2d59fdc02c70f792dcb89"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": null,
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": null,
+          "actual": null
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_test",
+      "role": "invalid",
+      "purpose": "First attempt: the earlier preprocessor matched \"Premium Summary\", which page 1's cover letter also contains, so it OCR'd page 1 itself.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1_test",
+      "extraction_id": "8fae3a3b-47df-4ba8-be94-8e21a577fb00",
+      "config": {
+        "path": "files/claims_t1_test.json",
+        "sha256": "eb92d20ee3044393d1b3ddafb9caa722f36f3958d9f8eb8408fe13f0be2b9e11"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_test.json",
+        "sha256": "0310a62340842dfe1ee852f75180cf6c42b6052f51d8cb69891bbc2a93816351"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": "Agency Reference: HIA-REF-4417"
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_match_only",
+      "role": "invalid",
+      "purpose": "First attempt's control, with the same flaw.",
+      "environment": "production",
+      "account": "personal",
+      "ran_on": "2026-11-19",
+      "engine": {
+        "note": "Production accepted the parameter as omit; sensible-hq/sensible#3533 renamed it ocrIfMissing with no change in logic, and hadn't deployed"
+      },
+      "doc_type": "claims_t1_match_only",
+      "extraction_id": "93302e76-d1d0-4241-833e-b6dfbc27e978",
+      "config": {
+        "path": "files/claims_t1_match_only.json",
+        "sha256": "5e7e157505ae3e646899c73008f86b74c4cdf1a059d88c8dafd370eb8b9d65c1"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_match_only.json",
+        "sha256": "699e22a3894300a505a2ef902f49f69c002facc2ab3751949ac0a29b360ab7f4"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": "Agency Reference: HIA-REF-4417"
+        },
+        {
+          "field": "total_premium",
+          "expected": null,
+          "actual": null
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1b_test_rerun",
+      "role": "test",
+      "purpose": "Rerun of claims_t1b_test in the docs test account with ocrIfMissing: An earlier OCR preprocessor OCRs page 2, then OCR If Missing looks for \"Total Premium\", which is only in page 2's text image. If it searched embedded text it would OCR every page and agency_ref (page 1's image) would extract; it stays null.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_claims_t1b_test",
+      "extraction_id": "c1bcd543-c89d-4cbe-a990-9bf8b601931d",
+      "config": {
+        "path": "files/claims_t1b_test_rerun.json",
+        "sha256": "53b7fcb873de1d36be416edf28533f282e635fd3c44eb0a40121a21a938cba65"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1b_test_rerun.json",
+        "sha256": "52e7c26a4acb559eb192d539590a68fb53c1f41c8cb7db6ba5117305c2d6f408"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1b_match_only_rerun",
+      "role": "control",
+      "purpose": "Rerun of claims_t1b_match_only in the docs test account with ocrIfMissing: The earlier OCR preprocessor alone OCRs page 2 only: agency_ref null, total_premium extracted.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_claims_t1b_match_only",
+      "extraction_id": "23cdfb37-9cf0-4b72-9a49-8f570bdcc1b2",
+      "config": {
+        "path": "files/claims_t1b_match_only_rerun.json",
+        "sha256": "47076159c4984efbc6903aa0c358f00c90492ecba9a1002455bdf361fd56cd02"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1b_match_only_rerun.json",
+        "sha256": "039a859775660a3caaffd36a30554804927430704819391b424eb695bf86045a"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": null,
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_omit_only_rerun",
+      "role": "control",
+      "purpose": "Rerun of claims_t1_omit_only in the docs test account with ocrIfMissing: OCR If Missing alone OCRs both pages, so agency_ref can extract when OCR runs on page 1.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_claims_t1_omit_only",
+      "extraction_id": "ec9eca5a-1846-4b05-94c3-b7546977dbab",
+      "config": {
+        "path": "files/claims_t1_omit_only_rerun.json",
+        "sha256": "9f1e4701652db7ef6390fc1683f4bad60fdfac7389dcab38c67c898aa3218ebc"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_omit_only_rerun.json",
+        "sha256": "1059fedd4aff6691b4ce69965121482f8dbe626908650b9795cbbc0d9a326777"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": "Agency Reference: HIA-REF-4417",
+          "actual": "Agency Reference: HIA-REF-4417"
+        },
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
+    },
+    {
+      "run_id": "claims_t1_none_rerun",
+      "role": "control",
+      "purpose": "Rerun of claims_t1_none in the docs test account with ocrIfMissing: No preprocessors: neither image is OCR'd.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_claims_t1_none",
+      "extraction_id": "dab60226-e5c0-462d-bee6-5f6744b27482",
+      "config": {
+        "path": "files/claims_t1_none_rerun.json",
+        "sha256": "8cc0745cd040e0d909017487ce7b1b09afc8a72eb9e393c75bb1ff5a2064326f"
+      },
+      "document": {
+        "path": "files/two_images.pdf",
+        "sha256": "3ab2c3ea251ea4992d36c81af1bf5ea32ff6760ae59f9ce468dc028a4544612c"
+      },
+      "response": {
+        "path": "files/response_claims_t1_none_rerun.json",
+        "sha256": "82bf66ca877a1429bf7a3d58c3bb26325a7c09a4c8f24cb36bbf6e1c7ab00095"
+      },
+      "fields": [
+        {
+          "field": "agency_ref",
+          "expected": null,
+          "actual": null
+        },
+        {
+          "field": "total_premium",
+          "expected": null,
+          "actual": null
+        }
+      ]
+    }
+  ],
+  "approval": {
+    "by": "Frances Elliott",
+    "date": "2026-11-19"
+  },
+  "notes": "The *_rerun runs repeat the 2026-11-19 runs in the docs test account with ocrIfMissing (2026-11-20, Frances's go-ahead); every result matched."
+}

@@ -144,15 +144,30 @@
     "file": {
       "type": "object",
       "required": [
-        "path",
         "sha256"
       ],
       "additionalProperties": false,
-      "description": "A file beside the record, so the run can be recreated. The hash ties the record to the exact bytes, and lets a database share one row per file across claims",
+      "oneOf": [
+        {
+          "required": [
+            "path"
+          ]
+        },
+        {
+          "required": [
+            "docs_pdf"
+          ]
+        }
+      ],
+      "description": "A file the run used, so it can be recreated: one beside the record (path), or a docs PDF in assets/pdfs/ used in place rather than copied (docs_pdf, its file name). The hash ties the record to the exact bytes, and lets a database share one row per file across claims",
       "properties": {
         "path": {
           "type": "string",
           "pattern": "^files/[A-Za-z0-9_.-]+$"
+        },
+        "docs_pdf": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+\\.pdf$"
         },
         "sha256": {
           "type": "string",

@@ -152,6 +152,18 @@ class EvidenceTest(unittest.TestCase):
         self.save(dict(record(other_page, claim_id="other_claim", section="Other")))
         self.assertEqual(self.check(), {})
 
+    def test_a_docs_pdf_is_cited_in_place_and_hash_checked(self):
+        os.makedirs(os.path.join(self.root, "assets", "pdfs"))
+        with open(os.path.join(self.root, "assets", "pdfs", "example.pdf"), "wb") as f:
+            f.write(DOCUMENT)
+        rec = record(self.page)
+        rec["runs"][0]["document"] = {"docs_pdf": "example.pdf", "sha256": digest(DOCUMENT)}
+        self.save(rec)
+        self.assertEqual(self.check(), {})
+        rec["runs"][0]["document"]["sha256"] = digest(b"other")
+        self.save(rec)
+        self.assertIn("assets/pdfs/example.pdf doesn't match its sha256", next(iter(self.check().values())))
+
     def test_stale_uses_the_newest_run(self):
         # "recent" has one old run and one recent one; "old" has only old runs
         recent = record(self.page, ran_on="2026-01-01")

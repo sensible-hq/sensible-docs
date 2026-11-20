@@ -47,7 +47,10 @@ class MatrixTest(unittest.TestCase):
         self.entry = {"page": self.page, "priority": 3}
 
     def rows(self):
-        return [l for l in test_matrix.render([self.entry], self.reports).splitlines() if l.startswith("| ") and "`" in l]
+        # An empty evidence folder, so the repo's own evidence records don't add rows
+        no_evidence = tempfile.mkdtemp()
+        self.addCleanup(shutil.rmtree, no_evidence)
+        return [l for l in test_matrix.render([self.entry], self.reports, no_evidence).splitlines() if l.startswith("| ") and "`" in l]
 
     def test_one_row_per_test_with_kind_and_escaped_claim(self):
         rows = self.rows()
