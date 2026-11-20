@@ -1,11 +1,11 @@
 ---
 title: OCR preprocessor
-excerpt: Force OCR on scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count, or OCR every page if expected text is missing.
+excerpt: Force OCR on specific pages, such as scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count.
 deprecated: false
 hidden: false
 metadata:
   title: ''
-  description: Force OCR on scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count, or OCR every page if expected text is missing.
+  description: Force OCR on specific pages, such as scanned or handwritten pages in a PDF with embedded text. Select pages by text match or line count.
   robots: index
 next:
   description: ''
