@@ -1,0 +1,36 @@
+{
+  "preprocessors": [
+    {
+      "type": "ocr",
+      "match": {
+        "type": "includes",
+        "text": "Premium shown is annual"
+      }
+    },
+    {
+      "type": "ocr",
+      "ocrIfMissing": {
+        "type": "includes",
+        "text": "Total Premium"
+      }
+    }
+  ],
+  "fields": [
+    {
+      "id": "agency_ref",
+      "anchor": "Agency Reference",
+      "method": {
+        "id": "passthrough"
+      }
+    },
+    {
+      "id": "total_premium",
+      "type": "currency",
+      "anchor": "Total Premium",
+      "method": {
+        "id": "row",
+        "position": "right"
+      }
+    }
+  ]
+}

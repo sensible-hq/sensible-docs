@@ -71,10 +71,75 @@
           "actual": 6109
         }
       ]
+    },
+    {
+      "run_id": "array_in_order_rerun",
+      "role": "test",
+      "purpose": "Rerun of array_in_order in the docs test account with ocrIfMissing: The array's lines are consecutive on page 2 in this order, so it matches and nothing is OCR'd: total_premium, in a text image, stays null.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_array_in_order",
+      "extraction_id": "036ec78e-15cb-4bba-85e2-bf09235d24e0",
+      "config": {
+        "path": "files/array_in_order_rerun.json",
+        "sha256": "b9968fac3772e12230eacb1a057ebf92e75bc89cce979353357b375fb97f00f0"
+      },
+      "document": {
+        "path": "files/cgl_quote_screenshot.pdf",
+        "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
+      },
+      "response": {
+        "path": "files/response_array_in_order_rerun.json",
+        "sha256": "3cf23d5efd9a387ab00e11783b8c4cd932800b247167f4b3c725ce64401c67d9"
+      },
+      "fields": [
+        {
+          "field": "total_premium",
+          "expected": null,
+          "actual": null
+        }
+      ]
+    },
+    {
+      "run_id": "array_reversed_rerun",
+      "role": "control",
+      "purpose": "Rerun of array_reversed in the docs test account with ocrIfMissing: The same lines in reverse order don't match as a sequence, so Sensible OCRs and total_premium extracts. Rules out the array being ignored.",
+      "environment": "production",
+      "account": "docs_test",
+      "ran_on": "2026-11-20",
+      "engine": {
+        "note": "Production accepted ocrIfMissing and rejected omit: sensible-hq/sensible#3533 had deployed"
+      },
+      "doc_type": "evidence_pr825_array_reversed",
+      "extraction_id": "1bee5e32-30ad-4d6d-9e5d-f60634422938",
+      "config": {
+        "path": "files/array_reversed_rerun.json",
+        "sha256": "ae1458dc78b679877a82a4f8bebb1299839f5110af27eab39231e61381ba7888"
+      },
+      "document": {
+        "path": "files/cgl_quote_screenshot.pdf",
+        "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
+      },
+      "response": {
+        "path": "files/response_array_reversed_rerun.json",
+        "sha256": "02c330ec05a20ba034f16dcfe16bf212d3e5420ea9fbc47cd53d8d96d698a3d8"
+      },
+      "fields": [
+        {
+          "field": "total_premium",
+          "expected": 6109,
+          "actual": 6109
+        }
+      ]
     }
   ],
   "approval": {
     "by": "Frances Elliott",
     "date": "2026-11-19"
-  }
+  },
+  "notes": "The *_rerun runs repeat the 2026-11-19 runs in the docs test account with ocrIfMissing (2026-11-20, Frances's go-ahead); every result matched."
 }

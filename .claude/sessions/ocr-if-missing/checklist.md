@@ -46,6 +46,8 @@ Jev scored these between 0.30 and 0.70 (unsure). Wording is from the 2026-11-19 
 
 The three tested claims above are recorded as record-only claims in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/`, listed by a `tested claims` comment after the Parameters table. The tooling that validates them (`codetests/evidence.py`) is on sensible-hq/sensible-docs#834, so merge #834 first.
 
+Reran on 2026-11-20 in the docs test account with `ocrIfMissing`: the 10 test and control runs (not the 2 invalid ones) all matched the 2026-11-19 results, including the Page Range bug (extraction 824ede31-9eae-468e-8bbd-4eebbad0f58c). The reruns are `*_rerun` runs in the same records; their doc types, `evidence_pr825_*`, stay in the test account so the run links open.
+
 ## Before merging
 - [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
 
