@@ -6,4 +6,4 @@
 
 **Note:** The Stop parameter is optional. <!-- pass -->
 
-> Dear customer, your invoice is attached. <!-- pass -->
+> Dear customer, we've attached your invoice. <!-- pass -->

@@ -93,10 +93,15 @@ def test_hook_passes_a_clean_carrier():
 
 
 @pytest.mark.skipif(not HAS_VALE, reason="Vale isn't installed")
-def test_fixture_layer_reports_a_pass_line_another_rule_flags():
-    """The Latin fixture's correct example says "Cloud Run", which the word list flags."""
+def test_fixture_layer_reports_a_pass_line_another_rule_flags(monkeypatch):
+    """A correct example for the Latin rule that says "Cloud Run", which the word list flags."""
+    tests = REPO / ".cache/test-fixtures"
+    tests.mkdir(parents=True, exist_ok=True)
+    (tests / "latin.md").write_text("<!-- rules: Google.Latin -->\n\n# Test\n\n"
+                                    "Use a managed service, for example, Cloud Run. <!-- pass -->\n")
+    monkeypatch.setattr(co, "TESTS", tests)
     found = co.fixture_findings({r["id"]: r for r in co.load_rules()})
-    assert ("google-latin", "sensible-word-list", "contradiction (detector)") in [f[:3] for f in found]
+    assert [f[:3] for f in found] == [("google-latin", "sensible-word-list", "contradiction (detector)")]
 
 
 def test_hook_finds_the_rules_a_file_states():

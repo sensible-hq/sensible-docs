@@ -8,4 +8,4 @@ Sensible extracts data against a document type. <!-- fail -->
 
 LLM-based attachment classification using specified document types. <!-- pass -->
 
-The lawsuit was filed against the vendor. <!-- pass -->
+A customer filed a lawsuit against the vendor. <!-- pass -->
