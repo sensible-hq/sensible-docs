@@ -10,6 +10,8 @@ These checks keep you from adding a style rule that repeats or conflicts with on
 
 When a pair is flagged, settle it once: merge the two rules, mark one as overriding the other, or record the pair as fine in `overlaps.yaml`. The pair stays quiet until someone rewords one of the rules.
 
+Every rule is compared with every other rule, so 42 rules make 861 pairs (42 × 41 ÷ 2). The weekly run compares all 861 by wording and asks Jev about each one twice, once in each order. The Vale fixture layer runs each of the 19 fixtures once against all rules. The hook compares only the rules an edit touched, each against the other 41.
+
 What the checks cost at 42 rules:
 
 | Run | Time | Jev calls | Cost |
