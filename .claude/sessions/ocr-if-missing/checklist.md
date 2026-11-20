@@ -13,6 +13,8 @@ The page documents `ocrIfMissing` with the insurance-quote example. **Don't merg
 
 ## Tested claims
 
+**2026-11-20:** the personal-account doc types these links open were deleted, so the editor links below no longer work and the run links may not. The configs, documents, and responses are in `scripts/doc-detective/testable-claims/pr-825-ocr-if-missing/`, and every claim was rerun in the docs test account (see below).
+
 All runs are in Frances's own **production** account and use `omit` (the deployed name; #3533 changed no logic). Run links show what ran; config links show the doc type's config now. Configs and responses are saved in the evidence folder above.
 
 | claim on the page | result | proof |
@@ -57,5 +59,5 @@ Reran on 2026-11-20 in the docs test account with `ocrIfMissing`: the 10 test an
 - [x] Note scope (2026-11-20): eng will fix Page Range; Remove Page and Page Filter stay known limitations (arbitrary pages are harder). The note names only Remove Page: Page Range will be fixed, and Page Filter's only page is the hidden, deprecated `deprecated-page-filter`. The note's first sentence (specify the OCR preprocessor first) covers both until then.
 - [ ] When eng's Page Range fix deploys, nothing on the page needs to change; optionally rerun `claims_t2_test` to confirm the fix
 - [x] Independent rerun of the page's example, config and PDF taken from the page (docs test account, 2026-11-20): example PDF matches the Output block (32f7f3ab-857d-4350-b509-c8ffef84f158); digital version matches with no OCR (166 ms, 3bdbcc87-a8fd-491e-8f0b-c1054ae35d49); control without the preprocessor returns both fields null (7b3f59fd-2b35-483e-bb96-a9da79d9764c). Doc types `rerun_ocr_if_missing` and `rerun_ocr_if_missing_control`.
-- [ ] Update the test doc types in Frances's account to `ocrIfMissing`, or delete them: production `ocr_omit_*` (4), `ocr_array_*` (2), `claims_*` (10); dev `ocr_if_missing_quote` (unpublished draft)
+- [x] Deleted the 16 test doc types in Frances's production account (`ocr_omit_*`, `ocr_array_*`, `claims_*`) and `ocr_if_missing_quote` in dev (2026-11-20, at Frances's request)
 - [ ] Remaining Vale errors are on unchanged rows (`matchAll`, `pageOffset`, "Addendums"); fix or leave
