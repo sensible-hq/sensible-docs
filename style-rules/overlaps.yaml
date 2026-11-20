@@ -1,0 +1,10 @@
+# Pairs of style rules you've ruled on, so scripts/style/check_overlap.py stops reporting them.
+#
+# - pair: [rule-a, rule-b]
+#   verdict: distinct | duplicate-kept | conflict-accepted
+#   hash: <12 characters; check_overlap.py prints it for an open pair>
+#   note: why, in a sentence
+#
+# The hash covers both rules' statements. Rewording either one reopens the pair. A conflict where one
+# rule should win belongs in the registry instead, as `overrides: [loser]` on the winner.
+[]

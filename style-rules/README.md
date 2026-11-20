@@ -26,6 +26,7 @@ python3 scripts/style/check_code_blocks.py       # json fences and /* */ comment
 python3 scripts/style/check_excerpts.py          # excerpt length, sync, and self-naming in docs/
 python3 scripts/style/check_order.py             # every docs page is in its _order.yaml
 python3 scripts/style/compare_param_descriptions.py   # parameters worded differently across pages
+python3 scripts/style/check_overlap.py [--jev]   # rules that duplicate, overlap, or contradict each other
 bash scripts/vale-doctor.sh                      # the write-time hook works the way Claude Code runs it
 ```
 
@@ -93,3 +94,20 @@ A rule fails a run (exit 1) only when its calibration earned trust: on its label
 Jev isn't deterministic: the same request can come back with a different confidence. Tests replay recorded responses (`JEV_REPLAY`), so they're stable; record new ones with `JEV_RECORD`. A missing recording fails; it never passes. A live run needs `TYPESAFE_API_KEY` and costs $0.042 per million input tokens (about $0.0002 for four pages).
 
 The judge doesn't run in the write-time hook: a network call per edit is too slow, and judgment needs the whole change. The doc skills run it before committing.
+
+## Duplicate and conflicting rules
+
+`scripts/style/check_overlap.py` compares rules in pairs, in three layers:
+
+- **Fixtures:** every Vale fixture runs against every registered rule. A line marked `pass` for one rule that another rule flags is a contradiction: the example of correct text breaks a house rule. When the other rule is a judgment rule, its pattern only finds candidates, so the finding is marked as a detector finding.
+- **Wording:** pairs whose statements and quotes share most of their content words, which catches a rule restated in a second file.
+- **Jev** (`--jev`): three yes-or-no questions per pair (same requirement, can conflict, apply to the same text), asked in both orders. Jev leans toward whichever rule comes first, so the two answers are averaged, and a pair whose orders disagree is reported as unstable.
+
+A pair you've ruled on goes in [`overlaps.yaml`](overlaps.yaml) with the hash the script prints; rewording either rule reopens it. A deliberate conflict goes in the registry as `overrides: [loser]` on the winning rule.
+
+The checks run in three places:
+
+- After every edit to a rule carrier (`CLAUDE.md`, `AGENTS.md`, `.claude/style-guide/`, `.claude/preferences/`, `.claude/skills/`, `style-rules/`, `.github/styles/`), the `.claude/hooks/rule_gate.py` hook runs the registry check and the deterministic layers for the rules the edit touched. It reports and never blocks, because changing a rule takes edits to several files.
+- On every PR that touches a carrier, CI runs the registry check.
+- Every Monday, `rule_overlap.yml` runs all three layers and posts the report as the job summary.
+

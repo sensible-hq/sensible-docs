@@ -1,0 +1,37 @@
+name: Style rule overlap
+
+# Weekly: look for style rules that duplicate, overlap, or contradict each other, using Vale fixtures,
+# wording similarity, and Jev. The run fails when a pair isn't settled; the report is the job summary.
+# Settle a pair in style-rules/overlaps.yaml, or add `overrides` to the winning rule in the registry.
+
+on:
+  schedule:
+    - cron: '0 14 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  overlap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyyaml
+          curl -sSL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz | sudo tar -xz -C /usr/local/bin vale
+
+      - name: Check rule pairs
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: python3 scripts/style/check_overlap.py --jev --report overlap-report.md
+
+      - name: Publish report
+        if: always()
+        run: test -f overlap-report.md && cat overlap-report.md >> "$GITHUB_STEP_SUMMARY" || true
