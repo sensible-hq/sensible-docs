@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "claim_id": "ocr_if_missing_match_array",
+  "docs_pr": 825,
   "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
   "section": "Parameters",
   "claim": "The OCR If Missing parameter accepts a Match array, and matches it as consecutive lines in order.",

@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
   "claim_id": "ocr_if_missing_searches_embedded_text",
+  "docs_pr": 825,
   "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
   "section": "Parameters",
   "claim": "If Sensible doesn't find the matched text in the document's embedded text, it OCRs every page.",
