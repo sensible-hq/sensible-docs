@@ -25,7 +25,7 @@
         "sha256": "099a7d6349873c5a405887fa2e262cd2be0464e52e0cc9fa46a639a784232bf9"
       },
       "document": {
-        "path": "files/cgl_quote_screenshot.pdf",
+        "docs_pdf": "ocr_if_missing_quote.pdf",
         "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
       },
       "response": {
@@ -57,7 +57,7 @@
         "sha256": "c68e008e1896e0c142ac901dbe550c45d5dd04353a4a1c9bce877e6c69f90f1c"
       },
       "document": {
-        "path": "files/cgl_quote_screenshot.pdf",
+        "docs_pdf": "ocr_if_missing_quote.pdf",
         "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
       },
       "response": {
@@ -89,7 +89,7 @@
         "sha256": "b9968fac3772e12230eacb1a057ebf92e75bc89cce979353357b375fb97f00f0"
       },
       "document": {
-        "path": "files/cgl_quote_screenshot.pdf",
+        "docs_pdf": "ocr_if_missing_quote.pdf",
         "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
       },
       "response": {
@@ -121,7 +121,7 @@
         "sha256": "ae1458dc78b679877a82a4f8bebb1299839f5110af27eab39231e61381ba7888"
       },
       "document": {
-        "path": "files/cgl_quote_screenshot.pdf",
+        "docs_pdf": "ocr_if_missing_quote.pdf",
         "sha256": "c1f94b496269d67801a100b33e161afa020a05e58af80667401228263be5418a"
       },
       "response": {
