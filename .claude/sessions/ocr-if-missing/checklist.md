@@ -51,7 +51,7 @@ The three tested claims above are recorded as record-only claims in `scripts/doc
 Reran on 2026-11-20 in the docs test account with `ocrIfMissing`: the 10 test and control runs (not the 2 invalid ones) all matched the 2026-11-19 results, including the Page Range bug (extraction 824ede31-9eae-468e-8bbd-4eebbad0f58c). The reruns are `*_rerun` runs in the same records; their doc types, `evidence_pr825_*`, stay in the test account so the run links open.
 
 ## Before merging
-- [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
+- [x] #834 merged (2026-11-20); merged `v0` into this branch (no rebase, so no force-push), evidence check passes, `TEST-MATRIX.md` regenerated with the three records, and the matrix unit test now uses an empty evidence folder so committed records don't change its row count
 
 - [x] #3533 deployed to production: on 2026-11-20 publishing `ocrIfMissing` succeeded and `omit` was rejected (docs test account)
 - [x] Reran the example with `ocrIfMissing` in the docs test account (2026-11-20): output matches the Output block (extraction 94c3ccf2-cfb1-489b-aa8f-a619bdaa4af6); the control without the preprocessor returns both fields null (7b3a5d2c-3a4d-4aae-b8b6-c5383afbec49)
