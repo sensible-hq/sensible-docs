@@ -8,6 +8,6 @@ Transform the output with [postprocessors](doc:postprocessors). <!-- pass -->
 
 Transform the output with a [postprocessor](doc:postprocessors). <!-- pass -->
 
-Use a [Regex](doc:regex) match. <!-- pass -->
+Use a [Region](doc:region) method. <!-- pass -->
 
 Add a [computed fields array to sections](doc:sections). <!-- pass -->

@@ -92,6 +92,7 @@
   map_id: D1
   statement: Use the glossary's terms. Avoid "the UI", "the dashboard", "template", "result object", "repeating groups", and the other avoid-terms a pattern can settle.
   applies: [prose, heading, table, frontmatter]
+  overrides: [sensible-word-list]
   kind: judgment
   gate: judge
   enforced_by:
@@ -110,6 +111,7 @@
   map_id: D26
   statement: Don't use internal implementation terms such as Cognito, reprocessing, or auth token. Use the name readers see.
   applies: [prose, table]
+  overrides: [sensible-word-list]
   kind: judgment
   gate: judge
   enforced_by:
@@ -156,6 +158,7 @@
   map_id: D5
   statement: In prose, write method, preprocessor, and parameter names in spaced Title Case without backticks.
   applies: [prose, table]
+  overrides: [sensible-word-list]
   kind: deterministic
   gate: warn
   enforced_by:
@@ -415,6 +418,7 @@
   map_id: J5
   statement: Glossary terms with a legitimate meaning elsewhere ("response", "segment", "section", "key", "empty", "free form") are right or wrong by context.
   applies: [prose]
+  overrides: [sensible-terminology, sensible-word-list, sensible-internal-terms]
   kind: judgment
   enforced_by:
     judgment: [style-rules/judgment/sensible-context-terms.yaml]
@@ -480,7 +484,7 @@
 
 - id: sensible-copy-sibling-wording
   map_id: D16
-  statement: When a parameter with the same implementation is documented on another page, copy its description word for word.
+  statement: When a parameter with the same implementation is documented on another page, copy its description word for word. If that wording breaks a house rule, fix it on both pages.
   applies: [table]
   kind: judgment
   enforced_by:

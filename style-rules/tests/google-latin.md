@@ -2,6 +2,6 @@
 
 # Test
 
-Use a managed service, e.g. Cloud Run. <!-- fail -->
+Use a managed service, e.g. a hosted database. <!-- fail -->
 
-Use a managed service, for example, Cloud Run. <!-- pass -->
+Use a managed service, for example, a hosted database. <!-- pass -->
