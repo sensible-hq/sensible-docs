@@ -49,8 +49,8 @@ The three tested claims above are recorded as record-only claims in `scripts/doc
 ## Before merging
 - [ ] #834 merged; rebase this branch on `v0`, then run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py` and commit the regenerated matrix
 
-- [ ] #3533 deployed to production (publishing a config with `ocrIfMissing` succeeds)
-- [ ] Rerun the example with `ocrIfMissing` and compare with the Output block
+- [x] #3533 deployed to production: on 2026-11-20 publishing `ocrIfMissing` succeeded and `omit` was rejected (docs test account)
+- [x] Reran the example with `ocrIfMissing` in the docs test account (2026-11-20): output matches the Output block (extraction 94c3ccf2-cfb1-489b-aa8f-a619bdaa4af6); the control without the preprocessor returns both fields null (7b3a5d2c-3a4d-4aae-b8b6-c5383afbec49)
 - [x] Page Range finding: eng (2026-11-20) described the same effect for `pageLinesLimit` after Remove Page or Page Filter, Decided 2026-11-20: a known limitation, not a bug. Frances's note after the parameter table recommends specifying the OCR preprocessor first. The draft bug report (`.claude/sessions/testable-claims/eng-page-range-bug.md` on #834) is no longer needed.
 - [ ] The note's coverage is partly inferred: tested `ocrIfMissing` after Page Range (above); eng reported `pageLinesLimit` after Remove Page and Page Filter; the other combinations rest on the code (all three empty a page's lines without setting `startPage`). Page Filter isn't named because it has no docs page.
 - [ ] Update the test doc types in Frances's account to `ocrIfMissing`, or delete them: production `ocr_omit_*` (4), `ocr_array_*` (2), `claims_*` (10); dev `ocr_if_missing_quote` (unpublished draft)
