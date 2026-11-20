@@ -40,4 +40,4 @@ Frances answered `design.md`'s open questions. The record-only path is built: ev
 - #831 (`update-schema-descriptions` skill and a sandbox guard fix): draft. Frances questioned whether schema descriptions come from `/** */` comments; Claude traced every published description to doc comments in `types.ts`. Unresolved whether she agrees.
 - `eng-page-range-bug.md`: draft message for horacio-penya, not sent.
 - Port `example-claims` (style rule and Jev noul support) in `fscelliott/sensible-docs-private`, `ports/example-claims/`: applies cleanly to `v0`; not applied.
-- Test doc types in Frances's production account: `ocr_omit_*` (4), `ocr_array_*` (2), `claims_*` (10). In dev: `ocr_if_missing_quote`. Delete when no longer needed as proof.
+- Test doc types in Frances's production account (16) and dev (1): deleted 2026-11-20. The docs test account keeps `evidence_pr825_*` (10) so the evidence records' run links open.
