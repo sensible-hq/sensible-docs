@@ -54,7 +54,7 @@ def _tree(tmp_path, guide_text):
     (tmp_path / ".claude/style-guide/rules.md").write_text(guide_text)
     (tmp_path / ".github/styles/Sensible/EmDash.yml").write_text("extends: existence\n")
     (tmp_path / "style-rules/tests/em.md").write_text("<!-- rules: Sensible.EmDash -->\n")
-    return [{"id": "em", "statement": "No em dashes.", "kind": "deterministic", "gate": "block",
+    return [{"id": "em", "statement": "No em dashes.", "applies": ["prose"], "kind": "deterministic", "gate": "block",
              "enforced_by": {"vale": ["Sensible.EmDash"]}, "fixture": "style-rules/tests/em.md",
              "stated_in": [{"file": ".claude/style-guide/rules.md", "quote": "Don't use em dashes."}]}]
 
@@ -77,6 +77,19 @@ def test_registry_detects_drift(tmp_path, monkeypatch):
     (tmp_path / ".claude/style-guide/rules.md").write_text("Don't use em dashes.\n<!-- rule: em -->\n")
     (tmp_path / ".github/styles/Sensible/Orphan.yml").write_text("extends: existence\n")
     assert any("Sensible.Orphan: no registry entry" in p for p in cr.check(registry))
+
+
+def test_registry_checks_applies_and_overrides(tmp_path, monkeypatch):
+    import check_registry as cr
+    monkeypatch.setattr(cr, "ROOT", tmp_path)
+    monkeypatch.setattr(cr, "STYLES", tmp_path / ".github/styles")
+    registry = _tree(tmp_path, "Don't use em dashes.\n<!-- rule: em -->\n")
+    registry[0]["applies"] = []
+    assert "em: no applies list" in cr.check(registry)
+    registry[0]["applies"] = ["prose", "sidebar"]
+    registry[0]["overrides"] = ["gone"]
+    problems = cr.check(registry)
+    assert "em: unknown applies kind sidebar" in problems and "em: overrides unknown rule gone" in problems
 
 
 def test_this_repos_registry_is_clean():

@@ -1,5 +1,31 @@
 # Style rules
 
+## Summary
+
+These checks keep you from adding a style rule that repeats or conflicts with one you already have. They run in three places:
+
+- **While you edit:** when you edit a file that holds a rule, a hook checks the rules you touched and reports drift or a clashing pair. It never blocks the edit.
+- **On each PR:** CI confirms that the registry still matches the guides.
+- **Every Monday:** a workflow checks every pair of rules, including with Jev, and posts a report.
+
+When a pair is flagged, settle it once: merge the two rules, mark one as overriding the other, or record the pair as fine in `overlaps.yaml`. The pair stays quiet until someone rewords one of the rules.
+
+Two rules are compared only if they check the same kind of text, such as prose, headings, tables, or code. Each rule's `applies` list in the registry names its kinds. Of the 861 possible pairs among 42 rules, 403 share a kind. The weekly run compares those by wording and asks Jev about each one twice, once in each order. Jev's answers are cached, so after the first run Jev is only asked about pairs where a rule was added or reworded. The Vale fixture layer runs each of the 19 fixtures once against all rules. The hook compares only the rules an edit touched.
+
+What the checks cost at 42 rules:
+
+| Run | Time | Jev calls | Cost |
+| --- | --- | --- | --- |
+| Hook, after an edit to a rule file | under 1.5 s | 0 | $0 |
+| Weekly, without Jev | 3 s | 0 | $0 |
+| Weekly, with Jev, first run | 21 s | 806 (403 pairs, asked in both orders) | $0.02 |
+| Weekly, with Jev, nothing changed | under 1 s | 0 | $0 |
+| Weekly, with Jev, one rule added | a few seconds | 2 per rule it shares a kind with | under $0.01 |
+
+No step calls Claude or any other LLM besides Jev.
+
+## How rules are carried
+
 House style rules are carried in two ways:
 
 - **In prose**, in guides, templates, and skills that the model reads (`.claude/style-guide/`, `.claude/preferences/`, `.claude/skills/`). This is probabilistic: the model may or may not apply what it reads.
@@ -13,7 +39,7 @@ Many rules are carried both ways. [`registry.yaml`](registry.yaml) records, for 
 | ---- | ---------- |
 | `registry.yaml` | One entry per rule: `stated_in` (prose carriers), `enforced_by` (Vale, script, judgment), `kind`, `gate`, `fixture` |
 | `judgment/<id>.yaml` | What Jev needs to judge a rule: source, scope, detector, precheck, question with criteria, examples |
-| `tests/<id>.md` | Fixtures: lines each Vale rule must flag (`<!-- fail -->`) and must not flag (`<!-- pass -->`) |
+| `tests/<id>.md` | A small test file of sample sentences for one Vale rule: sentences that break the rule, marked `<!-- fail -->`, which the rule must flag, and correct sentences, marked `<!-- pass -->`, which it must leave alone. `test_rules.py` runs them. |
 | `corpus-before.tsv`, `corpus-after.tsv` | Vale alert counts per rule on `docs/` and `reference/`, before and after the 2026-11 cleanup |
 
 ## Checks
@@ -26,6 +52,7 @@ python3 scripts/style/check_code_blocks.py       # json fences and /* */ comment
 python3 scripts/style/check_excerpts.py          # excerpt length, sync, and self-naming in docs/
 python3 scripts/style/check_order.py             # every docs page is in its _order.yaml
 python3 scripts/style/compare_param_descriptions.py   # parameters worded differently across pages
+python3 scripts/style/check_overlap.py [--jev]   # rules that duplicate, overlap, or contradict each other
 bash scripts/vale-doctor.sh                      # the write-time hook works the way Claude Code runs it
 ```
 
@@ -93,3 +120,22 @@ A rule fails a run (exit 1) only when its calibration earned trust: on its label
 Jev isn't deterministic: the same request can come back with a different confidence. Tests replay recorded responses (`JEV_REPLAY`), so they're stable; record new ones with `JEV_RECORD`. A missing recording fails; it never passes. A live run needs `TYPESAFE_API_KEY` and costs $0.042 per million input tokens (about $0.0002 for four pages).
 
 The judge doesn't run in the write-time hook: a network call per edit is too slow, and judgment needs the whole change. The doc skills run it before committing.
+
+## Duplicate and conflicting rules
+
+`scripts/style/check_overlap.py` compares rules in pairs, in three layers:
+
+- **Fixtures:** every Vale fixture runs against every registered rule. A line marked `pass` for one rule that another rule flags is a contradiction: the example of correct text breaks a house rule. When the other rule is a judgment rule, its pattern only finds candidates, so the finding is marked as a detector finding.
+Only rules that share a kind of text in their `applies` lists are paired for the next two layers.
+
+- **Wording:** pairs whose statements and quotes share most of their content words, which catches a rule restated in a second file.
+- **Jev** (`--jev`): two yes-or-no questions per pair (same requirement, can conflict), asked in both orders. Jev leans toward whichever rule comes first, so the two answers are averaged, and a pair whose orders disagree is reported as unstable. Answers are cached in `.cache/rule-overlap.json` by the exact request, so a pair is asked again only when a rule's wording changes.
+
+The 21 pairs found by the first run are recorded there as `unreviewed`: the weekly report lists them without failing, so only a new pair fails the run. A pair you've ruled on goes in [`overlaps.yaml`](overlaps.yaml) with the hash the script prints; rewording either rule reopens it. A deliberate conflict goes in the registry as `overrides: [loser]` on the winning rule.
+
+The checks run in three places:
+
+- After every edit to a rule carrier (`CLAUDE.md`, `AGENTS.md`, `.claude/style-guide/`, `.claude/preferences/`, `.claude/skills/`, `style-rules/`, `.github/styles/`), the `.claude/hooks/rule_gate.py` hook runs the registry check and the deterministic layers for the rules the edit touched. It reports and never blocks, because changing a rule takes edits to several files.
+- On every PR that touches a carrier, CI runs the registry check.
+- Every Monday, `rule_overlap.yml` runs all three layers and posts the report as the job summary.
+

@@ -12,6 +12,8 @@ on:
       - '.claude/style-guide/**'
       - '.claude/preferences/**'
       - '.claude/skills/**'
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
       - '.github/workflows/test-scripts.yml'
   push:
     branches:
@@ -26,6 +28,8 @@ on:
       - '.claude/style-guide/**'
       - '.claude/preferences/**'
       - '.claude/skills/**'
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
       - '.github/workflows/test-scripts.yml'
 
 jobs:

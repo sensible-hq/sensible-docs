@@ -13,3 +13,4 @@ scripts/test/probe_endpoints/outputs/
 scripts/doc-detective/output/
 scripts/doc-detective/.deps
 .doc-detective/
+.cache/
