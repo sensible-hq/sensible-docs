@@ -359,6 +359,7 @@
   map_id: J1
   statement: A reference page's first sentence says what the feature does, in third-person present ("Extracts…"). "Use this method to…" only when the user supplies the input.
   applies: [prose]
+  overrides: [sensible-explicit-actor]
   kind: judgment
   enforced_by:
     judgment: [style-rules/judgment/sensible-opening-sentence.yaml]
