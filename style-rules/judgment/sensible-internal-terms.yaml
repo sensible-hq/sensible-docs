@@ -31,11 +31,11 @@ examples:
 fix: name what readers see in the Sensible app or API
 calibration:
   precision: 1.0
-  recall: 0.8
-  violations: 5
-  agreement: 0.88
-  choice_agreement: 0.88
-  cases: 8
+  recall: 0.67
+  violations: 6
+  agreement: 0.71
+  choice_agreement: 0.71
+  cases: 7
   model: jev-1.14.0
-  date: '2026-11-18'
+  date: '2026-11-20'
   labels: labels/sensible-internal-terms.yaml

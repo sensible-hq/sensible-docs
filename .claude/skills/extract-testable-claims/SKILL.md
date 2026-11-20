@@ -88,5 +88,5 @@ Frances approves, edits, rejects, or changes the priority of each entry. Then, f
 2. Add the approved comments to the page.
 3. Run `python3 scripts/doc-detective/codetests/evidence.py check` and `python3 scripts/doc-detective/test_matrix.py`, and fix anything `check` reports.
 
-For approved claims at priority 1 to 3, write the page markup instead (see `scripts/doc-detective/README.md`, "Markup").
+For approved claims at priority 1 to 3, hand the approved table to the `add-doc-tests` skill, which writes the page markup, proves each test can fail, runs it, and registers the page for CI. Don't write that markup here.
 
