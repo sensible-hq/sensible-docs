@@ -1,0 +1,12 @@
+{
+  "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
+  "report": "docs-senseml-reference-preprocessors-ocr-preprocessor.html",
+  "commit": "e29fbd8be",
+  "uncommitted": true,
+  "tested_at": "2026-11-20 20:50 UTC",
+  "environment": "prod",
+  "overall": "pass",
+  "tests": {
+    "extract_ocr_if_missing_quote": "pass"
+  }
+}
