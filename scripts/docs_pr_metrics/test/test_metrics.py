@@ -16,10 +16,14 @@ CLAUDE = "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
 @pytest.mark.parametrize("text, expected", [
     ("see https://github.com/sensible-hq/sensible/pull/3519", [("sensible", 3519)]),
     ("sensible-hq/sensible-app#120 and sensible#7", [("sensible", 7), ("sensible-app", 120)]),
-    ("doc: thing (sensible#3519, #3533)", [("sensible", 3519)]),
     ("sensible-docs#12 is not backend", []),
     ("closes #812", []),
     ("sensible#1 sensible#1", [("sensible", 1)]),
+    ("doc: thing (sensible#3519, #3533)", [("sensible", 3519), ("sensible", 3533)]),
+    ("Based on sensible-hq/sensible#3190, #3237, and #3240.",
+     [("sensible", 3190), ("sensible", 3237), ("sensible", 3240)]),
+    ("Run `/update-docs-from-pr 3235 3220`", [("sensible", 3220), ("sensible", 3235)]),
+    ("sensible#5 fixes docs #812", [("sensible", 5)]),
 ])
 def test_backend_refs(text, expected):
     assert M.backend_refs(text) == expected
@@ -49,17 +53,18 @@ def c(sha, claude, docs=True):
     return {"sha": sha, "claude": claude, "doc_files": ["docs/a.md"] if docs else [], "doc_lines": 1}
 
 
-def test_draft_commit_ends_at_first_human_doc_commit():
-    commits = [c("1", True), c("2", False, docs=False), c("3", True), c("4", False), c("5", True)]
-    assert M.draft_commit(commits) == "3"
+def test_draft_is_first_doc_commit_only():
+    # Later Claude commits are revisions (often dictated), never part of the draft.
+    commits = [c("0", True, docs=False), c("1", True), c("2", True), c("3", False)]
+    assert M.draft_commit(commits) == "1"
 
 
-def test_draft_commit_skips_leading_human_commits():
-    assert M.draft_commit([c("1", False), c("2", True), c("3", True)]) == "3"
+def test_no_draft_when_first_doc_commit_is_human():
+    assert M.draft_commit([c("1", False), c("2", True), c("3", True)]) is None
 
 
-def test_draft_commit_none_without_claude_doc_commits():
-    assert M.draft_commit([c("1", False), c("2", True, docs=False)]) is None
+def test_no_draft_without_doc_commits():
+    assert M.draft_commit([c("1", True, docs=False)]) is None
 
 
 def test_post_draft_commits_counts_doc_commits_only():
@@ -69,14 +74,46 @@ def test_post_draft_commits_counts_doc_commits_only():
 
 
 def test_survival_multiset_and_whitespace():
-    draft = {"docs/a.md": ["same", "  same", "reworded", "", "moved"]}
-    final = {"docs/a.md": ["moved", "same", "different wording"]}
-    # one "same" survives (only one in final), blank ignored, "moved" survives
-    assert M.survival(draft, final) == (2, 4)
+    draft = {"docs/a.md": ["The same sentence twice.", "  The same sentence twice.",
+                           "A sentence to be reworded.", "", "A sentence that moves."]}
+    net = {"docs/a.md": ["A sentence that moves.", "The same sentence twice.", "A reworded sentence."]}
+    # one copy survives (only one in net), blank ignored, the moved line survives
+    assert M.survival(draft, net) == (2, 4)
+
+
+def test_survival_ignores_trivial_lines():
+    draft = {"docs/a.md": ["```", "| --- | --- |", "}", "A real sentence of content."]}
+    assert M.survival(draft, {"docs/a.md": ["```", "| --- | --- |", "}"]}) == (0, 1)
+
+
+def test_survival_does_not_count_lines_already_on_the_page():
+    # The net diff doesn't add this line (it was already in the file), so it can't survive.
+    draft = {"docs/a.md": ['    "type": "string",']}
+    assert M.survival(draft, {"docs/a.md": []}) == (0, 1)
+
+
+def test_word_survival_counts_reworded_words_not_rows():
+    draft = {"docs/a.md": ["| thorough | Claude 5.5 Sonnet |"]}
+    net = {"docs/a.md": ["| thorough | Claude Sonnet 5.5 |"]}
+    kept, total = M.word_survival(draft, net)
+    assert total == 7 and kept == 6
+    assert M.survival(draft, net) == (0, 1)
+
+
+def test_word_survival_missing_file():
+    assert M.word_survival({"docs/a.md": ["two words"]}, {}) == (0, 2)
 
 
 def test_survival_deleted_file():
-    assert M.survival({"docs/a.md": ["x"]}, {}) == (0, 1)
+    assert M.survival({"docs/a.md": ["Content that got cut."]}, {}) == (0, 1)
+
+
+def test_pooled_weights_by_size():
+    rows = [M.PRMetrics(1, "t", "after", "", "", "", doc_lines=10, revision_lines=10),
+            M.PRMetrics(2, "t", "after", "", "", "", doc_lines=90, revision_lines=0),
+            M.PRMetrics(3, "t", "after", "", "", "", doc_lines=50, revision_lines=None)]
+    assert M.pooled(rows, "revision_lines", "doc_lines") == 10.0
+    assert M.pooled([], "revision_lines", "doc_lines") is None
 
 
 def test_fix_overlap_ignores_trivial_lines():
@@ -116,7 +153,7 @@ def test_report_flags_small_samples():
             M.PRMetrics(2, "t", "after", "2026-11-01", "2026-11-02", "sensible#2", doc_lines=20,
                         fix_window="open")]
     out = M.render_report(rows, "tag", datetime(2026, 10, 27, tzinfo=timezone.utc), excluded=[9])
-    assert "Too few PRs" in out
+    assert "Small sample" in out
     assert "| #2 | after |" in out
     assert "0, open" in out
     assert "change no doc files: #9" in out
@@ -194,6 +231,10 @@ def test_measure_pr_end_to_end(repo, monkeypatch):
     assert m.human_doc_lines == 2    # one line replaced
     assert m.draft_lines == 3
     assert m.post_draft_commits == 2
+    # 19 draft words; lost: "five", and all of the rewritten sentence but "human"
+    assert (m.draft_words_kept, m.draft_words) == (13, 19)
+    assert m.revision_lines == 4         # human rewrite (2) + dictated fix (2)
+    assert m.revision_lines_claude == 2
     assert m.draft_survival == pytest.approx(0.333, abs=0.001)  # only "every document type" survived
     assert m.lag_days == 2.0
 

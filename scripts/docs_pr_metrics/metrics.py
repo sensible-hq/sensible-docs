@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import difflib
 import json
 import re
 import statistics
@@ -32,6 +33,10 @@ BACKEND_REF = re.compile(
     r"(?:github\.com/sensible-hq/(sensible(?:-app)?)/pull/(\d+))"
     r"|(?:(?<![\w/-])(?:sensible-hq/)?(sensible(?:-app)?)#(\d+))"
 )
+# "sensible#3519, #3533 and #3540": bare numbers continuing a list belong to the same repo.
+LIST_TAIL = re.compile(r"(?:,\s*|,?\s+and\s+|\s*/\s*)#(\d+)")
+# The docs skill's own invocation, "/update-docs-from-pr 3235", names an engine PR.
+SKILL_REF = re.compile(r"update-docs-from-pr\s+((?:\d+[\s,]*)+)")
 CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 
@@ -39,11 +44,17 @@ CLAUDE_TRAILER = re.compile(r"^co-authored-by:\s*claude\b", re.I | re.M)
 
 def backend_refs(text: str) -> list[tuple[str, int]]:
     """Return sorted unique (repo, number) backend PR references in text."""
+    text = text or ""
     refs = set()
-    for m in BACKEND_REF.finditer(text or ""):
+    for m in BACKEND_REF.finditer(text):
         repo = m.group(1) or m.group(3)
-        num = m.group(2) or m.group(4)
-        refs.add((repo, int(num)))
+        refs.add((repo, int(m.group(2) or m.group(4))))
+        pos = m.end()
+        while tail := LIST_TAIL.match(text, pos):
+            refs.add((repo, int(tail.group(1))))
+            pos = tail.end()
+    for m in SKILL_REF.finditer(text):
+        refs.update(("sensible", int(n)) for n in re.findall(r"\d+", m.group(1)))
     return sorted(refs)
 
 
@@ -58,42 +69,59 @@ def is_claude_commit(message: str) -> bool:
 
 
 def draft_commit(commits: list[dict]) -> str | None:
-    """Last commit of the first contiguous run of Claude commits touching doc files.
+    """The PR's first commit that touches doc files, when Claude co-authored it.
 
     `commits` is oldest first; each has `sha`, `claude` (bool), `doc_files` (list).
-    Commits that touch no doc files neither start nor end the run.
+    Every later commit is revision, whoever wrote it: dictated edits land as
+    Claude commits, so a longer "draft" would absorb the revisions it should measure.
+    A PR whose first doc commit is Frances's has no AI draft.
     """
-    draft = None
     for c in commits:
-        if not c["doc_files"]:
-            continue
-        if c["claude"]:
-            draft = c["sha"]
-        elif draft is not None:
-            break
-    return draft
+        if c["doc_files"]:
+            return c["sha"] if c["claude"] else None
+    return None
 
 
 def _norm(line: str) -> str:
     return line.strip()
 
 
-def survival(draft_added: dict[str, list[str]], final: dict[str, list[str]]) -> tuple[int, int]:
-    """(survived, total) non-blank draft-added lines found unchanged in the final files.
+def survival(draft_added: dict[str, list[str]], net_added: dict[str, list[str]]) -> tuple[int, int]:
+    """(survived, total) significant draft-added lines that the merged PR still adds.
 
-    Multiset match per file, whitespace-trimmed: each final line can claim one draft line.
+    Matched against the PR's net added lines, not the whole final file, so a draft
+    line identical to one already on the page can't survive by coincidence.
+    Multiset match per file, whitespace-trimmed: each net line can claim one draft line.
+    Lines too short to carry content (fences, table rules, braces) aren't counted.
     """
     survived = total = 0
     for path, lines in draft_added.items():
-        pool = Counter(_norm(x) for x in final.get(path, []))
+        pool = Counter(_norm(x) for x in net_added.get(path, []))
         for line in lines:
             key = _norm(line)
-            if not key:
+            if not significant(key):
                 continue
             total += 1
             if pool[key] > 0:
                 pool[key] -= 1
                 survived += 1
+    return survived, total
+
+
+def word_survival(draft_added: dict[str, list[str]], net_added: dict[str, list[str]]) -> tuple[int, int]:
+    """(survived, total) words of the draft's added lines that the merged PR still adds, in order.
+
+    Per file, the longest matching blocks between the two word sequences
+    (difflib with autojunk off, so the result doesn't depend on a heuristic).
+    One reworded word in a table row costs one word, not the whole row.
+    """
+    survived = total = 0
+    for path, lines in draft_added.items():
+        draft_words = " ".join(lines).split()
+        net_words = " ".join(net_added.get(path, [])).split()
+        total += len(draft_words)
+        sm = difflib.SequenceMatcher(None, draft_words, net_words, autojunk=False)
+        survived += sum(b.size for b in sm.get_matching_blocks())
     return survived, total
 
 
@@ -117,10 +145,15 @@ def period(created: datetime, cutoff: datetime) -> str:
 
 def post_draft_commits(commits: list[dict], draft: str | None) -> int:
     """Doc-touching commits after the draft commit: the PR's revision rounds."""
+    return len(after_draft(commits, draft))
+
+
+def after_draft(commits: list[dict], draft: str | None) -> list[dict]:
+    """Doc-touching commits after the draft, oldest first."""
     if draft is None:
-        return 0
+        return []
     shas = [c["sha"] for c in commits]
-    return sum(1 for c in commits[shas.index(draft) + 1:] if c["doc_files"])
+    return [c for c in commits[shas.index(draft) + 1:] if c["doc_files"]]
 
 
 def per100(count: float | None, size: int) -> float | None:
@@ -198,15 +231,6 @@ class Git:
     def diff(self, a: str, b: str) -> str:
         return self("diff", "-U0", "--no-renames", a, b, "--", "docs", "reference")
 
-    def files_at(self, commit: str, paths: list[str]) -> dict[str, list[str]]:
-        out = {}
-        for p in paths:
-            try:
-                out[p] = self("show", f"{commit}:{p}").splitlines()
-            except subprocess.CalledProcessError:
-                out[p] = []
-        return out
-
     def tag_date(self, tag: str) -> datetime:
         return datetime.fromisoformat(self("log", "-1", "--format=%cI", tag).strip())
 
@@ -224,10 +248,16 @@ class GitHub:
         f.write_text(json.dumps(data))
         return data
 
-    def merged_prs(self) -> list[dict]:
+    def merged_prs(self, refresh: bool = False) -> list[dict]:
+        if refresh:
+            (self.cache / "merged_prs.json").unlink(missing_ok=True)
         return self._cached("merged_prs.json", [
             "gh", "pr", "list", "-R", DOCS_REPO, "--state", "merged", "--limit", "2000",
             "--json", "number,title,body,createdAt,mergedAt,mergeCommit"])
+
+    def fetched_at(self) -> str:
+        f = self.cache / "merged_prs.json"
+        return datetime.fromtimestamp(f.stat().st_mtime).strftime("%Y-%m-%d %H:%M") if f.exists() else "never"
 
     def backend_merged_at(self, repo: str, number: int) -> str | None:
         data = self._cached(f"backend_{repo}_{number}.json", [
@@ -251,7 +281,14 @@ class PRMetrics:
     human_commits: int = 0
     human_doc_lines: int = 0
     draft_lines: int | None = None
+    draft_kept: int | None = None
+    draft_words: int | None = None
+    draft_words_kept: int | None = None
+    draft_word_survival: float | None = None
     post_draft_commits: int = 0
+    revision_lines: int | None = None
+    revision_lines_claude: int | None = None
+    revision_lines_per100: float | None = None
     draft_survival: float | None = None
     fixes: int = 0
     fix_prs: str = ""
@@ -296,11 +333,15 @@ def measure_pr(git: Git, gh: GitHub, pr: dict, cutoff: datetime) -> PRMetrics:
     draft = draft_commit(commits)
     m.post_draft_commits = post_draft_commits(commits, draft)
     if draft:
-        draft_base = git.merge_base(draft, f"{merge}^1")
-        draft_added, _ = parse_diff(git.diff(draft_base, draft))
-        final = git.files_at(merge, list(draft_added))
-        kept, total = survival(draft_added, final)
-        m.draft_lines = total
+        draft_added, _ = parse_diff(git.diff(f"{draft}^", draft))
+        kept, total = survival(draft_added, added)
+        revisions = after_draft(commits, draft)
+        m.revision_lines = sum(c["doc_lines"] for c in revisions)
+        m.revision_lines_claude = sum(c["doc_lines"] for c in revisions if c["claude"])
+        m.draft_lines, m.draft_kept = total, kept
+        m.draft_words_kept, m.draft_words = word_survival(draft_added, added)
+        if m.draft_words:
+            m.draft_word_survival = round(m.draft_words_kept / m.draft_words, 3)
         m.draft_survival = round(kept / total, 3) if total else None
 
     merged_dates = [d for d in (gh.backend_merged_at(r, n) for r, n in refs) if d]
@@ -309,6 +350,7 @@ def measure_pr(git: Git, gh: GitHub, pr: dict, cutoff: datetime) -> PRMetrics:
 
     m.human_commits_per100 = per100(m.human_commits, m.doc_lines)
     m.human_doc_lines_per100 = per100(m.human_doc_lines, m.doc_lines)
+    m.revision_lines_per100 = per100(m.revision_lines, m.doc_lines)
     return m
 
 
@@ -323,6 +365,7 @@ def attach_fixes(git: Git, rows: list[PRMetrics], all_prs: list[dict], now: date
         return deleted_cache[pr["number"]]
 
     by_number = {p["number"]: p for p in all_prs}
+    all_prs = sorted(all_prs, key=lambda p: p["number"])
     for m in rows:
         start = ts(by_number[m.number]["mergedAt"])
         end = start + timedelta(days=FIX_WINDOW_DAYS)
@@ -347,14 +390,15 @@ def attach_fixes(git: Git, rows: list[PRMetrics], all_prs: list[dict], now: date
 
 # ---------- report ----------
 
-SUMMARY_METRICS = [
-    ("doc_lines", "Doc lines changed"),
+# (field, label, lower_is_better). Medians are per PR; pooled rates are sum over sum.
+MEDIAN_METRICS = [
+    ("doc_lines", "Doc lines changed (PR size)"),
     ("commits", "Commits"),
-    ("human_commits", "Human commits"),
-    ("human_commits_per100", "Human commits per 100 doc lines"),
-    ("human_doc_lines_per100", "Human-edited doc lines per 100 doc lines"),
-    ("draft_survival", "AI draft survival"),
-    ("post_draft_commits", "Doc commits after the draft"),
+    ("post_draft_commits", "Doc commits after the AI draft"),
+    ("revision_lines_per100", "Revision lines after the draft, per 100 doc lines"),
+    ("human_doc_lines_per100", "Lines Frances committed herself, per 100 doc lines"),
+    ("draft_word_survival", "AI draft survival, words"),
+    ("draft_survival", "AI draft survival, whole lines"),
     ("fixes_per100", "Post-merge fixes per 100 doc lines"),
     ("lag_days", "Lag, backend merge to docs merge (days)"),
 ]
@@ -365,17 +409,35 @@ def median(values: list) -> float | None:
     return round(statistics.median(vals), 3) if vals else None
 
 
+def pooled(group: list[PRMetrics], num: str, den: str, scale: int = 100) -> float | None:
+    """Sum of `num` over sum of `den`, skipping PRs where either is missing."""
+    pairs = [(getattr(r, num), getattr(r, den)) for r in group
+             if getattr(r, num) is not None and getattr(r, den)]
+    total = sum(d for _, d in pairs)
+    return round(scale * sum(n for n, _ in pairs) / total, 2) if total else None
+
+
 def summarize(rows: list[PRMetrics]) -> dict[str, dict]:
     out = {}
     for name in ("before", "after"):
-        group = [r for r in rows if r.period == name]
-        s = {"n": len(group),
-             "new_page_share": round(sum(1 for r in group if r.new_pages) / len(group), 2) if group else None,
-             "fixes_total": sum(r.fixes for r in group),
-             "revised_share": round(sum(1 for r in group if r.post_draft_commits) / len(group), 2) if group else None,
-             "open_windows": sum(1 for r in group if r.fix_window == "open")}
-        for key, _ in SUMMARY_METRICS:
-            s[key] = median([getattr(r, key) for r in group])
+        g = [r for r in rows if r.period == name]
+        n = len(g)
+        s = {"n": n,
+             "new_page_share": round(sum(1 for r in g if r.new_pages) / n, 2) if n else None,
+             "revised_share": round(sum(1 for r in g if r.post_draft_commits) / n, 2) if n else None,
+             "no_draft": sum(1 for r in g if r.draft_lines is None),
+             "fixes_total": sum(r.fixes for r in g),
+             "open_windows": sum(1 for r in g if r.fix_window == "open"),
+             "doc_lines_total": sum(r.doc_lines for r in g),
+             "pooled_revision": pooled(g, "revision_lines", "doc_lines"),
+             "pooled_human": pooled(g, "human_doc_lines", "doc_lines"),
+             "pooled_survival": pooled(g, "draft_kept", "draft_lines", scale=1),
+             "pooled_word_survival": pooled(g, "draft_words_kept", "draft_words", scale=1),
+             "pooled_word_survival_revised": pooled([r for r in g if r.post_draft_commits],
+                                                    "draft_words_kept", "draft_words", scale=1),
+             "pooled_fixes": pooled(g, "fixes", "doc_lines")}
+        for key, _ in MEDIAN_METRICS:
+            s[key] = median([getattr(r, key) for r in g])
         out[name] = s
     return out
 
@@ -389,58 +451,88 @@ def fmt(v) -> str:
 
 
 def render_report(rows: list[PRMetrics], cutoff_tag: str, cutoff: datetime,
-                  excluded: list[int] | None = None) -> str:
+                  excluded: list[int] | None = None, as_of: datetime | None = None,
+                  fetched: str | None = None) -> str:
     s = summarize(rows)
     b, a = s["before"], s["after"]
+    small = min(b["n"], a["n"])
     lines = [
         "# Docs PR metrics: before and after the skill rework",
         "",
         f"Cutoff: `{cutoff_tag}` ({cutoff.date()}). A PR is \"after\" when it was created on or after the cutoff.",
+        *([f"As of: {as_of.date()}. PR list fetched from GitHub: {fetched}. "
+           "Rerunning with the same `--as-of` and cache gives the same numbers; `--refresh` picks up newer PRs."]
+          if as_of else []),
         f"Population: merged sensible-docs PRs that reference a sensible or sensible-app PR. "
         f"n = {b['n']} before, {a['n']} after.",
         *([f"Excluded because they change no doc files: {', '.join(f'#{n}' for n in excluded)}."] if excluded else []),
         "",
     ]
-    if min(b["n"], a["n"]) < 8:
-        lines += [f"> **Too few PRs to conclude anything.** The smaller period has {min(b['n'], a['n'])} PRs. "
-                  "Treat the medians below as a direction to watch, not a result.", ""]
-    lines += ["## Medians per PR", "", "| Metric | Before | After |", "|---|---|---|"]
-    for key, label in SUMMARY_METRICS:
-        lines.append(f"| {label} | {fmt(b[key])} | {fmt(a[key])} |")
+    if small < 8:
+        lines += [f"> **Small sample.** The smaller period has {small} PRs, so one PR can move any number below. "
+                  "Read the per-PR table before quoting an aggregate.", ""]
     lines += [
-        f"| Share of PRs adding a new page | {fmt(b['new_page_share'])} | {fmt(a['new_page_share'])} |",
-        f"| Share of PRs revised after the draft | {fmt(b['revised_share'])} | {fmt(a['revised_share'])} |",
+        "## Aggregates",
+        "",
+        "Pooled rates divide the period's total by its total doc lines, so large PRs weigh more. "
+        "Medians weigh every PR equally.",
+        "",
+        "| Metric | Before | After |",
+        "|---|---|---|",
+        f"| PRs | {b['n']} | {a['n']} |",
+        f"| Doc lines changed, total | {b['doc_lines_total']} | {a['doc_lines_total']} |",
+        f"| Revision lines after the draft per 100 doc lines, pooled | {fmt(b['pooled_revision'])} | {fmt(a['pooled_revision'])} |",
+        f"| Lines Frances committed herself per 100 doc lines, pooled | {fmt(b['pooled_human'])} | {fmt(a['pooled_human'])} |",
+        f"| AI draft survival, words, pooled | {fmt(b['pooled_word_survival'])} | {fmt(a['pooled_word_survival'])} |",
+        f"| AI draft survival, words, pooled, PRs revised after the draft only | {fmt(b['pooled_word_survival_revised'])} | {fmt(a['pooled_word_survival_revised'])} |",
+        f"| AI draft survival, whole lines, pooled | {fmt(b['pooled_survival'])} | {fmt(a['pooled_survival'])} |",
+        f"| Post-merge fixes per 100 doc lines, pooled | {fmt(b['pooled_fixes'])} | {fmt(a['pooled_fixes'])} |",
         f"| Post-merge fixes, total | {b['fixes_total']} | {a['fixes_total']} |",
+    ]
+    for key, label in MEDIAN_METRICS:
+        lines.append(f"| {label}, median | {fmt(b[key])} | {fmt(a[key])} |")
+    lines += [
+        f"| Share of PRs revised after the draft | {fmt(b['revised_share'])} | {fmt(a['revised_share'])} |",
+        f"| Share of PRs adding a new page | {fmt(b['new_page_share'])} | {fmt(a['new_page_share'])} |",
+        f"| PRs with no AI draft (first doc commit is Frances's) | {b['no_draft']} | {a['no_draft']} |",
         "",
-        "Lower is better for human commits, human-edited lines, fixes, and lag. Higher is better for draft survival.",
-        "Doc lines changed and the new-page share are there to check that the periods compare like with like.",
+        "Lower is better for revision lines, Frances's lines, fixes, and lag. Higher is better for draft survival. "
+        "PR size and the new-page share check that the periods compare like with like.",
         "",
-        "## Caveats",
+        "## How to read each number",
         "",
-        "- Edits Frances dictates to Claude land as Claude commits, so human commits and human-edited lines "
-        "are floors. Draft survival counts every change after the draft, whoever typed it.",
-        f"- {a['open_windows'] + b['open_windows']} PRs merged less than {FIX_WINDOW_DAYS} days ago, "
-        "so their fix counts can still grow.",
-        "- A PR whose draft is also its final commit scores 100% survival. Read survival next to the share of "
-        "PRs revised after the draft: a draft polished locally before the first commit looks perfect here.",
-        "- Lag uses the latest-merged backend PR the docs PR references. An old reference inflates it, so treat it as context only.",
-        "- Fix candidates are matched on deleted lines, not intent. Check the list below before quoting the number.",
-        "- Practice effect: Frances's prompting has improved over the same months, and no PR metric separates "
-        "that from the skill changes.",
+        "- **AI draft:** the PR's first commit that touches doc files, when Claude co-authored it. Everything after it is revision.",
+        "- **Revision lines:** lines added plus deleted on doc files in every commit after the draft, whoever made it. "
+        "This is the main back-and-forth measure, because edits Frances dictates to Claude land as Claude commits.",
+        "- **Lines Frances committed herself:** doc lines in commits without a Claude co-author trailer. "
+        "A floor on her hand edits: an edit she makes in her editor and Claude then commits counts as Claude's.",
+        "- **AI draft survival, words:** the share of the draft's added words that the merged PR still adds, in order. "
+        "The headline survival number. A PR with no commits after the draft scores 1.0 by construction, "
+        "so the revised-only row shows survival without those PRs.",
+        "- **AI draft survival, whole lines:** the share of the draft's added lines, 15 or more characters with a letter, that the merged PR "
+        "still adds unchanged. One reworded word makes a line not survive. A draft spread over several commits "
+        "only counts its first commit, so later additions lower the denominator, not the rate.",
+        "- **Post-merge fixes:** later PRs of 10 or fewer doc files, merged within "
+        f"{FIX_WINDOW_DAYS} days, that delete a line this PR added. Matched on text, not intent: check the list. "
+        f"{a['open_windows'] + b['open_windows']} PRs still have an open window, so their counts can grow.",
+        "- **Lag:** from the latest-merged backend PR the docs PR references. An old reference inflates it: context only.",
+        "- **Practice effect:** Frances's prompting has improved over the same months, and no PR metric separates that "
+        "from the skill changes.",
         "",
         "## Per PR",
         "",
-        "| PR | Period | Merged | Doc lines | New pages | Commits | Human commits | Human doc lines "
-        "| Draft survival | Commits after draft | Fixes | Lag (days) |",
-        "|---|---|---|---|---|---|---|---|---|---|---|---|",
+        "| PR | Period | Merged | Doc lines | New pages | Commits | Commits after draft | Revision lines "
+        "| Revision per 100 | Frances's lines | Draft words | Survival, words | Survival, lines | Fixes | Lag (days) |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
-    for r in sorted(rows, key=lambda r: r.merged):
+    for r in sorted(rows, key=lambda r: (r.merged, r.number)):
         fixes = f"{r.fixes} ({r.fix_prs})" if r.fixes else "0"
         if r.fix_window == "open":
             fixes += ", open"
-        lines.append(f"| #{r.number} | {r.period} | {r.merged} | {r.doc_lines} | {r.new_pages} | {r.commits} "
-                     f"| {r.human_commits} | {r.human_doc_lines} | {fmt(r.draft_survival)} | {r.post_draft_commits} | {fixes} "
-                     f"| {fmt(r.lag_days)} |")
+        lines.append(
+            f"| #{r.number} | {r.period} | {r.merged} | {r.doc_lines} | {r.new_pages} | {r.commits} "
+            f"| {r.post_draft_commits} | {fmt(r.revision_lines)} | {fmt(r.revision_lines_per100)} "
+            f"| {r.human_doc_lines} | {fmt(r.draft_words)} | {fmt(r.draft_word_survival)} | {fmt(r.draft_survival)} | {fixes} | {fmt(r.lag_days)} |")
     return "\n".join(lines) + "\n"
 
 
@@ -457,6 +549,8 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--cutoff", default=DEFAULT_CUTOFF, help="tag or commit that splits before from after")
     ap.add_argument("--since", default="2026-01-01", help="ignore PRs merged before this date")
+    ap.add_argument("--as-of", help="date that closes fix windows (default: today); pin it to reproduce a run")
+    ap.add_argument("--refresh", action="store_true", help="refetch the merged PR list instead of using the cache")
     ap.add_argument("--out", type=Path, default=here / "output")
     ap.add_argument("--cache", type=Path, default=here / "output" / "cache")
     ap.add_argument("--repo", type=Path, default=here.parents[1])
@@ -464,8 +558,11 @@ def main(argv: list[str] | None = None) -> int:
 
     git, gh = Git(args.repo), GitHub(args.cache)
     cutoff = git.tag_date(args.cutoff)
-    since = datetime.fromisoformat(args.since).replace(tzinfo=cutoff.tzinfo)
-    all_prs = [p for p in gh.merged_prs() if p.get("mergeCommit")]
+    tz = cutoff.tzinfo
+    since = datetime.fromisoformat(args.since).replace(tzinfo=tz)
+    as_of = (datetime.fromisoformat(args.as_of).replace(tzinfo=tz) + timedelta(days=1)
+             if args.as_of else datetime.now(tz))
+    all_prs = [p for p in gh.merged_prs(args.refresh) if p.get("mergeCommit") and ts(p["mergedAt"]) < as_of]
     population = [p for p in all_prs
                   if ts(p["mergedAt"]) >= since and backend_refs(f"{p['title']}\n{p['body']}")]
 
@@ -475,12 +572,13 @@ def main(argv: list[str] | None = None) -> int:
         rows.append(measure_pr(git, gh, p, cutoff))
     excluded = [r.number for r in rows if not r.doc_lines]
     rows = [r for r in rows if r.doc_lines]
-    attach_fixes(git, rows, [p for p in all_prs if ts(p["mergedAt"]) >= since],
-                 now=datetime.now(cutoff.tzinfo))
+    attach_fixes(git, rows, [p for p in all_prs if ts(p["mergedAt"]) >= since], now=as_of)
 
     args.out.mkdir(parents=True, exist_ok=True)
     write_csv(rows, args.out / "per_pr.csv")
-    (args.out / "report.md").write_text(render_report(rows, args.cutoff, cutoff, excluded))
+    (args.out / "report.md").write_text(render_report(rows, args.cutoff, cutoff, excluded,
+                                                           as_of - timedelta(days=1) if args.as_of else as_of,
+                                                           gh.fetched_at()))
     print(f"wrote {args.out / 'report.md'} and per_pr.csv ({len(rows)} PRs)", file=sys.stderr)
     return 0
 

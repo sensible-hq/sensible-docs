@@ -13,12 +13,12 @@ How `scripts/docs_pr_metrics/metrics.py` computes what `design.md` defines.
 | Tree | Commit |
 |---|---|
 | Base | The merge base of the PR head and the merge commit's first parent. |
-| Draft | The last commit of the first contiguous run of Claude-co-authored commits that touches doc files. |
+| Draft | The PR's first commit that touches doc files, when Claude co-authored it. |
 | Final | The merge commit on `v0`. |
 
-Net PR change is `diff(merge_commit^1, merge_commit)`, which is what the PR changed on `v0` regardless of merge strategy. Draft additions are `diff(base, draft)`. Human doc lines are `git show --numstat` per human commit.
+Net PR change is `diff(merge_commit^1, merge_commit)`, which is what the PR changed on `v0` regardless of merge strategy. Draft additions are `diff(draft^, draft)`. Revision lines and Frances's lines are `--numstat` sums per commit, with merges excluded so a `v0` merge into the branch doesn't count.
 
-A PR with no Claude commits touching doc files has no draft, and its survival is blank rather than 0 or 100.
+A PR whose first doc commit is Frances's has no AI draft, and its survival is blank rather than 0 or 100.
 
 ## Post-merge fixes
 
@@ -26,12 +26,12 @@ For each population PR P, the candidate later PRs are every merged PR, in the po
 
 ## Code layout
 
-Pure functions, with no git or network access, hold the logic: reference parsing, the doc-file filter, the trailer test, draft-run selection, line survival, fix matching, period assignment, and the report. `Git` and `GitHub` classes wrap the subprocess calls. The tests cover the pure functions directly and use a throwaway git repo for draft selection and survival end to end.
+Pure functions, with no git or network access, hold the logic: reference parsing, the doc-file filter, the trailer test, draft selection, word and line survival, pooled rates, fix matching, period assignment, and the report. `Git` and `GitHub` classes wrap the subprocess calls. The tests cover the pure functions directly and use a throwaway git repo for draft selection and survival end to end.
 
 ## Running it
 
 ```bash
-python3 scripts/docs_pr_metrics/metrics.py            # default cutoff: skills-archive-2026-10
+python3 scripts/docs_pr_metrics/metrics.py --refresh --as-of 2026-11-24   # reproducible run
 python3 scripts/docs_pr_metrics/metrics.py --cutoff pre-style-cleanup-2026-11-17
 python3 -m pytest scripts/docs_pr_metrics/test
 ```
