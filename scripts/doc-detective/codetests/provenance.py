@@ -20,6 +20,7 @@ NOT_TESTED = [
     "scripts/doc-detective/sample-reports",
     "scripts/doc-detective/README.md",
     "scripts/doc-detective/TEST-MATRIX.md",
+    "scripts/doc-detective/testable-claims",
 ]
 FILE = "provenance.json"
 

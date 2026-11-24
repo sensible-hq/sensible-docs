@@ -12,6 +12,7 @@ fails when the two sides drift apart:
     or a file the rule doesn't list
   - a Sensible.* Vale rule has no registry entry, or an entry names a Vale rule, script, judgment
     spec, or fixture that doesn't exist
+  - a rule overrides a rule the registry doesn't have, or has no applies list or an unknown kind in it
   - a deterministic rule has no carrier or no fixture, or a judgment spec lacks a required field or
     quotes its source file wrongly
 
@@ -29,6 +30,7 @@ STYLES = ROOT / ".github/styles"
 MARKER = re.compile(r"<!--\s*rule:\s*([a-z0-9-]+)\s*-->")
 KINDS = {"deterministic", "judgment", "prose"}
 GATES = {"block", "warn", "report", "judge"}
+APPLIES = {"prose", "heading", "table", "code", "link", "image", "frontmatter", "whole-page"}
 JUDGMENT_FIELDS = ("id", "source", "applies", "check", "examples")
 
 
@@ -141,7 +143,18 @@ def check(registry: list[dict]) -> list[str]:
         if name not in claimed_vale:
             problems.append(f"{name}: no registry entry")
 
-    for path in sorted(ROOT.glob(".claude/**/*.md")) + sorted(ROOT.glob("style-rules/**/*.md")):
+    for r in registry:
+        applies = r.get("applies") or []
+        if not applies:
+            problems.append(f"{r.get('id')}: no applies list")
+        for kind in set(applies) - APPLIES:
+            problems.append(f"{r.get('id')}: unknown applies kind {kind}")
+        for o in r.get("overrides") or []:
+            if o not in by_id:
+                problems.append(f"{r['id']}: overrides unknown rule {o}")
+
+    roots = [p for p in (ROOT / "CLAUDE.md", ROOT / "AGENTS.md") if p.is_file()]
+    for path in roots + sorted(ROOT.glob(".claude/**/*.md")) + sorted(ROOT.glob("style-rules/**/*.md")):
         if "/sessions/" in str(path) or "/tests/" in str(path):
             continue
         rel = str(path.relative_to(ROOT))

@@ -38,6 +38,15 @@
             "statusMessage": "Running Vale on the edited doc..."
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/rule_gate.py"
+          }
+        ]
       }
     ]
   },

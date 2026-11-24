@@ -1,6 +1,6 @@
 ---
 name: close-docs-pr
-description: Wrap up a merged sensible-docs PR. Checks the PR is merged, attaches the doc-test evidence (a link to the rendered HTML test report) to the PR, finds or creates a sensible-docs issue that records the work, closes it, swaps the label on each source PR (engine PRs in sensible-hq/sensible, app PRs in sensible-hq/sensible-app) from doc_changes_needed to docs_done, then cleans up the worktree. Invoke when Frances says she has squashed and merged a docs PR and is done with it ("merged, I'm done", "squashed and merged", "close it out"), or when update-docs-from-pr reaches its wrap-up step.
+description: Wrap up a merged sensible-docs PR. Checks the PR is merged, attaches the doc-test evidence (a link to the rendered HTML test report) to the PR, finds or creates a sensible-docs issue that records the work, closes it, swaps the label on each source PR (engine PRs in sensible-hq/sensible, app PRs in sensible-hq/sensible-app) from doc_changes_needed to docs_done, then cleans up the worktree. Invoke when Frances says she has squashed and merged a docs PR and is done with it ("merged, I'm done", "squashed and merged", "close it out"), or when pipeline-for-pr reaches its last step.
 argument-hint: "[docs-pr-number] (defaults to the PR for the current branch)"
 allowed-tools: Bash(gh pr view:*), Bash(gh api:*), Bash(gh issue create:*), Bash(git worktree:*), Bash(git branch:*), Bash(git pull:*), Read, Edit
 ---

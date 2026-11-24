@@ -86,7 +86,9 @@ For each doc change needed, determine whether to:
 
 Branch naming: `fe_<short_description>_docs` (Frances's initials, since you're acting on her behalf).
 
-Create the branch in a worktree that sits next to the main repo, not with `git checkout -b`. Run from `$DOCS_DIR`:
+If a worktree for this work already exists, for example one `pipeline-for-pr` opened for the example page, work there and skip to the edits.
+
+Otherwise, create the branch in a worktree that sits next to the main repo, not with `git checkout -b`. Run from `$DOCS_DIR`:
 
 ```
 git pull
@@ -116,7 +118,7 @@ Only proceed to the commit once all errors and warnings are resolved.
 
 ## Step 6 — Commit and open a PR
 
-Stage only the files you changed:
+Stage only the files you changed. If the branch already has an open PR, commit and push to it, update its body, and skip `gh pr create`:
 ```
 git add <files>
 git commit -m "docs: <summary>\n\nBased on sensible-hq/sensible#<pr-number>.\n\n<Co-Authored-By line from this session's attribution instructions>"
@@ -130,7 +132,3 @@ PR body should include:
 - A test plan checklist for the reviewer
 
 Return the PR URL to the user.
-
-## Step 7 — Wrap up after merge
-
-When Frances says she has squashed and merged the docs PR and is done, run the `close-docs-pr` skill (`.claude/skills/close-docs-pr/SKILL.md`) with the docs PR number. It confirms the merge, finds or creates a sensible-docs issue for the work and closes it, swaps the `doc_changes_needed` label for `docs_done` on each source PR (engine PRs in `sensible-hq/sensible`, app PRs in `sensible-hq/sensible-app`), and removes the worktree.

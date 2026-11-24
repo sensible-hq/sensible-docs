@@ -56,6 +56,20 @@
       "ui": false,
       "propose_fixes": false,
       "envelope_issue": false
+    },
+    {
+      "page": "docs/Senseml reference/preprocessors/ocr-preprocessor.md",
+      "priority": 2,
+      "name": "ocr-preprocessor",
+      "title": "OCR preprocessor",
+      "issue_label": "doc-tests-ocr-preprocessor",
+      "watch": [
+        "assets/pdfs/ocr_if_missing_quote.pdf"
+      ],
+      "timeout_minutes": 10,
+      "ui": false,
+      "propose_fixes": false,
+      "envelope_issue": false
     }
   ]
 }

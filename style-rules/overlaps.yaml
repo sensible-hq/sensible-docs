@@ -1,0 +1,114 @@
+# Pairs of style rules you've ruled on, so scripts/style/check_overlap.py stops reporting them.
+#
+# - pair: [rule-a, rule-b]
+#   verdict: distinct | duplicate-kept | conflict-accepted | unreviewed
+#   hash: <12 characters; check_overlap.py prints it for an open pair>
+#   note: why, in a sentence
+#
+# `unreviewed` marks a known pair nobody has ruled on yet: the weekly report lists it without failing.
+# Replace it with a real verdict once you've looked.
+#
+# The hash covers both rules' statements. Rewording either one reopens the pair. A conflict where one
+# rule should win belongs in the registry instead, as `overrides: [loser]` on the winner.
+- pair:
+  - sensible-excerpt-length
+  - sensible-terminology
+  verdict: distinct
+  hash: dcafcebd370b
+  note: A length cap and a word choice don't pull against each other.
+- pair:
+  - sensible-explicit-actor
+  - sensible-terminology
+  verdict: distinct
+  hash: 93c0863c9552
+  note: Who acts and which term names a thing are independent.
+- pair:
+  - sensible-link-article
+  - sensible-parent-link
+  verdict: distinct
+  hash: f7ff01fe8cd9
+  note: parent-link tells you to update the article, which is what link-article checks.
+- pair:
+  - sensible-excerpt-self-naming
+  - sensible-terminology
+  verdict: distinct
+  hash: 2f8990abdaf3
+  note: An excerpt can use the glossary term without naming its own page.
+- pair:
+  - google-latin
+  - sensible-copy-sibling-wording
+  verdict: conflict-accepted
+  hash: 884f0d99ff28
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-against-phrasing
+  - sensible-copy-sibling-wording
+  verdict: conflict-accepted
+  hash: ff9caf94984e
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-em-dash
+  verdict: conflict-accepted
+  hash: 53a45604dd3d
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-full-style-pass
+  verdict: conflict-accepted
+  hash: 56bfd38f3b60
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-internal-terms
+  verdict: conflict-accepted
+  hash: 9107ea73c619
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-label-method
+  verdict: conflict-accepted
+  hash: 3b1aa8211f27
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-model-names
+  verdict: conflict-accepted
+  hash: 3cbbe64053da
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-no-table-for-unconfigurable
+  verdict: conflict-accepted
+  hash: cbcd06a4da0b
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-numbers
+  verdict: conflict-accepted
+  hash: c24db5ae928e
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-param-cell-opener
+  verdict: conflict-accepted
+  hash: 6957f85a6d36
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-param-name-code
+  verdict: conflict-accepted
+  hash: 0b8e7401feb4
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-terminology
+  verdict: conflict-accepted
+  hash: 200350cd852a
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.
+- pair:
+  - sensible-copy-sibling-wording
+  - sensible-word-list
+  verdict: conflict-accepted
+  hash: aa8081ec559e
+  note: Copied sibling wording can break this rule; copy-sibling-wording says to fix it on both pages, so this rule wins.

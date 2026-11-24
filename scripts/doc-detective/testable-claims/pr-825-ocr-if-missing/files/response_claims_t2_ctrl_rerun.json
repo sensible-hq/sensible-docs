@@ -1,0 +1,48 @@
+{
+  "id": "0750b720-997f-4f89-be39-7990d26140eb",
+  "created": "2026-11-20T20:12:48.505Z",
+  "completed": "2026-11-20T20:12:49.921Z",
+  "status": "COMPLETE",
+  "type": "evidence_pr825_claims_t2_ctrl",
+  "configuration": "all",
+  "configuration_version": "zV3_om5G95Wa2GY.BvJyPcskrEjIghtW",
+  "environment": "production",
+  "page_count": 2,
+  "parsed_document": {
+    "total_premium": {
+      "source": "$6,109.00",
+      "value": 6109,
+      "unit": "$",
+      "type": "currency"
+    }
+  },
+  "validations": [],
+  "validation_summary": {
+    "fields": 1,
+    "fields_present": 1,
+    "errors": 0,
+    "warnings": 0,
+    "skipped": 0
+  },
+  "classification_summary": [
+    {
+      "configuration": "all",
+      "score": {
+        "value": 1,
+        "fields_present": 1,
+        "penalties": 0
+      }
+    }
+  ],
+  "errors": [],
+  "content_type": "application/pdf",
+  "file_metadata": {
+    "info": {
+      "title": "Commercial General Liability Quote",
+      "producer": "Harborview Agency System"
+    }
+  },
+  "coverage": 1,
+  "charged": 1,
+  "version_id": "6Yt4wuwx3iN6rhV82ED7g_eA0VpGzs4U"
+}
