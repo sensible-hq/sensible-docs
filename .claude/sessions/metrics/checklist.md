@@ -25,4 +25,11 @@ This checklist is the progress record. The design is in `design.md`; how it's bu
 - [x] Snapshot of the report: `report-2026-11-24.md`
 - [x] PR
 - [ ] Rerun once 8 or more "after" PRs have merged and their 30-day fix windows have closed
-- [ ] Classify corrections as factual or copy edits (follow-up)
+- [x] Audit: draft survival was inflated and hand edits undercounted; fixed on the metrics PR
+- [x] Transcript retention set to 365 days (`cleanupPeriodDays` in `~/.claude/settings.json`)
+- [x] Stacked PR: classify revisions with Jev (`classification-design.md`)
+  - [x] Probe questions on 15 hunks with telling commit messages
+  - [x] Random sample exposed "says something different" firing on additions; switched to a contradiction question
+  - [x] Blind test on 20 more: 14 right, 6 unsettled, 0 wrong, 0 false factual
+  - [x] Full run: 755 hunks, 585 through Jev, recordings committed; replay is byte-identical
+- [ ] Rerun both reports once 8 or more "after" PRs have merged

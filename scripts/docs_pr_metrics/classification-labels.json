@@ -1,0 +1,452 @@
+[
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 586,
+  "commit": "ac1378b4f",
+  "path": "reference/openapi_email.json",
+  "before": "              \"tika\",\n              \"ocrmypdf\",\n              \"amazon-textract\",",
+  "after": "              \"amazon\",\n              \"google\",\n              \"lazarus\","
+ },
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 590,
+  "commit": "42c32fc98",
+  "path": "docs/Senseml reference/concepts/file-types.md",
+  "before": "| Multi-page image formats<sup>1</sup><br/> (TIFF)             | ❌                              | ✅                                           | ✅                                         | ✅                                           |      | ❌                                                            | ❌                                                        | ✅                                        |",
+  "after": "| Multi-page image formats<sup>1</sup><br/> (TIFF)             | ❌                              | ✅                                           | ❌                                         | ✅                                           |      | ❌                                                            | ❌                                                        | ✅                                        |"
+ },
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 586,
+  "commit": "ac1378b4f",
+  "path": "reference/openapi_email.json",
+  "before": "        \"description\": \"Webhooks that receive extraction output. The first element is the production webhook. Additional elements are environment-scoped webhooks that override the production webhook for a specific environment.\",",
+  "after": "        \"description\": \"Webhooks that receive extraction output. The first element must be a production `Webhook` (a `url` with no `environment` field). Additional elements must be `EnvironmentWebhook` objects that override the production webhook for a specific environment. The API rejects arrays whose first element is an `EnvironmentWebhook`. Note: OpenAPI 3.0.3 cannot enforce positional constraints in arrays, so schema validators will not catch this ordering violation.\","
+ },
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 626,
+  "commit": "48931ca5b",
+  "path": "docs/Senseml reference/concepts/llm-models.md",
+  "before": "| LLM Engine parameter:<br/> mode: **fast**    | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |\n| LLM Engine parameter:<br/>mode: **thorough** | GPT-4o                                         | Claude 4.5 Sonnet                                 | Gemini 2.5 Flash-Lite                          |\n| LLM Engine parameter:<br/>  mode: **long**   | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 2.5 Flash-Lite                          |",
+  "after": "| LLM Engine parameter:<br/> mode: **fast**    | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 3.1 Flash-Lite                          |\n| LLM Engine parameter:<br/>mode: **thorough** | GPT-4o                                         | Claude 4.5 Sonnet                                 | Gemini 3.1 Flash-Lite                          |\n| LLM Engine parameter:<br/>  mode: **long**   | GPT-4o mini                                    | Claude 4.5 Haiku                                  | Gemini 3.1 Flash-Lite                          |"
+ },
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 626,
+  "commit": "48931ca5b",
+  "path": "docs/Senseml reference/concepts/llm-models.md",
+  "before": "| default       | GPT-4o (fine-tuned)                                   | Claude 4.5 Haiku                                        | Gemini 2.5 Flash-Lite                                |",
+  "after": "| default       | GPT-4o (fine-tuned)                                   | Claude 4.5 Haiku                                        | Gemini 3.1 Flash-Lite                                |"
+ },
+ {
+  "set": "tuning",
+  "label": "factual",
+  "pr": 798,
+  "commit": "7bfcee065",
+  "path": "docs/Senseml reference/document-type-settings/ocr-engine.md",
+  "before": "| Amazon    | Default engine for the OCR preprocessor.<br/>Default engine for document types.                                                                                                                                            |\n| Microsoft | Suited to typewritten documents and large documents up to 50 MB in size.                                                                                                                                                   |",
+  "after": "| Amazon    | Default engine for the OCR preprocessor. |\n| Microsoft | Default engine for document types.<br/>Suited to typewritten documents and large documents up to 50 MB in size. |"
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 590,
+  "commit": "6359f9d49",
+  "path": "docs/Senseml reference/concepts/ocr.md",
+  "before": "For an overview of how Sensible handles OCR for different supported [file type](doc:file-types), see the following steps:",
+  "after": "For an overview of how Sensible handles OCR for supported [file type](doc:file-types), see the following steps:"
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 590,
+  "commit": "5eee65f37",
+  "path": "docs/Senseml reference/concepts/file-types.md",
+  "before": "4. Most JPEG or PNG files are single-document files. Rarely, a JPEG or PNG file is a portfolio file, in which case the portfolio extraction returns the first document in the portfolio.",
+  "after": "4. Most JPEG or PNG files are single-document files. For the edge case where a JPEG or PNG is a portfolio file, Sensible extracts from the first document it identifies in the portfolio."
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 590,
+  "commit": "65cc16870",
+  "path": "docs/Senseml reference/concepts/file-types.md",
+  "before": "4. Most JPEG or PNG files are single-document files. For the edge case where a JPEG or PNG is a portfolio file, Sensible extracts from the first document it identifies in the portfolio.",
+  "after": "4. Most JPEG or PNG files are single-document files. For the edge case in which a JPEG or PNG is a portfolio file, Sensible extracts from the first document it identifies in the portfolio."
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 612,
+  "commit": "e6cde6b86",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "Returns a value from the `extra_data` record you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and other computed fields can read it.",
+  "after": "Returns a value from the `extra_data` object you supply in an asynchronous extraction request. Use this method to bring request-time context into a config's output so validations, postprocessors, and other computed fields can read it."
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 612,
+  "commit": "e6cde6b86",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "| key (**required**) | string      | Key to look up in the request's `extra_data` record. |",
+  "after": "| key (**required**) | string      | Key to look up in the request's `extra_data` object. |"
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 612,
+  "commit": "e6cde6b86",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "- The record has a maximum size of 16 KiB.",
+  "after": "- The object has a maximum size of 16 KiB."
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 798,
+  "commit": "a1703764a",
+  "path": "docs/Senseml reference/document-type-settings/ocr-engine.md",
+  "before": "excerpt: 'Choose an engine for OCRing images of text: Amazon, Microsoft, or Google. Compare their use cases and limitations.'",
+  "after": "excerpt: 'Choose an OCR engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'"
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 800,
+  "commit": "333cee8df",
+  "path": "docs/Senseml reference/concepts/llm-models.md",
+  "before": "| LLM Engine parameter:<br /> mode: **fast**    | GPT-4o mini                                     | Claude 4.5 Haiku                                   | Gemini 3.1 Flash-Lite                           |\n| LLM Engine parameter:<br />mode: **thorough** | GPT-4o                                          | Claude 5.5 Sonnet                                  | Gemini 3.1 Flash-Lite                           |\n| LLM Engine parameter:<br />  mode: **long**   | GPT-4o mini                                     | Claude 4.5 Haiku                                   | Gemini 3.1 Flash-Lite                           |",
+  "after": "| LLM Engine parameter:<br /> mode: **fast**    | GPT-4o mini                                     | Claude Haiku 4.5                                   | Gemini 3.1 Flash-Lite                           |\n| LLM Engine parameter:<br />mode: **thorough** | GPT-4o                                          | Claude Sonnet 5.5                                  | Gemini 3.1 Flash-Lite                           |\n| LLM Engine parameter:<br />  mode: **long**   | GPT-4o mini                                     | Claude Haiku 4.5                                   | Gemini 3.1 Flash-Lite                           |"
+ },
+ {
+  "set": "tuning",
+  "label": "copy_edit",
+  "pr": 800,
+  "commit": "333cee8df",
+  "path": "docs/Senseml reference/concepts/llm-models.md",
+  "before": "| default       | GPT-4o                                                 | Claude 4.5 Haiku                                         | Gemini 3.1 Flash-Lite                                 |",
+  "after": "| default       | GPT-4o                                                 | Claude Haiku 4.5                                         | Gemini 3.1 Flash-Lite                                 |"
+ },
+ {
+  "set": "tuning-2",
+  "label": "elaboration",
+  "pr": 508,
+  "commit": "50ec3effb",
+  "path": "docs/Senseml reference/preprocessors/remove-lines.md",
+  "before": "The following example removes lines matching the pattern `page N of N` across all pages.",
+  "after": "- The first preprocessor removes page number lines (`page 1 of 3`, `page 2 of 3`, etc.) using a regex pattern. Without this, page number lines would appear inline in the extracted text.\n- The second preprocessor removes a rotated diagonal watermark (\"This is Not an Official Transcript\") using the [angleFilter](doc:match#global-parameters) option. The `angleFilter` targets only lines rotated between 30 and 60 degrees, so horizontal body text is unaffected."
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 589,
+  "commit": "03e99d17f",
+  "path": "docs/Senseml reference/concepts/jsonlogic.md",
+  "before": "          /* true ~50% of the time */",
+  "after": "          /* true about 50% of the time */"
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 612,
+  "commit": "e6cde6b86",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "**Note:** if the request omits `extra_data`, if the record doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output.",
+  "after": "**Note:** if the request omits `extra_data`, if the object doesn't contain `key`, or if the value at `key` is explicitly `null`, Sensible returns null. These cases aren't distinguishable in the output."
+ },
+ {
+  "set": "tuning-2",
+  "label": "typo",
+  "pr": 612,
+  "commit": "d469a2b83",
+  "path": "reference/openapi_extraction.json",
+  "before": "          \"content\": {x",
+  "after": "          \"content\": {"
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 612,
+  "commit": "848f7a749",
+  "path": "docs/monitor and qa/validate-extractions.md",
+  "before": "- In the config, at extraction time, use the Extra Data computed field method to dynamically make the values available to your config. ",
+  "after": "- At extraction time, use the Extra Data computed field method to dynamically make the values available to your config. "
+ },
+ {
+  "set": "tuning-2",
+  "label": "formatting",
+  "pr": 715,
+  "commit": "21bc78f7a",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "```json",
+  "after": "```text"
+ },
+ {
+  "set": "tuning-2",
+  "label": "elaboration",
+  "pr": 715,
+  "commit": "f99c439fe",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "  description: Transform extracted data into a custom XML output schema",
+  "after": "  description: Transform extracted data into a custom XML output schema using a JsonLogic rule"
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 715,
+  "commit": "490cf2114",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "The postprocessor transforms that extracted data into XML output, for example:",
+  "after": "Using a postprocessor, you can transform the extracted data into an XML output, for example:"
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 715,
+  "commit": "add0693df",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "Using a postprocessor rule, you transform that data into XML output, for example:",
+  "after": "Using a postprocessor, you can transform the extracted data into an XML output, for example:"
+ },
+ {
+  "set": "tuning-2",
+  "label": "elaboration",
+  "pr": 715,
+  "commit": "95c1deda0",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "          \"content\": { \"var\": \"customer_name.value\" } /* extracted value, e.g. \"John Smith\", becomes text content */\n        }",
+  "after": "          {\n            \"eachKey\": {\n              \"tag\": \"customer_name\" /* XML element name */,\n              \"attrs\": {\n                /* key-value pairs that become XML attributes, e.g. type=\"string\" */\n                \"eachKey\": {\n                  \"type\": { \"var\": \"customer_name.type\" }\n                } /* \"var\" returns \"string\" from parsed_document */\n              },\n              \"content\": {\n                \"var\": \"customer_name.value\"\n              } /* extracted value, e.g. \"John Smith\", becomes text content */\n            }\n          }\n        ]"
+ },
+ {
+  "set": "tuning-2",
+  "label": "factual",
+  "pr": 718,
+  "commit": "a32bec8a1",
+  "path": "docs/Senseml reference/concepts/jsonlogic.md",
+  "before": "Converts a string to lowercase. Returns null if the input is null or missing. Throws a configuration error if the input is not a string.",
+  "after": "Converts a string to lowercase. Takes as input:\n- a string value: `{ \"toLower\": { \"var\": \"field.value\" } }`\n- a string value wrapped in a single-element array: `{ \"toLower\": [{ \"var\": \"field.value\" }] }`"
+ },
+ {
+  "set": "tuning-2",
+  "label": "rewrite",
+  "pr": 718,
+  "commit": "d2c30e238",
+  "path": "docs/Senseml reference/concepts/jsonlogic.md",
+  "before": "`is_array` returns `true` for an array:",
+  "after": "The following example uses Is Array to render scalar fields as `FIELD` elements and array fields as `TABLE` elements in an XML postprocessor."
+ },
+ {
+  "set": "tuning-2",
+  "label": "elaboration",
+  "pr": 729,
+  "commit": "9bf7d8a9d",
+  "path": "docs/Senseml reference/layout-based-methods/column.md",
+  "before": "        \"id\": \"column\",\n        \"tiebreaker\": \">\"",
+  "after": "        \"id\": \"column\" /* extract lines below the anchor that align with it */,\n        \"tiebreaker\": \">\" /* return the largest number in the column, e.g., '5' */"
+ },
+ {
+  "set": "tuning-2",
+  "label": "factual",
+  "pr": 742,
+  "commit": "f0c314d6f",
+  "path": "docs/Senseml reference/concepts/color.md",
+  "before": "To manage reference documents and to change which symbols the SenseML editor displays, click **Options** in the toolbar over the rendered document. The menu contains the following options.\n\n![Click to enlarge](https://raw.githubusercontent.com/sensible-hq/sensible-docs/v0/assets/images/final/ui_viewer_options.png)",
+  "after": "Click the **Options** dropdown in the middle pane of the SenseML editor. The dropdown contains the following options."
+ },
+ {
+  "set": "tuning-2",
+  "label": "copy_edit",
+  "pr": 798,
+  "commit": "a1703764a",
+  "path": "docs/Senseml reference/document-type-settings/ocr-engine.md",
+  "before": "  description: 'Choose an engine for OCRing images of text: Amazon, Microsoft, or Google. Compare their use cases and limitations.'",
+  "after": "  description: 'Choose an OCR engine for extracting text from images: Amazon, Microsoft, or Google. Compare their use cases and limitations.'"
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 589,
+  "commit": "03e99d17f",
+  "path": "docs/Senseml reference/concepts/jsonlogic.md",
+  "before": "      \"id\": \"flag_for_review\",",
+  "after": "      \"id\": \"flag_for_review\", /* create a JSON validation to flag extraction with `NEEDS_REVIEW` status when this field is `true`  */"
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 590,
+  "commit": "67ec2edec",
+  "path": "docs/Senseml reference/concepts/ocr.md",
+  "before": "2. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:",
+  "after": "2. For some file types that contain embedded text (for example, digital PDFs), Sensible extracts the text directly. If it completes this step, it skips the following steps.\n\n3. Sensible transforms the bytes of the document into raw text, and determines whether the document needs OCR:"
+ },
+ {
+  "set": "blind-test",
+  "label": "factual",
+  "pr": 590,
+  "commit": "fb486d213",
+  "path": "docs/Senseml reference/concepts/file-types.md",
+  "before": "4. Since JPEG and PNG are single-page formats, portfolio extraction returns one document.",
+  "after": "4. Most JPEG or PNG files are single-document files. Rarely, a JPEG or PNG file is a portfolio file, in which case the portfolio extraction returns the first document in the portfolio."
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 612,
+  "commit": "c1eb00b16",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "      \"id\": \"expected_premium\",\n      \"method\": {\n        \"id\": \"extraData\",\n        \"key\": \"expected_premium\" // in extra_data: { \"expected_premium\": 1250.00, \"expected_deductible\": 500 }\n      }",
+  "after": "      /* pull expected values from the request's extra_data record */\n      \"id\": \"expected_collision_deductible\",\n      \"method\": { \"id\": \"extraData\", \"key\": \"expected_collision_deductible\" }"
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 612,
+  "commit": "c1eb00b16",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "      \"id\": \"premium_matches\",",
+  "after": "      /* true if the document's deductible matches what the upstream system expects */\n      \"id\": \"collision_deductible_matches\","
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 612,
+  "commit": "857842ad5",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "To run this request, create a document type in the Sensible app and add a config to it using the SenseML in the following section.",
+  "after": "To run this request, follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `auto_policy_declaration` document type to your account, then add a config to it using the SenseML in the following section."
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 612,
+  "commit": "00283d00a",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "Follow the steps in [Getting started with out-of-the-box extractions](doc:library-quickstart) to clone the `auto_policy_declaration` document type to your account, then add a config to it using the preceding SenseML.",
+  "after": "To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML."
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 612,
+  "commit": "89a8f12fa",
+  "path": "docs/Senseml reference/advanced-computed-field-methods/extra-data.md",
+  "before": "To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML.",
+  "after": "To run this request, create a document type in the Sensible app and add a config to it using the preceding SenseML, then run the following command in a terminal:"
+ },
+ {
+  "set": "blind-test",
+  "label": "factual",
+  "pr": 612,
+  "commit": "662217425",
+  "path": "reference/openapi_extraction.json",
+  "before": "      \"ExtractionSingleResponse\": {",
+  "after": "      \"ExtractionSyncResponse\": {"
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 622,
+  "commit": "a375508f4",
+  "path": "docs/Senseml reference/preprocessors/split-lines.md",
+  "before": "      \"id\": \"length_contents\",\n      \"method\": {\n        \"id\": \"customComputation\",\n        \"jsonLogic\": {\n          \"var\": \"_length_section.0.contents.value\"\n        }",
+  "after": "      \"circumference\": {\n        \"value\": \"17.5in\",\n        \"type\": \"string\""
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 622,
+  "commit": "5b5dcaa3a",
+  "path": "docs/Senseml reference/preprocessors/split-lines.md",
+  "before": "        \"stop\": {",
+  "after": "        \"stop\": { /* optional. text marking the end of each range */"
+ },
+ {
+  "set": "blind-test",
+  "label": "deletion",
+  "pr": 622,
+  "commit": "a18e312b4",
+  "path": "docs/Senseml reference/preprocessors/split-lines.md",
+  "before": "| minSpaces (**required**) | number                                                       | The number of consecutive whitespace characters (` `) at or above which to split lines. |",
+  "after": "| minSpaces (**required**) | number                                                       | The number of consecutive whitespace characters at or above which to split lines. |"
+ },
+ {
+  "set": "blind-test",
+  "label": "deletion",
+  "pr": 715,
+  "commit": "251990f8b",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content — for example, `\"content\": \"John Smith\"` renders as `John Smith`. An element object becomes a nested child element. An array produces a sequence of child elements. |",
+  "after": "| content             | scalar, element object, or array of either         | The element's content. A scalar value (string, number, boolean, or null) becomes text content. An element object becomes a nested child element. An array produces a sequence of child elements. |"
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 715,
+  "commit": "b9dcc04c5",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "| selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements.                        |",
+  "after": "| selfCloseEmptyTags  | Boolean. Default: true  | If true, Sensible renders elements with no content as self-closing tags (for example, `<tag/>`). If false, Sensible renders them as an open-and-close tag pair (for example, `<tag></tag>`). Null fields appear as empty elements, for example, `<null_field/>` when true or `<null_field></null_field>` when false.                        |"
+ },
+ {
+  "set": "blind-test",
+  "label": "copy_edit",
+  "pr": 715,
+  "commit": "490cf2114",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "The XML postprocessor transforms extracted data into a custom XML output using a [JsonLogic](doc:jsonlogic) rule. For example, use it if your app or API consumes XML and you don't want to integrate using Sensible's default output schema.",
+  "after": "Define your own XML output with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema."
+ },
+ {
+  "set": "blind-test",
+  "label": "copy_edit",
+  "pr": 715,
+  "commit": "490cf2114",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "The following image shows the example document used with this config:",
+  "after": "The following image shows the example document used with this example config:"
+ },
+ {
+  "set": "blind-test",
+  "label": "elaboration",
+  "pr": 715,
+  "commit": "d20eb0010",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "This produces:",
+  "after": "If you extract $4,500 from an invoice for the `total` field, then the output looks like this:"
+ },
+ {
+  "set": "blind-test",
+  "label": "factual",
+  "pr": 715,
+  "commit": "d09e997b7",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "  \"postprocessorOutput\": \"<load_id>328298459</load_id>\\n<rate>4500</rate>\"",
+  "after": "  \"postprocessorOutput\": \"<document><load_id>328298459</load_id><rate>4500</rate></document>\""
+ },
+ {
+  "set": "blind-test",
+  "label": "copy_edit",
+  "pr": 715,
+  "commit": "76d08014f",
+  "path": "docs/Senseml reference/postprocessors/xml-postprocessor.md",
+  "before": "Define your own XML output with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema.",
+  "after": "Define a custom XML output schema with a [JsonLogic](doc:jsonlogic)-based postprocessor. For example, use a postprocessor if your app or API consumes data using an XML schema, and you don't want to integrate using Sensible's output schema."
+ },
+ {
+  "set": "blind-test",
+  "label": "rewrite",
+  "pr": 718,
+  "commit": "7147518b9",
+  "path": "docs/Senseml reference/concepts/jsonlogic.md",
+  "before": "                \"customer_name\": { \"value\": \"Jane Smith\", \"type\": \"string\" },\n                \"line_items\": [\n                  { \"value\": \"item_1\", \"type\": \"string\" },\n                  { \"value\": \"item_2\", \"type\": \"string\" }\n                ]",
+  "after": "                \"order_status\": { \"value\": \"shipped\", \"type\": \"string\" },\n                \"line_items\": [\"keyboard\", \"mouse\"]"
+ }
+]
