@@ -15,5 +15,5 @@ Frances (2026-11-24): every pipeline handoff should carry evidence that the step
 - [x] Live run against this session's transcript. It found two false positives, fixed: a partial `sed -n` read and a `cat` inside a heredoc string both counted as reading the skill
 - [x] Skill and checklist template: evidence block in every report, the `Skipped:` field, session IDs separated by commas, and step 7 no longer says `add-doc-tests` is unmerged
 - [x] Implementation notes (`design/pipeline-step-evidence/implementation.md`)
-- [ ] PR opened
+- [x] PR opened: sensible-docs#849
 - [ ] First real pipeline run with the hook on: confirm the transcript already holds the final message when `Stop` fires. Until that's confirmed, `last_assistant_message` from the hook input is the fallback
