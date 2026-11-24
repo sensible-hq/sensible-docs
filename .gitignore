@@ -14,3 +14,4 @@ scripts/doc-detective/output/
 scripts/doc-detective/.deps
 .doc-detective/
 .cache/
+scripts/docs_pr_metrics/output/
