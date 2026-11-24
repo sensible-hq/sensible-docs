@@ -1,0 +1,89 @@
+# What scripts/pipeline/step_evidence.py checks for each step of pipeline-for-pr.
+# Kinds and placeholders are described in design/pipeline-step-evidence/design.md.
+# Placeholders: {engine_pr}, {docs_pr}, {branch}. A check whose placeholder has no value yet is unverified.
+
+1:
+  - kind: read
+    path: .claude/skills/update-docs-from-pr/SKILL.md
+  - kind: bash
+    label: Fetched the engine PR's state
+    pattern: 'gh pr view\s+{engine_pr}\b'
+  - kind: bash
+    label: Searched for an existing docs PR
+    pattern: 'gh pr list.*sensible#{engine_pr}\b'
+  - kind: checklist
+
+2:
+  - kind: read
+    path: .claude/skills/upload-pr-extractor/SKILL.md
+  - kind: bash
+    label: Ran the upload script
+    pattern: 'upload_pr_extractor\.py'
+  - kind: checklist
+
+3:
+  - kind: read
+    path: .claude/skills/json5-commenter/SKILL.md
+  - kind: file
+    label: Example draft has a JSON block
+    root: main
+    path: drafts/{engine_pr}-example.md
+    contains: '^```json'
+  - kind: file
+    label: Example draft has comments
+    root: main
+    path: drafts/{engine_pr}-example.md
+    contains: '//'
+  - kind: checklist
+
+4:
+  - kind: read
+    path: .claude/skills/create-docs-example/SKILL.md
+  - kind: commit
+    label: Committed a docs change on the docs branch
+    path: docs/
+  - kind: pr_body
+    label: Docs PR body lists the engine PR
+    pattern: 'sensible-hq/sensible#{engine_pr}\b'
+  - kind: checklist
+
+5:
+  - kind: read
+    path: .claude/skills/update-docs-from-pr/SKILL.md
+  - kind: bash
+    label: Ran Vale on the changed pages
+    pattern: '\bvale\b.*docs/'
+  - kind: bash
+    label: Ran the Jev judge
+    pattern: 'scripts/style/judge\.py'
+  - kind: commit
+    label: Committed the docs draft
+    path: docs/
+  - kind: checklist
+
+6:
+  - kind: read
+    path: .claude/skills/extract-testable-claims/SKILL.md
+  - kind: bash
+    label: Scored the claims
+    pattern: 'score_claims\.py'
+  - kind: checklist
+
+7:
+  - kind: read
+    path: .claude/skills/add-doc-tests/SKILL.md
+  - kind: file
+    label: Approved claim records exist
+    root: worktree
+    path: scripts/doc-detective/testable-claims/pr-{docs_pr}-*/*.json
+  - kind: bash
+    label: Ran the doc tests
+    pattern: 'scripts/doc-detective/run\.sh'
+  - kind: commit
+    label: Committed the tests
+    path: docs/
+  - kind: checklist
+
+# Step 8 hands off before the merge, so close-docs-pr hasn't run yet; its checklist fields fill in after.
+8:
+  - kind: checklist

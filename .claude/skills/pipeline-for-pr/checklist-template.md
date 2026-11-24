@@ -6,7 +6,7 @@ Engine PR: sensible-hq/sensible#<engine-pr>
 Docs branch: <branch, once step 4 creates it>
 Docs PR: <sensible-docs#number, once step 4 opens it>
 
-Tick an item only when its skill has run and Frances has replied to the report. Under each step, record what it produced, and a skipped step gets a reason.
+Tick an item only when its skill has run and Frances has replied to the report. Under each step, record what it produced. A skipped step gets a `- Skipped: <reason>` line. `scripts/pipeline/step_evidence.py` reads this file, so keep each field's name and colon, and list every session's ID on the session ID line, separated by commas.
 
 - [ ] **1. Research the PR** (`update-docs-from-pr` steps 1–2)
   - Merged into the engine's default branch, or still in an open PR:
@@ -28,7 +28,7 @@ Tick an item only when its skill has run and Frances has replied to the report. 
 - [ ] **6. Extract testable claims** (`extract-testable-claims`)
   - Claims Frances picked:
   - Records: `scripts/doc-detective/testable-claims/pr-<docs-pr>-<feature>/`
-- [ ] **7. Add tests** (`add-doc-tests`, or blocked on #749)
+- [ ] **7. Add tests** (`add-doc-tests`)
   - Tests added, or why not:
 - [ ] **8. Hand off for merge**
   - Frances merged the docs PR:

@@ -48,6 +48,17 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pipeline_evidence_gate.py",
+            "statusMessage": "Checking the pipeline step's evidence..."
+          }
+        ]
+      }
     ]
   },
   "env": {
