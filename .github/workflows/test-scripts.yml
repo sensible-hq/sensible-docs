@@ -7,6 +7,8 @@ on:
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - 'scripts/style/**'
+      - 'scripts/pipeline/**'
+      - '.claude/hooks/pipeline_evidence_gate.py'
       - 'style-rules/**'
       - '.github/styles/**'
       - '.claude/style-guide/**'
@@ -23,6 +25,8 @@ on:
       - 'scripts/llms_txt/**'
       - 'scripts/style_images/**'
       - 'scripts/style/**'
+      - 'scripts/pipeline/**'
+      - '.claude/hooks/pipeline_evidence_gate.py'
       - 'style-rules/**'
       - '.github/styles/**'
       - '.claude/style-guide/**'
@@ -43,6 +47,7 @@ jobs:
           - scripts/llms_txt/test/tests
           - scripts/style_images/test/tests
           - scripts/style/test
+          - scripts/pipeline/test
 
     steps:
       - name: Checkout repository
