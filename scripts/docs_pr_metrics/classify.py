@@ -9,7 +9,7 @@ turns those answers into one class.
 Jev responses are recorded under jev-recordings/, keyed by a hash of the request.
 `--replay` answers from those recordings only, so a rerun is byte-identical and free.
 
-Design: .claude/sessions/metrics/classification-design.md
+Design: .claude/sessions/metrics/quantification-design.md
 """
 
 from __future__ import annotations

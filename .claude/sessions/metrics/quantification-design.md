@@ -1,4 +1,4 @@
-# Revision classification: design
+# Revision quantification: design
 
 Stacked on the docs PR metrics. `scripts/docs_pr_metrics/classify.py` answers the question the metrics can't: of the revisions after the AI draft, how many corrected a fact and how many were copy edits?
 
