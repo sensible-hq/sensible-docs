@@ -6,6 +6,10 @@ Stacked on the docs PR metrics. `scripts/docs_pr_metrics/classify.py` answers th
 
 A revision is one diff hunk on a doc file in a commit after the AI draft, as `metrics.py` defines the draft. The commit's author doesn't matter: a copy edit Frances dictates to Claude counts the same as one she types.
 
+A hunk is one contiguous block of changed lines in a diff: the lines an edit removed and the lines it put in their place. Unchanged lines mark where one hunk ends and the next begins, so a commit that fixes three separate sentences on a page is three hunks. The unit is the hunk rather than the commit because one commit often mixes kinds of edit, such as a factual fix and a rewording, and a single label per commit would blur them.
+
+A hunk's size in lines is its removed lines plus its added lines, the same convention `git diff --numstat` uses. A one-line rewording is 2 lines.
+
 ## Who decides what
 
 Code settles what it can see, and Jev answers only the judgments that need language. Code then maps Jev's answers to a class through a truth table.
@@ -49,5 +53,5 @@ Scored from the committed recordings, the blind test matched 14 of 20. All 6 mis
 ## Known limits
 
 - **Unsettled hunks.** Copy edits that also trim a clause often land just under 0.7 on `same_meaning`. Lowering the threshold to catch them would be fitting it to the labeled set, so they stay unsettled and the report counts them.
-- **Hunk boundaries.** Git's hunks are positional. A moved paragraph appears as a deletion plus an addition.
+- **Moved text is counted twice.** Git's hunks are positional, so a moved paragraph is two hunks: a deletion where it was and an addition where it landed. Its lines count once in each, so the move costs twice its length, and it's classified as a deletion plus an addition rather than as one move. PRs that reorganize pages, such as #622 and #715, are inflated most.
 - **Large hunks.** Sides over 6,000 characters are truncated and flagged in `revisions.csv`.
