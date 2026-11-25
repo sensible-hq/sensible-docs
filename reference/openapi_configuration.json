@@ -1337,9 +1337,7 @@
       "ConfigurationContentType": {
         "type": "string",
         "enum": [
-          "application/json",
-          "text/csv",
-          "text/plain"
+          "application/json"
         ],
         "description": "Content type of the stringified `configuration`. Defaults to `application/json`."
       },
