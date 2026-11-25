@@ -1,5 +1,12 @@
 # Revision quantification: design
 
+## TL;DR
+
+- **What it measures:** the total revision after the AI draft, then what kind each revision was: factual, copy edit, elaboration, rewrite, addition, deletion, formatting, or typo.
+- **How:** each revision is split into hunks. Code settles the clear cases, and Jev answers four yes-or-no questions on the rest. Responses are recorded, so `--replay` reproduces a run exactly.
+- **First result, 2026-11-24:** factual revisions fell from 15.0 to 5.8 lines per 100 doc lines, and copy edits rose from 8.1 to 19.5. On the same 5-PR caveat as `design.md`.
+- **Accuracy:** on 20 hand-labeled hunks it had never seen, it got 14 right and left 6 undecided. It labeled none as the wrong kind, and none wrongly as factual.
+
 Stacked on the docs PR metrics. `scripts/docs_pr_metrics/classify.py` measures how much Frances revised each AI draft, and then what kind of revision it was. The total comes first: all revision lines after the draft, per 100 doc lines changed. The breakdown by kind splits that total, for example to show how much of it corrected a fact and how much was copy editing.
 
 ## Unit
