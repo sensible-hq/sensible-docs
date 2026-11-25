@@ -1,0 +1,25 @@
+{
+  "model": "jev-1.14.0",
+  "answers": {
+    "contradicts": {
+      "type": "noul",
+      "noul": 0.66
+    },
+    "same_meaning": {
+      "type": "noul",
+      "noul": 0.2
+    },
+    "adds_information": {
+      "type": "noul",
+      "noul": 0.11
+    },
+    "drops_information": {
+      "type": "noul",
+      "noul": 0.82
+    }
+  },
+  "usage": {
+    "input_tokens": 811,
+    "output_tokens": 75
+  }
+}
