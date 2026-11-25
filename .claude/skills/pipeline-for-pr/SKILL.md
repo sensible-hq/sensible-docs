@@ -17,9 +17,17 @@ Parse **$ARGUMENTS** as follows:
 
 Stop after every step. Report what the step produced and what Frances should check, then wait for her to reply. Her reply is input to the next step: carry her corrections forward, and don't start the next step until she says to. She can skip a step or jump to one by name.
 
+End every step's report with its evidence block, which a script writes rather than you:
+
+```
+python3 scripts/pipeline/step_evidence.py --checklist <checklist>
+```
+
+It checks the current step, the first one neither ticked nor skipped, against `evidence.yaml` in this skill's folder: that you read the step's skill file in full, ran its commands, produced its files and commits, and filled its checklist fields. Each line links to the transcript line, file line, or commit that proves it. Paste the block verbatim. If a line is ❌ or ⚠️, explain it after the block, and don't edit the block. The `Stop` hook `.claude/hooks/pipeline_evidence_gate.py` runs the same check and won't let a turn end until the current block has been shown, so a step can't be reported without its evidence.
+
 Keep one docs branch, one worktree, and one docs PR for the whole run. Step 4 creates them, and every later step reuses them.
 
-Before step 1, copy `checklist-template.md` from this skill's folder to `.claude/sessions/<session-name>/checklist.md` and fill in its header. Tick a step only after its skill has run and Frances has replied to the report. Under each step, record what the step produced. A skipped step stays unticked, with the reason written under it. Until step 4 creates the worktree, keep the checklist in the main checkout. Then move it into the worktree and commit it with the step 4 commit. Commit it again whenever a step is ticked. When Frances asks where the run stands, answer from the checklist.
+Before step 1, copy `checklist-template.md` from this skill's folder to `.claude/sessions/<session-name>/checklist.md` and fill in its header. Tick a step only after its skill has run and Frances has replied to the report. Under each step, record what the step produced. A skipped step stays unticked, with a `Skipped:` line under it giving the reason. If the run moves to a new session, add that session's ID to the `Claude Code session ID:` line, separated by a comma, so the evidence check reads every session's transcript. Until step 4 creates the worktree, keep the checklist in the main checkout. Then move it into the worktree and commit it with the step 4 commit. Commit it again whenever a step is ticked. When Frances asks where the run stands, answer from the checklist.
 
 ## Step 1 — Research the PR
 
@@ -66,9 +74,7 @@ Follow `.claude/skills/extract-testable-claims/SKILL.md` with the docs PR number
 
 ## Step 7 — Add tests
 
-If `.claude/skills/add-doc-tests/SKILL.md` exists, follow it for the claims Frances picked, and push the tests to the docs PR.
-
-If it doesn't exist, stop and say so: the skill is in draft PR #749 and isn't on `v0` yet. Leave the picked claims in the checklist, so they can be tested once the skill lands.
+Follow `.claude/skills/add-doc-tests/SKILL.md` for the claims Frances picked, and push the tests to the docs PR.
 
 ## Step 8 — Hand off for merge
 
