@@ -1,6 +1,6 @@
 # Revision quantification: design
 
-Stacked on the docs PR metrics. `scripts/docs_pr_metrics/classify.py` answers the question the metrics can't: of the revisions after the AI draft, how many corrected a fact and how many were copy edits?
+Stacked on the docs PR metrics. `scripts/docs_pr_metrics/classify.py` measures how much Frances revised each AI draft, and then what kind of revision it was. The total comes first: all revision lines after the draft, per 100 doc lines changed. The breakdown by kind splits that total, for example to show how much of it corrected a fact and how much was copy editing.
 
 ## Unit
 

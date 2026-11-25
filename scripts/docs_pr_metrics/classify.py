@@ -252,7 +252,9 @@ def summarize(hunks: list[Hunk], doc_lines: dict[int, tuple[int, str]]) -> dict[
         for h in g:
             by[h.cls][0] += 1
             by[h.cls][1] += h.lines
+        total = sum(h.lines for h in g)
         out[period] = {"prs": len(prs), "doc_lines": size, "hunks": len(g),
+                       "total": {"lines": total, "per100": round(100 * total / size, 2) if size else None},
                        **{c: {"hunks": by[c][0], "lines": by[c][1],
                               "per100": round(100 * by[c][1] / size, 2) if size else None} for c in CLASSES}}
     return out
@@ -263,7 +265,7 @@ def render(hunks: list[Hunk], doc_lines: dict[int, tuple[int, str]], replay: boo
     b, a = s["before"], s["after"]
     jev_n = sum(1 for h in hunks if h.decided_by == "jev")
     lines = [
-        "# Revisions after the AI draft, by kind",
+        "# Revisions after the AI draft: how much, and what kind",
         "",
         f"Model: `{MODEL}`. {len(hunks)} revision hunks; code settled {len(hunks) - jev_n} and Jev {jev_n}. "
         f"{'Answers replayed from recordings.' if replay else 'Answers fetched live and recorded.'}",
@@ -280,6 +282,8 @@ def render(hunks: list[Hunk], doc_lines: dict[int, tuple[int, str]], replay: boo
         "| Kind | Before | After | Hunks before | Hunks after |",
         "|---|---|---|---|---|",
     ]
+    lines.append(f"| **All revisions** | **{b['total']['per100']}** | **{a['total']['per100']}** "
+                 f"| **{b['hunks']}** | **{a['hunks']}** |")
     for c in CLASSES:
         lines.append(f"| {c.replace('_', ' ')} | {b[c]['per100']} | {a[c]['per100']} | {b[c]['hunks']} | {a[c]['hunks']} |")
     lines += [
@@ -290,15 +294,15 @@ def render(hunks: list[Hunk], doc_lines: dict[int, tuple[int, str]], replay: boo
         "",
         "## Per PR",
         "",
-        "| PR | Period | Doc lines | " + " | ".join(c.replace("_", " ") for c in CLASSES) + " |",
-        "|---|---|---|" + "---|" * len(CLASSES),
+        "| PR | Period | Doc lines | All revisions | " + " | ".join(c.replace("_", " ") for c in CLASSES) + " |",
+        "|---|---|---|---|" + "---|" * len(CLASSES),
     ]
     per = defaultdict(lambda: defaultdict(int))
     for h in hunks:
         per[h.pr][h.cls] += h.lines
     for n in sorted(doc_lines):
         size, period = doc_lines[n]
-        lines.append(f"| #{n} | {period} | {size} | " + " | ".join(str(per[n][c]) for c in CLASSES) + " |")
+        lines.append(f"| #{n} | {period} | {size} | {sum(per[n].values())} | " + " | ".join(str(per[n][c]) for c in CLASSES) + " |")
     lines += ["", "## Factual changes", "", "Each hunk Jev called factual, for a reader to confirm.", ""]
     for h in hunks:
         if h.cls == "factual":

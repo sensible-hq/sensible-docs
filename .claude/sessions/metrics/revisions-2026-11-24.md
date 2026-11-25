@@ -1,4 +1,4 @@
-# Revisions after the AI draft, by kind
+# Revisions after the AI draft: how much, and what kind
 
 Model: `jev-1.14.0`. 755 revision hunks; code settled 170 and Jev 585. Answers replayed from recordings.
 PRs: 16 before, 5 after. Doc lines changed: 3387 before, 174 after.
@@ -9,6 +9,7 @@ A hunk is one contiguous block of changed lines in a diff: the lines an edit rem
 
 | Kind | Before | After | Hunks before | Hunks after |
 |---|---|---|---|---|
+| **All revisions** | **205.2** | **56.32** | **712** | **43** |
 | factual | 14.97 | 5.75 | 36 | 3 |
 | copy edit | 8.06 | 19.54 | 91 | 13 |
 | typo | 0.86 | 0.0 | 14 | 0 |
@@ -23,29 +24,29 @@ A hunk is one contiguous block of changed lines in a diff: the lines an edit rem
 
 ## Per PR
 
-| PR | Period | Doc lines | factual | copy edit | typo | elaboration | rewrite | addition | deletion | formatting | unsettled |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| #508 | before | 191 | 0 | 0 | 0 | 0 | 2 | 122 | 31 | 0 | 13 |
-| #515 | before | 382 | 241 | 0 | 2 | 141 | 188 | 194 | 11 | 6 | 53 |
-| #586 | before | 485 | 6 | 0 | 0 | 2 | 0 | 4 | 44 | 0 | 35 |
-| #589 | before | 44 | 0 | 4 | 3 | 6 | 0 | 0 | 3 | 0 | 0 |
-| #590 | before | 59 | 4 | 63 | 0 | 6 | 0 | 2 | 6 | 0 | 62 |
-| #612 | before | 341 | 117 | 66 | 12 | 60 | 62 | 102 | 44 | 14 | 122 |
-| #622 | before | 541 | 12 | 19 | 0 | 527 | 1336 | 51 | 74 | 63 | 396 |
-| #626 | before | 22 | 18 | 4 | 0 | 2 | 2 | 0 | 0 | 0 | 0 |
-| #637 | before | 110 | 0 | 6 | 2 | 63 | 20 | 22 | 10 | 2 | 17 |
-| #641 | before | 19 | 0 | 6 | 0 | 0 | 2 | 17 | 3 | 2 | 0 |
-| #642 | before | 41 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 6 | 0 |
-| #715 | before | 849 | 27 | 64 | 8 | 424 | 100 | 323 | 413 | 30 | 135 |
-| #718 | before | 179 | 46 | 2 | 0 | 34 | 183 | 77 | 59 | 0 | 87 |
-| #729 | before | 43 | 18 | 25 | 2 | 75 | 8 | 32 | 107 | 0 | 22 |
-| #730 | before | 14 | 14 | 2 | 0 | 2 | 0 | 0 | 2 | 0 | 0 |
-| #742 | before | 67 | 4 | 12 | 0 | 24 | 0 | 37 | 4 | 0 | 10 |
-| #798 | after | 10 | 8 | 12 | 0 | 2 | 0 | 0 | 2 | 0 | 0 |
-| #800 | after | 16 | 0 | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 4 |
-| #801 | after | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| #809 | after | 56 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| #825 | after | 90 | 0 | 10 | 0 | 14 | 10 | 4 | 4 | 0 | 14 |
+| PR | Period | Doc lines | All revisions | factual | copy edit | typo | elaboration | rewrite | addition | deletion | formatting | unsettled |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| #508 | before | 191 | 168 | 0 | 0 | 0 | 0 | 2 | 122 | 31 | 0 | 13 |
+| #515 | before | 382 | 836 | 241 | 0 | 2 | 141 | 188 | 194 | 11 | 6 | 53 |
+| #586 | before | 485 | 91 | 6 | 0 | 0 | 2 | 0 | 4 | 44 | 0 | 35 |
+| #589 | before | 44 | 16 | 0 | 4 | 3 | 6 | 0 | 0 | 3 | 0 | 0 |
+| #590 | before | 59 | 143 | 4 | 63 | 0 | 6 | 0 | 2 | 6 | 0 | 62 |
+| #612 | before | 341 | 599 | 117 | 66 | 12 | 60 | 62 | 102 | 44 | 14 | 122 |
+| #622 | before | 541 | 2478 | 12 | 19 | 0 | 527 | 1336 | 51 | 74 | 63 | 396 |
+| #626 | before | 22 | 26 | 18 | 4 | 0 | 2 | 2 | 0 | 0 | 0 | 0 |
+| #637 | before | 110 | 142 | 0 | 6 | 2 | 63 | 20 | 22 | 10 | 2 | 17 |
+| #641 | before | 19 | 30 | 0 | 6 | 0 | 0 | 2 | 17 | 3 | 2 | 0 |
+| #642 | before | 41 | 9 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 6 | 0 |
+| #715 | before | 849 | 1524 | 27 | 64 | 8 | 424 | 100 | 323 | 413 | 30 | 135 |
+| #718 | before | 179 | 488 | 46 | 2 | 0 | 34 | 183 | 77 | 59 | 0 | 87 |
+| #729 | before | 43 | 289 | 18 | 25 | 2 | 75 | 8 | 32 | 107 | 0 | 22 |
+| #730 | before | 14 | 20 | 14 | 2 | 0 | 2 | 0 | 0 | 2 | 0 | 0 |
+| #742 | before | 67 | 91 | 4 | 12 | 0 | 24 | 0 | 37 | 4 | 0 | 10 |
+| #798 | after | 10 | 24 | 8 | 12 | 0 | 2 | 0 | 0 | 2 | 0 | 0 |
+| #800 | after | 16 | 16 | 0 | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 4 |
+| #801 | after | 2 | 2 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| #809 | after | 56 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| #825 | after | 90 | 56 | 0 | 10 | 0 | 14 | 10 | 4 | 4 | 0 | 14 |
 
 ## Factual changes
 
