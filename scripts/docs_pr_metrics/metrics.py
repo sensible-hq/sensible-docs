@@ -503,7 +503,11 @@ def render_report(rows: list[PRMetrics], cutoff_tag: str, cutoff: datetime,
         "",
         "- **AI draft:** the PR's first commit that touches doc files, when Claude co-authored it. Everything after it is revision.",
         "- **Revision lines:** lines added plus deleted on doc files in every commit after the draft, whoever made it. "
-        "This is the main back-and-forth measure, because edits Frances dictates to Claude land as Claude commits.",
+        "This is the main back-and-forth measure, because edits Frances dictates to Claude land as Claude commits. "
+        "It counts committed changes only: session back-and-forth before Claude's first commit, history replaced by a "
+        "force-push, and feedback that changed nothing aren't in it, and neither are review comments as such. "
+        "It also includes changes Claude makes on its own, such as style fixes. On balance it's likely an undercount "
+        "of Frances's effort.",
         "- **Lines Frances committed herself:** doc lines in commits without a Claude co-author trailer. "
         "A floor on her hand edits: an edit she makes in her editor and Claude then commits counts as Claude's.",
         "- **AI draft survival, words:** the share of the draft's added words that the merged PR still adds, in order. "

@@ -49,6 +49,23 @@ Word survival compares, per file, the words of the draft commit's added lines wi
 
 Both compare against what the PR adds, not the whole final file, so a draft line identical to one already on the page can't survive by coincidence. A PR with no commits after the draft scores 1.0 by construction, so the report also gives pooled survival over revised PRs only.
 
+### What counts as a revision
+
+The tool reads commits, not conversations or comments. A revision is any change to a doc file committed to the PR branch after the draft, however it got there:
+
+| Source | Counted? |
+|---|---|
+| An edit Frances asks for in a Claude Code session, which Claude commits | Yes, once committed after the draft |
+| A direct edit Frances commits, in the GitHub web editor or locally | Yes |
+| A change Claude makes after a PR review comment | Yes, the change. The comment itself isn't counted. |
+| A change Claude makes on its own initiative, such as a Vale or style-skill fix | Yes, though it isn't Frances's feedback |
+| Back-and-forth in a session before Claude's first commit | No: it shapes the draft, which then looks better than the first thing Claude wrote |
+| Commits replaced by an amend or force-push | No: GitHub keeps only the history that was pushed last. #612 had 1 force-push and #715 had 3. |
+| A session request or PR comment that produced no change, such as a question or a rejected suggestion | No |
+| GitHub review comments, as a count | No |
+
+So revision lines undercount Frances's effort: they miss session iteration before the first commit, and every round of feedback that changed nothing. They also overcount it in two ways. Claude's own fixes are counted as revisions, and moved text counts twice. Of the two, the undercount is likely larger, but nothing in the PR history can measure the gap. The session transcripts can, from 2026-10-26 on.
+
 ### Post-merge fixes
 
 A later PR counts as a fix when it:
