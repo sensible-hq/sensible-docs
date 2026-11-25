@@ -35,7 +35,7 @@ All paths are relative to `~/GitHub/sensible`.
 ### ConfigurationContentType
 
 - **File**: `src/api/doc-type/configuration-handlers.ts`
-- Values: `"application/json" | "application/yaml"` (TextContentType)
+- Values: `"application/json"`
 
 ### ConfigurationEditor
 

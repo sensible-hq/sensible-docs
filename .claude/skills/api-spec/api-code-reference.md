@@ -579,7 +579,7 @@ interface DoctypeSettings {
 interface PostConfiguration {
   name: string;
   configuration: string;       // SenseML JSON serialized as a string
-  content_type?: TextContentType;  // "application/json" | "application/yaml"
+  content_type?: TextContentType;  // "application/json"
   publish_as?: string;         // publish to this environment immediately
 }
 
