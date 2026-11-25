@@ -1338,7 +1338,6 @@
         "type": "string",
         "enum": [
           "application/json",
-          "application/yaml",
           "text/csv",
           "text/plain"
         ],
