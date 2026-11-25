@@ -8,6 +8,8 @@ A revision is one diff hunk on a doc file in a commit after the AI draft, as `me
 
 A hunk is one contiguous block of changed lines in a diff: the lines an edit removed and the lines it put in their place. Unchanged lines mark where one hunk ends and the next begins, so a commit that fixes three separate sentences on a page is three hunks. The unit is the hunk rather than the commit because one commit often mixes kinds of edit, such as a factual fix and a rewording, and a single label per commit would blur them.
 
+Only committed changes are classified. Session back-and-forth before Claude's first commit, history replaced by a force-push, and feedback that changed nothing never reach a hunk. `design.md`, "What counts as a revision", has the full list.
+
 A hunk's size in lines is its removed lines plus its added lines, the same convention `git diff --numstat` uses. A one-line rewording is 2 lines.
 
 ## Who decides what

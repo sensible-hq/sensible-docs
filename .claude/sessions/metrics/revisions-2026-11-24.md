@@ -3,7 +3,7 @@
 Model: `jev-1.14.0`. 755 revision hunks; code settled 170 and Jev 585. Answers replayed from recordings.
 PRs: 16 before, 5 after. Doc lines changed: 3387 before, 174 after.
 
-A hunk is one contiguous block of changed lines in a diff: the lines an edit removed and the lines it put in their place. A hunk's size is its removed plus added lines. Moved text is counted twice, because git shows a move as a deletion hunk plus an addition hunk.
+A hunk is one contiguous block of changed lines in a diff: the lines an edit removed and the lines it put in their place. A hunk's size is its removed plus added lines. Moved text is counted twice, because git shows a move as a deletion hunk plus an addition hunk. Only committed changes are here: session back-and-forth before Claude's first commit, history replaced by a force-push, and feedback that changed nothing aren't, so this likely undercounts Frances's revisions. See design.md, "What counts as a revision".
 
 ## Revision lines per 100 doc lines, pooled
 
