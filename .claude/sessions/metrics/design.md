@@ -1,5 +1,13 @@
 # Docs PR metrics: design
 
+## TL;DR
+
+- **What it measures:** how much Frances revises Claude's first draft on docs PRs for backend changes, before and after the `skills-archive-2026-10` skill rework. Every number is normalized per 100 doc lines changed.
+- **First result, 2026-11-24:** revision after the draft fell from 205 to 56 lines per 100 doc lines. Draft words that reach the merge rose from 66% to 90%, or 81% counting only PRs revised after the draft. By kind (`quantification-design.md`), factual revisions fell from 15.0 to 5.8 per 100 doc lines, and copy edits rose from 8.1 to 19.5.
+- **Caveat:** only 5 PRs follow the rework, against 16 before it, and they're smaller and add no new pages. Treat this as an early signal, and rerun once 8 or more new PRs have merged.
+- **Scope:** only committed changes count. Session back-and-forth before Claude's first commit, force-pushed history, and feedback that changed nothing are missing, so the figures likely undercount Frances's effort.
+- **Run it:** `python3 scripts/docs_pr_metrics/metrics.py --refresh --as-of <date>`, then `python3 scripts/docs_pr_metrics/classify.py` for the breakdown by kind.
+
 ## Question
 
 Did the skill changes made around the `skills-archive-2026-10` release reduce the back-and-forth between Claude's first draft and Frances's edits on docs PRs that respond to a backend change?
